@@ -147,7 +147,7 @@
               </button>
             </div>
             <select class="aPatternPrint form-control_" ng-hide="aPatternPrintNew1(taskForm)===null || aPatternPrintNew1(taskForm).length===0 || selectedTask.assignee == null || sSelectedTask == 'finished'">
-              <option ng-repeat="oPatternPrint in aPatternPrintNew1(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.name}}</option>
+              <option ng-repeat="oPatternPrint in aPatternPrintNew1(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.displayTemplate}}</option>
             </select>
           </p>
         </div>

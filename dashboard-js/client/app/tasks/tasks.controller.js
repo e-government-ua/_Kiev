@@ -435,33 +435,24 @@ $scope.lightweightRefreshAfterSubmit = function () {
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
           //return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
 
+          var result = false;
 
             if(item.id && item.id.indexOf('sBody') >= 0){
-                var oItem = item;
-                var sID = oItem.id;
-                var sName = oItem.name;
-                console.log("[aPatternPrintNew1]sID="+sID+",sName="+sName);
-                //if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
-                if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
-                    sName = oItem.value;
-                    console.log("[aPatternPrintNew1]sName(NEW)="+sName);
-                }
-                aResult = aResult.concat([{id:sID, name: sName}]);
+              result = true;
+              // На дашборде при вытягивани для формы печати пути к патерну, из значения поля -
+              // брать название для каждого элемента комбобокса #792
+              // https://github.com/e-government-ua/i/issues/792
+              if (item.value && item.value.trim().length > 0 && item.value.length <= 100){
+                item.displayTemplate = item.value;
+              } else {
+                item.displayTemplate = item.name;
+              }
             }
 
-
-          return item.id && item.id.indexOf('sBody') >= 0;//item.id === s
+          return result;
         });
         console.log("[aPatternPrintNew1]aResult="+aResult);
     }
-
-    // На дашборде при вытягивани для формы печати пути к патерну, из значения поля -
-    // брать название для каждого элемента комбобокса #792
-    // https://github.com/e-government-ua/i/issues/792
-    angular.forEach(printTemplateResult, function(item){
-      if (item.value && item.value.length <= 100)
-        item.name = item.value;
-    });
 
     return printTemplateResult;
   };
