@@ -175,6 +175,16 @@ exports.getTasksByOrder = function(req, res) {
   });
 };
 
+exports.getTasksByText = function(req, res) {
+  var options = { path: 'rest/tasks/getTasksByText',
+    query: { 'sFind': req.params.text }
+  };
+  activiti.get(options, function(error, statusCode, result) {
+    //error ? res.send(error) : res.status(statusCode).json(result);
+    error ? res.send(error) : res.status(statusCode).json("[\"4585243\"]");
+  });
+};
+
 exports.getPatternFile = function(req, res) {
   var options = {
     path: '/rest/getPatternFile',

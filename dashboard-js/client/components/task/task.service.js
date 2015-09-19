@@ -217,6 +217,13 @@ angular.module('dashboardJsApp')
           }
         );
       },
+      getTasksByText: function(sFind) {
+        return simpleHttpPromise({
+            method: 'GET',
+            url: '/api/tasks/search/byText/' + sFind
+          }
+        );
+      },
       getPatternFile: function(sPathFile) {
         return simpleHttpPromise({
             method: 'GET',
