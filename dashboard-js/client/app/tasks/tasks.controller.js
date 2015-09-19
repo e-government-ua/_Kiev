@@ -550,7 +550,8 @@ $scope.lightweightRefreshAfterSubmit = function () {
   $scope.lunaService = lunaService;
 
   $scope.searchTask = {
-    orderId: null
+    orderId: null,
+    text: null
   };
 
   $scope.searchTaskByOrder = function() {
@@ -572,6 +573,34 @@ $scope.lightweightRefreshAfterSubmit = function () {
             return t.id == tid;
           });
           if (!taskFound) Modal.inform.warning()('У даному розділі ID не знайдено, спробуйте виконати пошук у суміжних');
+        }
+      }).catch(mapErrorHandler({'CRC Error': 'Неправильний ID', 'Record not found': 'ID не знайдено'}));
+  };
+
+  $scope.searchTaskByText = function() {
+    if (_.isEmpty($scope.searchTask.text)) {
+      Modal.inform.error()('Будь-ласка введіть текст для пошуку!');
+      return;
+    }
+    tasks.getTasksByText($scope.searchTask.text)
+      .then(function (result) {
+        if (result === 'CRC-error') {
+          Modal.inform.error()();
+          return;
+        }
+        if (result === 'Record not found') {
+          Modal.inform.error()();
+          return;
+        }
+        var taskId = JSON.parse(result)[0];
+        var taskFound = $scope.tasks.some(function (task) {
+          if (task.id === taskId) {
+            $scope.selectTask(task);
+          }
+          return task.id === taskId;
+        });
+        if (!taskFound) {
+          Modal.inform.warning()('У даному розділі нічого не знайдено, спробуйте виконати пошук у суміжних');
         }
       }).catch(mapErrorHandler({'CRC Error': 'Неправильний ID', 'Record not found': 'ID не знайдено'}));
   };
