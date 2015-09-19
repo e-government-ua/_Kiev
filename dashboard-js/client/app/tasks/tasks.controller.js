@@ -375,6 +375,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
           //return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
 
+          /*
             if(item.id && item.id.indexOf('sBody') >= 0){
                 var oItem = item;
                 var sID = oItem.id;
@@ -387,6 +388,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
                 }
                 aResult = aResult.concat([{id:sID, name: sName}]);
             }
+            */
           
           return item.id && item.id.indexOf('sBody') >= 0;//item.id === s
         });
@@ -394,8 +396,8 @@ $scope.lightweightRefreshAfterSubmit = function () {
         
     }
 //=    return (printTemplateResult!==null && printTemplateResult!==undefined && printTemplateResult.length !== 0) ? printTemplateResult : [];
-    return aResult;
-    //return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
+//    return aResult;
+    return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
     
   };
 
