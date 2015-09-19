@@ -85,7 +85,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
       return [];
     }
   }
-  
+
   $scope.isFormPropertyDisabled = function (formProperty) {
     if ($scope.selectedTask && $scope.selectedTask.assignee === null) {
       return true;
@@ -127,8 +127,8 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     $scope.taskFormLoaded = false;
 
     if (menuType == tasks.filterTypes.finished)
-      $scope.predicate = 'startTime';    
-    
+      $scope.predicate = 'startTime';
+
     var data = {};
     if ($scope.$storage.menuType == 'tickets'){
       data.bEmployeeUnassigned = $scope.ticketsFilter.bEmployeeUnassigned;
@@ -198,32 +198,32 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         $scope.taskAttachments = result;
       })
       .catch(defaultErrorHandler);
-      
-      
-     
+
+
+
   };
 
   $scope.submitTask = function () {
     if ($scope.selectedTask && $scope.taskForm) {
       $scope.taskForm.isSubmitted = true;
-                  
+
       var unpopulatedFields = $scope.unpopulatedFields();
       if(unpopulatedFields.length>0){
         var errorMessage = 'Будь ласка, заповніть поля: ';
-        
+
         if (unpopulatedFields.length==1){
-         
+
           var nameToAdd = unpopulatedFields[0].name;
           if (nameToAdd.length > 50) {
             nameToAdd = nameToAdd.substr(0, 50)+"...";
           }
-          
+
           errorMessage = "Будь ласка, заповніть полe '"+nameToAdd+"'";
         }
         else {
         unpopulatedFields.forEach(function(field){
 
-          var nameToAdd = field.name;         
+          var nameToAdd = field.name;
           if (nameToAdd.length > 50) {
             nameToAdd = nameToAdd.substr(0, 50)+"...";
           }
@@ -235,9 +235,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         Modal.inform.error()(errorMessage);
         return;
       }
-      
+
       $scope.taskForm.isInProcess = true;
-        
+
       tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
         .then(function (result) {
           Modal.inform.success(function (result) {
@@ -245,22 +245,22 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           })("Форму відправлено." + (result && result.length > 0 ? (': ' + result) : ''));
 
         })
-        .catch(defaultErrorHandler);        
+        .catch(defaultErrorHandler);
     }
   };
-  
+
   $scope.assignTask = function () {
-    $scope.taskForm.isInProcess = true;    
-       
+    $scope.taskForm.isInProcess = true;
+
     tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id)
-    .then(function (result) {      
-      Modal.assignTask(function (event) {        
-        $scope.applyTaskFilter($scope.menus[1].type, $scope.selectedTask.id);        
+    .then(function (result) {
+      Modal.assignTask(function (event) {
+        $scope.applyTaskFilter($scope.menus[1].type, $scope.selectedTask.id);
       }, 'Задача у вас в роботі', $scope.lightweightRefreshAfterSubmit);
 
     })
-      .catch(defaultErrorHandler());  
-             
+      .catch(defaultErrorHandler());
+
   };
 
   $scope.upload = function (files, propertyID) {
@@ -279,7 +279,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
 $scope.lightweightRefreshAfterSubmit = function () {
   //lightweight refresh only deletes the submitted task from the array of current type of tasks
-  //so we don't need to refresh the whole page   
+  //so we don't need to refresh the whole page
       $scope.selectedTasks[$scope.$storage.menuType] = null;
       loadTaskCounters();
       $scope.tasks = $.grep($scope.tasks, function (e) {
@@ -290,9 +290,9 @@ $scope.lightweightRefreshAfterSubmit = function () {
       //$scope.selectTask($scope.tasks[0]);// - if another task should be selected
       //The next line is commented out to prevent full refresh of the page
       // $scope.applyTaskFilter($scope.$storage.menuType);
-    
+
   }
-  
+
   $scope.sDateShort = function (sDateLong) {
     if (sDateLong !== null) {
       var o = new Date(sDateLong); //'2015-04-27T13:19:44.098+03:00'
@@ -342,22 +342,22 @@ $scope.lightweightRefreshAfterSubmit = function () {
 
 
 
-  $scope.aPatternPrintNew = function (taskForm) { 
+  $scope.aPatternPrintNew = function (taskForm) {
     var aResult = [];
     if(taskForm){//this.form
-        
+
         /* НЕ ЗАРАБОТАЛО!
         console.log("[loadSelfAssignedTasks]");
         var aItem = taskForm;
         _.forEach(aItem, function (n,oItem) {
           //if (oItem.id == sID) {
           if (oItem.id && oItem.id.indexOf('sBody') >= 0 && oItem.value !== "") {
-          
+
             //s = oItem.name;
             var sID = oItem.id;
             var sName = oItem.name;
             console.log("[loadSelfAssignedTasks]sID="+sID+",sName="+sName);
-            
+
             if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
                 sName = oItem.value;
                 console.log("[loadSelfAssignedTasks]sName="+sName);
@@ -369,13 +369,13 @@ $scope.lightweightRefreshAfterSubmit = function () {
         */
 
         console.log("[aPatternPrintNew]...");
-          
+
         var printTemplateResult = null;
         printTemplateResult = taskForm.filter(function (item) {//form//this.form
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
           //return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
 
-/*          
+/*
             if(item.id && item.id.indexOf('sBody') >= 0){
                 var oItem = item;
                 var sID = oItem.id;
@@ -388,36 +388,37 @@ $scope.lightweightRefreshAfterSubmit = function () {
                 }
                 aResult = aResult.concat([{id:sID, name: sName}]);
             }
-  */          
-          
+  */
+
           return item.id && item.id.indexOf('sBody') >= 0;//item.id === s
         });
         console.log("[aPatternPrintNew]aResult="+aResult);
-        
+
     }
     return (printTemplateResult!==null && printTemplateResult!==undefined && printTemplateResult.length !== 0) ? printTemplateResult : [];
 //    return aResult;
 //    return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
-    
+
   };
 
 
-  $scope.aPatternPrintNew1 = function (taskForm) { 
+  $scope.aPatternPrintNew1 = function (taskForm) {
     var aResult = [];
+    var printTemplateResult = [];
     if(taskForm){//this.form
-        
+
         /* НЕ ЗАРАБОТАЛО!
         console.log("[loadSelfAssignedTasks]");
         var aItem = taskForm;
         _.forEach(aItem, function (n,oItem) {
           //if (oItem.id == sID) {
           if (oItem.id && oItem.id.indexOf('sBody') >= 0 && oItem.value !== "") {
-          
+
             //s = oItem.name;
             var sID = oItem.id;
             var sName = oItem.name;
             console.log("[loadSelfAssignedTasks]sID="+sID+",sName="+sName);
-            
+
             if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
                 sName = oItem.value;
                 console.log("[loadSelfAssignedTasks]sName="+sName);
@@ -429,13 +430,12 @@ $scope.lightweightRefreshAfterSubmit = function () {
         */
 
         console.log("[aPatternPrintNew1]...");
-          
-        var printTemplateResult = null;
+
         printTemplateResult = taskForm.filter(function (item) {//form//this.form
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
           //return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
 
-          
+
             if(item.id && item.id.indexOf('sBody') >= 0){
                 var oItem = item;
                 var sID = oItem.id;
@@ -448,17 +448,22 @@ $scope.lightweightRefreshAfterSubmit = function () {
                 }
                 aResult = aResult.concat([{id:sID, name: sName}]);
             }
-            
-          
+
+
           return item.id && item.id.indexOf('sBody') >= 0;//item.id === s
         });
         console.log("[aPatternPrintNew1]aResult="+aResult);
-        
     }
-    return (printTemplateResult!==null && printTemplateResult!==undefined && printTemplateResult.length !== 0) ? printTemplateResult : [];
-//    return aResult;
-//    return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
-    
+
+    // На дашборде при вытягивани для формы печати пути к патерну, из значения поля -
+    // брать название для каждого элемента комбобокса #792
+    // https://github.com/e-government-ua/i/issues/792
+    angular.forEach(printTemplateResult, function(item){
+      if (item.value && item.value.length <= 100)
+        item.name = item.value;
+    });
+
+    return printTemplateResult;
   };
 
   $scope.nID_FlowSlotTicket_FieldQueueData = function (sValue) {
@@ -520,7 +525,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
   $scope.init = function () {
     loadTaskCounters();
     loadSelfAssignedTasks();
-    $scope.taskFormLoaded = false;   
+    $scope.taskFormLoaded = false;
   };
 
   $scope.ticketsFilter = {
@@ -647,7 +652,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
     }
     Modal.inform.error()(msg);
   }
-  
+
   $scope.isCommentAfterReject = function (item) {
     if (item.id != "comment") return false;
 
@@ -660,7 +665,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
     }
     return false;
   };
-  
+
   $scope.isRequired = function (item) {
     return item.writable && (item.required || $scope.isCommentAfterReject(item));
   };
@@ -668,7 +673,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
     $scope.isTaskSubmitted = function (item) {
     return $scope.taskForm.isSubmitted;
   };
-  
+
       $scope.isTaskSuccessfullySubmitted = function () {
         if ($scope.selectedTask && $scope.taskForm) {
           if ($scope.taskForm.isSuccessfullySubmitted != undefined && $scope.taskForm.isSuccessfullySubmitted)
@@ -676,8 +681,8 @@ $scope.lightweightRefreshAfterSubmit = function () {
         }
         return false;
   };
-  
-    
+
+
       $scope.isTaskInProcess = function () {
         if ($scope.selectedTask && $scope.taskForm) {
           if ($scope.taskForm.isInProcess != undefined && $scope.taskForm.isInProcess)
@@ -685,5 +690,5 @@ $scope.lightweightRefreshAfterSubmit = function () {
         }
         return false;
   };
-  
+
 });
