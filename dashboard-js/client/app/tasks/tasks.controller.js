@@ -375,7 +375,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
           //return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
 
-          /*
+          
             if(item.id && item.id.indexOf('sBody') >= 0){
                 var oItem = item;
                 var sID = oItem.id;
@@ -388,7 +388,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
                 }
                 aResult = aResult.concat([{id:sID, name: sName}]);
             }
-            */
+            
           
           return item.id && item.id.indexOf('sBody') >= 0;//item.id === s
         });
