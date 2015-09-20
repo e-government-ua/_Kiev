@@ -32,7 +32,7 @@
 <a href="#33_getStatisticServiceCounts"> 33. Получение количества записей HistoryEvent_Service для сервиса по регионам</a><br/>
 <a href="#34_upload_content_as_attach">34. Аплоад(upload) и прикрепление текстовго файла в виде атачмента к таске Activiti</a><br/>
 <a href="#35">35. Электронная эскалация</a><br/>
-<a href="#36_getTasksByText">36. Поиск заявок по тексту (в значениях полей)</a><br/> 
+<a href="#36_getTasksByText">36. Поиск заявок по тексту (в значениях полей без учета регистра)</a><br/> 
 ## iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -2469,7 +2469,7 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 ----------------------------------------------------------------------------------------------------------------------------
 
 <a name="36_getTasksByText">
-####36. Поиск заявок по тексту (в значениях полей)</a><br/> 
+####36. Поиск заявок по тексту (в значениях полей без учета регистра)</a><br/> 
 
 **HTTP Metod: GET**
 
