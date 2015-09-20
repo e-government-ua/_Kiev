@@ -1,4 +1,4 @@
-package org.wf.dp.dniprorada.model;
+package org.wf.dp.dniprorada.base.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.wf.dp.dniprorada.base.model.Entity;
@@ -19,9 +19,8 @@ public class SubjectOrganDepartment extends Entity {
    @Column
    private String sName;
 
-   @ManyToOne(fetch = FetchType.EAGER)
-   @JoinColumn(name = "nID_SubjectOrgan")
-   private SubjectOrgan aSubjectOrgan;
+   @Column
+   private Long nID_SubjectOrgan;
 
    @Column
    private String sGroup_Activiti;
@@ -33,12 +32,12 @@ public class SubjectOrganDepartment extends Entity {
       this.sName = sName;
    }
 
-   public SubjectOrgan getaSubjectOrgan() {
-      return aSubjectOrgan;
+   public Long getnID_SubjectOrgan() {
+      return nID_SubjectOrgan;
    }
 
-   public void setaSubjectOrgan(SubjectOrgan aSubjectOrgan) {
-      this.aSubjectOrgan = aSubjectOrgan;
+   public void setnID_SubjectOrgan(Long nID_SubjectOrgan) {
+      this.nID_SubjectOrgan = nID_SubjectOrgan;
    }
 
    public String getsGroup_Activiti() {

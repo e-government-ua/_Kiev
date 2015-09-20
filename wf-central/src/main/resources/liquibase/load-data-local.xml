@@ -48,13 +48,6 @@
             <column name="sNameFull" type="STRING"/>
         </loadUpdateData>
 
-        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/SubjectOrganDepartment.csv" tableName="SubjectOrganDepartment" separator=";">
-            <column name="nID" type="NUMERIC"/>
-            <column name="sName" type="STRING"/>
-            <column name="sGroup_Activiti" type="STRING"/>
-            <column name="nID_SubjectOrgan" type="NUMERIC"/>
-        </loadUpdateData>
-
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/DocumentOperator_SubjectOrgan.csv" tableName="DocumentOperator_SubjectOrgan" separator=";">
             <column name="nID"              type="NUMERIC"/>
             <column name="sName"            type="STRING"/>
