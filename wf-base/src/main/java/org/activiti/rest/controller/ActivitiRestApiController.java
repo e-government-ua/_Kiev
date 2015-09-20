@@ -1038,14 +1038,14 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     @RequestMapping(value = "/tasks/getTasksByText", method = RequestMethod.GET)
     public @ResponseBody
-    List<String> getTasksByText(@RequestParam(value = "sFind") String sFind,
+    Set<String> getTasksByText(@RequestParam(value = "sFind") String sFind,
     		@RequestParam(value = "sLogin", required = false) String sLogin,
     		@RequestParam(value = "bAssigned", required = false) String bAssigned) throws ActivitiRestException {
-        List<String> res = new LinkedList<String>();
+    	Set<String> res = new HashSet<String>();
 
         TaskQuery taskQuery = taskService.createTaskQuery();
         if (bAssigned != null){
-        	if (!Boolean.valueOf(bAssigned)){
+        	if (!Boolean.valueOf(bAssigned).booleanValue()){
         		taskQuery.taskUnassigned();
             	if (sLogin != null && !sLogin.isEmpty()){
                 	taskQuery.taskCandidateUser(sLogin);
