@@ -2340,7 +2340,7 @@ https://test.igov.org.ua/wf/service/services/getStatisticServiceCounts?nID_Servi
 
 * nTaskId - ИД-номер таски
 * sContentType - MIME тип отправляемого файла (опциоанльно) (значение по умолчанию = "text/html")
-* description - описание
+* sDescription - описание
 * sFileName - имя отправляемого файла
 
 Пример:
