@@ -1038,10 +1038,18 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     @RequestMapping(value = "/tasks/getTasksByText", method = RequestMethod.GET)
     public @ResponseBody
-    List<String> getTasksByOrder(@RequestParam(value = "sFind") String sFind) throws ActivitiRestException {
+    List<String> getTasksByText(@RequestParam(value = "sFind") String sFind,
+    		@RequestParam(value = "sLogin", required = false) String sLogin,
+    		@RequestParam(value = "bAssigned", required = false, defaultValue = "false") boolean bAssigned) throws ActivitiRestException {
         List<String> res = new LinkedList<String>();
 
-    	List<Task> activeTasks = taskService.createTaskQuery().active().list();
+        TaskQuery taskQuery = taskService.createTaskQuery();
+        if (sLogin != null && !sLogin.isEmpty()){
+        	taskQuery.taskCandidateOrAssigned(sLogin);
+        } else if (!bAssigned){
+        	taskQuery.taskUnassigned();
+        }
+    	List<Task> activeTasks = taskQuery.active().list();
     	for (Task currTask : activeTasks){
     		TaskFormData data = formService.getTaskFormData(currTask.getId());
     		if (data != null){
@@ -1049,7 +1057,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	                
 	                String sValue = "";
 	                String sType = property.getType().getName();
-	                log.info("sType=" + sType);
 	                if ("enum".equalsIgnoreCase(sType)) {
 	                    sValue = parseEnumProperty(property);
 	                } else {
