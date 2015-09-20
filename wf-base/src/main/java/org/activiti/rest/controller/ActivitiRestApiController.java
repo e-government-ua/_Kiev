@@ -1058,6 +1058,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	                } else {
 	                    sValue = property.getValue();
 	                }
+	                log.info("taskId=" + currTask.getId() + "propertyName=" + property.getName() + "sValue=" + sValue);
 	                if (sValue != null) {
 	                    if (sValue.toLowerCase().indexOf(searchTeam) >= 0){
 	                    	res.add(currTask.getId());
