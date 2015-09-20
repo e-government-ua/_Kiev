@@ -6,7 +6,7 @@ angular.module('app')
     $scope.catalog = [];
     $scope.catalogCounts = {0: 0, 1: 0, 2: 0};
     $scope.limit = 4;
-    $scope.bAdmin = AdminService.isAdmin();
+    $scope.bAdmin = true;//AdminService.isAdmin();
     $scope.recalcCounts = true;
     $scope.spinner = true;
 

@@ -1,10 +1,30 @@
 angular.module('app')
   .factory('EditServiceTreeFactory', function($http, $modal, CatalogService) {
 
+    var createObjectWithChanges = function(editedObject, originalObject){
+      var objectToSend = {
+        nID: editedObject.nID
+      };
+
+      var addChangedPropertyToObject = function(propertyName){
+        if (!originalObject || originalObject[propertyName] !== editedObject[propertyName]){
+          objectToSend[propertyName] = editedObject[propertyName];
+        }
+      };
+
+      addChangedPropertyToObject('sID');
+      addChangedPropertyToObject('sName');
+      addChangedPropertyToObject('nOrder');
+      addChangedPropertyToObject('sSubjectOperatorName');
+
+      return objectToSend;
+    };
+
     var categoryEditor = (function(){
       var openModal = function (category) {
         var modalInstance = $modal.open({
           animation: true,
+          size: 'lg',
           templateUrl: 'app/common/factories/editor/editCategory.html',
           controller: 'EditorModalController',
           resolve: {
@@ -24,7 +44,8 @@ angular.module('app')
         });
 
         modalInstance.result.then(function (editedCategory) {
-          var catalogToSend = [ editedCategory ];
+          var categoryToSend = createObjectWithChanges(editedCategory, category);
+          var catalogToSend = [ categoryToSend ];
           CatalogService.setServicesTree(catalogToSend);
         });
       };
@@ -47,6 +68,7 @@ angular.module('app')
       var openModal = function (categoryId, subcategory) {
         var modalInstance = $modal.open({
           animation: true,
+          size: 'lg',
           templateUrl: 'app/common/factories/editor/editSubcategory.html',
           controller: 'EditorModalController',
           resolve: {
@@ -65,11 +87,11 @@ angular.module('app')
         });
 
         modalInstance.result.then(function (editedSubcategory) {
-
+          var subcategoryToSend = createObjectWithChanges(editedSubcategory, subcategory);
           var catalogToSend = [
             {
               nID: categoryId,
-              aSubcategory: [ editedSubcategory ]
+              aSubcategory: [ subcategoryToSend ]
             }
           ];
 
@@ -94,24 +116,34 @@ angular.module('app')
       var openModal = function (categoryId, subcategoryId, service) {
         var modalInstance = $modal.open({
           animation: true,
+          size: 'lg',
           templateUrl: 'app/common/factories/editor/editService.html',
           controller: 'EditorModalController',
           resolve: {
             entityToEdit: function () {
-              return angular.copy(service);
+              if (service){
+                return {
+                  nID: service.nID,
+                  sID: service.sID,
+                  sName: service.sName,
+                  nOrder: service.nOrder,
+                  sSubjectOperatorName: service.sSubjectOperatorName
+                }
+              }
+              return undefined;
             }
           }
         });
 
         modalInstance.result.then(function (editedService) {
-
+          var serviceToSend = createObjectWithChanges(editedService, service);
           var catalogToSend = [
             {
               nID: categoryId,
               aSubcategory: [
                 {
                   nID: subcategoryId,
-                  "aService": [ editedService ]
+                  "aService": [ serviceToSend ]
                 }
               ]
             }

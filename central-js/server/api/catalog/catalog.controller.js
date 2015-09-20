@@ -6,21 +6,13 @@ var NodeCache = require("node-cache" );
 var config = require('../../config/environment');
 var activiti = config.activiti;
 
-var sHostPrefix = config.server.sServerRegion;
-console.log('1)sHostPrefix='+sHostPrefix);
-
-if(sHostPrefix==null){
-  sHostPrefix = "https://test.region.igov.org.ua";
-  console.log('2)sHostPrefix='+sHostPrefix);
-}
-
-var sHost = sHostPrefix + "/wf/service";
+var sHost = activiti.protocol + '://' + activiti.hostname + activiti.path;
 
 var cache = new NodeCache();
 var cacheTtl = 300; // 300 seconds = 5 minutes time to live for a cache
 
 var buildUrl = function(path){
-  var url = activiti.protocol + '://' + activiti.hostname + activiti.path + path;
+  var url = sHost + path;
   return url;
 };
 // helper to build key for cache operations
@@ -46,7 +38,7 @@ var pruneCache = function() {
       if (key.indexOf(keyBase) === 0) {
         keysToDelete.push(key);
       }
-    })
+    });
     // prune cache
     cache.del(keysToDelete);
   });
@@ -65,12 +57,12 @@ module.exports.getServicesTree = function (req, res) {
       asIDPlaceUA: req.query.asIDPlaceUA || null
     }
   };
-  var cachedReply = cache.get(buildKey(options.params));
-  if (cachedReply) {
-    res.send(cachedReply);
-    res.end;
-    return;
-  }
+  //var cachedReply = cache.get(buildKey(options.params));
+  //if (cachedReply) {
+  //  res.send(cachedReply);
+  //  res.end;
+  //  return;
+  //}
 
   var callback = function (error, response, body) {
     // set cache key for this particular request
@@ -97,20 +89,67 @@ module.exports.getServicesTree = function (req, res) {
 };
 
 module.exports.setServicesTree = function(req, res) {
-  activiti.sendPostRequest(req, res, '/services/setServicesTree', {
-    nID_Subject : req.session.subject.nID
-  }, null, sHost);
+
+  var callback = function (error, response, body) {
+    res.send(body);
+    res.end();
+  };
+
+  var url = buildUrl('/services/setServicesTree');
+
+  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'; // Ignore 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' authorization error
+
+  request.post({
+    //'proxy': "http://127.0.0.1:8888",
+    'url': url,
+    'auth': {
+      'username': activiti.username,
+      'password': activiti.password
+    },
+    'qs': {
+      'nID_Subject': req.session.subject.nID
+    },
+    'headers': {
+      'Content-Type': 'application/json; charset=utf-8'
+    },
+    'json': true,
+    'body': req.body
+  }, callback);
+
   pruneCache();
 };
 
 var remove = function(path, req, res){
 
-  activiti.sendDeleteRequest(req, res, path, {
-      nID: req.query.nID,
-      bRecursive: req.query.bRecursive,
-      nID_Subject: req.session.subject.nID
-    }, null, sHost);
+  var callback = function (error, response, body) {
+    res.send(body);
+    res.end();
+  };
+
+  var url = buildUrl(path);
+
+  request.del({
+    'url': url,
+    'auth': {
+      'username': activiti.username,
+      'password': activiti.password
+    },
+    'qs': {
+      'nID': req.query.nID,
+      'bRecursive': req.query.bRecursive,
+      'nID_Subject': req.session.subject.nID
+    }
+  }, callback);
+
   pruneCache();
+};
+
+module.exports.removeCategory = function(req, res) {
+  return remove('services/removeCategory', req, res);
+};
+
+module.exports.removeSubcategory = function(req, res) {
+  return remove('services/removeSubcategory', req, res);
 };
 
 module.exports.removeService = function(req, res) {
@@ -121,29 +160,26 @@ module.exports.removeServiceData = function(req, res) {
   return remove('services/removeServiceData', req, res);
 };
 
-module.exports.removeSubcategory = function(req, res) {
-  return remove('services/removeSubcategory', req, res);
-};
-
-module.exports.removeCategory = function(req, res) {
-  return remove('services/removeCategory', req, res);
-};
-
 module.exports.removeServicesTree = function(req, res) {
-  var options = {
-    path: 'services/removeServicesTree',
-    query: {
-      nID_Subject: req.query.nID_Subject
-    }
+
+  var callback = function (error, response, body) {
+    res.send(body);
+    res.end();
   };
 
-  activiti.del(options, function(error, statusCode, result) {
-    if (error) {
-      res.send(error);
-    } else {
-      res.status(statusCode).json(result);
-      pruneCache();
+  var url = buildUrl('services/removeServicesTree');
+
+  request.del({
+    'url': url,
+    'auth': {
+      'username': activiti.username,
+      'password': activiti.password
+    },
+    'qs': {
+      'nID_Subject': req.session.subject.nID
     }
-  });
+  }, callback);
+
+  pruneCache();
 };
 
