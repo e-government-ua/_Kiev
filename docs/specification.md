@@ -32,6 +32,7 @@
 <a href="#33_getStatisticServiceCounts"> 33. Получение количества записей HistoryEvent_Service для сервиса по регионам</a><br/>
 <a href="#34_upload_content_as_attach">34. Аплоад(upload) и прикрепление текстовго файла в виде атачмента к таске Activiti</a><br/>
 <a href="#35">35. Электронная эскалация</a><br/>
+<a href="#36_getTasksByText">36. Поиск заявок по тексту (в значениях полей)</a><br/> 
 ## iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -2467,6 +2468,41 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 
 ----------------------------------------------------------------------------------------------------------------------------
 
+<a name="36_getTasksByText">
+####36. Поиск заявок по тексту (в значениях полей)</a><br/> 
 
+**HTTP Metod: GET**
 
+**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=[sFind]&sLogin=[sLogin]&bAssigned=true
+-- возвращает список ID тасок у которых в полях встречается указанный текст
+
+* sFind - текст для поиска в полях заявки.
+* sLogin - необязательный параметр. При указании выбираются только таски, которые могут быть заассайнены или заассайнены на пользователя sLogin
+* bAssigned - необязательный параметр. Указывает, что нужно искать по незаассайненным таскам (bAssigned=false) и по заассайненным таскам(bAssigned=true) на пользователя sLogin
+
+Примеры:
+
+https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83
+
+```json
+["4637994","4715238","4585497","4585243","4730773","4637746"]
+```
+
+https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83&sLogin=kermit
+
+```json
+["4637994","4715238","4585243","4730773","4637746"]
+```
+
+https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83&sLogin=kermit&bAssigned=false
+
+```json
+["4637994","4637746"]
+```
+
+https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83&sLogin=kermit&bAssigned=true
+
+```json
+["4715238","4585243","4730773"]
+```
 
