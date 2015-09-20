@@ -246,14 +246,22 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     Attachment.class);
         }
 
+        String sFileName = attachmentRequested.getName();
+        int nTo=sFileName.lastIndexOf(".");
+        if(nTo>=0){
+            sFileName="attach_"+attachmentRequested.getId()+"."+sFileName.substring(nTo+1);
+        }
+        
         //Вычитывем из потока массив байтов контента и помещаем параметры контента в header 
         ByteArrayMultipartFileOld multipartFile = new ByteArrayMultipartFileOld(
                 attachmentStream, attachmentRequested.getDescription(),
-                attachmentRequested.getName(), attachmentRequested.getType());
+                sFileName, attachmentRequested.getType());
+//                attachmentRequested.getName(), attachmentRequested.getType());
 
         //httpResponse.setHeader("Content-disposition", "attachment; filename=" + composeFileName(multipartFile));
         //httpResponse.setHeader("Content-Type", multipartFile.getContentType() + ";charset=UTF-8");
-        httpResponse.setHeader("Content-disposition", "attachment; filename=" + attachmentRequested.getName());
+//===        httpResponse.setHeader("Content-disposition", "attachment; filename=" + attachmentRequested.getName());
+        httpResponse.setHeader("Content-disposition", "attachment; filename=" + sFileName);
         httpResponse.setHeader("Content-Type", "application/octet-stream");
 
         httpResponse.setContentLength(multipartFile.getBytes().length);
