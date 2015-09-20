@@ -180,8 +180,8 @@ exports.getTasksByText = function(req, res) {
     query: { 'sFind': req.params.text }
   };
   activiti.get(options, function(error, statusCode, result) {
-    //error ? res.send(error) : res.status(statusCode).json(result);
-    error ? res.send(error) : res.status(statusCode).json("[\"4585243\"]");
+    error ? res.send(error) : res.status(statusCode).json(result);
+    //error ? res.send(error) : res.status(statusCode).json("[\"4585243\"]");
   });
 };
 
