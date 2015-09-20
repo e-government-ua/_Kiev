@@ -1,12 +1,7 @@
 'use strict';
 
 angular.module('dashboardJsApp')
-  .controller('EscalationsCtrl', function ($scope, $modal, schedule, bpForSchedule) {
-
-    $scope.bp = bpForSchedule.bp;
-    $scope.bp.onChangeCallback = function () {
-      $scope.$broadcast('bpChangedEvent');
-    };
+  .controller('EscalationsCtrl', function ($scope, $modal, rules) {
 
     $scope.workHours = {
       getFunc: schedule.getSchedule,

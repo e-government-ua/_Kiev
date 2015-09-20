@@ -7,12 +7,20 @@
     <div class="form-group">
       <!--<label for="inputName" class="col-md-3 col-xs-3 control-label">Назва</label>-->
       <div class="rule-content" ng-model="rule">
-        Якщо {{rule.condition.name}} {{rule.condition.parametersName}}, то
-     {{rule.action.name}} {{rule.action.parametersName}}. Послуга:  {{rule.sID_BP}}
+        Якщо {{rule.condition.name}} {{rule.condition.parametersName()}}, то {{rule.action.name}} {{rule.action.parameters.default}}.
+        Послуга: {{rule.sID_BP}}
         <!--<input class="form-control" id="inputName" ng-model="slot.name" placeholder="Введіть назву, будь ласка">-->
       </div>
     </div>
 
+    <div class="form-group">
+      <label class="col-md-3 col-xs-3 control-label">Формула умови:</label>
+      <div class="col-md-3 col-xs-3">
+        <input class="form-control" id="inputName" ng-model="rule.formula" placeholder="sID_UserTask;sCondition">
+      </div>
+     
+    </div>
+    <!--
     <div class="form-group">
       <label class="col-md-3 col-xs-3 control-label">Умова:</label>
       <div class="col-md-9 col-xs-9">         
@@ -44,11 +52,11 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-md-3 col-xs-3 control-label">Перелік контактів через точку з комою:</label>
+      <label class="col-md-3 col-xs-3 control-label">Перелік контактів:</label>
       <div class="col-md-9 col-xs-9">
-<input class="form-control" id="inputName" ng-model="rule.condition.parametersValue" placeholder="katebutenko@gmail.com">
+<input class="form-control" id="inputName" ng-model="rule.action.parameters.default" placeholder="rule.action.parameters.default">
 </div>
-</div>
+</div>-->
     <div class="modal-footer">
       <button type="submit" class="btn btn-primary" ng-show="showSave()" ng-click="save()">ОК</button>
       <button class="btn btn-warning" type="button" ng-click="cancel()">Відмінити</button>

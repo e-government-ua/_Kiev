@@ -9,7 +9,7 @@ angular.module('dashboardJsApp')
  $scope.conditions = [{     
        id: 1,
        name: 'чиновник не відповідає ',
-       parametersName: 'N днів',
+       parametersName:  function() {return this.parametersValue+ ' днів';},
        parametersValue: 10, //should be set by user, not read from source
        //paramsSelector: $scope.daysSelector()
      }];
@@ -24,15 +24,15 @@ angular.module('dashboardJsApp')
  
   $scope.escalationActions = [{
         'nID': 1,
-        name: 'відправити e-mail ',
+        name: 'відправити e-mail на ',
         //'fAction': $scope.sendEmail(),
-        parametersName: 'наступним людям',
+        parameters: {default: 'katebutenko@gmail.com'},
         //'fParamsSelector': $scope.emailSelector()
       }, {
           'nID': 2,
-          name: 'відправити sms',
+          name: 'відправити sms на ',
           //'sAction': $scope.sendSms(),
-          parametersName: 'наступним людям',
+          parameters: {default: '+380919008788'},
           //'fParamsSelector': $scope.smsSelector()
         }];
     $scope.rule.action = $scope.escalationActions[0];
