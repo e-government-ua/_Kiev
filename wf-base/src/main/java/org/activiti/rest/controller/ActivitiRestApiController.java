@@ -1043,6 +1043,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     		@RequestParam(value = "bAssigned", required = false) String bAssigned) throws ActivitiRestException {
     	Set<String> res = new HashSet<String>();
 
+    	String searchTeam = sFind.toLowerCase();
         TaskQuery taskQuery = taskService.createTaskQuery();
         if (bAssigned != null){
         	if (!Boolean.valueOf(bAssigned).booleanValue()){
@@ -1073,7 +1074,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	                }
 	                log.info("taskId=" + currTask.getId() + "propertyName=" + property.getName() + "sValue=" + sValue);
 	                if (sValue != null) {
-	                    if (sValue.indexOf(sFind) >= 0){
+	                    if (sValue.toLowerCase().indexOf(searchTeam) >= 0){
 	                    	res.add(currTask.getId());
 	                    }
 	                }
