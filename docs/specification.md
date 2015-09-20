@@ -30,7 +30,9 @@
 <a href="#31_getFlowSlotTickets"> 31. Получение активных тикетов</a><br/>
 <a href="#32_getTasksByOrder"> 32. Получение списка ID пользовательских тасок по номеру заявки</a><br/>
 <a href="#33_getStatisticServiceCounts"> 33. Получение количества записей HistoryEvent_Service для сервиса по регионам</a><br/>
-<a href="#34">34. Электронная эскалация</a><br/>
+<a href="#34_upload_content_as_attach">34. Аплоад(upload) и прикрепление текстовго файла в виде атачмента к таске Activiti</a><br/>
+<a href="#35">35. Электронная эскалация</a><br/>
+<a href="#36_getTasksByText">36. Поиск заявок по тексту (в значениях полей)</a><br/> 
 ## iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -40,6 +42,20 @@
 | Content-Type | application/json |
 | Accept | application/json |
 | Authorization | Basic ... |
+--------------------------------------------------------------------------------------------------------------------------
+**Как проверить работоспособность запроса:**
+
+Для этого можно воспользоваться программой Fiddler http://www.telerik.com/fiddler или аналогами.<br/>
+В ней есть вкладка Composer с помощью которой можно отправлять запросы к API.<br/>
+Нужно указать три обязательных заголовка:<br/>
+```text
+Content-Type:  application/json
+Accept: application/json
+Authorization: Basic [login:password] закодированные в формате base64 
+```
+Чтобы закодировать login:password в формат base64 можно воспользоваться онлайн генератором: https://www.base64encode.org/
+<br/>
+Также можно ловить запросы отправляемые node.js на сервер. Вот тут описано как: http://stackoverflow.com/questions/17383351/how-to-capture-http-messages-from-request-node-library-with-fiddler
 
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -1619,7 +1635,8 @@ http://test.igov.org.ua/wf/service/services/updateHistoryEvent_Service?nID_Prote
 * nID_ServiceData - ID сущности ServiceData (обязательный если нет sID_BP)
 * sID_BP - строка-ИД бизнес-процесса (обязательный если нет nID_ServiceData)
 * bAll - если false то из возвращаемого объекта исключаются элементы, содержащие "bHasFree":false "bFree":false (опциональный, по умолчанию false)
-* nDays - колличество дней от сегодняшего включительно(или sDateStart, если задан), до nDays в будующее за который нужно вернуть слоты (опциональный, по умолчанию 60)
+* nDays - колличество дней от сегодняшего включительно(или sDateStart, если задан), до nDays в будующее за который нужно вернуть слоты (опциональный, по умолчанию 177 - пол года)
+* nFreeDays - дни со слотами будут включаться в результат пока не наберется указанное кол-во свободных дней (опциональный, по умолчанию 60)
 * sDateStart - опциональный параметр, определяющие дату начала в формате "yyyy-MM-dd", с которую выбрать слоты. При наличии этого параметра слоты возвращаются только за указанный период(число дней задается nDays).
 
 Пример:
@@ -2314,8 +2331,36 @@ https://test.igov.org.ua/wf/service/services/getStatisticServiceCounts?nID_Servi
 ```
 --------------------------------------------------------------------------------------------------------------------------
 
-<a name="34">
-#### 34. Электронная эскалация
+<a name="34_upload_content_as_attach">
+####34. Аплоад(upload) и прикрепление текстового файла в виде атачмента к таске Activiti
+</a><a href="#0_contents">↑Up</a><br/>
+
+**HTTP Metod: POST**
+
+**HTTP Context: http://server:port/wf/service/rest/file/upload_content_as_attachment** - Аплоад(upload) и прикрепление текстового файла в виде атачмента к таске Activiti
+
+* nTaskId - ИД-номер таски
+* sContentType - MIME тип отправляемого файла (опциоанльно) (значение по умолчанию = "text/html")
+* sDescription - описание
+* sFileName - имя отправляемого файла
+
+Пример:
+http://localhost:8080/wf-central/service/rest/file/upload_content_as_attachment?nTaskId=24&sDescription=someText&sFileName=FlyWithMe.html
+
+Ответ без ошибок:
+```json
+{"taskId":"38","processInstanceId":null,"userId":"kermit","name":"FlyWithMe.html","id":"25","type":"text/html;html","description":"someText","time":1433539278957,"url":null} 
+ID созданного attachment - "id":"25"
+```
+Ответ с ошибкой:
+```json
+{"code":"SYSTEM_ERR","message":"Cannot find task with id 384"}
+```
+
+--------------------------------------------------------------------------------------------------------------------------
+
+<a name="35">
+#### 35. Электронная эскалация
 </a><a href="#0_contents">↑Up</a>
 
 ----------------------------------------------------------------------------------------------------------------------------
@@ -2423,6 +2468,44 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 
 ----------------------------------------------------------------------------------------------------------------------------
 
+<a name="36_getTasksByText">
+####36. Поиск заявок по тексту (в значениях полей)</a><br/> 
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=[sFind]&sLogin=[sLogin]&bAssigned=true
+-- возвращает список ID тасок у которых в полях встречается указанный текст
+
+* sFind - текст для поиска в полях заявки.
+* sLogin - необязательный параметр. При указании выбираются только таски, которые могут быть заассайнены или заассайнены на пользователя sLogin
+* bAssigned - необязательный параметр. Указывает, что нужно искать по незаассайненным таскам (bAssigned=false) и по заассайненным таскам(bAssigned=true) на пользователя sLogin
+
+Примеры:
+
+<a href="https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83">https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=будинк</a>
+
+```json
+["4637994","4715238","4585497","4585243","4730773","4637746"]
+```
+
+<a href="https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83&sLogin=kermit">https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=будинк&sLogin=kermit</a>
 
 
+```json
+["4637994","4715238","4585243","4730773","4637746"]
+```
+
+<a href="https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83&sLogin=kermit&bAssigned=false">https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=будинк&sLogin=kermit&bAssigned=false</a>
+
+
+```json
+["4637994","4637746"]
+```
+
+<a href="https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83&sLogin=kermit&bAssigned=true">https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=будинк&sLogin=kermit&bAssigned=true</a>
+
+
+```json
+["4715238","4585243","4730773"]
+```
 

@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.wf.dp.dniprorada.base.dao.EntityDao;
+import org.wf.dp.dniprorada.base.dao.FlowServiceDataDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
 import org.wf.dp.dniprorada.base.model.FlowProperty;
@@ -43,9 +43,8 @@ public class FlowService implements ApplicationContextAware {
     
    private FlowSlotDao flowSlotDao;
    private FlowSlotTicketDao oFlowSlotTicketDao;
-   @Autowired
-   @Qualifier("flowServiceDataDao")
-   private EntityDao<Flow_ServiceData> flowServiceDataDao;
+
+   private FlowServiceDataDao flowServiceDataDao;
 
    private ApplicationContext applicationContext;
 
@@ -59,14 +58,22 @@ public class FlowService implements ApplicationContextAware {
       this.oFlowSlotTicketDao = oFlowSlotTicketDao;
    }
 
+   @Autowired
+   public void setFlowServiceDataDao(FlowServiceDataDao flowServiceDataDao) {
+      this.flowServiceDataDao = flowServiceDataDao;
+   }
+
    @Override
    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
       this.applicationContext = applicationContext;
    }
 
 
-   public Days getFlowSlots(Long nID_ServiceData, String sID_BP, DateTime startDate, DateTime endDate, boolean bAll) throws Exception {
-      List<FlowSlot> flowSlots = flowSlotDao.findFlowSlotsByServiceData(nID_ServiceData, sID_BP, startDate, endDate);
+   public Days getFlowSlots(Long nID_ServiceData, String sID_BP, Long nID_SubjectOrganDepartment,
+                            DateTime startDate, DateTime endDate, boolean bAll,
+                            int nFreeDays) throws Exception {
+      List<FlowSlot> flowSlots = flowSlotDao.findFlowSlotsByServiceData(nID_ServiceData, sID_BP,
+              nID_SubjectOrganDepartment, startDate, endDate);
 
       Map<DateTime, Day> daysMap = new TreeMap<>();
       if (bAll) {
@@ -99,10 +106,19 @@ public class FlowService implements ApplicationContextAware {
       }
 
       Days res = new Days();
+      int freeDaysCount = 0;
+
       for (Map.Entry<DateTime, Day> entry : daysMap.entrySet()) {
          Day day = entry.getValue();
          if (bAll || day.isbHasFree()) {
             res.getaDay().add(day);
+         }
+
+         if (day.isbHasFree()) {
+            freeDaysCount++;
+            if (freeDaysCount >= nFreeDays) {
+               break;
+            }
          }
       }
 
@@ -152,23 +168,6 @@ public class FlowService implements ApplicationContextAware {
       return oFlowSlotTicketDao.saveOrUpdate(oFlowSlotTicket);
    }
 
-   
-   /**
-    * Generates FlowSlots in given interval for specified flow. Slots will not be generated if they are already exist.
-     * @param sID_BP
-    * @return 
-    */
-   public Long nID_Flow_ServiceData(String sID_BP) {
-      List<Flow_ServiceData> aFlow = flowServiceDataDao.findAll();
-       for(Flow_ServiceData oFlow : aFlow){
-           if (oFlow.getsID_BP().equalsIgnoreCase(sID_BP)){
-               return oFlow.getId();
-           }
-       }
-       return null;
-   }
-
-           
    /**
     * Generates FlowSlots in given interval for specified flow. Slots will not be generated if they are already exist.
     * @param nID_Flow_ServiceData ID of flow

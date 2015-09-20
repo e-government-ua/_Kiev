@@ -63,10 +63,6 @@
 
         <!-- ==============================   DAO   ============================= -->
 
-        <bean id="flowServiceDataDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
-            <constructor-arg value="#{T(org.wf.dp.dniprorada.base.model.Flow_ServiceData)}"/>
-        </bean>
-
         <bean id="flowPropertyDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
             <constructor-arg value="#{T(org.wf.dp.dniprorada.base.model.FlowProperty)}"/>
         </bean>
