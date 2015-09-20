@@ -176,8 +176,14 @@ exports.getTasksByOrder = function(req, res) {
 };
 
 exports.getTasksByText = function(req, res) {
+  var user = JSON.parse(req.cookies.user);
+  //query.bEmployeeUnassigned = req.query.bEmployeeUnassigned;
   var options = { path: 'rest/tasks/getTasksByText',
-    query: { 'sFind': req.params.text }
+    query: {
+        'sFind': req.params.text,
+        'sLogin': user.id,//finished,unassigned, selfAssigned
+        'bAssigned': req.params.sType === 'selfAssigned' ? true : req.params.sType === 'unassigned' ? false : null //bAssigned
+    }
   };
   activiti.get(options, function(error, statusCode, result) {
     error ? res.send(error) : res.status(statusCode).json(result);

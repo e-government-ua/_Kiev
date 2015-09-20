@@ -17,7 +17,7 @@ router.post('/:taskId/form', controller.submitForm);
 router.put('/:taskId', controller.updateTask);
 router.get('/:taskId', controller.getTask);
 router.get('/search/byOrder/:orderId', controller.getTasksByOrder);
-router.get('/search/byText/:text', controller.getTasksByText);
+router.get('/search/byText/:text/type/:sType', controller.getTasksByText);
 
 
 module.exports = router;
