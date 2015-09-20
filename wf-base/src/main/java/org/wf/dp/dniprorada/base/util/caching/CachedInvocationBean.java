@@ -1,5 +1,7 @@
 package org.wf.dp.dniprorada.base.util.caching;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.Arrays;
 
 /**
@@ -20,7 +22,7 @@ public class CachedInvocationBean {
 
       @Override
       public String toString() {
-         return "" + Arrays.asList(cacheKeyParts);
+         return StringUtils.join(cacheKeyParts, ",");
       }
    }
 

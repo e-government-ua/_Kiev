@@ -1,7 +1,9 @@
 package org.activiti.rest.controller;
 
 import com.google.common.base.Charsets;
+
 import liquibase.util.csv.CSVWriter;
+
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
@@ -54,12 +56,14 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 import org.activiti.engine.history.HistoricDetail;
 import org.activiti.engine.impl.persistence.entity.HistoricFormPropertyEntity;
 
@@ -246,14 +250,22 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     Attachment.class);
         }
 
+        String sFileName = attachmentRequested.getName();
+        int nTo=sFileName.lastIndexOf(".");
+        if(nTo>=0){
+            sFileName="attach_"+attachmentRequested.getId()+"."+sFileName.substring(nTo+1);
+        }
+        
         //Вычитывем из потока массив байтов контента и помещаем параметры контента в header 
         ByteArrayMultipartFileOld multipartFile = new ByteArrayMultipartFileOld(
                 attachmentStream, attachmentRequested.getDescription(),
-                attachmentRequested.getName(), attachmentRequested.getType());
+                sFileName, attachmentRequested.getType());
+//                attachmentRequested.getName(), attachmentRequested.getType());
 
         //httpResponse.setHeader("Content-disposition", "attachment; filename=" + composeFileName(multipartFile));
         //httpResponse.setHeader("Content-Type", multipartFile.getContentType() + ";charset=UTF-8");
-        httpResponse.setHeader("Content-disposition", "attachment; filename=" + attachmentRequested.getName());
+//===        httpResponse.setHeader("Content-disposition", "attachment; filename=" + attachmentRequested.getName());
+        httpResponse.setHeader("Content-disposition", "attachment; filename=" + sFileName);
         httpResponse.setHeader("Content-Type", "application/octet-stream");
 
         httpResponse.setContentLength(multipartFile.getBytes().length);
@@ -972,6 +984,41 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return res;
     }
 
+    @RequestMapping(value = "/tasks/getTasksByText", method = RequestMethod.GET)
+    public @ResponseBody
+    List<String> getTasksByOrder(@RequestParam(value = "sFind") String sFind) throws ActivitiRestException {
+        List<String> res = new LinkedList<String>();
+
+    	List<Task> activeTasks = taskService.createTaskQuery().active().list();
+    	for (Task currTask : activeTasks){
+    		TaskFormData data = formService.getTaskFormData(currTask.getId());
+    		if (data != null){
+	    		for (FormProperty property : data.getFormProperties()) {
+	                
+	                String sValue = "";
+	                String sType = property.getType().getName();
+	                log.info("sType=" + sType);
+	                if ("enum".equalsIgnoreCase(sType)) {
+	                    sValue = parseEnumProperty(property);
+	                } else {
+	                    sValue = property.getValue();
+	                }
+	                log.info("taskId=" + currTask.getId() + "propertyName=" + property.getName() + "sValue=" + sValue);
+	                if (sValue != null) {
+	                    if (sValue.indexOf(sFind) >= 0){
+	                    	res.add(currTask.getId());
+	                    }
+	                }
+	            }
+    		} else {
+    			log.info("TaskFormData for task " + currTask.getId() + "is null. SKipping from processing.");
+    		}
+    	}
+
+        return res;
+    }
+    
+    
     private List<String> getTaskByOrderInternal(Long nID_Protected) throws CRCInvalidException, RecordNotFoundException {
         AlgorithmLuna.validateProtectedNumber(nID_Protected);
 
