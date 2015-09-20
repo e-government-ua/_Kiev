@@ -1044,7 +1044,36 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	Set<String> res = new HashSet<String>();
 
     	String searchTeam = sFind.toLowerCase();
-        TaskQuery taskQuery = taskService.createTaskQuery();
+        TaskQuery taskQuery = buildTaskQuery(sLogin, bAssigned);
+    	List<Task> activeTasks = taskQuery.active().list();
+    	for (Task currTask : activeTasks){
+    		TaskFormData data = formService.getTaskFormData(currTask.getId());
+    		if (data != null){
+	    		for (FormProperty property : data.getFormProperties()) {
+	                
+	                String sValue = "";
+	                String sType = property.getType().getName();
+	                if ("enum".equalsIgnoreCase(sType)) {
+	                    sValue = parseEnumProperty(property);
+	                } else {
+	                    sValue = property.getValue();
+	                }
+	                if (sValue != null) {
+	                    if (sValue.toLowerCase().indexOf(searchTeam) >= 0){
+	                    	res.add(currTask.getId());
+	                    }
+	                }
+	            }
+    		} else {
+    			log.info("TaskFormData for task " + currTask.getId() + "is null. Skipping from processing.");
+    		}
+    	}
+
+        return res;
+    }
+
+	protected TaskQuery buildTaskQuery(String sLogin, String bAssigned) {
+		TaskQuery taskQuery = taskService.createTaskQuery();
         if (bAssigned != null){
         	if (!Boolean.valueOf(bAssigned).booleanValue()){
         		taskQuery.taskUnassigned();
@@ -1059,33 +1088,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             	taskQuery.taskCandidateOrAssigned(sLogin);
             } 
         }
-    	List<Task> activeTasks = taskQuery.active().list();
-    	for (Task currTask : activeTasks){
-    		TaskFormData data = formService.getTaskFormData(currTask.getId());
-    		if (data != null){
-	    		for (FormProperty property : data.getFormProperties()) {
-	                
-	                String sValue = "";
-	                String sType = property.getType().getName();
-	                if ("enum".equalsIgnoreCase(sType)) {
-	                    sValue = parseEnumProperty(property);
-	                } else {
-	                    sValue = property.getValue();
-	                }
-	                log.info("taskId=" + currTask.getId() + "propertyName=" + property.getName() + "sValue=" + sValue);
-	                if (sValue != null) {
-	                    if (sValue.toLowerCase().indexOf(searchTeam) >= 0){
-	                    	res.add(currTask.getId());
-	                    }
-	                }
-	            }
-    		} else {
-    			log.info("TaskFormData for task " + currTask.getId() + "is null. SKipping from processing.");
-    		}
-    	}
-
-        return res;
-    }
+		return taskQuery;
+	}
     
     
     private List<String> getTaskByOrderInternal(Long nID_Protected) throws CRCInvalidException, RecordNotFoundException {
