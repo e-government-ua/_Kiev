@@ -105,30 +105,38 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				String pattern_description = String.format(PATTERN_DESCRIPTION, pattern_Certain);
 				String pattern_subject = String.format(PATTERN_SUBJECT_ID, pattern_Certain);
 
-				String sID_Merchant = execution.getVariable(pattern_merchant)
-						.toString();
+				String sID_Merchant = execution.getVariable(pattern_merchant) != null
+						? execution.getVariable(pattern_merchant).toString() 
+						: execution.getVariable(String.format(PATTERN_MERCHANT_ID, "")).toString();
 				LOG.info(pattern_merchant + "=" + sID_Merchant);
-				String sSum = execution.getVariable(pattern_sum).toString();
+				String sSum = execution.getVariable(pattern_sum) != null
+						? execution.getVariable(pattern_sum).toString() 
+						: execution.getVariable(String.format(PATTERN_SUM, "")).toString();
 				LOG.info(pattern_sum + "=" + sSum);
 				if (sSum != null) {
 					sSum = sSum.replaceAll(",", ".");
 				}
-				String sID_Currency = execution.getVariable(pattern_currency)
-						.toString();
+				String sID_Currency = execution.getVariable(pattern_currency) != null 
+						? execution.getVariable(pattern_currency).toString() 
+						: execution.getVariable(String.format(PATTERN_CURRENCY_ID, "")).toString();
 				LOG.info(pattern_currency + "=" + sID_Currency);
 				Currency oID_Currency = Currency
 						.valueOf(sID_Currency == null ? "UAH" : sID_Currency);
 				LOG.info("oID_Currency.name()=" + oID_Currency.name());
 
 				Language sLanguage = LiqBuy.DEFAULT_LANG;
-				String sDescription = execution.getVariable(pattern_description).toString();
+				String sDescription = execution.getVariable(pattern_description) != null 
+						? execution.getVariable(pattern_description).toString() 
+						: execution.getVariable(String.format(PATTERN_DESCRIPTION, "")).toString();
 				LOG.info(pattern_description + "=" + sDescription);
 
 				String sID_Order = "TaskActiviti_" + execution.getId();
 				String sURL_CallbackStatusNew = StringUtils.replace(
 						LIQPAY_CALLBACK_URL, "{0}", sID_Order);
 				String sURL_CallbackPaySuccess = null;
-				Long nID_Subject = Long.valueOf(execution.getVariable(pattern_subject).toString());
+				Long nID_Subject = Long.valueOf(execution.getVariable(pattern_subject) != null 
+						? execution.getVariable(pattern_subject).toString() 
+						: execution.getVariable(String.format(PATTERN_SUBJECT_ID, "")).toString());
 				nID_Subject = (nID_Subject == null ? 0 : nID_Subject);
 				LOG.info(pattern_subject + "=" + nID_Subject);
 				boolean bTest = generalConfig.bTest();
