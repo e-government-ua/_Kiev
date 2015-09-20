@@ -23,18 +23,28 @@
           <div class="sort-select" ng-if="sSelectedTask!='tickets'">
             <div class="task-list-header">
               <div class="task-list-header-row">
-                <input ng-model="searchTask.orderId" class="task-list-header-cell task-list-header-search" placeholder="Введіть № звернення для пошуку"
-                size="35" ng-keyup="($event.keyCode === 13)?searchTaskByOrder():0" />
+                <div class="task-list-header-cell">
+                  <input ng-model="searchTask.orderId" class="task-list-header-search"
+                         placeholder="Введіть № звернення для пошуку"
+                         size="35" ng-keyup="($event.keyCode === 13)?searchTaskByOrder():0"/>
+                </div>
                 <div class="right-aligned task-list-header-cell">
                   Сортувати за датою
-                  <select ng-options="option.value as option.text for option in sortOrderOptions" 
-        ng-model="selectedSortOrder.selected"
-        ng-change="selectedSortOrderChanged()">
-</select>
+                  <select ng-options="option.value as option.text for option in sortOrderOptions"
+                          ng-model="selectedSortOrder.selected"
+                          ng-change="selectedSortOrderChanged()">
+                  </select>
                   <!--<select>
                     <option onselect="sortorder('createTime',true)">Від найдавніших</option>
                     <option onselect="order('createTime',false)">Від найновіших</option>
                   </select>-->
+                </div>
+              </div>
+              <div class="task-list-header-row">
+                <div class="task-list-header-cell">
+                  <input ng-model="searchTask.text" class="task-list-header-search"
+                         placeholder="Введіть текст для пошуку"
+                         size="35" ng-keyup="($event.keyCode === 13)?searchTaskByText():0"/>
                 </div>
               </div>
             </div>
@@ -62,11 +72,11 @@
 
               <div ng-if="sSelectedTask!='tickets'">
                 <a class="list-group-item task {{sSelectedTask}}_{{task.processInstanceId}} {{ sTaskClass(task.taskDefinitionKey) }}" href=""
-                    ng-repeat="task in tasks | orderBy:predicate:reverse" 
+                    ng-repeat="task in tasks | orderBy:predicate:reverse"
                     tooltip="{{task.description}} (Задача №{{task.id}}, Процесс №{{task.processDefinitionId}})"
-                    ng-click="selectTask(task)" 
+                    ng-click="selectTask(task)"
                     ng-class="{'active': isTaskSelected(task)}">
-                  <span class="ticket-date-time">{{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}</span>                  
+                  <span class="ticket-date-time">{{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}</span>
                   №{{task.processInstanceId}}{{lunaService.getLunaValue(task.processInstanceId)}} {{ getProcessName(task.processDefinitionId)
                   }} | {{ task.name }}
 
@@ -131,13 +141,13 @@
               <submittask-button></submittask-button>
               <br/>
               <br/>
-            </div>            
+            </div>
             <div ng-hide="selectedTask.assignee == null || sSelectedTask == 'finished'">
               <button ng-hide="!taskFormLoaded || sSelectedTask == 'finished'" ng-click="print()" class="btn btn-success">Роздрукувати
               </button>
-            </div>            
-            <select class="aPatternPrint form-control_" ng-hide="aPatternPrintNew(taskForm)===null || aPatternPrintNew(taskForm).length===0 || selectedTask.assignee == null || sSelectedTask == 'finished'">
-              <option ng-repeat="oPatternPrint in aPatternPrintNew(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.name}}</option>
+            </div>
+            <select class="aPatternPrint form-control_" ng-hide="aPatternPrintNew1(taskForm)===null || aPatternPrintNew1(taskForm).length===0 || selectedTask.assignee == null || sSelectedTask == 'finished'">
+              <option ng-repeat="oPatternPrint in aPatternPrintNew1(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.displayTemplate}}</option>
             </select>
           </p>
         </div>

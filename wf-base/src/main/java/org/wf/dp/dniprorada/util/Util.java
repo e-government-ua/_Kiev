@@ -26,7 +26,7 @@ import java.util.Collection;
 
 public final class Util {
 
-    public static final String PATTERN_FILE_PATH_BEGIN = "../webapps/wf-region/WEB-INF/classes/pattern/";
+    public static final String PATTERN_FILE_PATH_BEGIN = "../webapps/wf/WEB-INF/classes/pattern/";
     public static final String PATTERN_DEFAULT_CONTENT_TYPE = "text/plain";
     private final static Logger log = LoggerFactory.getLogger(Util.class);
 
@@ -152,7 +152,7 @@ public final class Util {
     }
 
     private static Collection<File> getPatternFiles() {
-        File directory = new File("../webapps/wf-region/WEB-INF/classes/pattern/print");
+        File directory = new File("../webapps/wf/WEB-INF/classes/pattern/print");
         return FileUtils.listFiles(directory, null, true);
     }
 

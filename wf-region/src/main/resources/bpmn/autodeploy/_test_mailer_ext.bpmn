@@ -10,6 +10,8 @@
         <activiti:formProperty id="filecl" name="file" type="file"></activiti:formProperty>
         <activiti:formProperty id="markers1" name="Мареры1" type="markers" default="{attributes: {Editable_Test: {aField_ID:[&quot;bankIdlastName&quot;], bValue : false}, Editable_Test2: {aField_ID:[&quot;bankIdmiddleName&quot;,&quot;bankIdfirstName&quot;], bValue : true}}"></activiti:formProperty>
         <activiti:formProperty id="markers2" name="Мареры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnNotEmpty_1&quot;:{&quot;aField_ID&quot;:[&quot;email&quot;],&quot;sField_ID_s&quot;:&quot;client&quot;},&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;info1&quot;,&quot;file1&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;client&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'attr1'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;info2&quot;,&quot;file2&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;client&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'attr2'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="скан паспорта" type="file"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_inn" name="тест скан инн" type="file"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask0" name="Видалення тікета з черги" activiti:delegateExpression="#{releaseTicketsOfQueue}"></serviceTask>

@@ -5,8 +5,52 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <changeSet id="none" author="bw"> 
-	
+    <changeSet id="none" author="bw">
+
+    </changeSet>
+
+    <changeSet id="issue-791-1" author="brunneng">
+        <sql splitStatements="true" dbms="postgresql">
+            DROP TABLE IF EXISTS "SubjectOrganDepartment" CASCADE;
+        </sql>
+
+        <sql splitStatements="true" dbms="h2">
+            DROP TABLE IF EXISTS SubjectOrganDepartment CASCADE;
+        </sql>
+
+        <createTable tableName="SubjectOrganDepartment">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(300)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sGroup_Activiti" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_SubjectOrgan" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint constraintName="Flow_ServiceData_sID_BP_nID_SubjectOrganDepartment_key"
+                             tableName="Flow_ServiceData"
+                             columnNames="sID_BP, nID_SubjectOrganDepartment"/>
+    </changeSet>
+
+    <changeSet id="issue-791-dropConstraint-postgresql" author="brunneng" dbms="postgresql">
+        <dropUniqueConstraint constraintName="Flow_ServiceData_nID_ServiceData_key" tableName="Flow_ServiceData"
+                              uniqueColumns="nID_ServiceData"/>
+    </changeSet>
+
+    <changeSet id="issue-791-dropConstraint-h2" author="brunneng" dbms="h2">
+        <dropColumn tableName="Flow_ServiceData" columnName="nID_ServiceData"/>
+
+        <addColumn tableName="Flow_ServiceData">
+            <column name="nID_ServiceData" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
     </changeSet>
     
 
