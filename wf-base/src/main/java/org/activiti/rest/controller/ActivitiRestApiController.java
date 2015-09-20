@@ -992,23 +992,27 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     	List<Task> activeTasks = taskService.createTaskQuery().active().list();
     	for (Task currTask : activeTasks){
     		TaskFormData data = formService.getTaskFormData(currTask.getId());
-    		for (FormProperty property : data.getFormProperties()) {
-                
-                String sValue = "";
-                String sType = property.getType().getName();
-                log.info("sType=" + sType);
-                if ("enum".equalsIgnoreCase(sType)) {
-                    sValue = parseEnumProperty(property);
-                } else {
-                    sValue = property.getValue();
-                }
-                log.info("taskId=" + currTask.getId() + "propertyName=" + property.getName() + "sValue=" + sValue);
-                if (sValue != null) {
-                    if (sValue.indexOf(sFind) >= 0){
-                    	res.add(currTask.getId());
-                    }
-                }
-            }
+    		if (data != null){
+	    		for (FormProperty property : data.getFormProperties()) {
+	                
+	                String sValue = "";
+	                String sType = property.getType().getName();
+	                log.info("sType=" + sType);
+	                if ("enum".equalsIgnoreCase(sType)) {
+	                    sValue = parseEnumProperty(property);
+	                } else {
+	                    sValue = property.getValue();
+	                }
+	                log.info("taskId=" + currTask.getId() + "propertyName=" + property.getName() + "sValue=" + sValue);
+	                if (sValue != null) {
+	                    if (sValue.indexOf(sFind) >= 0){
+	                    	res.add(currTask.getId());
+	                    }
+	                }
+	            }
+    		} else {
+    			log.info("TaskFormData for task " + currTask.getId() + "is null. SKipping from processing.");
+    		}
     	}
 
         return res;
