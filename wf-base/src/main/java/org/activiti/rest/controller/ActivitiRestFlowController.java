@@ -27,6 +27,7 @@ import org.wf.dp.dniprorada.base.model.FlowPropertyClass;
 import org.wf.dp.dniprorada.base.model.FlowSlotTicket;
 import org.wf.dp.dniprorada.base.model.Flow_ServiceData;
 import org.wf.dp.dniprorada.base.service.flow.FlowService;
+import org.wf.dp.dniprorada.base.util.JsonDateSerializer;
 import org.wf.dp.dniprorada.base.util.JsonDateTimeSerializer;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.base.viewobject.flow.ClearSlotsResult;
@@ -80,7 +81,8 @@ public class ActivitiRestFlowController {
    ResponseEntity getFlowSlots(@RequestParam(value = "nID_ServiceData", required = false) Long nID_ServiceData,
                                @RequestParam(value = "sID_BP", required = false) String sID_BP,
                                @RequestParam(value = "bAll", required = false, defaultValue = "false") boolean bAll,
-                               @RequestParam(value = "nDays", required = false, defaultValue = "60") int nDays,
+                               @RequestParam(value = "nFreeDays", required = false, defaultValue = "60") int nFreeDays,
+                               @RequestParam(value = "nDays", required = false, defaultValue = "177") int nDays,
                                @RequestParam(value = "sDateStart", required = false) String sDateStart
    ) throws Exception {
 
@@ -90,13 +92,12 @@ public class ActivitiRestFlowController {
       DateTime oDateEnd = oDateStart.plusDays(nDays);
       
       if (sDateStart != null){
-    	  DateTimeFormatter dtf = DateTimeFormat.forPattern("yyyy-MM-dd");
-    	  oDateStart = DateTime.parse(sDateStart, dtf);
+    	  oDateStart = JsonDateSerializer.DATE_FORMATTER.parseDateTime(sDateStart);
     	  oDateEnd = oDateStart.plusDays(nDays);
       }
 
         
-      Days res = flowService.getFlowSlots(nID_ServiceData, sID_BP, oDateStart, oDateEnd, bAll);
+      Days res = flowService.getFlowSlots(nID_ServiceData, sID_BP, oDateStart, oDateEnd, bAll, nFreeDays);
 
       return JsonRestUtils.toJsonResponse(res);
    }

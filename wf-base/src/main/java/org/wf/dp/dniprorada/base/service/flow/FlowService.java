@@ -65,7 +65,8 @@ public class FlowService implements ApplicationContextAware {
    }
 
 
-   public Days getFlowSlots(Long nID_ServiceData, String sID_BP, DateTime startDate, DateTime endDate, boolean bAll) throws Exception {
+   public Days getFlowSlots(Long nID_ServiceData, String sID_BP, DateTime startDate, DateTime endDate, boolean bAll,
+                            int nFreeDays) throws Exception {
       List<FlowSlot> flowSlots = flowSlotDao.findFlowSlotsByServiceData(nID_ServiceData, sID_BP, startDate, endDate);
 
       Map<DateTime, Day> daysMap = new TreeMap<>();
@@ -99,10 +100,19 @@ public class FlowService implements ApplicationContextAware {
       }
 
       Days res = new Days();
+      int freeDaysCount = 0;
+
       for (Map.Entry<DateTime, Day> entry : daysMap.entrySet()) {
          Day day = entry.getValue();
          if (bAll || day.isbHasFree()) {
             res.getaDay().add(day);
+         }
+
+         if (day.isbHasFree()) {
+            freeDaysCount++;
+            if (freeDaysCount >= nFreeDays) {
+               break;
+            }
          }
       }
 
