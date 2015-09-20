@@ -1,7 +1,9 @@
 package org.activiti.rest.controller;
 
 import com.google.common.base.Charsets;
+
 import liquibase.util.csv.CSVWriter;
+
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
@@ -54,12 +56,14 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 import org.activiti.engine.history.HistoricDetail;
 import org.activiti.engine.impl.persistence.entity.HistoricFormPropertyEntity;
 
@@ -980,6 +984,37 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return res;
     }
 
+    @RequestMapping(value = "/tasks/getTasksByText", method = RequestMethod.GET)
+    public @ResponseBody
+    List<String> getTasksByOrder(@RequestParam(value = "sFind") String sFind) throws ActivitiRestException {
+        List<String> res = new LinkedList<String>();
+
+    	List<Task> activeTasks = taskService.createTaskQuery().active().list();
+    	for (Task currTask : activeTasks){
+    		TaskFormData data = formService.getTaskFormData(currTask.getId());
+    		for (FormProperty property : data.getFormProperties()) {
+                
+                String sValue = "";
+                String sType = property.getType().getName();
+                log.info("sType=" + sType);
+                if ("enum".equalsIgnoreCase(sType)) {
+                    sValue = parseEnumProperty(property);
+                } else {
+                    sValue = property.getValue();
+                }
+                log.info("taskId=" + currTask.getId() + "propertyName=" + property.getName() + "sValue=" + sValue);
+                if (sValue != null) {
+                    if (sValue.indexOf(sFind) >= 0){
+                    	res.add(currTask.getId());
+                    }
+                }
+            }
+    	}
+
+        return res;
+    }
+    
+    
     private List<String> getTaskByOrderInternal(Long nID_Protected) throws CRCInvalidException, RecordNotFoundException {
         AlgorithmLuna.validateProtectedNumber(nID_Protected);
 
