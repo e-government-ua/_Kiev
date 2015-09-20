@@ -1,9 +1,7 @@
 package org.activiti.rest.controller;
 
 import com.google.common.base.Charsets;
-
 import liquibase.util.csv.CSVWriter;
-
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
@@ -56,14 +54,13 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 import org.activiti.engine.history.HistoricDetail;
 import org.activiti.engine.impl.persistence.entity.HistoricFormPropertyEntity;
 
@@ -361,19 +358,19 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             Task task = tasks.iterator().next();
             processInstanceId = task.getProcessInstanceId();
             assignee = task.getAssignee() != null ? task.getAssignee() : "kermit";
-            System.out.println("processInstanceId: " + processInstanceId + " taskId: " + taskId + "assignee: " + assignee);
+            log.debug("processInstanceId: " + processInstanceId + " taskId: " + taskId + "assignee: " + assignee);
         } else {
-            System.out.println("There is no tasks at all!");
+            log.error("There is no tasks at all!");
 
         }
 
         identityService.setAuthenticatedUserId(assignee);
 
         String sFilename = file.getOriginalFilename();
-        System.out.println("sFilename=" + file.getOriginalFilename());
+        log.debug("sFilename=" + file.getOriginalFilename());
         sFilename = Renamer.sRenamed(sFilename);
-        System.out.println("FileExtention: " + getFileExtention(file) + " fileContentType: " + file.getContentType() + "fileName: " + sFilename);
-        System.out.println("description: " + description);
+        log.debug("FileExtention: " + getFileExtention(file) + " fileContentType: " + file.getContentType() + "fileName: " + sFilename);
+        log.debug("description: " + description);
 
         Attachment attachment = taskService.createAttachment(file.getContentType()
                 + ";"
@@ -382,6 +379,52 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 processInstanceId,
                 sFilename,//file.getOriginalFilename()
                 description, file.getInputStream());
+
+        AttachmentEntityAdapter adapter = new AttachmentEntityAdapter();
+
+        return adapter.apply(attachment);
+    }
+
+
+    @RequestMapping(value = "/file/upload_content_as_attachment", method = RequestMethod.POST, produces = "application/json")
+    @Transactional
+    public @ResponseBody
+    AttachmentEntityI putTextAttachmentsToExecution(
+            @RequestParam(value = "nTaskId") String taskId,
+            @RequestParam(value = "sContentType", required = false, defaultValue = "text/html") String sContentType,
+            @RequestParam(value = "sDescription") String description,
+            @RequestParam(value = "sFileName") String sFileName,
+            @RequestBody String sData) throws ActivitiIOException, Exception {
+
+        String processInstanceId = null;
+        String assignee = null;
+
+        List<Task> tasks = taskService.createTaskQuery().taskId(taskId).list();
+        if (tasks != null && !tasks.isEmpty()) {
+            Task task = tasks.iterator().next();
+            processInstanceId = task.getProcessInstanceId();
+            assignee = task.getAssignee() != null ? task.getAssignee() : "kermit";
+            log.debug("processInstanceId: " + processInstanceId + " taskId: " + taskId + "assignee: " + assignee);
+        } else {
+            log.error("There is no tasks at all!");
+
+        }
+
+        identityService.setAuthenticatedUserId(assignee);
+
+        String sFilename = sFileName;
+        log.debug("sFilename=" + sFileName);
+        sFilename = Renamer.sRenamed(sFilename);
+        log.debug("FileExtention: " + getFileExtention(sFileName) + " fileContentType: " + sContentType + "fileName: " + sFilename);
+        log.debug("description: " + description);
+
+        Attachment attachment = taskService.createAttachment(sContentType
+                        + ";"
+                        + getFileExtention(sFileName),
+                taskId,
+                processInstanceId,
+                sFilename,
+                description, new ByteArrayInputStream(sData.getBytes(Charsets.UTF_8)));
 
         AttachmentEntityAdapter adapter = new AttachmentEntityAdapter();
 
@@ -884,6 +927,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return "";
     }
 
+    private String getFileExtention(String fileName) {
+
+        String[] parts = fileName.split("\\.");
+        if (parts.length != 0) {
+            return parts[parts.length - 1];
+        }
+        return "";
+    }
+
     @RequestMapping(value = "/test/sendAttachmentsByMail", method = RequestMethod.GET)
     @Transactional
     public void sendAttachmentsByMail(
@@ -986,10 +1038,27 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     @RequestMapping(value = "/tasks/getTasksByText", method = RequestMethod.GET)
     public @ResponseBody
-    List<String> getTasksByOrder(@RequestParam(value = "sFind") String sFind) throws ActivitiRestException {
-        List<String> res = new LinkedList<String>();
+    Set<String> getTasksByText(@RequestParam(value = "sFind") String sFind,
+    		@RequestParam(value = "sLogin", required = false) String sLogin,
+    		@RequestParam(value = "bAssigned", required = false) String bAssigned) throws ActivitiRestException {
+    	Set<String> res = new HashSet<String>();
 
-    	List<Task> activeTasks = taskService.createTaskQuery().active().list();
+        TaskQuery taskQuery = taskService.createTaskQuery();
+        if (bAssigned != null){
+        	if (!Boolean.valueOf(bAssigned).booleanValue()){
+        		taskQuery.taskUnassigned();
+            	if (sLogin != null && !sLogin.isEmpty()){
+                	taskQuery.taskCandidateUser(sLogin);
+                } 
+        	} else if (sLogin != null && !sLogin.isEmpty()){
+        		taskQuery.taskAssignee(sLogin);
+        	}
+        } else {
+        	if (sLogin != null && !sLogin.isEmpty()){
+            	taskQuery.taskCandidateOrAssigned(sLogin);
+            } 
+        }
+    	List<Task> activeTasks = taskQuery.active().list();
     	for (Task currTask : activeTasks){
     		TaskFormData data = formService.getTaskFormData(currTask.getId());
     		if (data != null){
@@ -997,7 +1066,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	                
 	                String sValue = "";
 	                String sType = property.getType().getName();
-	                log.info("sType=" + sType);
 	                if ("enum".equalsIgnoreCase(sType)) {
 	                    sValue = parseEnumProperty(property);
 	                } else {

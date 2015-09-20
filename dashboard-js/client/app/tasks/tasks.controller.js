@@ -18,7 +18,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     count: 0
   }, {
     title: 'Необроблені',
-    type: tasks.filterTypes.unassigned,
+    type: tasks.filterTypes.unassigned, 
     count: 0
   }, {
     title: 'Оброблені',
@@ -573,7 +573,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
       Modal.inform.error()('Будь-ласка введіть текст для пошуку!');
       return;
     }
-    tasks.getTasksByText($scope.searchTask.text)
+    tasks.getTasksByText($scope.searchTask.text, $scope.sSelectedTask)//sType
       .then(function (result) {
         if (result === 'CRC-error') {
           Modal.inform.error()();
