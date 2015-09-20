@@ -1055,7 +1055,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         	}
         } else {
         	if (sLogin != null && !sLogin.isEmpty()){
-            	taskQuery.taskCandidateUser(sLogin);
+            	taskQuery.taskCandidateOrAssigned(sLogin);
             } 
         }
     	List<Task> activeTasks = taskQuery.active().list();
