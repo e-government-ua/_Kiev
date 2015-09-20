@@ -30,7 +30,8 @@
 <a href="#31_getFlowSlotTickets"> 31. Получение активных тикетов</a><br/>
 <a href="#32_getTasksByOrder"> 32. Получение списка ID пользовательских тасок по номеру заявки</a><br/>
 <a href="#33_getStatisticServiceCounts"> 33. Получение количества записей HistoryEvent_Service для сервиса по регионам</a><br/>
-<a href="#34">34. Электронная эскалация</a><br/>
+<a href="#34_upload_content_as_attach">34. Аплоад(upload) и прикрепление текстовго файла в виде атачмента к таске Activiti</a><br/>
+<a href="#35">35. Электронная эскалация</a><br/>
 ## iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -2329,8 +2330,36 @@ https://test.igov.org.ua/wf/service/services/getStatisticServiceCounts?nID_Servi
 ```
 --------------------------------------------------------------------------------------------------------------------------
 
-<a name="34">
-#### 34. Электронная эскалация
+<a name="34_upload_content_as_attach">
+####34. Аплоад(upload) и прикрепление текстового файла в виде атачмента к таске Activiti
+</a><a href="#0_contents">↑Up</a><br/>
+
+**HTTP Metod: POST**
+
+**HTTP Context: http://server:port/wf/service/rest/file/upload_content_as_attachment** - Аплоад(upload) и прикрепление текстового файла в виде атачмента к таске Activiti
+
+* nTaskId - ИД-номер таски
+* sContentType - MIME тип отправляемого файла (опциоанльно) (значение по умолчанию = "text/html")
+* description - описание
+* sFileName - имя отправляемого файла
+
+Пример:
+http://localhost:8080/wf-central/service/rest/file/upload_content_as_attachment?nTaskId=24&sDescription=someText&sFileName=FlyWithMe.html
+
+Ответ без ошибок:
+```json
+{"taskId":"38","processInstanceId":null,"userId":"kermit","name":"FlyWithMe.html","id":"25","type":"text/html;html","description":"someText","time":1433539278957,"url":null} 
+ID созданного attachment - "id":"25"
+```
+Ответ с ошибкой:
+```json
+{"code":"SYSTEM_ERR","message":"Cannot find task with id 384"}
+```
+
+--------------------------------------------------------------------------------------------------------------------------
+
+<a name="35">
+#### 35. Электронная эскалация
 </a><a href="#0_contents">↑Up</a>
 
 ----------------------------------------------------------------------------------------------------------------------------
