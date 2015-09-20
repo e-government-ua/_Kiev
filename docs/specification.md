@@ -2482,25 +2482,28 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 
 Примеры:
 
-https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83
+<a href="https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83">https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=будинк</a>
 
 ```json
 ["4637994","4715238","4585497","4585243","4730773","4637746"]
 ```
 
-https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83&sLogin=kermit
+<a href="https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83&sLogin=kermit">https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=будинк&sLogin=kermit</a>
+
 
 ```json
 ["4637994","4715238","4585243","4730773","4637746"]
 ```
 
-https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83&sLogin=kermit&bAssigned=false
+<a href="https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83&sLogin=kermit&bAssigned=false">https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=будинк&sLogin=kermit&bAssigned=false</a>
+
 
 ```json
 ["4637994","4637746"]
 ```
 
-https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83&sLogin=kermit&bAssigned=true
+<a href="https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=%D0%B1%D1%83%D0%B4%D0%B8%D0%BD%D0%BA%D1%83&sLogin=kermit&bAssigned=true">https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=будинк&sLogin=kermit&bAssigned=true</a>
+
 
 ```json
 ["4715238","4585243","4730773"]
