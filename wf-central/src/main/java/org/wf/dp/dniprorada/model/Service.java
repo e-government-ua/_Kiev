@@ -36,7 +36,7 @@ public class Service extends org.wf.dp.dniprorada.base.model.NamedEntity {
     @JsonProperty(value = "aServiceData")
     @OneToMany(mappedBy = "service", cascade = CascadeType.ALL, orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<ServiceData> serviceDataList;
+    private List<ServiceData> serviceDataList = new ArrayList<>();
 
     @JsonProperty(value = "sInfo")
     @Column(name = "sInfo", nullable = false)
