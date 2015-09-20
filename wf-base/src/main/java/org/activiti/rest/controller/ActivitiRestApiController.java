@@ -249,7 +249,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         String sFileName = attachmentRequested.getName();
         int nTo=sFileName.lastIndexOf(".");
         if(nTo>=0){
-            sFileName="attach_"+attachmentRequested.getId()+sFileName.substring(nTo+1);
+            sFileName="attach_"+attachmentRequested.getId()+"."+sFileName.substring(nTo+1);
         }
         
         //Вычитывем из потока массив байтов контента и помещаем параметры контента в header 
