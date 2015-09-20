@@ -28,8 +28,13 @@
                          placeholder="Введіть № звернення для пошуку"
                          size="35" ng-keyup="($event.keyCode === 13)?searchTaskByOrder():0"/>
                 </div>
+                <div class="task-list-header-cell">
+                  <input ng-model="searchTask.text" class="task-list-header-search"
+                         placeholder="Введіть текст для пошуку"
+                         size="35" ng-keyup="($event.keyCode === 13)?searchTaskByText():0"/>
+                </div>
                 <div class="right-aligned task-list-header-cell">
-                  Сортувати за датою
+                  Сортувати: 
                   <select ng-options="option.value as option.text for option in sortOrderOptions"
                           ng-model="selectedSortOrder.selected"
                           ng-change="selectedSortOrderChanged()">
@@ -38,13 +43,6 @@
                     <option onselect="sortorder('createTime',true)">Від найдавніших</option>
                     <option onselect="order('createTime',false)">Від найновіших</option>
                   </select>-->
-                </div>
-              </div>
-              <div class="task-list-header-row">
-                <div class="task-list-header-cell">
-                  <input ng-model="searchTask.text" class="task-list-header-search"
-                         placeholder="Введіть текст для пошуку"
-                         size="35" ng-keyup="($event.keyCode === 13)?searchTaskByText():0"/>
                 </div>
               </div>
             </div>
