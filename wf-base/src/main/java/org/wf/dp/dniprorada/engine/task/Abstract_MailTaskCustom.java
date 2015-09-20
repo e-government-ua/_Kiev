@@ -40,11 +40,11 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 	private static final String accessKeyPattern = "&sAccessKey=%s";
 	private static final String TAG_Function_AtEnum = "enum{[";
 	private static final String TAG_Function_To = "]}";
-	private static final String PATTERN_MERCHANT_ID = "sID_Merchant";
-	private static final String PATTERN_SUM = "sSum";
-	private static final String PATTERN_CURRENCY_ID = "sID_Currency";
-	private static final String PATTERN_DESCRIPTION = "sDescription";
-	private static final String PATTERN_SUBJECT_ID = "nID_Subject";
+	private static final String PATTERN_MERCHANT_ID = "sID_Merchant%s";
+	private static final String PATTERN_SUM = "sSum%s";
+	private static final String PATTERN_CURRENCY_ID = "sID_Currency%s";
+	private static final String PATTERN_DESCRIPTION = "sDescription%s";
+	private static final String PATTERN_SUBJECT_ID = "nID_Subject%s";
 	private static final String PATTERN_DELIMITER = "_";
 
 	@Autowired
@@ -94,22 +94,16 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 		}
 		String textWithoutTags = textStr;
 		for (int i = 0; i < 10; i++) { //написать автоопределение тегов и заменить этот кусок
-			String pattern_Certain = PATTERN_DELIMITER + i;
 			boolean isItFirstTag = (i == 0);
-			String tag_Payment_Button_Liqpay = isItFirstTag ? TAG_PAYMENT_BUTTON_LIQPAY
-					: String.format(TAG_PAYMENT_BUTTON_LIQPAY, pattern_Certain);
+			String pattern_Certain = isItFirstTag ? "" : PATTERN_DELIMITER + i;
+			String tag_Payment_Button_Liqpay = String.format(TAG_PAYMENT_BUTTON_LIQPAY, pattern_Certain);
 			if (textWithoutTags.contains(tag_Payment_Button_Liqpay)) {
 
-				String pattern_merchant = isItFirstTag ? PATTERN_MERCHANT_ID
-						: String.format(PATTERN_MERCHANT_ID, pattern_Certain);
-				String pattern_sum = isItFirstTag ? PATTERN_SUM : String
-						.format(PATTERN_SUM, pattern_Certain);
-				String pattern_currency = isItFirstTag ? PATTERN_CURRENCY_ID
-						: String.format(PATTERN_CURRENCY_ID, pattern_Certain);
-				String pattern_description = isItFirstTag ? PATTERN_DESCRIPTION
-						: String.format(PATTERN_DESCRIPTION, pattern_Certain);
-				String pattern_subject = isItFirstTag ? PATTERN_SUBJECT_ID
-						: String.format(PATTERN_SUBJECT_ID, pattern_Certain);
+				String pattern_merchant = String.format(PATTERN_MERCHANT_ID, pattern_Certain);
+				String pattern_sum = String.format(PATTERN_SUM, pattern_Certain);
+				String pattern_currency = String.format(PATTERN_CURRENCY_ID, pattern_Certain);
+				String pattern_description = String.format(PATTERN_DESCRIPTION, pattern_Certain);
+				String pattern_subject = String.format(PATTERN_SUBJECT_ID, pattern_Certain);
 
 				String sID_Merchant = execution.getVariable(pattern_merchant)
 						.toString();
@@ -134,8 +128,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				String sURL_CallbackStatusNew = StringUtils.replace(
 						LIQPAY_CALLBACK_URL, "{0}", sID_Order);
 				String sURL_CallbackPaySuccess = null;
-				Long nID_Subject = Long.valueOf(execution.getVariable(
-						pattern_subject).toString());
+				Long nID_Subject = Long.valueOf(execution.getVariable(pattern_subject).toString());
 				nID_Subject = (nID_Subject == null ? 0 : nID_Subject);
 				LOG.info(pattern_subject + "=" + nID_Subject);
 				boolean bTest = generalConfig.bTest();
