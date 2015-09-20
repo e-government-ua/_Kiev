@@ -52,6 +52,8 @@ Accept: application/json
 Authorization: Basic [login:password] закодированные в формате base64 
 ```
 Чтобы закодировать login:password в формат base64 можно воспользоваться онлайн генератором: https://www.base64encode.org/
+<br/>
+Также можно ловить запросы отправляемые node.js на сервер. Вот тут описано как: http://stackoverflow.com/questions/17383351/how-to-capture-http-messages-from-request-node-library-with-fiddler
 
 --------------------------------------------------------------------------------------------------------------------------
 
