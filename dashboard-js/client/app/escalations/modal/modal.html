@@ -5,58 +5,53 @@
   <form class="form-horizontal">
 
     <div class="form-group">
-      <!--<label for="inputName" class="col-md-3 col-xs-3 control-label">Назва</label>-->
       <div class="rule-content" ng-model="rule">
-        Якщо {{rule.condition.name}} {{rule.condition.parametersName()}}, то {{rule.action.name}} {{rule.action.parameters.default}}.
-        Послуга: {{rule.sID_BP}}
-        <!--<input class="form-control" id="inputName" ng-model="slot.name" placeholder="Введіть назву, будь ласка">-->
+        <!--Якщо {{rule.sCondition}}, <br/>
+        то {{rule.nID_EscalationRuleFunction}} {{rule.action.parameters.default}}.<br/>
+        Параметри: {{rule.soData}}, послуга: {{rule.sID_BP}} ({{rule.bp.sName}}), задача: {{rule.sID_UserTask}}-->
       </div>
     </div>
 
     <div class="form-group">
-      <label class="col-md-3 col-xs-3 control-label">Формула умови:</label>
-      <div class="col-md-3 col-xs-3">
-        <input class="form-control" id="inputName" ng-model="rule.formula" placeholder="sID_UserTask;sCondition">
-      </div>
-     
-    </div>
-    <!--
-    <div class="form-group">
-      <label class="col-md-3 col-xs-3 control-label">Умова:</label>
-      <div class="col-md-9 col-xs-9">         
-        <select class="form-control"
-                ng-model="rule.condition"
-                ng-options="condition as condition.name for condition in conditions"
-                >
-        </select>
+      <label class="col-md-4 col-xs-4 control-label">Бізнес-процес:</label>
+      <div class="col-md-8 col-xs-8">
+        <select name="bpID" ng-model="rule.sID_BP" ng-options="processDefinition.sID as processDefinition.sName for processDefinition in processesList"
+        ng-required="true" class="form-control"></select>
+        <!-- ng-show="processesLoaded() && !processesLoadError()" ng-change="initExportUrl()"-->
       </div>
     </div>
     <div class="form-group">
-      <label class="col-md-3 col-xs-3 control-label">Параметри:</label>
-      <div class="col-md-3 col-xs-3">
-<input class="form-control" id="inputName" ng-model="rule.condition.parametersValue" placeholder="10">
-</div>
-<div class="col-md-3 col-xs-3 parameters-text">
-  днів
-
-</div>
-</div>
+      <label class="col-md-4 col-xs-4 control-label">Задачі бізнес-процеса:</label>
+      <div class="col-md-8 col-xs-8">
+        <input class="form-control" id="inputName" ng-model="rule.sID_UserTask">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-4 col-xs-4 control-label">Формула умови:</label>
+      <div class="col-md-8 col-xs-8">
+        <input class="form-control" id="inputName" ng-model="rule.sCondition" placeholder="nElapsedDays==nDaysLimit">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-4 col-xs-4 control-label">Параметри:</label>
+      <div class="col-md-8 col-xs-8">
+        <input class="form-control" id="inputName" ng-model="rule.soData" placeholder="nDaysLimit:3,asRecipientMail:[test@email.com]">
+      </div>
+    </div>
      <div class="form-group">
-      <label class="col-md-3 col-xs-3 control-label">Дія:</label>
-      <div class="col-md-9 col-xs-9">
-         <select class="form-control"
-                ng-model="rule.action"
-                ng-options="action as action.name for action in escalationActions"
-                >
-        </select>
+      <label class="col-md-4 col-xs-4 control-label">Файл шаблона:</label>
+      <div class="col-md-8 col-xs-8">
+        <input class="form-control" id="inputName" ng-model="rule.sPatternFile" placeholder="escalation/escalation_template.html">
       </div>
     </div>
-    <div class="form-group">
-      <label class="col-md-3 col-xs-3 control-label">Перелік контактів:</label>
-      <div class="col-md-9 col-xs-9">
-<input class="form-control" id="inputName" ng-model="rule.action.parameters.default" placeholder="rule.action.parameters.default">
-</div>
-</div>-->
+     <div class="form-group">
+      <label class="col-md-4 col-xs-4 control-label">Функція ескалації:</label>
+      <div class="col-md-8 col-xs-8">
+        <input class="form-control" id="inputName" ng-model="rule.nID_EscalationRuleFunction" placeholder="Надіслати e-mail (EscalationHandler_SendMailAlert)">
+      </div>
+    </div>    
+    
+    
     <div class="modal-footer">
       <button type="submit" class="btn btn-primary" ng-show="showSave()" ng-click="save()">ОК</button>
       <button class="btn btn-warning" type="button" ng-click="cancel()">Відмінити</button>

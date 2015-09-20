@@ -10,9 +10,8 @@ describe('Controller: EscalationsCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    ReportsCtrl = $controller('EscalationsCtrl', {
+    EscalationsCtrl = $controller('EscalationsCtrl', {
       $scope: scope
     });
   }));
-
 });
