@@ -255,7 +255,7 @@ public class ActivitiPaymentRestController {
                 log.info("sID_Order(1)=" + sID_Order);
                 String s = sID_Order.replace(TASK_MARK, "");
                 log.info("sID_Order(2)=" + s);
-                if(s.endsWith(sPrefix)){
+                if(sPrefix!=null && !"".equals(sPrefix.trim()) && s.endsWith(sPrefix)){
                     s=s.substring(0, s.length() - sPrefix.length());
                 }
                 log.info("sID_Order(3)=" + s);
