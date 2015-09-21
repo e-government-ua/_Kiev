@@ -124,7 +124,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                 Map<String, Long> currRes = new HashMap<>();
                 currRes.put("sName", (Long) currValue[0]);
                 currRes.put("nCount", (Long) currValue[1]);
-                currRes.put("nRate", Long.valueOf((String) currValue[2])*20);//for issue 777
+                currRes.put("nRate", Long.valueOf((String) currValue[2]));//for issue 777//*20
                 // currRes.put("nRate", new BigDecimal(Float.valueOf("" + currValue[2])).setScale(1).floatValue());//for issue 777
                 resHistoryEventService.add(currRes);
             }
