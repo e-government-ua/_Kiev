@@ -379,7 +379,7 @@
           <activiti:value id="doc_absent" name="Відмова в наданні копії"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково залиште коментар в разі відмови" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="scan_copy" name="Якщо копія готова - відскануйте її та прикрепіть у файл" type="file"></activiti:formProperty>
+        <activiti:formProperty id="scan_copy" name="Якщо копія готова - відскануйте її та прикрепіть у файл" type="file" default=" "></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow15" sourceRef="servicetask4" targetRef="usertask2"></sequenceFlow>
