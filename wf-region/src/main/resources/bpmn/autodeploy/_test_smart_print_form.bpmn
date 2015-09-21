@@ -58,7 +58,7 @@
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="tester">
+    <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="NumSp" name="Номер справи" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>

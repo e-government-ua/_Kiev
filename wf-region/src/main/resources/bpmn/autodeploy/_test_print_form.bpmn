@@ -25,7 +25,7 @@
         <activiti:formProperty id="sBody" name="sBody" type="invisible" default=" "></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="tester">
+    <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Им'я" type="string" writable="false"></activiti:formProperty>
