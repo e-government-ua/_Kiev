@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_cnap_37" name="Дніпропетровськ - Надання у постіне користування земельних ділянок" isExecutable="true">
+  <process id="dnepr_cnap_37" name="Дніпропетровськ - Надання у постійне користування земельних ділянок" isExecutable="true">
     <documentation>https://github.com/e-government-ua/iBP/issues/51</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -10,19 +10,17 @@
         <activiti:formProperty id="bankIdPassport" name="Серія та номер паспорту" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="obect" name="Укажіть об’єкт, на який потрібно надати дозвіл" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="adres_2" name="Адреса об’єкта, на який видається дозвіл" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="pidpriemci" name="Ничже вказані поля треба заповнити юридичним особам чи особам-підприємцям" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД; тільки цифрові позначення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="edrpo_inn" name="Ідентифікаційний код згідно з ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця; тільки цифрові позначення" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Місцезнаходження юридичної особи/місце проживання фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
-      </extensionElements>
+       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника держоргану" activiti:type="mail">
       <extensionElements>
@@ -143,7 +141,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, підставу" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="opis" name="Завантажте опис прийнятих документів " type="file"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_37.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_37.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">

@@ -4,7 +4,7 @@
     <documentation>https://github.com/e-government-ua/iBP/issues/45</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="info" name="Зверніть увагу: ця послуга є платною (в розмірі  п'яти  неоподатковуваних  мінімумів  доходів громадян), при заповненні полів треба буде завантажити документ, що засвідчує внесення плати. Ви можте завантажити єлектронну квітанцію, сформовану в інтернет-банку. Детальні реквізити для оплати знаходяться за посиланням" type="label" default="http://go-url.ru/license"></activiti:formProperty>
+        <activiti:formProperty id="info" name="Зверніть увагу: ця послуга є платною (в розмірі  п'яти  неоподатковуваних  мінімумів  доходів громадян), при заповненні полів треба буде завантажити документ, що засвідчує внесення плати. Ви можте завантажити єлектронну квітанцію, сформовану в інтернет-банку. Детальні реквізити для оплати знаходяться за посиланням" type="label" default="http://haa.su/xik/"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
@@ -35,8 +35,7 @@
         <activiti:formProperty id="file_lic_old" name="Завантажте відсканований оригінал ліцензії" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file_oplata" name="Документ, що засвідчує внесення плати" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
-      </extensionElements>
+        </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника держоргану" activiti:type="mail">
       <extensionElements>
@@ -169,7 +168,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, підставу" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="opis" name="Завантажте опис прийнятих документів " type="file"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_45_2print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_45_2print.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">

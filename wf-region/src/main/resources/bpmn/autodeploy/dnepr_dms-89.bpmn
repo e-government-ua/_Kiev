@@ -441,8 +441,8 @@
         <activiti:formProperty id="Areabirth" name="Місце народження; Країна, область, район і населений пункт" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="Nationality" name="Громадянство" type="string"></activiti:formProperty>
         <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстраці; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="district" name="Район м. Дніпропетровськ, в якому ви зареєстровані" type="enum" writable="false">
+        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="district" name="Район м. Дніпропетровськ, в якому ви зареєстровані" type="enum">
           <activiti:value id="bab" name="Бабушкінський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="RegistrationDocument" name="Підставою для реєстрації місця проживання громадянина є" type="enum">

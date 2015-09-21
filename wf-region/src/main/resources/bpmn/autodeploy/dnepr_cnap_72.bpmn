@@ -140,7 +140,7 @@
         <activiti:formProperty id="trusted_person" name="П.І.Б. керівника юридичної особи / фізичної особи - підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
         <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string"></activiti:formProperty>
-        <activiti:formProperty id="date_registrastion" name="Вкажіть дату реєстрації" type="date"></activiti:formProperty>
+        <activiti:formProperty id="date_registrastion" name="Вкажіть дату реєстрації;(у форматі ДД/ММ/РРРР)" type="string"></activiti:formProperty>
         <activiti:formProperty id="status" name="Обробка заяви" type="enum">
           <activiti:value id="attr1_wait" name="Документи передані в Управління інфраструктури Дніпропетровської облдержадміністрації"></activiti:value>
           <activiti:value id="attr2_finish" name="Відмова громадянину у разі надання неповного пакету документів"></activiti:value>
@@ -226,7 +226,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										Ваше звернення щодо отримання дозвілу на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області - забраковане.&lt;/p&gt;
+										Ваше звернення щодо отримання дозвілу на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області - відхилено.&lt;/p&gt;
 &lt;p&gt;Причина в наступному: 
                                     &lt;/p&gt;
 &lt;p&gt;${decisionComment}&lt;/p&gt;
@@ -273,7 +273,7 @@
         <activiti:formProperty id="trusted_person" name="П.І.Б. керівника юридичної особи / фізичної особи - підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string"></activiti:formProperty>
-        <activiti:formProperty id="date_registrastion" name="Дата реєстрації заяви" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_registrastion" name="Дата реєстрації заяви" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="status_dozvil" name="Статус дозволу" type="enum" required="true">
           <activiti:value id="attr3_finish" name="Дозвіл готовий"></activiti:value>
           <activiti:value id="attr4_finish" name="Відмовити в видачі дозволу"></activiti:value>
