@@ -104,9 +104,8 @@ p {font-size: 11px;}
 <body>
 <section class="print_wrap">
     <div class="line_col ta-r">
-        <div class="under_field w350 ta-l"><i>Голові управління інфраструктури</i><span></span></div><br />
-		<div class="under_field w350 ta-l"><i>Дніпропетровської облдержадміністрації</i><span></span></div><br />
-		<div class="under_field w350 ta-l"><i></i><span></span></div><br />
+        <div class="under_field w300 ta-l"><i>Департамент корпоративних прав та правового забезпечення</i><span></span></div><br />
+		<div class="under_field w300 ta-l"><i>Дніпропетровської міської ради</i><span></span></div><br />
     </div>
     <div class="line_col ta-c m-t-25">
         <b>ЗАЯВА<br /></b><br />
@@ -114,8 +113,8 @@ p {font-size: 11px;}
 		<div class="under_field_line ta-l">[obect]<span>(об’єкт, на який видається документ)</span></div>
         <div class="under_field_line ta-l">[micce]<span>(місцезнаходження (адреса) об’єкта, на який видається документ)</span></div>
 		<div class="under_field_line ta-l">[davvid]<span>(у давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця)</span></div>
-		<div class="under_field_line ta-l">[kbed]<span>(вид діяльності згідно з КВЕД)</span></div>
-		<div class="under_field_line ta-l">[innedrpo]<span>(ідентифікаційний код згідно з ЄДРПОУ)</span></div>
+		<div class="under_field_line ta-l">[kved]<span>(вид діяльності згідно з КВЕД)</span></div>
+		<div class="under_field_line ta-l">[edrpou]<span>(ідентифікаційний код згідно з ЄДРПОУ)</span></div>
 		<div class="under_field_line ta-l">[innfizl]<span>(ідентифікаційний номер фізичної особи  – підприємця, платника податків та інших обов’язкових платежів)</span></div>
 		<div class="under_field_line ta-l">[pib]<span>(П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи)</span></div>
 		<div class="under_field_line ta-l">[micurl]<span>(місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця)</span></div>
@@ -123,7 +122,7 @@ p {font-size: 11px;}
 		<div class="ta-l">телефон/факс: <span>[phone]</span></div><br />
 		<div class="ta-l">Спосіб одержання: <span></span></div><br />
 <div class="date_subm m-t-85">
-        <div class="month-fl-sm"><span></span><span></span>2015р.</div>
+        <div class="month-fl-sm"><span>[date_today]</span></div>
         <div class="signature"><span>(підпис керівника юридичної особи)</span></div>
 		<div class="clear"></div>
     </div>
@@ -136,14 +135,14 @@ p {font-size: 11px;}
 <table style="border-collapse: collapse; border: 1px dashed; margin-bottom: 20px;">
 					<tbody>
 						<tr>
-							<td style="border-right: 1px dashed;"><p>« _______ » ___________________201__ р.</p></td>
-							<td><p>Реєстраційний номер _____________________________________________________</p></td>
+							<td style="border-right: 1px dashed;"><p>[date_registrastion]</p></td>
+							<td><p>Реєстраційний номер [number_cnap]</p></td>
 						</tr>
 						<tr>
 							<td style="border-right: 1px dashed;"><p>_______________________________________</p>
 								<span><span><font size='2'>(підпис)</span><font/>
 							</td>
-							<td><p>_________________________________________________________________________</p>
+							<td><p>[adminFio]</p>
 								<span><font size='2'>(ініціали та прізвище адміністратора)</span><font/>
 							</td>
 						</tr>
