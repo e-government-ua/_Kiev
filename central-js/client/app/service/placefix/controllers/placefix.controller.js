@@ -135,7 +135,7 @@ angular.module('app').controller('PlaceFixController', function(
 
   // колись це було step1
   $scope.$on('onEditPlace', function(evt, oParams) {
-    
+
     PlacesService.isStep2 = false;
 
     return $state.go('index.service.general.placefix', {
@@ -143,6 +143,8 @@ angular.module('app').controller('PlaceFixController', function(
     }).then(function() {
       PlacesService.isStep2 = false;
     });
+
+    // STOPPEDHERE
   });
 
   /**
