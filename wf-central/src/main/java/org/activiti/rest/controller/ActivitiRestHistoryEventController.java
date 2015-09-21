@@ -103,16 +103,21 @@ public class ActivitiRestHistoryEventController {
 			@RequestParam(value = "sProcessInstanceName") String sProcessInstanceName,
 			@RequestParam(value = "nID_Service", required=false) Long nID_Service,
 			@RequestParam(value = "nID_Region", required=false) Long nID_Region ,
-			@RequestParam(value = "sID_UA", required = false) String sID_UA) {
-		
-		Map<String, String> mParamMessage = new HashMap<String, String>();
-	    mParamMessage.put(HistoryEventMessage.SERVICE_NAME, sProcessInstanceName);
+			@RequestParam(value = "sID_UA", required = false) String sID_UA,
+			@RequestParam(value = "soData", required = false) String soData,
+			@RequestParam(value = "sToken", required = false) String sToken,
+			@RequestParam(value = "sHead", required = false) String sHead,
+			@RequestParam(value = "sBody", required = false) String sBody) {
+
+		Map<String, String> mParamMessage = new HashMap<>();
+		mParamMessage.put(HistoryEventMessage.SERVICE_NAME, sProcessInstanceName);
             mParamMessage.put(HistoryEventMessage.SERVICE_STATE, sID_Status);
 		setHistoryEvent(HistoryEventType.GET_SERVICE, nID_Subject, mParamMessage);
 
 		return JsonRestUtils.toJsonResponse(historyEventServiceDao
 				.addHistoryEvent_Service(nID_Process, sID_Status, nID_Subject,
-						sID_Status, nID_Service, nID_Region, sID_UA));
+						sID_Status, nID_Service, nID_Region, sID_UA, 0,
+						soData, sToken, sHead, sBody));
 	}
 
 	/**
