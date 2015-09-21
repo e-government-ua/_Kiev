@@ -135,7 +135,7 @@
         <activiti:formProperty id="edrpou" name="ідентифікаційний код згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ruk" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="orgAdress" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide" name="Рішення адміністратора" type="enum">
+        <activiti:formProperty id="decision" name="Рішення адміністратора" type="enum">
           <activiti:value id="accept" name="Взяти в роботу і відправити опис документів"></activiti:value>
           <activiti:value id="reject" name="Відмовити у реєстрації звернення"></activiti:value>
         </activiti:formProperty>
