@@ -738,10 +738,10 @@
         <omgdc:Bounds height="35.0" width="35.0" x="800.0" y="220.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="-50.0" y="210.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="-49.0" y="210.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
-        <omgdc:Bounds height="30.0" width="30.0" x="24.0" y="209.0"></omgdc:Bounds>
+        <omgdc:Bounds height="30.0" width="30.0" x="25.0" y="209.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="75.0" width="105.0" x="230.0" y="200.0"></omgdc:Bounds>
@@ -778,7 +778,7 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="-75.0" y="237.0"></omgdi:waypoint>
-        <omgdi:waypoint x="-50.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="-49.0" y="237.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="565.0" y="237.0"></omgdi:waypoint>
@@ -800,7 +800,7 @@
         <omgdi:waypoint x="525.0" y="237.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
-        <omgdi:waypoint x="39.0" y="209.0"></omgdi:waypoint>
+        <omgdi:waypoint x="40.0" y="209.0"></omgdi:waypoint>
         <omgdi:waypoint x="38.0" y="175.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
@@ -819,7 +819,7 @@
         <omgdi:waypoint x="640.0" y="477.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
-        <omgdi:waypoint x="55.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="56.0" y="237.0"></omgdi:waypoint>
         <omgdi:waypoint x="90.0" y="237.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">

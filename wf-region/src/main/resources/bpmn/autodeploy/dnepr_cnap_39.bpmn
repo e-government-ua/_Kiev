@@ -372,7 +372,7 @@
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Контактний email" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Дата зверненя" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Дата звернення" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="obect" name="Об'єкт на який надається копія дозволу" type="string" writable="false"></activiti:formProperty>
@@ -391,6 +391,11 @@
         <activiti:formProperty id="otkaz_comment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
         <activiti:formProperty id="dozvil_copy" name="Завантажте копію дозволу для заявника" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>" "</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow13" sourceRef="servicetask2" targetRef="usertask2"></sequenceFlow>
