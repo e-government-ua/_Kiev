@@ -140,13 +140,24 @@
               <br/>
               <br/>
             </div>
-            <div ng-hide="selectedTask.assignee == null || sSelectedTask == 'finished'">
+            <!--div ng-hide="selectedTask.assignee == null || sSelectedTask == 'finished'">
               <button ng-hide="!taskFormLoaded || sSelectedTask == 'finished'" ng-click="print()" class="btn btn-success">Роздрукувати
               </button>
+            </div-->
+          
+            <div>
+              <button ng-hide="!taskFormLoaded" ng-click="print()" class="btn btn-success">Роздрукувати
+              </button>
             </div>
-            <select class="aPatternPrint form-control_" ng-hide="aPatternPrintNew1(taskForm)===null || aPatternPrintNew1(taskForm).length===0 || selectedTask.assignee == null || sSelectedTask == 'finished'">
+          
+            <!--select class="aPatternPrint form-control_" ng-hide="aPatternPrintNew1(taskForm)===null || aPatternPrintNew1(taskForm).length===0 || selectedTask.assignee == null || sSelectedTask == 'finished'">
+              <option ng-repeat="oPatternPrint in aPatternPrintNew1(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.displayTemplate}}</option>
+            </select-->
+
+            <select class="aPatternPrint form-control_" ng-hide="aPatternPrintNew1(taskForm)===null || aPatternPrintNew1(taskForm).length===0">
               <option ng-repeat="oPatternPrint in aPatternPrintNew1(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.displayTemplate}}</option>
             </select>
+            
           </p>
         </div>
       </div>
