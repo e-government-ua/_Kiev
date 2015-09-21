@@ -54,6 +54,8 @@ describe('ValidationService Tests', function() {
       ,'DateFormat': 'dateformat'
       ,'DateElapsed': 'dateelapsed'
       ,'CodeKVED': 'CodeKVED'
+      ,'CodeEDRPOU': 'CodeEDRPOU'
+      ,'CodeMFO': 'CodeMFO'
     };
 
     function doValidate(validatorName, value, toBeOrNotToBe, options) {
