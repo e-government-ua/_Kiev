@@ -122,7 +122,20 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                 Object[] currValue = (Object[]) item;
                 log.info("Curr value:" + currValue);
                 
-                String snRate = (String) currValue[2];
+                //String snRate = (String) currValue[2];
+                String snRate = "0";
+                try{
+                    snRate = (String) currValue[2];
+                }catch(Exception oException){
+                    log.error("[Curr value(String)]:" + oException.getMessage());
+                }
+                
+                try{
+                    snRate = ((Long) currValue[2])+"";
+                }catch(Exception oException){
+                    log.error("[Curr value(Long)]:" + oException.getMessage());
+                }
+                
                 log.info("(String) currValue[2])=" + snRate);
                 if(snRate==null){
                     snRate="0";
