@@ -15,8 +15,8 @@
         <activiti:formProperty id="adress2" name="Адреса об'єкта, на який видається документ" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменовання юридичної особи/П.І.Б. фізичної особи - підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="edrpou" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="kod_inn" name="Ідентифікаційний номер фізичної особи - підприємця, платника податків та інших обов'язкових платежів" type="long"></activiti:formProperty>
+        <activiti:formProperty id="edrpou" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб)" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kod_inn" name="Ідентифікаційний номер фізичної особи - підприємця, платника податків та інших обов'язкових платежів" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="trusted_person" name="П.І.Б. керівника юридичної особи / фізичної особи - підприємця/уповноваженої особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="file1" name="Погодження на розміщення зовнішньої реклами з Державтоінспекцією та Укравтодором або його територіальними органами - у разі розміщення зовнішньої реклами в межах смуги відведення автомобільних доріг загального користування" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="file2" name="Погодження на розміщення зовнішньої реклами з Мінкультури або місцевим органом виконавчої влади у сфері охорони культурної спадщини - у разі розміщення зовнішньої реклами на пам'ятках історії та архітектури і в межах зон охорони пам'яток національного або місцевого значення" type="file" default=" "></activiti:formProperty>
@@ -135,7 +135,7 @@
         <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kod_inn" name="Ідентифікаційний номер фізичної особи - підприємця, платника податків та інших обов'язкових платежів" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kod_inn" name="Ідентифікаційний номер фізичної особи - підприємця, платника податків та інших обов'язкових платежів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="trusted_person" name="П.І.Б. керівника юридичної особи / фізичної особи - підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
         <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string"></activiti:formProperty>
@@ -268,10 +268,10 @@
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменовання юридичної особи/П.І.Б. фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kod_inn" name="Ідентифікаційний номер фізичної особи - підприємця, платника податків та інших обов'язкових платежів" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kod_inn" name="Ідентифікаційний номер фізичної особи - підприємця, платника податків та інших обов'язкових платежів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="trusted_person" name="П.І.Б. керівника юридичної особи / фізичної особи - підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string"></activiti:formProperty>
+        <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_registrastion" name="Дата реєстрації заяви" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="status_dozvil" name="Статус дозволу" type="enum" required="true">
           <activiti:value id="attr3_finish" name="Дозвіл готовий"></activiti:value>
@@ -352,7 +352,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										Ваше звернення щодо отримання дозвілу на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області був направлений до Управління інфраструктури Дніпропетровської облдержадміністрації також надсилаємо Вам опис присланих нам документів, який знаходиться у прекрепленному файлі.&lt;br /&gt; 
+										Ваше звернення щодо отримання дозвілу на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області був направлений до Управління інфраструктури Дніпропетровської облдержадміністрації. Також надсилаємо опис надісланих Вами документів, який знаходиться у прикріпленому файлі.&lt;br /&gt; 
 										 
 									&lt;p&gt;&lt;/p&gt;
 										Залишайтеся з нами. 	
