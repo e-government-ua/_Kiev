@@ -44,7 +44,12 @@ angular.module('app').factory('MarkersFactory', function() {
         nYears: 0
         //,sDebug: 'Додаткова опція - інформація для дебагу'
         //,bDebug: false; // Опція для дебагу
+      },
+      CodeKVED: {
+        aField_ID: ['kved']
       }
+      
+      
     },
     attributes: {
       Editable_1: {aField_ID:['sPhone_User1', 'sMail_User1', 'bankIdlastName'], bValue: true},

@@ -4,54 +4,7 @@
  *
  * Різні маркери можуть призначатися одним і тим же полям. 
  * Див. i/issues/375, 654
- *  
- * PhoneUA, Mail, AutoVIN, TextUA, 'TextRU', 'DateFormat', 'DateElapsed' 
- *
- * var markers = {
-    validate: {
-      PhoneUA: {
-        aField_ID: ['privatePhone', 'workPhone', 'phone', 'tel']
-        desc: 'Український номер телефону'
-      },
-      Mail: {
-        aField_ID: ['privateMail', 'email'],
-        desc: 'Адреса електронної пошти',
-        error: 'Невірна адреса електронної пошти'
-      },
-      AutoVIN: {
-        aField_ID: ['vin_code', 'vin_code1', 'vin'],
-        desc: 'Номер авто VIN',
-        error: 'Помилка у номері авто VIN'
-      },
-      TextUA: {
-        aField_ID: ['textUa'],
-        desc: 'Тільки українські літери, без цифр, можливий мінус (дефіс) та пробіл',
-        error: 'Текст може містити тількі українські літери або мінус чи пробіл'
-      },
-      TextRU: {
-        aField_ID: ['textRu'],
-        desc: 'Тільки російські літери, без цифр, можливий мінус (дефіс) та пробіл',
-        error: 'Текст може містити тількі російські літери або мінус чи пробіл'
-      },
-      DateFormat: {
-        aField_ID: ['dateFormat'],
-        sFormat: 'YYYY-MM-DD',
-        desc: 'Дата у заданому форматі {DATE_FORMAT}',
-        error: 'Дата може бути тільки формату {DATE_FORMAT}'
-      },
-      DateElapsed: {
-        aField_ID: ['dateOrder'],
-        bFuture: true, // якщо true, то дата modelValue має бути у майбутньому
-        bLess: true, // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
-        nDays: 10,
-        nMonths: 0,
-        nYears: 0
-          //,sDebug: 'Додаткова опція - інформація для дебагу'
-          //,bDebug: false; // Опція для дебагу
-      }
-    }
-  };
- */
+  */
 
 'use strict';
 
@@ -138,13 +91,14 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
   };
 
   self.validatorNameByMarkerName = {
-    'Mail': 'email',
-    'AutoVIN': 'autovin',
-    'PhoneUA': 'tel',
-    'TextUA': 'textua',
-    'TextRU': 'textru',
-    'DateFormat': 'dateformat',
-    'DateElapsed': 'dateelapsed'
+    'Mail': 'email'
+    ,'AutoVIN': 'autovin'
+    ,'PhoneUA': 'tel'
+    ,'TextUA': 'textua'
+    ,'TextRU': 'textru'
+    ,'DateFormat': 'dateformat'
+    ,'DateElapsed': 'dateelapsed'
+    ,'CodeKVED': 'CodeKVED'
   };
 
   /**
@@ -181,14 +135,14 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       bValid = bValid && EMAIL_REGEXP.test(modelValue);
       // console.log('Validate Email: ' + modelValue + ' is valid email: ' + bValid );
       return bValid;
-    },
+    }
 
     /**
      * 'AutoVIN' - Логика: набор из 17 символов.
      * Разрешено использовать все арабские цифры и латинские буквы (А В C D F Е G Н J К L N М Р R S Т V W U X Y Z),
      * За исключением букв Q, O, I. (Эти буквы запрещены для использования, поскольку O и Q похожи между собой, а I и O можно спутать с 0 и 1.)
      */
-    'AutoVIN': function(sValue) {
+    ,'AutoVIN': function(sValue) {
       if (!sValue) {
         return false;
       }
@@ -199,44 +153,43 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       bValid = bValid && (/^[a-zA-Z0-9]+$/.test(sValue));
       bValid = bValid && (sValue.indexOf('q') < 0 && sValue.indexOf('o') < 0 && sValue.indexOf('i') < 0);
       bValid = bValid && (sValue.indexOf('Q') < 0 && sValue.indexOf('O') < 0 && sValue.indexOf('I') < 0);
-      // console.log('Validate AutoVIN: ', sValue, ' is valid: ' + bValid );
       return bValid;
-    },
+    }
 
-    'PhoneUA': null,
+    ,'PhoneUA': null
 
     /**
      * 'TextUA' - Усі українскі літери, без цифр, можливий мінус (дефіс) та пробіл
      * Текст помилки: 'Текст може містити тількі українські літери або мінус чи пробіл'
      */
-    'TextUA': function(modelValue, viewValue) {
+    ,'TextUA': function(modelValue, viewValue) {
       if(modelValue===null || modelValue===''){return true;}
       var TEXTUA_REGEXP = /^[ААБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя`'-\s]+$/g;
       var TEXTRU_ONLY = /[ЁёЪъЫыЭэ]+/g;
       var bValid = TEXTUA_REGEXP.test(modelValue) && !TEXTRU_ONLY.test(modelValue);
       //console.log('Validate TextUA: ' + modelValue + ' is valid: ' + bValid );
       return bValid;
-    },
+    }
 
     /**
      * 'TextRU' - Усі російські літери, без цифр, можливий мінус (дефіс) та пробіл
      * Текст помилки: 'Текст може містити тількі російські літери або мінус че пробіл'
      */
-    'TextRU': function(modelValue, viewValue) {
+    ,'TextRU': function(modelValue, viewValue) {
       if(modelValue===null || modelValue===''){return true;}
       var TEXTRU_REGEXP = /^[АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя-\s]+$/g;
       var TEXTUA_ONLY = /[ҐЄІЇґєії]+/g;
       var bValid = TEXTRU_REGEXP.test(modelValue) && !TEXTUA_ONLY.test(modelValue);
       // console.log('Validate TextRU: ' + modelValue + ' is valid: ' + bValid );
       return bValid;
-    },
+    }
 
     /**
      * 'DateFormat' - Дата у заданому форматі DATE_FORMAT
      * Текст помилки: 'Дата може бути тільки формату DATE_FORMAT'
      * Для валідації формату використовується  moment.js
      */
-    'DateFormat': function(modelValue, viewValue, options) {
+    ,'DateFormat': function(modelValue, viewValue, options) {
       if (!options || !options.sFormat) {
         return false;
       }
@@ -253,7 +206,7 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       }
 
       return bValid;
-    },
+    }
 
     /**
      * 'DateElapsed' - З/до дати у полі з/після поточної, більше/менше днів/місяців/років
@@ -270,7 +223,7 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
      * З/До         - в залежності від bFuture
      * більше/менше - в залежності від bLess
      */
-    'DateElapsed': function(modelValue, viewValue, options) {
+    ,'DateElapsed': function(modelValue, viewValue, options) {
 
       // bFuture, bLess, nDays, nMonths, nYears
       var o = options;
@@ -413,6 +366,34 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       //   }
       // }
     }
+    
+    /*
+    Логика: две цифры точка две цифры (первые две цифры не могут быть 04, 34, 40, 44, 48, 54, 57, 67, 76, 83, 89)
+    Сообщение: Такого КВЕД не існує - (ви не можете вписувати літери)
+     */
+    ,'CodeKVED': function(sValue) { //вид экономической деятельности по КВЕД.
+
+      if (!sValue) {
+        return false;
+      }
+
+      var bValid = true;
+      bValid = bValid && (sValue !== null);
+      bValid = bValid && (sValue.trim().length === 5);
+      var s=bValid ? sValue.trim().substr(0,2) : "";
+      bValid = bValid && (s !== '04' && s !== '34' && s !== '40'
+              && s !== '44' && s !== '48' && s !== '54' && s !== '57'
+              && s !== '67' && s !== '76' && s !== '83' && s !== '89');
+      
+      console.log('Validate CodeKVED: ', sValue, ' is valid: ' + bValid );
+      //bValid = bValid && (/^[a-zA-Z0-9]+$/.test(sValue));
+      //bValid = bValid && (sValue.indexOf('q') < 0 && sValue.indexOf('o') < 0 && sValue.indexOf('i') < 0);
+      //bValid = bValid && (sValue.indexOf('Q') < 0 && sValue.indexOf('O') < 0 && sValue.indexOf('I') < 0);
+      //
+      // console.log('Validate AutoVIN: ', sValue, ' is valid: ' + bValid );
+      return bValid;
+    }
+    
   };
 
   self.fromDateToDate = function(dateA, dateB, fmt) {

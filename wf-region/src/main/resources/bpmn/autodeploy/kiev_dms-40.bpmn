@@ -38,7 +38,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="bringDocOther" name="Заповніть якщо Ви вибрали опцію &quot;Інші документи&quot;" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="vlasn" name="Власник житла; Якщо власник не один вкажіть через кому" type="textArea" default=" "></activiti:formProperty>
-        <activiti:formProperty id="milit_status" name="Ви перебувади / перебуваєте на війсковому обліку?" type="enum" required="true">
+        <activiti:formProperty id="milit_status" name="Ви перебували / перебуваєте на війсковому обліку?" type="enum" required="true">
           <activiti:value id="true" name="Так"></activiti:value>
           <activiti:value id="false" name="Ні"></activiti:value>
         </activiti:formProperty>
@@ -66,7 +66,7 @@
         <activiti:formProperty id="sBody_4" name="sBody" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sBody_5" name="sBody" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sBody_6" name="sBody" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="marker1" name="маркер динамічної форми" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;bringDocOther&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;RegistrationDocument&quot;},&quot;sCondition&quot;: &quot;[sReason] == 'other'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;milName&quot;, &quot;milRank&quot;,”milSpec”],&quot;asID_Field&quot;:{&quot;sReason2&quot;: &quot;milit_status&quot;},&quot;sCondition&quot;:&quot;[sReason2]=='true'&quot;},&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;ChildName1&quot;,”ChildSex1”,”kidsBirth”,”kidsPOB”,”kidsDoc”,”kidsCitizenship”],&quot;asID_Field&quot;:{&quot;sReason3&quot;: &quot;kids&quot;},&quot;sCondition&quot;: &quot;[sReason3]=='yes'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker1" name="маркер динамічної форми" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;bringDocOther&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;RegistrationDocument&quot;},&quot;sCondition&quot;:&quot;[sReason]=='other'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;milName&quot;,&quot;milRank&quot;,&quot;milSpec&quot;],&quot;asID_Field&quot;:{&quot;sReason2&quot;: &quot;milit_status&quot;},&quot;sCondition&quot;:&quot;[sReason2]=='true'&quot;},&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;ChildName1&quot;,&quot;ChildSex1&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;: &quot;kids&quot;},&quot;sCondition&quot;: &quot;[sReason3]=='yes'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow2" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
