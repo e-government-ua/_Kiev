@@ -61,6 +61,22 @@ public class HistoryEvent_Service extends Entity {
     @Column(name = "nRate", nullable = true)
     private Integer nRate;
 
+    @JsonProperty(value = "soData")
+    @Column(name = "soData", nullable = true)
+    private String soData;
+
+    @JsonProperty(value = "sToken")
+    @Column(name = "sToken", nullable = true)
+    private String sToken;
+
+    @JsonProperty(value = "sHead")
+    @Column(name = "sHead", nullable = true)
+    private String sHead;
+
+    @JsonProperty(value = "sBody")
+    @Column(name = "sBody", nullable = true)
+    private String sBody;
+
     public String getsID() {
         return sID;
     }
@@ -147,5 +163,37 @@ public class HistoryEvent_Service extends Entity {
 
     public void setnRate(Integer nRate) {
         this.nRate = nRate;
+    }
+
+    public String getSoData() {
+        return soData;
+    }
+
+    public void setSoData(String soData) {
+        this.soData = soData;
+    }
+
+    public String getsToken() {
+        return sToken;
+    }
+
+    public void setsToken(String sToken) {
+        this.sToken = sToken;
+    }
+
+    public String getsHead() {
+        return sHead;
+    }
+
+    public void setsHead(String sHead) {
+        this.sHead = sHead;
+    }
+
+    public String getsBody() {
+        return sBody;
+    }
+
+    public void setsBody(String sBody) {
+        this.sBody = sBody;
     }
 }
