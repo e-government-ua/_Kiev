@@ -54,16 +54,24 @@ public class ActivitiPaymentRestController {
 			@RequestParam String sID_Order,
 			@RequestParam String sID_PaymentSystem,
 			@RequestParam String sData,
+			@RequestParam(value = "sPrefix", required = false) String sPrefix,
 			@RequestParam(value = "data", required = false) String data,
 			@RequestParam(value = "signature", required = false) String signature,
 			HttpServletRequest request
 			) throws Exception{
+            
+            if(sPrefix==null){
+                sPrefix="";
+            }
+            
             String URI = request.getRequestURI() + "?" + request.getQueryString();
             log.info("/setPaymentStatus_TaskActiviti");
             
             log.info("sID_Order="+sID_Order);
             log.info("sID_PaymentSystem="+sID_PaymentSystem);
             log.info("sData="+sData);
+            log.info("sPrefix="+sPrefix);
+            
             log.info("data="+data);
             log.info("signature="+signature);
             log.info("URI="+URI);
@@ -74,7 +82,7 @@ public class ActivitiPaymentRestController {
                     sDataDecoded = new String(BASE64DecoderStream.decode(data.getBytes()));
                     log.info("sDataDecoded="+sDataDecoded);
                 }
-                setPaymentStatus(sID_Order, sDataDecoded, sID_PaymentSystem);
+                setPaymentStatus(sID_Order, sDataDecoded, sID_PaymentSystem, sPrefix);
                 //setPaymentStatus(sID_Order, null, sID_PaymentSystem);                
             }catch(Exception oException){
                 log.error("/setPaymentStatus_TaskActiviti", oException);
@@ -146,6 +154,7 @@ public class ActivitiPaymentRestController {
 			@RequestParam String sID_Order,
 			@RequestParam String sID_PaymentSystem,
 			@RequestParam String sData,
+			@RequestParam(value = "sPrefix", required = false) String sPrefix,
                         
 			//@RequestParam String snID_Task,
 			@RequestParam String sID_Transaction,
@@ -153,11 +162,15 @@ public class ActivitiPaymentRestController {
                         
 			) throws Exception{
 
+            if(sPrefix==null){
+                sPrefix="";
+            }
             
             log.info("/setPaymentStatus_TaskActiviti_Direct");
             log.info("sID_Order="+sID_Order);
             log.info("sID_PaymentSystem="+sID_PaymentSystem);
             log.info("sData="+sData);
+            log.info("sPrefix="+sPrefix);
 
             log.info("sID_Transaction="+sID_Transaction);
             log.info("sStatus_Payment="+sStatus_Payment);
@@ -176,7 +189,7 @@ public class ActivitiPaymentRestController {
             log.info("snID_Task="+snID_Task);
 
             if("Liqpay".equals(sID_PaymentSystem)){
-                setPaymentTransaction_ToActiviti(snID_Task, sID_Transaction, sStatus_Payment);
+                setPaymentTransaction_ToActiviti(snID_Task, sID_Transaction, sStatus_Payment, sPrefix);
                 sData="Ok";
             }else{
                 sData="Fail";
@@ -186,11 +199,13 @@ public class ActivitiPaymentRestController {
 	}                
         
         
-    @RequestMapping(value = "/setPaymentStatus_TaskActiviti_", method = RequestMethod.POST, headers = { "Accept=application/json" })
+    /*@RequestMapping(value = "/setPaymentStatus_TaskActiviti_", method = RequestMethod.POST, headers = { "Accept=application/json" })
 	public @ResponseBody String setPaymentStatus_TaskActiviti(
 			@RequestParam String sID_Order,
 			@RequestParam String sID_PaymentSystem,
 			@RequestParam String sData,
+			@RequestParam(value = "sPrefix", required = false) String sPrefix,
+                        
 			@RequestParam byte[] data,
 			@RequestParam byte[] signature
 			) throws Exception{
@@ -202,7 +217,7 @@ public class ActivitiPaymentRestController {
             log.info("signature="+signature);
             String sDataDecoded = new String(BASE64DecoderStream.decode(data));
             log.info("sDataDecoded="+sDataDecoded);
-            setPaymentStatus(sID_Order, sDataDecoded, sID_PaymentSystem);
+            setPaymentStatus(sID_Order, sDataDecoded, sID_PaymentSystem, sPrefix);
             return sData;
 	}
 
@@ -221,11 +236,11 @@ public class ActivitiPaymentRestController {
             LiqpayCallbackModel liqpayCallback = gson.fromJson(sFullData, LiqpayCallbackModel.class);
             //log.info("sID_PaymentSystem="+sID_PaymentSystem);
             log.info("liqpayCallback.getOrder_id()="+liqpayCallback.getOrder_id());
-            setPaymentStatus(liqpayCallback.getOrder_id(), sFullData, sID_PaymentSystem);
+            setPaymentStatus(liqpayCallback.getOrder_id(), sFullData, sID_PaymentSystem, sPrefix);
             return sFullData;
-	}
+	}*/
 
-    private void setPaymentStatus(String sID_Order, String sData, String sID_PaymentSystem) throws Exception {
+    private void setPaymentStatus(String sID_Order, String sData, String sID_PaymentSystem, String sPrefix) throws Exception {
         if (!LIQPAY_PAYMENT_SYSTEM.equals(sID_PaymentSystem)) {
             log.error("not liqpay system");
             throw new Exception("not liqpay system");
@@ -237,7 +252,16 @@ public class ActivitiPaymentRestController {
         Long nID_Task = null;
         try {
             if (sID_Order.contains(TASK_MARK)) {
-                nID_Task = Long.decode(sID_Order.replace(TASK_MARK, ""));
+                log.info("sID_Order(1)=" + sID_Order);
+                String s = sID_Order.replace(TASK_MARK, "");
+                log.info("sID_Order(2)=" + s);
+                if(s.endsWith(sPrefix)){
+                    s=s.substring(0, s.length() - sPrefix.length());
+                }
+                log.info("sID_Order(3)=" + s);
+                nID_Task = Long.decode(s);
+                log.info("nID_Task=" + nID_Task);
+                //nID_Task = Long.decode(sID_Order.replace(TASK_MARK, ""));
             }
         } catch (NumberFormatException e) {
             log.error("incorrect sID_Order! can't invoke task_id: " + sID_Order);
@@ -334,9 +358,9 @@ public class ActivitiPaymentRestController {
         }
         
         
-        setPaymentTransaction_ToActiviti(snID_Task, sID_Transaction, sStatus_Payment);
+        setPaymentTransaction_ToActiviti(snID_Task, sID_Transaction, sStatus_Payment, sPrefix);
     }
-    private void setPaymentTransaction_ToActiviti(String snID_Task, String sID_Transaction, String sStatus_Payment) throws Exception{
+    private void setPaymentTransaction_ToActiviti(String snID_Task, String sID_Transaction, String sStatus_Payment, String sPrefix) throws Exception{
         //save info to process
         try {
             log.info("try to get task. snID_Task=" + snID_Task);
@@ -358,8 +382,8 @@ public class ActivitiPaymentRestController {
             String snID_Process = snID_Task;
             String sID_Payment = sID_Transaction+"_"+sStatus_Payment;
             log.info("try to set: sID_Payment="+sID_Payment);
-            runtimeService.setVariable(snID_Process, "sID_Payment", sID_Payment);
-            log.info("completed set sID_Payment="+sID_Payment+" to: snID_Process=" + snID_Process);
+            runtimeService.setVariable(snID_Process, "sID_Payment"+sPrefix, sID_Payment);
+            log.info("completed set sID_Payment"+sPrefix+"="+sID_Payment+" to: snID_Process=" + snID_Process);
         } catch (Exception e){
             log.error("during changing: snID_Task=" + snID_Task
                     + ", sID_Transaction=" + sID_Transaction + ", sStatus_Payment=" + sStatus_Payment, e);
