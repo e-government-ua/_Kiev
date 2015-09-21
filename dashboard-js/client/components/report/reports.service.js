@@ -1,84 +1,74 @@
-angular.module('dashboardJsApp').factory('reports', function tasks($http, $q) {
-      function defaultHandler(exportParams,callback){
-        var dataArray = {
-          'sID_BP': exportParams.sBP, //'dnepr_spravka_o_doxodax',
-          'sID_State_BP': 'usertask1',
-          'sDateAt': exportParams.from,
-          'sDateTo': exportParams.to,
-          'saFields': '${nID_Task};${sDateCreate};${area};${bankIdinn};;;${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName};4;${aim};${date_start1};${date_stop1};${place_living};${bankIdPassport};1;${phone};${email}',
-          'sID_Codepage': 'win1251',
-          'nASCI_Spliter': '18',
-          'sDateCreateFormat': 'dd.MM.yyyy HH:mm:ss',
-          'sFileName': 'dohody.dat'
-        };
-        var getExportUrl = './api/reports/export?';
-        for (var key in dataArray) {
-          getExportUrl = getExportUrl + key + '=' + dataArray[key] + '&';
-        }
-        var fileToSave = "zvit.dat";
-        if (dataArray["sFileName"]) fileToSave = dataArray["sFileName"];
+angular.module('dashboardJsApp').factory('reports', function tasks($http) {
 
-if (exportParams.fromButton){
-        $http.get(getExportUrl).then(function (data, fileName) {
-          callback(data, fileToSave);
-        }, function (result) {
-          //if error        
-          console.log(result);     
-        });}
-        else {
-           callback(getExportUrl);
-        }
-        
-      }   
+  function getDefaultDataArray(exportParams) {
+    var dataArray = {
+      'sID_BP': exportParams.sBP, //'dnepr_spravka_o_doxodax',
+      'sID_State_BP': 'usertask1',
+      'sDateAt': exportParams.from,
+      'sDateTo': exportParams.to,
+      'saFields': '${nID_Task};${sDateCreate};${area};${bankIdinn};;;${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName};4;${aim};${date_start1};${date_stop1};${place_living};${bankIdPassport};1;${phone};${email}',
+      'sID_Codepage': 'win1251',
+      'nASCI_Spliter': '18',
+      'sDateCreateFormat': 'dd.MM.yyyy HH:mm:ss',
+      'sFileName': 'dohody.dat'
+    };
+    return dataArray;
+  }
+
+  function getExportUrl(dataArray) {
+    var exportUrl = './api/reports/export?';
+    for (var key in dataArray) {
+      exportUrl = exportUrl + key + '=' + dataArray[key] + '&';
+    }
+    return exportUrl;
+  }
+
+  function defaultHandler(exportParams, callback) {
+    var dataArray = getDefaultDataArray(exportParams);
+    var exportUrl = getExportUrl(dataArray); 
+
+    //return export URL to client's reports.controller
+    callback(exportUrl);
+
+  }
   return {
 
-    exportLink: function (exportParams,callback) {
+    exportLink: function (exportParams, callback) {
+      var dataArray = getDefaultDataArray(exportParams);
       
-      var dataArray = {'sID_BP': exportParams.sBP,'sDateAt': exportParams.from,'sDateTo': exportParams.to};      
-      
+      //loading properties from .properties file for a selected Business Process      
       var getReportParametersUrl = '/api/reports/template?sPathFile=/export/' + exportParams.sBP + '.properties';
-      $http.get(getReportParametersUrl).then(function(result){    
-          
-        if (result.data != ''){
-        _.each(result.data.split("\n"), function (line) {
+
+      $http.get(getReportParametersUrl).then(function (result) {
+
+        if (result.data != '') {
+          _.each(result.data.split("\n"), function (line) {
             var sr = line.split("=");
             if (!!sr && sr.length >= 2) {
               var propKey = sr[0].trim();
               var propValue = sr[1].trim();
-              if (!dataArray[propKey]) {
+              //if there is already such property in default properties - it's value should be overwritten
+              if (dataArray[propKey]) {
                 dataArray[propKey] = propValue;
               }
-              
             }
-        });
-            var getExportUrl = './api/reports/export?';
-            for(var key in dataArray) {
-              getExportUrl = getExportUrl + key+'='+dataArray[key]+'&';              
-            }
-            var fileToSave = "zvit.dat";
-            if (dataArray["sFileName"]) fileToSave = dataArray["sFileName"];  
-            
-            if (exportParams.fromButton){
-        $http.get(getExportUrl).then(function (data, fileName) {
-          callback(data, fileToSave);
-        }, function (result) {
-          //if error        
-          console.log(result);     
-        });}
+          });
+
+          var exportUrl = getExportUrl(dataArray);
+          callback(exportUrl);
+        }
         else {
-          callback(getExportUrl);
+          //if returned properties are empty
+          defaultHandler(exportParams, callback);
         }
-        }
-        else defaultHandler(exportParams,callback);
-            
       }, function () {
-        //if error 403 when loading properties
-        defaultHandler(exportParams,callback);
-      })      
+        //if error 403 when loading .properties
+        defaultHandler(exportParams, callback);
+      })
 
     },
-    
-     statisticLink: function (statisticParams, callback) {
+
+    statisticLink: function (statisticParams, callback) {
       var data = {
         'sID_BP': statisticParams.sBP,
         'sDateAt': statisticParams.from,
@@ -87,8 +77,8 @@ if (exportParams.fromButton){
       var statUrl = './api/reports/statistic?' +
         'sID_BP_Name=' + data.sID_BP + '&' +
         'sDateAt=' + data.sDateAt + '&' +
-        'sDateTo=' + data.sDateTo;              
-      
+        'sDateTo=' + data.sDateTo;
+
       callback(statUrl);
     }
 
