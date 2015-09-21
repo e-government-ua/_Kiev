@@ -85,7 +85,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 	protected String replaceTags(String textStr, DelegateExecution execution)
 			throws Exception {
 		String LIQPAY_CALLBACK_URL = generalConfig.sHost()
-				+ "/wf/service/setPaymentStatus_TaskActiviti?sID_Order={0}&sID_PaymentSystem=Liqpay&sData=";
+				+ "/wf/service/setPaymentStatus_TaskActiviti?sID_Order=%s&sID_PaymentSystem=Liqpay&sData=%s&sPrefix=%s";
 		String URL_SERVICE_MESSAGE = generalConfig.sHostCentral()
 				+ "/wf/service/messages/setMessage";
 
@@ -95,15 +95,15 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 		String textWithoutTags = textStr;
 		for (int i = 0; i < 10; i++) { //написать автоопределение тегов и заменить этот кусок
 			boolean isItFirstTag = (i == 0);
-			String pattern_Certain = isItFirstTag ? "" : PATTERN_DELIMITER + i;
-			String tag_Payment_Button_Liqpay = String.format(TAG_PAYMENT_BUTTON_LIQPAY, pattern_Certain);
+			String prefix = isItFirstTag ? "" : PATTERN_DELIMITER + i;
+			String tag_Payment_Button_Liqpay = String.format(TAG_PAYMENT_BUTTON_LIQPAY, prefix);
 			if (textWithoutTags.contains(tag_Payment_Button_Liqpay)) {
 
-				String pattern_merchant = String.format(PATTERN_MERCHANT_ID, pattern_Certain);
-				String pattern_sum = String.format(PATTERN_SUM, pattern_Certain);
-				String pattern_currency = String.format(PATTERN_CURRENCY_ID, pattern_Certain);
-				String pattern_description = String.format(PATTERN_DESCRIPTION, pattern_Certain);
-				String pattern_subject = String.format(PATTERN_SUBJECT_ID, pattern_Certain);
+				String pattern_merchant = String.format(PATTERN_MERCHANT_ID, prefix);
+				String pattern_sum = String.format(PATTERN_SUM, prefix);
+				String pattern_currency = String.format(PATTERN_CURRENCY_ID, prefix);
+				String pattern_description = String.format(PATTERN_DESCRIPTION, prefix);
+				String pattern_subject = String.format(PATTERN_SUBJECT_ID, prefix);
 
 				String sID_Merchant = execution.getVariable(pattern_merchant) != null
 						? execution.getVariable(pattern_merchant).toString() 
@@ -130,9 +130,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 						: execution.getVariable(String.format(PATTERN_DESCRIPTION, "")).toString();
 				LOG.info(pattern_description + "=" + sDescription);
 
-				String sID_Order = "TaskActiviti_" + execution.getId();
-				String sURL_CallbackStatusNew = StringUtils.replace(
-						LIQPAY_CALLBACK_URL, "{0}", sID_Order);
+				String sID_Order = "TaskActiviti_" + execution.getId().trim() + prefix;
+				String sURL_CallbackStatusNew = String.format(
+						LIQPAY_CALLBACK_URL, sID_Order, "", prefix);
 				String sURL_CallbackPaySuccess = null;
 				Long nID_Subject = Long.valueOf(execution.getVariable(pattern_subject) != null 
 						? execution.getVariable(pattern_subject).toString() 
