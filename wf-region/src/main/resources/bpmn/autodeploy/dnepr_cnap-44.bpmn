@@ -376,7 +376,7 @@
           <activiti:value id="decline" name="Готове заперечення в проведенні заходу"></activiti:value>
         </activiti:formProperty>
       	<activiti:formProperty id="comment1" name="Коментар адміністратора у разі заперечення в проведенні заходу" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="rishen" name="Завантажте копію рішення" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="rishen" name="Завантажте копію рішення" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow14" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
@@ -628,10 +628,10 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow12" sourceRef="servicetask4" targetRef="endevent3"></sequenceFlow>
-    <sequenceFlow id="flow16" name="${dozvil == 'decline' &amp;&amp; cnapChoose == 'prav'}" sourceRef="exclusivegateway2" targetRef="mailtask5">
+    <sequenceFlow id="flow16" name="${dozvil == 'decline' &amp;&amp; cnapChoose == 'prav'}" sourceRef="exclusivegateway2" targetRef="servicetask5">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${dozvil == 'decline' &&cnapChoose == 'prav'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask5" name="Відмова готова на правому" activiti:type="mail">
+    <serviceTask id="servicetask5" name="Відмова готова на правому" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -642,10 +642,7 @@
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Надання дозволу релігійним організаціям на проведення релігійних заходів, які проводяться поза межами культових споруд]]></activiti:string>
         </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="html">
+        <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head lang="ru"&gt;
@@ -732,13 +729,16 @@
 &lt;/body&gt;
 &lt;/html&gt;</activiti:expression>
         </activiti:field>
+         <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${rishen}</activiti:expression>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow17" sourceRef="mailtask5" targetRef="endevent3"></sequenceFlow>
-    <sequenceFlow id="flow18" name="${dozvil == 'decline' &amp;&amp; cnapChoose == 'lev'}" sourceRef="exclusivegateway2" targetRef="mailtask6">
+    <sequenceFlow id="flow17" sourceRef="servicetask5" targetRef="endevent3"></sequenceFlow>
+    <sequenceFlow id="flow18" name="${dozvil == 'decline' &amp;&amp; cnapChoose == 'lev'}" sourceRef="exclusivegateway2" targetRef="servicetask6">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${dozvil == 'decline' &&cnapChoose == 'lev'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask6" name="Відмова готова на лівому" activiti:type="mail">
+    <serviceTask id="servicetask6" name="Відмова готова на лівому" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -749,10 +749,7 @@
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Надання дозволу релігійним організаціям на проведення релігійних заходів, які проводяться поза межами культових споруд]]></activiti:string>
         </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="html">
+        <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head lang="ru"&gt;
@@ -839,9 +836,12 @@
 &lt;/body&gt;
 &lt;/html&gt;</activiti:expression>
         </activiti:field>
+         <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${rishen}</activiti:expression>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow19" sourceRef="mailtask6" targetRef="endevent3"></sequenceFlow>
+    <sequenceFlow id="flow19" sourceRef="servicetask6" targetRef="endevent3"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap-44">
     <bpmndi:BPMNPlane bpmnElement="dnepr_cnap-44" id="BPMNPlane_dnepr_cnap-44">
@@ -890,10 +890,10 @@
       <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
         <omgdc:Bounds height="61.0" width="108.0" x="640.0" y="332.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
         <omgdc:Bounds height="59.0" width="105.0" x="950.0" y="333.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
+      <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
         <omgdc:Bounds height="60.0" width="105.0" x="787.0" y="333.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
