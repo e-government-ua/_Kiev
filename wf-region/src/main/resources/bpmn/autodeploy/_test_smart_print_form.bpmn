@@ -127,6 +127,10 @@
         <activiti:formProperty id="sBody_4" name="[pattern/print/talon_4(kiev).html]" type="invisible" default="talon_4" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_zn(kiev).html]" type="invisible" default="zajava_zn" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_6" name="[pattern/print/dodat12(kiev).html]" type="invisible" default="dodat12" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="print_option" name="Реєстрація в межах адміністративно-територіальної одиниці" type="enum">
+          <activiti:value id="true" name="Так"></activiti:value>
+          <activiti:value id="false" name="Ні"></activiti:value>
+        </activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
