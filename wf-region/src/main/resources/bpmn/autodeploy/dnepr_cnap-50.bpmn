@@ -13,7 +13,7 @@
         <activiti:formProperty id="davName" name="у давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="orgInn" name="ідентифікаційний код згідно з ЄДРПОУ; потрібно лише для юридичних осіб" type="string"></activiti:formProperty>
+        <activiti:formProperty id="orgInn" name="ідентифікаційний код згідно з ЄДРПОУ; потрібно лише для юридичних осіб" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="ruk" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="orgAdress" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="visn" name="Висновок експертизи щодо додержання вимог законодавства з питань охорони праці та промислової безпеки під час виконання заявлених робіт" type="file" required="true"></activiti:formProperty>
