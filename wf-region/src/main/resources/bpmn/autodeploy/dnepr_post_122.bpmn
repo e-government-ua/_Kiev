@@ -42,7 +42,7 @@
         <activiti:formProperty id="dov_pilgi" name="Завантажте копію документа, що надає право на пільги (при наявності пільг)" type="file"></activiti:formProperty>
         <activiti:formProperty id="dov_dohodi" name="Завантажте довідку про доходи усіх членів сім'ї протягом не менше трьох останніїх місяців" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dov_subs" name="Завантажте довідку про розмір нарахованої субсидії" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text1" name="Для розгляду питання про надання допомоги на:" type="label" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="text1" name="Зверніть увагу" type="label" default="Для розгляду питання про надання допомоги на: "></activiti:formProperty>
         <activiti:formProperty id="dov_medz" name="лікування або операцію, придбання ліків - завантажте копію довідки медичного закладу" type="file"></activiti:formProperty>
         <activiti:formProperty id="dov_pozh" name="компенсацію збитку від пожежі - завантажте копію акта пожежної частини про пожежу" type="file"></activiti:formProperty>
         <activiti:formProperty id="dov_sm" name="у разі смерті члена сім'ї або годувальника - завантажте копію довідки про смерть" type="file"></activiti:formProperty>
@@ -527,6 +527,11 @@
     <sequenceFlow id="flow14" sourceRef="exclusivegateway1" targetRef="mailtask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision=="attr4_finish"}]]></conditionExpression>
     </sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <endEvent id="endevent4" name="End"></endEvent>
+    <sequenceFlow id="flow15" sourceRef="boundaryerror1" targetRef="endevent4"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_post_122">
     <bpmndi:BPMNPlane bpmnElement="dnepr_post_122" id="BPMNPlane_dnepr_post_122">
@@ -534,7 +539,10 @@
         <omgdc:Bounds height="35.0" width="35.0" x="170.0" y="120.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="250.0" y="110.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="240.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="315.0" y="137.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="91.0" width="105.0" x="400.0" y="95.0"></omgdc:Bounds>
@@ -566,12 +574,15 @@
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
         <omgdc:Bounds height="55.0" width="105.0" x="668.0" y="10.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="312.0" y="210.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="205.0" y="137.0"></omgdi:waypoint>
-        <omgdi:waypoint x="250.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="240.0" y="137.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
-        <omgdi:waypoint x="355.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="345.0" y="137.0"></omgdi:waypoint>
         <omgdi:waypoint x="400.0" y="140.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
@@ -614,6 +625,10 @@
       <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
         <omgdi:waypoint x="720.0" y="157.0"></omgdi:waypoint>
         <omgdi:waypoint x="720.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="330.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="329.0" y="210.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
