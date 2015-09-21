@@ -38,14 +38,17 @@
         </activiti:formProperty>
         <activiti:formProperty id="bringDocOther" name="Заповніть якщо Ви вибрали опцію &quot;Інші документи&quot;" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="vlasn" name="Власник житла; Якщо власник не один вкажіть через кому" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="milit_status" name="Ви перебувади / перебуваєте на війсковому обліку?" type="enum" required="true">
+          <activiti:value id="true" name="Так"></activiti:value>
+          <activiti:value id="false" name="Ні"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="milName" name="Найменування військомату, в якому Ви перебували на військовому обліку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kids" name="Ви бажаєте зареєструвати за цією адресою дитину молодшу 14 років?; Діти старші 14 років подають заяву самостійно." type="enum" required="true">
-          <activiti:value id="yes" name="Так"></activiti:value>
+          <activiti:value id="yes" name="Так (зареєструвати дитину молодшу 14 років)"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="text1" name="Зверніть увагу" type="label" default="Будь ласка, вкажіть дані Вашої дитини, якщо її вік не перевищує 14 років"></activiti:formProperty>
         <activiti:formProperty id="ChildName1" name="Прізвище, ім'я, по-батькові дитини" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum" default="no">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
@@ -63,6 +66,7 @@
         <activiti:formProperty id="sBody_4" name="sBody" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sBody_5" name="sBody" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sBody_6" name="sBody" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="marker1" name="маркер динамічної форми" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;bringDocOther&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;RegistrationDocument&quot;},&quot;sCondition&quot;: &quot;[sReason] == 'other'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;milName&quot;, &quot;milRank&quot;,”milSpec”],&quot;asID_Field&quot;:{&quot;sReason2&quot;: &quot;milit_status&quot;},&quot;sCondition&quot;:&quot;[sReason2]=='true'&quot;},&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;ChildName1&quot;,”ChildSex1”,”kidsBirth”,”kidsPOB”,”kidsDoc”,”kidsCitizenship”],&quot;asID_Field&quot;:{&quot;sReason3&quot;: &quot;kids&quot;},&quot;sCondition&quot;: &quot;[sReason3]=='yes'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow2" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
@@ -433,7 +437,7 @@
           <activiti:value id="shev" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="Registrationservice" name="Орган, що оформлює реєстрацію" type="enum">
-           <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВГУ ДМС України в м.Києві"></activiti:value>
+          <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВГУ ДМС України в м.Києві"></activiti:value>
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВГУ ДМС України в м.Києві"></activiti:value>
           <activiti:value id="Шевченківський РВ ДМС" name="Шевченківський РВГУ ДМС України в м.Києві"></activiti:value>
         </activiti:formProperty>
@@ -459,7 +463,7 @@
           <activiti:value id="no" name=" "></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string"></activiti:formProperty>
-        <activiti:formProperty id="kidsPOB" name="Місце народження дитини"  type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини" type="string"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string"></activiti:formProperty>
         <activiti:formProperty id="stan" name="Стан заяви" type="string" default="На опрацюванні в ЦНАП" writable="false"></activiti:formProperty>
@@ -1002,7 +1006,7 @@
           <activiti:value id="shev" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="Registrationservice" name="Орган, що оформлює реєстацію" type="enum" writable="false">
-         <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВГУ ДМС України в м.Києві"></activiti:value>
+          <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВГУ ДМС України в м.Києві"></activiti:value>
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВГУ ДМС України в м.Києві"></activiti:value>
           <activiti:value id="Шевченківський РВ ДМС" name="Шевченківський РВГУ ДМС України в м.Києві"></activiti:value>
         </activiti:formProperty>
