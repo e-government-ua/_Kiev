@@ -18,7 +18,7 @@
     <serviceTask id="servicetask1" name="подтягивание документов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow0" sourceRef="startevent1" targetRef="servicetask0"></sequenceFlow>
     <sequenceFlow id="flow1" sourceRef="servicetask0" targetRef="servicetask1"></sequenceFlow>
-    <userTask id="usertask1" name="рассмотрение и загрузка" activiti:candidateGroups="sales">
+    <userTask id="usertask1" name="рассмотрение и загрузка" activiti:candidateGroups="tester">
       <extensionElements>
         <activiti:formProperty id="file" name="file" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
