@@ -42,7 +42,7 @@
         <activiti:formProperty id="dov_pilgi" name="Завантажте копію документа, що надає право на пільги (при наявності пільг)" type="file"></activiti:formProperty>
         <activiti:formProperty id="dov_dohodi" name="Завантажте довідку про доходи усіх членів сім'ї протягом не менше трьох останніїх місяців" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dov_subs" name="Завантажте довідку про розмір нарахованої субсидії" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text1" name="Для розгляду питання про надання допомоги на:" type="label" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="text1" name="Для розгляду питання про надання допомоги на:" type="label" default=" " writable="false"></activiti:formProperty>
         <activiti:formProperty id="dov_medz" name="лікування або операцію, придбання ліків - завантажте копію довідки медичного закладу" type="file"></activiti:formProperty>
         <activiti:formProperty id="dov_pozh" name="компенсацію збитку від пожежі - завантажте копію акта пожежної частини про пожежу" type="file"></activiti:formProperty>
         <activiti:formProperty id="dov_sm" name="у разі смерті члена сім'ї або годувальника - завантажте копію довідки про смерть" type="file"></activiti:formProperty>
