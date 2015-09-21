@@ -85,7 +85,7 @@ angular.module('app')
      * returns saved place data
      */
     self.getPlaceData = function() {
-      
+
       var localData = JSON.parse(localStorage.getItem('igSavedPlaceData'));
 
       if (self.rememberMyData && localData) {

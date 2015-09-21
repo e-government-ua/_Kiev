@@ -1,6 +1,6 @@
 angular.module('app').config(function($stateProvider) {
   $stateProvider
-    .state('index.service.general.placefix.built-in', {
+  .state('index.service.general.placefix.built-in', {
       url: '/built-in',
       views: {
         // 'place-content'

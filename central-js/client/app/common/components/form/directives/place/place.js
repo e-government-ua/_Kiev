@@ -180,7 +180,7 @@ angular.module('app')
           console.log('Place controls is complete:', $scope.placeControlIsComplete());
 
           console.log('AuthControlIsVisible: ', $scope.authControlIsVisible());
-         
+
           // PlacesService.setPlaceData(placeData);
 
           $scope.$emit('onPlaceChange', {
