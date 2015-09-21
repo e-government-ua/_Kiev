@@ -381,9 +381,12 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
 
       var bValid = true;
       bValid = bValid && (sValue !== null);
-      bValid = bValid && (sValue.trim().length === 5);
-      bValid = bValid && (sValue.trim().substr(2,1) === '.');
-      var s=bValid ? sValue.trim().substr(0,2) : "";
+      sValue=sValue.trim();
+      bValid = bValid && (sValue.length === 5);
+      bValid = bValid && (sValue.substr(2,1) === '.');
+      bValid = bValid && (/^[0-9]+$/.test(sValue.substr(0,2)));
+      bValid = bValid && (/^[0-9]+$/.test(sValue.substr(3,2)));
+      var s=bValid ? sValue.substr(0,2) : "";
       bValid = bValid && (s !== '04' && s !== '34' && s !== '40'
               && s !== '44' && s !== '48' && s !== '54' && s !== '57'
               && s !== '67' && s !== '76' && s !== '83' && s !== '89');
@@ -410,7 +413,9 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
 
       var bValid = true;
       bValid = bValid && (sValue !== null);
-      bValid = bValid && (sValue.trim().length === 8);
+      sValue=sValue.trim();
+      bValid = bValid && (sValue.length === 8);
+      bValid = bValid && (/^[0-9]+$/.test(sValue));
       /*bValid = bValid && (sValue.trim().substr(2,1) === '.');
       var s=bValid ? sValue.trim().substr(0,2) : "";
       bValid = bValid && (s !== '04' && s !== '34' && s !== '40'
@@ -440,7 +445,9 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
 
       var bValid = true;
       bValid = bValid && (sValue !== null);
-      bValid = bValid && (sValue.trim().length === 6);
+      sValue=sValue.trim();
+      bValid = bValid && (sValue.length === 6);
+      bValid = bValid && (/^[0-9]+$/.test(sValue));
       /*var s=bValid ? sValue.trim().substr(0,2) : "";
       bValid = bValid && (s !== '04' && s !== '34' && s !== '40'
               && s !== '44' && s !== '48' && s !== '54' && s !== '57'
