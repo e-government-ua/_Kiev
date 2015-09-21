@@ -16,7 +16,7 @@
         <activiti:formProperty id="ur_osobi" name="Ничже вказані поля треба заповнити юридичним особам чи особам-підприємцям" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="ur_nazv" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД (тільки цифрове позначення)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="edpou" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця (тільки цифрове позначення)" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="edrpou" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця (тільки цифрове позначення)" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="pib_ker" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress_1" name="Місцезнаходження юридичної особи/місце проживання ФОП" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та адміністративних послуг"></activiti:formProperty>
@@ -522,6 +522,9 @@
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
