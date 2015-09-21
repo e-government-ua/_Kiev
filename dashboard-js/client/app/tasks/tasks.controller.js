@@ -18,7 +18,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     count: 0
   }, {
     title: 'Необроблені',
-    type: tasks.filterTypes.unassigned, 
+    type: tasks.filterTypes.unassigned,
     count: 0
   }, {
     title: 'Оброблені',
@@ -567,10 +567,23 @@ $scope.lightweightRefreshAfterSubmit = function () {
         }
       }).catch(mapErrorHandler({'CRC Error': 'Неправильний ID', 'Record not found': 'ID не знайдено'}));
   };
-
+  var searchResult = {
+    tasks: []
+  };
   $scope.searchTaskByText = function() {
     if (_.isEmpty($scope.searchTask.text)) {
       Modal.inform.error()('Будь-ласка введіть текст для пошуку!');
+      return;
+    }
+    if (_.isEqual($scope.searchTask.text, searchResult.text) && !_.isEmpty(searchResult.tasks)) {
+      var taskId = searchResult.tasks[0];
+      searchResult.tasks = _.rest(searchResult.tasks);
+      $scope.tasks.some(function (task) {
+        if (task.id === taskId) {
+          $scope.selectTask(task);
+        }
+        return task.id === taskId;
+      });
       return;
     }
     tasks.getTasksByText($scope.searchTask.text, $scope.sSelectedTask)//sType
@@ -583,7 +596,9 @@ $scope.lightweightRefreshAfterSubmit = function () {
           Modal.inform.error()();
           return;
         }
-        var taskId = JSON.parse(result)[0];
+        searchResult.text = $scope.searchTask.text;
+        searchResult.tasks = JSON.parse(result);
+        var taskId = searchResult.tasks[0];
         var taskFound = $scope.tasks.some(function (task) {
           if (task.id === taskId) {
             $scope.selectTask(task);
