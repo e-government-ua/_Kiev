@@ -6,6 +6,7 @@ var controller = require('./tasks.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
+router.get('/getPatternFile', controller.getPatternFile);
 router.get('/:taskId/events', controller.getAllTaskEvents);
 router.get('/:taskId/form', controller.getForm);
 router.get('/:taskId/form-from-history', controller.getFormFromHistory);
@@ -16,6 +17,7 @@ router.post('/:taskId/form', controller.submitForm);
 router.put('/:taskId', controller.updateTask);
 router.get('/:taskId', controller.getTask);
 router.get('/search/byOrder/:orderId', controller.getTasksByOrder);
+router.get('/search/byText/:text/type/:sType', controller.getTasksByText);
 
 
 module.exports = router;

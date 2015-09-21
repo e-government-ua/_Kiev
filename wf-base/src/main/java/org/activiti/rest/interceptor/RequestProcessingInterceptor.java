@@ -120,14 +120,16 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         String sResponseBody = response.toString();
 
         if (generalConfig.bTest()) {
-            if (sResponseBody != null) {
+            /*if (sResponseBody != null) {
                 logger.info("sResponseBody: " + sResponseBody.substring(0, sResponseBody.length() < 100 ? sResponseBody.length() : 99));
             } else {
                 logger.info("sResponseBody: null");
-            }
-            logger.info("sResponseBody: " + sResponseBody);
+            }*/
+            //logger.info("sResponseBody: " + sResponseBody);
+            logger.info("sResponseBody: " + (sResponseBody != null ? (sResponseBody.length()>1000?sResponseBody.substring(0, 1000):sResponseBody ) : "null"));
         } else {
-            logger.info("sResponseBody: " + (sResponseBody != null ? sResponseBody.length() : "null"));
+            //logger.info("sResponseBody: " + (sResponseBody != null ? sResponseBody.length() : "null"));
+            logger.info("sResponseBody: " + (sResponseBody != null ? (sResponseBody.length()>1000?sResponseBody.substring(0, 2000):sResponseBody ) : "null"));
         }
 
         if (!saveHistory || !(response.getStatus() >= HttpStatus.OK.value()
@@ -136,7 +138,18 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         }
 
         try {
-            logger.info("sRequestBody: " + sRequestBody);
+            //logger.info("sRequestBody: " + sRequestBody);
+            
+            //logger.info("sRequestBody: " + (sRequestBody != null ? (sRequestBody.length()>2000?sRequestBody.substring(0, 2000):sRequestBody ) : "null"));
+            if (sRequestBody != null) {
+                if(sRequestBody.indexOf("Content-Disposition:")>=0){
+                    logger.info("sRequestBody: " + (sRequestBody.length() > 200 ? sRequestBody.substring(0, 2000) : sRequestBody));
+                }else{
+                    logger.info("sRequestBody: " + (sRequestBody.length() > 2000 ? sRequestBody.substring(0, 2000) : sRequestBody));
+                }
+            } else {
+                logger.info("sRequestBody: null");
+            }
 
             if (isSaveTask(request, sResponseBody)) {
                 saveNewTaskInfo(sRequestBody, sResponseBody, mParamRequest);
@@ -245,7 +258,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             logger.warn("For service operation '%s' nID_Process is null. Operation will not be called!", serviceName);
         }
         else {
-            String URL = generalConfig.sHostCentral() + "/wf-central/service/services/" + serviceName;
+            String URL = generalConfig.sHostCentral() + "/wf/service/services/" + serviceName;
             params.put("nID_Process", sID_Process);
             params.put("sID_Status", taskName);
             logger.info(URL + ": " + params);

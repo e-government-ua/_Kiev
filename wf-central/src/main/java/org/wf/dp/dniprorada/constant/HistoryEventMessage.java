@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Map;
 
 public class HistoryEventMessage {
-    private static final Logger log = LoggerFactory.getLogger(HistoryEventMessage.class);
-
     public static final String SERVICE_NAME = "%Назва послуги%";
     public static final String SERVICE_STATE = "%статус%";
     public static final String TASK_NUMBER = "%nTask%";
@@ -18,18 +16,17 @@ public class HistoryEventMessage {
     public static final String ORGANIZATION_NAME = "%Назва органу%";
     public static final String EMAIL = "%email%";
     public static final String DAYS = "%кількість днів%";
+    private static final Logger log = LoggerFactory.getLogger(HistoryEventMessage.class);
 
     public static String createJournalMessage(HistoryEventType eventType, Map<String, String> values) {
         String eventMessage = "";
         try {
-            //HistoryEventType eventType = HistoryEventType.findById(nID_HistoryEventType);
             eventMessage = eventType.getsTemplate();
             for (String key : values.keySet()) {
                 eventMessage = eventMessage.replaceAll(key, values.get(key));
             }
-            ;
         } catch (Exception e) {
-            log.warn(e.getMessage());//???
+            log.warn(e.getMessage());
         }
         return eventMessage;
     }

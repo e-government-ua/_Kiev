@@ -17,12 +17,7 @@
           <activiti:value id="bab" name="Бабушкінський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстраці; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="newAddressLabel" name="Ваша нова адреса реєстрації" type="label" default="Заповніть деталі вашої нової адреси"></activiti:formProperty>
-        <activiti:formProperty id="newCity" name="Населений пункт" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="newStreet" name="Вулиця" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="newHouse" name="Будинок" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="newCorp" name="Корпус" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="newApartment" name="№ Квартири" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="milName" name="Найменування військомату, в якому Ви перебували на військовому обліку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" default=" "></activiti:formProperty>
@@ -39,9 +34,7 @@
         <activiti:formProperty id="visitDay" name="У який день Вам буде зручно зайти до відділення ДМС; ДМС необхідно поставити відмітку у Ваш паспорт для завершення цієї процедури" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="visitTime" name="У який проміжок часу Вам буде зручно зустрітися; Будь ласка, вкажіть проміжок як мінімум у 2 години" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warning" name="Зверніть увагу" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
-        <activiti:formProperty id="sBody_4" name="sBody" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="sBody_5" name="sBody" type="invisible"></activiti:formProperty>
-      </extensionElements>
+       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow2" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <serviceTask id="servicetask1" name="Підтягування додаткових документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -161,8 +154,8 @@
         <activiti:formProperty id="district" name="Район м. Дніпропетровськ, в якому зареєстрований громадянин" type="enum" writable="false">
           <activiti:value id="bab" name="Бабушкінський"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="textArea" default="${newCity}, ${newStreet}, ${newHouse}, корп. ${newCorp}, кв. ${newApartment}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" writable="false"></activiti:formProperty>
+       	<activiti:formProperty id="newAddress" name="Нова адреса реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="milName" name="Найменування військомату, в якому громадянин перебував на військовому обліку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" writable="false"></activiti:formProperty>
@@ -184,8 +177,7 @@
         <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги &lt;br /&gt; АБО &lt;br /&gt; Додаткові деталі для закінчення процессу реєстрації" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="meetDay" name="Призначити день зустрічі" type="string"></activiti:formProperty>
         <activiti:formProperty id="meetTime" name="Призначити час зустрічі" type="string"></activiti:formProperty>
-        <activiti:formProperty id="taxAddress" name="Додати необхідні реквізити для сплати Державного мита" type="textArea"></activiti:formProperty>
-      </extensionElements>
+       </extensionElements>
     </userTask>
     <sequenceFlow id="flow9" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
@@ -355,38 +347,43 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;&lt;/p&gt;
-                                        Державний Орган успішно опрацював Вашу заяву. &lt;br /&gt;
-										&lt;p&gt;&lt;/p&gt;
+                                    &lt;p&gt;
+                                        Спеціалісти відділу ДМС успішно опрацювли Вашу заяву. &lt;br /&gt;
 										Для того щоб закінчити процедуру зняття з реєстрації необхідно: &lt;br /&gt;
-										&lt;li&gt;Сплатити Державне мито у розмірі 0.85 грн і отримати талон про сплату. &lt;/li&gt; &lt;br /&gt;
-										&lt;li&gt;Прийти до відділення ДМС з необхідними документами.&lt;/li&gt; &lt;br /&gt;
-										&lt;li&gt;Пройти співбесіду з працівником ДМС і отримати печатку у громадянський паспорт.&lt;/li&gt; &lt;br /&gt;
-										&lt;p&gt;&lt;/p&gt;
-										Реквізити для сплати: &lt;br /&gt;
-										&lt;i&gt;${taxAddress}&lt;/i&gt; &lt;br /&gt;
-										&lt;p&gt;&lt;/p&gt;
+										&lt;li&gt;Прийти до відділення ДМС з необхідними документами&lt;/li&gt;
+										&lt;li&gt;Знятися з реєстрації за місцем проживання у працівника ДМС і отримати печатку у громадянський паспорт або папортний документ.&lt;/li&gt;
+									&lt;/p&gt;
+									&lt;p&gt;
 										Деталі зустрічі: &lt;br /&gt;
 										День - ${meetDay} &lt;br /&gt;
 										Проміжок часу - ${meetTime} &lt;br /&gt;
-										Адреса: м. Дніпропетровськ, пр. Ілліча, 3.
-										&lt;p&gt;&lt;/p&gt;
-										Необхідні документи, які треба принести до відділення ДМС: &lt;br /&gt;
-										&lt;li&gt;Посвідчення особи (Паспорт).&lt;/li&gt; &lt;br /&gt;
-										&lt;li&gt;Талон про сплату Державного мита.&lt;/li&gt; &lt;br /&gt;
-										&lt;li&gt;Документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації;&lt;/li&gt; &lt;br /&gt;
-										&lt;p&gt;&lt;/p&gt;
-										Коментар до рішення:
-									&lt;p&gt;&lt;/p&gt;	
-									&lt;i&gt;	${decisionComment} &lt;/i&gt;
-									&lt;p&gt;&lt;/p&gt;
-									
-                                    &lt;p&gt;&lt;/p&gt;
+									&lt;/p&gt;
+									&lt;p&gt;
+										Необхідні документи, які треба принести до відділення ДМС при реєстраціі місця проживання:&lt;br /&gt;
+										&lt;li&gt;документ, до якого вносяться відомості про місце проживання, якщо дитина не досягла 16 - річного віку, подається свідоцтво про народження або свідоцтво про належність до громадянства України;&lt;/li&gt;
+										&lt;li&gt;військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку);&lt;/li&gt;
+										&lt;li&gt;документ, на підставі якого здійснюється зняття з реєстрації місця проживання:
+										&lt;ol type="a"&gt; 
+											&lt;li&gt;заява про зняття особи з реєстрації місця проживання, яка подається особою або її законним представником;&lt;/li&gt; 
+											&lt;li&gt;судове рішення, яке набрало законної сили, про позбавлення права власності на житлове приміщення або права користування житловим приміщенням, про виселення, про визнання особи безвісно відсутньою або оголошення її померлою;&lt;/li&gt;
+											&lt;li&gt;свідоцтво про смерть;&lt;/li&gt;
+											&lt;li&gt;паспорт або паспортний документ, що надійшов з органу державної реєстрації актів цивільного стану, або документ про смерть, виданий компетентним органом іноземної держави, легалізований в установленому порядку;&lt;/li&gt;
+											&lt;li&gt;інші документи, які свідчать про припинення:&lt;/li&gt;
+												 &lt;ul&gt;
+												 &lt;li&gt;підстав для перебування на території України іноземців та осіб без громадянства. Інформація територіального органу ДМС України або територіального підрозділу ДМС України, на території обслуговування якого зареєстровано місце проживання особи, про закінчення строку дії посвідки на тимчасове проживання або копія рішення про скасування посвідки на тимчасове проживання чи посвідки на постійне проживання в Україні;&lt;/li&gt;
+												 &lt;li&gt;підстав для проживання або перебування особи на обліку у закладі/установі (повідомлення про припинення підстав для проживання/перебування особи у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту);&lt;/li&gt;
+												 &lt;li&gt;підстав на право користування житловим приміщенням (закінчення строку дії договору оренди, найму, піднайму житлового приміщення, строку навчання в навчальному закладі (у разі реєстрації місця проживання в гуртожитку навчального закладу на час навчання), відчуження житла та інших визначених законодавством документів);&lt;/li&gt; 
+												 &lt;/ul&gt;
+										&lt;/ol&gt;
+										&lt;br /&gt;
+										&lt;b&gt;Зверніть увагу:&lt;/b&gt; У разі реєстрації місця проживання батьків за однією адресою при знятті з реєстрації одного з батьків разом з дитиною/дітьми до 14 років 
+										другий з батьків надає письмову згоду на зняття дитини/дітей з реєстрації місця проживання.
+										&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Бабушкінський РВ у місті Дніпропетровську,&lt;br /&gt;
-										ГУ ДМС України в Дніпропетровській області,&lt;br /&gt;
+                                        Бабушкінський РВ у місті Дніпропетровську&lt;br /&gt;
+                                        ГУ ДМСУ в Дніпропетровській області.&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -424,12 +421,8 @@
         <activiti:formProperty id="Areabirth" name="Місце народження; Країна, область, район і населений пункт" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="Nationality" name="Громадянство" type="string"></activiti:formProperty>
         <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстраці; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="newCity" name="Населений пункт" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newStreet" name="Вулиця" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newHouse" name="Будинок" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newCorp" name="Корпус" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newApartment" name="№ Квартири" type="string"></activiti:formProperty>
-        <activiti:formProperty id="district" name="Район м. Дніпропетровськ, в якому ви зареєстровані" type="enum" writable="false">
+      	<activiti:formProperty id="newAddress" name="Нова адреса реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="district" name="Район м. Дніпропетровськ, в якому ви зареєстровані" type="enum">
           <activiti:value id="bab" name="Бабушкінський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="milName" name="Найменування військомату, в якому Ви перебували на військовому обліку" type="string"></activiti:formProperty>
@@ -451,8 +444,7 @@
           <activiti:value id="reestr" name="Громадянин знятий з реєстрації"></activiti:value>
           <activiti:value id="nejav" name="Повернути у необроблені"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="sBody_4" name="[pattern/print/talon_4(dnepr).html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_zn(dnepr).html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
+       <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_zn(dnepr).html]" type="invisible" default="Заява для зняття з реєстрації" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
         </extensionElements>

@@ -29,4 +29,4 @@ module.exports = function (app) {
   server.listen(config.server.port, function () {
     console.log('Express server listening on %d', config.server.port);
   });
-}
+};

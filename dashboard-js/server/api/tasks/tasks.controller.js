@@ -7,7 +7,7 @@ var activiti = require('../../components/activiti');
 exports.index = function(req, res) {
   var user = JSON.parse(req.cookies.user);
   var query = {};
-  //https://test.igov.org.ua/wf-region/service/runtime/tasks?size=20
+  //https://test.igov.org.ua/wf/service/runtime/tasks?size=20
   query.size = 500;
 
   var path = 'runtime/tasks';
@@ -173,4 +173,30 @@ exports.getTasksByOrder = function(req, res) {
   activiti.get(options, function(error, statusCode, result) {
     error ? res.send(error) : res.status(statusCode).json(result);
   });
+};
+
+exports.getTasksByText = function(req, res) {
+  var user = JSON.parse(req.cookies.user);
+  //query.bEmployeeUnassigned = req.query.bEmployeeUnassigned;
+  var options = { path: 'rest/tasks/getTasksByText',
+    query: {
+        'sFind': req.params.text,
+        'sLogin': user.id,//finished,unassigned, selfAssigned
+        'bAssigned': req.params.sType === 'selfAssigned' ? true : req.params.sType === 'unassigned' ? false : null //bAssigned
+    }
+  };
+  activiti.get(options, function(error, statusCode, result) {
+    error ? res.send(error) : res.status(statusCode).json(result);
+    //error ? res.send(error) : res.status(statusCode).json("[\"4585243\"]");
+  });
+};
+
+exports.getPatternFile = function(req, res) {
+  var options = {
+    path: '/rest/getPatternFile',
+    query: {
+      'sPathFile': req.query.sPathFile
+    }
+  };
+  activiti.filedownload(req, res, options);
 };

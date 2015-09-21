@@ -10,7 +10,7 @@
         <activiti:formProperty id="chapter1" name="Деталі" type="label" default="&lt;a href=&quot;http://iGov.org.ua&quot;&gt;iGov.org.ua&lt;/a&gt;"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="tester">
+    <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Им'я" type="string" writable="false"></activiti:formProperty>

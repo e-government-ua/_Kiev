@@ -3,7 +3,6 @@ package org.wf.dp.dniprorada.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.wf.dp.dniprorada.base.model.Entity;
@@ -57,6 +56,10 @@ public class HistoryEvent_Service extends Entity {
     @JsonProperty(value="sID_UA")
     @Column(name = "sID_UA", nullable = true)
     private String sID_UA;
+
+    @JsonProperty(value = "nRate")
+    @Column(name = "nRate", nullable = true)
+    private Integer nRate;
 
     public String getsID() {
         return sID;
@@ -137,6 +140,12 @@ public class HistoryEvent_Service extends Entity {
 	public void setsID_UA(String sID_UA) {
 		this.sID_UA = sID_UA;
 	}
-	
-	
+
+    public Integer getnRate() {
+        return nRate;
+    }
+
+    public void setnRate(Integer nRate) {
+        this.nRate = nRate;
+    }
 }
