@@ -1,5 +1,4 @@
-angular.module('app').directive("igovSearch", ['CatalogService', 'statesRepository', 'RegionListFactory', 'LocalityListFactory', '$filter', 'messageBusService', 'stateStorageService',
- function(CatalogService, statesRepository, RegionListFactory, LocalityListFactory, $filter, messageBusService, stateStorageService) {
+angular.module('app').directive("igovSearch", function(CatalogService, statesRepository, RegionListFactory, LocalityListFactory, $filter, messageBusService, stateStorageService) {
   var directive = {
     restrict: 'E',
     scope: {},
@@ -7,6 +6,7 @@ angular.module('app').directive("igovSearch", ['CatalogService', 'statesReposito
     link: function($scope, $el, $attr) {
       var fullCatalog = [];
 
+      $scope.isCentral = statesRepository.isCentral();
       $scope.regionList = new RegionListFactory();
       $scope.regionList.load(null, null);
       $scope.localityList = new LocalityListFactory();
@@ -148,4 +148,4 @@ angular.module('app').directive("igovSearch", ['CatalogService', 'statesReposito
     }
   };
   return directive;
-}])
+});

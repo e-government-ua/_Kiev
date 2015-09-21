@@ -389,8 +389,8 @@
     <sequenceFlow id="flow9" sourceRef="servicetask2" targetRef="usertask2"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow10" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
-    <sequenceFlow id="flow11" name="status_zayavy=='attr4_finish'" sourceRef="exclusivegateway2" targetRef="mailtask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status_zayavy=='attr4_finish'}]]></conditionExpression>
+    <sequenceFlow id="flow11" name="status_dozvil=='attr4_finish'" sourceRef="exclusivegateway2" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status_dozvil=='attr4_finish'}]]></conditionExpression>
     </sequenceFlow>
     <serviceTask id="mailtask3" name="Інформування заявника про необхідність отримання результату" activiti:type="mail">
       <extensionElements>
@@ -522,8 +522,8 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow12" name="status_zayavy=='attr3_finish'" sourceRef="exclusivegateway2" targetRef="mailtask3">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status_zayavy=='attr3_finish'}]]></conditionExpression>
+    <sequenceFlow id="flow12" name="status_dozvil=='attr3_finish'" sourceRef="exclusivegateway2" targetRef="mailtask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status_dozvil=='attr3_finish'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow13" sourceRef="mailtask3" targetRef="endevent2"></sequenceFlow>
   </process>

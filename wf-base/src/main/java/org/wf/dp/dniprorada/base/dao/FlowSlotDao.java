@@ -17,11 +17,14 @@ public interface FlowSlotDao extends EntityDao<FlowSlot> {
    /**
     * Gets flow slots by service data ID ordered by date in given interval
     * @param nID_ServiceData ID services data of slot flow.
+    * @param sID_BP id of business process
+    * @param nID_SubjectOrganDepartment id department
     * @param startDate start date of interval (inclusive)
     * @param stopDate end date of interval (exclusive)
     * @return flow slots
     */
-   List<FlowSlot> findFlowSlotsByServiceData(Long nID_ServiceData, String sID_BP, DateTime startDate, DateTime stopDate) throws Exception;
+   List<FlowSlot> findFlowSlotsByServiceData(Long nID_ServiceData, String sID_BP, Long nID_SubjectOrganDepartment,
+                                             DateTime startDate, DateTime stopDate) throws Exception;
 
    /**
     *
