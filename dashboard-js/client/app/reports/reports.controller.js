@@ -15,8 +15,8 @@ angular.module('dashboardJsApp')
     $scope.statisticUrl = "/reports";
     
      $scope.initExportUrl = function () {
-        reports.exportLink({ from: $scope.export.from, to: $scope.export.to, sBP: $scope.export.sBP, fromButton: false },
-            function (result, fileToSave) {
+        reports.exportLink({ from: $scope.export.from, to: $scope.export.to, sBP: $scope.export.sBP},
+            function (result) {
                 $scope.exportURL = result;
             });       
     }
@@ -24,11 +24,10 @@ angular.module('dashboardJsApp')
      $scope.getExportLink = function () {
           return $scope.exportURL;          
       }
-      
-       
+             
       $scope.initStatisticUrl = function () {
-        reports.statisticLink({ from: $scope.statistic.from, to: $scope.statistic.to, sBP: $scope.statistic.sBP, fromButton: false },
-            function (result, fileToSave) {
+        reports.statisticLink({ from: $scope.statistic.from, to: $scope.statistic.to, sBP: $scope.statistic.sBP},
+            function (result) {
                 $scope.statisticUrl = result;
             });
     }
