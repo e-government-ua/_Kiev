@@ -11,8 +11,8 @@
         <activiti:formProperty id="bankIdPassport" name="Серія та номер паспорту" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string"></activiti:formProperty>
         <activiti:formProperty id="cnap" name="Оберіть ЦНАП у якому буде зручніше забрати оригінал документу" type="enum" required="true">
-          <activiti:value id="pravij" name="Правобережний"></activiti:value>
-          <activiti:value id="levij" name="Лівобережний"></activiti:value>
+          <activiti:value id="pravij" name="ЦНАП «Правобережний» (просп. Карла Маркса, 75)"></activiti:value>
+          <activiti:value id="levij" name="ЦНАП «Лівобережний» (просп. Газети «Правда», 42)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="posluga" name="Оберіть послугу" type="enum" required="true">
           <activiti:value id="pereoform" name="переоформлення ліцензії"></activiti:value>
