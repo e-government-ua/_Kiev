@@ -109,12 +109,17 @@ table.zit_v-form2 tr td {border: 1px solid black; padding: 3px 8px;}
 .date_subm .month-fl-sm > span {height: 20px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
 .date_subm .month-fl-sm > span:nth-child(1) {width: 45px;}
 .date_subm .month-fl-sm > span {height: 50px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
-.date_subm .signature {width: 200px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
+.date_subm .signature {width: 300px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
 .date_subm .signature > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
 .date_subm .inv {width: 200px; height: 20px; float: left; border-bottom: 1px solid black; position: relative;} 
 .date_subm .inv > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
 .date_subm .invs {width: 200px; height: 20px; float: left; left: 55px; border-bottom: 1px solid black; position: relative;} 
 .date_subm .invs > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
+
+.date_subm .signature_adm {width: 300px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
+.date_subm .signature_adm > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
+.date_subm .inv_adm {width: 240px; height: 20px; float: left; border-bottom: 1px solid black; position: relative;} 
+.date_subm .inv_adm > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
 
 p {font-size: 12px;}
 
@@ -159,19 +164,26 @@ p {font-size: 12px;}
 Відомості, наведені в документах, поданих для проведення ліцензування, є достовірними.<span></span></div></font>
 	</div>
     <div class="date_subm m-t-45">
-		<div class="inv"><span>(Керівник М.П. посада)</span></div>
-		<div class="invs"><span>(підпис)</span></div>
+		<div class="inv"><span>(Керівник посада)</span></div>
+		<div class="invs"><span>(підпис, м.п.)</span></div>
         <div class="signature"><span>(прізвище, ініціали)</span></div>
 		<div class="clear"></div>
     </div>
 	<br />
 <b><div class="ta-l">Заповнюється адміністратором:<span></span></div></b>
 <div class="date_subm m-t-45">
-<div class="ta-l">Ініціали та прізвище адміністратора: <span>[pib_admin]</span></div><br />
-<div class="ta-l">Дата реєстрації звернення: <span>[date_reestr]</span></div><br />
-<div class="signature"><span>(підпис адміністратора)</span></div>
-<div class="ta-l">реєстраційний номер: <span>[reestr_numb]</span></div><br />
-		</div><br />
+        <div class="inv_adm">[date_reestr]<span>(дата реєстрації звернення)</span></div>
+        <div class="signature_adm">[reestr_numb]<span>(реєстраційний номер)</span></div>
+		<div class="clear"></div>
+    </div>
+
+<div class="date_subm m-t-45">
+        <div class="inv_adm"><span>(підпис адміністратора)</span></div>
+        <div class="signature_adm">[pib_admin]<span>(ініціали та прізвище адміністратора)</span></div>
+		<div class="clear"></div>
+    </div>	
+	<br />	
+
 		</section>
 </body>
 </html>
