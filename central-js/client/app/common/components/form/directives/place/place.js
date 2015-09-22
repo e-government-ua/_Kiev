@@ -1,13 +1,16 @@
 /**
- * Place.js - компонент, що допомогає вибирати місце - область та місто 
- * - з controllers/serviceCity.controller.js
- * FIXME: передбачити можливість вибору тільки міста, якщо його назва є унікальною — 
- * тобто воно належить тільки одній області, і її можна взнати автоматично.
+
+ Place.js - компонент, що допомогає вибирати місце - область та місто
+ Використовує сервіс PlacesService
+ 
+ FIXME: передбачити можливість вибору тільки міста, якщо його назва є унікальною — 
+ тобто воно належить тільки одній області, і її можна взнати автоматично.
+
  */
 angular.module('app')
   .directive('place', function($rootScope, $location, $state, $sce, AdminService, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, serviceLocationParser) {
 
-    var _mode = 'default';
+    var sControlMode = 'default';
 
     return {
       restrict: 'E',
@@ -37,9 +40,9 @@ angular.module('app')
         };
 
         $scope.cityIsChosen = function() {
-          var is = PlacesService.cityIsChosen();
-          // console.log('cityIsChosen:', is);
-          return is;
+          var bCityIsChosen = PlacesService.cityIsChosen();
+          // console.log('cityIsChosen:', bCityIsChosen);
+          return bCityIsChosen;
         };
 
         $scope.regionIsChosen = function() {
@@ -48,8 +51,8 @@ angular.module('app')
 
         // TODO improve the logic
         $scope.authControlIsVisible = function() {
-          console.log('authControlIsVisible:', $scope.authControlIsNeeded(), _mode);
-          return $scope.authControlIsNeeded() && _mode !== 'placeEditMode';
+          console.log('authControlIsVisible:', $scope.authControlIsNeeded(), sControlMode);
+          return $scope.authControlIsNeeded() && sControlMode !== 'placeEditMode';
         };
 
         $scope.authControlIsNeeded = function() {
@@ -87,28 +90,27 @@ angular.module('app')
         };
 
         $scope.placeControlIsVisible = function() {
-          var result = true;
+          var bResult = true;
 
-          result = $scope.placeControlIsNeeded();
+          bResult = $scope.placeControlIsNeeded();
 
-          // console.log('placeControlIsVisible:', result );
+          // console.log('placeControlIsVisible:', bResult );
 
-          return result;
+          return bResult;
         };
 
         $scope.placeControlIsDisabled = function() {
-          var isDisabled = false;
-          isDisabled = $scope.placeControlIsComplete() && _mode !== 'placeEditMode';
-          // console.info('placeControlIsDisabled:', $scope.placeControlIsComplete(), _mode !== 'placeEditMode', isDisabled);
-          return isDisabled;
-          // return false;
+          var bIsDisabled = false;
+          bIsDisabled = $scope.placeControlIsComplete() && sControlMode !== 'placeEditMode';
+          // console.info('placeControlIsDisabled:', $scope.placeControlIsComplete(), sControlMode !== 'placeEditMode', bIsDisabled);
+          return bIsDisabled;
         };
 
         /**
          * Ця функція визначає, чи заповнені всі поля, які необхідно заповнити
          */
         $scope.placeControlIsComplete = function() {
-          var result = null;
+          var bIsComplete = null;
           // FIXME: передбачити випадки, коли треба вибрати тільки регіон або місто, 
           // див. https://github.com/e-government-ua/i/issues/550
           var oAvail = PlacesService.getServiceAvailability();
@@ -116,33 +118,33 @@ angular.module('app')
 
           // return false if no region or no city is chosen (usually on startup), but service is available somewhere
           if ((!$scope.regionIsChosen() || !$scope.cityIsChosen()) && (oAvail.isRegion || oAvail.isCity)) {
-            result = false;
+            bIsComplete = false;
           }
 
           // no region - no city, no need in choosing the place
           if (!oAvail.isRegion && !oAvail.isCity) {
-            result = true;
+            bIsComplete = true;
           }
           // ok region - no city
           if ((oAvail.isRegion && $scope.regionIsChosen()) && !oAvail.isCity) {
-            result = true;
+            bIsComplete = true;
           }
           // ok region - ok city
           if ((oAvail.isRegion && $scope.regionIsChosen()) && (oAvail.isCity && $scope.cityIsChosen())) {
-            result = true;
+            bIsComplete = true;
           }
           // no region - ok city
           if ((!oAvail.isRegion) && (oAvail.isCity && $scope.cityIsChosen())) {
-            result = true;
+            bIsComplete = true;
           }
 
-          return result;
+          return bIsComplete;
         };
 
         // колись це було step1
         $scope.editPlace = function() {
 
-          _mode = 'placeEditMode';
+          sControlMode = 'placeEditMode';
 
           $scope.resetPlaceData();
 
@@ -160,13 +162,13 @@ angular.module('app')
         };
 
         $scope.loadRegionList = function(search) {
-          console.log('loadRegionList, search =', search);
+          // console.info('loadRegionList, search =', search);
           return $scope.regionList.load(ServiceService.oService, search);
         };
 
         $scope.loadLocalityList = function(search) {
           var placeData = PlacesService.getPlaceData();
-          // from service.controller
+          // FIXME from service.controller
           // return $scope.localityList.load(null, placeData.region.nID, search);
           return $scope.localityList.load(ServiceService.oService, placeData.region.nID, search).then(function(cities) {
             // console.log('loadLocalityList:', search, cities);
@@ -203,18 +205,11 @@ angular.module('app')
           $scope.resetPlaceData();
           $scope.recallPlaceData();
 
-          // var initialRegion = serviceLocationParser.getSelectedRegion(regions);
-          // if (initialRegion) {
-          //   $scope.onSelectRegionList(initialRegion);
-          // }
-
           // Якщо форма вже заповнена після відновлення даних з localStorage, то повідомити про це
           if ($scope.placeControlIsComplete()) {
             $scope.processPlaceSelection();
           }
-
         };
-
 
         $scope.onSelectRegionList = function($item, $model, $label) {
           PlacesService.setRegion($item);
@@ -230,8 +225,6 @@ angular.module('app')
           $scope.localityList.load(null, $item.nID, null).then(function(cities) {
             $scope.localityList.typeahead.defaultList = cities;
           });
-
-          // city - from ServiceCityController
 
           var serviceType = PlacesService.findServiceDataByRegion();
 
@@ -261,13 +254,6 @@ angular.module('app')
 
           $scope.processPlaceSelection();
         };
-
-        // city - from ServiceCityController
-
-        //  PlacesService.setPlaceData({
-        //    region: null,
-        //    city: null
-        //  });
 
         $scope.ngIfCity = function() {
           var placeData = PlacesService.getPlaceData();

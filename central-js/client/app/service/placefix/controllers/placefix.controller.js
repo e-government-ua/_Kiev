@@ -20,11 +20,6 @@ angular.module('app').controller('PlaceFixController', function(
 
   var oService = ServiceService.oService;
 
-  // FIXME generalize it: if cur state is step 1 and it's complete, go to step 2 and change state
-  // if (stateToGo && oParams.placeData.city) {
-  // if (stateToGo && oParams.placeData) {
-  // console.log('step 2:', PlacesService.isStep2);
-
   // FIXME remove state dependency
   var curState = $state.current.name;
 
@@ -72,6 +67,11 @@ angular.module('app').controller('PlaceFixController', function(
       }
     });
 
+    // FIXME generalize it: if cur state is step 1 and it's complete, go to step 2 and change state
+    // if (stateToGo && oParams.placeData.city) {
+    // if (stateToGo && oParams.placeData) {
+    // console.log('step 2:', PlacesService.isStep2);
+
     if (!stateToGo || ($state.current.name === stateToGo)) {
       return;
     }
@@ -94,6 +94,7 @@ angular.module('app').controller('PlaceFixController', function(
 
     var initialRegion = serviceLocationParser.getSelectedRegion(regions);
     if (initialRegion) {
+      // FIXME debug it
       $scope.onSelectRegionList(initialRegion);
     }
 
@@ -144,7 +145,6 @@ angular.module('app').controller('PlaceFixController', function(
       PlacesService.isStep2 = false;
     });
 
-    // STOPPEDHERE
   });
 
   /**

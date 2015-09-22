@@ -44,5 +44,4 @@ angular.module('app').controller('PlaceFixAbsentController', function($state, $r
 
 });
 
-// city - from serviceCityAbsent.controller.js
-// country, region - merged
+// city, country, region - all merged here
