@@ -45,10 +45,18 @@ public enum HistoryEventType {
             "Кто-то воспользовался доступом к документу, который ему предоставил пользователь",
             "Організація " + HistoryEventMessage.ORGANIZATION_NAME + " скористалась доступом, який Ви надали, та переглянула документ "
                     + HistoryEventMessage.DOCUMENT_TYPE + " " + HistoryEventMessage.DOCUMENT_NAME + ""),
-    FINISH_SERVICE(7L,
+    FINISH_SERVICE(8L,
             "ActivitiFinish",
             "Выполнение заявки",
-            "Ваша заявка №" + HistoryEventMessage.TASK_NUMBER + " виконана");
+            "Ваша заявка №" + HistoryEventMessage.TASK_NUMBER + " виконана"),
+    SET_TASK_QUESTIONS(9L,
+            "ActivitiFinish",
+            "Запрос на уточнение данных",
+            "По заявці №" + HistoryEventMessage.TASK_NUMBER + " задане прохання уточнення:\n" + HistoryEventMessage.TABLE_BODY),
+    SET_TASK_ANSWERS(10L,
+            "ActivitiFinish",
+            "Ответ на запрос об уточнении данных",
+            "По заявці №" + HistoryEventMessage.TASK_NUMBER + " дана відповідь громадянином:\n" + HistoryEventMessage.TABLE_BODY);
 
     private Long nID;
     private String sID;
