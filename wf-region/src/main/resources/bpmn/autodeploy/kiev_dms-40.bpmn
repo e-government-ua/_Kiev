@@ -19,12 +19,13 @@
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="RegistrationAddress" name="Звідки Ви прибули; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="WhenCome" name="Коли прибули; Формат - ДД.ММ.PPPP" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="district" name="Район м. Києва, в якому ви зареєстровані" type="enum" required="true">
+        <activiti:formProperty id="district" name="Район м. Києва, в якому ви плануєте зареєструватися" type="enum" required="true">
           <activiti:value id="desn" name="Деснянський"></activiti:value>
           <activiti:value id="solom" name="Солом'янський"></activiti:value>
           <activiti:value id="shev" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
+
         <activiti:formProperty id="Registrationservice" name="Орган, що оформлює реєстрацію" type="enum">
           <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВГУ ДМС України в м.Києві"></activiti:value>
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВГУ ДМС України в м.Києві"></activiti:value>
@@ -93,12 +94,7 @@
         <activiti:formProperty id="kidsDoc4" name="Свідоцтво про народження дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship4" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="warning" name="Зверніть увагу" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="sBody" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="sBody_2" name="sBody" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="sBody_3" name="sBody" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="sBody_4" name="sBody" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="sBody_5" name="sBody" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="sBody_6" name="sBody" type="invisible"></activiti:formProperty>
+
         <activiti:formProperty id="marker1" name="маркер динамічної форми" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;bringDocOther&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;RegistrationDocument&quot;},&quot;sCondition&quot;:&quot;[sReason]=='other'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;milName&quot;,&quot;milRank&quot;,&quot;milSpec&quot;],&quot;asID_Field&quot;:{&quot;sReason2&quot;: &quot;milit_status&quot;},&quot;sCondition&quot;:&quot;[sReason2]=='true'&quot;},&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;ChildName1&quot;,&quot;ChildSex1&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;: &quot;kids&quot;},&quot;sCondition&quot;: &quot;[sReason3]=='yes1'&quot;},&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;ChildName1&quot;,&quot;ChildSex1&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;,&quot;ChildName2&quot;,&quot;ChildSex2&quot;,&quot;kidsBirth2&quot;,&quot;kidsPOB2&quot;,&quot;kidsDoc2&quot;,&quot;kidsCitizenship2&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;: &quot;kids&quot;},&quot;sCondition&quot;: &quot;[sReason3]=='yes2'&quot;},&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;ChildName1&quot;,&quot;ChildSex1&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;,&quot;ChildName2&quot;,&quot;ChildSex2&quot;,&quot;kidsBirth2&quot;,&quot;kidsPOB2&quot;,&quot;kidsDoc2&quot;,&quot;kidsCitizenship2&quot;,&quot;ChildName3&quot;,&quot;ChildSex3&quot;,&quot;kidsBirth3&quot;,&quot;kidsPOB3&quot;,&quot;kidsDoc3&quot;,&quot;kidsCitizenship3&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;: &quot;kids&quot;},&quot;sCondition&quot;: &quot;[sReason3]=='yes3'&quot;},&quot;ShowFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;ChildName1&quot;,&quot;ChildSex1&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;,&quot;ChildName2&quot;,&quot;ChildSex2&quot;,&quot;kidsBirth2&quot;,&quot;kidsPOB2&quot;,&quot;kidsDoc2&quot;,&quot;kidsCitizenship2&quot;,&quot;ChildName3&quot;,&quot;ChildSex3&quot;,&quot;kidsBirth3&quot;,&quot;kidsPOB3&quot;,&quot;kidsDoc3&quot;,&quot;kidsCitizenship3&quot;,&quot;ChildName4&quot;,&quot;ChildSex4&quot;,&quot;kidsBirth4&quot;,&quot;kidsPOB4&quot;,&quot;kidsDoc4&quot;,&quot;kidsCitizenship4&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;: &quot;kids&quot;},&quot;sCondition&quot;: &quot;[sReason3]=='yes4'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -547,12 +543,12 @@
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/zajava_r(kiev).html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_2" name="[pattern/print/vidomist_4(kiev).html]" type="invisible" default="${sBody_2}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_3" name="[pattern/print/kartka(kiev).html]" type="invisible" default="${sBody_3}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_4" name="[pattern/print/talon_4(kiev).html]" type="invisible" default="${sBody_4}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_zn(kiev).html]" type="invisible" default="${sBody_5}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_6" name="[pattern/print/dodat12(kiev).html]" type="invisible" default="${sBody_6}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/zajava_r(kiev).html]" type="invisible" default="Заява про реєстрацію" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_2" name="[pattern/print/vidomist_4(kiev).html]" type="invisible" default="Відомості" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_3" name="[pattern/print/kartka(kiev).html]" type="invisible" default="Картка реєстрації" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_4" name="[pattern/print/talon_4(kiev).html]" type="invisible" default="Талон на зняття з реєстрації" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_zn(kiev).html]" type="invisible" default="Заява про зняття з реєстрації" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_6" name="[pattern/print/dodat12(kiev).html]" type="invisible" default="Повідомлення про зняття особи з реєстрації місця проживання" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
