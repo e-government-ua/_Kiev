@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="dnepr_soczah_139" name="Управління праці та соціального захисту населення - Тимчасова державна допомога дітям, батьки яких ухиляються від сплати аліментів" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Місце реєстрації (вкажіть область, місто, вулицю, будинок, квартиру)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="place_of_liv" name="Місце проживання (вкажіть область, місто, вулицю, будинок, квартиру)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
+          <activiti:value id="sobes1" name="АНД, вул. Радістів, 8"></activiti:value>
+          <activiti:value id="sobes2" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
+          <activiti:value id="sobes3" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
+          <activiti:value id="sobes4" name="Індустріальний, вул. Косіора, 55"></activiti:value>
+          <activiti:value id="sobes5" name="Кіровський, вул. Свердлова, 30/32"></activiti:value>
+          <activiti:value id="sobes6" name="Красногвардійський, вул. Уральська, 5"></activiti:value>
+          <activiti:value id="sobes7" name="Ленінський, вул. Трудова, 1а"></activiti:value>
+          <activiti:value id="sobes8" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="numobr" name="Ваше звернення до районного органу соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
+          <activiti:value id="obr1" name="первинне"></activiti:value>
+          <activiti:value id="obr2" name="вторинне"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string"></activiti:formProperty>
+        <activiti:formProperty id="kuda_dengi" name="Оберіть" type="label" default="В разі призначення допомоги кошти готівкою перераховувати"></activiti:formProperty>
+        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long"></activiti:formProperty>
+        <activiti:formProperty id="kudadengi1" type="label" default="або"></activiti:formProperty>
+        <activiti:formProperty id="bank_schet" name="на рахунок у банку №" type="long"></activiti:formProperty>
+        <activiti:formProperty id="mfo" name="МФО" type="long"></activiti:formProperty>
+        <activiti:formProperty id="bankchoose" name="банк" type="string"></activiti:formProperty>
+        <activiti:formProperty id="okpo" name="код" type="long"></activiti:formProperty>
+        <activiti:formProperty id="rozgl" name="Якщо моя заява потребує розглядання комісією, прошу мою заяву " type="enum" required="true">
+          <activiti:value id="roz1" name="розглянути"></activiti:value>
+          <activiti:value id="roz2" name="не розглядати"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Я усвідомлюю, що наведені мною відомості про доходи та майно, що вплинули або могли вплинути на прийняте рішення щодо надання соціальної допомоги, компенсацій та пільг, будуть перевірені згідно з чинним законодавством України."></activiti:formProperty>
+        <activiti:formProperty id="reg_reb" name="Завантажте довідку про реєстрацію місця проживання (перебування) дитини" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="scsvid" name="Завантажте копію свідоцтва про народження дитини" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="reg_oder" name="Завантажте довідку про реєстрацію місця проживання (перебування) одержувача" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="rish_sudu" name="Завантажте рішення суду про стягнення з одного з батьків аліментів на дитину" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dov_vikon" name="Завантажте довідку Держ. викон. служби, про несплату аліментів одним з батьків протягом 6 міс." type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dov_provad" name="Завантажте довідку відповідної установи про здійснення будь-яких проваджень стосовно одного із батьків" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dov_ovs" name="Завантажте повідомлення органу внутрішніх справ про те, що місце перебування одного з батьків не встановлено" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="num_ark" name="Кількість сторінок у доданих документах" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="num_doc" name="Кількість доданих документів" type="long" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <serviceTask id="mailtask1" name="Повідомлення громадянина про реєстрацію звернення" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Повідомлення про вдалу відправку документів]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;
+                                        Ваш запит щодо призначення тимчасової державної допомоги дітям, батьки яких відхиляються від сплати аліментів було направлено на розгляд.&lt;/p&gt;
+                            
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Укрпошта,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
+    <userTask id="usertask1" name="Перевірка документів в Управлінні праці та соціального захисту населення" activiti:candidateGroups="dnepr_soczah_139">
+      <extensionElements>
+        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="place_of_liv" name="Місце проживання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="e-mail замовника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="decision" name="Обробка заяви" type="enum" required="true">
+          <activiti:value id="attr4_finish" name="Зауважень немає, державана допомога буде надана"></activiti:value>
+          <activiti:value id="attr2_doc_bad" name="Відмовити в наданні послуги"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="comment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="rish_copy" name="Завантажте копію рішення по наданню послуги" type="file" required="true"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow3" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <serviceTask id="mailtask2" name="E-mail при помилках у документах" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Повідомлення щодо призначення тимчасової державної допомоги дітям]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;
+                                        Ваше звернення щодо призначення тимчасової державної допомоги дітям, батьки яких відхиляються від сплати аліментів - забраковане.&lt;/p&gt;
+&lt;p&gt;Причина в наступному: 
+                                    &lt;/p&gt;
+&lt;p&gt;${comment}&lt;/p&gt;
+                            
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Укрпошта,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow5" sourceRef="exclusivegateway1" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision =='attr2_doc_bad'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow6" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow14" sourceRef="exclusivegateway1" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision=="attr4_finish"}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow15" sourceRef="servicetask2" targetRef="endevent1"></sequenceFlow>
+    <serviceTask id="servicetask2" name="E-mail про готовність надати допомогу" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Рішення по наданню державної послуги дітям, батіки яких ухиляються від сплати аліментів]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head lang="ru"&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+    &lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+&lt;tr&gt;
+                    &lt;td align="center"&gt;
+					&lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Дозвіл на розміщення зовнішньої реклами поза межами населених пунктів&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+								  &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;
+                                       Рішення Управління праці та соціального захисту населення по призначенню тимчасової державної допомоги дітям, батьки яких ухиляються від сплати аліментів  - готове.&lt;/p&gt;
+									&lt;p&gt;
+									Ви можете отримати оригінал відповіді особисто.&lt;br/&gt;
+									Дозвіл видається під підпис при наявності документа, що посвідчує особу.&lt;/p&gt;
+									&lt;p&gt;
+									Відділ опрацювання документів щодо призначення усіх видів державних соціальних допомог УПСЗН Бабушкінської районної у м. Дніпропетровську ради знаходиться за адресою,  вул. Героїв Сталінграду, 116-а,  кабінет № 37, 3 поверх&lt;br/&gt;
+
+									Графік роботи:&lt;br/&gt;
+									понеділок -  з 9.00 до 18.00;&lt;br/&gt;
+									вівторок – з 9.00 до 18.00;&lt;br/&gt;
+									середа  - з 9.00 до 18.00;&lt;br/&gt;
+									четвер – з 9.00 до 18.00;&lt;br/&gt;
+									п’ятниця – з 9.00 до 16.45;&lt;br/&gt;
+									Перерва - з 12.00 до 12.45;&lt;br/&gt;
+									&lt;/p&gt;
+                            
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+										Центр надання адміністративних послуг&lt;br/&gt; 
+										Дніпропетровської міської ради,&lt;br/&gt;
+										Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px 0 120px;"&gt;
+                                    &lt;b&gt;Оціните, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:&lt;/b&gt;
+
+                                    &lt;p style="text-align: center;"&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
+                                    &lt;/p&gt;
+
+                                    &lt;p style="font-size: 13px;"&gt;
+                                        Якщо Ви не задоволені якістью, прокоментуйте, будь ласка.&lt;br /&gt;
+                                        Ви також&lt;b style="color: #cc3333;"&gt; маєте змогу анонімно&lt;/b&gt; подати сигнал про будь-які правопорушення державних службовців.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
+                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
+                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
+                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/table&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${rish_copy}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soczah_139">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_soczah_139" id="BPMNPlane_dnepr_soczah_139">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="170.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="250.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="91.0" width="105.0" x="400.0" y="95.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="81.0" width="105.0" x="550.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="700.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="785.0" y="113.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="820.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="668.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="205.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="250.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="355.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="400.0" y="140.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="505.0" y="140.0"></omgdi:waypoint>
+        <omgdi:waypoint x="550.0" y="140.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="655.0" y="140.0"></omgdi:waypoint>
+        <omgdi:waypoint x="700.0" y="140.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="740.0" y="140.0"></omgdi:waypoint>
+        <omgdi:waypoint x="785.0" y="140.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="837.0" y="168.0"></omgdi:waypoint>
+        <omgdi:waypoint x="837.0" y="240.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="720.0" y="160.0"></omgdi:waypoint>
+        <omgdi:waypoint x="720.0" y="230.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="773.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="820.0" y="257.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
