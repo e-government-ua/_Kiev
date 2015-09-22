@@ -3,6 +3,7 @@ package org.wf.dp.dniprorada.dao;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
@@ -47,8 +48,10 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
 
         AlgorithmLuna.validateProtectedNumber(nID_Protected);
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
+        criteria.addOrder(Order.desc("sDate"));
         criteria.add(Restrictions.eq("nID_Task", AlgorithmLuna.getOriginalNumber(nID_Protected)));
-        HistoryEvent_Service event_service = (HistoryEvent_Service) criteria.uniqueResult();
+        List<HistoryEvent_Service> list = (List<HistoryEvent_Service>)criteria.list();
+        HistoryEvent_Service event_service = list.size() > 0 ? list.get(0) : null;
         if (event_service == null) {
             log.warn("Record not found");
             throw new EntityNotFoundException("Record not found");
