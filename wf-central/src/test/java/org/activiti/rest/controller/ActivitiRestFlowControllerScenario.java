@@ -52,16 +52,24 @@ public class ActivitiRestFlowControllerScenario {
 
    @Test
    public void shouldSuccessfullyGetFlowSlotsAndSaveTicket() throws Exception {
-       
-/*       
+
       String getJsonData = mockMvc.perform(get("/flow/getFlowSlots_ServiceData").
-              param("nID_ServiceData", "1")).
+              param("nID_ServiceData", "1").param("nDays", "1000000")).
               andExpect(status().isOk()).
               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
               andReturn().getResponse().getContentAsString();
       Days days = JsonRestUtils.readObject(getJsonData, Days.class);
 
       Assert.assertTrue(days.getaDay().size() > 0);
+
+      getJsonData = mockMvc.perform(get("/flow/getFlowSlots_ServiceData").
+              param("nID_ServiceData", "1").param("nDays", "1000000").param("nFreeDays", "1")).
+              andExpect(status().isOk()).
+              andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
+              andReturn().getResponse().getContentAsString();
+      days = JsonRestUtils.readObject(getJsonData, Days.class);
+      Assert.assertTrue(days.getaDay().size() == 1);
+
       Day day = findFirstFreeDay(days);
       FlowSlotVO freeSlot = findFirstFreeSlot(day);
       Assert.assertTrue(freeSlot.isbFree());
@@ -97,18 +105,6 @@ public class ActivitiRestFlowControllerScenario {
       FlowSlotVO slotAfterModification1 = findSlot(days, freeSlot.getnID());
       Assert.assertTrue(slotAfterModification1 == null); // slot is no more free, therefor it doesn't returned
 
-      // save second time and make sure that Id is not changed
-      setJsonData = mockMvc.perform(post("/flow/setFlowSlot_ServiceData").
-              param("nID_FlowSlot", ""+freeSlot.getnID()).
-              param("nID_Subject", "2").
-              param("nID_Task_Activiti", "1")).
-              andExpect(status().isOk()).
-              andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
-              andReturn().getResponse().getContentAsString();
-      response = JsonRestUtils.readObject(setJsonData, SaveFlowSlotTicketResponse.class);
-      Assert.assertEquals(ticketId, response.getnID_Ticket());
-        
-*/        
    }
 
    @Test

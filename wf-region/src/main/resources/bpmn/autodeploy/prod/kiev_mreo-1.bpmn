@@ -21,7 +21,6 @@
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-        <activiti:formProperty id="response" name="thank_you_page_text" type="invisible" default="&lt;strong&gt;Дякуемо, що скористались нашим сервісом!&lt;/strong&gt;"></activiti:formProperty>
         <activiti:formProperty id="markers" name="markersForValidations" type="markers" default="{}"></activiti:formProperty>
         <activiti:formProperty id="date_of_visit" name="дата візиту" type="invisible"></activiti:formProperty>
       </extensionElements>
@@ -457,7 +456,7 @@
 1. Громадянський паспорт&lt;br /&gt;
 2. Техпаспорт&lt;br /&gt;
 3. Довідка-рахунок або або нотаріальний договір купівлі-продажу.&lt;br /&gt;
-4. Копія квітанції про сплату за послуги МРЕВ.&lt;br /&gt;
+4. Копія квитанції про сплату за послуги МРЕВ.&lt;br /&gt;
 &lt;/p&gt;
 Дата та час: ${date_of_visit}.  &lt;br /&gt;
 
@@ -561,7 +560,7 @@
 1. Громадянський паспорт&lt;br /&gt;
 2. Техпаспорт&lt;br /&gt;
 3. Довідка-рахунок або або нотаріальний договір купівлі-продажу.&lt;br /&gt;
-4. Копія квітанції про сплату за послуги МРЕВ.&lt;br /&gt;
+4. Копія квитанції про сплату за послуги МРЕВ.&lt;br /&gt;
 &lt;/p&gt;
 
 Дата та час: ${date_of_visit}.&lt;br /&gt;
@@ -600,7 +599,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Реєстрація авто. Нове  звернення.</activiti:string>
+          <activiti:string><![CDATA[Реєстрація авто. Нове  звернення.(Петропавлівська Борщагівка, вул.Кільцева 4)]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -656,15 +655,15 @@
                                     &lt;h3&gt;Шановний колего!&lt;/h3&gt;
                                     &lt;p&gt;
                                         У Вас в черзі на обробку  зареєстровано нове звернення щодо реєстрації авто з пробігом&lt;br /&gt;
-                                        Заявник:  ${bankIdfirstName} ${bankIdmiddleName} ${bankIdlastName}&lt;br /&gt;
-                                        Відпрацюйте це звернення на порталі &lt;a href="#current-page"&gt;region.igov.org.ua/admin&lt;/a&gt;
+Заявник:  ${bankIdfirstName} ${bankIdmiddleName} ${bankIdlastName} &lt;br /&gt;
+                                        Відпрацюйте це звернення на порталі &lt;a href="https://region.igov.org.ua/admin"&gt;region.igov.org.ua/admin&lt;/a&gt;
                                     &lt;/p&gt;
                                     
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
                                         Міністерство Внутрішніх Справ України,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                        Команда Порталу державних послуг &lt;a href="https://iGov.org.ua"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -685,10 +684,10 @@
 &lt;/html&gt;</activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string>Dmitriy1995hawrylko@gmail.com,panasuk_y@ukr.net</activiti:string>
+          <activiti:string><![CDATA[Dmitriy1995hawrylko@gmail.com,panasuk_y@ukr.net]]></activiti:string>
         </activiti:field>
         <activiti:field name="bcc">
-          <activiti:string>pavel.kurbatskij@privatbank.ua</activiti:string>
+          <activiti:string><![CDATA[pavel.kurbatskij@privatbank.ua,Kravchuk_orer@mail.ru]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>

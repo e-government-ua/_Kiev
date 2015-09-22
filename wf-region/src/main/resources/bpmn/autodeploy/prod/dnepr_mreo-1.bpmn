@@ -21,7 +21,6 @@
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-        <activiti:formProperty id="response" name="thank_you_page_text" type="invisible" default="&lt;strong&gt;Дякуемо, що скористались нашим сервісом!&lt;/strong&gt;"></activiti:formProperty>
         <activiti:formProperty id="markers" name="markersForValidations" type="markers" default="{}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -154,8 +153,12 @@
           <activiti:value id="reject2" name="Відмовити громадянину в наданні послуги; звернення містить невірні дані "></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="sSum" name="Розмір держ.збору за надання послуги (для генерації рахунку для сплати через LIQPAY)" type="enum" default=" ">
-          <activiti:value id="526.15" name="526.15 грн"></activiti:value>
-          <activiti:value id="488.63" name="488.63 грн"></activiti:value>
+          <activiti:value id="535.63" name="526.15 грн - Реєстрація іноземного авто з номерами і ТП"></activiti:value>
+          <activiti:value id="497.43" name="488.63 грн - Реєстрація відчизняного авто з номерами і ТП"></activiti:value>
+          <activiti:value id="506.92" name="497.95 грн - Реєстрація іноземного авто з номерами без заміни ТП "></activiti:value>
+          <activiti:value id="468.72" name="460.43 грн - Реєстрація відчизняного авто з номерами без заміни ТП "></activiti:value>
+          <activiti:value id="398.19" name="391.15 грн - Реєстрація іноземного авто з ТП без заміни номерів"></activiti:value>
+          <activiti:value id="360.00" name="353.63 грн - Реєстрація відчизняного авто з ТП без заміни номерів"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="В разі відмови в наданні послуги, вкажіть причину. (Інформація буде спрямована громадянину на e-mail)" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="billToPay" name="Завантажити реквізити для оплати (Інформація буде спрямована громадянину на e-mail)" type="file" default=" "></activiti:formProperty>
@@ -464,7 +467,7 @@
 1. Громадянський паспорт&lt;br /&gt;
 2. Техпаспорт&lt;br /&gt;
 3. Довідка-рахунок або або нотаріальний договір купівлі-продажу.&lt;br /&gt;
-4. Копія квітанції про сплату за послуги МРЕВ.&lt;br /&gt;
+4. Копія квитанції про сплату за послуги МРЕВ.&lt;br /&gt;
 &lt;/p&gt;
 Дані талону на візит: &lt;br /&gt;
 ${visitDate}&lt;br /&gt;
@@ -577,7 +580,7 @@ ${visitDate}&lt;br /&gt;
 1. Громадянський паспорт&lt;br /&gt;
 2. Техпаспорт&lt;br /&gt;
 3. Довідка-рахунок або або нотаріальний договір купівлі-продажу.&lt;br /&gt;
-4. Копія квітанції про сплату за послуги МРЕВ.&lt;br /&gt;
+4. Копія квитанції про сплату за послуги МРЕВ.&lt;br /&gt;
 &lt;/p&gt;
 Дані талону на візит: &lt;br /&gt;
 ${visitDate}&lt;br /&gt;
@@ -717,13 +720,13 @@ ${visitDate}&lt;br /&gt;
     <serviceTask id="servicetask3" name="Повідомлення співробітника банку про сплату послуги" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"pavel.kurbatskij@privatbank.ua,vladimir.zimenko@privatbank.ua,Lilija,Verchenko.01@privatbank.ua"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Реєстрація авто: рахунок на оплату</activiti:string>
+          <activiti:string><![CDATA[Реєстрація авто: рахунок на оплату]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) колего!
@@ -745,13 +748,13 @@ id  платежу :  ${sIDPayment}</activiti:expression>
     <serviceTask id="servicetask4" name="Повідомлення співробітника банку про повернення кошткоштів громадянину" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"pavel.kurbatskij@privatbank.ua,vladimir.zimenko@privatbank.ua,Lilija,Verchenko.01@privatbank.ua"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Реєстрація авто с пробігом в МРЄВ. Повернення коштів</activiti:string>
+          <activiti:string><![CDATA[Реєстрація авто с пробігом в МРЄВ. Повернення коштів]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) колего!
@@ -778,7 +781,7 @@ id  платежу :  ${sIDPayment}</activiti:expression>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_mreo_1">
     <bpmndi:BPMNPlane bpmnElement="dnepr_mreo_1" id="BPMNPlane_dnepr_mreo_1">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="60.0" y="120.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="40.0" y="120.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="55.0" width="151.0" x="180.0" y="110.0"></omgdc:Bounds>
@@ -844,7 +847,7 @@ id  платежу :  ${sIDPayment}</activiti:expression>
         <omgdc:Bounds height="35.0" width="35.0" x="1043.0" y="686.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="95.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="75.0" y="137.0"></omgdi:waypoint>
         <omgdi:waypoint x="180.0" y="137.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">

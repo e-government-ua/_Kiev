@@ -1,8 +1,5 @@
-﻿<div ng-include="'components/navbar/navbar.html'"
-     class="navbar-fixed-top"></div>
-<div class="container"
-     ng-style="showPrintModal && {'overflow-y':'hidden'}"
-     ng-init="init()">
+﻿<div ng-include="'components/navbar/navbar.html'" class="navbar-fixed-top"></div>
+<div class="container" ng-style="showPrintModal && {'overflow-y':'hidden'}" ng-init="init()">
   <div class="container__in">
     <div class="row">
       <div class="col-xs-5 sidebar">
@@ -10,20 +7,15 @@
 
           <div ng-if="sSelectedTask=='tickets'" class="tasks-tickets-list-header">
             <div class="tickets-assign">
-              <input type="checkbox" ng-model="ticketsFilter.bEmployeeUnassigned"
-                     id="ticketsFilter_bEmployeeUnassigned"
-                     ng-change="applyTicketsFilter()"/>
+              <input type="checkbox" ng-model="ticketsFilter.bEmployeeUnassigned" id="ticketsFilter_bEmployeeUnassigned" ng-change="applyTicketsFilter()"
+              />
               <label for="ticketsFilter_bEmployeeUnassigned">Тільки не взяті в обробку</label>
             </div>
             <div class="tickets-date">
-              <a href ng-repeat="mode in ticketsFilter.dateModeList"
-                 ng-click="setTicketsDateMode(mode.key)"
-                 ng-class="{'selected':ticketsFilter.dateMode==mode.key}"
-                 class="tickets-date-mode">{{mode.title}}</a>
-              <input type="date" class="form-control"
-                     ng-model="ticketsFilter.sDate"
-                     ng-change="applyTicketsFilter()"
-                     ng-if="ticketsFilter.dateMode=='date'"/>
+              <a href ng-repeat="mode in ticketsFilter.dateModeList" ng-click="setTicketsDateMode(mode.key)" ng-class="{'selected':ticketsFilter.dateMode==mode.key}"
+              class="tickets-date-mode">{{mode.title}}</a>
+              <input type="date" class="form-control" ng-model="ticketsFilter.sDate" ng-change="applyTicketsFilter()" ng-if="ticketsFilter.dateMode=='date'"
+              />
             </div>
             <div class="clearfix"></div>
           </div>
@@ -31,14 +23,26 @@
           <div class="sort-select" ng-if="sSelectedTask!='tickets'">
             <div class="task-list-header">
               <div class="task-list-header-row">
-                <input ng-model="searchTask.orderId" class="task-list-header-cell task-list-header-search"
-                       placeholder="Введіть № звернення для пошуку" size="35" ng-keyup="($event.keyCode === 13)?searchTaskByOrder():0" />
+                <div class="task-list-header-cell">
+                  <input ng-model="searchTask.orderId" class="task-list-header-search"
+                         placeholder="Введіть № звернення для пошуку"
+                         size="35" ng-keyup="($event.keyCode === 13)?searchTaskByOrder():0"/>
+                </div>
+                <div class="task-list-header-cell">
+                  <input ng-model="searchTask.text" class="task-list-header-search"
+                         placeholder="Введіть текст для пошуку"
+                         size="35" ng-keyup="($event.keyCode === 13)?searchTaskByText():0"/>
+                </div>
                 <div class="right-aligned task-list-header-cell">
-                  Сортувати за датою
-                  <select ng-model="sort_order" ng-change="sortOrder()" >
-                    <option value="order_increase" selected>Від найдавніших</option>
-                    <option value="order_decrease">Від найновіших</option>
+                  Сортувати: 
+                  <select ng-options="option.value as option.text for option in sortOrderOptions"
+                          ng-model="selectedSortOrder.selected"
+                          ng-change="selectedSortOrderChanged()">
                   </select>
+                  <!--<select>
+                    <option onselect="sortorder('createTime',true)">Від найдавніших</option>
+                    <option onselect="order('createTime',false)">Від найновіших</option>
+                  </select>-->
                 </div>
               </div>
             </div>
@@ -56,34 +60,25 @@
             <div ng-if="tasks!==null  && tasks.length>0">
 
               <div ng-if="sSelectedTask=='tickets'">
-                <a class="list-group-item task {{sSelectedTask}}_{{task.id}}"
-                   href=""
-                   
-                   tooltip="Слот №{{task.nID_FlowSlot}} (Задача №{{task.nID_Task_Activiti}}, Процесс №{{task.nID_Instance}})"
-                   
-                   ng-repeat="task in tasks"
-                   ng-click="selectTask(task)"
-                   ng-class="{'active': isTaskSelected(task)}">
-                  <span class="ticket-date-time">{{task.sDateStart|date:'yyyy-MM-dd HH:mm'}}</span>,
-                  №{{task.nID_Instance}}{{lunaService.getLunaValue(task.nID_Instance)}},
-                  (Тікет №{{task.nID}})<br/>
-                  {{task.sNameBP}}.
-                  {{task.sUserTaskName}}.
+                <a class="list-group-item task {{sSelectedTask}}_{{task.id}}" href="" tooltip="Слот №{{task.nID_FlowSlot}} (Задача №{{task.nID_Task_Activiti}}, Процесс №{{task.nID_Instance}})"
+                ng-repeat="task in tasks" ng-click="selectTask(task)" ng-class="{'active': isTaskSelected(task)}">
+                  <span class="ticket-date-time">{{task.sDateStart|date:'yyyy-MM-dd HH:mm'}}</span>, №{{task.nID_Instance}}{{lunaService.getLunaValue(task.nID_Instance)}},
+                  (Тікет №{{task.nID}})
+                  <br/> {{task.sNameBP}}. {{task.sUserTaskName}}.
                 </a>
               </div>
 
               <div ng-if="sSelectedTask!='tickets'">
-                <a class="list-group-item task {{sSelectedTask}}_{{task.processInstanceId}} {{ sTaskClass(task.taskDefinitionKey) }}"
-                   href=""
-                   ng-repeat="task in tasks | orderBy:predicate:reverse"
-                   tooltip="{{task.description}} (Задача №{{task.id}}, Процесс №{{task.processDefinitionId}})"
-                   ng-click="selectTask(task)"
-                   ng-class="{'active': isTaskSelected(task)}">
-              <span class="ticket-date-time">{{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}</span>
-              №{{task.processInstanceId}}{{lunaService.getLunaValue(task.processInstanceId)}} 
-              {{ getProcessName(task.processDefinitionId) }} | {{ task.name }}
-               
-                  </a>
+                <a class="list-group-item task {{sSelectedTask}}_{{task.processInstanceId}} {{ sTaskClass(task.taskDefinitionKey) }}" href=""
+                    ng-repeat="task in tasks | orderBy:predicate:reverse"
+                    tooltip="{{task.description}} (Задача №{{task.id}}, Процесс №{{task.processDefinitionId}})"
+                    ng-click="selectTask(task)"
+                    ng-class="{'active': isTaskSelected(task)}">
+                  <span class="ticket-date-time">{{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}</span>
+                  №{{task.processInstanceId}}{{lunaService.getLunaValue(task.processInstanceId)}} {{ getProcessName(task.processDefinitionId)
+                  }} | {{ task.name }}
+
+                </a>
               </div>
 
             </div>
@@ -95,129 +90,74 @@
         <div class="tasks-form-view">
           <h3 ng-show="selectedTask && taskForm == null && !error">Завантаження ...</h3>
 
-          <show-error data="error"
-                      ng-show="error"></show-error>
+          <show-error data="error" ng-show="error"></show-error>
 
           <div ng-repeat="item in taskForm" class="task-form-property">
+
             <div ng-if="['string', 'long', 'date'].indexOf(item.type) > -1">
-
-              <label>{{sFieldLabel(item.name)}}</label>
-
-              <div class="input-group">
-                <input class="form-control"
-                       ng-disabled="isFormPropertyDisabled(item)"
-                       ng-required="item.required"
-                       ng-model="item.value"/>
-                            <span class="input-group-addon"
-                                  ng-if="isFormPropertyDisabled(item)"
-                                  clip-copy="item.value">
-                                <i class="glyphicon glyphicon-copy"></i>
-                            </span>
-              </div>
+              <field-title></field-title>
+              <simple-field></simple-field>
             </div>
 
-            <p ng-if="item.type == 'textArea'">
-              <label>{{sFieldLabel(item.name)}}</label>
-                        <textarea class="form-control"
-                                  ng-disabled="isFormPropertyDisabled(item)"
-                                  ng-required="item.required"
-                                  ng-model="item.value"></textarea>
-            </p>
+            <textarea-field></textarea-field>
 
-            <p ng-if="item.type == 'user'">
-              <label>{{sFieldLabel(item.name)}}</label>
-              <input class="form-control"
-                     ng-disabled="true"
-                     ng-required="item.required"
-                     ng-model="item.value"/>
-            </p>
+            <user-field></user-field>
 
-            <p ng-if="item.type == 'enum'">
-              <label>{{sFieldLabel(item.name)}}</label>
-              <select class="form-control"
-                      ng-disabled="isFormPropertyDisabled(item)"
-                      ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in item.enumValues"
-                      ng-required="item.required"
-                      ng-model="item.value"></select>
-            </p>
+            <enum-field></enum-field>
 
-            <p ng-if="item.type == 'file' && !isFormPropertyDisabled(item)">
-              <label>{{sFieldLabel(item.name)}}</label>
-              <file-field name="{{item.id}}"
-                          ng-disabled="isFormPropertyDisabled(item)"
-                          ng-model="item.value"
-                          ng-required="property.required">Add File
-              </file-field>
-            </p>
-
-            <!--'string', 'long', 'date' 'textArea' 'user' 'enum' 'file'-->
-            <!--p ng-if="['string', 'long', 'date', 'textArea', 'user', 'enum', 'file'].indexOf(item.type) == -1">
-                <label>{{sFieldLabel(item.name)}}</label>
-                <input class="form-control"
-                       ng-disabled="true"
-                       ng-required="item.required"
-                       ng-model="item.value"/>
-            </p-->
+            <file-formfield></file-formfield>
 
             <p style="display: none;" ng-if="['invisible'].indexOf(item.type) > -1">
-              <label>{{sFieldLabel(item.name)}}</label>
+              <field-title></field-title>
             </p>
 
             <p ng-if="['label'].indexOf(item.type) > -1">
-              <label>{{sFieldLabel(item.name)}}</label>
+              <field-title></field-title>
               <label>{{item.value}}</label>
             </p>
 
             <p ng-if="['queueData'].indexOf(item.type) > -1">
-              <label>{{sFieldLabel(item.name)}}</label>
-              <label
-                title="{{nID_FlowSlotTicket_FieldQueueData(item.value)}}">{{sDate_FieldQueueData(item.value)}}</label>
+              <field-title></field-title>
+              <label title="{{nID_FlowSlotTicket_FieldQueueData(item.value)}}">{{sDate_FieldQueueData(item.value)}}</label>
             </p>
 
 
           </div>
+
           <div ng-show="attachments">
-            <p ng-repeat="item in attachments">
-              Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content/{{($index+1)}}"
-                       target="_blank"><b>{{item.name}}</b></a> {{item.description}}
+            <p ng-repeat="item in attachments" ng-show="taskFormLoaded">
+              Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content/{{($index+1)}}" target="_blank"><b>{{item.name}}</b></a>              {{item.description}}
             </p>
           </div>
         </div>
         <div class="tasks-form-buttons">
           <p ng-if="selectedTask">
-            <button ng-hide="selectedTask.assignee != null"
-                    ng-click="assignTask()"
-                    class="btn btn-success">Взяти в роботу
-            </button>
-            <button ng-hide="selectedTask.assignee == null || sSelectedTask == 'finished'"
-                    ng-click="submitTask()"
-                    class="btn btn-success">Опрацювати
-            </button>
-            <button ng-hide="selectedTask.assignee == null || sSelectedTask == 'finished'"
-                    ng-click="print()"
-                    class="btn btn-success">Роздрукувати
-            </button>
+            <div ng-hide="selectedTask.assignee != null">
+              <puttowork-button></puttowork-button>
+            </div>
+            <div ng-hide="selectedTask.assignee == null">
+              <submittask-button></submittask-button>
+              <br/>
+              <br/>
+            </div>
+            <!--div ng-hide="selectedTask.assignee == null || sSelectedTask == 'finished'">
+              <button ng-hide="!taskFormLoaded || sSelectedTask == 'finished'" ng-click="print()" class="btn btn-success">Роздрукувати
+              </button>
+            </div-->
+          
+            <div>
+              <button ng-hide="!taskFormLoaded" ng-click="print()" class="btn btn-success">Роздрукувати
+              </button>
+            </div>
+          
+            <!--select class="aPatternPrint form-control_" ng-hide="aPatternPrintNew1(taskForm)===null || aPatternPrintNew1(taskForm).length===0 || selectedTask.assignee == null || sSelectedTask == 'finished'">
+              <option ng-repeat="oPatternPrint in aPatternPrintNew1(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.displayTemplate}}</option>
+            </select-->
 
-            <!--select class="aPatternPrint form-control_"
-                    ng-hide="!printTemplate.containsPrintTemplate()"
-                    ng-options="oPatternPrint.sID as oPatternPrint.sLabel for oPatternPrint in printTemplate.aPatternPrint()"
-                    ng-model="'sBody_0'"></select-->
-<!--
-                                ng-hide="!printTemplate.containsPrintTemplate()"
--->
-
-            <select class="aPatternPrint form-control_"
-                    ng-hide="aPatternPrintNew(taskForm)===null || aPatternPrintNew(taskForm).length===0 || selectedTask.assignee == null || sSelectedTask == 'finished'"
-                    >
-              <option ng-repeat="oPatternPrint in aPatternPrintNew(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.name}}</option>
-              <!--option ng-repeat="oPatternPrint in printTemplate.aPatternPrint()" value="{{oPatternPrint.sID}}">{{oPatternPrint.sLabel}}</option-->
-
-
+            <select class="aPatternPrint form-control_" ng-hide="aPatternPrintNew1(taskForm)===null || aPatternPrintNew1(taskForm).length===0">
+              <option ng-repeat="oPatternPrint in aPatternPrintNew1(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.displayTemplate}}</option>
             </select>
-
-            <!--        ng-hide="!printTemplate.containsPrintTemplate()" -->
-            <!--value="{{oPatternPrint.sID}}" selected="{{oPatternPrint.sID=='sBody_0'?'selected':''}}">{{oPatternPrint.sLabel}}</option-->
-
+            
           </p>
         </div>
       </div>
@@ -225,33 +165,4 @@
   </div>
 </div>
 
-<print-modal show='printTemplate.showPrintModal'
-             info='printTemplate.showPrintModal'>
-  <div>
-    <div  ng-if="!printTemplate.containsPrintTemplate()">
-      <p>Звернення: {{getProcessName(printTemplate.task.processDefinitionId)}}</p>
-
-      <p>джерело: igov.org.ua</p>
-
-      <p>№: {{printTemplate.task.id}}</p>
-
-      <p>від: {{ sDateShort(printTemplate.task.createTime) }}</p>
-
-      <p ng-repeat='item in printTemplate.form'>
-        <font ng-if="item.type != 'invisible'">{{sFieldLabel(item.name)}}</font>
-        <b ng-if="item.type == 'enum'">{{sEnumValue(item.enumValues,item.value)}}</b>
-        <b ng-if="item.type != 'enum' && item.type != 'invisible'">{{item.value}}</b>
-      </p>
-
-      <p>
-        ----------------------------------------------------------------------------------------------------------------------------</p>
-
-      <p>Довідку№ _________________________ Отримав (ПІБ)_________________________</p>
-
-      <p>Дата _________________________ Підпис _________________________</p>
-    </div>
-    <div ng-if="printTemplate.containsPrintTemplate()">
-      <div ng-bind-html="printTemplate.getPrintTemplate()"></div>
-    </div>
-  </div>
-</print-modal>
+<print-dialog></print-dialog>

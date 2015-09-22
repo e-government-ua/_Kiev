@@ -1,5 +1,6 @@
 package org.activiti.rest.controller;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.wf.dp.dniprorada.base.model.Entity;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
 import org.wf.dp.dniprorada.base.util.SerializableResponseEntity;
 import org.wf.dp.dniprorada.base.util.caching.CachedInvocationBean;
+import org.wf.dp.dniprorada.base.util.caching.MethodCacheInterceptor;
 import org.wf.dp.dniprorada.base.viewobject.ResultMessage;
 import org.wf.dp.dniprorada.constant.KOATUU;
 import org.wf.dp.dniprorada.model.*;
@@ -32,6 +34,9 @@ import java.util.List;
 @RequestMapping(value = "/services")
 public class ActivitiRestServicesController {
 
+   private static final String GET_SERVICES_TREE = "getServicesTree";
+
+
    @Autowired
    private BaseEntityDao baseEntityDao;
 
@@ -43,6 +48,10 @@ public class ActivitiRestServicesController {
 
    @Autowired
    private CachedInvocationBean cachedInvocationBean;
+
+   @Autowired(required = false)
+   private MethodCacheInterceptor methodCacheInterceptor;
+
    @Autowired
    GeneralConfig generalConfig;
 
@@ -62,7 +71,15 @@ public class ActivitiRestServicesController {
       Service service = JsonRestUtils.readObject(jsonData, Service.class);
 
       Service updatedService = entityService.update(service);
+      clearGetServicesCache();
+
       return regionsToJsonResponse(updatedService);
+   }
+
+   private void clearGetServicesCache() {
+      if (methodCacheInterceptor != null) {
+         methodCacheInterceptor.clearCacheForMethod(CachedInvocationBean.class, "invokeUsingCache", GET_SERVICES_TREE);
+      }
    }
 
    @RequestMapping(value = "/removeService", method = RequestMethod.DELETE)
@@ -233,7 +250,7 @@ public class ActivitiRestServicesController {
                     required = false) final List<String> placeUaIds) {
         final boolean bTest = generalConfig.bTest();
         SerializableResponseEntity<String> entity = cachedInvocationBean.invokeUsingCache(new CachedInvocationBean.Callback<SerializableResponseEntity<String>>(
-                "getServicesTree", partOfName, placeUaIds, bTest) {
+                GET_SERVICES_TREE, partOfName, placeUaIds, bTest) {
             @Override
             public SerializableResponseEntity<String> execute() {
                 List<Category> categories = new ArrayList<>(baseEntityDao.findAll(Category.class));
@@ -295,7 +312,8 @@ public class ActivitiRestServicesController {
                         .hasNext();) {
                     Service service = serviceIterator.next();
                     boolean isPlaceMatched = false;
-                    List<ServiceData> serviceDatas = service.getServiceDataFiltered(generalConfig.bTest());
+                    //List<ServiceData> serviceDatas = service.getServiceDataFiltered(generalConfig.bTest());
+                    List<ServiceData> serviceDatas = service.getServiceDataFiltered(true);
                     if (serviceDatas != null) {
                         for (ServiceData serviceData : serviceDatas) {
                             City city = serviceData.getCity();
@@ -348,6 +366,7 @@ public class ActivitiRestServicesController {
 
       List<Category> categories = Arrays.asList(JsonRestUtils.readObject(jsonData, Category[].class));
       List<Category> updatedCategories = entityService.update(categories);
+      clearGetServicesCache();
 
       return categoriesToJsonResponse(updatedCategories).toResponseEntity();
    }
@@ -402,7 +421,9 @@ public class ActivitiRestServicesController {
                service.setInfo(null);
                service.setLaw(null);
                //service.setSub(service.getServiceDataList().size());
-               service.setSub(service.getServiceDataFiltered(generalConfig.bTest()).size());
+
+               List<ServiceData> serviceDataFiltered = service.getServiceDataFiltered(generalConfig.bTest());
+               service.setSub(serviceDataFiltered != null ? serviceDataFiltered.size() : 0);
                //service.setTests(service.getTestsCount());
                //service.setStatus(service.getTests(); service.getTestsCount());
                service.setStatus(service.getStatusID());

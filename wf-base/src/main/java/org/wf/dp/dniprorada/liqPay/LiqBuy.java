@@ -57,7 +57,7 @@ public class LiqBuy {
             oLanguage = DEFAULT_LANG;
         }
         
-        String URI = "/wf-central/service/merchant/getMerchant";
+        String URI = "/wf/service/merchant/getMerchant";
         Map<String, String> paramMerchant = new HashMap<String, String>();
         paramMerchant.put("sID", sID_Merchant);
         paramMerchant.put("nID_Subject", String.valueOf(nID_Subject));

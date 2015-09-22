@@ -33,5 +33,9 @@ angular.module('app').factory('DatepickerFactory', function($filter) {
     return new datepicker();
   };
 
+  datepicker.prototype.createFactory = function(){
+    return new datepicker();
+  };
+
   return datepicker;
 });

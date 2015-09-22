@@ -1,6 +1,9 @@
 'use strict';
 
-angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
+angular.module('dashboardJsApp').factory('PrintTemplate', function($sce, $q, tasks) {
+
+  var loadedTemplates = {};
+
   var PrintTemplate = function() {
     this.task = undefined;
     this.form = undefined;
@@ -16,10 +19,10 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
       return item.id === s;
     });
 //    console.log("[findPrintTemplate]printTemplateResult.length="+printTemplateResult.length)
-    return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
+    return printTemplateResult.length !== 0 ? printTemplateResult[0].name.replace(/\[pattern(.+)\].*/, '$1') : "";
   };
 
-  
+
   PrintTemplate.prototype.aPatternPrintNew = function (form, sCustomFieldID) {
 //    console.log("[aPatternPrintNew]")
     var s = ((sCustomFieldID!==null && sCustomFieldID !== undefined && sCustomFieldID!=='-') ? sCustomFieldID : 'sBody');
@@ -37,7 +40,7 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
     return (printTemplateResult!==null && printTemplateResult.length !== 0) ? printTemplateResult : [];
   };
 
-    
+
   /*
   PrintTemplate.prototype.containsPrintTemplate = function () {
     return this.form && this.findPrintTemplate(this.form) !== "";
@@ -52,7 +55,7 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
           return item && item.id && item.id.indexOf("sBody")>=0;
         });
 //        console.log("[containsPrintTemplate]printTemplateResult.length="+printTemplateResult.length)
-        return printTemplateResult.length > 0 && printTemplateResult[0].value !== "";
+        return printTemplateResult.length > 0 && printTemplateResult[0].name !== "";
     }else{
 //        console.log("[containsPrintTemplate]")
         return false;
@@ -68,12 +71,12 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
           if(item && item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
               a=a.concat([{sID:item.id,sLabel:item.name}])
           }
-        });    
+        });
     }*/
 //    console.log("[aPatternPrint]a.length="+a.length)
-    
+
     var aForm = [];
-    
+
     if(this.form){
         aForm = this.form.filter(function (item) {
           return item && item.id && item.id.indexOf("sBody")>=0;
@@ -81,7 +84,7 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
     }
 
 //    console.log("[aPatternPrint]0_aForm.length="+aForm.length);
-      
+
     //if(this.form){
     if(aForm){
     //if(form){
@@ -100,16 +103,16 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
                     a.push({sID:item.id,sLabel:item.name});
                 }
               }
-            });               
+            });
         }
     }
-    
+
 //    console.log("[aPatternPrint]a.length(before)="+a.length)
     if(a.length===0){
         a=a.concat([{sID:"sBody_0".id,sLabel:"-"}])
     }
 //    console.log("[aPatternPrint]a.length(after)="+a.length)
-    
+
     return a;
   };
 
@@ -141,7 +144,7 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
     if (!this.form) {
       return "";
     } else {
-        
+
       /*if(sCustomFieldID === null || sCustomFieldID === undefined){
         sCustomFieldID = $('.aPatternPrint').val();
       }*/
@@ -149,14 +152,22 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce) {
       var sCustomFieldID = $('.aPatternPrint').val();
 //      console.log("[getPrintTemplate]sCustomFieldID="+sCustomFieldID);
       if(sCustomFieldID === null || sCustomFieldID === undefined || sCustomFieldID === "" || sCustomFieldID === "-"){
-          alert("Не обран шаблон для друку!");
+//          alert("Не обран шаблон для друку!");
           //return;
       }
       //console.log("[getPrintTemplate]sCustomFieldID="+sCustomFieldID);
-        
+
 //      console.log("[getPrintTemplate]2");
-      var printTemplate = this.findPrintTemplate(this.form, sCustomFieldID);
-      printTemplate = this.processPrintTemplate(this.form, printTemplate, /(\[(\w+)])/g, function (item) {
+      var printTemplateName = this.findPrintTemplate(this.form, sCustomFieldID);
+      if (!angular.isDefined(loadedTemplates[printTemplateName])) {
+        loadedTemplates[printTemplateName] = 'Завантаження форми...';
+        tasks.getPatternFile(printTemplateName).then(function(result){
+          loadedTemplates[printTemplateName] = result;
+        }, function() {
+          loadedTemplates[printTemplateName] = 'Помилка завантаження форми!';
+        });
+      }
+      var printTemplate = this.processPrintTemplate(this.form, loadedTemplates[printTemplateName], /(\[(\w+)])/g, function (item) {
         if (item.type === 'enum') {
           var enumID = item.value;
           return item.enumValues.filter(function (enumObj) {

@@ -8,6 +8,7 @@ import org.wf.dp.dniprorada.model.HistoryEvent;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.criterion.Order;
 
 @Repository
 public class HistoryEventDaoImpl extends GenericEntityDao<HistoryEvent> implements HistoryEventDao {
@@ -28,7 +29,9 @@ public class HistoryEventDaoImpl extends GenericEntityDao<HistoryEvent> implemen
     @Override
     public List<HistoryEvent> getHistoryEvents(Long nID_Subject) {
 
-        List<HistoryEvent> historyEvents = findAllBy("subjectKey", nID_Subject);
+        //List<HistoryEvent> historyEvents = findAllBy("subjectKey", nID_Subject);
+        List<HistoryEvent> historyEvents = findByAttributeCriteria("subjectKey", nID_Subject)
+                .addOrder(Order.desc("date")).list();
         for (HistoryEvent historyEvent : historyEvents){
             if (!historyEvent.getHistoryEventTypeKey().equals(0L)) {
                 historyEvent.setEventNameCustom(HistoryEventType.getById(historyEvent.getHistoryEventTypeKey()).getsName());

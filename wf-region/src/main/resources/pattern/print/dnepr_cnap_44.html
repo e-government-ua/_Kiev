@@ -70,6 +70,7 @@
 }
 
 .line_col {}
+.line {margin: 20px 0 20px 0; border-bottom: 1px solid;}
 .under_field {height: 20px; margin: 0 0 20px 0; border-bottom: 1px solid black; position: relative; display: inline-block; clear: both;}
 .under_field > i {font-style: normal;}
 .under_field > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
@@ -124,8 +125,7 @@ p {font-size: 12px;}
 <body>
 <section class="print_wrap">
     <div class="w365 line_col ta-l p-right x-font">
-        <p>Міському голові <br/>
-   		   Куліченку І.І.</p>
+        <p>Міському голові</p>
 
         <p>(заступнику міського голови – <br/>
 		    керуючому справами виконкому <br/>
@@ -144,15 +144,15 @@ p {font-size: 12px;}
     <div class="under_field_line wub ta-l">Прошу дозволити провести
 	</div>
 	<div class="x-font under_field_line ta-c">
-		<p>[eventDate] [eventTime] [eventPlace]</p>
-		<span>(дата, час, місце)</span>
+		<p>з [eventTime], [eventDate] до [eventTime1], [eventDate1], [eventPlace]</p>
+		<span>(час, дата, місце)</span>
 	</div>
 	<div class="x-font under_field_line ta-c">
 		<p>[eventName]</p>
 		<span>(назва релігійного масового заходу, який проводиться поза межами культової споруди, його мета)</span>
 	</div>
 	<div class="x-font under_field_line ta-c">
-		<p>[eventMeta]</p>
+		<p>[eventMeta]<br/></p>
 		<span></span>
 	</div>
 	<div class="x-font under_field_line ta-c">
@@ -168,23 +168,28 @@ p {font-size: 12px;}
         <p>При цьому даю згоду відповідно до Закону України „Про захист персональних даних” на обробку моїх особистих персональних даних у картотеках та/або за допомогою інформаційно-телекомунікаційних систем з метою підготовки відповідно до вимог законодавства статистичної, адміністративної та іншої інформації.</p>
 	</div>
 	<div class="date_subm m-t-25 x-font">
-		<p><b><i>Документи, які додаються до заяви:</b></i><br/>
-			План проведення релігійного заходу</p>
-    </div>
-    <div class="date_subm m-t-45">
-		<div class="inv"><span>(посада)</span></div>
+		<p><b><i>Документи, які додаються до заяви:</b></i></p>
+		<div class="under_field_line"><p>План проведення релігійного заходу</p></div>
+		<div class="line"></div>
+		<div class="line"></div>
+		<div class="line"></div>
+		<div class="line"></div>
+	</div>
+    <div class="date_subm m-t-25">
+		<div class="inv">[orgPos]<span>(посада)</span></div>
 		<div class="invs"><span>(підпис)</span></div>
-        <div class="signature"><span>(ПІБ)</span></div>
+        <div class="signature">[orgGlav]<span>(ПІБ)</span></div>
 		<div class="clear"></div>
     </div>
-    <div class="date_subm m-t-45 x-font">
+    <div class="date_subm m-t-25 x-font">
 		<div class="month-fl-sm">
-		<p><b>Адміністратор</b>________________________</p>
-		<p>Реєстраційний номер____________________</p>
+		<p><b>Адміністратор</b>   [pib_admin]</p>
+		<p>Реєстраційний номер <b>[reestr_numb]</b></p>
 		</div>
-		<div class="month-fl-sm m-t-45 m-l-m200">
-			від  „<span></span>” <span></span>20<span></span>р.
-		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="date_subm m-l-65">
+		від  [date_reestr] року
 	</div>
 	<div class="clear"></div>
 </section>

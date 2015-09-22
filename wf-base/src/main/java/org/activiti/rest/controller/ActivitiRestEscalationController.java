@@ -13,7 +13,7 @@ import org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDao;
 import org.wf.dp.dniprorada.base.model.EscalationRule;
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
 import org.wf.dp.dniprorada.base.service.escalation.EscalationService;
-import org.wf.dp.dniprorada.util.EscalationUtil;
+import org.wf.dp.dniprorada.base.service.escalation.EscalationHelper;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.HashMap;
@@ -34,6 +34,9 @@ public class ActivitiRestEscalationController {
 
     @Autowired
     private EscalationService escalationService;
+
+    @Autowired
+    private EscalationHelper escalationHelper;
 
     @RequestMapping(value = "/runEscalationRule", method = RequestMethod.GET)
     public
@@ -68,18 +71,14 @@ public class ActivitiRestEscalationController {
         taskParam.put("Middlename", "Petrovych");
         taskParam.put("years", 40L);
 
-//        String[] recipients = new String[2];
-//        recipients[0] = "olga2012olga@gmail.com";
-//        recipients[1] = "olga.prylypko@gmail.com";
-
         String json = "{sUserTask:'1', sDateEdit:'01-01-2015', " +
                 "nDays:10, asRecipientMail:['olga2012olga@gmail.com'], " +
                 "anList2:[10], bBool:true}";
         String file = "print/kiev_dms_print1.html";
 
-         sCondition = sCondition == null ? "nDays == 10": sCondition;// "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays";
+        sCondition = sCondition == null ? "nDays == 10": sCondition;// "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays";
 
-        new EscalationUtil().checkTaskOnEscalation
+        escalationHelper.checkTaskOnEscalation
                 (taskParam, sCondition, json, file, "escalationHandler_SendMailAlert");
     }
     //----------EscalationRuleFunction services-----------------

@@ -37,8 +37,7 @@ import java.util.Map;
 @RequestMapping(value = "/services")
 public class ActivitiRestHistoryEventController {
 
-	private static final Logger log = Logger
-			.getLogger(ActivitiRestHistoryEventController.class);
+	private static final Logger log = Logger.getLogger(ActivitiRestHistoryEventController.class);
 
 	@Autowired
 	private HistoryEvent_ServiceDao historyEventServiceDao;
@@ -54,11 +53,9 @@ public class ActivitiRestHistoryEventController {
 	private DocumentDao documentDao;
 	
 	/**
-	 * check the correctness of nID_Protected (by algorithm Luna) and return the
-	 * object of HistoryEvent_Service
-	 * 
-	 * @param nID_Protected
-	 *            -- string ID of event
+	 * check the correctness of nID_Protected (by algorithm Luna) and return
+	 * the object of HistoryEvent_Service
+	 * @param nID_Protected  -- string ID of event
 	 * @return the object (if nID is correct and record exists) otherwise return
 	 *         403. CRC Error (wrong nID_Protected) or 403. "Record not found"
 	 */
@@ -93,16 +90,8 @@ public class ActivitiRestHistoryEventController {
 
 	/**
 	 * add the object of HistoryEvent_Service to db
-	 * 
-	 * @param nID_Task
-	 *            -- ID of Task
-	 * @param sStatus
-	 *            -- string of status
-	 * @param nID_Subject
-	 *            -- SubjectID (optional)
-	 * @param sID_Status
-	 *            -- string-status (optional, for algorithm Luna)
-	 * @param response
+	 * @param nID_Subject-- SubjectID (optional)
+	 * @param sID_Status-- string-status (optional, for algorithm Luna)
 	 * @return the created object
 	 */
 	@RequestMapping(value = "/addHistoryEvent_Service", method = RequestMethod.GET)
@@ -114,31 +103,30 @@ public class ActivitiRestHistoryEventController {
 			@RequestParam(value = "sProcessInstanceName") String sProcessInstanceName,
 			@RequestParam(value = "nID_Service", required=false) Long nID_Service,
 			@RequestParam(value = "nID_Region", required=false) Long nID_Region ,
-			@RequestParam(value = "sID_UA", required=false) String sID_UA,
-			HttpServletResponse response) {
-		
-		Map<String, String> mParamMessage = new HashMap<String, String>();
-	    mParamMessage.put(HistoryEventMessage.SERVICE_NAME, sProcessInstanceName);
+			@RequestParam(value = "sID_UA", required = false) String sID_UA,
+			@RequestParam(value = "soData", required = false) String soData,
+			@RequestParam(value = "sToken", required = false) String sToken,
+			@RequestParam(value = "sHead", required = false) String sHead,
+			@RequestParam(value = "sBody", required = false) String sBody) {
+
+		Map<String, String> mParamMessage = new HashMap<>();
+		mParamMessage.put(HistoryEventMessage.SERVICE_NAME, sProcessInstanceName);
             mParamMessage.put(HistoryEventMessage.SERVICE_STATE, sID_Status);
 		setHistoryEvent(HistoryEventType.GET_SERVICE, nID_Subject, mParamMessage);
 
 		return JsonRestUtils.toJsonResponse(historyEventServiceDao
 				.addHistoryEvent_Service(nID_Process, sID_Status, nID_Subject,
-						sID_Status, nID_Service, nID_Region, sID_UA));
+						sID_Status, nID_Service, nID_Region, sID_UA, 0,
+						soData, sToken, sHead, sBody));
 	}
 
 	/**
 	 * check the correctness of nID_Protected (by algorithm Luna) and update the
 	 * object of HistoryEvent_Service in db
-	 * 
-	 * @param nID_Protected
-	 *            -- nID_Protected of event_service
-	 * @param sStatus
-	 *            -- string of status
-	 * @param sID_Status
-	 *            -- string-status (optional)
-	 * @param response
-	 *            return 200ok or "Record not found"
+	 //	 * @param nID_Protected-- nID_Protected of event_service
+	 //	 * @param sStatus-- string of status
+	 * @param sID_Status -- string-status (optional)
+	 *            @return 200ok or "Record not found"
 	 */
 	@RequestMapping(value = "/updateHistoryEvent_Service", method = RequestMethod.GET)
 	public @ResponseBody
@@ -212,93 +200,154 @@ public class ActivitiRestHistoryEventController {
 	@RequestMapping(value = "/getStatisticServiceCounts", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getStatisticServiceCounts(@RequestParam(value = "nID_Service") Long nID_Service) {
-		
-		List<Map<String, Long>> listOfHistoryEvents = historyEventServiceDao.getHistoryEvent_ServiceBynID_Service(nID_Service);
-		  
-		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String,Object>>();
-		  
-                for (Map<String, Long> currMap : listOfHistoryEvents){
-			  Region region = regionDao.findByIdExpected(currMap.get("sName"));
-			  Map<String, Object> currMapWithName = new HashMap<String, Object>();
-			  
-			  currMapWithName.put("sName", region.getName());
-                          
-			  //currMapWithName.put("nCount", currMap.get("nCount"));
-                          /*
-                            https://igov.org.ua/service/661/general - 43
-                            https://igov.org.ua/service/655/generall - 75
-                            https://igov.org.ua/service/176/general - 546
-                            https://igov.org.ua/service/654/general - 307                          
-                          */
-                          /*
 
-
-                          */
-                          Long nCount = currMap.get("nCount");
-                          if(false){
-                          }else if(nID_Service==661){
-                              if("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())){
-                                nCount+=43;
-                              }
-                          }else if(nID_Service==665){
-                              if("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())){
-                                  nCount+=75;
-                              }
-                          }else if(nID_Service==176){
-                              if("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())){
-                                nCount+=546;
-                              }
-                          }else if(nID_Service==654){
-                              if("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())){
-                                nCount+=307;
-                              }
-                          }else if(nID_Service==159){
-                            /*
-                            https://igov.org.ua/service/159/general
-                            Днепропетровская область - 53
-                            Киевская область - 69
-1;Дніпропетровська;"1200000000"
-5;Київ;"8000000000"
-16;Київська;"3200000000"
-                              
-                            */
-                              if("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())){
-                                nCount+=53;
-                              }else if("8000000000".equals(region.getsID_UA()) || "3200000000".equals(region.getsID_UA())){
-                                nCount+=69;
-                              }
-                          }else if(nID_Service==1){
-                              /*
-                            https://igov.org.ua/service/1/general
-                            Днепропетровская область - 812
-                              */
-                              /*if("".equals(region.getsID_UA())){
-                                nCount+=53;
-                              }else if("".equals(region.getsID_UA())){
-                                nCount+=69;
-                              }*/
-                              if("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())){
-                                nCount+=812;
-                              }
-                          }else if(nID_Service==4){
-                              /*
-                            https://igov.org.ua/service/4/general - 
-                            Днепропетровская область - услуга временно приостановлена
-                            по иным регионам заявок вне было.                          
-                              */
-                              nCount+=0;
-                          }else if(nID_Service==0){
-                              nCount+=0;
-                          //region.getsID_UA()
-                          }
-			  currMapWithName.put("nCount", nCount);
-			  
-			  listOfHistoryEventsWithMeaningfulNames.add(currMapWithName);
-		  } 
-
-		  return JSONValue.toJSONString(listOfHistoryEventsWithMeaningfulNames);
+		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = getListOfHistoryEvents(nID_Service);
+		return JSONValue.toJSONString(listOfHistoryEventsWithMeaningfulNames);
 	}
-	
+
+	private List<Map<String, Object>> getListOfHistoryEvents(Long nID_Service){
+
+		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String, Object>>();
+		List<Map<String, Long>> listOfHistoryEvents = historyEventServiceDao.getHistoryEvent_ServiceBynID_Service(nID_Service);
+
+		for (Map<String, Long> currMap : listOfHistoryEvents){
+			  Region region = regionDao.findByIdExpected(currMap.get("sName"));
+			Map<String, Object> currMapWithName = new HashMap<>();
+			  currMapWithName.put("sName", region.getName());
+			log.info("[getListOfHistoryEvents]sName=" + region.getName());
+			  //currMapWithName.put("nCount", currMap.get("nCount"));
+			  /*https://igov.org.ua/service/661/general - 43
+				https://igov.org.ua/service/655/generall - 75
+				https://igov.org.ua/service/176/general - 546
+				https://igov.org.ua/service/654/general - 307   */
+
+
+			Long nCount = currMap.get("nCount");
+			if (nCount == null) {
+				nCount = 0L;
+			}
+			if (nID_Service == 661) {
+				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+					nCount += 43;
+				}
+			} else if (nID_Service == 665) {
+				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+					nCount += 75;
+				}
+			} else if (nID_Service == 176) {
+				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+					nCount += 546;
+				}
+			} else if (nID_Service == 654) {
+				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+					nCount += 307;
+				}
+			} else if (nID_Service == 159) {
+					/*https://igov.org.ua/service/159/general
+					Днепропетровская область - 53
+					Киевская область - 69
+					1;Дніпропетровська;"1200000000"
+					5;Київ;"8000000000"
+					16;Київська;"3200000000"*/
+				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+					nCount += 53;
+				} else if ("8000000000".equals(region.getsID_UA()) || "3200000000".equals(region.getsID_UA())) {
+					nCount += 69;
+				}
+			} else if (nID_Service == 1) {
+				 /*https://igov.org.ua/service/1/general
+				Днепропетровская область - 812*/
+				  /*if("".equals(region.getsID_UA())){
+					nCount+=53;
+				  }else if("".equals(region.getsID_UA())){
+					nCount+=69;
+				  }*/
+				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+					nCount += 812;
+				}
+			} else if (nID_Service == 4) {
+				  /*
+				https://igov.org.ua/service/4/general -
+				Днепропетровская область - услуга временно приостановлена
+				по иным регионам заявок вне было.
+				  */
+				nCount += 0;
+			} else if (nID_Service == 0) {
+				nCount += 0;
+				//region.getsID_UA()
+			}
+
+			if (nID_Service == 159) {
+				//if(region.getName()==null){
+				log.info("[getListOfHistoryEvents]!!!nID_Service=" + nID_Service);
+				Map<String, Object> mValue = new HashMap<String, Object>();
+				//currMapWithName.put("sName", region.getName());
+				Long n = new Long(0);
+				mValue.put("sName", "Київ");
+				//}
+				log.info("[getListOfHistoryEvents]sName(real)=" + region.getName());
+				log.info("[getListOfHistoryEvents]sName(summ)=Київ");
+				//log.info("[getListOfHistoryEvents]sName="+region.getName());
+
+				List<Map<String, Object>> am = new LinkedList<Map<String, Object>>();
+				am = getListOfHistoryEvents(new Long(726));
+				//am.get(0).get("nCount");
+					/*if(am.size()>0){
+						if(am.get(0).containsKey("nCount")){
+							String s = (String)am.get(0).get("nCount");
+							if(s!=null){
+								Long n = new Long(s);
+								nCount+=n;
+							}
+						}
+					}*/
+				n += getCountFromStatisticArrayMap(am);
+				am = getListOfHistoryEvents(new Long(727));
+				n += getCountFromStatisticArrayMap(am);
+				am = getListOfHistoryEvents(new Long(728));
+				n += getCountFromStatisticArrayMap(am);
+				am = getListOfHistoryEvents(new Long(729));
+				n += getCountFromStatisticArrayMap(am);
+				am = getListOfHistoryEvents(new Long(730));
+				n += getCountFromStatisticArrayMap(am);
+				am = getListOfHistoryEvents(new Long(731));
+				n += getCountFromStatisticArrayMap(am);
+				am = getListOfHistoryEvents(new Long(732));
+				n += getCountFromStatisticArrayMap(am);
+				am = getListOfHistoryEvents(new Long(733));
+				n += getCountFromStatisticArrayMap(am);
+
+				log.info("[getListOfHistoryEvents]nCount(summ)=" + n);
+				mValue.put("nCount", n);
+				listOfHistoryEventsWithMeaningfulNames.add(mValue);
+			}
+
+			log.info("[getListOfHistoryEvents]nCount=" + nCount);
+			  currMapWithName.put("nCount", nCount);
+			  listOfHistoryEventsWithMeaningfulNames.add(currMapWithName);
+		}
+
+		return listOfHistoryEventsWithMeaningfulNames;
+	}
+
+
+	private Long getCountFromStatisticArrayMap(List<Map<String, Object>> am){
+            Long n= new Long(0);
+            log.info("[getCountFromStatisticArrayMap]am="+am);
+            if(am.size()>0){
+                if(am.get(0).containsKey("nCount")){
+                    String s = am.get(0).get("nCount")+"";
+                    if(s!=null){
+                        n = new Long(s);
+                        log.info("[getCountFromStatisticArrayMap]n="+n);
+                        //nCount+=n;
+                    }
+                }
+            }
+            return n;
+        }
+        
+        
 	private void setHistoryEvent(HistoryEventType eventType,
 			Long nID_Subject, Map<String, String> mParamMessage) {
 		try {
