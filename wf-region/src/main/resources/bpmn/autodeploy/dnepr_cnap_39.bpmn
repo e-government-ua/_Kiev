@@ -177,7 +177,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                       &lt;p&gt;
-                                        На жаль змушені Вам відмовити в наданні копії.&lt;/p&gt;
+                                        На жаль змушені Вам відмовити в наданні послуги.&lt;/p&gt;
 &lt;p&gt;Причина в наступному: 
                                     &lt;/p&gt;
 &lt;p&gt;${otkaz_comment}&lt;/p&gt;
@@ -237,11 +237,11 @@
         <activiti:formProperty id="admin_fio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
         <activiti:formProperty id="cnap_number" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="decision" name="Обробка заяви" type="enum">
-          <activiti:value id="dok_ok" name="Направити документи на розгляд"></activiti:value>
+          <activiti:value id="dok_ok" name="Документи направлені на розгляд до Департаменту корпоративних прав та правового забезпеченя Дніпропетровської міської ради"></activiti:value>
           <activiti:value id="dok_fail" name="У наданні послуги відмовлено"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="otkaz_comment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="file_opis" name="Якщо з документами все гаразд - завантажте скановану копію описа документів, надісланих громадянином" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file_opis" name="Якщо з документами все гаразд - завантажте скановану копію описа документів, надісланих громодянином" type="file"></activiti:formProperty>
         <activiti:formProperty id="sBody" name="[pattern/print/dnepr_cnap_39_print.html]" type="invisible" default="Форма заяви" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
@@ -320,6 +320,24 @@
 									&lt;p&gt;&lt;/p&gt;
 										Залишайтеся з нами. 	
                                     &lt;p&gt;&lt;/p&gt;
+Центр надання адміністративних послуг Дніпропетровської міської ради &lt;br /&gt;
+&lt;br /&gt;
+Адреса: &lt;br /&gt;
+м. Дніпропетровськ, пр. К. Маркса, 75 (1-й поверх). &lt;br /&gt;
+&lt;br /&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+Понеділок з 9.00 до 18.00&lt;br /&gt;
+Вівторок з 9.00 до 20.00&lt;br /&gt;
+Середа з 9.00 до 18.00&lt;br /&gt;
+Четвер з 9.00 до 20.00&lt;br /&gt;
+П'ятниця з 9.00 до 16.45&lt;br /&gt;
+Субота з 9.00 до 16.00 (крім святкових днів)&lt;br /&gt;
+&lt;br /&gt;
+Телефон: (056) 742-84-08, тел./факс (056) 745-52-19&lt;br /&gt; 
+&lt;br /&gt;
+Представник територіального управління приймає участь у роботі ЦНАП:&lt;br /&gt;
+вівторок з 10.00 до 16.00&lt;br /&gt;
+тел. (056) 776-74-64&lt;br /&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою, &lt;br /&gt;
@@ -357,14 +375,21 @@
         <activiti:formProperty id="date_today" name="Дата звернення" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="obect" name="Об'єкт на який надається копія дозволу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adres_2" name="Адреса об'єкта на який надається копія дозволу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ur_nazv" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="edrpou" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця" type="long" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="pib_ker" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress_1" name="Місцезнаходження юридичної особи/місце проживання ФОП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="admin_fio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="cnap_number" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision1" name="Обробка заяви" type="enum">
           <activiti:value id="dok_ok1" name="Надати копію дозволу"></activiti:value>
-          <activiti:value id="dok_fail1" name="Відмовити у наданні копії"></activiti:value>
+          <activiti:value id="dok_fail1" name="Відмовити у наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="otkaz_comment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="dozvil_copy" name="Завантажте копію відповіді для заявника" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dozvil_copy" name="Завантажте копію дозволу для заявника" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">

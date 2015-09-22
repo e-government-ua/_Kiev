@@ -4,14 +4,14 @@ angular.module('app').factory('MarkersFactory', function() {
     validate: {
       PhoneUA: {
         aField_ID: ['privatePhone', 'workPhone', 'phone', 'tel']
-      }
-      ,Mail: {
+      },
+      Mail: {
         aField_ID: ['privateMail', 'email']
-      }
-      ,AutoVIN: {
+      },
+      AutoVIN: {
         aField_ID: ['vin_code', 'vin_code1', 'vin']
-      }
-      ,TextUA: {
+      },
+      TextUA: {
         aField_ID: ['textUa',
           'lastName_UA1','firstName_UA1','middleName_UA1',
           'lastName_UA2','firstName_UA2','middleName_UA2',
@@ -20,8 +20,8 @@ angular.module('app').factory('MarkersFactory', function() {
           'lastName_UA5','firstName_UA5','middleName_UA5',
           'sFamily_UA','sName_UA','sSurname_UA'
         ]
-      }
-      ,TextRU: {
+      },
+      TextRU: {
         aField_ID: ['textRu',
           'lastName_RU1','firstName_RU1','middleName_RU1',
           'lastName_RU2','firstName_RU2','middleName_RU2',
@@ -30,12 +30,12 @@ angular.module('app').factory('MarkersFactory', function() {
           'lastName_RU5','firstName_RU5','middleName_RU5',
           'sFamily_RU','sName_RU','sSurname_RU'
         ]
-      }
-      ,DateFormat: {
+      },
+      DateFormat: {
         aField_ID: ['dateFormat'],
         sFormat: 'YYYY-MM-DD'
-      }
-      ,DateElapsed: {
+      },
+      DateElapsed: {
         aField_ID: ['dateOrder'],
         bFuture: true, // якщо true, то дата modelValue має бути у майбутньому
         bLess: true, // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
@@ -44,15 +44,6 @@ angular.module('app').factory('MarkersFactory', function() {
         nYears: 0
         //,sDebug: 'Додаткова опція - інформація для дебагу'
         //,bDebug: false; // Опція для дебагу
-      }
-      ,CodeKVED: {
-        aField_ID: ['kved']
-      }
-      ,CodeEDRPOU: {
-        aField_ID: ['edrpou']
-      }
-      ,CodeMFO: {
-        aField_ID: ['mfo']
       }
     },
     attributes: {

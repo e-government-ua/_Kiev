@@ -78,7 +78,10 @@
                 <label ng-switch-when="label"
                        name="{{property.id}}"
                        ng-required="property.required"
-                       class="form-control_">{{data.formData.params[property.id].value}}</label>
+                        class="form-control_"
+                        ng-bind-html="data.formData.params[property.id].value">
+                         <!--{{data.formData.params[property.id].value}}-->
+                 </label>
 
                 <dropdown-country ng-switch-when="string"
                                   ng-if="property.id==='resident' || property.id === 'sCountry'"
@@ -207,9 +210,6 @@
                 <div ng-message="dateelapsed">З/до дати з/після сьогоднішньої, має бути більше/менше ніж х-днів,
                   х-місяців, х-років.
                 </div>
-                <div ng-message="CodeKVED">Такого КВЕД не існує - (ви не можете вписувати літери)</div>
-                <div ng-message="CodeEDRPOU">Такий код ЄДРПОУ не існує - (ви не можете вписувати літери)</div>
-                <div ng-message="CodeMFO">Такого коду банку не існує - (ви не можете вписувати літери)</div>
               </div>
             </div>
             <div class="row">

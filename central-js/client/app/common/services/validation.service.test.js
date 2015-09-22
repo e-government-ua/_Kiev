@@ -46,16 +46,13 @@ describe('ValidationService Tests', function() {
     var self = this;
 
     this.validatorByName = {
-      'Mail': 'email'
-      ,'AutoVIN': 'autovin'
-      ,'PhoneUA': 'tel'
-      ,'TextUA': 'textua'
-      ,'TextRU': 'textru'
-      ,'DateFormat': 'dateformat'
-      ,'DateElapsed': 'dateelapsed'
-      ,'CodeKVED': 'CodeKVED'
-      ,'CodeEDRPOU': 'CodeEDRPOU'
-      ,'CodeMFO': 'CodeMFO'
+      'Mail': 'email',
+      'AutoVIN': 'autovin',
+      'PhoneUA': 'tel',
+      'TextUA': 'textua',
+      'TextRU': 'textru',
+      'DateFormat': 'dateformat',
+      'DateElapsed': 'dateelapsed'
     };
 
     function doValidate(validatorName, value, toBeOrNotToBe, options) {

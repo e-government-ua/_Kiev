@@ -59,17 +59,13 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
         return event_service;
     }
 
-    @Override
-    public HistoryEvent_Service addHistoryEvent_Service(Long nID_task, String sStatus, Long nID_subject,
-                                                        String sID_status, Long nID_Service, Long nID_Region,
-                                                        String sID_UA) {
-        return addHistoryEvent_Service(nID_task, sStatus, nID_subject, sID_status, nID_Service, nID_Region, sID_UA, null);
-    }
+
 
     @Override
     public HistoryEvent_Service addHistoryEvent_Service(Long nID_Task, String sStatus, Long nID_Subject,
-                                                        String sID_Status, Long nID_Service, Long nID_Region,
-                                                        String sID_UA, Integer nRate) {
+                                                        String sID_Status, Long nID_Service,
+                                                        Long nID_Region, String sID_UA, Integer nRate,
+                                                        String soData, String sToken, String sHead, String sBody) {
         HistoryEvent_Service event_service = new HistoryEvent_Service();
         event_service.setnID_Task(nID_Task);
         event_service.setsStatus(sStatus);
@@ -79,9 +75,11 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
         event_service.setnID_Region(nID_Region);
         event_service.setnID_Service(nID_Service);
         event_service.setsID_UA(sID_UA);
-        if (nRate != null) {
-            event_service.setnRate(nRate);
-        }
+        event_service.setnRate(nRate == null ? 0 : nRate);
+        event_service.setSoData(soData == null || "".equals(soData) ? "{}" : soData);
+        event_service.setsToken(sToken);
+        event_service.setsHead(sHead);
+        event_service.setsBody(sBody);
         Session session = getSession();
         session.saveOrUpdate(event_service);
         long nID_Reference = nID_Task;
@@ -122,22 +120,9 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                 Object[] currValue = (Object[]) item;
                 log.info("Curr value:" + currValue);
                 
-                //String snRate = (String) currValue[2];
-                String snRate = "0";
-                try{
-                    snRate = (String) currValue[2];
-                }catch(Exception oException){
-                    log.error("[Curr value(String)]:" + oException.getMessage());
-                }
-                
-                try{
-                    snRate = ((Long) currValue[2])+"";
-                }catch(Exception oException){
-                    log.error("[Curr value(Long)]:" + oException.getMessage());
-                }
-                
+                String snRate = (String) currValue[2];
                 log.info("(String) currValue[2])=" + snRate);
-                if(snRate==null || "null".equals(snRate)){
+                if(snRate==null){
                     snRate="0";
                 }
                 

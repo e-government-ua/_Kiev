@@ -77,7 +77,12 @@
           <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="org0" name="Назва організації, де Ви працюєте" type="string" default="Назва організації" required="true"></activiti:formProperty>
-        <activiti:formProperty id="man1" name="Особи, які мешкають разом з вами (якщо нікого - не заповнюйте цю частину)" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="other_people" name="Разом з Вами мешкають повнолітні особи?" type="enum" required="true">
+          <activiti:value id="attr1" name="Так, 1 особа"></activiti:value>
+          <activiti:value id="attr2" name="Так, 2 особи"></activiti:value>
+          <activiti:value id="attr3" name="Так, 3 особи"></activiti:value>
+          <activiti:value id="attr4" name="Ні"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="fio1" name="Прізвище, ім'я, по-батькові особи1; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="date1" name="Дата народження особи1; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="passport1" name="Серія та номер паспорту особи1; Наприклад: АА 111111" type="string" default=" "></activiti:formProperty>
@@ -132,6 +137,8 @@
         <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені за останні 12 місяців; по кожній покупці напишить: ПІБ особи, що здійснила покупку, що саме придбано, дату та вартість купівлі, інформацію про кожну покупку писати з нового рядку" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="sBody_2" name="sBody" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="marker1" name="маркер динамічної форми" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;fio1&quot;,&quot;date1&quot;,&quot;passport1&quot;,&quot;card1&quot;,&quot;income1&quot;,&quot;org1&quot;],&quot;asID_Field&quot;:{&quot;sPeople&quot;: &quot;other_people&quot;},&quot;sCondition&quot;: &quot;[sPeople] == 'attr1'&quot; },&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;fio1&quot;,&quot;date1&quot;,&quot;passport1&quot;,&quot;card1&quot;,&quot;income1&quot;,&quot;org1&quot;,&quot;fio2&quot;,&quot;date2&quot;,&quot;passport2&quot;,&quot;card2&quot;,&quot;income2&quot;,&quot;org2&quot;],&quot;asID_Field&quot;:{&quot;sPeople&quot;: &quot;other_people&quot;},&quot;sCondition&quot;: &quot;[sPeople] == 'attr2'&quot;},&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;fio1&quot;,&quot;date1&quot;,&quot;passport1&quot;,&quot;card1&quot;,&quot;income1&quot;,&quot;org1&quot;,&quot;fio2&quot;,&quot;date2&quot;,&quot;passport2&quot;,&quot;card2&quot;,&quot;income2&quot;,&quot;org2&quot;,&quot;fio3&quot;,&quot;date3&quot;,&quot;passport3&quot;,&quot;card3&quot;,&quot;income3&quot;,&quot;org3&quot;],&quot;asID_Field&quot;:{&quot;sPeople&quot;: &quot;other_people&quot;},&quot;sCondition&quot;: &quot;[sPeople] == 'attr3'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker2" name="маркер динамічної форми" type="markers" default="{}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="kiev_mda_upzsn_${area}">
@@ -144,7 +151,7 @@
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="chapter1" name="Деталі" type="label" default="--------------------" writable="false"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" writable="false">
-		  <activiti:value id="desn" name="Деснянський "></activiti:value>
+          <activiti:value id="desn" name="Деснянський "></activiti:value>
           <activiti:value id="solom" name="Солом'янський "></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="place_of_living" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
@@ -740,7 +747,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_mda_subsidies">
     <bpmndi:BPMNPlane bpmnElement="kiev_mda_subsidies" id="BPMNPlane_kiev_mda_subsidies">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="91.0" y="256.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="255.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="3.0"></omgdc:Bounds>
@@ -820,7 +827,7 @@
         <omgdi:waypoint x="700.0" y="177.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
-        <omgdi:waypoint x="108.0" y="256.0"></omgdi:waypoint>
+        <omgdi:waypoint x="87.0" y="255.0"></omgdi:waypoint>
         <omgdi:waypoint x="105.0" y="134.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
