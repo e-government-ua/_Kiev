@@ -317,8 +317,8 @@
           <activiti:value id="attr5" name="відповідь отримана (субсидія потребує розгляду комісії)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decision" name="Рішення про надання субсидії" type="file"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/subsidy_zayava.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_2" name="[pattern/print/subsidy_declaration.html]" type="invisible" default="${sBody_2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/subsidy_zayava.html]" type="invisible" default="Заява" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_2" name="[pattern/print/subsidy_declaration.html]" type="invisible" default="Декларація" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>
