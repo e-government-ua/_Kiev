@@ -368,14 +368,14 @@ input.login-field {
 	text-decoration:none;
 }
 
-/*.logo {
+.logo {
 	margin:12px 0;
 	background:url(img/logo.png) no-repeat;
 	text-indent:-9999px;
 	width:207px;
 	height:30px;
 	float:left;
-}*/
+}
 
 .workflow-console-logo {
   margin:12px 0;

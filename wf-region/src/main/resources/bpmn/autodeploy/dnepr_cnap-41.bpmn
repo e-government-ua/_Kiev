@@ -29,6 +29,7 @@
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="Date" name="Оберіть дату подання звернення" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви, відповідно до Закону України «Про захист персональних даних» від «01» червня 2010 року №2297-VI, надєте згоду КП «Ритуальна служба» Дніпропетровської міської ради на збір та використання інформації про Вас з обмеженим доступом з метою оброблення цієї Заяви в межах, необхідних для досягнення вказаної вище мети. Наведена вище інформація також може надаватись третім особам, безпосередньо задіяним в виконанні замовлення та наданні ритуальних послуг, а також в інших випадках, прямо передбачених законодавством. "></activiti:formProperty>
       </extensionElements>
@@ -50,7 +51,7 @@
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clzagibl" name="Прізвище, ім`я, по-батькові загиблого" type="string" default="${FIO}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clrodna" name="Ступінь спорідненості із загиблим" type="string" default="${rodna}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clfuneraldate" name="Дата поховання і актовий запис" type="date" default="${funeraldate}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clfuneraldate" name="Дата поховання" type="date" default="${funeraldate}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clact_no" name="Номер акта про поховання" type="string" default="${act_no}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clcementary" name="Місце перезахоронення" type="string" default="${cementary}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="cldeathdate" name="Дата загибелі" type="date" default="${deathdate}" writable="false"></activiti:formProperty>
@@ -66,6 +67,7 @@
         <activiti:formProperty id="comment" name="Коментар: Якщо позивачу відмовлено, вкажіть причину." type="textArea"></activiti:formProperty>
         <activiti:formProperty id="result" name="Додайте файл з результатом подання (позитивним або негативним)" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap-41_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Date" name="Дата подання звернення" type="date" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -441,7 +443,7 @@
         <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clzagibl" name="Прізвище, ім`я, по-батькові загиблого" type="string" default="${FIO}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clrodna" name="Ступінь спорідненості із загиблим" type="string" default="${rodna}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="clfuneraldate" name="Дата поховання і актовий запис" type="date" default="${funeraldate}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clfuneraldate" name="Дата поховання" type="date" default="${funeraldate}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clact_no" name="Номер акта про поховання" type="string" default="${act_no}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clcementary" name="Місце перезахоронення" type="string" default="${cementary}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="cldeathdate" name="Дата загибелі" type="date" default="${deathdate}" writable="false"></activiti:formProperty>
@@ -459,7 +461,8 @@
         <activiti:formProperty id="comPer1" name="Вкажіть, яких саме документів не вистачає (заповнювати не обов'язково)" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="admin" name="Введіть прізвище адміністратора, якщо документи прийнято" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="reestr" name="Введіть номер реєстрації, якщо документи прийнято" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="adminDate" name="Оберіть дату реєстрації, якщо документи прийнято" type="date"></activiti:formProperty>
+        <activiti:formProperty id="adminDate" name="Оберіть дату реєстрації, якщо документи прийнято" type="string"></activiti:formProperty>
+        <activiti:formProperty id="Date" name="Дата подання звернення" type="date" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
