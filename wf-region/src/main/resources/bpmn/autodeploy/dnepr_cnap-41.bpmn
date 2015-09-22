@@ -63,7 +63,7 @@
         <activiti:formProperty id="admin" name="Прізвище адміністратора, що прийняв документи" type="string" default=" " writable="false"></activiti:formProperty>
         <activiti:formProperty id="reestr" name="Номер реєстрації адміністратором ЦНАП" type="string" default=" " writable="false"></activiti:formProperty>
         <activiti:formProperty id="adminDate" name="Дата реєстрації адміністратором ЦНАП" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="proverka" name="Рішення про прийняття або відхилення заяви" type="enum">
+        <activiti:formProperty id="proverka" name="Рішення про прийняття або відхилення заяви" type="enum" required="true">
           <activiti:value id="yes" name="Заяву оброблено"></activiti:value>
           <activiti:value id="no" name="Заяву відхилено"></activiti:value>
         </activiti:formProperty>
