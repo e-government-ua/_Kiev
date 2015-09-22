@@ -191,12 +191,9 @@
 										<p>
 											У Вас в черзі на обробку зареєстровано нове звернення щодо видачі копії рішень міської ради про продаж земельних ділянок державної та комунальної власності.<br />
 											Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}<br />
-											Відпрацюйте, будь ласка, це звернення на <a href="https://test.region.igov.org.ua:6948/" target="_blank">порталі</a>
+											Опрацюйте, будь ласка, це звернення на <a href="https://test.region.igov.org.ua:6948/" target="_blank">порталі</a>
 										</p>
-										<p>
-											Спеціалісти Центру надання адміністративних послуг Дніпропетровської міської ради повинні дати відповідь найближчім часом.
-										</p>
- 										<hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+										<hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
 										<p>
 										З повагою,<br />
 										Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
