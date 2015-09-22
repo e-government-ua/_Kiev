@@ -39,16 +39,17 @@
           <activiti:value id="roz1" name="розглянути"></activiti:value>
           <activiti:value id="roz2" name="не розглядати"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Я усвідомлюю, що наведені мною відомості про доходи та майно, що вплинули або могли вплинути на прийняте рішення щодо надання соціальної допомоги, компенсацій та пільг, будуть перевірені згідно з чинним законодавством України."></activiti:formProperty>
-        <activiti:formProperty id="reg_reb" name="Завантажте довідку про реєстрацію місця проживання (перебування) дитини" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="scsvid" name="Завантажте копію свідоцтва про народження дитини" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="reg_oder" name="Завантажте довідку про реєстрацію місця проживання (перебування) одержувача" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="rish_sudu" name="Завантажте рішення суду про стягнення з одного з батьків аліментів на дитину" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dov_vikon" name="Завантажте довідку Держ. викон. служби, про несплату аліментів одним з батьків протягом 6 міс." type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dov_provad" name="Завантажте довідку відповідної установи про здійснення будь-яких проваджень стосовно одного із батьків" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dov_ovs" name="Завантажте повідомлення органу внутрішніх справ про те, що місце перебування одного з батьків не встановлено" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="num_ark" name="Кількість сторінок у доданих документах" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="text" name="Увага" type="label" default="Я усвідомлюю, що наведені мною відомості про доходи та майно, що вплинули або могли вплинути на прийняте рішення щодо надання соціальної допомоги, компенсацій та пільг, будуть перевірені згідно з чинним законодавством України."></activiti:formProperty>
+        <activiti:formProperty id="dok_oderj" name="Зверніть увагу" type="label" default="Завантажте документи особи-одержувача компенсації"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Документ, що посвідчує особу" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="trud_kn" name="Копія трудової книжки, або документ із за значенням причини її відсутності" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dov_dps" name="Довідка органів державної податкової служби про те, що особа не перебуває на обліку як фізична особа-підприємець" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dok_inval" name="Зверніть увагу" type="label" default="Завантажте документи особи, за якою здійснюється нагляд" required="true"></activiti:formProperty>
+        <activiti:formProperty id="sc_passp" name="Документ, що посвідчує особу" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dov_pf" name="Довідка про перебування на обліку в органах Пенсійного фонду України або органах праці та соціального захисту населення" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dov_msev" name="Витяг з акту огляду МСЕК (для осіб,визнаними інвалідами 1 групи)" type="file"></activiti:formProperty>
         <activiti:formProperty id="num_doc" name="Кількість доданих документів" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="num_ark" name="Кількість сторінок у доданих документах" type="long" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -111,7 +112,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Ваш запит щодо призначення тимчасової державної допомоги дітям, батьки яких відхиляються від сплати аліментів було направлено на розгляд.&lt;/p&gt;
+                                        Ваш запит щодо призначення щомісячної компенсаційної виплати непрацюючій особі, яка здійснює догляд за інвалідом 1 групи ябо за особою, яка досягла 80-річного віку - було направлено на розгляд.&lt;/p&gt;
                             
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -138,7 +139,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
-    <userTask id="usertask1" name="Перша перевірка документів в Управлінні праці та соціального захисту населення" activiti:candidateGroups="dnepr_soczah_142_${area}">
+    <userTask id="usertask1" name="Перша перевірка документів в Управлінні праці та соціального захисту населення" activiti:candidateGroups="dnepr_soczah_142">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
@@ -153,6 +154,7 @@
           <activiti:value id="attr2_doc_bad" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_soczah_142_zayava.html]" type="invisible" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
@@ -375,7 +377,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask3" name="Друга перевірка документів в Управлінні праці та соціального захисту населення" activiti:candidateGroups="dnepr_soczah_142_${area}">
+    <userTask id="usertask3" name="Друга перевірка документів в Управлінні праці та соціального захисту населення" activiti:candidateGroups="dnepr_soczah_142">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
@@ -391,6 +393,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="comment1" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="rish_copy" name="Завантажте копію рішення по наданню послуги" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_soczah_142_zayava.html]" type="invisible" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
@@ -457,7 +460,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
 								  &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                       Рішення Управління праці та соціального захисту населення по призначенню тимчасової державної допомоги дітям, батьки яких ухиляються від сплати аліментів  - відхилено.&lt;/p&gt;
+                                       Рішення Управління праці та соціального захисту населення по призначенню щомісячної компенсаційної виплати непрацюючій особі, яка здійснює догляд за інвалідом 1 групи ябо за особою, яка досягла 80-річного віку - відхилено.&lt;/p&gt;
 &lt;p&gt;Причина: ${comment1}&lt;/p&gt;
 									&lt;p&gt;
 									Ви можете отримати оригінал відповіді особисто.&lt;br/&gt;
