@@ -11,12 +11,12 @@
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="subeсt" name="Оберіть суб'єкт надання адміністративних послуг" type="enum" required="true">
-          <activiti:value id="subect_1" name="головне управління держсанепідслужби у Дніпроперовській області"></activiti:value>
-          <activiti:value id="subect_2" name="управління на Придніпровській залізниці Головного управління Держсанепідслужби на залізничному транспорті"></activiti:value>
+          <activiti:value id="subect_1" name="Головне управління Держсанепідслужби у Дніпроперовській області"></activiti:value>
+          <activiti:value id="subect_2" name="Управління на Придніпровській залізниці Головного управління Держсанепідслужби на залізничному транспорті"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="cnap" name="Оберіть ЦНАП у якому буде зручніше забрати оригінал документу" type="enum" required="true">
-          <activiti:value id="pravij" name="Правобережний"></activiti:value>
-          <activiti:value id="levij" name="Лівобережний"></activiti:value>
+          <activiti:value id="pravij" name="ЦНАП «Правобережний» (просп.Карла Маркса, 75)"></activiti:value>
+          <activiti:value id="levij" name="ЦНАП «Лівобережний» (просп. Газети «Правда», 42)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
@@ -30,12 +30,8 @@
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Місцезнаходження юридичної особи/місце проживання фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="dovidka_erdpou" name="Копія довідки ЄДРПОУ або копія виписки з ЄДР юридичних та фізичних осіб підприємців" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="vikidi" name="Документ, в якому обгрунтовуються обсяги викидів" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="plan_situation" name="Ситуаційний план" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="plan_general" name="Генеральний план" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="substance" name="Розрахунок розсіювання забруднюючих речовин в атмосферному повітрі" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="other" name="Приєднати інший документ; у разі необхідності" type="file"></activiti:formProperty>
-        <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг"></activiti:formProperty>
+        <activiti:formProperty id="vikidi" name="Документи, у яких обґрунтовуються обсяги викидів для отримання дозволу на викиди забруднюючих речовин в атмосферне повітря стаціонарними джерелами у повному обсязі з ситуаційним та генеральним планами, розрахунками розсіювання забруднюючих речовин у атмосферному повітрі та ін., виконані відповідно з вимогами наказу Міністерства охорони навколишнього природного середовища України від 09.03.2006 №108 «Про затвердження інструкції про загальні вимоги до оформлення документів, у яких обґрунтовуються обсяги викидів, для отримання дозволу на викиди забруднюючих речовин в атмосферне повітря стаціонарними джерелами для підприємств, установ, організацій та громадян – підприємців»." type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="даю згоду відповідно до Закону України «Про захист персональних даних» на обробку моїх особистих персональних даних у картотеках та/або за допомогою інформаційно-телекомунікаційних систем з метою підготовки відповідно до вимог законодавства статистичної, адміністративної та іншої інформації з питань діяльності уповноваженого органу Держсанепідслужби."></activiti:formProperty>
        </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника держоргану" activiti:type="mail">
@@ -171,7 +167,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${dovidka_erdpou}, ${vikidi}, ${plan_situation}, ${plan_general}, ${substance}, ${other}</activiti:expression>
+            <activiti:expression>${dovidka_erdpou}, ${vikidi}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
