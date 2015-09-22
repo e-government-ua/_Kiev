@@ -245,8 +245,11 @@
 Підстава: ${comment_1}    
     &lt;/pя&gt;
                                     &lt;/p&gt;
+                                   
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;/td&gt;
+									З повагою,&lt;br /&gt;
+									Центр надання адміністративних послуг&lt;br /&gt;
+									Дніпропетровської міської ради&lt;br /&gt;	&lt;/td&gt;
                             &lt;/tr&gt;
                            
                           
@@ -466,9 +469,12 @@
 Копія рішення знаходиться у додатку до листа.&lt;br /&gt;
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
+                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
+                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;&lt;br /&gt;	
+										&lt;br /&gt;	
+										Центр надання адміністративних послуг&lt;br /&gt;
+										Дніпропетровської міської ради&lt;br /&gt;	
                                         &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -585,7 +591,10 @@
 Підстава: ${comment_2}&lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                      &lt;/td&gt;
+З повагою,&lt;br /&gt;
+									Центр надання адміністративних послуг&lt;br /&gt;
+									Дніпропетровської міської ради&lt;br /&gt;	                                     
+									 &lt;/td&gt;
                             &lt;/tr&gt;
                            
                           
@@ -685,18 +694,24 @@
 2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
 3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.&lt;br /&gt;
 &lt;br /&gt;
-Адреса центру надання адміністративних послуг "Лівобережний" - пр.ім. Газети "Правда" 42 (5 поверх)&lt;br /&gt;&lt;br /&gt;
+Адреса центру надання адміністративних послуг "Правобережний" - пр.К.Маркса 75 (1 поверх).&lt;br /&gt;&lt;br /&gt;
 Телефон для довідок (056)742-84-08&lt;br /&gt;&lt;br /&gt;
 Графік роботи (крім святкових днів):&lt;br /&gt;
-пн. вт. ср. чт. 9-18&lt;br /&gt;
+пн. ср. 9-18&lt;br /&gt;
+вт. чт. 9-20&lt;br /&gt;
 пт. 9-16:45&lt;br /&gt;
+сб. 9-16&lt;br /&gt;
 &lt;br /&gt;
 Копія рішення знаходиться у додатку до листа.&lt;br /&gt;
+&lt;br /&gt;
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
+                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
+                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;&lt;br /&gt;	
+										&lt;br /&gt;	
+										Центр надання адміністративних послуг&lt;br /&gt;
+										Дніпропетровської міської ради&lt;br /&gt;	
                                         &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -774,7 +789,7 @@
         <omgdc:Bounds height="30.0" width="30.0" x="106.0" y="58.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
-        <omgdc:Bounds height="55.0" width="217.0" x="105.0" y="167.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="217.0" x="125.0" y="167.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="435.0" y="174.0"></omgdc:Bounds>
@@ -806,7 +821,7 @@
         <omgdi:waypoint x="435.0" y="396.0"></omgdi:waypoint>
         <omgdi:waypoint x="332.0" y="395.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="359.0" y="389.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="97.0" x="359.0" y="389.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
@@ -826,7 +841,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
         <omgdi:waypoint x="435.0" y="194.0"></omgdi:waypoint>
-        <omgdi:waypoint x="322.0" y="194.0"></omgdi:waypoint>
+        <omgdi:waypoint x="342.0" y="194.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42.0" width="100.0" x="393.0" y="174.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
@@ -844,7 +859,7 @@
         <omgdi:waypoint x="120.0" y="114.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
-        <omgdi:waypoint x="213.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="233.0" y="167.0"></omgdi:waypoint>
         <omgdi:waypoint x="120.0" y="149.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
@@ -866,7 +881,7 @@
         <omgdi:waypoint x="475.0" y="396.0"></omgdi:waypoint>
         <omgdi:waypoint x="590.0" y="395.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="485.0" y="396.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="97.0" x="485.0" y="396.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
