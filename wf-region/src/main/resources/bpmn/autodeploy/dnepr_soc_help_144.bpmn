@@ -243,7 +243,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
 &lt;p&gt;На жаль, Ваше звернення щодо отримання допомоги на дітей, які перебувають під опікою чи піклуванням - відхилено.&lt;/p&gt;
-&lt;p&gt;Причина: ${comment1}&lt;/p&gt;
+&lt;p&gt;Причина: ${decision_comment1}&lt;/p&gt;
 &lt;p&gt;Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;&lt;/p&gt;
 
                             
