@@ -22,11 +22,10 @@
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <userTask id="usertask1" name="рассмотрение и загрузка" activiti:candidateGroups="sales">
       <extensionElements>
-        
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" ></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" ></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" ></activiti:formProperty>
-        <activiti:formProperty id="client" name="Заявник" type="enum" >
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="client" name="Заявник" type="enum">
           <activiti:value id="attr1" name="отримувач особисто"></activiti:value>
           <activiti:value id="attr2" name="представник отримувача"></activiti:value>
         </activiti:formProperty>

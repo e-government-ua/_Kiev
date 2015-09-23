@@ -14,7 +14,7 @@
 <a href="#15_workWithServices">15. Работа с каталогом сервисов</a><br/>
 <a href="#16_getWorkflowStatistics">16. Получение статистики по задачам в рамках бизнес процесса</a><br/>
 <a href="#17_workWithHistoryEvent_Services">17. Работа с обьектами событий по услугам</a><br/>
-<a href="#18_workWithFlowSlot">18. Работа со слотами потока</a><br/>
+<a href="#18_workWithFlowSlot">18. Электронные очереди (слоты потока, расписания и тикеты)</a><br/>
 <a href="#19">19. Работа с джоинами суьтектами (отделениями/филиалами)</a><br/>
 <a href="#20">20. Получение кнопки для оплаты через Liqpay</a><br/>
 <a href="#21">21. Работа со странами </a><br/>
@@ -32,7 +32,7 @@
 <a href="#33_getStatisticServiceCounts"> 33. Получение количества записей HistoryEvent_Service для сервиса по регионам</a><br/>
 <a href="#34_upload_content_as_attach">34. Аплоад(upload) и прикрепление текстовго файла в виде атачмента к таске Activiti</a><br/>
 <a href="#35">35. Электронная эскалация</a><br/>
-<a href="#36_getTasksByText">36. Поиск заявок по тексту (в значениях полей)</a><br/> 
+<a href="#36_getTasksByText">36. Поиск заявок по тексту (в значениях полей без учета регистра)</a><br/> 
 ## iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -1570,7 +1570,7 @@ https://test.region.igov.org.ua/wf/service/rest/file/download_bp_timing?sID_BP_N
 сначала проверяется корректность числа nID_Protected, где последняя цифра - это последний разряд контрольной суммы (по
 <a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%9B%D1%83%D0%BD%D0%B0">алгоритму Луна</a>) для всего числа без нее.
 - если не совпадает -- возвращается ошибка "CRC Error" (код состояния HTTP 403) 
-- если совпадает -- ищется запись по nID = nID_Protected без последней цифры
+- если совпадает --  ищется запись по nID_Process = nID_Protected без последней цифры (берется последняя по дате добавления)
 - Если не найдена запись, то возвращает объект ошибки со значением "Record not found"  (код состояния HTTP 403)
 - иначе возвращает обьект
 
@@ -1582,24 +1582,31 @@ http://test.igov.org.ua/wf/service/services/getHistoryEvent_Service?nID_Protecte
 **HTTP Context: https://server:port/wf/service/services/addHistoryEvent_Service?nID_Task=xxx&sStatus=xxx&nID_Subject=xxx***
 
  добавляет объект события по услуге, параметры: 
- * nID_Task - ИД-номер задачи (long)
- * nID_Subject - ИД-номер (long) //опциональный
- * sStatus - строка-статус (long)
- * sID_Status - строка-статус (long) //опциональный (для авто-генерации значения поля sID)
+ * nID_Process - ИД-номер задачи (long)
+ * nID_Subject - ИД-номер (long) 
+ * sID_Status - строка-статус 
+ * sProcessInstanceName - название услуги (для Журнала событий)
+ * nID_Service -- ид услуги (long, опционально)
+ * nID_Region -- ид области (long, опционально)
+ * sID_UA -- ид страны (строка, опционально)
+ * soData - строка-объект с данными (опционально, для поддержки дополнения заявки со стороны гражданина)
+ * sToken - строка-токена (опционально, для поддержки дополнения заявки со стороны гражданина)
+ * sHead - строка заглавия сообщения (опционально, для поддержки дополнения заявки со стороны гражданина)
+ * sBody - строка тела сообщения (опционально, для поддержки дополнения заявки со стороны гражданина)
 
 при добавлении записи генерируется поле nID_Protected по принципу
-nID_Protected = nID (ид новой записи) + "контрольная цифра"
+nID_Protected = nID_Process (ид задачи) + "контрольная цифра" 
 
-контрольная цифра -- это последний разряд суммы цифр числа nID по
+*контрольная цифра* -- это последний разряд суммы цифр числа по
 <a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%9B%D1%83%D0%BD%D0%B0">алгоритму Луна</a>
 это поле используется для проверки корректности запрашиваемого ид записи (в методах get и update)
 
 пример:
-http://test.igov.org.ua/wf/service/services/addHistoryEvent_Service?nID_Task=2&sStatus=new&nID_Subject=2
+http://test.igov.org.ua/wf/service/services/addHistoryEvent_Service?nID_Process=2&sID_Status=new&nID_Subject=2&sProcessInstanceName=test_bp
 
 ответ:
 ```json
-{"nID":1001,"sID":null,"nID_Task":2,"nID_Subject":2,"sStatus":"new","sID_Status":null,"nID_Protected":10013,"id":1001}
+{"nID":1001,"sID":null,"nID_Process":2,"nID_Subject":2,"sID_Status":"new","nID_Protected":22, "sDate":"2015-09-21 21:14:48.129","nRate":0, "soData":"[]"}
 ```
 
 **HTTP Metod: GET**
@@ -1609,22 +1616,21 @@ http://test.igov.org.ua/wf/service/services/addHistoryEvent_Service?nID_Task=2&s
  обновляет объект события по услуге,
 параметры:
 * nID_Protected - проверочное число-ид
-* sStatus - строка-статус
-* sID_Status - строка-статус (long) //опциональный
+* sID_Status - строка-статус
 
 - сначала проверяется корректность числа nID_Protected -- последняя цифра должна быть "контрольной" (по
 <a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%9B%D1%83%D0%BD%D0%B0">алгоритму Луна</a>) для всего числа без нее.
 - если не совпадает -- возвращается ошибка "CRC Error"  (код состояния HTTP 403)
-- если совпадает -- ищется запись по nID = nID_Protected без последней цифры
+- если совпадает -- ищется запись по nID_Process = nID_Protected без последней цифры (берется последняя по дате добавления)
 - Если не найдена запись, то возвращает объект ошибки со значением "Record not found"  (код состояния HTTP 403)
 - обновление записи (если были изменения)
 
 пример
-http://test.igov.org.ua/wf/service/services/updateHistoryEvent_Service?nID_Protected=11&sStatus=finish
+http://test.igov.org.ua/wf/service/services/updateHistoryEvent_Service?nID_Protected=11&sID_Status=finish
 
 
 <a name="18_workWithFlowSlot">
-#### 18. Работа со слотами потока
+#### 18. Электронные очереди (слоты потока, расписания и тикеты)
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Context: http://server:port/wf/service/flow/getFlowSlots_ServiceData** - Получение слотов по сервису сгруппированных по дням.
@@ -2469,7 +2475,7 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 ----------------------------------------------------------------------------------------------------------------------------
 
 <a name="36_getTasksByText">
-####36. Поиск заявок по тексту (в значениях полей)</a><br/> 
+####36. Поиск заявок по тексту (в значениях полей без учета регистра)</a><br/> 
 
 **HTTP Metod: GET**
 

@@ -26,7 +26,6 @@ import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.ByteArrayDataSource;
 import org.apache.commons.mail.EmailException;
-import org.codehaus.groovy.tools.shell.util.MessageSource;
 import org.joda.time.DateTime;
 import org.json.simple.JSONValue;
 import org.slf4j.Logger;
@@ -61,8 +60,6 @@ import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import org.activiti.engine.history.HistoricDetail;
-import org.activiti.engine.impl.persistence.entity.HistoricFormPropertyEntity;
 
 /**
  * ...wf/service/... Example:
@@ -1043,21 +1040,8 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     		@RequestParam(value = "bAssigned", required = false) String bAssigned) throws ActivitiRestException {
     	Set<String> res = new HashSet<String>();
 
-        TaskQuery taskQuery = taskService.createTaskQuery();
-        if (bAssigned != null){
-        	if (!Boolean.valueOf(bAssigned).booleanValue()){
-        		taskQuery.taskUnassigned();
-            	if (sLogin != null && !sLogin.isEmpty()){
-                	taskQuery.taskCandidateUser(sLogin);
-                } 
-        	} else if (sLogin != null && !sLogin.isEmpty()){
-        		taskQuery.taskAssignee(sLogin);
-        	}
-        } else {
-        	if (sLogin != null && !sLogin.isEmpty()){
-            	taskQuery.taskCandidateOrAssigned(sLogin);
-            } 
-        }
+    	String searchTeam = sFind.toLowerCase();
+        TaskQuery taskQuery = buildTaskQuery(sLogin, bAssigned);
     	List<Task> activeTasks = taskQuery.active().list();
     	for (Task currTask : activeTasks){
     		TaskFormData data = formService.getTaskFormData(currTask.getId());
@@ -1073,18 +1057,37 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	                }
 	                log.info("taskId=" + currTask.getId() + "propertyName=" + property.getName() + "sValue=" + sValue);
 	                if (sValue != null) {
-	                    if (sValue.indexOf(sFind) >= 0){
+	                    if (sValue.toLowerCase().indexOf(searchTeam) >= 0){
 	                    	res.add(currTask.getId());
 	                    }
 	                }
 	            }
     		} else {
-    			log.info("TaskFormData for task " + currTask.getId() + "is null. SKipping from processing.");
+    			log.info("TaskFormData for task " + currTask.getId() + "is null. Skipping from processing.");
     		}
     	}
 
         return res;
     }
+
+	protected TaskQuery buildTaskQuery(String sLogin, String bAssigned) {
+		TaskQuery taskQuery = taskService.createTaskQuery();
+        if (bAssigned != null){
+        	if (!Boolean.valueOf(bAssigned).booleanValue()){
+        		taskQuery.taskUnassigned();
+            	if (sLogin != null && !sLogin.isEmpty()){
+                	taskQuery.taskCandidateUser(sLogin);
+                } 
+        	} else if (sLogin != null && !sLogin.isEmpty()){
+        		taskQuery.taskAssignee(sLogin);
+        	}
+        } else {
+        	if (sLogin != null && !sLogin.isEmpty()){
+            	taskQuery.taskCandidateOrAssigned(sLogin);
+            } 
+        }
+		return taskQuery;
+	}
     
     
     private List<String> getTaskByOrderInternal(Long nID_Protected) throws CRCInvalidException, RecordNotFoundException {
@@ -1168,5 +1171,48 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         public TaskAlreadyUnboundException(String message) {
             super(message);
         }
+    }
+
+
+    /*issue 808
+ 3) при вызове сервиса:
+ 3.1) Находить в сущности HistoryEvent_Service нужную запись (по сервису)
+ 3.2) апдейтить запись полем значением из:
+ 3.2.1) soData - строка-объект с данными (из "saField")
+ 3.2.3) sHead - строка заголовка сообщения (из "sHead")
+ 3.2.3) sBody - строка тела сообщения (из "sBody")
+ 3.3) отсылать письмо
+ 3.3.1) на sMail
+ 3.3.2) с заголовком sHead
+ 3.3.3) и телом sBody
+ 3.3.4) + перечисление полей из saField в формате таблицы: Поле / Тип / Текущее значение
+ 3.3.5) И гиперссылкой в конце типа: https://igov.org.ua/order?nID_Protected=12233&sToken=LHLIUH где:
+хост должен быть текущий центральный
+nID_Protected - получный параметр
+sToken - сгенерированный случайно 20-ти символьный код
+ 3.4) в найденную таску (по nID_Protected) сетить в глобальную переменную
+ 3.4.1) saFieldQuestion - содержимое saField
+ 3.4.2) sQuestion - содержимое sBody
+
+
+    * */
+
+    /**
+     * сервис ЗАПРОСА полей, требующих уточнения, c отсылкой уведомления гражданину
+     * @param nID_Protected - номер-ИД заявки (защищенный)
+     * @param saField -- строка-массива полей (например: "[{'id':'sFamily','type':'string','value':'Белявский'},{'id':'nAge','type':'long'}]")
+     * @param sMail -- строка электронного адреса гражданина
+     * @param sHead -- строка заголовка письма //опциональный (если не задан, то "Необходимо уточнить данные")
+     * @param sBody -- строка тела письма //опциональный (если не задан, то пустота)
+     * @throws ActivitiRestException
+     */
+    @RequestMapping(value = "/setTaskQuestions", method = RequestMethod.GET)
+    public @ResponseBody
+    void setTaskQuestions(@RequestParam(value = "nID_Protected") Long nID_Protected,
+                    @RequestParam(value = "saField") String saField,
+                    @RequestParam(value = "sMail") String sMail,
+                    @RequestParam(value = "sHead", required = false) String sHead,
+                    @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException {
+
     }
 }

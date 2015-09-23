@@ -28,7 +28,7 @@ public class Service extends org.wf.dp.dniprorada.base.model.NamedEntity {
     @Column(name = "nOrder", nullable = false)
     private Integer order;
 
-    @JsonProperty(value = "nID_Subcategory")
+    @JsonProperty(value = "oSubcategory")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "nID_Subcategory", nullable = false)
     private Subcategory subcategory;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
@@ -187,6 +187,11 @@
             <column name="nID_Subject" type="NUMERIC"/>
             <column name="sStatus" type="STRING"/>
             <column name="sID_Status" type="STRING"/>
+            <column name="nRate" type="NUMERIC"/>
+            <column name="soData" type="STRING"/>
+            <column name="sToken" type="STRING"/>
+            <column name="sHead" type="STRING"/>
+            <column name="sBody" type="STRING"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/SubjectMessageType.csv" tableName="SubjectMessageType" separator=";">

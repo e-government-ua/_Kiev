@@ -6,11 +6,20 @@
 <style>
 html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Tahoma';}
 
-.print_wrap {width: 705px; padding: 35px 25px 85px 35px; min-height: 100%; height: 100%; margin: 0 auto;}
+.print_wrap {width: 650px; padding: 35px 25px 85px 35px; min-height: 100%; height: 100%; margin: 0 auto;}
 
 .ta-r {text-align: right !important;}
 .ta-l {text-align: left !important;}
 .ta-c {text-align: center !important;}
+
+.p-right {float: right;}
+.p-left {float: left;}
+
+.xs-font {font-size: 16px; line-height: 18px;}
+.xs-font p {font-size: 16px;}
+.xs-font span {font-size: 16px;}
+.x-font {font-size: 14px;}
+.x-font p {font-size: 14px;}
 
 .ti-15 {text-indent: 25px;}
 
@@ -44,6 +53,7 @@ html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Tahoma';}
 .m-l-300 {margin-left: 300px !important;}
 .m-l-380 {margin-left: 380px !important;}
 .m-t-unt {margin-top: -1px !important;}
+.m-t-m25 {margin-top: -25px !important;}
 .m-clear {margin: 0 !important;}
 .p-clear {padding: 0 !important;}
 
@@ -91,8 +101,11 @@ table.zit_v-form2 tr td {border: 1px solid black; padding: 3px 8px;}
 .date_subm .month-fl-sm > span:nth-child(2) {width: 120px;}
 .date_subm .month-fl-sm > span:nth-child(3) {width: 20px;}
 .date_subm .signature {width: 240px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
-.date_subm.invert .signature {float: left;}
 .date_subm .signature > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
+.date_subm .inv {width: 200px; height: 20px; float: left; border-bottom: 1px solid black; position: relative;} 
+.date_subm .inv > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
+.date_subm .invs {width: 200px; height: 20px; float: left; left: 55px; border-bottom: 1px solid black; position: relative;} 
+.date_subm .invs > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
 
 p {font-size: 11px;}
 
@@ -103,55 +116,51 @@ p {font-size: 11px;}
 </head>
 <body>
 <section class="print_wrap">
-    <div class="line_col ta-r">
-        <div class="under_field w350 ta-l"><i>                      </i><span></span></div><br />
-		<div class="under_field w350 ta-l"><i>                       </i><span></span></div><br />
-		<div class="under_field w350 ta-l"><i>в м. Дніпропетровську</i><span></span></div><br />
-		<div class="under_field w350 ta-l"><i>                      </i><span></span></div><br />
+    <div class="m-l-380 ta-l x-font">
+        <p>Міському голові<br />	
+		_______________________</p>
     </div>
-    <div class="line_col ta-c m-t-25">
-        <b>ЗАЯВА<br /></b><br />
-        <div class="ta-l"> <b>Відповідно до статті 7 Закону України «Про дозвільну систему у сфері господарської діяльності» прошу видати експлуатаційний дозвіл для провадження діяльності на потужностях (об’єктах) з переробки неїстівних продуктів тваринного походження<span></span></div><br /></b>
-		<div class="under_field_line ta-l">[obect]<span>(об’єкт, на який видається документ)</span></div>
-        <div class="under_field_line ta-l">[micce]<span>(місцезнаходження (адреса) об’єкта, на який видається документ)</span></div>
-		<div class="under_field_line ta-l">[davvid]<span>(у давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця)</span></div>
-		<div class="under_field_line ta-l">[kbed]<span>(вид діяльності згідно з КВЕД)</span></div>
-		<div class="under_field_line ta-l">[innedrpo]<span>(ідентифікаційний код згідно з ЄДРПОУ)</span></div>
-		<div class="under_field_line ta-l">[innfizl]<span>(ідентифікаційний номер фізичної особи  – підприємця, платника податків та інших обов’язкових платежів)</span></div>
-		<div class="under_field_line ta-l">[pib]<span>(П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи)</span></div>
-		<div class="under_field_line ta-l">[micurl]<span>(місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця)</span></div>
+    <div class="clear"></div>
+    <div class="line_col ta-c m-t-25 xs-font">
+        <p><b>ЗАЯВА</b></p>
+	</div>
+        <div class="ta-l x-font">
+         <b>Відповідно до статті 7 Закону України «Про дозвільну систему у сфері господарської діяльності» прошу видати</b><br />
+		</div>
+        <div class="under_field_line ta-c">Копії рішень міської ради про продаж земельних ділянок державної та комунальної власності<span>(назва документа дозвільного характеру)</span></div>
+		<div class="under_field_line ta-c">[objName]<span>(об’єкт, на який видається документ)</span></div>
+        <div class="under_field_line ta-c">[objAdress]<span>(місцезнаходження (адреса) об’єкта, на який видається документ)</span></div>
+		<div class="under_field_line ta-c">[davName]<span>(у давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи – підприємця)</span></div>
+		<div class="under_field_line ta-c">[kved]<span>(вид діяльності згідно з КВЕД)</span></div>
+		<div class="under_field_line ta-c">[edrpou_inn]<span>(ідентифікаційний код згідно з ЄДРПОУ або ідентифікаційний номер фізичної особи – підприємця)</span></div>
+		<div class="under_field_line ta-c">[ruk]<span>(П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи)</span></div>
+		<div class="under_field_line ta-c">[orgAdress]<span>(місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця)</span></div>
 		<br />
-		<div class="ta-l">телефон/факс: <span>[phone]</span></div><br />
-		<div class="ta-l">Спосіб одержання: <span>______</span></div><br />
-<div class="date_subm m-t-85">
+		<div class="ta-l">телефон/факс: [phone]<span></span></div>
+		<div class="ta-l">Спосіб одержання: поштою / <ins>особисто</ins> / за допомогою засобів телекомунікацій</div>
+	<div class="date_subm m-t-85">
         <div class="month-fl-sm"><span></span><span></span>2015р.</div>
         <div class="signature"><span>(підпис керівника юридичної особи)</span></div>
 		<div class="clear"></div>
     </div>
 	<div class="ta-l">Документи, що додаються до заяви:<span></span></div><br />
-	<div class="ta-l">1. довідка про здатність провадити відповідну діяльність, в якій зазначається інформація про наявність кваліфікованого персоналу, технологічного обладнання, перелік товарів, що виготовляються або реалізуються.<span></span></div><br />
-	<b><div class="ta-l">Заповнюється адміністратором:<span></span></div><br /></b>
-<table style="border-collapse: collapse; border: 1px dashed; margin-bottom: 20px;">
-					<tbody>
-						<tr>
-							<td style="border-right: 1px dashed;"><p>« _______ » ___________________201__ р.</p></td>
-							<td><p>Реєстраційний номер __________________(reestr_numb)______________________</p></td>
-						</tr>
-						<tr>
-							<td style="border-right: 1px dashed;"><p>_______________________________________</p>
-								<span><span><font size='2'>(підпис)</span><font/>
-							</td>
-							<td><p>_________________________________________________________________________</p>
-								<span><font size='2'>(ініціали та прізвище адміністратора)</span><font/>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-<div class="ta-l">Відповідно до Закону України «Про захист персональних даних» даю згоду на обробку, використання та зберігання моїх персональних даних<span></span></div><br />
-<div class="date_subm m-t-85">
-        <div class="signature"><span>(підпис заявника)</span></div>
+	<div class="clear"></div>
+    <div class="ta-l m-t-45"><b>Заповнюється адміністратором:</b></div>
+	<div class="date_subm">
+        <div class="inv">[date_reestr]<span>(дата реєстрації звернення)</span></div>
+        <div class="signature w265">[reestr_numb]<span>(реєстраційний номер)</span></div>
 		<div class="clear"></div>
+    </div>
+	<div class="date_subm m-t-45">
+        <div class="inv"><span>(підпис адміністратора)</span></div>
+        <div class="signature w265">[pib_admin]<span>(прізвище та ініціали адміністратора)</span></div>
+		<div class="clear"></div>
+    </div>
+	<br />
+	<div class="ta-l">Відповідно до Закону України «Про захист персональних даних» даю згоду на обробку, використання та зберігання моїх персональних даних</div>
+	<div class="date_subm m-t-25">
+        <div class="signature"><span>(підпис заявника)</span></div>
     </div>			
-		</section>
+</section>
 </body>
 </html>

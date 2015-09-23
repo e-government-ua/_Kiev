@@ -85,6 +85,38 @@ a, .control-element {
   margin-top: 10px;
 }
 
+.navbar-top-fixed {
+  background: #d1e4ee;
+  border-top: 1px solid #cbdbe3;
+  border-bottom: 1px solid #d8e8f0;
+}
+
+.navbar-top-fixed  span {
+  margin-top: 5px;
+  padding: 0 15px 0 0;
+  line-height: 25px;
+  color: #74b3d4;
+  font-size: 17px;
+
+}
+
+.navbar-top-fixed  a{
+  top: 4px;
+  line-height: 25px;
+  color: #74b3d4;
+  text-decoration: none;
+}
+
+.navbar-top-fixed  a span{
+  padding: 0 0 0 5px;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 17px;
+}
+
+.navbar-top-fixed  a:hover{
+  background-color: #d1e4ee;
+}
+
 .navbar-default {
   background-color: #65abd0;
   border-color: #65abd0;

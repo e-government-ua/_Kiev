@@ -233,12 +233,16 @@ body {
    
 /* General backrgound and font settings */
 .login-general {
-  color: white; /* color of text */
+    text-shadow: 0 1px 0 rgb(173, 180, 185); /* color of text */
   font-family:  Helvetica, Arial, sans-serif;
-  background: #1b7ec3; /* non-white part of page */
-  font-size: 14px;
+  background: white; /* non-white part of page */
+  font-size:18px;
   font-weight: bold;
    min-width:20px;
+}
+
+.login-general-heading {
+    font-weight: bold;
 }
 
 #login-content {
@@ -247,28 +251,28 @@ body {
       
 /* white part of background */
 #login-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: white;
-  height: 250px;
+  position: relative;
+  top: 5px;
+  background: #ffffff;
+  height: 240px;
   width: 100%;
-  border-bottom: solid 3px #a9b3ba; /* gray-blueish horitzontal line in the middle */
+
 }
 
 #login-central-components {
   margin: 0 auto;
-  width: 360px;
-  padding-top: 300px;
+  width: 400px;
+  padding-top: 150px;
   text-align: center;
   z-index: 1;
 }
       
 #login-logo {
   margin: 0 auto;
-  height: 130px;
-  padding-top: 110px;
+  height: 0;
+  padding-top: 320px;
   text-align: center;
+    background: center url(img/explorer-logotip2.png) no-repeat;
 }
 
 /* Text fields of input form */     
@@ -280,7 +284,7 @@ input.login-field {
   padding-left: 7px; /* To start the typing of the text a bit to the right */
   float: right;
   background: white;
-  border: solid 1px transparent;
+  border: solid 1px black;
   margin-bottom: 5px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
