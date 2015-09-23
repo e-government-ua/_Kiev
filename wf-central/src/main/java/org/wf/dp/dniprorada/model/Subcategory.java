@@ -19,7 +19,7 @@ public class Subcategory extends org.wf.dp.dniprorada.base.model.NamedEntity {
 	@Column(name = "sID", nullable = false)
 	private String code;
 	
-	@JsonProperty(value = "nID_Category")
+	@JsonProperty(value = "oCategory")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "nID_Category", nullable = false)
 	private Category category;

@@ -14,7 +14,7 @@
 <a href="#15_workWithServices">15. Работа с каталогом сервисов</a><br/>
 <a href="#16_getWorkflowStatistics">16. Получение статистики по задачам в рамках бизнес процесса</a><br/>
 <a href="#17_workWithHistoryEvent_Services">17. Работа с обьектами событий по услугам</a><br/>
-<a href="#18_workWithFlowSlot">18. Работа со слотами потока</a><br/>
+<a href="#18_workWithFlowSlot">18. Электронные очереди (слоты потока, расписания и тикеты)</a><br/>
 <a href="#19">19. Работа с джоинами суьтектами (отделениями/филиалами)</a><br/>
 <a href="#20">20. Получение кнопки для оплаты через Liqpay</a><br/>
 <a href="#21">21. Работа со странами </a><br/>
@@ -1570,7 +1570,7 @@ https://test.region.igov.org.ua/wf/service/rest/file/download_bp_timing?sID_BP_N
 сначала проверяется корректность числа nID_Protected, где последняя цифра - это последний разряд контрольной суммы (по
 <a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%9B%D1%83%D0%BD%D0%B0">алгоритму Луна</a>) для всего числа без нее.
 - если не совпадает -- возвращается ошибка "CRC Error" (код состояния HTTP 403) 
-- если совпадает -- ищется запись по nID = nID_Protected без последней цифры
+- если совпадает --  ищется запись по nID_Process = nID_Protected без последней цифры (берется последняя по дате добавления)
 - Если не найдена запись, то возвращает объект ошибки со значением "Record not found"  (код состояния HTTP 403)
 - иначе возвращает обьект
 
@@ -1595,14 +1595,14 @@ http://test.igov.org.ua/wf/service/services/getHistoryEvent_Service?nID_Protecte
  * sBody - строка тела сообщения (опционально, для поддержки дополнения заявки со стороны гражданина)
 
 при добавлении записи генерируется поле nID_Protected по принципу
-nID_Protected = nID (ид новой записи) + "контрольная цифра" //?????? уточняется (уже не nID, а nID_Process) !!!
+nID_Protected = nID_Process (ид задачи) + "контрольная цифра" 
 
-контрольная цифра -- это последний разряд суммы цифр числа nID по
+*контрольная цифра* -- это последний разряд суммы цифр числа по
 <a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%9B%D1%83%D0%BD%D0%B0">алгоритму Луна</a>
 это поле используется для проверки корректности запрашиваемого ид записи (в методах get и update)
 
 пример:
-http://test.igov.org.ua/wf/service/services/addHistoryEvent_Service?nID_Process=2&sID_Status=new&nID_Subject=2?sProcessInstanceName=test_bp
+http://test.igov.org.ua/wf/service/services/addHistoryEvent_Service?nID_Process=2&sID_Status=new&nID_Subject=2&sProcessInstanceName=test_bp
 
 ответ:
 ```json
@@ -1616,22 +1616,21 @@ http://test.igov.org.ua/wf/service/services/addHistoryEvent_Service?nID_Process=
  обновляет объект события по услуге,
 параметры:
 * nID_Protected - проверочное число-ид
-* sStatus - строка-статус
-* sID_Status - строка-статус (long) //опциональный
+* sID_Status - строка-статус
 
 - сначала проверяется корректность числа nID_Protected -- последняя цифра должна быть "контрольной" (по
 <a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%9B%D1%83%D0%BD%D0%B0">алгоритму Луна</a>) для всего числа без нее.
 - если не совпадает -- возвращается ошибка "CRC Error"  (код состояния HTTP 403)
-- если совпадает -- ищется запись по nID = nID_Protected без последней цифры
+- если совпадает -- ищется запись по nID_Process = nID_Protected без последней цифры (берется последняя по дате добавления)
 - Если не найдена запись, то возвращает объект ошибки со значением "Record not found"  (код состояния HTTP 403)
 - обновление записи (если были изменения)
 
 пример
-http://test.igov.org.ua/wf/service/services/updateHistoryEvent_Service?nID_Protected=11&sStatus=finish
+http://test.igov.org.ua/wf/service/services/updateHistoryEvent_Service?nID_Protected=11&sID_Status=finish
 
 
 <a name="18_workWithFlowSlot">
-#### 18. Работа со слотами потока
+#### 18. Электронные очереди (слоты потока, расписания и тикеты)
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Context: http://server:port/wf/service/flow/getFlowSlots_ServiceData** - Получение слотов по сервису сгруппированных по дням.
