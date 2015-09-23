@@ -1606,7 +1606,7 @@ http://test.igov.org.ua/wf/service/services/addHistoryEvent_Service?nID_Process=
 
 ответ:
 ```json
-{"nID":1001,"sID":null,"nID_Process":2,"nID_Subject":2,"sID_Status":"new","nID_Protected":22, "sDate":"2015-09-21 21:14:48.129","nRate":0, "soData":"{}"}
+{"nID":1001,"sID":null,"nID_Process":2,"nID_Subject":2,"sID_Status":"new","nID_Protected":22, "sDate":"2015-09-21 21:14:48.129","nRate":0, "soData":"[]"}
 ```
 
 **HTTP Metod: GET**
