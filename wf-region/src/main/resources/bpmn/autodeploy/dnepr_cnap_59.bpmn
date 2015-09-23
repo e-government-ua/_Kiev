@@ -436,7 +436,7 @@
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_59_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="perevirka1" name="Оберіть результат первинної перевірки документів:" type="enum">
+        <activiti:formProperty id="perevirka1" name="Оберіть результат первинної перевірки документів:" type="enum" required="true">
           <activiti:value id="ok" name="Документи прийнято, формується опис, документи передаються для подальшої обробки"></activiti:value>
           <activiti:value id="bad" name="Поданих документів недостатньо для обробки"></activiti:value>
         </activiti:formProperty>
