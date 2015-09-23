@@ -43,7 +43,6 @@
         <activiti:formProperty id="scan_passport" name="Скан-копія паспорта заявника" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="taxPayer" name="Скан-копія довідки заявника про присвоєння реєстраційного номера облікової картки платника податків" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="helpeeID" name="Посвідчення пенсіонера або отримувача державної соціальної допомоги/ Висновок медико-соціальної експертної комісії, лікувально-консультативної комісії лікувально-профілактичного закладу (для дітей-інвалідів) про встановлення інвалідності" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="repProof" name="Документ, що засвідчує повноваження законного представника" type="file"></activiti:formProperty>
         <activiti:formProperty id="helpeePassportScan" name="Скан-копія паспорта / свідоцтва про народження підопічного; Сторінки 1, 2 і 11" type="file"></activiti:formProperty>
         <activiti:formProperty id="scanINN" name="Скан-копія довідки підопічного про присвоєння реєстраційного  номера облікової картки платника податків; Якщо є" type="file"></activiti:formProperty>
         <activiti:formProperty id="otherDocs" name="Інші підтверджуючі документи (за наявності); Якщо їх більше 1-го, будь ласка, завантажте ZIP архів" type="file"></activiti:formProperty>
