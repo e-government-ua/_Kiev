@@ -139,7 +139,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
-    <userTask id="usertask1" name="Перша перевірка документів в Управлінні праці та соціального захисту населення" activiti:candidateGroups="dnepr_soczah_142_{area}">
+    <userTask id="usertask1" name="Перша перевірка документів в Управлінні праці та соціального захисту населення" activiti:candidateGroups="dnepr_soczah_142">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
