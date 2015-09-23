@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_minust_131" name="Дніпропетровськ МінЮст - Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту (Ф-4)" isExecutable="true" activiti:candidateStarterGroups="dnepr_minust_1">
-    <startEvent id="startevent1" name="Start">
+  <process id="dnepr_minust_130" name="Дніпропетровськ МінЮст - Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) (Ф-4)" isExecutable="true" activiti:candidateStarterGroups="dnepr_minust_1">
+      <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="warningMessage1" name="Увага!" type="label" default="Подавати реєстраційну картку про внесення змін можуть лише керівник юридичної особи і фізична особа, яка має право вчиняти дії від імені юридичної особи без довіреності, у тому числі підписувати договори."></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -12,7 +12,7 @@
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="scan_form_4_1" name="Завантажте відскановану першу сторінку заповненої Форми-4, обов'язково поставте дату і підпис;завантажте бланк за цим посиланням: http://bit.ly/1O1Yd77. Роздрукуйте його, заповніть від руки, відскануйте чи сфотографуйте його та прикрепіть до цієї форми." type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="scan_form_4_6" name="Завантажте відскановану шосту сторінку заповненої Форми-4, обов'язково поставте дату і підпис" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="scan_form_4_4" name="Завантажте відскановану четверту сторінку заповненої Форми-4, обов'язково поставте дату і підпис" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warningMessage" name="Увага!" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
@@ -30,7 +30,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Зміна видів економічної діяльності]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів)]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -85,7 +85,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                       Ваше звернення щодо зміни видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту успішно зареєстровано. &lt;br /&gt;
+                                       Ваше звернення щодо зміни кінцевих бенефіціарних власників (контролерів) або зміни відомостей про кінцевих бенефіціарних власників (контролерів) успішно зареєстровано. &lt;br /&gt;
 					   Ви отримаєте відповідь протягом 2 робочих днів на цю email-адресу.&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -137,7 +137,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport},${scan_form_4_1},${scan_form_4_6}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${scan_form_4_1},${scan_form_4_4}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -162,7 +162,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport},${scan_form_4_1},${scan_form_4_6}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${scan_form_4_1},${scan_form_4_4}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -176,7 +176,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Зміна видів економічної діяльності]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів)]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -271,7 +271,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Зміна видів економічної діяльності]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів)]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
@@ -317,7 +317,7 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
- &lt;p&gt;Завлені Вами ${vidpovid}&lt;br/&gt;
+ &lt;p&gt;Заявлені Вами ${vidpovid}&lt;br/&gt;
  У прикріпленому файлі містяться всі подробиці.&lt;/p&gt;
 &lt;p&gt;${comment1}&lt;/p&gt;
 &lt;br/&gt;
@@ -406,7 +406,7 @@
           <activiti:string><![CDATA[Crow79@online.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Зміна видів економічної діяльності]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів)]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -455,7 +455,7 @@
                                 <td style="padding: 35px 120px;">
                                     <h3>На порталі <a href=https://demo.igov.org.ua:6948/>iGov.org.ua</a> зареєстровано нове звернення на тему:</h3>
                                     <p>
-                                       Зміна видів економічної діяльності</p>
+                                       Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів)</p>
 									<p>
 									Ви можете перейти на <a href=https://demo.igov.org.ua:6948/>портал</a>, щоб почати опрацювання звернення.
                                     </p>
@@ -489,7 +489,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Зміна видів економічної діяльності]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів)]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -570,16 +570,13 @@
       <text>змінити адресата</text>
     </textAnnotation>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_minust_131">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_minust_131" id="BPMNPlane_dnepr_minust_131">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_minust_130">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_minust_130" id="BPMNPlane_dnepr_minust_130">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="268.0" y="189.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="55.0" width="171.0" x="200.0" y="80.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
-        <omgdc:Bounds height="30.0" width="30.0" x="342.0" y="107.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="55.0" width="191.0" x="420.0" y="80.0"></omgdc:Bounds>
@@ -595,6 +592,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="55.0" width="181.0" x="220.0" y="320.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="342.0" y="107.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
         <omgdc:Bounds height="35.0" width="35.0" x="339.0" y="166.0"></omgdc:Bounds>
