@@ -27,7 +27,7 @@
         <activiti:formProperty id="organ" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, інше" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="nomer" name="Вкажіть код ЄДРПОУ або ІНН; тільки цифрові позначення" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="naimenov" name="Найменування або ПІБ платника податку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="info_2" name="Завантажте пустий бланк запиту за посиланням, заповніть, додайте ЄЦП, відскануйте та завантажте у полі нижче" type="label" default="ссылка"></activiti:formProperty>
+        <activiti:formProperty id="info_2" name=" " type="label" default="Завантажте пустий бланк запиту за &lt;a href=&quot;https://docs.google.com/document/d/1op393ACpXsaPwewbuvn4yir-8oskEXy83RcSXOuUnco/edit&quot; target=&quot;_blank&quot;&gt;посиланням&lt;/a&gt;, заповніть, додайте ЄЦП, відскануйте та завантажте у полі нижче"></activiti:formProperty>
         <activiti:formProperty id="zapit" name="Заповнений запит з ЄЦП" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>

@@ -14,7 +14,7 @@
 <a href="#15_workWithServices">15. Работа с каталогом сервисов</a><br/>
 <a href="#16_getWorkflowStatistics">16. Получение статистики по задачам в рамках бизнес процесса</a><br/>
 <a href="#17_workWithHistoryEvent_Services">17. Работа с обьектами событий по услугам</a><br/>
-<a href="#18_workWithFlowSlot">18. Работа со слотами потока</a><br/>
+<a href="#18_workWithFlowSlot">18. Электронные очереди (слоты потока, расписания и тикеты)</a><br/>
 <a href="#19">19. Работа с джоинами суьтектами (отделениями/филиалами)</a><br/>
 <a href="#20">20. Получение кнопки для оплаты через Liqpay</a><br/>
 <a href="#21">21. Работа со странами </a><br/>
@@ -1630,7 +1630,7 @@ http://test.igov.org.ua/wf/service/services/updateHistoryEvent_Service?nID_Prote
 
 
 <a name="18_workWithFlowSlot">
-#### 18. Работа со слотами потока
+#### 18. Электронные очереди (слоты потока, расписания и тикеты)
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Context: http://server:port/wf/service/flow/getFlowSlots_ServiceData** - Получение слотов по сервису сгруппированных по дням.

@@ -26,7 +26,7 @@
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви, відповідно до Закону України «Про захист персональних даних» від «01» червня 2010 року №2297-VI, надєте згоду КП «Ритуальна служба» Дніпропетровської міської ради на збір та використання інформації про Вас з обмеженим доступом з метою оброблення цієї Заяви в межах, необхідних для досягнення вказаної вище мети. Наведена вище інформація також може надаватись третім особам, безпосередньо задіяним в виконанні замовлення та наданні ритуальних послуг, а також в інших випадках, прямо передбачених законодавством. "></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу, Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Service Task" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -50,7 +50,7 @@
         <activiti:formProperty id="Object" name="Найменування об’єкту" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ObjectAddress" name="Місцезнаходження об’єкту" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="work" name="Перелік робіт (послуг), що виконуватимуться (надаватимуться), а також виробів, що виготовлятимуться" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата видачі" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата видачі" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vibor" name="Заявник бажає отримати оригінал довідки в" type="enum" writable="false">
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
@@ -135,7 +135,7 @@
  &lt;br&gt;
 Крім святкових днів&lt;/p&gt;  
 &lt;p&gt;телефон (056) 742-84-08&lt;/p&gt;
-&lt;p&gt;Документ видається за наявності паспорта і підписаної декларації.
+&lt;p&gt;Документ видається за наявності паспорта і підписаної декларації (завантажити бланк декларації можна за посиланням - &lt;a href="https://dl.dropboxusercontent.com/u/91233927/%D0%A6%D0%9D%D0%90%D0%9F/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D1%87%D0%BA%D0%B8%20%D0%B8%20%D0%B1%D0%BB%D0%B0%D0%BD%D0%BA%D0%B8%20%D0%B7%D0%B0%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%20%D1%87.3/178/%D0%94%D0%B5%D0%BA%D0%BB%D0%B0%D1%80%D0%B0%D1%86%D1%96%D1%8F%20%D0%B2%D1%96%D0%B4%D0%BF%D0%BE%D0%B2%D1%96%D0%B4%D0%BD%D0%BE%D1%81%D1%82%D1%96%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D1%96%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE-%D1%82%D0%B5%D1%85%D0%BD%D1%96%D1%87%D0%BD%D0%BE%D1%97%20%D0%B1%D0%B0%D0%B7%D0%B8%20%28%D0%A1%D0%95%D0%A1%29%20%282%29.doc"&gt;ДЕКЛАРАЦІЯ&lt;/a&gt;).
                                     &lt;/p&gt;
                                                                   &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -253,7 +253,7 @@
  &lt;br&gt;
 Крім святкових днів&lt;/p&gt;  
 &lt;p&gt;телефон (056) 726-30-69&lt;/p&gt;
-&lt;p&gt;Документ видається за наявності паспорта і підписаної декларації
+&lt;p&gt;Документ видається за наявності паспорта і підписаної декларації (завантажити бланк декларації можна за посиланням - &lt;a href="https://dl.dropboxusercontent.com/u/91233927/%D0%A6%D0%9D%D0%90%D0%9F/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D1%87%D0%BA%D0%B8%20%D0%B8%20%D0%B1%D0%BB%D0%B0%D0%BD%D0%BA%D0%B8%20%D0%B7%D0%B0%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%20%D1%87.3/178/%D0%94%D0%B5%D0%BA%D0%BB%D0%B0%D1%80%D0%B0%D1%86%D1%96%D1%8F%20%D0%B2%D1%96%D0%B4%D0%BF%D0%BE%D0%B2%D1%96%D0%B4%D0%BD%D0%BE%D1%81%D1%82%D1%96%20%D0%BC%D0%B0%D1%82%D0%B5%D1%80%D1%96%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE-%D1%82%D0%B5%D1%85%D0%BD%D1%96%D1%87%D0%BD%D0%BE%D1%97%20%D0%B1%D0%B0%D0%B7%D0%B8%20%28%D0%A1%D0%95%D0%A1%29%20%282%29.doc"&gt;ДЕКЛАРАЦІЯ&lt;/a&gt;)
                                     &lt;/p&gt;
                                                                   &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -429,7 +429,7 @@
         <activiti:formProperty id="Object" name="Найменування об’єкту" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ObjectAddress" name="Місцезнаходження об’єкту" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="work" name="Перелік робіт (послуг), що виконуватимуться (надаватимуться), а також виробів, що виготовлятимуться" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата видачі" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата видачі" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vibor" name="Заявник бажає отримати оригінал довідки в" type="enum" writable="false">
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
@@ -814,7 +814,7 @@ ${comment} &lt;br&gt;
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[Crow79@i.ua]]></activiti:string>
+          <activiti:string><![CDATA[Crow79@ua.fm]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Декларація відповідності матеріально-технічної бази суб’єкта господарювання вимогам законодавства]]></activiti:string>

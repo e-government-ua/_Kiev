@@ -15,13 +15,12 @@
         <activiti:formProperty id="adress2" name="Адреса об'єкта, на який видається документ" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменовання юридичної особи/П.І.Б. фізичної особи - підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="edrpou" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб)" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kod_inn" name="Ідентифікаційний номер фізичної особи - підприємця, платника податків та інших обов'язкових платежів" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб) або ідентифікаційний номер фізичної особи - підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="trusted_person" name="П.І.Б. керівника юридичної особи / фізичної особи - підприємця/уповноваженої особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="file1" name="Погодження на розміщення зовнішньої реклами з Державтоінспекцією та Укравтодором або його територіальними органами - у разі розміщення зовнішньої реклами в межах смуги відведення автомобільних доріг загального користування" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="file2" name="Погодження на розміщення зовнішньої реклами з Мінкультури або місцевим органом виконавчої влади у сфері охорони культурної спадщини - у разі розміщення зовнішньої реклами на пам'ятках історії та архітектури і в межах зон охорони пам'яток національного або місцевого значення" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="file3" name="Погодження на розміщення зовнішньої реклами з власником місця розташування рекламного засобу або уповноваженим ним органом (особою)" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Копія договору, завірена власником місця розташування рекламного засобу або уповноваженим ним органом чи особою (крім заявника, що є власником такого місця). Якщо заявник є власником місця розташування рекламного засобу, до погодження додається належним чином завірена копія документа, що підтверджує право власності на місце розташування рекламного засобу" type="file" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="file4" name="Копія договору, завірена власником місця розташування рекламного засобу або уповноваженим ним органом чи особою (крім заявника, що є власником такого місця) або завірена копія документа, що підтверджує право власності на місце розташування рекламного засобу (у разі якщо заявник є власником місця розташування рекламного засобу)" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="cnapСhoice" name="Оберіть ЦНАП, в якому Вам буде зручно отримати дозвіл" type="enum" required="true">
           <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
           <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
@@ -134,8 +133,7 @@
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменовання юридичної особи/П.І.Б. фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="edrpou" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kod_inn" name="Ідентифікаційний номер фізичної особи - підприємця, платника податків та інших обов'язкових платежів" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб) або ідентифікаційний номер фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="trusted_person" name="П.І.Б. керівника юридичної особи / фізичної особи - підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
         <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string"></activiti:formProperty>
@@ -267,8 +265,7 @@
         <activiti:formProperty id="adress2" name="Адреса об'єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменовання юридичної особи/П.І.Б. фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="edrpou" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kod_inn" name="Ідентифікаційний номер фізичної особи - підприємця, платника податків та інших обов'язкових платежів" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб) або ідентифікаційний номер фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="trusted_person" name="П.І.Б. керівника юридичної особи / фізичної особи - підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string" writable="false"></activiti:formProperty>
