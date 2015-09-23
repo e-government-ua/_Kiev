@@ -50,7 +50,7 @@
         <activiti:formProperty id="Object" name="Найменування об’єкту" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ObjectAddress" name="Місцезнаходження об’єкту" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="work" name="Перелік робіт (послуг), що виконуватимуться (надаватимуться), а також виробів, що виготовлятимуться" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата видачі" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата видачі" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vibor" name="Заявник бажає отримати оригінал довідки в" type="enum" writable="false">
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
@@ -429,7 +429,7 @@
         <activiti:formProperty id="Object" name="Найменування об’єкту" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ObjectAddress" name="Місцезнаходження об’єкту" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="work" name="Перелік робіт (послуг), що виконуватимуться (надаватимуться), а також виробів, що виготовлятимуться" type="textArea" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата видачі" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата видачі" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vibor" name="Заявник бажає отримати оригінал довідки в" type="enum" writable="false">
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
@@ -814,7 +814,7 @@ ${comment} &lt;br&gt;
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[Crow79@i.ua]]></activiti:string>
+          <activiti:string><![CDATA[Crow79@ua.fm]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Декларація відповідності матеріально-технічної бази суб’єкта господарювання вимогам законодавства]]></activiti:string>
