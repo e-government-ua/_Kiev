@@ -3,7 +3,7 @@
   <process id="dnepr_cnap-44" name="Дніпропетровськ ЦНАП - Надання дозволу релігійним організаціям на проведення релігійних заходів, які проводяться поза межами культових споруд" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="text1" name="Зверніть увагу" type="label" default="З метою якісного надання адміністративної послуги, у зв’язку з можливою підготовкою Розпорядження міського голови, клопотання подається не пізніше ніж за 10 днів до проведення заходу"></activiti:formProperty>
+        <activiti:formProperty id="text1" name="Зверніть увагу" type="label" default="З метою якісного надання адміністративної послуги, у зв’язку з можливою підготовкою Розпорядження міського голови, &lt;b&gt;клопотання подається не пізніше ніж за 10 днів до проведення заходу&lt;/b&gt;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
