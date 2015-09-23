@@ -27,8 +27,7 @@
         <activiti:formProperty id="file4" name="Запит нотаріуса або адвоката; потрібно лише в разі оформлення спадщини" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="file5" name="Копія свідоцтва про смерть попереднього власника; потрібно лише в разі оформлення спадщини" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу, Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
-        <activiti:formProperty id="sBody_2" name="sBody" type="invisible" default=" "></activiti:formProperty>
+        <activiti:formProperty id="marker1" name="маркер динамічної форми" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;file4&quot;,&quot;file5&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;goal&quot;},&quot;sCondition&quot;:&quot;[sReason]=='item2'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
@@ -126,11 +125,100 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow10" sourceRef="mailtask3" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="mailtask3" targetRef="mailtask6"></sequenceFlow>
+     <serviceTask id="mailtask6" name="Повідомлення про нову заявку" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[zhigan.roman@gmail.com]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Нове звернення на тему: Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.org.ua</b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+<tr>
+                    <td align="center">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+										<h3>Шановні колеги!</h3>
+										<p>
+											У Вас в черзі на обробку зареєстровано нове звернення щодо надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки.<br />
+											Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}<br />
+											Опрацюйте, будь ласка, це звернення на <a href="https://test.region.igov.org.ua" target="_blank">порталі</a>
+										</p>
+										<hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+										<p>
+										З повагою,<br />
+										Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
+								</td>
+                            </tr>
+                        </table>
+                     
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow16" sourceRef="mailtask6" targetRef="usertask1"></sequenceFlow>
     <userTask id="usertask1" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="cnap_rai_${rai}_1">
       <extensionElements>
         <activiti:formProperty id="info" name="На цьому етапі:" type="label" default="Ви перевіряєте дані громадянина і вирішуєте чи всі вони вірні. Якщо все добре, присвоюєте реєстраційний номер зверненню, роздруковуєте прінтформи та відправляєте документи до Держгеокадастру. Якщо ні - відмовляєте у реєстрації звернення з обов'язковим коментарем."></activiti:formProperty>
-        <activiti:formProperty id="iGovnumb" name="Номер звернення з iGov" type="long"></activiti:formProperty>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
@@ -157,10 +245,10 @@
         <activiti:formProperty id="vnnumb" name="Реєстраційний номер звернення" type="string"></activiti:formProperty>
         <activiti:formProperty id="privateMail" name="e-mail спеціалістів Держкомзему" type="string"></activiti:formProperty>
         <activiti:formProperty id="doc" type="label" default="Якщо громадянин відправив Вам файли окрім копії паспорту, копії ІПН, та копії права власності на земельну ділянку, додайте їх опис у полях нижче"></activiti:formProperty>
-        <activiti:formProperty id="doc1" name="Файл 4" type="textArea" default=" "></activiti:formProperty>
-        <activiti:formProperty id="doc2" name="Файл 5" type="textArea" default=" "></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/ternopol_rcnap-9_zayava.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_2" name="[pattern/print/ternopol_rcnap-9_vnutr.html]" type="invisible" default="${sBody_2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="doc1" name="Файл 4" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="doc2" name="Файл 5" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/ternopol_rcnap-9_zayava.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_2" name="[pattern/print/ternopol_rcnap-9_vnutr.html]" type="invisible" default="Внутрішній лист" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -267,7 +355,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
     <serviceTask id="servicetask2" name="Відправка док-в до Держгеокадастру" activiti:delegateExpression="#{MailTaskWithAttachments}">
-    <extensionElements>
+      <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
@@ -278,19 +366,17 @@
           <activiti:string><![CDATA[Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-        	<activiti:expression>
- 					Шановні працівники відділу Держгеокадастру у Тернопільському районі.
+          <activiti:expression>Шановні працівники відділу Держгеокадастру у Тернопільському районі.
                     
                     Направляємо Вам документи для Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки.&lt;/p&gt;
 									
 					Заявник: ${clFio};
-                    Звернення на iGov.org.ua № ${iGovnumb};
                     Реєстраційний номер ЦНАП ${vnnumb}.
                             		
                     З повагою,
                     ЦНАП Тернопільського району,
                     Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
-             </activiti:expression>
+          </activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${file1},${file2},${file3},${file4},${file5}"</activiti:expression>
@@ -301,7 +387,6 @@
     <userTask id="usertask2_green" name="Підготовка відповіді на запит" activiti:candidateGroups="cnap_rai_${rai}_1">
       <extensionElements>
         <activiti:formProperty id="info1" name="На цьому етапі:" type="label" default="Ви отримуєте результат розгляду звернення Держгеокадастром і відповідним чином інформуєте громадянина."></activiti:formProperty>
-        <activiti:formProperty id="iGovnumb" name="Номер звернення з iGov" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vnnumb" name="Реєстраційний номер звернення" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="DocumentDate" name="Дата оформлення документів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" writable="false"></activiti:formProperty>
@@ -510,122 +595,130 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent5"></sequenceFlow> 
+    <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent5"></sequenceFlow>
+   
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_ternopol_rcnap-9">
     <bpmndi:BPMNPlane bpmnElement="ternopol_rcnap-9" id="BPMNPlane_ternopol_rcnap-9">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="30.0" y="220.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="220.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
-        <omgdc:Bounds height="65.0" width="105.0" x="80.0" y="206.0"></omgdc:Bounds>
+        <omgdc:Bounds height="65.0" width="105.0" x="55.0" y="206.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
-        <omgdc:Bounds height="30.0" width="30.0" x="164.0" y="206.0"></omgdc:Bounds>
+        <omgdc:Bounds height="30.0" width="30.0" x="139.0" y="206.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="90.0" y="154.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="65.0" width="115.0" x="206.0" y="206.0"></omgdc:Bounds>
+        <omgdc:Bounds height="65.0" width="115.0" x="171.0" y="206.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="63.0" width="138.0" x="345.0" y="209.0"></omgdc:Bounds>
+        <omgdc:Bounds height="63.0" width="138.0" x="420.0" y="208.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
-        <omgdc:Bounds height="40.0" width="40.0" x="515.0" y="220.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="576.0" y="221.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
-        <omgdc:Bounds height="67.0" width="116.0" x="478.0" y="317.0"></omgdc:Bounds>
+        <omgdc:Bounds height="67.0" width="116.0" x="539.0" y="318.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="410.0" y="333.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask2_green" id="BPMNShape_usertask2_green">
-        <omgdc:Bounds height="71.0" width="126.0" x="734.0" y="205.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
-        <omgdc:Bounds height="40.0" width="40.0" x="886.0" y="219.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
-        <omgdc:Bounds height="70.0" width="139.0" x="760.0" y="316.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent5" id="BPMNShape_endevent5">
-        <omgdc:Bounds height="35.0" width="35.0" x="889.0" y="420.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="71.0" width="131.0" x="920.0" y="315.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="471.0" y="334.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="67.0" width="105.0" x="610.0" y="207.0"></omgdc:Bounds>
+        <omgdc:Bounds height="67.0" width="105.0" x="671.0" y="208.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2_green" id="BPMNShape_usertask2_green">
+        <omgdc:Bounds height="71.0" width="126.0" x="795.0" y="206.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="947.0" y="220.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
+        <omgdc:Bounds height="70.0" width="139.0" x="821.0" y="317.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent5" id="BPMNShape_endevent5">
+        <omgdc:Bounds height="35.0" width="35.0" x="950.0" y="421.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
+        <omgdc:Bounds height="71.0" width="131.0" x="981.0" y="316.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
+        <omgdc:Bounds height="61.0" width="105.0" x="300.0" y="207.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="65.0" y="237.0"></omgdi:waypoint>
-        <omgdi:waypoint x="80.0" y="238.0"></omgdi:waypoint>
+        <omgdi:waypoint x="45.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="55.0" y="238.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
-        <omgdi:waypoint x="179.0" y="206.0"></omgdi:waypoint>
+        <omgdi:waypoint x="154.0" y="206.0"></omgdi:waypoint>
         <omgdi:waypoint x="107.0" y="189.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="185.0" y="238.0"></omgdi:waypoint>
-        <omgdi:waypoint x="206.0" y="238.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="238.0"></omgdi:waypoint>
+        <omgdi:waypoint x="171.0" y="238.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
-        <omgdi:waypoint x="321.0" y="238.0"></omgdi:waypoint>
-        <omgdi:waypoint x="345.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="286.0" y="238.0"></omgdi:waypoint>
+        <omgdi:waypoint x="300.0" y="237.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="483.0" y="240.0"></omgdi:waypoint>
-        <omgdi:waypoint x="515.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="558.0" y="239.0"></omgdi:waypoint>
+        <omgdi:waypoint x="576.0" y="241.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="535.0" y="260.0"></omgdi:waypoint>
-        <omgdi:waypoint x="536.0" y="317.0"></omgdi:waypoint>
+        <omgdi:waypoint x="596.0" y="261.0"></omgdi:waypoint>
+        <omgdi:waypoint x="597.0" y="318.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="81.0" x="447.0" y="269.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="81.0" x="539.0" y="270.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="478.0" y="350.0"></omgdi:waypoint>
-        <omgdi:waypoint x="445.0" y="350.0"></omgdi:waypoint>
+        <omgdi:waypoint x="539.0" y="351.0"></omgdi:waypoint>
+        <omgdi:waypoint x="506.0" y="351.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="555.0" y="240.0"></omgdi:waypoint>
-        <omgdi:waypoint x="610.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="616.0" y="241.0"></omgdi:waypoint>
+        <omgdi:waypoint x="671.0" y="241.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="87.0" x="543.0" y="200.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="87.0" x="604.0" y="201.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="776.0" y="241.0"></omgdi:waypoint>
+        <omgdi:waypoint x="795.0" y="241.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
-        <omgdi:waypoint x="860.0" y="240.0"></omgdi:waypoint>
-        <omgdi:waypoint x="886.0" y="239.0"></omgdi:waypoint>
+        <omgdi:waypoint x="921.0" y="241.0"></omgdi:waypoint>
+        <omgdi:waypoint x="947.0" y="240.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
-        <omgdi:waypoint x="906.0" y="259.0"></omgdi:waypoint>
-        <omgdi:waypoint x="829.0" y="316.0"></omgdi:waypoint>
+        <omgdi:waypoint x="967.0" y="260.0"></omgdi:waypoint>
+        <omgdi:waypoint x="890.0" y="317.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="774.0" y="272.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="835.0" y="273.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
-        <omgdi:waypoint x="829.0" y="386.0"></omgdi:waypoint>
-        <omgdi:waypoint x="906.0" y="420.0"></omgdi:waypoint>
+        <omgdi:waypoint x="890.0" y="387.0"></omgdi:waypoint>
+        <omgdi:waypoint x="967.0" y="421.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
-        <omgdi:waypoint x="906.0" y="259.0"></omgdi:waypoint>
-        <omgdi:waypoint x="985.0" y="315.0"></omgdi:waypoint>
+        <omgdi:waypoint x="967.0" y="260.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1046.0" y="316.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="947.0" y="270.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="1008.0" y="271.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="985.0" y="386.0"></omgdi:waypoint>
-        <omgdi:waypoint x="906.0" y="420.0"></omgdi:waypoint>
+        <omgdi:waypoint x="1046.0" y="387.0"></omgdi:waypoint>
+        <omgdi:waypoint x="967.0" y="421.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
-        <omgdi:waypoint x="715.0" y="240.0"></omgdi:waypoint>
-        <omgdi:waypoint x="734.0" y="240.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="405.0" y="237.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="239.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

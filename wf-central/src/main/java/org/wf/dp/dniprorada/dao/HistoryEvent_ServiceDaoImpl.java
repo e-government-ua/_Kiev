@@ -123,7 +123,20 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                 Object[] currValue = (Object[]) item;
                 log.info("Curr value:" + currValue);
                 
-                String snRate = (String) currValue[2];
+                //String snRate = (String) currValue[2];
+                String snRate = "0";
+                try{
+                    snRate = (String) currValue[2];
+                }catch(Exception oException){
+                    log.error("[Curr value(String)]:" + oException.getMessage());
+                }
+                
+                try{
+                    snRate = ((Long) currValue[2])+"";
+                }catch(Exception oException){
+                    log.error("[Curr value(Long)]:" + oException.getMessage());
+                }
+                
                 log.info("(String) currValue[2])=" + snRate);
                 if(snRate==null){
                     snRate="0";
@@ -132,8 +145,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                 Map<String, Long> currRes = new HashMap<>();
                 currRes.put("sName", (Long) currValue[0]);
                 currRes.put("nCount", (Long) currValue[1]);
-                currRes.put("nRate", Long.valueOf(snRate)*20);//for issue 777//*20
-//                currRes.put("nRate", Long.valueOf((String) currValue[2]));//for issue 777//*20
+                currRes.put("nRate", Long.valueOf(snRate)*20);//for issue 777//*20//
 //                currRes.put("nRate", Long.valueOf(0));//for issue 777//*20
                 // currRes.put("nRate", new BigDecimal(Float.valueOf("" + currValue[2])).setScale(1).floatValue());//for issue 777
                 resHistoryEventService.add(currRes);
