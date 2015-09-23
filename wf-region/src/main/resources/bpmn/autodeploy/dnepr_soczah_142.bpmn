@@ -12,22 +12,17 @@
         <activiti:formProperty id="bankIdAddress" name="Місце реєстрації (вкажіть область, місто, вулицю, будинок, квартиру)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_of_liv" name="Місце проживання (вкажіть область, місто, вулицю, будинок, квартиру)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
-          <activiti:value id="sobes1" name="АНД, вул. Радістів, 8"></activiti:value>
-          <activiti:value id="sobes2" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
-          <activiti:value id="sobes3" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
-          <activiti:value id="sobes4" name="Індустріальний, вул. Косіора, 55"></activiti:value>
-          <activiti:value id="sobes5" name="Кіровський, вул. Свердлова, 30/32"></activiti:value>
-          <activiti:value id="sobes6" name="Красногвардійський, вул. Уральська, 5"></activiti:value>
-          <activiti:value id="sobes7" name="Ленінський, вул. Трудова, 1а"></activiti:value>
-          <activiti:value id="sobes8" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
+          <activiti:value id="and" name="АНД, вул. Радістів, 8"></activiti:value>
+          <activiti:value id="babush" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
+          <activiti:value id="zhovt" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
+          <activiti:value id="indust" name="Індустріальний, вул. Косіора, 55"></activiti:value>
+          <activiti:value id="kirov" name="Кіровський, вул. Свердлова, 30/32"></activiti:value>
+          <activiti:value id="krasn" name="Красногвардійський, вул. Уральська, 5"></activiti:value>
+          <activiti:value id="lenin" name="Ленінський, вул. Трудова, 1а"></activiti:value>
+          <activiti:value id="samar" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="numobr" name="Ваше звернення до районного органу соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
-          <activiti:value id="obr1" name="первинне"></activiti:value>
-          <activiti:value id="obr2" name="вторинне"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="numossp" name="номер основної особової справи" type="string"></activiti:formProperty>
         <activiti:formProperty id="kuda_dengi" name="Оберіть" type="label" default="В разі призначення допомоги кошти готівкою перераховувати"></activiti:formProperty>
         <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long"></activiti:formProperty>
         <activiti:formProperty id="kudadengi1" type="label" default="або"></activiti:formProperty>
@@ -35,10 +30,6 @@
         <activiti:formProperty id="mfo" name="МФО" type="long"></activiti:formProperty>
         <activiti:formProperty id="bankchoose" name="банк" type="string"></activiti:formProperty>
         <activiti:formProperty id="okpo" name="код" type="long"></activiti:formProperty>
-        <activiti:formProperty id="rozgl" name="Якщо моя заява потребує розглядання комісією, прошу мою заяву " type="enum" required="true">
-          <activiti:value id="roz1" name="розглянути"></activiti:value>
-          <activiti:value id="roz2" name="не розглядати"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="text" name="Увага" type="label" default="Я усвідомлюю, що наведені мною відомості про доходи та майно, що вплинули або могли вплинути на прийняте рішення щодо надання соціальної допомоги, компенсацій та пільг, будуть перевірені згідно з чинним законодавством України."></activiti:formProperty>
         <activiti:formProperty id="dok_oderj" name="Зверніть увагу" type="label" default="Завантажте документи особи-одержувача компенсації"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Документ, що посвідчує особу" type="file" required="true"></activiti:formProperty>
@@ -139,7 +130,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
-    <userTask id="usertask1" name="Перша перевірка документів в Управлінні праці та соціального захисту населення" activiti:candidateGroups="dnepr_soczah_142">
+    <userTask id="usertask1" name="Перша перевірка документів в Управлінні праці та соціального захисту населення" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
@@ -377,7 +368,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask3" name="Друга перевірка документів в Управлінні праці та соціального захисту населення" activiti:candidateGroups="dnepr_soczah_142_{area}">
+    <userTask id="usertask3" name="Друга перевірка документів в Управлінні праці та соціального захисту населення" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
