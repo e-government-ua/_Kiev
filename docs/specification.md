@@ -1630,7 +1630,7 @@ http://test.igov.org.ua/wf/service/services/updateHistoryEvent_Service?nID_Prote
 
 
 <a name="18_workWithFlowSlot">
-#### 18. Работа со слотами потока
+#### 18. Электронные очереди (слоты потока, расписания и тикеты)
 </a><a href="#0_contents">↑Up</a><br/>
 
 **HTTP Context: http://server:port/wf/service/flow/getFlowSlots_ServiceData** - Получение слотов по сервису сгруппированных по дням.
