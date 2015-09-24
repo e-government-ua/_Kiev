@@ -12,14 +12,14 @@
         <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
-          <activiti:value id="sobes1" name="АНД, вул. Радістів, 8"></activiti:value>
-          <activiti:value id="sobes2" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
-          <activiti:value id="sobes3" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
-          <activiti:value id="sobes4" name="Індустріальний, вул. Косіора, 55"></activiti:value>
-          <activiti:value id="sobes5" name="Кіровський, вул. Свердлова, 30/32"></activiti:value>
-          <activiti:value id="sobes6" name="Красногвардійський, вул. Уральська, 5"></activiti:value>
-          <activiti:value id="sobes7" name="Ленінський, вул. Трудова, 1а"></activiti:value>
-          <activiti:value id="sobes8" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
+          <activiti:value id="and" name="АНД, вул. Радістів, 8"></activiti:value>
+          <activiti:value id="babush" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
+          <activiti:value id="zhovt" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
+          <activiti:value id="indust" name="Індустріальний, вул. Косіора, 55"></activiti:value>
+          <activiti:value id="kirov" name="Кіровський, вул. Свердлова, 30/32"></activiti:value>
+          <activiti:value id="krasn" name="Красногвардійський, вул. Уральська, 5"></activiti:value>
+          <activiti:value id="lenin" name="Ленінський, вул. Трудова, 1а"></activiti:value>
+          <activiti:value id="samar" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
@@ -132,7 +132,7 @@
       </extensionElements>
     </serviceTask>
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <userTask id="usertask1" name="Обробка Управлінням (1 етап)" activiti:candidateGroups="dnepr_soc_help_147_${area}">
+    <userTask id="usertask1" name="Обробка Управлінням (1 етап)" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Суб’єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
@@ -141,14 +141,14 @@
         <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" writable="false">
-          <activiti:value id="sobes1" name="АНД, вул. Радістів, 8"></activiti:value>
-          <activiti:value id="sobes2" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
-          <activiti:value id="sobes3" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
-          <activiti:value id="sobes4" name="Індустріальний, вул. Косіора, 55"></activiti:value>
-          <activiti:value id="sobes5" name="Кіровський, вул. Свердлова, 30/32"></activiti:value>
-          <activiti:value id="sobes6" name="Красногвардійський, вул. Уральська, 5"></activiti:value>
-          <activiti:value id="sobes7" name="Ленінський, вул. Трудова, 1а"></activiti:value>
-          <activiti:value id="sobes8" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
+          <activiti:value id="and" name="АНД, вул. Радістів, 8"></activiti:value>
+          <activiti:value id="babush" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
+          <activiti:value id="zhovt" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
+          <activiti:value id="indust" name="Індустріальний, вул. Косіора, 55"></activiti:value>
+          <activiti:value id="kirov" name="Кіровський, вул. Свердлова, 30/32"></activiti:value>
+          <activiti:value id="krasn" name="Красногвардійський, вул. Уральська, 5"></activiti:value>
+          <activiti:value id="lenin" name="Ленінський, вул. Трудова, 1а"></activiti:value>
+          <activiti:value id="samar" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
@@ -271,7 +271,7 @@
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
-    <userTask id="usertask2" name="Обробка Управлінням (2 етап)" activiti:candidateGroups="dnepr_soc_help_147_${area}">
+    <userTask id="usertask2" name="Обробка Управлінням (2 етап)" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Суб’єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
@@ -280,14 +280,14 @@
         <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" writable="false">
-          <activiti:value id="sobes1" name="АНД, вул. Радістів, 8"></activiti:value>
-          <activiti:value id="sobes2" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
-          <activiti:value id="sobes3" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
-          <activiti:value id="sobes4" name="Індустріальний, вул. Косіора, 55"></activiti:value>
-          <activiti:value id="sobes5" name="Кіровський, вул. Свердлова, 30/32"></activiti:value>
-          <activiti:value id="sobes6" name="Красногвардійський, вул. Уральська, 5"></activiti:value>
-          <activiti:value id="sobes7" name="Ленінський, вул. Трудова, 1а"></activiti:value>
-          <activiti:value id="sobes8" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
+          <activiti:value id="and" name="АНД, вул. Радістів, 8"></activiti:value>
+          <activiti:value id="babush" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
+          <activiti:value id="zhovt" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
+          <activiti:value id="indust" name="Індустріальний, вул. Косіора, 55"></activiti:value>
+          <activiti:value id="kirov" name="Кіровський, вул. Свердлова, 30/32"></activiti:value>
+          <activiti:value id="krasn" name="Красногвардійський, вул. Уральська, 5"></activiti:value>
+          <activiti:value id="lenin" name="Ленінський, вул. Трудова, 1а"></activiti:value>
+          <activiti:value id="samar" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
