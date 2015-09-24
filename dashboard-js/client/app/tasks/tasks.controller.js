@@ -182,7 +182,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           $scope.taskForm = addIndexForFileItems($scope.taskForm);
           $scope.taskFormLoaded = true;
         })
-        .catch(defaultErrorHandler);
+        .catch(function(){
+          console.log('Error loading task');
+        });
     }
 
     tasks
