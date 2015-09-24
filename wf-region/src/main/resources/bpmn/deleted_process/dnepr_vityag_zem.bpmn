@@ -59,8 +59,12 @@
     <userTask id="usertask6" name="Присланный на почту документ и возможность забрать оригинал в ЦНАП имея с собой документы"></userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow11" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <sequenceFlow id="flow12" sourceRef="exclusivegateway1" targetRef="usertask5"></sequenceFlow>
-    <sequenceFlow id="flow13" sourceRef="exclusivegateway1" targetRef="usertask7"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="exclusivegateway1" targetRef="usertask5">
+    	
+    </sequenceFlow>
+    <sequenceFlow id="flow13" sourceRef="exclusivegateway1" targetRef="usertask7">
+    
+    </sequenceFlow>
     <sequenceFlow id="flow14" sourceRef="usertask7" targetRef="endevent1"></sequenceFlow>
     <userTask id="usertask7" name="Отказ с указанием причины"></userTask>
     <serviceTask id="servicetask1" name="Загрузка файлов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
