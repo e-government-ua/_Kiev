@@ -183,7 +183,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           $scope.taskFormLoaded = true;
         })
         .catch(function(){
-          console.log('Error saving task');
+          console.log('Error loading task');
         });
     }
 
