@@ -58,7 +58,6 @@
         </activiti:formProperty>
         <activiti:formProperty id="admin" name="Прізвище адміністратора, що прийняв документи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="reestr" name="Номер реєстрації про прийняття документів" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="adminDate" name="Дата прийняття документів адміністратором" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="proverka" name="Рішення про прийняття або відхилення заяви" type="enum" required="true">
           <activiti:value id="yes" name="Заяву оброблено"></activiti:value>
           <activiti:value id="no" name="Заяву відхилено"></activiti:value>
@@ -447,7 +446,6 @@
         <activiti:formProperty id="comPer1" name="Вкажіть, яких саме документів не вистачає (заповнювати не обов'язково)" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="admin" name="Введіть прізвище адміністратора, якщо документи прийнято" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="reestr" name="Введіть номер реєстрації, якщо документи прийнято" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="adminDate" name="Оберіть дату реєстрації, якщо документи прийнято (обов'язково у форматі дд/мм/рррр)" type="date" default="  /  /    "></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
