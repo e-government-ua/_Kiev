@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="dnepr_cnap_56" name="Дніпропетровськ - Надання дозволу на використання місцевої символіки" isExecutable="true">
     <documentation>https://github.com/e-government-ua/iBP/issues/56</documentation>
     <startEvent id="startevent1" name="Start">
@@ -11,8 +11,8 @@
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="cnap" name="Оберіть ЦНАП у якому буде зручніше забрати оригінал документу" type="enum" required="true">
-          <activiti:value id="pravij" name="Правобережний"></activiti:value>
-          <activiti:value id="levij" name="Лівобережний"></activiti:value>
+          <activiti:value id="pravij" name="ЦНАП «Правобережний» (просп. Карла Маркса, 75)"></activiti:value>
+          <activiti:value id="levij" name="ЦНАП «Лівобережний» (просп. Газети «Правда», 42)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
@@ -26,21 +26,21 @@
         <activiti:formProperty id="doc_pidpriemci" name="Завантажте копію документа, що посвідчує право на здійснення підприємницької діяльності" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="perelic" name="Інформація про використання національної символіки (герба міста, назви чи зображення архітектурних, історичних пам’яток)" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг"></activiti:formProperty>
-        </extensionElements>
+      </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника держоргану" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string>darja.grek@gmail.com</activiti:string>
+          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Нове  звернення. Надання дозволу на використання місцевої символіки</activiti:string>
+          <activiti:string><![CDATA[Нове  звернення. Надання дозволу на використання місцевої символіки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -190,13 +190,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Надання дозволу на використання місцевої символіки</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання дозволу на використання місцевої символіки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -255,7 +255,11 @@
     &lt;/pя&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;/td&gt;
+                                   З повагою,&lt;br /&gt;
+									Центр надання адміністративних послуг&lt;br /&gt;
+									Дніпропетровської міської ради&lt;br /&gt;	   
+									
+								   &lt;/td&gt;
                             &lt;/tr&gt;
                            
                           
@@ -281,13 +285,13 @@
     <serviceTask id="servicetask2" name="Повідомлення громадянина про успішне подання зверенння" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>test_noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Надання дозволу на використання місцевої символіки</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання дозволу на використання місцевої символіки]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${opis}"</activiti:expression>
@@ -352,9 +356,12 @@
     &lt;/p&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
+                                 &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
+                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;&lt;br /&gt;	
+										&lt;br /&gt;	
+										Центр надання адміністративних послуг&lt;br /&gt;
+										Дніпропетровської міської ради&lt;br /&gt;	
                                         &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -393,13 +400,13 @@
     <serviceTask id="servicetask3" name="повідомлення громадянина о наданні дозволу на використання місцевої символіки (Правобережний)" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>test_noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Надання дозволу на використання місцевої символіки</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання дозволу на використання місцевої символіки]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
@@ -463,6 +470,8 @@
 1. Документ, що посвідчує особу.&lt;br /&gt;
 2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
 3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.&lt;br /&gt;
+&lt;a href="https://drive.google.com/open?id=0B6mOkUg9oq1zT3ZtOFRfdm02OEU"&gt;(шаблон заяви)&lt;/a&gt;&lt;br /&gt;
+&lt;br /&gt;
 4. Документ, що посвідчує право на здійснення підприємницької діяльності. &lt;br /&gt;
 5. Інформація про використання національної символіки (герба міста, назви чи зображення архітектурних, історичних пам’яток).&lt;br /&gt;
 &lt;br /&gt;
@@ -479,7 +488,10 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
+                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;&lt;br /&gt;	
+										&lt;br /&gt;	
+										Центр надання адміністративних послуг&lt;br /&gt;
+										Дніпропетровської міської ради&lt;br /&gt;	
                                         &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -529,13 +541,13 @@
     <serviceTask id="servicetask4" name="повідомлення громадянина о наданні дозволу на використання місцевої символіки (Лівобережний)" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>test_noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Надання дозволу на використання місцевої символіки</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання дозволу на використання місцевої символіки]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
@@ -599,6 +611,8 @@
 1. Документ, що посвідчує особу.&lt;br /&gt;
 2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
 3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.&lt;br /&gt;
+&lt;a href="https://drive.google.com/open?id=0B6mOkUg9oq1zT3ZtOFRfdm02OEU"&gt;(шаблон заяви)&lt;/a&gt;&lt;br /&gt;
+&lt;br /&gt;
 4. Документ, що посвідчує право на здійснення підприємницької діяльності. &lt;br /&gt;
 5. Інформація про використання національної символіки (герба міста, назви чи зображення архітектурних, історичних пам’яток).&lt;br /&gt;
 &lt;br /&gt;
@@ -611,7 +625,10 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
+                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;&lt;br /&gt;	
+										&lt;br /&gt;	
+										Центр надання адміністративних послуг&lt;br /&gt;
+										Дніпропетровської міської ради&lt;br /&gt;	
                                         &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -663,13 +680,13 @@
     <serviceTask id="servicetask5" name="повідомлення громадянина про відмову у дозволу на використання місцевої символіки" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>test_noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: Надання дозволу на використання місцевої символіки</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання дозволу на використання місцевої символіки]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
@@ -729,7 +746,10 @@
 Підстава: ${comment_2}&lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                      &lt;/td&gt;
+З повагою,&lt;br /&gt;
+									Центр надання адміністративних послуг&lt;br /&gt;
+									Дніпропетровської міської ради&lt;br /&gt;                                    
+									&lt;/td&gt;
                             &lt;/tr&gt;
                            
                           
@@ -762,6 +782,9 @@
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="104.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="305.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -774,14 +797,11 @@
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="55.0" width="215.0" x="106.0" y="30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
-        <omgdc:Bounds height="55.0" width="217.0" x="105.0" y="167.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
         <omgdc:Bounds height="30.0" width="30.0" x="106.0" y="58.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
-        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="104.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
+        <omgdc:Bounds height="55.0" width="217.0" x="105.0" y="167.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="435.0" y="174.0"></omgdc:Bounds>
@@ -809,7 +829,7 @@
         <omgdi:waypoint x="475.0" y="394.0"></omgdi:waypoint>
         <omgdi:waypoint x="630.0" y="395.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="97.0" x="-42.0" y="-20.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="97.0" x="433.0" y="374.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
@@ -820,7 +840,7 @@
         <omgdi:waypoint x="435.0" y="394.0"></omgdi:waypoint>
         <omgdi:waypoint x="322.0" y="395.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="97.0" x="-48.0" y="-20.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="97.0" x="387.0" y="374.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
@@ -835,14 +855,14 @@
         <omgdi:waypoint x="455.0" y="214.0"></omgdi:waypoint>
         <omgdi:waypoint x="455.0" y="232.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="1.0" y="-27.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="456.0" y="187.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
         <omgdi:waypoint x="435.0" y="194.0"></omgdi:waypoint>
         <omgdi:waypoint x="322.0" y="194.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="-42.0" y="-20.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="393.0" y="174.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
@@ -875,7 +895,7 @@
         <omgdi:waypoint x="455.0" y="414.0"></omgdi:waypoint>
         <omgdi:waypoint x="455.0" y="429.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="42.0" x="10.0" y="-7.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="42.0" x="465.0" y="407.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">

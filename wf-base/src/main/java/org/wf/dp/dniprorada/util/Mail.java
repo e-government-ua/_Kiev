@@ -88,6 +88,7 @@ public class Mail extends Abstract_Mail {
          oMimeMessage.setSubject(getHead(), DEFAULT_ENCODING);
 
          _Attach(getBody());
+
          oMimeMessage.setContent(oMultiparts);
 
 //            oMimeMessage.getRecipients(Message.RecipientType.CC);
@@ -105,7 +106,8 @@ public class Mail extends Abstract_Mail {
          MimeBodyPart oMimeBodyPart = new MimeBodyPart();
          //oMimeBodyPart.setText(sBody,DEFAULT_ENCODING,"Content-Type: text/html;");
          oMimeBodyPart.setText(sBody, DEFAULT_ENCODING);
-         oMimeBodyPart.setHeader("Content-Type", "text/html");
+//         oMimeBodyPart.setHeader("Content-Type", "text/html");
+         oMimeBodyPart.setHeader("Content-Type", "text/html;charset=utf-8");
          oMultiparts.addBodyPart(oMimeBodyPart);
          log.info("[_Attach:sBody]:sBody=" + sBody);
       } catch (Exception oException) {

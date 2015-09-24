@@ -2,6 +2,11 @@ var express = require('express');
 var router = express.Router();
 var accountService = require('./account.service.js');
 
+module.exports.fio = function(req, res) {
+  var account = req.session.account;
+  res.send({ firstName: account.firstName, middleName : account.middleName, lastName : account.lastName});
+};
+
 module.exports.index = function (req, res) {
     var config = require('../../config/environment');
 

@@ -37,11 +37,16 @@ router.get('/callback', function (req, res, next) {
         }
 
         if (error) {
-            res.redirect(req.query.link + '?error=' + JSON.stringify(error));
+          res.redirect(req.query.link + '?error=' + JSON.stringify(error));
         } else {
-            req.session.subject = user.subject;
-            req.session.access = info;
-            res.redirect(req.query.link);
+          req.session.account = {
+            firstName: user.customer.firstName,
+            middleName: user.customer.middleName,
+            lastName: user.customer.lastName
+          };
+          req.session.subject = user.subject;
+          req.session.access = info;
+          res.redirect(req.query.link);
         }
     })(req, res, next)
 });
