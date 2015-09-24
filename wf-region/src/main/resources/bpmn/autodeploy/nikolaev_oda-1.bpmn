@@ -13,7 +13,7 @@
         <activiti:formProperty id="file1" name="Копія протоколу установчих зборів; файл в форматі PDF повинен мати ЕЦП нотаріуса" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="objFounder" name="Додаткова інформація про засновників; відомості про засновників громадського об'єднання із зазначенням прізвища, ім'я, по батькові (за наявності), дати народження, адреси місця проживання, а в разі якщо засновником є юридична особа приватного права, - її найменування, місцезнаходження, ідентифікаційного коду" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-                <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Прийняття рішення про реєстрацію" activiti:candidateGroups="myk_mr_0">
@@ -135,7 +135,9 @@
     <sequenceFlow id="flow12" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
     <sequenceFlow id="flow13" sourceRef="servicetask2" targetRef="mailtask3"></sequenceFlow>
     <sequenceFlow id="flow14" sourceRef="mailtask3" targetRef="usertask1"></sequenceFlow>
-    <sequenceFlow id="flow15" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="mailtask1"></sequenceFlow>
+    <sequenceFlow id="flow15" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="mailtask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
+    </sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Выбирается услуга:
 Реєстрація громадського об’єднання</text>
@@ -252,7 +254,7 @@
         <omgdi:waypoint x="476.0" y="287.0"></omgdi:waypoint>
         <omgdi:waypoint x="630.0" y="287.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="95.0" x="486.0" y="287.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="100.0" x="486.0" y="287.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association1" id="BPMNEdge_association1">

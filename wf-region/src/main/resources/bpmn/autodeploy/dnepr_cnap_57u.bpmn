@@ -384,8 +384,7 @@ ${comPer2}&lt;br&gt;
     </userTask>
     <sequenceFlow id="flow21" sourceRef="mailtask1" targetRef="usertask3"></sequenceFlow>
     <sequenceFlow id="flow22" sourceRef="servicetask2" targetRef="usertask1">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${perevirka1=='ok'}]]></conditionExpression>
-    </sequenceFlow>
+      </sequenceFlow>
     <serviceTask id="mailtask4" name="Не пройдено перевірку ЦНАП" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -1690,7 +1689,9 @@ ______ &lt;/span&gt;&lt;span
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow25" sourceRef="exclusivegateway1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow25" sourceRef="exclusivegateway1" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${perevirka1=='ok'}]]></conditionExpression>
+    </sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow26" sourceRef="usertask1" targetRef="exclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow27" sourceRef="exclusivegateway2" targetRef="mailtask3">
