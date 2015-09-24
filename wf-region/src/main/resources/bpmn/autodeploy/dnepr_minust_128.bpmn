@@ -272,7 +272,10 @@
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Підтвердження відомостей про юридичну особу]]></activiti:string>
         </activiti:field>
-        <activiti:field name="html">
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${vidpovidFile}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
           <activiti:expression>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
 &lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
@@ -385,9 +388,6 @@
                             &lt;/tr&gt;
                         &lt;/table&gt;
                         &lt;/form&gt;</activiti:expression>
-        </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>${vidpovidFile}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -569,8 +569,8 @@
       <text>змінити адресата</text>
     </textAnnotation>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_minust_129">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_minust_129" id="BPMNPlane_dnepr_minust_129">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_minust_128">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_minust_128" id="BPMNPlane_dnepr_minust_128">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="268.0" y="189.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
