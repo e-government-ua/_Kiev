@@ -22,6 +22,13 @@
         <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="employee" name="Кількість зареєстрованих найманих працівників" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="seats" name="Кількість посадкових місць (для закладів ресторанного господарства)" type="long"></activiti:formProperty>
+        <activiti:formProperty id="object_trade" name="Оберить об'єкт торгівлі" type="enum" required="true">
+          <activiti:value id="attr1" name="сфера послуг та закладів ресторанного господарства в стаціонарних спорудах, павільйонах"></activiti:value>
+          <activiti:value id="attr2" name="торгові кіоски, тимчасови споруди, автопричепи, лотки"></activiti:value>
+          <activiti:value id="attr3" name="засоби пересувної мережі (автокав’ярні, велокав’ярні, автомобілі з реалізації питної води), торгові розноски"></activiti:value>
+          <activiti:value id="attr4" name="кіоски, лотки в стаціонарних спорудах"></activiti:value>
+          <activiti:value id="attr5" name="ринки"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="file1" name="Копія витягу з Єдиного державного реєстру юридичних осіб та фізичних осіб-підприємців" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копія документа, що засвідчує право власності або право користування приміщенням (договір оренди (суборенди), свідоцтво про право на власність)  (крім автокав’ярні, велокав’ярні, автомобілі з реалізації питної води, торгових розносок, торгових кіосків, тимчасових споруд, автопричепів, лотків)" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="file3" name="Копія висновку державної санітарно-епідеміологічної експертизи, виданого уповноваженим підрозділом Держсанепідслужби України" type="file" default=" "></activiti:formProperty>
@@ -39,6 +46,7 @@
           <activiti:value id="attr2_no" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="markers1" name="Маркер1" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnNotEmpty_1&quot;:{&quot;aField_ID&quot;: [&quot;email&quot;],&quot;sField_ID_s&quot;: &quot;object_trade&quot;},&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;file2&quot;,&quot;file8&quot;,&quot;file5&quot;,&quot;file3&quot;,&quot;file4&quot;,&quot;file9&quot;,&quot;file6&quot;,&quot;file7&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;object_trade&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr1'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;: [&quot;file10&quot;,&quot;file5&quot;,&quot;file3&quot;,&quot;file4&quot;,&quot;file9&quot;,&quot;file6&quot;,&quot;file7&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;object_trade&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr2'&quot;},&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;: [&quot;file3&quot;,&quot;file4&quot;,&quot;file9&quot;,&quot;file11&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;object_trade&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr3'&quot;},&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;: [&quot;file2&quot;,&quot;file3&quot;,&quot;file4&quot;,&quot;file9&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;object_trade&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr4'&quot;},&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;: [&quot;file2&quot;,&quot;file12&quot;,&quot;file8&quot;,&quot;file6&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;object_trade&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr5'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
