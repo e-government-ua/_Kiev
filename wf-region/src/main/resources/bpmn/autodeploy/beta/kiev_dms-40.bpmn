@@ -5,7 +5,7 @@
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="Sex" name="Ваша стать" type="enum" required="true">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
@@ -53,7 +53,7 @@
           <activiti:value id="yes4" name="Так (зареєструвати чотирьох дітей)"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я, по-батькові дитини 1" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я, По Батькові дитини 1" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum" default="no">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -63,7 +63,7 @@
         <activiti:formProperty id="kidsPOB" name="Місце народження дитини; Країна, область, район і населений пункт" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="ChildName2" name="Прізвище, ім'я, по-батькові дитини 2" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="ChildName2" name="Прізвище, ім'я, По Батькові дитини 2" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="ChildSex2" name="Стать дитини" type="enum" default="no">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -73,7 +73,7 @@
         <activiti:formProperty id="kidsPOB2" name="Місце народження дитини; Країна, область, район і населений пункт" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsDoc2" name="Свідоцтво про народження дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship2" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="ChildName3" name="Прізвище, ім'я, по-батькові дитини 3" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="ChildName3" name="Прізвище, ім'я, По Батькові дитини 3" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="ChildSex3" name="Стать дитини" type="enum" default="no">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -83,7 +83,7 @@
         <activiti:formProperty id="kidsPOB3" name="Місце народження дитини; Країна, область, район і населений пункт" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsDoc3" name="Свідоцтво про народження дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship3" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="ChildName4" name="Прізвище, ім'я, по-батькові дитини 4" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="ChildName4" name="Прізвище, ім'я, По Батькові дитини 4" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="ChildSex4" name="Стать дитини" type="enum" default="no">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -478,7 +478,7 @@
         <activiti:formProperty id="NumSp" name="Номер справи" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="Sex" name="Стать" type="enum">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
@@ -699,7 +699,7 @@
         <activiti:formProperty id="NumSp" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Sex" name="Стать" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
@@ -1116,7 +1116,7 @@
         <activiti:formProperty id="NumSp" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Sex" name="Стать" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
