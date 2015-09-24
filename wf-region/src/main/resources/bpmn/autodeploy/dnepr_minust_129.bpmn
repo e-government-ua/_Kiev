@@ -273,7 +273,10 @@
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Зміна додаткової інформації про зв`язок з юридичною особою]]></activiti:string>
         </activiti:field>
-        <activiti:field name="html">
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${vidpovidFile}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
           <activiti:expression>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
 &lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
@@ -387,9 +390,6 @@
                         &lt;/table&gt;
                         &lt;/form&gt;</activiti:expression>
         </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>${vidpovidFile}</activiti:expression>
-        </activiti:field>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow24" sourceRef="usertask1_green" targetRef="exclusivegateway1"></sequenceFlow>
@@ -403,7 +403,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[Crow79@online.ua]]></activiti:string>
+          <activiti:string><![CDATA[Crow79@ua.fm]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Зміна додаткової інформації про зв`язок з юридичною особою]]></activiti:string>
