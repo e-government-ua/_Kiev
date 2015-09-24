@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_soczah_163" name="УПСЗН - Призначення допомоги при усиновленні дитини" isExecutable="true">
+  <process id="dnepr_soczah_165" name="УПСЗН - Призначення допомоги у зв'язку з вагітністю та пологами" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -31,9 +31,15 @@
         <activiti:formProperty id="bankchoose" name="банк" type="string"></activiti:formProperty>
         <activiti:formProperty id="okpo" name="код" type="long"></activiti:formProperty>
         <activiti:formProperty id="text" name="Увага" type="label" default="Я усвідомлюю, що наведені мною відомості про доходи та майно, що вплинули або могли вплинути на прийняте рішення щодо надання соціальної допомоги, компенсацій та пільг, будуть перевірені згідно з чинним законодавством України."></activiti:formProperty>
-        <activiti:formProperty id="dov_svid" name="Завантажте копію свідоцтва про народження дитини (після внесення  змін  до актового запису про народження дитини на підставі рішення суду про усиновлення дитини)" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dov_trud" name="Завантажте копію рішення суду про усиновлення дитини" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dov_upszn" name="Завантажте довідку про неотримання допомоги з іншого Управління праці та соціального захисту населення, якщо заявник зареєстрований  в іншому районі." type="file"></activiti:formProperty>
+        <activiti:formProperty id="dov_med" name="Завантажте довідку видану лікувально-профілактичним закладом" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dov_rab" name="Завантажте довідку з основного місця служби, навчання, про те, що жінка служить, навчається" type="file"></activiti:formProperty>
+        <activiti:formProperty id="dov_likv" name="Завантажте довідку ліквідаційної комісії про те,  що жінка звільнена з роботи у зв'язку з ліквідацією установи" type="file"></activiti:formProperty>
+        <activiti:formProperty id="dov_centr_zan" name="Завантажте довідку центру  зайнятості  про  те,  що  жінка  зареєстрована  в центрі зайнятості як безробітна" type="file"></activiti:formProperty>
+        <activiti:formProperty id="pens_fond" name="Зверніть увагу" type="label" default="Якщо жінка, яка є фізичною особою-підприємцем, перебуває (не перебуває) на обліку в органах Пенсійного фонду України та не бере участь на добровільних засадах у загальнообов'язковому державному соціальному страхуванню у зв'язку з тимчасовою втратою працездатності та витратами, зумовленими похованням."></activiti:formProperty>
+        <activiti:formProperty id="dov_pf" name="Завантажте довідку Пенсійного фонду" type="file"></activiti:formProperty>
+        <activiti:formProperty id="rish" name="Зверніть увагу" type="label" default="Особи, які усиновили чи взяли під опіку дитину протягом двох місяців з дня її народження, подають рішення про усиновлення чи встановлення опіки"></activiti:formProperty>
+        <activiti:formProperty id="rish_usin" name="Завантажте рішення за наявністю" type="file"></activiti:formProperty>
+        <activiti:formProperty id="dov_neotr" name="Завантажте довідку про неотримання допомоги з іншого Управління праці та соціального захисту населення, якщо заявник зареєстрований  в іншому районі" type="file"></activiti:formProperty>
         <activiti:formProperty id="num_doc" name="Кількість доданих документів" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="num_ark" name="Кількість сторінок у доданих документах" type="long" required="true"></activiti:formProperty>
       </extensionElements>
@@ -98,7 +104,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Ваш запит щодо призначення допомоги при усиновленні дитини - було направлено на розгляд.&lt;/p&gt;
+                                        Ваш запит щодо призначення допомоги у зв'язку з вагітністю та пологами - було направлено на розгляд.&lt;/p&gt;
                             
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -140,7 +146,7 @@
           <activiti:value id="attr2_doc_bad" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_soczah_163_zayava.html]" type="invisible" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_soczah_165_zayava.html]" type="invisible" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
@@ -157,7 +163,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Повідомлення щодо призначення допомоги при усиновленні дитини]]></activiti:string>
+          <activiti:string><![CDATA[Повідомлення щодо призначення допомоги у зв'язку з вагітністю та пологами]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -206,7 +212,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Ваше звернення щодо призначення допомоги при усиновленні дитини - забраковане.&lt;/p&gt;
+                                        Ваше звернення щодо призначення допомоги у зв'язку з вагітністю та пологами - забраковане.&lt;/p&gt;
 &lt;p&gt;Причина в наступному: 
                                     &lt;/p&gt;
 &lt;p&gt;${comment}&lt;/p&gt;
@@ -250,7 +256,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Рішення щодо призначення допомоги при усиновленні дитини]]></activiti:string>
+          <activiti:string><![CDATA[Рішення щодо призначення допомоги у зв'язку з вагітністю та пологами]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -297,13 +303,13 @@
                 &lt;!--content statrs--&gt;
 &lt;tr&gt;
                     &lt;td align="center"&gt;
-					&lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Призначення допомоги при усиновленні дитини&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+					&lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Призначення допомоги у зв'язку з вагітністю та пологами&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
 								  &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                       Рішення Управління праці та соціального захисту населення щодо призначення допомоги при усиновленні дитини  - готове.&lt;/p&gt;
+                                       Рішення Управління праці та соціального захисту населення щодо призначення допомоги у зв'язку з вагітністю та пологами  - готове.&lt;/p&gt;
 									&lt;p&gt;
 									Ви можете отримати оригінал відповіді особисто.&lt;br/&gt;
 									Рішення видається під підпис при наявності документа, що посвідчує особу.&lt;/p&gt;
@@ -377,7 +383,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="comment1" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="rish_copy" name="Завантажте копію рішення по наданню послуги" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_soczah_163_zayava.html]" type="invisible" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_soczah_165_zayava.html]" type="invisible" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
@@ -391,7 +397,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Рішення щодо призначення допомоги при усиновленні дитини]]></activiti:string>
+          <activiti:string><![CDATA[Рішення щодо призначення допомоги у зв'язку з вагітністю та пологами]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -438,13 +444,13 @@
                 &lt;!--content statrs--&gt;
 &lt;tr&gt;
                     &lt;td align="center"&gt;
-					&lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Призначення допомоги при усиновленні дитини&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
+					&lt;form action="[sURL_ServiceMessage]?nID_Subject=[nID_Subject]&amp;sAccessKey=[sAccessKey]&amp;sData=Призначення допомоги у зв'язку з вагітністю та пологами&amp;sMail= &amp;nID_SubjectMessageType=1" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
 								  &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                       Рішення Управління праці та соціального захисту населення по призначенню допомоги при усиновленні дитини - відхилити.&lt;/p&gt;
+                                       Рішення Управління праці та соціального захисту населення по призначенню допомоги у зв'язку з вагітністю та пологами - відхилити.&lt;/p&gt;
 &lt;p&gt;Причина: ${comment1}&lt;/p&gt;
 									&lt;p&gt;
 									Ви можете отримати оригінал відповіді особисто.&lt;br/&gt;
@@ -517,8 +523,8 @@
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow20" sourceRef="mailtask2" targetRef="endevent3"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soczah_163">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_soczah_163" id="BPMNPlane_dnepr_soczah_163">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soczah_165">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_soczah_165" id="BPMNPlane_dnepr_soczah_165">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="170.0" y="120.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
