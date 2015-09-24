@@ -28,7 +28,7 @@ public class Service extends org.wf.dp.dniprorada.base.model.NamedEntity {
     @Column(name = "nOrder", nullable = false)
     private Integer order;
 
-    @JsonProperty(value = "nID_Subcategory")
+    @JsonProperty(value = "oSubcategory")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "nID_Subcategory", nullable = false)
     private Subcategory subcategory;
@@ -171,27 +171,33 @@ public class Service extends org.wf.dp.dniprorada.base.model.NamedEntity {
     }
 
     public String getInfo() {
-        return info;
+        //return info;
+        return getSmartFieldValue(info, BASE_INFO_PATTERN_FILE_PATH);
     }
 
     public void setInfo(String info) {
-        this.info = getSmartFieldValue(info, BASE_INFO_PATTERN_FILE_PATH);
+        //this.info = getSmartFieldValue(info, BASE_INFO_PATTERN_FILE_PATH);
+        this.info = info;
     }
 
     public String getFaq() {
-        return faq;
+        //return faq;
+        return getSmartFieldValue(faq, BASE_FAQ_PATTERN_FILE_PATH);
     }
 
     public void setFaq(String faq) {
-        this.faq = getSmartFieldValue(faq, BASE_FAQ_PATTERN_FILE_PATH);
+        //this.faq = getSmartFieldValue(faq, BASE_FAQ_PATTERN_FILE_PATH);
+        this.faq = faq;
     }
 
     public String getLaw() {
-        return law;
+        //return law;
+        return getSmartFieldValue(law, BASE_LAW_PATTERN_FILE_PATH);
     }
 
     public void setLaw(String law) {
-        this.law = getSmartFieldValue(law, BASE_LAW_PATTERN_FILE_PATH);
+        //this.law = getSmartFieldValue(law, BASE_LAW_PATTERN_FILE_PATH);
+        this.law = law;
     }
 
     private String getSmartFieldValue(String value, String basePath) {

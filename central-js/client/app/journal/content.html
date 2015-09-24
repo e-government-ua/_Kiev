@@ -19,7 +19,7 @@
     <div class="col-md-12">
         <table class="table"
                ng-init="limit = 7">
-            <tr data-ng-repeat="event in journal | orderBy:'nID':reverse | limitTo: limit as results">
+            <tr data-ng-repeat="event in journal | limitTo: limit as results">
                 <td style="width: 150px;">{{ event.sDate | date: 'dd.MM.yyyy HH:mm'}}</td>
                 <!--td>{{ event.sEventName }}</td-->
                 <td>{{ event.sMessage }}</td>
