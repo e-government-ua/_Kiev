@@ -35,7 +35,7 @@
       <errorEventDefinition></errorEventDefinition>
     </boundaryEvent>
     <sequenceFlow id="flow2" sourceRef="boundaryerror1" targetRef="endevent2"></sequenceFlow>
-    <userTask id="usertask2" name="Перевірка даних службою" activiti:candidateGroups="dnepr_cnap59_${vibor}">
+    <userTask id="usertask2_red" name="Перевірка даних службою" activiti:candidateGroups="dnepr_cnap59_${vibor}">
       <extensionElements>
         <activiti:formProperty id="per2" name="На цьому етапі натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете сповістити заявника чи оброблено його заяву. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
@@ -404,7 +404,7 @@
       </extensionElements>
     </serviceTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow18" sourceRef="usertask2" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow18" sourceRef="usertask2_red" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow19" sourceRef="servicetask7" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow20" name="Заяву відхилено" sourceRef="exclusivegateway1" targetRef="servicetask7">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='no'&&vibor=='lev'}]]></conditionExpression>
@@ -416,7 +416,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'&&vibor=='lev'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow24" sourceRef="servicetask1" targetRef="mailtask2"></sequenceFlow>
-    <userTask id="usertask3" name="Формування опису або відмова при неправильних документах" activiti:candidateGroups="dnepr_cnap59_${vibor}">
+    <userTask id="usertask3_green" name="Формування опису або відмова при неправильних документах" activiti:candidateGroups="dnepr_cnap59_${vibor}">
       <extensionElements>
         <activiti:formProperty id="per1" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете ознайомитись з поданими документами, прийняти попереднє рішення про те, чи достатньо їх для виконання запиту, роздрукувати заяву і всі додатки. Якщо перевірку пройдено, додайте файл з описом прийнятих документів, номером і датою прийняття. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
@@ -537,9 +537,9 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow27" sourceRef="servicetask5" targetRef="usertask2"></sequenceFlow>
+    <sequenceFlow id="flow27" sourceRef="servicetask5" targetRef="usertask2_red"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow28" sourceRef="usertask3" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow28" sourceRef="usertask3_green" targetRef="exclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow29" sourceRef="exclusivegateway2" targetRef="servicetask5">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${perevirka1=='ok'}]]></conditionExpression>
     </sequenceFlow>
@@ -891,7 +891,7 @@ ${comment} &lt;br&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow34" sourceRef="mailtask5" targetRef="usertask3"></sequenceFlow>
+    <sequenceFlow id="flow34" sourceRef="mailtask5" targetRef="usertask3_green"></sequenceFlow>
     <textAnnotation id="textannotation2">
       <text>Змінити мейл, на який посадовцю буде відправлятися лист</text>
     </textAnnotation>
@@ -908,7 +908,7 @@ ${comment} &lt;br&gt;
       <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
         <omgdc:Bounds height="30.0" width="30.0" x="47.0" y="90.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+      <bpmndi:BPMNShape bpmnElement="usertask2_red" id="BPMNShape_usertask2_red">
         <omgdc:Bounds height="55.0" width="105.0" x="320.0" y="145.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
@@ -926,7 +926,7 @@ ${comment} &lt;br&gt;
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="455.0" y="152.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+      <bpmndi:BPMNShape bpmnElement="usertask3_green" id="BPMNShape_usertask3_green">
         <omgdc:Bounds height="55.0" width="105.0" x="100.0" y="256.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
