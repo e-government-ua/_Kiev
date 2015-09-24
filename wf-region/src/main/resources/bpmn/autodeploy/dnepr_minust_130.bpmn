@@ -155,8 +155,8 @@
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vidpovid" name="Оберіть відповідь реєстратора" type="enum" required="true">
-          <activiti:value id="Зміни внесено" name="Зміни внесено"></activiti:value>
-          <activiti:value id="Зміни не можуть бути внесені" name="Зміни не можуть бути внесені"></activiti:value>
+          <activiti:value id="зміни внесено" name="зміни внесено"></activiti:value>
+          <activiti:value id="зміни не можуть бути внесені" name="зміни не можуть бути внесені"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="vidpovidFile" name="Завантажте скан-копію відповіді реєстратора" type="file" required="true"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
@@ -252,7 +252,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow11" name="Документи не прийнято" sourceRef="exclusivegateway1" targetRef="mailtask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide1=='reject1'||decide1=='reject2'||decide1=='reject3'||decide1=='reject4'||decide1=='reject5'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide1=='reject'}]]></conditionExpression>
     </sequenceFlow>
     <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
       <errorEventDefinition></errorEventDefinition>
@@ -321,7 +321,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
  &lt;p&gt;Заявлені Вами ${vidpovid}&lt;br/&gt;
- У прикріпленому файлі містяться всі подробиці.&lt;/p&gt;
+ Більш детальна інформація у прикріпленому файлі.&lt;/p&gt;
 &lt;p&gt;${comment1}&lt;/p&gt;
 &lt;br/&gt;
 &lt;p&gt;Забрати оригінал відповіді Ви можете в ЦНАП «Лівобережний» за адресою:&lt;br/&gt;
@@ -332,7 +332,6 @@
 п’ятниця з 09.00 до 16.45, субота з 09.00 до 16.00 крім святкових днів.&lt;br/&gt;
 &lt;br/&gt;
 Електронна адреса:  dnepr-cnap@ukr.net&lt;br/&gt;
-Адреса веб-сайту:  e-services.dp.gov.ua&lt;br/&gt;
 Телефон: (056) 726-30-69&lt;/p&gt;
 &lt;br/&gt;
 Увага! Відповідь видається виключно за наявності оригіналів документів (паспорт, реєстраційна картка, за необхідності - довіреність)                                               
