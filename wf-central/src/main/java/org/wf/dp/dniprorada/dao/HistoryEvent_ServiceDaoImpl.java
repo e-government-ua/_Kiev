@@ -79,7 +79,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
         event_service.setnID_Service(nID_Service);
         event_service.setsID_UA(sID_UA);
         event_service.setnRate(nRate == null ? 0 : nRate);
-        event_service.setSoData(soData == null || "".equals(soData) ? "{}" : soData);
+        event_service.setSoData(soData == null || "".equals(soData) ? "[]" : soData);
         event_service.setsToken(sToken);
         event_service.setsHead(sHead);
         event_service.setsBody(sBody);
