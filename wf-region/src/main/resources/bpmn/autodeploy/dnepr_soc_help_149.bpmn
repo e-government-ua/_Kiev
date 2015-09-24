@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_soc_help_149" name="Дніпропетровськ - Призначення одноразової винагороди жінкам, яким присвоєно почесне звання України &quot;Мати-героїня&quot;" isExecutable="true">
-    <documentation>https://github.com/e-government-ua/iBP/issues/107</documentation>
+  <process id="dnepr_soc_help_149" name="Дніпропетровськ - Надання стипендії особам, яким виповнилось 100 і більше років" isExecutable="true">
+    <documentation>https://github.com/e-government-ua/iBP/issues/149</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -132,7 +132,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask2" name="перевірка та пересилання документів" activiti:candidateGroups="Dnepr_post_98">
+    <userTask id="usertask2" name="перевірка та пересилання документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
@@ -175,7 +175,7 @@
         </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="usertask1" name="повідомлення громадянина про прийняте рішення" activiti:candidateGroups="Dnepr_post_98">
+    <userTask id="usertask1" name="повідомлення громадянина про прийняте рішення" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_2" name="повідомлення громадянина про прийняте рішення" type="enum" required="true">
@@ -670,7 +670,7 @@
         <omgdi:waypoint x="436.0" y="199.0"></omgdi:waypoint>
         <omgdi:waypoint x="456.0" y="230.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="447.0" y="191.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="69.0" x="447.0" y="191.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
@@ -705,7 +705,7 @@
         <omgdi:waypoint x="436.0" y="199.0"></omgdi:waypoint>
         <omgdi:waypoint x="326.0" y="200.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="337.0" y="180.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="57.0" x="337.0" y="180.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
