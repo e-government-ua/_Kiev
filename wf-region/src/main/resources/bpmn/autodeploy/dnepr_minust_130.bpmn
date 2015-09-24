@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="dnepr_minust_130" name="Дніпропетровськ МінЮст - Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів) (Ф-4)" isExecutable="true" activiti:candidateStarterGroups="dnepr_minust_1">
-      <startEvent id="startevent1" name="Start">
+    <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="warningMessage1" name="Увага!" type="label" default="Подавати реєстраційну картку про внесення змін можуть лише керівник юридичної особи і фізична особа, яка має право вчиняти дії від імені юридичної особи без довіреності, у тому числі підписувати договори."></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -273,7 +273,10 @@
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Зміна кінцевих бенефіціарних власників (контролерів) або зміна відомостей про кінцевих бенефіціарних власників (контролерів)]]></activiti:string>
         </activiti:field>
-        <activiti:field name="html">
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${vidpovidFile}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
           <activiti:expression>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
 &lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
@@ -386,9 +389,6 @@
                             &lt;/tr&gt;
                         &lt;/table&gt;
                         &lt;/form&gt;</activiti:expression>
-        </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>${vidpovidFile}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -578,6 +578,9 @@
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="55.0" width="171.0" x="200.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="342.0" y="107.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="55.0" width="191.0" x="420.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -592,9 +595,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="55.0" width="181.0" x="220.0" y="320.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
-        <omgdc:Bounds height="30.0" width="30.0" x="342.0" y="107.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
         <omgdc:Bounds height="35.0" width="35.0" x="339.0" y="166.0"></omgdc:Bounds>
