@@ -23,24 +23,24 @@
         <activiti:formProperty id="employee" name="Кількість зареєстрованих найманих працівників" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="seats" name="Кількість посадкових місць (для закладів ресторанного господарства)" type="long"></activiti:formProperty>
         <activiti:formProperty id="object_trade" name="Оберить об'єкт торгівлі" type="enum" required="true">
-          <activiti:value id="attr1" name="сфера послуг та закладів ресторанного господарства в стаціонарних спорудах, павільйонах"></activiti:value>
-          <activiti:value id="attr2" name="торгові кіоски, тимчасови споруди, автопричепи, лотки"></activiti:value>
-          <activiti:value id="attr3" name="засоби пересувної мережі (автокав’ярні, велокав’ярні, автомобілі з реалізації питної води), торгові розноски"></activiti:value>
-          <activiti:value id="attr4" name="кіоски, лотки в стаціонарних спорудах"></activiti:value>
-          <activiti:value id="attr5" name="ринки"></activiti:value>
+          <activiti:value id="attr1" name="Сфера послуг та закладів ресторанного господарства в стаціонарних спорудах, павільйонах"></activiti:value>
+          <activiti:value id="attr2" name="Торгові кіоски, тимчасови споруди, автопричепи, лотки"></activiti:value>
+          <activiti:value id="attr3" name="Засоби пересувної мережі (автокав’ярні, велокав’ярні, автомобілі з реалізації питної води), торгові розноски"></activiti:value>
+          <activiti:value id="attr4" name="Кіоски, лотки в стаціонарних спорудах"></activiti:value>
+          <activiti:value id="attr5" name="Ринки"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="file1" name="Копія витягу з Єдиного державного реєстру юридичних осіб та фізичних осіб-підприємців" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Копія документа, що засвідчує право власності або право користування приміщенням (договір оренди (суборенди), свідоцтво про право на власність)  (крім автокав’ярні, велокав’ярні, автомобілі з реалізації питної води, торгових розносок, торгових кіосків, тимчасових споруд, автопричепів, лотків)" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file2" name="Копія документа, що засвідчує право власності або право користування приміщенням (договір оренди (суборенди), свідоцтво про право на власність)" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="file3" name="Копія висновку державної санітарно-епідеміологічної експертизи, виданого уповноваженим підрозділом Держсанепідслужби України" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="file4" name="Копія асортиментного переліку продукції, що реалізується (для продовольчої групи товарів), погодженого уповноваженим підрозділом Держсанепідслужби України" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копія документа, що засвідчує право власності або право користування земельною ділянкою (для павільйонів,  торгових кіосків, тимчасових споруд, автопричепів, лотків, ринків)" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file6" name="Копія угоди із спеціалізованим підприємством на вивезення твердих побутових відходів (крім засобів пересувної мережі (автокав’ярні, велокав’ярні, автомобілі з реалізації питної води), торгових розносок та кіосків, лотків в стаціонарних спорудах)" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file7" name="Копія угоди на прибирання прилеглої та закріпленої території, укладеної із спеціалізованим підприємством, або зобов’язання про самостійне прибирання (окрім засобів пересувної мережі (автокав’ярні, велокав’ярні, автомобілі з реалізації питної води), торгових розносок та кіосків, лотків в стаціонарних спорудах)" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file8" name="Копія документа про готовність об’єкта до експлуатації (для об’єктів торгівлі, сфери послуг та закладів ресторанного господарства в стаціонарних спорудах, павільйонах та ринків)" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file9" name="Довідка з Тернопільської ОДПІ про відсутність заборгованості по платежах до місцевого бюджету (крім ринків)" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file10" name="Копія паспорта прив’язки тимчасової споруди, погодженого з управлінням містобудування, архітектури та кадастру Тернопільської міської ради (для торгових кіосків, тимчасових споруд, автопричепів, лотків)" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file11" name="Копія погодження із відділення ДАІ м. Тернополя УМВС України в Тернопільській області місць розташування об’єктів торгівлі (Для засобів пересувної мережі (автокав’ярні, велокав’ярні, автомобілі з реалізації питної води) крім торгових розносок)" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file12" name="Копія рішення органу місцевого самоврядування про надання земельної ділянки для організації ринкової торгівлі (для ринків)" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Копія документа, що засвідчує право власності або право користування земельною ділянкою" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file6" name="Копія угоди із спеціалізованим підприємством на вивезення твердих побутових відходів" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file7" name="Копія угоди на прибирання прилеглої та закріпленої території, укладеної із спеціалізованим підприємством, або зобов’язання про самостійне прибирання" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file8" name="Копія документа про готовність об’єкта до експлуатації" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file9" name="Довідка з Тернопільської ОДПІ про відсутність заборгованості по платежах до місцевого бюджету" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file10" name="Копія паспорта прив’язки тимчасової споруди, погодженого з управлінням містобудування, архітектури та кадастру Тернопільської міської ради" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file11" name="Копія погодження із відділення ДАІ м. Тернополя УМВС України в Тернопільській області місць розташування об’єктів торгівлі" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file12" name="Копія рішення органу місцевого самоврядування про надання земельної ділянки для організації ринкової торгівлі" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" required="true">
           <activiti:value id="attr1_yes" name="Отримаю власноруч"></activiti:value>
           <activiti:value id="attr2_no" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
@@ -172,7 +172,7 @@
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменування юридичної особи /ім’я, по-батькові та прізвище фізичної особи-підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="code_inn" name="Ідентифікаційний код згідно з ЄДРПОУ/РНОКПП" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="type" name="Тип закладу (наприклад: кафе, магазин, ресторан)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="type" name="Тип закладу;(наприклад: кафе, магазин, ресторан)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="name" name="Назва закладу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса закладу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="time" name="Запропонований режим роботи: час роботи з .. до .., обідня перерва з .. до .., вихідні:" type="textArea" writable="false"></activiti:formProperty>
@@ -180,7 +180,7 @@
         <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="employee" name="Кількість зареєстрованих найманих працівників" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="seats" name="Кількість посадкових місць (для закладів ресторанного господарства)" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="seats" name="Кількість посадкових місць;(для закладів ресторанного господарства)" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" writable="false">
           <activiti:value id="attr1_yes" name="Отримаю власноруч"></activiti:value>
           <activiti:value id="attr2_no" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
@@ -611,13 +611,13 @@
         <omgdc:Bounds height="65.0" width="105.0" x="840.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
-        <omgdc:Bounds height="61.0" width="105.0" x="844.0" y="193.0"></omgdc:Bounds>
+        <omgdc:Bounds height="61.0" width="105.0" x="840.0" y="193.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="990.0" y="206.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="990.0" y="122.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="990.0" y="127.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="65.0" width="105.0" x="498.0" y="0.0"></omgdc:Bounds>
@@ -653,14 +653,14 @@
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
         <omgdi:waypoint x="760.0" y="163.0"></omgdi:waypoint>
         <omgdi:waypoint x="759.0" y="223.0"></omgdi:waypoint>
-        <omgdi:waypoint x="844.0" y="223.0"></omgdi:waypoint>
+        <omgdi:waypoint x="840.0" y="223.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="945.0" y="142.0"></omgdi:waypoint>
-        <omgdi:waypoint x="990.0" y="139.0"></omgdi:waypoint>
+        <omgdi:waypoint x="990.0" y="144.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="949.0" y="223.0"></omgdi:waypoint>
+        <omgdi:waypoint x="945.0" y="223.0"></omgdi:waypoint>
         <omgdi:waypoint x="990.0" y="223.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
