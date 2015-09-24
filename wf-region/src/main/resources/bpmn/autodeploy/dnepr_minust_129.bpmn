@@ -403,7 +403,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[Crow79@online.ua]]></activiti:string>
+          <activiti:string><![CDATA[Crow79@ua.fm]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Зміна додаткової інформації про зв`язок з юридичною особою]]></activiti:string>
