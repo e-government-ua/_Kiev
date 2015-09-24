@@ -24,12 +24,12 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kuda_dengi" name="Оберіть" type="label" default="В разі призначення допомоги кошти готівкою перераховувати"></activiti:formProperty>
-        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="long" default=" "></activiti:formProperty>
+        <activiti:formProperty id="postnum" name="через національного оператора поштового зв’язку №" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kudadengi1" type="label" default="або"></activiti:formProperty>
-        <activiti:formProperty id="bank_schet" name="на рахунок у банку №" type="long" default=" "></activiti:formProperty>
-        <activiti:formProperty id="mfo" name="МФО" type="long" default=" "></activiti:formProperty>
+        <activiti:formProperty id="bank_schet" name="на рахунок у банку №" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="mfo" name="МФО" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bankchoose" name="банк" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="okpo" name="код" type="long" default=" "></activiti:formProperty>
+        <activiti:formProperty id="okpo" name="код" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="text" name="Увага" type="label" default="Я усвідомлюю, що наведені мною відомості про доходи та майно, що вплинули або могли вплинути на прийняте рішення щодо надання соціальної допомоги, компенсацій та пільг, будуть перевірені згідно з чинним законодавством України."></activiti:formProperty>
         <activiti:formProperty id="dov_svid" name="Завантажте копію свідоцтва про народження дитини (після внесення  змін  до актового запису про народження дитини на підставі рішення суду про усиновлення дитини)" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dov_trud" name="Завантажте копію рішення суду про усиновлення дитини" type="file" required="true"></activiti:formProperty>
