@@ -217,10 +217,10 @@ angular.module('dashboardJsApp')
           }
         );
       },
-      getTasksByText: function(sFind) {
+      getTasksByText: function(sFind, sType) {
         return simpleHttpPromise({
             method: 'GET',
-            url: '/api/tasks/search/byText/' + sFind
+            url: '/api/tasks/search/byText/' + sFind + "/type/" + sType
           }
         );
       },

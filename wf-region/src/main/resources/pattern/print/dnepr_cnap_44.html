@@ -5,7 +5,7 @@
 	﻿<style type="text/css">
         html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Tahoma';}
 
-.print_wrap {width: 705px; padding: 35px 25px 85px 35px; min-height: 100%; height: 100%; margin: 0 auto;}
+.print_wrap {width: 650px; padding: 15px 25px 25px 35px; min-height: 100%; height: 100%; margin: 0 auto;}
 
 .ta-r {text-align: right !important;}
 .ta-l {text-align: left !important;}
@@ -59,7 +59,7 @@
 .m-l-300 {margin-left: 300px !important;}
 .m-l-380 {margin-left: 380px !important;}
 .m-t-unt {margin-top: -1px !important;}
-.m-l-m200 {margin-left: -200px !important;}
+.m-l-m10 {margin-left: -10px !important;}
 .m-clear {margin: 0 !important;}
 .p-clear {padding: 0 !important;}
 
@@ -110,7 +110,7 @@ table.zit_v-form2 tr td {border: 1px solid black; padding: 3px 8px;}
 .date_subm .month-fl-sm > span {height: 20px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
 .date_subm .month-fl-sm > span:nth-child(1) {width: 45px;}
 .date_subm .month-fl-sm > span {height: 50px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
-.date_subm .signature {width: 200px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
+.date_subm .signature {width: 220px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
 .date_subm .signature > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
 .date_subm .inv {width: 200px; height: 20px; float: left; border-bottom: 1px solid black; position: relative;} 
 .date_subm .inv > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
@@ -144,15 +144,15 @@ p {font-size: 12px;}
     <div class="under_field_line wub ta-l">Прошу дозволити провести
 	</div>
 	<div class="x-font under_field_line ta-c">
-		<p>[eventDate], [eventTime], [eventPlace]</p>
-		<span>(дата, час, місце)</span>
+		<p>з [eventTime], [eventDate] до [eventTime1], [eventDate1], [eventPlace]</p>
+		<span>(час, дата, місце)</span>
 	</div>
 	<div class="x-font under_field_line ta-c">
 		<p>[eventName]</p>
 		<span>(назва релігійного масового заходу, який проводиться поза межами культової споруди, його мета)</span>
 	</div>
 	<div class="x-font under_field_line ta-c">
-		<p>[eventMeta]</p>
+		<p>[eventMeta]<br/></p>
 		<span></span>
 	</div>
 	<div class="x-font under_field_line ta-c">
@@ -176,23 +176,24 @@ p {font-size: 12px;}
 		<div class="line"></div>
 	</div>
     <div class="date_subm m-t-25">
-		<div class="inv"><span>(посада)</span></div>
-		<div class="invs"><span>(підпис)</span></div>
-        <div class="signature"><span>(ПІБ)</span></div>
+		<div class="inv">[orgPos]<span>(посада)</span></div>
+		<div class="invs m-l-m10"><span>(підпис)</span></div>
+        <div class="signature">[orgGlav]<span>(ПІБ)</span></div>
+    </div>
+    <div class="clear"></div>
+    <b><div class="ta-l m-t-25">Заповнюється адміністратором:<span></span></div><br /></b>
+<div class="date_subm m-t-25">
+        <div class="inv">[date_reestr]<span>(дата реєстрації звернення)</span></div>
+        <div class="signature w265">[reestr_numb]<span>(реєстраційний номер)</span></div>
 		<div class="clear"></div>
     </div>
-    <div class="date_subm m-t-25 x-font">
-		<div class="month-fl-sm">
-		<p><b>Адміністратор</b>_______________________________</p>
-		<p>Реєстраційний номер___________________________</p>
-		</div>
-	</div>
-	<div class="date_subm m-t-45">
-		<div class="month-fl-sm m-t-25 m-l-m200">
-			від  „<span></span>” <span></span>20<span></span>р.
-		</div>
-	</div>
-	<div class="clear"></div>
+
+<div class="date_subm m-t-45">
+        <div class="inv"><span>(підпис адміністратора)</span></div>
+        <div class="signature w265">[pib_admin]<span>(прізвище та ініціали адміністратора)</span></div>
+		<div class="clear"></div>
+    </div>	
+	<br />
 </section>
 </body>
 </html>

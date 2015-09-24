@@ -519,5 +519,30 @@
 
     <!-- ####################################################################################################### -->
 
+    <changeSet id="issue-807" author="LamronNu">
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="soData" type="varchar">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="sToken" type="varchar">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="sHead" type="varchar">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="sBody" type="varchar">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <!-- ####################################################################################################### -->
+
 
 </databaseChangeLog>

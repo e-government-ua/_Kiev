@@ -36,6 +36,10 @@ angular.module('app').factory('BankIDService', function ($http, $q, AdminService
       }
     },
 
+    logout: function (){
+      $http.post('./auth/logout');
+    },
+
     account: function () {
       var data = {};
       return $q.when(bankIDAccount ? bankIDAccount :
