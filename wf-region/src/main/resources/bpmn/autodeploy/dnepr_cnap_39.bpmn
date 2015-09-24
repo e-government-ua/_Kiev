@@ -473,7 +473,7 @@
 									3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим підписом керівника юридичної особи, фізичної особи - підприємця або уповноваженої ними особи.
 									&lt;/p&gt;
 									&lt;p&gt;
-									ЦНАП „Лівобережний”: м. Дніпропетровськ, просп. Газети „Правда”, 42 (1-й та 5-й поверхи)&lt;br/&gt;
+									ЦНАП „Лівобережний”: м. Дніпропетровськ, просп. Газети „Правда”, 42 ( 5-й поверх)&lt;br/&gt;
 									Графік роботи ЦНАП „Лівобережний”:&lt;br/&gt;
 									понеділок -  з 9.00 до 18.00;&lt;br/&gt;
 									вівторок – з 9.00 до 18.00;&lt;br/&gt;
@@ -826,7 +826,7 @@
         <omgdc:Bounds height="55.0" width="186.0" x="500.0" y="430.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="735.0" y="500.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="747.0" y="500.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="165.0" y="141.0"></omgdi:waypoint>
@@ -884,11 +884,11 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
         <omgdi:waypoint x="593.0" y="485.0"></omgdi:waypoint>
-        <omgdi:waypoint x="752.0" y="500.0"></omgdi:waypoint>
+        <omgdi:waypoint x="764.0" y="500.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
         <omgdi:waypoint x="913.0" y="485.0"></omgdi:waypoint>
-        <omgdi:waypoint x="752.0" y="500.0"></omgdi:waypoint>
+        <omgdi:waypoint x="764.0" y="500.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
