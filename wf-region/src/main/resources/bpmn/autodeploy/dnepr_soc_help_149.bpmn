@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_soc_help_149" name="Дніпропетровськ - Призначення одноразової винагороди жінкам, яким присвоєно почесне звання України &quot;Мати-героїня&quot;" isExecutable="true">
-    <documentation>https://github.com/e-government-ua/iBP/issues/107</documentation>
+  <process id="dnepr_soc_help_149" name="Дніпропетровськ - Надання стипендії особам, яким виповнилось 100 і більше років" isExecutable="true">
+    <documentation>https://github.com/e-government-ua/iBP/issues/149</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -46,7 +46,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Нове  звернення. Призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня"]]></activiti:string>
+          <activiti:string><![CDATA[Нове  звернення. Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -102,7 +102,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня".&lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо надання стипендії особам, яким виповнилось 100 і більше років.&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 Відпрацюйте це звернення на &lt;a href="https://test.region.igov.org.ua/" target="_blank"&gt;порталі&lt;/a&gt;
                                     &lt;/p&gt;
@@ -132,7 +132,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask2" name="перевірка та пересилання документів" activiti:candidateGroups="Dnepr_post_98">
+    <userTask id="usertask2" name="перевірка та пересилання документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
@@ -175,12 +175,12 @@
         </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <userTask id="usertask1" name="повідомлення громадянина про прийняте рішення" activiti:candidateGroups="Dnepr_post_98">
+    <userTask id="usertask1" name="повідомлення громадянина про прийняте рішення" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_2" name="повідомлення громадянина про прийняте рішення" type="enum" required="true">
-          <activiti:value id="accept" name="схвалено призначення одноразової винагороди"></activiti:value>
-          <activiti:value id="reject" name="відмовлено у призначенні одноразової винагороди"></activiti:value>
+          <activiti:value id="accept" name="схвалено призначення щомісячної стипендії"></activiti:value>
+          <activiti:value id="reject" name="відмовлено у призначенні щомісячної стипендії"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_2" name="У разі відмови внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="rishen" name="Завантажте копію рішення" type="file" required="true"></activiti:formProperty>
@@ -188,7 +188,7 @@
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <serviceTask id="mailtask4" name="повідомлення громадянина про відмову у  призначенні одноразової винагороди" activiti:type="mail">
+    <serviceTask id="mailtask4" name="повідомлення громадянина про відмову у  призначенні щомісячної стипендії" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -241,7 +241,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
 &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-На жаль, Вам відмовлено у призначенні одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня".&lt;br /&gt; &lt;/p&gt;
+На жаль, Вам відмовлено у призначенні щомісячної стипендії як особі, якій виповнилось 100 і більше років.&lt;br /&gt; &lt;/p&gt;
 Підстава:${comment_2}&lt;br /&gt;&lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
                                     &lt;/p&gt;
@@ -269,7 +269,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня"]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -290,7 +290,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня"]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -346,7 +346,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-На жаль, Ваше звернення щодо призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня" відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
+На жаль, Ваше звернення щодо надання стипендії особам, яким виповнилось 100 і більше років відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
 &lt;br /&gt;
 Підстава: ${comment_1}    &lt;br /&gt;
     &lt;/p&gt;
@@ -384,7 +384,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня"]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${opis}"</activiti:expression>
@@ -440,7 +440,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-Ваше звернення щодо призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня" передано на розгляд в управління праці та соціального захисту населення і буде опрацьовано протягом 40 робочих днів.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
+Ваше звернення щодо надання стипендії особам, яким виповнилось 100 і більше років передано на розгляд в управління праці та соціального захисту населення і буде опрацьовано протягом 40 робочих днів.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
 Ви отримаєте додаткове повідомлення за результатами розгляду зверення.&lt;br /&gt;
     &lt;/p&gt;
                                     &lt;/p&gt;
@@ -483,7 +483,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня"]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
@@ -539,7 +539,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     
-Ви отримали схвалення щодо свого звернення - призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня".&lt;br /&gt;
+Ви отримали схвалення щодо свого звернення - надання стипендії особам, яким виповнилось 100 і більше років.&lt;br /&gt;
 &lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
 
@@ -670,7 +670,7 @@
         <omgdi:waypoint x="436.0" y="199.0"></omgdi:waypoint>
         <omgdi:waypoint x="456.0" y="230.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="447.0" y="191.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="69.0" x="447.0" y="191.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
@@ -705,7 +705,7 @@
         <omgdi:waypoint x="436.0" y="199.0"></omgdi:waypoint>
         <omgdi:waypoint x="326.0" y="200.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="337.0" y="180.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="57.0" x="337.0" y="180.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
