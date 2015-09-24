@@ -33,7 +33,6 @@
           <activiti:value id="yes" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="text1" name="Зверніть увагу" type="label" default="Будь ласка, вкажіть дані Вашої дитини, якщо її вік не перевищує 14 років"></activiti:formProperty>
         <activiti:formProperty id="ChildName1" name="Прізвище, ім'я, по-батькові дитини" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsBirth" name="Дата народження дитини; Формат - ДД.ММ.PPPP" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsPOB" name="Місце народження дитини; Країна, область, район і населений пункт" type="textArea" default=" "></activiti:formProperty>
@@ -41,6 +40,7 @@
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="visitDay" name="У який день Вам буде зручно зайти до відділення ДМС; ДМС необхідно поставити відмітку у Ваш паспорт для завершення цієї процедури" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="visitTime" name="У який проміжок часу Вам буде зручно зустрітися; Будь ласка, вкажіть проміжок як мінімум у 2 години" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="marker1" name="Маркер динамічної форми" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;ChildName1&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;kids&quot;},&quot;sCondition&quot;:&quot;[sReason]=='yes'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="warning" name="Зверніть увагу" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
       </extensionElements>
     </startEvent>
