@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_soc_help_149" name="Дніпропетровськ - Надання стипендії особам, яким виповнилось 100 і більше років" isExecutable="true">
-    <documentation>https://github.com/e-government-ua/iBP/issues/149</documentation>
+  <process id="dnepr_soc_help_152" name="Дніпропетровськ - Призначення компенсації фізичним особам, які надають соціальні послуги" isExecutable="true">
+    <documentation>https://github.com/e-government-ua/iBP/issues/150</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -25,16 +25,36 @@
           <activiti:value id="lenin" name="Ленінський"></activiti:value>
           <activiti:value id="samar" name="Самарський"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="together" name="Чи проживаєте Ви разом з дитиною?" type="enum" required="true">
+          <activiti:value id="yes" name="так"></activiti:value>
+          <activiti:value id="no" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="type_parenthood" name="Ви є законним представником дитини-інваліда, оберіть відповідний Вам варіант" type="enum" required="true">
+          <activiti:value id="parents" name="батько (мати) чи усиновитель"></activiti:value>
+          <activiti:value id="guardians" name="опікун чи піклувальник (прийомні батьки, батьки-вихователі, патронатні вихователі)"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="nationality" name="Чи маєте Ви українське громадянство?" type="enum" required="true">
+          <activiti:value id="ukraine" name="так"></activiti:value>
+          <activiti:value id="not_ukraine" name="ні"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" required="true">
           <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
           <activiti:value id="bank" name="на рахунок у банку"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bank_name" name="Назва банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="mfo" name="МФО банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="ЄДРПОУ банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bank_account" name="Номер рахунку (р/р)" type="string" default="26   "></activiti:formProperty>
+        <activiti:formProperty id="zayava_fiz" name="Заява про згоду надавати соціальні послуги" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dovidka_health" name="Висновок лікарсько-консультаційної комісії про те, що стан Вашого здоров'я дозволяє посійно надавати соціальні послуги" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="employment_history" name="Копія трудової книжки; у разі відсутності трудової книжки - зазначити інформацію про останнє місце роботи чи отримання доходів" type="file"></activiti:formProperty>
+        <activiti:formProperty id="dovidka_nalogovaya" name="Заява про надання згоди на проведення перевірки даних про доходи особи з використанням відомостей Державного реєстру фізичних осіб - платників податків" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="zayava_inv" name="Заява особи, яка нездатна до самообслуговування, про необхідність надання соціальних послуг; якщо надання соціальних послуг потребує дитина - заяву подає її законний представник" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="passport_inv" name="Копія паспорта або іншого документа, що посвідчує особу, яка нездатна до самообслуговування; якщо надання соціальних послуг потребує дитина - скановану копію свідоцтва про народження дитини" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dovidka_inv" name="Копія довідки медико-соціальної експертної комісії про групу інвалідності" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="visnovok" name="Висновок лікрсько-консультаційної комісії про необхідність постійного стороннього догляду та нездатність особи (дитини) до самообслуговування" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника соц.захисту" activiti:type="mail">
@@ -46,7 +66,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Нове  звернення. Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
+          <activiti:string><![CDATA[Нове  звернення. Призначення компенсації фізичним особам, які надають соціальні послуги]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -102,20 +122,18 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо надання стипендії особам, яким виповнилось 100 і більше років.&lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо призначення компенсації фізичним особам, які надають соціальні послуги.&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 Відпрацюйте це звернення на &lt;a href="https://test.region.igov.org.ua/" target="_blank"&gt;порталі&lt;/a&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                     З повагою,&lt;br /&gt;
-					  Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
+                                    З повагою,&lt;br /&gt;
+					  				Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
                                         &lt;/p&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                           
-                          
 
                         &lt;/table&gt;
                      
@@ -132,7 +150,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask2" name="перевірка  документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
+    <userTask id="usertask2" name="перевірка документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
@@ -166,11 +184,11 @@
           <activiti:value id="reject" name="Дані заповнені неправильно, повідомити громадянина (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_149_print.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_150_print.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${zayava_fiz},${dovidka_health},${employment_history},${dovidka_nalogovaya},${zayava_inv},{passport_inv},${dovidka_inv},${visnovok}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -179,8 +197,8 @@
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_2" name="повідомлення громадянина про прийняте рішення" type="enum" required="true">
-          <activiti:value id="accept" name="схвалено призначення щомісячної стипендії"></activiti:value>
-          <activiti:value id="reject" name="відмовлено у призначенні щомісячної стипендії"></activiti:value>
+          <activiti:value id="accept" name="схвалено призначення допомоги"></activiti:value>
+          <activiti:value id="reject" name="відмовлено у призначенні допомоги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_2" name="У разі відмови внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="rishen" name="Завантажте копію рішення" type="file" required="true"></activiti:formProperty>
@@ -188,7 +206,7 @@
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <serviceTask id="mailtask4" name="повідомлення громадянина про відмову у  призначенні щомісячної стипендії" activiti:type="mail">
+    <serviceTask id="mailtask4" name="повідомлення громадянина про відмову у  призначенні допомоги" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -241,7 +259,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
 &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-На жаль, Вам відмовлено у призначенні щомісячної стипендії як особі, якій виповнилось 100 і більше років.&lt;br /&gt; &lt;/p&gt;
+На жаль, Вам відмовлено у призначенні компенсації фізичним особам, які надають соціальні послуги.&lt;br /&gt; &lt;/p&gt;
 Підстава:${comment_2}&lt;br /&gt;&lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
                                     &lt;/p&gt;
@@ -269,7 +287,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Призначення компенсації фізичним особам, які надають соціальні послуги]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -290,7 +308,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Призначення компенсації фізичним особам, які надають соціальні послуги]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -346,7 +364,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-На жаль, Ваше звернення щодо надання стипендії особам, яким виповнилось 100 і більше років відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
+На жаль, Ваше звернення щодо призначення компенсації фізичним особам, які надають соціальні послуги відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
 &lt;br /&gt;
 Підстава: ${comment_1}    &lt;br /&gt;
     &lt;/p&gt;
@@ -384,7 +402,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Призначення компенсації фізичним особам, які надають соціальні послуги]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -437,7 +455,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-Ваше звернення щодо надання стипендії особам, яким виповнилось 100 і більше років передано на розгляд в управління праці та соціального захисту населення і буде опрацьовано протягом 40 робочих днів.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
+Ваше звернення щодо Призначення компенсації фізичним особам, які надають соціальні послуги передано на розгляд в управління праці та соціального захисту населення і буде опрацьовано протягом 40 робочих днів.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
 Ви отримаєте додаткове повідомлення за результатами розгляду зверення.&lt;br /&gt;
     &lt;/p&gt;
                                     &lt;/p&gt;
@@ -480,7 +498,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Призначення компенсації фізичним особам, які надають соціальні послуги]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
@@ -536,7 +554,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     
-Ви отримали схвалення щодо свого звернення - надання стипендії особам, яким виповнилось 100 і більше років.&lt;br /&gt;
+Ви отримали схвалення щодо свого звернення - призначення компенсації фізичним особам, які надають соціальні послуги.&lt;br /&gt;
 &lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
 
@@ -600,12 +618,12 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='reject'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow30" sourceRef="mailtask6" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow31" name="призначення компенсації" sourceRef="exclusivegateway1" targetRef="servicetask4">
+    <sequenceFlow id="flow31" name="призначення допомоги" sourceRef="exclusivegateway1" targetRef="servicetask4">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='accept'}]]></conditionExpression>
     </sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_149">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_149" id="BPMNPlane_dnepr_soc_help_149">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_152">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_152" id="BPMNPlane_dnepr_soc_help_152">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
