@@ -46,8 +46,8 @@ public class CancelTaskUtil {
         String sAccessKey = accessDataDao.setAccessData(sURL_ForAccessKey);
         String sURL_CancelTaskAction = new StringBuilder(generalConfig.sHost())
                 .append(sURL_ForAccessKey)
-                .append("&sAccessKey=").append(sAccessKey)
                 .append("&sAccessContract=Request")
+                .append("&sAccessKey=").append(sAccessKey)
                 .toString();
         log.info("total URL for action =" + sURL_CancelTaskAction);
 

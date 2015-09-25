@@ -43,7 +43,7 @@ public class AuthenticationTokenSelectorTest {
 		AuthenticationTokenSelector selector = new AuthenticationTokenSelector(request);
 		AccessKeyAuthenticationToken token = selector.createToken();
 
-		String expected = "/root/servlet/path?sAccessContract=Request&nID_Subject=123456&Data";
+		String expected = "/root/servlet/path?nID_Subject=123456&Data";
 
 		assertEquals("654321", token.getPrincipal());
 		assertEquals(expected, token.getCredentials());
