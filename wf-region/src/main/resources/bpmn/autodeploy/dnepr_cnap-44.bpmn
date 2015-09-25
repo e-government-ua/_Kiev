@@ -248,6 +248,10 @@
         <activiti:formProperty id="eventTime1" name="Час закінчення проведення заходу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="golovniy" name="Відповідальна особа за проведення релігійного масового заходу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="cnapChoose" name="Оберіть ЦНАП, в якому вам буде зручно отримати відповідь" type="enum" writable="false">
+          <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
+          <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення адміністратора" type="enum" required="true">
           <activiti:value id="accept" name="Взяти в роботу і відправити опис документів"></activiti:value>
           <activiti:value id="decline" name="Відмовити у реєстрації звернення"></activiti:value>
@@ -469,6 +473,10 @@
         <activiti:formProperty id="eventTime" name="Час початку проведення заходу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventDate1" name="Дата закінчення проведення заходу" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventTime1" name="Час закінчення проведення заходу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="cnapChoose" name="Оберіть ЦНАП, в якому вам буде зручно отримати відповідь" type="enum" writable="false">
+          <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
+          <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="dozvil" name="Рішення державного органу" type="enum" required="true">
           <activiti:value id="dozv" name="Дозвіл готовий"></activiti:value>
           <activiti:value id="decline" name="Готове заперечення в проведенні заходу"></activiti:value>

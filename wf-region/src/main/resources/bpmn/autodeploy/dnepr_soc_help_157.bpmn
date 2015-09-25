@@ -31,7 +31,7 @@
         <activiti:formProperty id="bank_name" name="Назва банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="mfo" name="МФО банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="ЄДРПОУ банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="bank_account" name="Номер рахунку; заповнюється у разі вибору такого варіанта перерахування коштів" type="long"></activiti:formProperty>
+        <activiti:formProperty id="bank_account" name="Номер рахунку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="file1" name="Витяг з Державного реєстру актів цивільного стану громадян про державну реєстрацію народження дитини, виданий відділом державної реєстрації актів цивільного стану, або  довідка про народження, видана виконавчим органом сільської, селищної, міської (крім міст обласного значення) рад, із зазначенням підстави внесення відомостей про батька дитини до актового запису про народження дитини відповідно до абзацу першого частини першої статті 135 Сімейного кодексу України (2947-14), або документ про народження, виданий компетентним органом іноземної держави, в якому відсутні відомості про батька, за умови його легалізації в установленому законодавством порядку" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копія свідоцтва про народження дитини" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file3" name="Довідка про проживання дитини з матір'ю, видана за місцем проживання сім'ї;(у разі коли дитина навчається за межами населеного пункту, в якому проживає мати, і не перебуває на повному державному утриманні, замість довідки про проживання дитини з матір'ю подається довідка з місця проживання матері та довідка з місця проживання (навчання) дитини)" type="file"></activiti:formProperty>
@@ -164,7 +164,7 @@
         <activiti:formProperty id="bank_name" name="Назва банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="mfo" name="МФО банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="ЄДРПОУ банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bank_account" name="Номер рахунку; заповнюється у разі вибору такого варіанта перерахування коштів" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bank_account" name="Номер рахунку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_step1" name="Рішення етап 1" type="enum" required="true">
           <activiti:value id="attr1_ok" name="Заповнені дані вірні, інформація направлена на розгляд, очікується рішення"></activiti:value>
           <activiti:value id="attr2_bad" name="Дані заповнені неправильно, повідомити громадянина"></activiti:value>
@@ -296,7 +296,7 @@
         <activiti:formProperty id="bank_name" name="Назва банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="mfo" name="МФО банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="ЄДРПОУ банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bank_account" name="Номер рахунку; заповнюється у разі вибору такого варіанта перерахування коштів" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bank_account" name="Номер рахунку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_step2" name="Рішення до заяви на етапі 2" type="enum" required="true">
           <activiti:value id="attr3_ok" name="Рішення отримане, допомогу призначено"></activiti:value>
           <activiti:value id="attr4_bad" name="Рішення отримане, в допомозі відмовлено"></activiti:value>

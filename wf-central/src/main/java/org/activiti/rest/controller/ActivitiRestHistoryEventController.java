@@ -136,6 +136,7 @@ public class ActivitiRestHistoryEventController {
 			@RequestParam(value = "nID_Process", required = false) Long nID_Process,
 			@RequestParam(value = "sID_Status") String sID_Status,
 			@RequestParam(value = "soData", required = false) String soData,
+			@RequestParam(value = "sToken", required = false) String sToken,
 			@RequestParam(value = "sHead", required = false) String sHead,
 			@RequestParam(value = "sBody", required = false) String sBody) {
 		Long nID_Protected = AlgorithmLuna.getProtectedNumber(nID_Process);
@@ -154,7 +155,7 @@ public class ActivitiRestHistoryEventController {
 				event_service.setSoData(soData);
 				isChanged = true;
 				if (sHead == null){
-					sHead = "Необходідно уточнити дані";
+					sHead = "Необхідно уточнити дані";
 				}
 			}
 			if (sHead != null
@@ -165,6 +166,11 @@ public class ActivitiRestHistoryEventController {
 			if (sBody != null
 					&& !sBody.equals(event_service.getsBody())) {
 				event_service.setsBody(sBody);
+				isChanged = true;
+			}
+			if (sToken != null
+					&& !sToken.equals(event_service.getsToken())) {
+				event_service.setsToken(sToken);
 				isChanged = true;
 			}
 			if (isChanged) {

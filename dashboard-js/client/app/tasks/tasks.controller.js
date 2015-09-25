@@ -242,6 +242,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         .then(function (result) {
           Modal.inform.success(function (result) {
             $scope.lightweightRefreshAfterSubmit();
+            //$scope.selectedTask = null;
           })("Форму відправлено." + (result && result.length > 0 ? (': ' + result) : ''));
 
         })
@@ -255,6 +256,8 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id)
     .then(function (result) {
       Modal.assignTask(function (event) {
+        //$scope.lightweightRefreshAfterSubmit();
+        $scope.selectedTasks['unassigned'] = null;
         $scope.applyTaskFilter($scope.menus[1].type, $scope.selectedTask.id);
       }, 'Задача у вас в роботі', $scope.lightweightRefreshAfterSubmit);
 
@@ -281,12 +284,15 @@ $scope.lightweightRefreshAfterSubmit = function () {
   //lightweight refresh only deletes the submitted task from the array of current type of tasks
   //so we don't need to refresh the whole page
       $scope.selectedTasks[$scope.$storage.menuType] = null;
-      loadTaskCounters();
+      loadTaskCounters();      
       $scope.tasks = $.grep($scope.tasks, function (e) {
         return e.id != $scope.selectedTask.id;
       });
       $scope.taskForm.isInProcess = false;
       $scope.taskForm.isSuccessfullySubmitted = true;
+      if (!$scope.tasks || !$scope.tasks[0]){
+         $scope.selectedTask = null;
+      }
       //$scope.selectTask($scope.tasks[0]);// - if another task should be selected
       //The next line is commented out to prevent full refresh of the page
       // $scope.applyTaskFilter($scope.$storage.menuType);

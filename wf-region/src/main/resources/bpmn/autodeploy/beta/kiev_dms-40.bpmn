@@ -5,7 +5,7 @@
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="Sex" name="Ваша стать" type="enum" required="true">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
@@ -17,7 +17,7 @@
         <activiti:formProperty id="Nationality" name="Громадянство" type="string" default="Україна" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="RegistrationAddress" name="Звідки Ви прибули; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Попереднє місце реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="WhenCome" name="Коли прибули; Формат - ДД.ММ.PPPP" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Києва, в якому ви плануєте зареєструватися" type="enum" required="true">
           <activiti:value id="desn" name="Деснянський"></activiti:value>
@@ -53,7 +53,7 @@
           <activiti:value id="yes4" name="Так (зареєструвати чотирьох дітей)"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я, по-батькові дитини 1" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я, По Батькові дитини 1" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum" default="no">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -63,7 +63,7 @@
         <activiti:formProperty id="kidsPOB" name="Місце народження дитини; Країна, область, район і населений пункт" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="ChildName2" name="Прізвище, ім'я, по-батькові дитини 2" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="ChildName2" name="Прізвище, ім'я, По Батькові дитини 2" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="ChildSex2" name="Стать дитини" type="enum" default="no">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -73,7 +73,7 @@
         <activiti:formProperty id="kidsPOB2" name="Місце народження дитини; Країна, область, район і населений пункт" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsDoc2" name="Свідоцтво про народження дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship2" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="ChildName3" name="Прізвище, ім'я, по-батькові дитини 3" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="ChildName3" name="Прізвище, ім'я, По Батькові дитини 3" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="ChildSex3" name="Стать дитини" type="enum" default="no">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -83,7 +83,7 @@
         <activiti:formProperty id="kidsPOB3" name="Місце народження дитини; Країна, область, район і населений пункт" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsDoc3" name="Свідоцтво про народження дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship3" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="ChildName4" name="Прізвище, ім'я, по-батькові дитини 4" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="ChildName4" name="Прізвище, ім'я, По Батькові дитини 4" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="ChildSex4" name="Стать дитини" type="enum" default="no">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -178,18 +178,29 @@
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 									&lt;p&gt;	
 										Для того, щоб закінчити процедуру подачі документів в Державну міграційну службу необхідно:&lt;br /&gt;
-										·  Сплатити Державне мито у розмірі 0.85 грн і отримати талон про сплату.&lt;br /&gt;
-										·  Прийти до Центру надання адміністративних послуг Деснянського району, що знаходиться за адресою:&lt;br /&gt; 
-											м. Київ, пр. Маяковського, буд. 29, I поверх , з необхідними документами (є можливість попереднього запису на прийом)&lt;/p&gt;
+										&lt;li&gt;Сплатити Державне мито у розмірі 0.85 грн і отримати квитанцію про сплату.&lt;/li&gt;
+										&lt;li&gt;Завітати до Центру надання адміністративних послуг Деснянського району, що знаходиться за адресою:&lt;br /&gt; 
+											      м. Київ, пр. Маяковського, буд. 29, I поверх , з необхідними документами (є можливість попереднього запису на прийом)&lt;/li&gt;
+									&lt;/p&gt;
  									&lt;p&gt;
 										Документи, які необхідно принести до Центру надання адміністративних послуг:&lt;br /&gt;
-										·         посвідчення особи (Паспорт)&lt;br /&gt; 
-										·         свідоцтво про народження дитини&lt;br /&gt; 
-										·         талон про сплату Державного мита&lt;br /&gt; 
-										·         документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації;&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+										&lt;li&gt;паспортний документ;&lt;/li&gt; 
+										&lt;li&gt;талон зняття з реєстрації (не подається в разі одночасного зняття з реєстрації місця проживання);&lt;/li&gt; 
+										&lt;li&gt;свідоцтво про народження дитини (оригінал та копія);&lt;/li&gt; 
+										&lt;li&gt;квитанція про сплату Державного мита;&lt;/li&gt; 
+										&lt;li&gt;документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації (оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку, оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;при проживанні батьків за різними адресами для реєстрації місця проживання дитини, яка не досягла 14 років, разом з одним з батьків надається письмова згода (у присутності адміністратора Центру) другого з батьків та довідка територіального підрозділу або адресно-довідкового підрозділу територіального органу ДМС України за місцем його проживання про те, що дитина не зареєстрована разом з ним,&lt;br /&gt;
+												  другий із батьків пред’являє адміністратору паспортний документ та подає його копію.&lt;/li&gt;
+									&lt;/p&gt;
+									&lt;p&gt;	
+										У разі подання заяви законним представником особи додатково подаються:&lt;br /&gt;
+										&lt;li&gt;документ, що посвідчує особу законного представника (оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;документ, що підтверджує повноваження особи як законного представника, крім випадків, коли законними представниками є батьки (усиновлювачі) (оригінал та копія).&lt;/li&gt;
+									&lt;/p&gt;
+									&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                    	Графік роботи:&lt;br /&gt; 
+                                    	Графік роботи ЦНАП Деснянського району:&lt;br /&gt; 
                                     	понеділок, середа - 09.00-18.00;&lt;br /&gt; 
                                     	вівторок, четвер - з 09.00-20.00;&lt;br /&gt; 
                                     	п’ятниця - 09.00-16.45;&lt;br /&gt; 
@@ -289,18 +300,29 @@
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 									&lt;p&gt;	
 										Для того, щоб закінчити процедуру подачі документів в Державну міграційну службу необхідно:&lt;br /&gt;
-										·  Сплатити Державне мито у розмірі 0.85 грн і отримати талон про сплату.&lt;br /&gt;
-										·  Прийти до Центру надання адміністративних послуг Солом'янського району, що знаходиться за адресою:&lt;br /&gt; 
-											м. Київ, просп. Повітрофлотський, 41, з необхідними документами (є можливість попереднього запису на прийом)&lt;/p&gt;
+										&lt;li&gt;Сплатити Державне мито у розмірі 0.85 грн і отримати квитанцію про сплату.&lt;/li&gt; 
+										&lt;li&gt;Прийти до Центру надання адміністративних послуг Солом'янського району, що знаходиться за адресою:&lt;br /&gt; 
+											м. Київ, просп. Повітрофлотський, 41, з необхідними документами (є можливість попереднього запису на прийом)&lt;/li&gt;
+									&lt;/p&gt;
  									&lt;p&gt;
 										Документи, які необхідно принести до Центру надання адміністративних послуг:&lt;br /&gt;
-										·         посвідчення особи (Паспорт)&lt;br /&gt; 
-										·         свідоцтво про народження дитини&lt;br /&gt; 
-										·         талон про сплату Державного мита&lt;br /&gt; 
-										·         документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації;&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+										&lt;li&gt;паспортний документ;&lt;/li&gt; 
+										&lt;li&gt;талон зняття з реєстрації (не подається в разі одночасного зняття з реєстрації місця проживання);&lt;/li&gt; 
+										&lt;li&gt;свідоцтво про народження дитини (оригінал та копія);&lt;/li&gt; 
+										&lt;li&gt;квитанція про сплату Державного мита;&lt;/li&gt; 
+										&lt;li&gt;документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації (оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку, оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;при проживанні батьків за різними адресами для реєстрації місця проживання дитини, яка не досягла 14 років, разом з одним з батьків надається письмова згода (у присутності адміністратора Центру) другого з батьків та довідка територіального підрозділу або адресно-довідкового підрозділу територіального органу ДМС України за місцем його проживання про те, що дитина не зареєстрована разом з ним,&lt;br /&gt;
+												  другий із батьків пред’являє адміністратору паспортний документ та подає його копію.&lt;/li&gt;
+									&lt;/p&gt;
+									&lt;p&gt;	
+										У разі подання заяви законним представником особи додатково подаються:&lt;br /&gt;
+										&lt;li&gt;документ, що посвідчує особу законного представника (оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;документ, що підтверджує повноваження особи як законного представника, крім випадків, коли законними представниками є батьки (усиновлювачі) (оригінал та копія).&lt;/li&gt;
+									&lt;/p&gt;
+									&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                    	Графік роботи:&lt;br /&gt; 
+                                    	Графік роботи ЦНАП Солом'янського району:&lt;br /&gt; 
                                     	понеділок, середа - 09.00-17.00;&lt;br /&gt; 
                                     	вівторок, четвер - з 10.00-20.00;&lt;br /&gt; 
                                     	п’ятниця - 09.00-16.30;&lt;br /&gt; 
@@ -400,18 +422,29 @@
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 									&lt;p&gt;	
 										Для того, щоб закінчити процедуру подачі документів в Державну міграційну службу необхідно:&lt;br /&gt;
-										·  Сплатити Державне мито у розмірі 0.85 грн і отримати талон про сплату.&lt;br /&gt;
-										·  Прийти до Центру надання адміністративних послуг Шевченківського району, що знаходиться за адресою:&lt;br /&gt; 
-											м. Київ, бульв. Т.Шевченка, 26/4, з необхідними документами (є можливість попереднього запису на прийом)&lt;/p&gt;
+										&lt;li&gt;Сплатити Державне мито у розмірі 0.85 грн і отримати квитанцію про сплату.&lt;/li&gt;
+										&lt;li&gt;Прийти до Центру надання адміністративних послуг Шевченківського району, що знаходиться за адресою:&lt;br /&gt; 
+											м. Київ, бульв. Т.Шевченка, 26/4, з необхідними документами (є можливість попереднього запису на прийом)&lt;/li&gt;
+									&lt;/p&gt;
  									&lt;p&gt;
 										Документи, які необхідно принести до Центру надання адміністративних послуг:&lt;br /&gt;
-										·         посвідчення особи (Паспорт)&lt;br /&gt; 
-										·         свідоцтво про народження дитини&lt;br /&gt; 
-										·         талон про сплату Державного мита&lt;br /&gt; 
-										·         документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації;&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+										&lt;li&gt;паспортний документ;&lt;/li&gt; 
+										&lt;li&gt;талон зняття з реєстрації (не подається в разі одночасного зняття з реєстрації місця проживання);&lt;/li&gt; 
+										&lt;li&gt;свідоцтво про народження дитини (оригінал та копія);&lt;/li&gt; 
+										&lt;li&gt;квитанція про сплату Державного мита;&lt;/li&gt; 
+										&lt;li&gt;документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації (оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку, оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;при проживанні батьків за різними адресами для реєстрації місця проживання дитини, яка не досягла 14 років, разом з одним з батьків надається письмова згода (у присутності адміністратора Центру) другого з батьків та довідка територіального підрозділу або адресно-довідкового підрозділу територіального органу ДМС України за місцем його проживання про те, що дитина не зареєстрована разом з ним,&lt;br /&gt;
+												  другий із батьків пред’являє адміністратору паспортний документ та подає його копію.&lt;/li&gt;
+									&lt;/p&gt;
+									&lt;p&gt;	
+										У разі подання заяви законним представником особи додатково подаються:&lt;br /&gt;
+										&lt;li&gt;документ, що посвідчує особу законного представника (оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;документ, що підтверджує повноваження особи як законного представника, крім випадків, коли законними представниками є батьки (усиновлювачі) (оригінал та копія).&lt;/li&gt;
+									&lt;/p&gt;
+									&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                    	Графік роботи:&lt;br /&gt; 
+                                    	Графік роботи ЦНАП Шевченківського району:&lt;br /&gt; 
                                     	понеділок, середа - 09.00-18.00;&lt;br /&gt; 
                                     	вівторок, четвер - з 09.00-20.00;&lt;br /&gt; 
                                     	п’ятниця - 09.00-16.45;&lt;br /&gt; 
@@ -445,7 +478,7 @@
         <activiti:formProperty id="NumSp" name="Номер справи" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="Sex" name="Стать" type="enum">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
@@ -666,7 +699,7 @@
         <activiti:formProperty id="NumSp" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Sex" name="Стать" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
@@ -1083,7 +1116,7 @@
         <activiti:formProperty id="NumSp" name="Номер справи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Sex" name="Стать" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
