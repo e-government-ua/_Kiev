@@ -242,7 +242,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         .then(function (result) {
           Modal.inform.success(function (result) {
             $scope.lightweightRefreshAfterSubmit();
-            $scope.selectedTask = null;
+            //$scope.selectedTask = null;
           })("Форму відправлено." + (result && result.length > 0 ? (': ' + result) : ''));
 
         })
