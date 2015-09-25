@@ -1121,15 +1121,24 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     @RequestMapping(value = "/tasks/cancelTask", method = RequestMethod.POST)
     public @ResponseBody
-    void cancelTask(@RequestParam(value = "nID_Protected") Long nID_Protected,
+    //void cancelTask(@RequestParam(value = "nID_Protected") Long nID_Protected,
+    String cancelTask(@RequestParam(value = "nID_Protected") Long nID_Protected,
             @RequestParam(value = "sInfo", required = false) String sInfo) throws ActivitiRestException {
+        
+        String sMessage = "Ваша заявка відмінена. Ви можете подату нову на Порталі державних послуг iGov.org.ua.<\n<br>"
+            +"З повагою, команду порталу  iGov.org.ua";
+        
+        
         try {
             cancelTasksInternal(nID_Protected, sInfo);
+            return sMessage;
         } catch (CRCInvalidException | RecordNotFoundException | TaskAlreadyUnboundException e) {
             ActivitiRestException newErr = new ActivitiRestException(
                     "BUSINESS_ERR", e.getMessage(), e);
             newErr.setHttpStatus(HttpStatus.FORBIDDEN);
-            throw newErr;
+            sMessage = "Вибачте, виникла помилка при виконанні операції. Спробуйте ще раз, будь ласка";
+            return sMessage;
+            //throw newErr;
         }
     }
 
