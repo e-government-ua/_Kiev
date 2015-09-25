@@ -46,14 +46,13 @@
     </serviceTask>
     <userTask id="usertask1" name="Прийняття рішення" activiti:candidateGroups="voznesensk_cnap_78">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="Ідентифікаційний номер" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="place_of_living" name="Місце проживання; вкажіть область, місто, вулицю, дім, квартиру" type="string" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" writable="false" required="true"></activiti:formProperty>
-        <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false" ></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false" ></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false" ></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Ідентифікаційний номер" type="string" writable="false" ></activiti:formProperty>
+        <activiti:formProperty id="place_of_living" name="Місце проживання; вкажіть область, місто, вулицю, дім, квартиру" type="string" writable="false" ></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false" ></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Надати послугу"></activiti:value>
           <activiti:value id="reject" name="Відмовити"></activiti:value>
