@@ -249,7 +249,7 @@
     <sequenceFlow id="flow6" sourceRef="servicetask2" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow7" sourceRef="mailtask1" targetRef="endevent2"></sequenceFlow>
-    <serviceTask id="servicetask3" name="Відправка e-mail на оплату" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+    <serviceTask id="servicetask3" name="Відправка e-mail на оплату" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>

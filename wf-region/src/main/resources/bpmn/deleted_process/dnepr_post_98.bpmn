@@ -613,7 +613,7 @@
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow25" sourceRef="mailtask4" targetRef="endevent3"></sequenceFlow>
     <sequenceFlow id="flow26" sourceRef="servicetask4" targetRef="endevent3"></sequenceFlow>
-    <serviceTask id="servicetask5" name="повідомлення громадянина про необхідність сплати" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+    <serviceTask id="servicetask5" name="повідомлення громадянина про необхідність сплати" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string>test_noreply@igov.org.ua</activiti:string>

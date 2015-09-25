@@ -472,7 +472,7 @@
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow12" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <sequenceFlow id="flow16" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
-    <serviceTask id="servicetask2" name="повідомлення громадянина про необхідність сплати" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+    <serviceTask id="servicetask2" name="повідомлення громадянина про необхідність сплати" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string>test_noreply@igov.org.ua</activiti:string>
