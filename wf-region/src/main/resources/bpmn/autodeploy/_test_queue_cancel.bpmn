@@ -177,7 +177,7 @@
     <sequenceFlow id="flow18" sourceRef="exclusivegateway2" targetRef="servicetask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${urgent=='attr2_yes'&&biometrical=='attr2_yes'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask2" name="біометричний терміновий" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+    <serviceTask id="servicetask2" name="біометричний терміновий" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -295,7 +295,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask3" name="біометричний не терміновий" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+    <serviceTask id="servicetask3" name="біометричний не терміновий" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -412,7 +412,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask4" name="звичайний терміновий" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+    <serviceTask id="servicetask4" name="звичайний терміновий" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -528,7 +528,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask5" name="звичайний не терміновий" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+    <serviceTask id="servicetask5" name="звичайний не терміновий" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
