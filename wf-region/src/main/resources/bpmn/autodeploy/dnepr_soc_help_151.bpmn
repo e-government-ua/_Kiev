@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_soc_help_149" name="Дніпропетровськ - Надання стипендії особам, яким виповнилось 100 і більше років" isExecutable="true">
+  <process id="dnepr_soc_help_151" name="Дніпропетровськ - Призначення допомоги на поховання" isExecutable="true">
     <documentation>https://github.com/e-government-ua/iBP/issues/149</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -35,6 +35,8 @@
         <activiti:formProperty id="mfo" name="МФО банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="ЄДРПОУ банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bank_account" name="Номер рахунку (р/р)" type="string" default="26   "></activiti:formProperty>
+        <activiti:formProperty id="vityag_death" name="Витяг з Державного реєстру актів цивільного стану громадян про смерть" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dovidka_death" name="Свідоцтво про смерть" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника соц.захисту" activiti:type="mail">
@@ -46,7 +48,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Нове  звернення. Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
+          <activiti:string><![CDATA[Нове  звернення. Призначення допомоги на поховання]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -102,7 +104,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо надання стипендії особам, яким виповнилось 100 і більше років.&lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо gризначення допомоги на поховання.&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 Відпрацюйте це звернення на &lt;a href="https://test.region.igov.org.ua/" target="_blank"&gt;порталі&lt;/a&gt;
                                     &lt;/p&gt;
@@ -166,11 +168,11 @@
           <activiti:value id="reject" name="Дані заповнені неправильно, повідомити громадянина (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_149_print.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_151_print.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${vityag_death},${dovidka_death}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -179,8 +181,8 @@
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_2" name="повідомлення громадянина про прийняте рішення" type="enum" required="true">
-          <activiti:value id="accept" name="схвалено призначення щомісячної стипендії"></activiti:value>
-          <activiti:value id="reject" name="відмовлено у призначенні щомісячної стипендії"></activiti:value>
+          <activiti:value id="accept" name="схвалено призначення допомоги"></activiti:value>
+          <activiti:value id="reject" name="відмовлено у призначенні допомоги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_2" name="У разі відмови внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="rishen" name="Завантажте копію рішення" type="file" required="true"></activiti:formProperty>
@@ -188,7 +190,7 @@
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <serviceTask id="mailtask4" name="повідомлення громадянина про відмову у  призначенні щомісячної стипендії" activiti:type="mail">
+    <serviceTask id="mailtask4" name="повідомлення громадянина про відмову у  призначенні допомоги на поховання" activiti:type="mail">
       <extensionElements>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -241,7 +243,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
 &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-На жаль, Вам відмовлено у призначенні щомісячної стипендії як особі, якій виповнилось 100 і більше років.&lt;br /&gt; &lt;/p&gt;
+На жаль, Вам відмовлено у призначенні допомоги на поховання.&lt;br /&gt; &lt;/p&gt;
 Підстава:${comment_2}&lt;br /&gt;&lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
                                     &lt;/p&gt;
@@ -269,7 +271,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Призначення допомоги на поховання]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -290,7 +292,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Призначення допомоги на поховання]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -346,7 +348,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-На жаль, Ваше звернення щодо надання стипендії особам, яким виповнилось 100 і більше років відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
+На жаль, Ваше звернення щодо призначення допомоги на поховання відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
 &lt;br /&gt;
 Підстава: ${comment_1}    &lt;br /&gt;
     &lt;/p&gt;
@@ -384,7 +386,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Призначення допомоги на поховання]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -437,7 +439,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-Ваше звернення щодо надання стипендії особам, яким виповнилось 100 і більше років передано на розгляд в управління праці та соціального захисту населення і буде опрацьовано протягом 40 робочих днів.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
+Ваше звернення щодо призначення допомоги на поховання передано на розгляд в управління праці та соціального захисту населення і буде опрацьовано протягом 40 робочих днів.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
 Ви отримаєте додаткове повідомлення за результатами розгляду зверення.&lt;br /&gt;
     &lt;/p&gt;
                                     &lt;/p&gt;
@@ -480,7 +482,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання стипендії особам, яким виповнилось 100 і більше років]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Призначення допомоги на поховання]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
@@ -536,7 +538,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     
-Ви отримали схвалення щодо свого звернення - надання стипендії особам, яким виповнилось 100 і більше років.&lt;br /&gt;
+Ви отримали схвалення щодо свого звернення - призначення допомоги на поховання.&lt;br /&gt;
 &lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
 
@@ -604,8 +606,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='accept'}]]></conditionExpression>
     </sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_149">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_149" id="BPMNPlane_dnepr_soc_help_149">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_151">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_151" id="BPMNPlane_dnepr_soc_help_151">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
