@@ -42,12 +42,13 @@ public class CancelTaskUtil {
 
         String sURL_ForAccessKey = new StringBuilder(sURL_CancelTask)
                 .append("?nID_Protected=").append(nID_Protected)
+                .append("&sAccessContract=Request")
                 .toString();
         String sAccessKey = accessDataDao.setAccessData(sURL_ForAccessKey);
         String sURL_CancelTaskAction = new StringBuilder(generalConfig.sHost())
                 .append(sURL_ForAccessKey)
                 .append("&sAccessKey=").append(sAccessKey)
-                .append("&sAccessContract=Request")
+                //.append("&sAccessContract=Request")
                 .toString();
         log.info("total URL for action =" + sURL_CancelTaskAction);
 

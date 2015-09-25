@@ -62,7 +62,7 @@
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <serviceTask id="servicetask3" name="Отправка e-mail для сплати" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+    <serviceTask id="servicetask3" name="Отправка e-mail для сплати" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
       <extensionElements>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Державна реєстрація фізичної особи - підприємця.]]></activiti:string>
