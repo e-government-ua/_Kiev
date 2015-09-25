@@ -16,10 +16,10 @@
         <activiti:formProperty id="type" name="Тип закладу (наприклад: кафе, магазин, ресторан)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="name" name="Назва закладу" type="string"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса закладу" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="time" name="Запропонований режим роботи: час роботи з .. до .., обідня перерва з .. до .., вихідні:" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="time" name="Запропонований режим роботи: час роботи з .. до .., обідня перерва з .. до .., вихідні" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="specialization" name="Спеціалізація" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="double" required="true"></activiti:formProperty>
+        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="double" required="true"></activiti:formProperty>
         <activiti:formProperty id="employee" name="Кількість зареєстрованих найманих працівників" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="seats" name="Кількість посадкових місць (для закладів ресторанного господарства)" type="long"></activiti:formProperty>
         <activiti:formProperty id="object_trade" name="Оберить об'єкт торгівлі" type="enum" required="true">
@@ -169,16 +169,16 @@
         <activiti:formProperty id="adress" name="Ваша адреса: область, місто, вулиця, дім, квартира" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="name_company" name="У давальному відмінку повне найменування юридичної особи /ім’я, по-батькові та прізвище фізичної особи-підприємця" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="code_inn" name="Ідентифікаційний код згідно з ЄДРПОУ/РНОКПП" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="name_company" name="У давальному відмінку повне найменування юридичної особи /ім’я, по-батькові та прізвище фізичної особи-підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="code_inn" name="Ідентифікаційний код згідно з ЄДРПОУ/РНОКПП" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="type" name="Тип закладу;(наприклад: кафе, магазин, ресторан)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="name" name="Назва закладу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса закладу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="time" name="Запропонований режим роботи: час роботи з .. до .., обідня перерва з .. до .., вихідні:" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="time" name="Запропонований режим роботи: час роботи з .. до .., обідня перерва з .. до .., вихідні" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="specialization" name="Спеціалізація" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="double" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="double" writable="false"></activiti:formProperty>
         <activiti:formProperty id="employee" name="Кількість зареєстрованих найманих працівників" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="seats" name="Кількість посадкових місць;(для закладів ресторанного господарства)" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" writable="false">
@@ -190,7 +190,7 @@
           <activiti:value id="attr1_wait" name="З документами все гаразд - взяти до розгляду"></activiti:value>
           <activiti:value id="attr4_bad" name="Відмовити у розгляді без реєстрації у звязку з....."></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="decisionComment" name="В разі відмови - написати коментар" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі" type="textArea"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -263,13 +263,10 @@
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;br /&gt;
                                        
-										Ваше звернення щодо узгодження графіка роботи підприємства торгівлі/обслуговування опрацьовано. &lt;br /&gt;
+										Ваше звернення щодо узгодження графіка роботи підприємства торгівлі/обслуговування - опрацьовано. &lt;br /&gt;
 										Ви отримаєте друковану копію в листі за адресою: &lt;br /&gt;
 										&lt;i&gt;${adress} &lt;/i&gt; &lt;br /&gt;
 										&lt;br /&gt;
-										
-										Коментар державного службовця: &lt;br /&gt;
-											&lt;i&gt;${decisionComment}&lt;/i&gt;
 										&lt;p&gt;&lt;/p&gt;
 З повагою, ЦНАП м.Тернопіль &lt;br /&gt;
 &lt;br /&gt;
@@ -388,8 +385,6 @@
 Без перерви на обід&lt;br /&gt;
 Телефон: (0352) 40-41-93 &lt;br /&gt; 
 &lt;br /&gt;
-Коментар державного службовця: &lt;br /&gt;
-											&lt;i&gt;${decisionComment}&lt;/i&gt;&lt;br /&gt;
 										&lt;p&gt;&lt;/p&gt;
                                  
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -399,11 +394,7 @@
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                           
-                          
-
                         &lt;/table&gt;
-                     
                     &lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--content end--&gt;
@@ -491,7 +482,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Ваше звернення щодо погодження режиму роботи об’єктів сфери торгівлі та сфери обслуговування населення на території м. Тернополя - забраковане.&lt;/p&gt;
+                                        Ваше звернення щодо погодження режиму роботи об’єктів сфери торгівлі та сфери обслуговування населення на території м. Тернополя - відхилено.&lt;/p&gt;
 &lt;p&gt;Причина в наступному: 
                                     &lt;/p&gt;
 &lt;p&gt;${decisionComment}&lt;/p&gt;
@@ -545,23 +536,23 @@
         <activiti:formProperty id="adress" name="Ваша адреса: область, місто, вулиця, дім, квартира" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="name_company" name="У давальному відмінку повне найменування юридичної особи /ім’я, по-батькові та прізвище фізичної особи-підприємця" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="code_inn" name="Ідентифікаційний код згідно з ЄДРПОУ/РНОКПП" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="name_company" name="У давальному відмінку повне найменування юридичної особи /ім’я, по-батькові та прізвище фізичної особи-підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="code_inn" name="Ідентифікаційний код згідно з ЄДРПОУ/РНОКПП" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="type" name="Тип закладу (наприклад: кафе, магазин, ресторан)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="name" name="Назва закладу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса закладу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="time" name="Запропонований режим роботи: час роботи з .. до .., обідня перерва з .. до .., вихідні:" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="time" name="Запропонований режим роботи" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="specialization" name="Спеціалізація" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="double" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="double" writable="false"></activiti:formProperty>
         <activiti:formProperty id="employee" name="Кількість зареєстрованих найманих працівників" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="seats" name="Кількість посадкових місць (для закладів ресторанного господарства)" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" writable="false">
           <activiti:value id="attr1_yes" name="Отримаю власноруч"></activiti:value>
           <activiti:value id="attr2_no" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="extension_number" name="Реєстраційний номер ЦНАП" type="string"></activiti:formProperty>
+        <activiti:formProperty id="extension_number" name="Реєстраційний номер ЦНАП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="responsible" name="Управління торгівлі, відповідальний" type="string"></activiti:formProperty>
         <activiti:formProperty id="status" name="Обробка заяви" type="enum">
           <activiti:value id="attr2_finish" name="Рішення отримане, очікуємо громадянина"></activiti:value>
@@ -569,12 +560,6 @@
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="decision" name="Сканкопія рішення" type="file"></activiti:formProperty>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
-          <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${file1}, ${file2}, ${file3}, ${file4}, ${file5}, ${file6}, ${file7}, ${file8}, ${file9}, ${file10}, ${file11}, ${file12},</activiti:expression>
-          </activiti:field>
-        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow14" sourceRef="exclusivegateway2" targetRef="usertask2">

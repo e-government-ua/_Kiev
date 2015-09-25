@@ -40,6 +40,19 @@ angular.module('app').factory('BankIDService', function ($http, $q, AdminService
       $http.post('./auth/logout');
     },
 
+    fio: function(){
+      return $http.get('./api/bankid/fio').then(function(response){
+        return response.data;
+      }).catch(function (response) {
+        var err = response.data ? response.data.err || {} : {};
+        ErrorsFactory.push({type: "danger", text: err.error});
+
+        bankIDLogin = undefined;
+        bankIDAccount = undefined;
+        return bankIDAccount;
+      });
+    },
+
     account: function () {
       var data = {};
       return $q.when(bankIDAccount ? bankIDAccount :
