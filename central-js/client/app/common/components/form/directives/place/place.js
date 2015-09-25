@@ -145,7 +145,6 @@ angular.module('app')
         $scope.editPlace = function() {
 
           sControlMode = 'placeEditMode';
-
           $scope.resetPlaceData();
 
           // FIXME
@@ -199,6 +198,16 @@ angular.module('app')
 
           var regions = $scope.regions;
 
+          // FIXME finalize re-selection of place
+          // init place data by scope data if it's available
+          $scope.region = $scope.data && $scope.data.region || $scope.region;
+          $scope.city = $scope.data && $scope.data.city || $scope.city;
+
+          PlacesService.setPlaceData({
+            region: $scope.region,
+            city: $scope.city
+          });
+
           $scope.regionList = $scope.regionList || new RegionListFactory();
           $scope.localityList = $scope.localityList || new LocalityListFactory();
 
@@ -210,8 +219,9 @@ angular.module('app')
           // and we do not need it when coming from step to step
           if (sControlMode === 'placeEditMode') {
             $scope.resetPlaceData();
-            $scope.recallPlaceData();
           }
+
+          $scope.recallPlaceData();
 
           // Якщо форма вже заповнена після відновлення даних з localStorage, то повідомити про це
           if ($scope.placeControlIsComplete()) {
