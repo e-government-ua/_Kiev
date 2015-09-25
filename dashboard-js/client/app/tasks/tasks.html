@@ -92,7 +92,7 @@
 
           <show-error data="error" ng-show="error"></show-error>
 
-          <div ng-repeat="item in taskForm" class="task-form-property">
+          <div ng-repeat="item in taskForm" class="task-form-property" ng-show="selectedTask">
 
             <div ng-if="['string', 'long', 'date'].indexOf(item.type) > -1">
               <field-title></field-title>
@@ -146,7 +146,7 @@
             </div-->
           
             <div ng-hide="selectedTask.assignee === null || sSelectedTask == 'finished'">
-              <button ng-hide="!taskFormLoaded" ng-click="print()" class="btn btn-success">Роздрукувати
+              <button ng-hide="!taskFormLoaded || !selectedTask" ng-click="print()" class="btn btn-success">Роздрукувати
               </button>
             </div>
           

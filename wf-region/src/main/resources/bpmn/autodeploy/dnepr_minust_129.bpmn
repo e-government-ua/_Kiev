@@ -3,7 +3,7 @@
   <process id="dnepr_minust_129" name="Дніпропетровськ МінЮст - Зміна додаткової інформації про зв`язок з юридичною особою (Ф-4)" isExecutable="true" activiti:candidateStarterGroups="dnepr_minust_1">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="warningMessage1" name="Увага!" type="label" default="Подавати реєстраційну картку про внесення змін можуть лише керівник юридичної особи і фізична особа, яка має право вчиняти дії від імені юридичної особи без довіреності, у тому числі підписувати договори."></activiti:formProperty>
+        <activiti:formProperty id="warningMessage1" name="Увага" type="label" default="Подавати реєстраційну картку про внесення змін можуть лише керівник юридичної особи і фізична особа, яка має право вчиняти дії від імені юридичної особи без довіреності, у тому числі підписувати договори."></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
@@ -11,11 +11,12 @@
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта" type="file" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="scan_form_4_1" name="Завантажте відскановану першу сторінку заповненої Форми-4, обов'язково поставте дату і підпис;завантажте бланк за цим посиланням: http://bit.ly/1O1Yd77. Роздрукуйте його, заповніть від руки, відскануйте чи сфотографуйте його та прикрепіть до цієї форми." type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="scan_form_4_3" name="Завантажте відскановану третю сторінку заповненої Форми-4, обов'язково поставте дату і підпис" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="blank" name="Завантажте відскановану і заповнену Форму-4" type="label" default="&lt;p&gt;обов'язково поставте дату і підпис.&lt;/p&gt; За цим &lt;a href=&quot;http://bit.ly/1O1Yd77&quot;&gt;посиланням&lt;/a&gt; ви знайдете актуальний бланк форми-4.&lt;br&gt; Роздрукуйте його, заповніть потрібні сторінки від руки, відскануйте чи сфотографуйте, та прикріпіть до цієї форми."></activiti:formProperty>
+        <activiti:formProperty id="scan_form_4_1" name="Перша сторінка форми-4" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="scan_form_4_3" name="Третя сторінка форми-4" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="warningMessage" name="Увага!" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
+        <activiti:formProperty id="warningMessage" name="Увага" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
