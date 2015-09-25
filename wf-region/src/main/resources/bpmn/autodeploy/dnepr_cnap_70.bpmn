@@ -177,7 +177,7 @@
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decision_2" name="Прийняття рішення про надання дозволу" type="enum" required="true">
+        <activiti:formProperty id="decision_2" name="Прийняття рішення про надання листа" type="enum" required="true">
           <activiti:value id="accept" name="видати лист про прийняття рішення"></activiti:value>
           <activiti:value id="reject" name="відмовити у видачы листа про прийняття рішення"></activiti:value>
         </activiti:formProperty>
