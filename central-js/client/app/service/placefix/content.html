@@ -2,20 +2,14 @@
 
     <div>FIXME placefix/content.html</div>
 
-    <!-- sample place control content was derived from the service/city/content.html and now is place.html -->
     <place></place>
     
-    <!-- step 2 -->
-    <!-- used placeControlIsComplete() instead of ngIfStep2 -->
     <div class="list-group-item" ui-view="status" ng-if="placeControlIsComplete()"> </div>
 
-    <!-- STATE: index.service.general.placefix.built-in -->
     <service-auth-block 
             ng-if="authControlIsVisible()"
             n-step="2" 
             redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
     </service-auth-block>
-
+    
 </div>
-
-<!-- region, country - merged -->

@@ -1,8 +1,6 @@
 <div class="list-group">
 
-    <place ng-class="{'disabled': placeControlIsComplete()}"></place>
-
-    <!-- FIXME disable depending on ng-class="{'disabled': placeControlIsComplete()}" -->
+    <place></place>
 
     <div class="list-group-item disabled">
         <div class="row no-margin-bottom">
@@ -10,7 +8,7 @@
             </div>
             <div class="col-md-1" ng-if="authControlIsComplete()">
                 <div class="link-button">
-                    <a ng-click="step2()">Змінити</a>
+                    <a ng-click="editBankId()">Змінити</a>
                 </div>
             </div>
         </div>
@@ -19,12 +17,11 @@
     <div class="list-group-item">
         <div class="row no-margin-bottom">
             <h3 class="text-center">Шановний(-а) {{data.formData.params.bankIdfirstName.value}} {{data.formData.params.bankIdmiddleName.value}}!</h3>
-            <div class="text-center">Ваше звернення №{{state.data.id}} успішно зар
-            еєстровано</div>
+            <div class="text-center">Ваше звернення №{{state.data.id}} успішно зар еєстровано
+            </div>
             <div class="text-center" ng-bind-html="getHtml(data.formData.params.response.value)" ng-if="data.formData.params.response.value"></div>
             <div class="text-center" ng-if="!data.formData.params.response.value">Результати будуть спрямовані на Ваш e-mail {{data.formData.params.email.value}}</div>
         </div>
     </div>
+    
 </div>
-
-<!-- city, region, country - merged -->

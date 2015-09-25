@@ -68,8 +68,6 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
 
   self.rememberMyData = false;
 
-  self.isStep2 = false;
-
   // Зберігаємо savedPlaceData у localStorage і потім відновлюємо, приклад формату даних:
   var placeDataExample = {
     region: {

@@ -186,6 +186,9 @@ angular.module('app')
 
           PlacesService.setPlaceData(placeData);
 
+          $scope.region = PlacesService.getPlaceData().region;
+          $scope.city = PlacesService.getPlaceData().city;
+
           $scope.$emit('onPlaceChange', {
             serviceData: PlacesService.getServiceDataForSelectedPlace(),
             placeData: PlacesService.getPlaceData()
@@ -201,7 +204,7 @@ angular.module('app')
 
           $scope.regionList.initialize($scope.regions);
 
-          console.log('[ ] [ ] initPlaceControls $scope.regions.length = ', $scope.regions.length);
+          console.log('[] [] initPlaceControls $scope.regions.length = ', $scope.regions.length);
 
           // FIXME we need ro reset it to work with localstorage
           // and we do not need it when coming from step to step
