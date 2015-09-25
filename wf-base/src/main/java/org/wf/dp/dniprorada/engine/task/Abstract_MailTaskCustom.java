@@ -167,14 +167,17 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				LOG.info("execution.getId()=" + execution.getId());
 				TaskFormData oTaskFormData = oEngineServices.getFormService()
 						.getTaskFormData(execution.getId());// task.getId()
-				for (FormProperty property : oTaskFormData.getFormProperties()) {
-					aProperty.add(property);
-					LOG.info(String.format(
-							"Matching property %s:%s:%s with fieldNames",
-							property.getId(), property.getName(), property
-									.getType().getName()));
+				if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
+					for (FormProperty property : oTaskFormData.getFormProperties()) {
+						aProperty.add(property);
+						LOG.info(String.format(
+								"Matching property %s:%s:%s with fieldNames",
+								property.getId(), property.getName(), property
+										.getType().getName()));
+					}
+					bCashed = true;
 				}
-				bCashed = true;
+				
 			}
 			boolean bReplaced = false;
 			for (FormProperty property : aProperty) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="voznesensk_cnap_78" name="Вознесенский ЦНАП - Отримання довідки про наявність та розмір земельної частки (паю)" isExecutable="true">
+  <process id="kuznetsovsk_cnap_78" name="Кузнецовськ ЦНАП - Отримання довідки про наявність та розмір земельної частки (паю)" isExecutable="true">
     <documentation>https://github.com/e-government-ua/iBP/issues/78</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -17,7 +17,7 @@
         <activiti:formProperty id="scan_legalEntity" name="Копія свідоцтва про державну реєстрацію юридичної особи (фізичної особи підприємця) або документ що його замінює" type="file"></activiti:formProperty>
         <activiti:formProperty id="scan_legalGround" name="Копія право установчого документу на земельну ділянку, довіреності (якщо звертається довірена особа)" type="file"></activiti:formProperty>
         <activiti:formProperty id="scan_otherPerson" name="Копія довіреності (якщо звертається довірена особа)" type="file"></activiti:formProperty>
-      </extensionElements>
+       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про подання звернення" activiti:type="mail">
       <extensionElements>
@@ -40,11 +40,11 @@
 Ви отримаєте відповідь протягом десяти робочих днів на цю email-адресу.
 
 З повагою,
-Центр надання адміністративних послуг у м. Вознесенську</activiti:expression>
+Центр надання адміністративних послуг у м.Кузнецовськ</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="Прийняття рішення" activiti:candidateGroups="voznesensk_cnap_78">
+    <userTask id="usertask1" name="Прийняття рішення" activiti:candidateGroups="kuznetsovsk_cnap_78">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false" ></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false" ></activiti:formProperty>
@@ -80,7 +80,7 @@
 ${comment}
 
 З повагою,
-Центр надання адміністративних послуг у м. Вознесенську</activiti:expression>
+Центр надання адміністративних послуг у м.Кузнецовськ</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string>Звернення на тему: Отримання довідки про наявність та розмів земельної частки (паю)</activiti:string>
@@ -116,7 +116,7 @@ ${comment}
 П’ятниця  з 08.00 до 16.00
 
 З повагою,
-Центр надання адміністративних послуг у м. Вознесенську</activiti:expression>
+Центр надання адміністративних послуг у м.Кузнецовськ</activiti:expression>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -131,8 +131,8 @@ ${comment}
     <sequenceFlow id="flow10" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <sequenceFlow id="flow11" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_voznesensk_cnap_78">
-    <bpmndi:BPMNPlane bpmnElement="voznesensk_cnap_78" id="BPMNPlane_voznesensk_cnap_78">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_kuznetsovsk_cnap_78">
+    <bpmndi:BPMNPlane bpmnElement="kuznetsovsk_cnap_78" id="BPMNPlane_kuznetsovsk_cnap_78">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="91.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
