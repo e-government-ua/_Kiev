@@ -92,11 +92,12 @@ angular.module('app').controller('PlaceFixController', function(
       PlacesService.isStep2 = true;
     });
 
-    var initialRegion = serviceLocationParser.getSelectedRegion(regions);
-    if (initialRegion) {
-      // FIXME debug it
-      $scope.onSelectRegionList(initialRegion);
-    }
+    // var initialRegion = serviceLocationParser.getSelectedRegion(regions);
+    // if (initialRegion) {
+    //   // FIXME debug it
+    //   console.log('initialRegion =', initialRegion);
+    //   //$scope.onSelectRegionList(initialRegion);
+    // }
 
     console.info('PROCESS Place сhange, $state:', $state.current.name, ', to go:', stateToGo /*, 'oParams =', oParams*/ );
   };

@@ -177,13 +177,14 @@ angular.module('app')
         };
 
         $scope.processPlaceSelection = function() {
+          var placeData = PlacesService.getPlaceData();
+
+          console.log('processPlaceSelection');
           console.log('region is chosen: ', $scope.regionIsChosen(), ', city is chosen: ', $scope.cityIsChosen());
-
           console.log('Place controls is complete:', $scope.placeControlIsComplete());
-
           console.log('AuthControlIsVisible: ', $scope.authControlIsVisible());
 
-          // PlacesService.setPlaceData(placeData);
+          PlacesService.setPlaceData(placeData);
 
           $scope.$emit('onPlaceChange', {
             serviceData: PlacesService.getServiceDataForSelectedPlace(),
@@ -200,10 +201,14 @@ angular.module('app')
 
           $scope.regionList.initialize($scope.regions);
 
-          console.log('initPlaceControls, $scope.regions.length = ', $scope.regions.length);
+          console.log('[ ] [ ] initPlaceControls $scope.regions.length = ', $scope.regions.length);
 
-          $scope.resetPlaceData();
-          $scope.recallPlaceData();
+          // FIXME we need ro reset it to work with localstorage
+          // and we do not need it when coming from step to step
+          if (sControlMode === 'placeEditMode') {
+            $scope.resetPlaceData();
+            $scope.recallPlaceData();
+          }
 
           // Якщо форма вже заповнена після відновлення даних з localStorage, то повідомити про це
           if ($scope.placeControlIsComplete()) {

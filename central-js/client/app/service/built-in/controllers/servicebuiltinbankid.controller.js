@@ -58,7 +58,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     });
   }*/
 
-  console.log('Hello from the Service Built-In BankID Controller');
+  console.log('[   ] Service Built-In BankID Controller');
   
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount;

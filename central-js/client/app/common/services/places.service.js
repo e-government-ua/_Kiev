@@ -188,13 +188,11 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
 
   self.regionIsChosen = function() {
     var bResult = savedPlaceData && (savedPlaceData.region ? true : false);
-    //console.log('region is chosen: ', bResult);
     return bResult;
   };
 
   self.cityIsChosen = function() {
     var bResult = savedPlaceData && (savedPlaceData.city ? true : false);
-    // console.log('city is chosen: ', r);
     return bResult;
   };
 
