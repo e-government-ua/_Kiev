@@ -144,7 +144,8 @@
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
         <activiti:formProperty id="file5" name="Якщо з документами все гаразд - завантажте скановану копію описа документів, надісланих громодянином" type="file"></activiti:formProperty>
-        <activiti:formProperty id="Per3" name="Перевірте подані громадянином дані, заповніть всі необхідні поля (П.І.Б адміністратора, дату реєстрації, реєстраційний номер та рішення про надання послуги), потім роздрукуйте форму заяви." type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="Per3" name="Перевірте подані громадянином дані, заповніть всі необхідні поля (П.І.Б адміністратора, дату реєстрації, реєстраційний номер та рішення про надання послуги), заповніть в полі нижче перелік документів, які прислав громадянин - потім роздрукуйте форму заяви." type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="list_documents" name="Вкажіть перелік документів, які надіслав громадянин" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="sBody" name="[pattern/print/dnepr_cnap_72_print.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
@@ -270,6 +271,7 @@
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_registrastion" name="Дата реєстрації заяви" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="list_documents" name="Перелік документів, які надіслав громадянин" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="status_dozvil" name="Статус дозволу" type="enum" required="true">
           <activiti:value id="attr3_finish" name="Дозвіл готовий"></activiti:value>
           <activiti:value id="attr4_finish" name="Відмовити в видачі дозволу"></activiti:value>
