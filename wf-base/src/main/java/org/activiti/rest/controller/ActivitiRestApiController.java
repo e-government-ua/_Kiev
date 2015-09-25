@@ -12,6 +12,8 @@ import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.identity.User;
+import org.activiti.engine.impl.util.json.JSONArray;
+import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.*;
@@ -44,6 +46,8 @@ import org.wf.dp.dniprorada.engine.task.FileTaskUpload;
 import org.wf.dp.dniprorada.form.QueueDataFormType;
 import org.wf.dp.dniprorada.model.BuilderAtachModel;
 import org.wf.dp.dniprorada.model.ByteArrayMultipartFileOld;
+import org.wf.dp.dniprorada.rest.HttpRequester;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Mail;
 import org.wf.dp.dniprorada.util.Util;
 import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
@@ -94,6 +98,10 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     private FormService formService;
     @Autowired
     private Mail oMail;
+    @Autowired
+    private GeneralConfig generalConfig;
+    @Autowired
+    private HttpRequester httpRequester;
 
     @RequestMapping(value = "/start-process/{key}", method = RequestMethod.GET)
     @Transactional
@@ -1175,25 +1183,10 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
 
     /*issue 808
- 3) при вызове сервиса:
- 3.1) Находить в сущности HistoryEvent_Service нужную запись (по сервису)
- 3.2) апдейтить запись полем значением из:
- 3.2.1) soData - строка-объект с данными (из "saField")
- 3.2.3) sHead - строка заголовка сообщения (из "sHead")
- 3.2.3) sBody - строка тела сообщения (из "sBody")
- 3.3) отсылать письмо
- 3.3.1) на sMail
- 3.3.2) с заголовком sHead
- 3.3.3) и телом sBody
- 3.3.4) + перечисление полей из saField в формате таблицы: Поле / Тип / Текущее значение
- 3.3.5) И гиперссылкой в конце типа: https://igov.org.ua/order?nID_Protected=12233&sToken=LHLIUH где:
-хост должен быть текущий центральный
-nID_Protected - получный параметр
-sToken - сгенерированный случайно 20-ти символьный код
+
  3.4) в найденную таску (по nID_Protected) сетить в глобальную переменную
  3.4.1) saFieldQuestion - содержимое saField
  3.4.2) sQuestion - содержимое sBody
-
 
     * */
 
@@ -1206,6 +1199,7 @@ sToken - сгенерированный случайно 20-ти символь�
      * @param sBody -- строка тела письма //опциональный (если не задан, то пустота)
      * @throws ActivitiRestException
      */
+    //http://localhost:8081/service/rest/setTaskQuestions?nID_Protected=22&saField=[{%27id%27:%27sFamily%27,%27type%27:%27string%27,%27value%27:%27test%27}]&sMail=olga2012olga@gmail.com
     @RequestMapping(value = "/setTaskQuestions", method = RequestMethod.GET)
     public @ResponseBody
     void setTaskQuestions(@RequestParam(value = "nID_Protected") Long nID_Protected,
@@ -1214,5 +1208,121 @@ sToken - сгенерированный случайно 20-ти символь�
                     @RequestParam(value = "sHead", required = false) String sHead,
                     @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException {
 
+        sHead = sHead == null ? "Необхідно уточнити дані" : sHead;
+        sBody = sBody == null ? "" : sBody;
+        String sToken = generateToken();
+        try {
+            updateHistoryEvent_Service(saField, sHead, sBody, sToken);
+        } catch (Exception e) {
+            throw new ActivitiRestException(
+                    ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                   "error during updating historyEvent_service: " + e.getMessage(),e,
+                    HttpStatus.FORBIDDEN);
+        }
+        try {
+            sendEmail(sHead, createEmailBody(nID_Protected,saField,sBody, sToken),sMail);
+        } catch (EmailException e) {
+            throw new ActivitiRestException(
+                    ActivitiExceptionController.SYSTEM_ERROR_CODE,
+                    "error during sending email: " + e.getMessage(),e,
+                    HttpStatus.FORBIDDEN);
+        }
+
+    }
+/*тсылать письмо
+ 3.3.1) на sMail
+ 3.3.2) с заголовком sHead
+ 3.3.3) и телом sBody
+ 3.3.4) + перечисление полей из saField в формате таблицы: Поле / Тип / Текущее значение
+ 3.3.5) И гиперссылкой в конце типа: https://igov.org.ua/order?nID_Protected=12233&sToken=LHLIUH где:
+хост должен быть текущий центральный
+nID_Protected - получный параметр
+sToken - сгенерированный случайно 20-ти символьный код*/
+    private String createEmailBody(Long nID_Protected, String soData, String sBody, String sToken) {
+        StringBuilder emailBody = new StringBuilder(sBody);
+        emailBody.append("\n")
+                .append(createTable(soData))
+                .append("\n");
+        String link = (new StringBuilder("https://")
+                .append(generalConfig.sHostCentral())
+                .append("/order?nID_Protected=")
+                .append(nID_Protected)
+                .append("&sToken=")
+                .append(sToken))
+                    .toString();
+        emailBody.append(link)
+                .append("\n");
+        return emailBody.toString();
+    }
+
+    private void sendEmail(String sHead, String sBody, String recipient) throws EmailException {
+        oMail.reset();
+        oMail._To(recipient)
+             ._Head(sHead)
+             ._Body(sBody);
+        oMail.send();
+    }
+
+    private String createTable(String soData) {
+        if (soData == null || "[]".equals(soData)){
+            return "";
+        }
+        StringBuilder tableStr = new StringBuilder("Поле \t/ Тип \t/ Поточне значення\n");
+        JSONObject jsnobject = new JSONObject("{ soData:" + soData + "}");
+        JSONArray jsonArray = jsnobject.getJSONArray("soData");
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject record = jsonArray.getJSONObject(i);
+            tableStr.append(record.opt("id") != null ? record.get("id") : "?")
+                    .append(" (")
+                    .append(record.opt("type")!= null ? record.get("type").toString() : "??")
+                    .append("): ")
+                    .append(record.opt("value")!= null ? record.get("value").toString() : "")
+                    .append(" \n");
+        }
+        return tableStr.toString();
+    }
+
+    //steals from DocumentAccessDaoImpl :)
+    private String generateToken() {
+        // 97-122 small character
+        // 65-90 big character
+        // 48-57 number
+        StringBuilder os = new StringBuilder();
+        Random ran = new Random();
+        for (int i = 1; i <= 20; i++) {
+            int a = ran.nextInt(3) + 1;
+            switch (a) {
+                case 1:
+                    int num = ran.nextInt((57 - 48) + 1) + 48;
+                    os.append((char) num);
+                    break;
+                case 2:
+                    int small = ran.nextInt((122 - 97) + 1) + 97;
+                    os.append((char) small);
+                    break;
+                case 3:
+                    int big = ran.nextInt((90 - 65) + 1) + 65;
+                    os.append((char) big);
+                    break;
+            }
+        }
+        return os.toString();
+    }
+
+    private String updateHistoryEvent_Service(String saField, String sHead, String sBody, String sToken) throws Exception {
+        String URI = "/wf/service/services/updateHistoryEvent_Service";
+        Map<String, String> params = new HashMap<>();
+        params.put("soData", saField);
+        params.put("sHead", sHead);
+        params.put("sBody", sBody);
+        params.put("sToken", sToken);
+        params.put("sID_Status", "setTaskQuestions");
+        params.put("sAccessContract", "Request");
+        String sAccessKey_HistoryEvent = accessDataDao.setAccessData(httpRequester.getFullURL(URI, params));
+        params.put("sAccessKey", sAccessKey_HistoryEvent);
+        log.info("sAccessKey=" + sAccessKey_HistoryEvent);
+        String soJSON_HistoryEvent = httpRequester.get("https://" + generalConfig.sHostCentral() + URI, params);
+        log.info("soJSON_HistoryEvent="+soJSON_HistoryEvent);
+        return soJSON_HistoryEvent;
     }
 }
