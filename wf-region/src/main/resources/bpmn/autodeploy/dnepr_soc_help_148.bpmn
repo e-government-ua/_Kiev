@@ -132,7 +132,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask2" name="перевірка та пересилання документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
+    <userTask id="usertask2" name="перевірка  документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
@@ -165,7 +165,7 @@
           <activiti:value id="accept" name="Заповнені дані вірні, інформація направлена на розгляд, очікується рішення"></activiti:value>
           <activiti:value id="reject" name="Дані заповнені неправильно, повідомити громадянина (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="У разі відхилення запиту внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_148_print.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
@@ -348,7 +348,7 @@
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
 На жаль, Ваше звернення щодо призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня" відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
 &lt;br /&gt;
-Підстава: ${comment_1}    &lt;br /&gt;
+Підстава: ${comment}    &lt;br /&gt;
     &lt;/p&gt;
 Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
                                     &lt;/p&gt;
@@ -375,7 +375,7 @@
     <sequenceFlow id="flow5" name="документи ок" sourceRef="exclusivegateway2" targetRef="servicetask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='accept'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask2" name="Повідомлення громадянина про успішне подання зверенння" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask2" name="Повідомлення громадянина про успішне подання зверенння" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
@@ -385,9 +385,6 @@
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Призначення одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня"]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${opis}"</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -607,8 +604,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='accept'}]]></conditionExpression>
     </sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_149">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_149" id="BPMNPlane_dnepr_soc_help_149">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_148">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_148" id="BPMNPlane_dnepr_soc_help_148">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>

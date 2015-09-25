@@ -46,7 +46,7 @@
         <activiti:formProperty id="mfo" name="МФО банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="ЄДРПОУ банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bank_account" name="Номер рахунку (р/р)" type="string" default="26   "></activiti:formProperty>
-       	<activiti:formProperty id="zayava_fiz" name="Заява про згоду надавати соціальні послуги" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="zayava_fiz" name="Заява про згоду надавати соціальні послуги" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dovidka_health" name="Висновок лікарсько-консультаційної комісії про те, що стан Вашого здоров'я дозволяє посійно надавати соціальні послуги" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="employment_history" name="Копія трудової книжки; у разі відсутності трудової книжки - зазначити інформацію про останнє місце роботи чи отримання доходів" type="file"></activiti:formProperty>
         <activiti:formProperty id="dovidka_nalogovaya" name="Заява про надання згоди на проведення перевірки даних про доходи особи з використанням відомостей Державного реєстру фізичних осіб - платників податків" type="file" required="true"></activiti:formProperty>
@@ -150,7 +150,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask2" name="перевірка та пересилання документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
+    <userTask id="usertask2" name="перевірка документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
@@ -393,7 +393,7 @@
     <sequenceFlow id="flow5" name="документи ок" sourceRef="exclusivegateway2" targetRef="servicetask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='accept'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask2" name="Повідомлення громадянина про успішне подання зверенння" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask2" name="Повідомлення громадянина про успішне подання зверенння" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
@@ -403,9 +403,6 @@
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Призначення компенсації фізичним особам, які надають соціальні послуги]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${opis}"</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -625,8 +622,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='accept'}]]></conditionExpression>
     </sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_150">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_150" id="BPMNPlane_dnepr_soc_help_150">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_152">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_152" id="BPMNPlane_dnepr_soc_help_152">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>

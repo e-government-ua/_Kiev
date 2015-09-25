@@ -35,7 +35,7 @@
         <activiti:formProperty id="mfo" name="МФО банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="ЄДРПОУ банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bank_account" name="Номер рахунку (р/р)" type="string" default="26   "></activiti:formProperty>
-         <activiti:formProperty id="vityag_death" name="Витяг з Державного реєстру актів цивільного стану громадян про смерть" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="vityag_death" name="Витяг з Державного реєстру актів цивільного стану громадян про смерть" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dovidka_death" name="Свідоцтво про смерть" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -134,7 +134,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask2" name="перевірка та пересилання документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
+    <userTask id="usertask2" name="перевірка  документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
@@ -377,7 +377,7 @@
     <sequenceFlow id="flow5" name="документи ок" sourceRef="exclusivegateway2" targetRef="servicetask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='accept'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask2" name="Повідомлення громадянина про успішне подання зверенння" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask2" name="Повідомлення громадянина про успішне подання зверенння" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
@@ -387,9 +387,6 @@
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Призначення допомоги на поховання]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${opis}"</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -609,8 +606,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='accept'}]]></conditionExpression>
     </sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_149">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_149" id="BPMNPlane_dnepr_soc_help_149">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_151">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_151" id="BPMNPlane_dnepr_soc_help_151">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
