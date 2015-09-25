@@ -11,10 +11,10 @@
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта" type="file" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="blank" name="Завантажте відскановану і заповнену Форму-6" type="label" default="<p>обов'язково поставте дату і підпис.</p> За цим <a href="http://bit.ly/1KPbaQL">посиланням</a>ви знайдете актуальний бланк форми-6.<br> Роздрукуйте його, заповніть потрібні сторінки від руки, відскануйте чи сфотографуйте, та прикріпіть до цієї форми."></activiti:formProperty>
+        <activiti:formProperty id="blank" name="Завантажте відскановану і заповнену Форму-6" type="label" default="&lt;p&gt;обов'язково поставте дату і підпис.&lt;/p&gt; За цим &lt;a href=&quot;http://bit.ly/1KPbaQL&quot;&gt;посиланням&lt;/a&gt; ви знайдете актуальний бланк форми-6.&lt;br&gt; Роздрукуйте його, заповніть потрібні сторінки від руки, відскануйте чи сфотографуйте, та прикріпіть до цієї форми."></activiti:formProperty>
         <activiti:formProperty id="scan_form_6" name="Форма-6" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
-       <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="warningMessage" name="Увага" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
       </extensionElements>
     </startEvent>

@@ -239,7 +239,7 @@
         <activiti:formProperty id="pib_ker" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress_1" name="Місцезнаходження юридичної особи/місце проживання ФОП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="admin_fio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
-        <activiti:formProperty id="cnap_number" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="cnap_number" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string"></activiti:formProperty>
         <activiti:formProperty id="decision" name="Обробка заяви" type="enum">
           <activiti:value id="dok_ok" name="Документи направлені на розгляд до Департаменту корпоративних прав та правового забезпеченя Дніпропетровської міської ради"></activiti:value>
           <activiti:value id="dok_fail" name="У наданні послуги відмовлено"></activiti:value>
