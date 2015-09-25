@@ -116,6 +116,9 @@
  Адреса: Дніпропетровськ, вул. Поля,1 (2-й поверх, віконце 1, 2 чи 3).&lt;br/&gt;
 Дата та час: ${date_of_visit}.                                 
                                     &lt;/p&gt;
+&lt;p&gt;
+Щоб відмінити Ваш запис натисніть цю кнопку:  [cancelTask]
+&lt;/p&gt;
                                     &lt;p&gt;
  								При собі просимо мати:&lt;br/&gt;
 - паспорт громадянина України та 2 його копії;&lt;br/&gt;
@@ -180,7 +183,7 @@
     <sequenceFlow id="flow6" sourceRef="exclusivegateway1" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${finish=='attr2_missed'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask2" name="не прийшов вчасно" activiti:type="mail" >
+    <serviceTask id="mailtask2" name="не прийшов вчасно" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -338,6 +341,9 @@
  Адреса: Дніпропетровськ, вул. Поля,1 (2-й поверх, віконце 1, 2 чи 3).&lt;br/&gt;
 Дата та час: ${date_of_visit}.                                 
                                     &lt;/p&gt;
+&lt;p&gt;
+Щоб відмінити Ваш запис натисніть цю кнопку:  [cancelTask]
+&lt;/p&gt;
                                     &lt;p&gt;
  								При собі просимо мати:&lt;br/&gt;
 - паспорт громадянина України та 2 його копії;&lt;br/&gt;
@@ -446,6 +452,9 @@
  Адреса: Дніпропетровськ, вул. Поля,1 (2-й поверх, віконце 1, 2 чи 3).&lt;br/&gt;
 Дата та час: ${date_of_visit}.                                 
                                     &lt;/p&gt;
+&lt;p&gt;
+Щоб відмінити Ваш запис натисніть цю кнопку:  [cancelTask]
+&lt;/p&gt;
                                     &lt;p&gt;
  								При собі просимо мати:&lt;br/&gt;
 - паспорт громадянина України та 2 його копії;&lt;br/&gt;
@@ -576,6 +585,9 @@
  Адреса: Дніпропетровськ, вул. Поля,1 (2-й поверх, віконце 1, 2 чи 3).&lt;br/&gt;
 Дата та час: ${date_of_visit}.                                 
                                     &lt;/p&gt;
+&lt;p&gt;
+Щоб відмінити Ваш запис натисніть цю кнопку:  [cancelTask]
+&lt;/p&gt;
                                     &lt;p&gt;
  								При собі просимо мати:&lt;br/&gt;
 - паспорт громадянина України та 2 його копії;&lt;br/&gt;
@@ -644,8 +656,8 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${urgent=='attr2_yes'&&biometrical=='attr2_yes'}]]></conditionExpression>
     </sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_dms_passport">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_dms_passport" id="BPMNPlane_dnepr_dms_passport">
+  <bpmndi:BPMNDiagram id="BPMNDiagram__test_queue_cancel">
+    <bpmndi:BPMNPlane bpmnElement="_test_queue_cancel" id="BPMNPlane__test_queue_cancel">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="20.0" y="30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -665,7 +677,7 @@
         <omgdc:Bounds height="61.0" width="105.0" x="660.0" y="167.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask0" id="BPMNShape_servicetask0">
-        <omgdc:Bounds height="61.0" width="105.0" x="660.0" y="117.0"></omgdc:Bounds>
+        <omgdc:Bounds height="61.0" width="105.0" x="660.0" y="64.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="780.0" y="180.0"></omgdc:Bounds>
@@ -709,16 +721,13 @@
         <omgdi:waypoint x="660.0" y="197.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow0" id="BPMNEdge_flow0">
-        <omgdi:waypoint x="765.0" y="197.0"></omgdi:waypoint>
-        <omgdi:waypoint x="780.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="765.0" y="94.0"></omgdi:waypoint>
+        <omgdi:waypoint x="797.0" y="95.0"></omgdi:waypoint>
+        <omgdi:waypoint x="797.0" y="180.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="765.0" y="187.0"></omgdi:waypoint>
-        <omgdi:waypoint x="780.0" y="197.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="87.0" y="88.0"></omgdi:waypoint>
-        <omgdi:waypoint x="176.0" y="75.0"></omgdi:waypoint>
+        <omgdi:waypoint x="712.0" y="167.0"></omgdi:waypoint>
+        <omgdi:waypoint x="712.0" y="125.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
         <omgdi:waypoint x="176.0" y="75.0"></omgdi:waypoint>
@@ -760,6 +769,10 @@
         <omgdi:waypoint x="280.0" y="142.0"></omgdi:waypoint>
         <omgdi:waypoint x="280.0" y="267.0"></omgdi:waypoint>
         <omgdi:waypoint x="330.0" y="267.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="55.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="124.0" y="47.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
