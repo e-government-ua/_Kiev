@@ -218,7 +218,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow22" sourceRef="mailtask3" targetRef="usertask1"></sequenceFlow>
-   <userTask id="usertask1" name="Заява поступає до ЦНАП" activiti:candidateGroups="dnepr_cnap_36">
+   <userTask id="usertask1" name="Заява поступає до ЦНАП" activiti:candidateGroups="dnepr_cnap_36_${cnapChoose}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Суб’єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
@@ -453,7 +453,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow12" sourceRef="servicetask2" targetRef="usertask2"></sequenceFlow>
-    <userTask id="usertask2" name="Відповідь поступає до ЦНАП">
+    <userTask id="usertask2" name="Відповідь поступає до ЦНАП" activiti:candidateGroups="dnepr_cnap_36_${cnapChoose}">
       <extensionElements>
         <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" writable="false"></activiti:formProperty>
@@ -547,7 +547,7 @@
 									При собі треба мати:<br />
 									1. Документ, що посвідчує особу.<br />
 									2. Для уповоноваженої особи - довіренність.<br />
-									3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим підписом керівника юридичної особи, фізичної особи - підприємця або уповноваженої ними особи. Зразок заяви можно знайти за <a href="https://drive.google.com/file/d/0B68lQ-z45GpYSlFDdUFNY19Lakk/view?usp=sharing">посиланням</a>.
+									3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим підписом керівника юридичної особи, фізичної особи - підприємця або уповноваженої ними особи. Зразок заяви можно знайти за <a href="https://drive.google.com/file/d/0B68lQ-z45GpYaXN5LUhEd2NSMjQ/view?usp=sharing">посиланням</a>.
 									</p>
 									<p>
 									ЦНАП „Лівобережний”: м. Дніпропетровськ, просп. Газети „Правда”, 42 (1-й та 5-й поверхи)<br/>
@@ -567,7 +567,34 @@
 										Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
                                 </td>
                             </tr>
-                           
+                          <tr>
+                                <td style="padding: 35px 120px 0 120px;">
+                                    <b>Оцініть, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:&lt;/b>
+
+                                    <p style="text-align: center;">
+                                         <label> <input type="radio" name="sID_Rate" value="2"> <span>2 </span> </label>
+                                         <label> <nput type="radio" name="sID_Rate" value="3"> <span>3 </span></label>
+                                         <label> <input type="radio" name="sID_Rate" value="4"> <span>4& </span> </label>
+                                         <label> <input type="radio" name="sID_Rate" value="5"> <span>5 </span> </label>
+                                    </p>
+
+                                    <p style="font-size: 13px;">
+                                        Якщо Ви не задоволені якістью, прокоментуйте, будь ласка. <br />
+                                        Ви також<b style="color: #cc3333;"> маєте змогу анонімно </b> подати сигнал про будь-які правопорушення державних службовців.
+                                    </p>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td style="padding: 0 120px 35px 120px;">
+                                   <label><input type="checkbox" name="warnSignal"> Подати сигнал анонімно</label>
+                                   <label style="height: 110px; display: block;"><textarea name="sBody"></textarea></label>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td style="padding: 0 120px 55px 120px; text-align: center;">
+                                    <button type="submit">Відправити</button>
+                                </td>
+                            </tr>
                           
 
                         </table>
@@ -654,7 +681,7 @@
                                 <td style="padding: 35px 120px;">
 								  <h3>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.</h3>
                                     <p>
-                                        На жаль неможливо видати Вам копію рішень міської ради про продаж земельних ділянок державної та комунальної власності готова.
+                                        На жаль неможливо видати Вам копію рішень міської ради про продаж земельних ділянок державної та комунальної власності.
                                     </p>
 									<p>
 									Причина в наступному: <br />
@@ -793,10 +820,35 @@
 										Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
                                 </td>
                             </tr>
-                           
-                          
+                           <tr>
+                                <td style="padding: 35px 120px 0 120px;">
+                                    <b>Оцініть, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:&lt;/b>
 
-                        </table>
+                                    <p style="text-align: center;">
+                                         <label> <input type="radio" name="sID_Rate" value="2"> <span>2 </span> </label>
+                                         <label> <nput type="radio" name="sID_Rate" value="3"> <span>3 </span></label>
+                                         <label> <input type="radio" name="sID_Rate" value="4"> <span>4& </span> </label>
+                                         <label> <input type="radio" name="sID_Rate" value="5"> <span>5 </span> </label>
+                                    </p>
+
+                                    <p style="font-size: 13px;">
+                                        Якщо Ви не задоволені якістью, прокоментуйте, будь ласка. <br />
+                                        Ви також<b style="color: #cc3333;"> маєте змогу анонімно </b> подати сигнал про будь-які правопорушення державних службовців.
+                                    </p>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td style="padding: 0 120px 35px 120px;">
+                                   <label><input type="checkbox" name="warnSignal"> Подати сигнал анонімно</label>
+                                   <label style="height: 110px; display: block;"><textarea name="sBody"></textarea></label>
+                               </td>
+                            </tr>
+                            <tr>
+                               <td style="padding: 0 120px 55px 120px; text-align: center;">
+                                    <button type="submit">Відправити</button>
+                                </td>
+                            </tr>
+						 </table>
                      
                     </td>
                 </tr>
@@ -879,7 +931,7 @@
                                 <td style="padding: 35px 120px;">
 								  <h3>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.</h3>
                                     <p>
-                                        На жаль неможливо видати Вам копію рішень міської ради про продаж земельних ділянок державної та комунальної власності готова.
+                                        На жаль неможливо видати Вам копію рішень міської ради про продаж земельних ділянок державної та комунальної власності.
                                     </p>
 									<p>
 									Причина в наступному: <br />

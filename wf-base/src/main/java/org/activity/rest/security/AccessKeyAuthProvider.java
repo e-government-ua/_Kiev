@@ -70,8 +70,10 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
             log.warn("accessData == null");
             throw new BadAccessKeyCredentialsException("Error custom authorization - key is absent");
         }
+        
+        accessData = accessData.replace("&sAccessContract=Request", "").replace("sAccessContract=Request&", "");
         if (!accessData.equals(URLDecoder.decode((String)authentication.getCredentials()))) {
-            log.warn("!accessData.equals(authentication.getCredentials(): accessData=" + accessData + " authentication.getCredentials() decode="
+            log.warn("!accessData.equals(authentication.getCredentials()): accessData=" + accessData + " decode="
                     + URLDecoder.decode((String)authentication.getCredentials()) + "!!!!");
             throw new BadAccessKeyCredentialsException("Error custom authorization - key data is wrong");
         }

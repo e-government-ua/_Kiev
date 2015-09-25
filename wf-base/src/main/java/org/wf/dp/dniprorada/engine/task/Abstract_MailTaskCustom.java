@@ -37,7 +37,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 	private static final String TAG_nID_SUBJECT = "[nID_Subject]";
 	private static final String TAG_sACCESS_KEY = "[sAccessKey]";
 	private static final String TAG_sURL_SERVICE_MESSAGE = "[sURL_ServiceMessage]";
-	private static final String accessKeyPattern = "&sAccessKey=%s";
+	private static final String accessKeyPattern = "&sAccessContract=Request&sAccessKey=%s";
 	private static final String TAG_Function_AtEnum = "enum{[";
 	private static final String TAG_Function_To = "]}";
 	private static final String PATTERN_MERCHANT_ID = "sID_Merchant%s";
@@ -234,7 +234,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 					.processDefinitionId(execution.getProcessDefinitionId())
 					.singleResult();
 
-			String queryParamPattern = "?sAccessContract=Request&sHead=Отзыв"
+			String queryParamPattern = "?sHead=Отзыв"
 					+ "&sData="
 					+ (processDefinition != null
 							&& processDefinition.getName() != null ? processDefinition

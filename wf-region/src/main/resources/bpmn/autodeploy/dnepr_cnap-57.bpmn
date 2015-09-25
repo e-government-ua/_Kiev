@@ -1,69 +1,1196 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_cnap-57" name="WYFG" isExecutable="true">
+  <process id="dnepr_cnap-57" name="Дніпропетровськ_ЦНАП_Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" isExecutable="true">
+    <documentation>https://github.com/e-government-ua/iBP/issues/57</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
+        <activiti:formProperty id="warningMessage1" name="Увага" type="label" default="Подавати декларацію можуть лише керівник юридичної особи і фізична особа, яка має право вчиняти дії від імені юридичної особи без довіреності, у тому числі підписувати договори."></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="client" name="Заявник" type="enum" required="true">
-          <activiti:value id="attr1" name="отримувач особисто"></activiti:value>
-          <activiti:value id="attr2" name="представник отримувача"></activiti:value>
+        <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані;серія, номер, коли і ким виданий" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Номер облікової картки платника податків" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fax" name="Номер факсу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail: На цей e-mail Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="client" name="Заява подається від імені юридичної особи або ФОП?" type="enum" required="true">
+          <activiti:value id="attr1" name="юридична особа"></activiti:value>
+          <activiti:value id="attr2" name="фізична особа-підприємець"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="info1" name="Дані, що заповнюються тільки отримувачем" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="info2" name="Дані, що заповнюються тільки представником отримувача" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="file1" name=" Файл, що додається тільки отримувачем" type="file"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Файл, що додається тільки представником отримувача" type="file"></activiti:formProperty>
-        <activiti:formProperty id="email" name="email" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="markers2" name="Мареры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnNotEmpty_1&quot;:{&quot;aField_ID&quot;:[&quot;email&quot;],&quot;sField_ID_s&quot;:&quot;client&quot;},&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;info1&quot;,&quot;file1&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;client&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'attr1'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;info2&quot;,&quot;file2&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;client&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'attr2'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="name" name="Найменування юридичної особи" type="string" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="PIB" name="Прізвище, ім'я та по-батькові керівника" type="string" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="Reestr" name="Місце реєстрації юридичної особи" type="string" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="inn" name="Код платника податків згідно з ЄДРПОУ" type="string" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="KVED" name="Код виду діяльності згідно з КВЕД" type="string" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="locacia" name="Місце (адреса) виконання робіт підвищеної небезпеки;та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата його видачі" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу;якщо роботи не виконуються, оберіть порожню строчку" type="enum" required="true">
+          <activiti:value id=" " name=" "></activiti:value>
+          <activiti:value id="1a" name="1. Радіологічний (дозиметричний) і піротехнічний контроль."></activiti:value>
+          <activiti:value id="2b" name="2. Виготовлення та випробування вантажозахоплюючих пристроїв."></activiti:value>
+          <activiti:value id="3c" name="3. Експлуатація і ремонт водозбірних споруд."></activiti:value>
+          <activiti:value id="4d" name="4. Продавлювання тунельних конструкцій під будинками, спорудами, магістралями і водоймищами, крім земляних робіт, що виконуються на глибині понад 2 метри або в зоні розташування підземних комунікацій чи під водою."></activiti:value>
+          <activiti:value id="5e" name="5. Роботи із застосуванням піротехнічних виробів."></activiti:value>
+          <activiti:value id="6f" name="6. Експлуатація, обслуговування, ремонт технологічного устатковання харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
+          <activiti:value id="7g" name="7. Ремонтні, монтажні, будівельні та інші роботи, що виконуються на висоті понад  1,3 метра, крім робіт верхолазних та скелелазних, що виконуються на висоті 5 метрів і більше над поверхнею ґрунту, з перекриття або робочого настилу та робіт, що виконуються за допомогою підйомних і підвісних колисок, механічних підіймачів та будівельних підйомників."></activiti:value>
+          <activiti:value id="8h" name="8. Навчання з питань охорони праці працівників інших суб'єктів господарювання."></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволуи;якщо машини не використовуються, оберіть порожню строчку" type="enum" required="true">
+          <activiti:value id=" " name=" "></activiti:value>
+          <activiti:value id="1A" name="1. Машини, механізми, устатковання для буріння, ремонту свердловин на суходолі і в акваторії моря."></activiti:value>
+          <activiti:value id="2B" name="2. Машини, механізми, устатковання для харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
+          <activiti:value id="3C" name="3. Ковальсько-пресове устаковання."></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="brand" name="Зазначте марку, номер партії, дату виготовлення, країну походження машин" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="workspace" name="Зазначте кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="build" name="Зазначте кількість будівель і споруд (приміщень)" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objects" name="Зазначте виробничі об'єкти (цехи, дільниці, структурні підрозділи)" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="vidpovidalni" name="Зазначте осіб, відповідальних за дотримання законодавства з питань охорони праці та промислової безпеки;Прізвище, ім'я, по-батькові, номер та дата протокола, назва головного навчально-методичного центру" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="slugba" name="Зазначте наявність служби охорони праці;номер і дата наказу" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="instrukcii" name="Зазначте наявність інструкцій;перелік" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="instruktag" name="Надайте інформацію про проведення навчання та інструктажу з питань охорони праці" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="doks" name="Надайте інформацію про експлуатаційну документацію" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="indZahist" name="Надайте інформацію про засоби індивідуального захисту" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="metodika" name="Надайте інформацію про нормативно-правову та матеріально-технічну бази, навчально-методичне забезпечення" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="Date" name="Дата подання декларації" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="vibor" name="Де ви бажаєте отримати оригінал рішення про реєстрацію декларації?" type="enum" required="true">
+          <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
+          <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="usluga" name="Яка служба повинна виконати реєстрацію декларації?" type="enum" required="true">
+          <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
+          <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnNotEmpty_1&quot;:{&quot;sField_ID_s&quot;: &quot;client&quot;},&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;: [&quot;name&quot;, &quot;Reestr&quot;, &quot;inn&quot;, &quot;KVED&quot;, &quot;PIB&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;client&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr1'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:value xmlns:activiti="http://activiti.org/bpmn" id="attr1" name="юридична особа"></activiti:value>
+        <activiti:value xmlns:activiti="http://activiti.org/bpmn" id="attr2" name="фізична особа-підприємець"></activiti:value>
       </extensionElements>
     </startEvent>
-    <serviceTask id="servicetask1" name="подтягивание документов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
-    <userTask id="usertask1" name="рассмотрение и загрузка" activiti:candidateGroups="sales">
+    <serviceTask id="mailtask1" name="Лист про отримання заявки" activiti:type="mail">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="client" name="Заявник" type="enum">
-          <activiti:value id="attr1" name="отримувач особисто"></activiti:value>
-          <activiti:value id="attr2" name="представник отримувача"></activiti:value>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;Ваше звернення щодо "Декларації відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" успішно зареєстроване.&lt;/p&gt;
+					&lt;p&gt;Ви отримаєте відповідь протягом 3 робочих днів. &lt;/p&gt;
+                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        ЦНАП м. Дніпропетровськ,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/table&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <userTask id="usertask1" name="Перевірка даних службою ФОП" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+      <extensionElements>
+        <activiti:formProperty id="Per2" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете сповістити заявника чи зареєстровано його декларацію. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані;серія, номер, коли і ким виданий" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Номер облікової картки платника податків" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fax" name="Номер факсу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="client" name="Заяву подає" type="enum" writable="false">
+          <activiti:value id="attr1" name="юридична особа"></activiti:value>
+          <activiti:value id="attr2" name="фізична особа-підприємець"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="info1" name="Дані, що заповнюються тільки отримувачем" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="info2" name="Дані, що заповнюються тільки представником отримувача" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="file" name="file" type="file"></activiti:formProperty>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:formProperty id="locacia" name="Місце (адреса) виконання робіт підвищеної небезпеки;та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата його видачі" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу" type="enum" writable="false">
+          <activiti:value id=" " name=" "></activiti:value>
+          <activiti:value id="1a" name="1. Радіологічний (дозиметричний) і піротехнічний контроль."></activiti:value>
+          <activiti:value id="2b" name="2. Виготовлення та випробування вантажозахоплюючих пристроїв."></activiti:value>
+          <activiti:value id="3c" name="3. Експлуатація і ремонт водозбірних споруд."></activiti:value>
+          <activiti:value id="4d" name="4. Продавлювання тунельних конструкцій під будинками, спорудами, магістралями і водоймищами, крім земляних робіт, що виконуються на глибині понад 2 метри або в зоні розташування підземних комунікацій чи під водою."></activiti:value>
+          <activiti:value id="5e" name="5. Роботи із застосуванням піротехнічних виробів."></activiti:value>
+          <activiti:value id="6f" name="6. Експлуатація, обслуговування, ремонт технологічного устатковання харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
+          <activiti:value id="7g" name="7. Ремонтні, монтажні, будівельні та інші роботи, що виконуються на висоті понад  1,3 метра, крім робіт верхолазних та скелелазних, що виконуються на висоті 5 метрів і більше над поверхнею ґрунту, з перекриття або робочого настилу та робіт, що виконуються за допомогою підйомних і підвісних колисок, механічних підіймачів та будівельних підйомників."></activiti:value>
+          <activiti:value id="8h" name="8. Навчання з питань охорони праці працівників інших суб'єктів господарювання."></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволуи" type="enum" writable="false">
+          <activiti:value id=" " name=" "></activiti:value>
+          <activiti:value id="1A" name="1. Машини, механізми, устатковання для буріння, ремонту свердловин на суходолі і в акваторії моря."></activiti:value>
+          <activiti:value id="2B" name="2. Машини, механізми, устатковання для харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
+          <activiti:value id="3C" name="3. Ковальсько-пресове устаковання."></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="brand" name="Марка, номер партії, дата виготовлення, країна походження машин" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="workspace" name="Кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="build" name="Кількість будівель і споруд (приміщень)" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objects" name="Виробничі об'єкти (цехи, дільниці, структурні підрозділи)" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vidpovidalni" name="Особи, відповідальні за дотримання законодавства з питань охорони праці та промислової безпеки;Прізвище, ім'я, по-батькові, номер та дата протокола, назва головного навчально-методичного центру" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="slugba" name="Наявність служби охорони праці;номер і дата наказу" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="instrukcii" name="Наявність інструкцій;перелік" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="instruktag" name="Інформація про проведення навчання та інструктажу з питань охорони праці" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="doks" name="Інформацію про експлуатаційну документацію" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="indZahist" name="Інформацію про засоби індивідуального захисту" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="metodika" name="Інформація про нормативно-правову та матеріально-технічну бази, навчально-методичне забезпечення" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Date" name="Дата подання декларації" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vibor" name="Отримати результат реєстрації декларації заявник хоче в:" type="enum" writable="false">
+          <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
+          <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="usluga" name="Реєстрацію повинно виконати" type="enum" writable="false">
+          <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
+          <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="vidpovid" name="Додайте скановану відповідь реєстратора" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57f_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow7" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
-    <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow8" sourceRef="usertask1" targetRef="endevent1"></sequenceFlow>
+    <userTask id="usertask3" name="Формування опису або відмова при неправильних документах Юр особа" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+      <extensionElements>
+        <activiti:formProperty id="per1" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете ознайомитись з поданими документами, прийняти попереднє рішення про те, чи достатньо їх для виконання запиту, роздрукувати заяву і всі додатки. Якщо перевірку пройдено, додайте файл з описом прийнятих документів, номером і датою прийняття. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані;серія, номер, коли і ким виданий" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Номер облікової картки платника податків" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fax" name="Номер факсу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="client" name="Заяву подає" type="enum" writable="false">
+          <activiti:value id="attr1" name="юридична особа"></activiti:value>
+          <activiti:value id="attr2" name="фізична особа-підприємець"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="name" name="Найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="PIB" name="Прізвище, ім'я та по-батькові керівника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Reestr" name="Місце реєстрації юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="inn" name="Код платника податків згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="KVED" name="Код виду діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="locacia" name="Місце (адреса) виконання робіт підвищеної небезпеки;та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата його видачі" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу" type="enum" writable="false">
+          <activiti:value id=" " name=" "></activiti:value>
+          <activiti:value id="1a" name="1. Радіологічний (дозиметричний) і піротехнічний контроль."></activiti:value>
+          <activiti:value id="2b" name="2. Виготовлення та випробування вантажозахоплюючих пристроїв."></activiti:value>
+          <activiti:value id="3c" name="3. Експлуатація і ремонт водозбірних споруд."></activiti:value>
+          <activiti:value id="4d" name="4. Продавлювання тунельних конструкцій під будинками, спорудами, магістралями і водоймищами, крім земляних робіт, що виконуються на глибині понад 2 метри або в зоні розташування підземних комунікацій чи під водою."></activiti:value>
+          <activiti:value id="5e" name="5. Роботи із застосуванням піротехнічних виробів."></activiti:value>
+          <activiti:value id="6f" name="6. Експлуатація, обслуговування, ремонт технологічного устатковання харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
+          <activiti:value id="7g" name="7. Ремонтні, монтажні, будівельні та інші роботи, що виконуються на висоті понад  1,3 метра, крім робіт верхолазних та скелелазних, що виконуються на висоті 5 метрів і більше над поверхнею ґрунту, з перекриття або робочого настилу та робіт, що виконуються за допомогою підйомних і підвісних колисок, механічних підіймачів та будівельних підйомників."></activiti:value>
+          <activiti:value id="8h" name="8. Навчання з питань охорони праці працівників інших суб'єктів господарювання."></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволуи" type="enum" writable="false">
+          <activiti:value id=" " name=" "></activiti:value>
+          <activiti:value id="1A" name="1. Машини, механізми, устатковання для буріння, ремонту свердловин на суходолі і в акваторії моря."></activiti:value>
+          <activiti:value id="2B" name="2. Машини, механізми, устатковання для харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
+          <activiti:value id="3C" name="3. Ковальсько-пресове устаковання."></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="brand" name="Марка, номер партії, дата виготовлення, країна походження машин" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="workspace" name="Кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="build" name="Кількість будівель і споруд (приміщень)" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objects" name="Виробничі об'єкти (цехи, дільниці, структурні підрозділи)" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vidpovidalni" name="Особи, відповідальні за дотримання законодавства з питань охорони праці та промислової безпеки;Прізвище, ім'я, по-батькові, номер та дата протокола, назва головного навчально-методичного центру" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="slugba" name="Наявність служби охорони праці;номер і дата наказу" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="instrukcii" name="Наявність інструкцій;перелік" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="instruktag" name="Інформація про проведення навчання та інструктажу з питань охорони праці" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="doks" name="Інформацію про експлуатаційну документацію" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="indZahist" name="Інформацію про засоби індивідуального захисту" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="metodika" name="Інформація про нормативно-правову та матеріально-технічну бази, навчально-методичне забезпечення" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Date" name="Дата подання декларації" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vibor" name="Отримати результат реєстрації декларації заявник хоче в:" type="enum" writable="false">
+          <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
+          <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="usluga" name="Реєстрацію повинно виконати" type="enum" writable="false">
+          <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
+          <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="proverka" name="Оберіть результат первинної перевірки документів:" type="enum" required="true">
+          <activiti:value id="yes" name="Документи прийнято, формується опис, документи передаються для подальшої обробки"></activiti:value>
+          <activiti:value id="no" name="Поданих документів недостатньо для обробки"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="opis" name="Додайте файл опису прийнятих документів, якщо документи прийнято" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="otkaz1" name="Вкажіть, яких саме документів та(або) даних не вистачає (заповнювати не обов'язково)" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57u_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow21" name="Юр. особа" sourceRef="exclusivegateway3" targetRef="usertask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${client=='attr1'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow22" sourceRef="servicetask2" targetRef="usertask1"></sequenceFlow>
+    <serviceTask id="mailtask4" name="Не пройдено перевірку ЦНАП" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;Щодо Вашого запиту на реєстрацію "Декларації відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки".&lt;br&gt;
+На жаль, вашу декларацію відхилено.&lt;br&gt;
+${otkaz1} &lt;br&gt;
+Ви можете подати ще одне звернення на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;igov.org.ua&lt;/a&gt;&lt;/p&gt;
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        ЦНАП м. Дніпропетровськ&lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                                                  &lt;/table&gt;
+                                         &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow23" sourceRef="exclusivegateway1" targetRef="mailtask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='no'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="servicetask2" name="Лист з копією заяви і описом прийнятих документів ФОП" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta http-equiv="Content-Type"
+ content="text/html; charset=UTF-8"&gt;
+  &lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+  &lt;meta content="text/html; charset=UTF-8"
+ http-equiv="content-type"&gt;
+  &lt;title&gt;dnepr_cnap_57-58_print&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;table style="border-collapse: collapse;" id="mailer-body"
+ border="0" cellpadding="0" cellspacing="0"
+ width="100%"&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td align="center"&gt;
+      &lt;table style="border-collapse: collapse;" border="0"
+ cellpadding="0" cellspacing="0" width="800"&gt;
+&lt;!--header line statrs--&gt; &lt;tbody&gt;
+          &lt;tr&gt;
+            &lt;td style="padding: 35px 120px; color: white;"
+ bgcolor="#5ca3cb"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br&gt;
+портал державних послуг&lt;/td&gt;
+          &lt;/tr&gt;
+&lt;!--header line end--&gt;&lt;!--content statrs--&gt; &lt;tr&gt;
+            &lt;td align="center"&gt;
+            &lt;table style="border-collapse: collapse;"
+ border="0" cellpadding="0" cellspacing="0"
+ width="800"&gt;
+              &lt;tbody&gt;
+                &lt;tr&gt;
+                  &lt;td style="padding: 35px 120px;"&gt;
+                  &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                  &lt;p&gt; Ваше звернення про реєстрацію декларації перевірено адміністратором. Декларацію передано ${slugba}.&lt;br&gt;
+				  До листа додано опис прийнятих документів. &lt;/p&gt;
+                  &lt;hr
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(221, 221, 221); border-width: 0pt 0pt 1px; margin: 30px 0pt 15px; background: rgb(221, 221, 221) none repeat scroll 0%; width: 100%; height: 0pt; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"&gt;
+                  &lt;p&gt; З повагою,&lt;br&gt;
+ЦНАП м. Дніпропетровськ,&lt;br&gt;
+Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                  &lt;/p&gt;
+                  &lt;/td&gt;
+                &lt;/tr&gt;
+              &lt;/tbody&gt;
+            &lt;/table&gt;
+            &lt;/td&gt;
+          &lt;/tr&gt;
+&lt;!--content end--&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${opis}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow25" sourceRef="exclusivegateway1" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'&&client=='attr2'}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow26" sourceRef="usertask1" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow29" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
+    <serviceTask id="mailtask5" name="Сповіщення держслужбовця" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Нове звернення на тему: Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:string><![CDATA[Crow79@ua.fm]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:string><![CDATA[<style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    </style>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.<span>org.<span>ua</span></span></b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>На порталі <a href=https://demo.igov.org.ua:6948/>iGov.org.ua</a> зареєстровано нове звернення на тему:</h3>
+                                    <p>
+                                       Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки</p>
+									<p>
+									Ви можете перейти на <a href=https://demo.igov.org.ua:6948/>портал</a>, щоб почати опрацювання звернення.
+                                    </p>
+                              <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                        З повагою,<br />
+                                        Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow30" sourceRef="mailtask1" targetRef="mailtask5"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow31" sourceRef="mailtask5" targetRef="exclusivegateway3"></sequenceFlow>
+    <userTask id="usertask4" name="Формування опису або відмова при неправильних документах ФОП" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+      <extensionElements>
+        <activiti:formProperty id="per1" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете ознайомитись з поданими документами, прийняти попереднє рішення про те, чи достатньо їх для виконання запиту, роздрукувати заяву і всі додатки. Якщо перевірку пройдено, додайте файл з описом прийнятих документів, номером і датою прийняття. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані;серія, номер, коли і ким виданий" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Номер облікової картки платника податків" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fax" name="Номер факсу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="client" name="Заяву подає" type="enum" writable="false">
+          <activiti:value id="attr1" name="юридична особа"></activiti:value>
+          <activiti:value id="attr2" name="фізична особа-підприємець"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="locacia" name="Місце (адреса) виконання робіт підвищеної небезпеки;та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата його видачі" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу" type="enum" writable="false">
+          <activiti:value id=" " name=" "></activiti:value>
+          <activiti:value id="1a" name="1. Радіологічний (дозиметричний) і піротехнічний контроль."></activiti:value>
+          <activiti:value id="2b" name="2. Виготовлення та випробування вантажозахоплюючих пристроїв."></activiti:value>
+          <activiti:value id="3c" name="3. Експлуатація і ремонт водозбірних споруд."></activiti:value>
+          <activiti:value id="4d" name="4. Продавлювання тунельних конструкцій під будинками, спорудами, магістралями і водоймищами, крім земляних робіт, що виконуються на глибині понад 2 метри або в зоні розташування підземних комунікацій чи під водою."></activiti:value>
+          <activiti:value id="5e" name="5. Роботи із застосуванням піротехнічних виробів."></activiti:value>
+          <activiti:value id="6f" name="6. Експлуатація, обслуговування, ремонт технологічного устатковання харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
+          <activiti:value id="7g" name="7. Ремонтні, монтажні, будівельні та інші роботи, що виконуються на висоті понад  1,3 метра, крім робіт верхолазних та скелелазних, що виконуються на висоті 5 метрів і більше над поверхнею ґрунту, з перекриття або робочого настилу та робіт, що виконуються за допомогою підйомних і підвісних колисок, механічних підіймачів та будівельних підйомників."></activiti:value>
+          <activiti:value id="8h" name="8. Навчання з питань охорони праці працівників інших суб'єктів господарювання."></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволуи" type="enum" writable="false">
+          <activiti:value id=" " name=" "></activiti:value>
+          <activiti:value id="1A" name="1. Машини, механізми, устатковання для буріння, ремонту свердловин на суходолі і в акваторії моря."></activiti:value>
+          <activiti:value id="2B" name="2. Машини, механізми, устатковання для харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
+          <activiti:value id="3C" name="3. Ковальсько-пресове устаковання."></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="brand" name="Марка, номер партії, дата виготовлення, країна походження машин" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="workspace" name="Кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="build" name="Кількість будівель і споруд (приміщень)" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objects" name="Виробничі об'єкти (цехи, дільниці, структурні підрозділи)" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vidpovidalni" name="Особи, відповідальні за дотримання законодавства з питань охорони праці та промислової безпеки;Прізвище, ім'я, по-батькові, номер та дата протокола, назва головного навчально-методичного центру" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="slugba" name="Наявність служби охорони праці;номер і дата наказу" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="instrukcii" name="Наявність інструкцій;перелік" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="instruktag" name="Інформація про проведення навчання та інструктажу з питань охорони праці" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="doks" name="Інформацію про експлуатаційну документацію" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="indZahist" name="Інформацію про засоби індивідуального захисту" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="metodika" name="Інформація про нормативно-правову та матеріально-технічну бази, навчально-методичне забезпечення" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Date" name="Дата подання декларації" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vibor" name="Отримати результат реєстрації декларації заявник хоче в:" type="enum" writable="false">
+          <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
+          <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="usluga" name="Реєстрацію повинно виконати" type="enum" writable="false">
+          <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
+          <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="proverka" name="Оберіть результат первинної перевірки документів:" type="enum" required="true">
+          <activiti:value id="yes" name="Документи прийнято, формується опис, документи передаються для подальшої обробки"></activiti:value>
+          <activiti:value id="no" name="Поданих документів недостатньо для обробки"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="opis" name="Додайте файл опису прийнятих документів, якщо документи прийнято" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="otkaz1" name="Вкажіть, яких саме документів та(або) даних не вистачає (заповнювати не обов'язково)" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57f_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow32" name="ФОП" sourceRef="exclusivegateway3" targetRef="usertask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${client=='attr2'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow33" sourceRef="usertask4" targetRef="exclusivegateway1"></sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow34" sourceRef="mailtask4" targetRef="endevent2"></sequenceFlow>
+    <serviceTask id="servicetask3" name="Лист з копією заяви і описом прийнятих документів ФОП юр. особа" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta http-equiv="Content-Type"
+ content="text/html; charset=UTF-8"&gt;
+  &lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+  &lt;meta content="text/html; charset=UTF-8"
+ http-equiv="content-type"&gt;
+  &lt;title&gt;dnepr_cnap_57-58_print&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;table style="border-collapse: collapse;" id="mailer-body"
+ border="0" cellpadding="0" cellspacing="0"
+ width="100%"&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td align="center"&gt;
+      &lt;table style="border-collapse: collapse;" border="0"
+ cellpadding="0" cellspacing="0" width="800"&gt;
+&lt;!--header line statrs--&gt; &lt;tbody&gt;
+          &lt;tr&gt;
+            &lt;td style="padding: 35px 120px; color: white;"
+ bgcolor="#5ca3cb"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br&gt;
+портал державних послуг&lt;/td&gt;
+          &lt;/tr&gt;
+&lt;!--header line end--&gt;&lt;!--content statrs--&gt; &lt;tr&gt;
+            &lt;td align="center"&gt;
+            &lt;table style="border-collapse: collapse;"
+ border="0" cellpadding="0" cellspacing="0"
+ width="800"&gt;
+              &lt;tbody&gt;
+                &lt;tr&gt;
+                  &lt;td style="padding: 35px 120px;"&gt;
+                  &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                  &lt;p&gt; Ваше звернення про реєстрацію декларації перевірено адміністратором. Декларацію передано ${slugba}.&lt;br&gt;
+				  До листа додано опис прийнятих документів. &lt;/p&gt;
+                  &lt;hr
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(221, 221, 221); border-width: 0pt 0pt 1px; margin: 30px 0pt 15px; background: rgb(221, 221, 221) none repeat scroll 0%; width: 100%; height: 0pt; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"&gt;
+                  &lt;p&gt; З повагою,&lt;br&gt;
+ЦНАП м. Дніпропетровськ,&lt;br&gt;
+Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                  &lt;/p&gt;
+                  &lt;/td&gt;
+                &lt;/tr&gt;
+              &lt;/tbody&gt;
+            &lt;/table&gt;
+            &lt;/td&gt;
+          &lt;/tr&gt;
+&lt;!--content end--&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${opis}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow35" sourceRef="exclusivegateway1" targetRef="servicetask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'&&client=='attr1'}]]></conditionExpression>
+    </sequenceFlow>
+    <userTask id="usertask5" name="Перевірка даних службою юр. особа" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+      <extensionElements>
+        <activiti:formProperty id="Per2" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете сповістити заявника чи оброблено його заяву. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані;серія, номер, коли і ким виданий" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Номер облікової картки платника податків" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fax" name="Номер факсу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="client" name="Заяву подає" type="enum" writable="false">
+          <activiti:value id="attr1" name="юридична особа"></activiti:value>
+          <activiti:value id="attr2" name="фізична особа-підприємець"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="name" name="Найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="PIB" name="Прізвище, ім'я та по-батькові керівника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Reestr" name="Місце реєстрації юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="inn" name="Код платника податків згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="KVED" name="Код виду діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="locacia" name="Місце (адреса) виконання робіт підвищеної небезпеки;та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата його видачі" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу" type="enum" writable="false">
+          <activiti:value id=" " name=" "></activiti:value>
+          <activiti:value id="1a" name="1. Радіологічний (дозиметричний) і піротехнічний контроль."></activiti:value>
+          <activiti:value id="2b" name="2. Виготовлення та випробування вантажозахоплюючих пристроїв."></activiti:value>
+          <activiti:value id="3c" name="3. Експлуатація і ремонт водозбірних споруд."></activiti:value>
+          <activiti:value id="4d" name="4. Продавлювання тунельних конструкцій під будинками, спорудами, магістралями і водоймищами, крім земляних робіт, що виконуються на глибині понад 2 метри або в зоні розташування підземних комунікацій чи під водою."></activiti:value>
+          <activiti:value id="5e" name="5. Роботи із застосуванням піротехнічних виробів."></activiti:value>
+          <activiti:value id="6f" name="6. Експлуатація, обслуговування, ремонт технологічного устатковання харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
+          <activiti:value id="7g" name="7. Ремонтні, монтажні, будівельні та інші роботи, що виконуються на висоті понад  1,3 метра, крім робіт верхолазних та скелелазних, що виконуються на висоті 5 метрів і більше над поверхнею ґрунту, з перекриття або робочого настилу та робіт, що виконуються за допомогою підйомних і підвісних колисок, механічних підіймачів та будівельних підйомників."></activiti:value>
+          <activiti:value id="8h" name="8. Навчання з питань охорони праці працівників інших суб'єктів господарювання."></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволуи" type="enum" writable="false">
+          <activiti:value id=" " name=" "></activiti:value>
+          <activiti:value id="1A" name="1. Машини, механізми, устатковання для буріння, ремонту свердловин на суходолі і в акваторії моря."></activiti:value>
+          <activiti:value id="2B" name="2. Машини, механізми, устатковання для харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
+          <activiti:value id="3C" name="3. Ковальсько-пресове устаковання."></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="brand" name="Марка, номер партії, дата виготовлення, країна походження машин" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="workspace" name="Кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="build" name="Кількість будівель і споруд (приміщень)" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objects" name="Виробничі об'єкти (цехи, дільниці, структурні підрозділи)" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vidpovidalni" name="Особи, відповідальні за дотримання законодавства з питань охорони праці та промислової безпеки;Прізвище, ім'я, по-батькові, номер та дата протокола, назва головного навчально-методичного центру" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="slugba" name="Наявність служби охорони праці;номер і дата наказу" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="instrukcii" name="Наявність інструкцій;перелік" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="instruktag" name="Інформація про проведення навчання та інструктажу з питань охорони праці" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="doks" name="Інформацію про експлуатаційну документацію" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="indZahist" name="Інформацію про засоби індивідуального захисту" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="metodika" name="Інформація про нормативно-правову та матеріально-технічну бази, навчально-методичне забезпечення" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Date" name="Дата подання декларації" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="vibor" name="Отримати результат реєстрації декларації заявник хоче в:" type="enum" writable="false">
+          <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
+          <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="usluga" name="Реєстрацію повинно виконати" type="enum" writable="false">
+          <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
+          <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="proverka2" name="Рішення еєстратора про реєстрацію декларації" type="enum">
+          <activiti:value id="ok" name="декларацію зареєстровано"></activiti:value>
+          <activiti:value id="bad" name="декларацію не зареєстровано"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="vidpovid" name="Додайте файл скановану відповідь реєстратора" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57u_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow36" sourceRef="servicetask3" targetRef="usertask5"></sequenceFlow>
+    <sequenceFlow id="flow37" sourceRef="usertask5" targetRef="exclusivegateway2"></sequenceFlow>
+    <serviceTask id="servicetask6" name="Правобережний ЦНАП відповідь" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+ &lt;p&gt;Надану Вами ${vidpovid}&lt;br/&gt;
+ Більш детальна інформація у прикріпленому файлі.&lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;Забрати оригінал відповіді Ви можете в ЦНАП "Правобережний" за адресою:&lt;/p&gt;
+&lt;p&gt;49051, м.Дніпропетровськ, пр. К. Маркса, 75, каб. 105&lt;/p&gt;
+&lt;p&gt;Режим роботи центру:&lt;/p&gt;
+&lt;p&gt;понеділок, середа з 09.00 до 18.00, вівторок, четвер з 09.00 до 20.00;&lt;br&gt; 
+п’ятниця з 09.00 до 16.45, субота з 09.00 до 16.00;&lt;br&gt;
+ &lt;br&gt;
+Крім святкових днів&lt;/p&gt;  
+&lt;p&gt;телефон (056) 742-84-08&lt;/p&gt;
+&lt;p&gt;Для отримання зареєстрованої Декларації потрібно особисто звернутися до адміністратора ЦНАП з документом, що посвідчує особу (паспорт).&lt;br/&gt;
+Звертаємо увагу на те, що Ви власноруч підписуєте зареєстровану Декларацію та проставляєте на ній печатку (у разі наявності) в присутності адміністратора в приміщенні ЦНАП&lt;/p&gt;
+                   &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Державна реєстраційна служба,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           &lt;/table&gt;
+						   &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px 0 120px;"&gt;
+                                    
+									&lt;b&gt;Оцініть, будь ласка, наскільки Ви задоволені якістю надання цієї послуги, за шкалою від 2 до 5:&lt;/b&gt;
+
+                                    &lt;p style="text-align: center;"&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
+                                    &lt;/p&gt;
+
+                                    &lt;p style="font-size: 13px;"&gt;
+										Якщо Ви не задоволені якістю, прокоментуйте будь ласка що Вас не задовольнило.&lt;br /&gt;
+                                        Також Ви &lt;b style="color: #cc3333;"&gt;маєте пожливість анонімно&lt;/b&gt; подати сигнал о будь-яких правопорушеннях Державних службовців.
+										
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
+                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
+                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
+                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/table&gt;
+                        &lt;/form&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${vidpovid}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow40" sourceRef="exclusivegateway2" targetRef="servicetask6">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vibor=='prav'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="servicetask7" name="Лівобережний ЦНАП відповідь" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>&lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+ &lt;p&gt;Надану Вами ${vidpovid}&lt;br/&gt;
+ Більш детальна інформація у прикріпленому файлі.&lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;Забрати оригінал відповіді Ви можете в ЦНАП «Лівобережний» за адресою:&lt;br/&gt;
+49051, м. Дніпропетровськ, просп. Газети «Правда», 42 (5-й поверх)&lt;br/&gt;
+&lt;br/&gt;
+Режим роботи:&lt;br/&gt;
+Понеділок, середа з 09.00 до 18.00, вівторок, четвер з 09.00 до 20.00,&lt;br/&gt;
+п’ятниця з 09.00 до 16.45, субота з 09.00 до 16.00 крім святкових днів.&lt;br/&gt;
+&lt;br/&gt;
+Електронна адреса:  dnepr-cnap@ukr.net&lt;br/&gt;
+Телефон: (056) 726-30-69&lt;/p&gt;
+&lt;br/&gt;
+&lt;p&gt;Для отримання зареєстрованої Декларації потрібно особисто звернутися до адміністратора ЦНАП з документом, що посвідчує особу (паспорт).&lt;br/&gt;
+Звертаємо увагу на те, що Ви власноруч підписуєте зареєстровану Декларацію та проставляєте на ній печатку (у разі наявності) в присутності адміністратора в приміщенні ЦНАП&lt;/p&gt;
+                   &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Державна реєстраційна служба,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           &lt;/table&gt;
+						   &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+
+
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px 0 120px;"&gt;
+                                    
+									&lt;b&gt;Оцініть, будь ласка, наскільки Ви задоволені якістю надання цієї послуги, за шкалою від 2 до 5:&lt;/b&gt;
+
+                                    &lt;p style="text-align: center;"&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
+                                    &lt;/p&gt;
+
+                                    &lt;p style="font-size: 13px;"&gt;
+										Якщо Ви не задоволені якістю, прокоментуйте будь ласка що Вас не задовольнило.&lt;br /&gt;
+                                        Також Ви &lt;b style="color: #cc3333;"&gt;маєте пожливість анонімно&lt;/b&gt; подати сигнал о будь-яких правопорушеннях Державних службовців.
+										
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
+                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
+                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
+                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/table&gt;
+                        &lt;/form&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${vidpovid}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow41" sourceRef="exclusivegateway2" targetRef="servicetask7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vibor=='lev'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow43" sourceRef="servicetask7" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow44" sourceRef="servicetask6" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow45" sourceRef="usertask3" targetRef="exclusivegateway1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram__test_dependence_form">
-    <bpmndi:BPMNPlane bpmnElement="_test_dependence_form" id="BPMNPlane__test_dependence_form">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap-57">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_cnap-57" id="BPMNPlane_dnepr_cnap-57">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="220.0" y="170.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="25.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="300.0" y="160.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="-10.0" y="162.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="285.0" y="164.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="55.0" width="105.0" x="480.0" y="160.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="455.0" y="230.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="660.0" y="170.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="196.0" y="86.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="255.0" y="187.0"></omgdi:waypoint>
-        <omgdi:waypoint x="300.0" y="187.0"></omgdi:waypoint>
+      <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
+        <omgdc:Bounds height="55.0" width="105.0" x="340.0" y="157.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="320.0" y="228.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="730.0" y="166.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="111.0" y="162.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="228.0" y="164.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+        <omgdc:Bounds height="55.0" width="105.0" x="196.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="456.0" y="167.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="320.0" y="86.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="455.0" y="86.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
+        <omgdc:Bounds height="55.0" width="105.0" x="570.0" y="188.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask7" id="BPMNShape_servicetask7">
+        <omgdc:Bounds height="55.0" width="105.0" x="570.0" y="126.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="248.0" y="164.0"></omgdi:waypoint>
+        <omgdi:waypoint x="248.0" y="141.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="53.0" x="226.0" y="148.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="405.0" y="187.0"></omgdi:waypoint>
-        <omgdi:waypoint x="480.0" y="187.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="425.0" y="255.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="257.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="585.0" y="187.0"></omgdi:waypoint>
-        <omgdi:waypoint x="660.0" y="187.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="325.0" y="184.0"></omgdi:waypoint>
+        <omgdi:waypoint x="340.0" y="184.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="305.0" y="204.0"></omgdi:waypoint>
+        <omgdi:waypoint x="372.0" y="228.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="560.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="749.0" y="257.0"></omgdi:waypoint>
+        <omgdi:waypoint x="750.0" y="206.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
+        <omgdi:waypoint x="42.0" y="145.0"></omgdi:waypoint>
+        <omgdi:waypoint x="42.0" y="162.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
+        <omgdi:waypoint x="95.0" y="189.0"></omgdi:waypoint>
+        <omgdi:waypoint x="111.0" y="189.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="216.0" y="189.0"></omgdi:waypoint>
+        <omgdi:waypoint x="228.0" y="184.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
+        <omgdi:waypoint x="248.0" y="204.0"></omgdi:waypoint>
+        <omgdi:waypoint x="248.0" y="230.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="23.0" x="226.0" y="215.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
+        <omgdi:waypoint x="248.0" y="230.0"></omgdi:waypoint>
+        <omgdi:waypoint x="305.0" y="204.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
+        <omgdi:waypoint x="445.0" y="184.0"></omgdi:waypoint>
+        <omgdi:waypoint x="456.0" y="184.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="305.0" y="164.0"></omgdi:waypoint>
+        <omgdi:waypoint x="372.0" y="141.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
+        <omgdi:waypoint x="425.0" y="113.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="113.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="560.0" y="113.0"></omgdi:waypoint>
+        <omgdi:waypoint x="750.0" y="113.0"></omgdi:waypoint>
+        <omgdi:waypoint x="750.0" y="166.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="730.0" y="186.0"></omgdi:waypoint>
+        <omgdi:waypoint x="675.0" y="215.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
+        <omgdi:waypoint x="730.0" y="186.0"></omgdi:waypoint>
+        <omgdi:waypoint x="675.0" y="153.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow43" id="BPMNEdge_flow43">
+        <omgdi:waypoint x="570.0" y="153.0"></omgdi:waypoint>
+        <omgdi:waypoint x="473.0" y="167.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow44" id="BPMNEdge_flow44">
+        <omgdi:waypoint x="570.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="473.0" y="202.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow45" id="BPMNEdge_flow45">
+        <omgdi:waypoint x="248.0" y="141.0"></omgdi:waypoint>
+        <omgdi:waypoint x="305.0" y="164.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
