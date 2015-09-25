@@ -41,7 +41,4 @@ angular.module('app').controller('PlaceFixAbsentController', function($state, $r
       $scope.sendAbsentMessage(absentMessageForm, absentMessage);
     }
   };
-
 });
-
-// city, country, region - all merged here
