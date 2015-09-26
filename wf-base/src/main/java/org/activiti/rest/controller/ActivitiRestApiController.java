@@ -1,7 +1,9 @@
 package org.activiti.rest.controller;
 
 import com.google.common.base.Charsets;
+
 import liquibase.util.csv.CSVWriter;
+
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
@@ -12,6 +14,7 @@ import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.identity.User;
+import org.activiti.engine.impl.form.FormPropertyImpl;
 import org.activiti.engine.impl.util.json.JSONArray;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -57,6 +60,7 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -1353,14 +1357,43 @@ sToken - сгенерированный случайно 20-ти символь�
         	
         	String historyEventService = getHistoryEvent_Service(nID_Protected.toString());
         	
-        	log.info("Found history event by nID_Protected=" + nID_Protected + "|" + historyEventService);
+        	JSONObject fieldsJson = new JSONObject(historyEventService);
         	
+        	if (fieldsJson.has("sToken")){
+        		String tasksToken = fieldsJson.getString("sToken");
+        		if (tasksToken.isEmpty() || !tasksToken.equals(sToken)){
+            		throw new ActivitiRestException(
+                            ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                           "Token is wrong");        			
+        		}
+        	} else {
+        		throw new ActivitiRestException(
+                        ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                       "Token is absent");
+        	}
+        	
+        	JSONObject fieldsToUpdate = new JSONObject(saField);
         	List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstanceID).list();
         	
         	if (tasks != null){
+            	runtimeService.setVariable(processInstanceID, "sAnswer", sBody);
+            	log.info("Added variable sAnswer to the process " + processInstanceID);
+        		
         		log.info("Found " + tasks.size() + " tasks by nID_Protected...");
         		for (Task task : tasks){
         			log.info("task;" + task.getName() + "|" + task.getDescription() + "|" + task.getId());
+        			TaskFormData data = formService.getTaskFormData(task.getId());
+                    for (FormProperty property : data.getFormProperties()) {
+                    	if (fieldsToUpdate.has(property.getId())){
+                    		if (property instanceof FormPropertyImpl){
+                        		log.info("Updating property's " + property.getId() + " value from " + 
+                        					property.getValue() + " to " + fieldsToUpdate.getString(property.getId()));
+                    			((FormPropertyImpl)property).setValue(fieldsToUpdate.getString(property.getId()));                     			
+                    		}
+                    	} else {
+                    		log.info("Skipping property " + property.getId() + " as there is no such property in input parameter");
+                    	}
+                    }
         		}
         	}
         	
@@ -1371,17 +1404,6 @@ sToken - сгенерированный случайно 20-ти символь�
                    "error during updating historyEvent_service: " + e.getMessage(),e,
                     HttpStatus.FORBIDDEN);
         }
-        
-        
-        try {
-            sendEmail(sHead, createEmailBody(nID_Protected,saField,sBody, sToken),"");
-        } catch (EmailException e) {
-            throw new ActivitiRestException(
-                    ActivitiExceptionController.SYSTEM_ERROR_CODE,
-                    "error during sending email: " + e.getMessage(),e,
-                    HttpStatus.FORBIDDEN);
-        }
-
     }
     
     private String getHistoryEvent_Service(String nID_Protected) throws Exception {
@@ -1403,7 +1425,7 @@ sToken - сгенерированный случайно 20-ти символь�
         String sAccessKey_HistoryEvent = accessDataDao.setAccessData(httpRequester.getFullURL(URI, params));
         params.put("sAccessKey", sAccessKey_HistoryEvent);
         log.info("sAccessKey=" + sAccessKey_HistoryEvent);
-        String soJSON_HistoryEvent = httpRequester.get("https://" + generalConfig.sHostCentral() + URI, params);
+        String soJSON_HistoryEvent = httpRequester.get(generalConfig.sHostCentral() + URI, params);
         log.info("soJSON_HistoryEvent="+soJSON_HistoryEvent);
         return soJSON_HistoryEvent;
     }
