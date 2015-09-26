@@ -5,6 +5,7 @@ import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.time.DateUtils;
+import org.egov.util.QuartzUtil;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -273,6 +274,9 @@ public class ActivitiRestFlowController {
            @RequestParam(value = "sDateTimeAt") String sDateTimeAt,
            @RequestParam(value = "sDateTimeTo") String sDateTimeTo) throws Exception {
       FlowProperty flowProperty = null;
+      if (sRegionTime != null && saRegionWeekDay != null && nLen != null){
+    	  sData = QuartzUtil.getQuartzFormulaByParameters(sRegionTime, saRegionWeekDay, nLen);
+      }
       if (nID != null) {
          log.info("nID is not null. Updating existing FLowProperty with parameters");
          flowProperty = flowPropertyDao.findByIdExpected(nID);
