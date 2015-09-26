@@ -14,6 +14,7 @@ import org.wf.dp.dniprorada.base.model.Entity;
 import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.dao.PlaceTypeDao;
+import org.wf.dp.dniprorada.dao.place.PlaceHierarchy;
 import org.wf.dp.dniprorada.dao.place.PlaceHierarchyRecord;
 import org.wf.dp.dniprorada.dao.place.PlaceHierarchyTree;
 import org.wf.dp.dniprorada.model.Place;
@@ -40,7 +41,7 @@ public class PlaceController {
 
     @RequestMapping(value   = "/getPlacesTree",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
-    public  @ResponseBody PlaceHierarchyTree getPlacesTree (
+    public  @ResponseBody PlaceHierarchy getPlacesTree (
             @RequestParam(value = "nID",            required = false)   Long    placeId,
             @RequestParam(value = "sID_UA",         required = false)   String  uaId,
             @RequestParam(value = "nID_PlaceType",  required = false)   Long    typeId,
