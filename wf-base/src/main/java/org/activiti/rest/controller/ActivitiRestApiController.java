@@ -1346,8 +1346,10 @@ sToken - сгенерированный случайно 20-ти символь�
         	sHead = sHead == null ? "На заявку " + nID_Protected + " дана відповідь громаданином" : sHead;
         	
         	AlgorithmLuna.validateProtectedNumber(nID_Protected);
-
+        	
             String processInstanceID = String.valueOf(AlgorithmLuna.getOriginalNumber(nID_Protected));
+            
+            log.info("Found processInstanceID=" + processInstanceID + ". Will get history event service");
         	
         	String historyEventService = getHistoryEvent_Service(nID_Protected.toString());
         	
