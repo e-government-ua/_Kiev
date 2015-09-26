@@ -16,7 +16,7 @@
         <activiti:formProperty id="ur_osobi" name="Зверніть увагу" type="label" default="Ничже вказані поля треба заповнити юридичним особам чи особам-підприємцям"></activiti:formProperty>
         <activiti:formProperty id="ur_nazv" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД (тільки цифрове позначення)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="edrpou" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця (тільки цифрове позначення)" type="long" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="edrpou" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця (тільки цифрове позначення)" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="pib_ker" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress_1" name="Місцезнаходження юридичної особи/місце проживання ФОП" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="cnapСhoice" name="Оберіть ЦНАП у якому Вам буде зручно отримати дозвіл" type="enum">
@@ -229,7 +229,7 @@
         <activiti:formProperty id="adres_2" name="Адреса об'єкта на який надається копія дозволу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ur_nazv" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="edrpou" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця" type="long" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="edrpou" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib_ker" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress_1" name="Місцезнаходження юридичної особи/місце проживання ФОП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="cnapСhoice" name="Оберіть ЦНАП у якому Вам буде зручно отримати дозвіл" type="enum">
@@ -468,7 +468,7 @@
         <activiti:formProperty id="adres_2" name="Адреса об'єкта на який надається копія дозволу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ur_nazv" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="edrpou" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця" type="long" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="edrpou" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib_ker" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress_1" name="Місцезнаходження юридичної особи/місце проживання ФОП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="cnapСhoice" name="Оберіть ЦНАП у якому Вам буде зручно отримати дозвіл" type="enum">
@@ -551,7 +551,7 @@
 								  &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
                                         Ваша копія рішення міської ради про надання дозволу на розроблення проекту відведення земельної ділянки  - готова.
-                                        &lt;/p&gt;
+                                    &lt;/p&gt;
 									&lt;p&gt;
 									Ви або уповноважена Вами особа (при наявності довіреності) можете отримати копію особисто під підпис у ЦНАП.&lt;br /&gt;
 									При собі треба мати:&lt;br /&gt;

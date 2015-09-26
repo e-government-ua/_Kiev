@@ -10,7 +10,7 @@ import java.util.List;
  * @author dgroup
  * @since  22.07.2015
  */
-public class PlaceHierarchyTree {
+public class PlaceHierarchyTree implements PlaceHierarchy {
     @JsonProperty("nLevelArea")
     private Long levelOfArea;
 

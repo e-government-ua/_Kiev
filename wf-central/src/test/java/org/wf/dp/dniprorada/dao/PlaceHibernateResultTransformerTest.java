@@ -2,7 +2,7 @@ package org.wf.dp.dniprorada.dao;
 
 import org.junit.Test;
 import org.wf.dp.dniprorada.dao.place.PlaceHibernateResultTransformer;
-import org.wf.dp.dniprorada.dao.place.PlaceHierarchyRecord;
+import org.wf.dp.dniprorada.dao.place.PlaceHibernateHierarchyRecord;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -25,10 +25,9 @@ public class PlaceHibernateResultTransformerTest {
             "Недригайлівський район/смт Недригайлів", "", 50023,
             50023, 50023, 0};
 
-        PlaceHierarchyRecord phr = new PlaceHibernateResultTransformer()
+        PlaceHibernateHierarchyRecord phr = new PlaceHibernateResultTransformer()
             .transformTuple(data, labels);
 
-        assertNotNull(phr);
         assertEquals("ID aren't match", 459L, phr.getPlaceId().longValue());
     }
 }

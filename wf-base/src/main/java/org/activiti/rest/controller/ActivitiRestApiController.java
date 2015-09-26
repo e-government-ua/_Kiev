@@ -1,7 +1,9 @@
 package org.activiti.rest.controller;
 
 import com.google.common.base.Charsets;
+
 import liquibase.util.csv.CSVWriter;
+
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
@@ -12,6 +14,7 @@ import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.identity.User;
+import org.activiti.engine.impl.form.FormPropertyImpl;
 import org.activiti.engine.impl.util.json.JSONArray;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -57,6 +60,7 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -1331,6 +1335,103 @@ sToken - сгенерированный случайно 20-ти символь�
         params.put("sAccessKey", sAccessKey_HistoryEvent);
         log.info("sAccessKey=" + sAccessKey_HistoryEvent);
         String soJSON_HistoryEvent = httpRequester.get("https://" + generalConfig.sHostCentral() + URI, params);
+        log.info("soJSON_HistoryEvent="+soJSON_HistoryEvent);
+        return soJSON_HistoryEvent;
+    }
+    
+    @RequestMapping(value = "/setTaskAnswer", method = RequestMethod.GET)
+    public @ResponseBody
+    void setTaskAnswer(@RequestParam(value = "nID_Protected") Long nID_Protected,
+                    @RequestParam(value = "saField") String saField,
+                    @RequestParam(value = "sToken") String sToken,
+                    @RequestParam(value = "sHead", required = false) String sHead,
+                    @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException {
+        try {
+        	sHead = sHead == null ? "На заявку " + nID_Protected + " дана відповідь громаданином" : sHead;
+        	
+        	AlgorithmLuna.validateProtectedNumber(nID_Protected);
+        	
+            String processInstanceID = String.valueOf(AlgorithmLuna.getOriginalNumber(nID_Protected));
+            
+            log.info("Found processInstanceID=" + processInstanceID + ". Will get history event service");
+        	
+        	String historyEventService = getHistoryEvent_Service(nID_Protected.toString());
+        	
+        	JSONObject fieldsJson = new JSONObject(historyEventService);
+        	
+        	if (fieldsJson.has("sToken")){
+        		String tasksToken = fieldsJson.getString("sToken");
+        		if (tasksToken.isEmpty() || !tasksToken.equals(sToken)){
+            		throw new ActivitiRestException(
+                            ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                           "Token is wrong");        			
+        		}
+        	} else {
+        		throw new ActivitiRestException(
+                        ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                       "Token is absent");
+        	}
+        	
+        	JSONObject jsnobject = new JSONObject("{ soData:" + saField + "}");
+            JSONArray jsonArray = jsnobject.getJSONArray("soData");
+        	List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstanceID).list();
+        	
+        	if (tasks != null){
+            	runtimeService.setVariable(processInstanceID, "sAnswer", sBody);
+            	log.info("Added variable sAnswer to the process " + processInstanceID);
+        		
+        		log.info("Found " + tasks.size() + " tasks by nID_Protected...");
+        		for (Task task : tasks){
+        			log.info("task;" + task.getName() + "|" + task.getDescription() + "|" + task.getId());
+        			TaskFormData data = formService.getTaskFormData(task.getId());
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject record = jsonArray.getJSONObject(i);
+                        String fieldId = (String) record.get("id");
+                    for (FormProperty property : data.getFormProperties()) {
+                    	if (fieldId.equals(property.getId())){
+                    		if (property instanceof FormPropertyImpl){
+                        		log.info("Updating property's " + property.getId() + " value from " + 
+                        					property.getValue() + " to " + record.get("value"));
+                    			((FormPropertyImpl)property).setValue((String) record.get("value"));                     			
+                    		}
+                    	} else {
+                    		log.info("Skipping property " + property.getId() + " as there is no such property in input parameter");
+                    	}
+                    }
+                    }
+        		}
+        	}
+        	
+        	updateHistoryEvent_Service(processInstanceID, saField, null);
+        } catch (Exception e) {
+            throw new ActivitiRestException(
+                    ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                    e.getMessage(),e,
+                    HttpStatus.FORBIDDEN);
+        }
+    }
+    
+    private String getHistoryEvent_Service(String nID_Protected) throws Exception {
+        String URI = "/wf/service/services/getHistoryEvent_Service";
+        Map<String, String> params = new HashMap<>();
+        params.put("nID_Protected", nID_Protected);
+        log.info("Getting URL with parameters: " + generalConfig.sHostCentral() + URI + params);
+        String soJSON_HistoryEvent = httpRequester.get(generalConfig.sHostCentral() + URI, params);
+        log.info("soJSON_HistoryEvent="+soJSON_HistoryEvent);
+        return soJSON_HistoryEvent;
+    }
+    
+    private String updateHistoryEvent_Service(String sID_Process, String saField, String sToken) throws Exception {
+        String URI = "/wf/service/services/updateHistoryEvent_Service";
+        Map<String, String> params = new HashMap<>();
+        params.put("nID_Process", sID_Process);
+        params.put("soData", saField);
+        params.put("sToken", sToken);
+        params.put("sID_Status", "setTaskAnswer");
+        String sAccessKey_HistoryEvent = accessDataDao.setAccessData(httpRequester.getFullURL(URI, params));
+        params.put("sAccessKey", sAccessKey_HistoryEvent);
+        log.info("sAccessKey=" + sAccessKey_HistoryEvent);
+        String soJSON_HistoryEvent = httpRequester.get(generalConfig.sHostCentral() + URI, params);
         log.info("soJSON_HistoryEvent="+soJSON_HistoryEvent);
         return soJSON_HistoryEvent;
     }
