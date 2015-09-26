@@ -1,6 +1,5 @@
 package org.activiti.rest.controller;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -243,41 +242,45 @@ public class ActivitiRestServicesController {
         SUPPORTED_PLACE_IDS.add(String.valueOf(KOATUU.KYIV.getId()));
     }
 
-    @RequestMapping(value = "/getServicesTree", method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<String> getServicesTree(
-            @RequestParam(value = "sFind", required = false) final String partOfName, @RequestParam(
-                    value = "asID_Place_UA",
-                    required = false) final List<String> placeUaIds) {
-        final boolean bTest = generalConfig.bTest();
-        SerializableResponseEntity<String> entity = cachedInvocationBean.invokeUsingCache(new CachedInvocationBean.Callback<SerializableResponseEntity<String>>(
-                GET_SERVICES_TREE, partOfName, placeUaIds, bTest) {
-            @Override
-            public SerializableResponseEntity<String> execute() {
-                List<Category> categories = new ArrayList<>(baseEntityDao.findAll(Category.class));
+   @RequestMapping(value = "/getServicesTree", method = RequestMethod.GET)
+   public
+   @ResponseBody
+   ResponseEntity<String> getServicesTree(
+           @RequestParam(value = "sFind", required = false) final String partOfName,
+           @RequestParam(value = "asID_Place_UA", required = false) final List<String> placeUaIds,
+           @RequestParam(value = "bShowEmptyFolders", required = false, defaultValue = "false") final boolean bShowEmptyFolders) {
+      final boolean bTest = generalConfig.bTest();
+      SerializableResponseEntity<String> entity = cachedInvocationBean.invokeUsingCache(new CachedInvocationBean.Callback<SerializableResponseEntity<String>>(
+              GET_SERVICES_TREE, partOfName, placeUaIds, bTest) {
+         @Override
+         public SerializableResponseEntity<String> execute() {
+            List<Category> categories = new ArrayList<>(baseEntityDao.findAll(Category.class));
 
-                if (!bTest) {
-                    filterOutServicesByServiceNamePrefix(categories, SERVICE_NAME_TEST_PREFIX);
-                }
-
-                if (partOfName != null) {
-                    filterServicesByServiceName(categories, partOfName);
-                }
-
-                if (placeUaIds != null) {
-//TODO: Зачем это было добавлено?                    placeUaIds.retainAll(SUPPORTED_PLACE_IDS);
-                    if (!placeUaIds.isEmpty()) {
-                        filterServicesByPlaceIds(categories, placeUaIds);
-                    }
-                }
-
-                cleanEmptyContainers(categories);
-
-                return categoriesToJsonResponse(categories);
+            if (!bTest) {
+               filterOutServicesByServiceNamePrefix(categories, SERVICE_NAME_TEST_PREFIX);
             }
-        });
 
-        return entity.toResponseEntity();
-    }
+            if (partOfName != null) {
+               filterServicesByServiceName(categories, partOfName);
+            }
+
+            if (placeUaIds != null) {
+//TODO: Зачем это было добавлено?                    placeUaIds.retainAll(SUPPORTED_PLACE_IDS);
+               if (!placeUaIds.isEmpty()) {
+                  filterServicesByPlaceIds(categories, placeUaIds);
+               }
+            }
+
+            if (!bShowEmptyFolders) {
+               hideEmptyFolders(categories);
+            }
+
+            return categoriesToJsonResponse(categories);
+         }
+      });
+
+      return entity.toResponseEntity();
+   }
 
     private void filterOutServicesByServiceNamePrefix(List<Category> categories, String prefix) {
         for (Category category : categories) {
@@ -341,7 +344,7 @@ public class ActivitiRestServicesController {
     *
     * @param categories
     */
-   private void cleanEmptyContainers(List<Category> categories) {
+   private void hideEmptyFolders(List<Category> categories) {
        for (Iterator<Category> categoryIterator = categories.iterator(); categoryIterator.hasNext();) {
            Category category = categoryIterator.next();
 
