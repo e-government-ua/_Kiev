@@ -1372,7 +1372,8 @@ sToken - сгенерированный случайно 20-ти символь�
                        "Token is absent");
         	}
         	
-        	JSONObject fieldsToUpdate = new JSONObject(saField);
+        	JSONObject jsnobject = new JSONObject("{ soData:" + saField + "}");
+            JSONArray jsonArray = jsnobject.getJSONArray("soData");
         	List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstanceID).list();
         	
         	if (tasks != null){
@@ -1383,16 +1384,20 @@ sToken - сгенерированный случайно 20-ти символь�
         		for (Task task : tasks){
         			log.info("task;" + task.getName() + "|" + task.getDescription() + "|" + task.getId());
         			TaskFormData data = formService.getTaskFormData(task.getId());
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject record = jsonArray.getJSONObject(i);
+                        String fieldId = (String) record.get("id");
                     for (FormProperty property : data.getFormProperties()) {
-                    	if (fieldsToUpdate.has(property.getId())){
+                    	if (fieldId.equals(property.getId())){
                     		if (property instanceof FormPropertyImpl){
                         		log.info("Updating property's " + property.getId() + " value from " + 
-                        					property.getValue() + " to " + fieldsToUpdate.getString(property.getId()));
-                    			((FormPropertyImpl)property).setValue(fieldsToUpdate.getString(property.getId()));                     			
+                        					property.getValue() + " to " + record.get("value"));
+                    			((FormPropertyImpl)property).setValue((String) record.get("value"));                     			
                     		}
                     	} else {
                     		log.info("Skipping property " + property.getId() + " as there is no such property in input parameter");
                     	}
+                    }
                     }
         		}
         	}
@@ -1401,7 +1406,7 @@ sToken - сгенерированный случайно 20-ти символь�
         } catch (Exception e) {
             throw new ActivitiRestException(
                     ActivitiExceptionController.BUSINESS_ERROR_CODE,
-                   "error during updating historyEvent_service: " + e.getMessage(),e,
+                    e.getMessage(),e,
                     HttpStatus.FORBIDDEN);
         }
     }
@@ -1422,6 +1427,7 @@ sToken - сгенерированный случайно 20-ти символь�
         params.put("nID_Process", sID_Process);
         params.put("soData", saField);
         params.put("sToken", sToken);
+        params.put("sID_Status", "setTaskAnswer");
         String sAccessKey_HistoryEvent = accessDataDao.setAccessData(httpRequester.getFullURL(URI, params));
         params.put("sAccessKey", sAccessKey_HistoryEvent);
         log.info("sAccessKey=" + sAccessKey_HistoryEvent);
