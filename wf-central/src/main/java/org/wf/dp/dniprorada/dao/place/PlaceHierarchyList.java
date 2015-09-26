@@ -10,7 +10,7 @@ import java.util.List;
  * @author dubinka
  * @since  26.09.2015
  */
-public class PlaceHierarchyList {
+public class PlaceHierarchyList implements PlaceHierarchy {
 
     @JsonProperty("a")
     private List<Place> places = new ArrayList<>();

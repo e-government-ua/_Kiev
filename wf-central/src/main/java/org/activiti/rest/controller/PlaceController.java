@@ -55,7 +55,7 @@ public class PlaceController {
 
     @RequestMapping(value   = "/getPlace",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
-    public  @ResponseBody PlaceHierarchyTree getPlace(
+    public  @ResponseBody PlaceHierarchy getPlace(
             @RequestParam(value = "nID",    required = false)       Long    placeId,
             @RequestParam(value = "sID_UA", required = false)       String  uaId,
             @RequestParam(value = "bTree",  defaultValue = "false") Boolean tree){

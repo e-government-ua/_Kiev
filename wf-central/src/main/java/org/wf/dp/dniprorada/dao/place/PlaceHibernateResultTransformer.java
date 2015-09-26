@@ -1,16 +1,16 @@
 package org.wf.dp.dniprorada.dao.place;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.hibernate.transform.ResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import static org.apache.commons.collections.CollectionUtils.*;
 import static org.apache.commons.lang3.ArrayUtils.indexOf;
 
 /**
@@ -83,17 +83,17 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
     }
 
 
-    public static PlaceHierarchyTree toList(List<PlaceHierarchyRecord> dataRows) {
+    public static PlaceHierarchy toList(List<PlaceHierarchyRecord> dataRows) {
         Assert.isTrue(!dataRows.isEmpty(), "Entity not found");
         LOG.debug("Got {}", dataRows);
 
-        PlaceHierarchyTree treeAsList = new PlaceHierarchyTree();
+        PlaceHierarchyList phl = new PlaceHierarchyList();
         for(PlaceHierarchyRecord phr : dataRows)
             if (phr != null)
-                treeAsList.addChild( phr.toTreeElement() );
+                phl.add(phr.toPlace());
 
-        LOG.warn("Whole tree {}", treeAsList);
-        return treeAsList;
+        LOG.warn("Whole tree {}", phl);
+        return phl;
     }
 
     /**

@@ -34,7 +34,7 @@ public class PlaceDaoImpl extends GenericEntityDao<Place> implements PlaceDao {
 
 
     @SuppressWarnings("unchecked")
-    public PlaceHierarchyTree getTreeDown(PlaceHierarchyRecord root) {
+    public PlaceHierarchy getTreeDown(PlaceHierarchyRecord root) {
         notNull(root, "Root element can't be a null");
 
         if (!valid(root.getPlaceId()) && isBlank(root.getUaID()))
