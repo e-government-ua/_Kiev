@@ -14,7 +14,7 @@
         <activiti:formProperty id="objAdress" name="місцезнаходження (адреса) об’єкта, на який видається документ" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="davName" name="у давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="edrpou_inn" name="ідентифікаційний код згідно з ЄДРПОУ або ідентифікаційний номер фізичної особи – підприємця" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="ідентифікаційний код згідно з ЄДРПОУ або ідентифікаційний номер фізичної особи – підприємця" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="ruk" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="orgAdress" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="cnapChoose" name="Оберіть ЦНАП, в якому вам буде зручно отримати відповідь" type="enum" required="true">
@@ -229,7 +229,7 @@
         <activiti:formProperty id="objAdress" name="місцезнаходження (адреса) об’єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="davName" name="у давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="edrpou_inn" name="ідентифікаційний код згідно з ЄДРПОУ або ідентифікаційний номер фізичної особи – підприємця" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="ідентифікаційний код згідно з ЄДРПОУ або ідентифікаційний номер фізичної особи – підприємця" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ruk" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="orgAdress" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="cnapChoose" name="Оберіть ЦНАП, в якому вам буде зручно отримати відповідь" type="enum" writable="false">
@@ -464,9 +464,13 @@
         <activiti:formProperty id="objAdress" name="місцезнаходження (адреса) об’єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="davName" name="у давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="edrpou_inn" name="ідентифікаційний код згідно з ЄДРПОУ або ідентифікаційний номер фізичної особи – підприємця" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="ідентифікаційний код згідно з ЄДРПОУ або ідентифікаційний номер фізичної особи – підприємця" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ruk" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="orgAdress" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="cnapChoose" name="Оберіть ЦНАП, в якому вам буде зручно отримати відповідь" type="enum" writable="false">
+          <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
+          <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="kopi" name="Рішення державного органу" type="enum" required="true">
           <activiti:value id="dozv" name="Копія рішень міської ради готова"></activiti:value>
           <activiti:value id="decline" name="Неможливо видати копію рішень міської ради"></activiti:value>

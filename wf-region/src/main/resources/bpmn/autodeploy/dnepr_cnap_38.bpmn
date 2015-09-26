@@ -15,7 +15,7 @@
         <activiti:formProperty id="micce" name="Місцезнаходження (адреса) об’єкта, на який видається документ" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="davvid" name="У давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи – підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="edrpou_inn" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб) або ідентифікаційний номер фізичної особи - підприємця" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб) або ідентифікаційний номер фізичної особи - підприємця" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи / фізичної особи – підприємця / уповноваженої особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="micurl" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="cnapСhoice" name="Оберіть ЦНАП, в якому Вам буде зручно отримати дозвіл" type="enum" required="true">
@@ -97,17 +97,16 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;&lt;/p&gt;
-										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
-										 Строк, протягом якого видається документ - 10 робочих днів.&lt;br /&gt;
-									&lt;p&gt;&lt;/p&gt;
-										Залишайтеся з нами. 	
-                                    &lt;p&gt;&lt;/p&gt;
+                                    &lt;p&gt;
+										Ваше звернення щодо копії рішень міської ради про передачу в оренду земельних ділянок державної або комунальної власності успішно зареєстроване.&lt;br /&gt; 
+										Спеціалісти Центру надання адміністративних послуг Дніпропетровської міської ради повинні дати відповідь найближчім часом.
+									&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою, &lt;br /&gt;
-										Центр надання адміністративних послуг Дніпропетровської міської ради,&lt;br/&gt;
-                                        &lt;br&gt;Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.&lt;/br&gt;
+										Центр надання адміністративних послуг&lt;br/&gt;
+										Дніпропетровської міської ради,&lt;br/&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.&lt;/br&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -190,24 +189,21 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                       &lt;p&gt;
-                                        На жаль змушені Вам відмовити в наданні послуги.&lt;/p&gt;
-&lt;p&gt;Причина в наступному: 
-                                    &lt;/p&gt;
-&lt;p&gt;${decisionComment}&lt;/p&gt;
-                                  
-                                    &lt;/p&gt;
+                                       На жаль змушені Вам відмовити в реєстрації звернення.
+                                      &lt;/p&gt;
+									  &lt;p&gt;Причина в наступному: &lt;br/&gt;
+                                   			${decisionComment}
+                                      &lt;/p&gt;
                                     
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        ЦНАП м. Дніпропетровськ,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                        Центр надання адміністративних послуг&lt;br/&gt;
+										Дніпропетровської міської ради.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
                            
-                          
-
                         &lt;/table&gt;
                      
                     &lt;/td&gt;
@@ -236,7 +232,7 @@
         <activiti:formProperty id="micce" name="Місцезнаходження (адреса) об’єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="davvid" name="У давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="edrpou_inn" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб) або ідентифікаційний номер фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб) або ідентифікаційний номер фізичної особи - підприємця" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="micurl" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
@@ -370,7 +366,7 @@
         <activiti:formProperty id="micce" name="Місцезнаходження (адреса) об’єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="davvid" name="У давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="edrpou_inn" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб) або ідентифікаційний номер фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб) або ідентифікаційний номер фізичної особи - підприємця" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="micurl" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string" writable="false"></activiti:formProperty>
@@ -545,20 +541,18 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;&lt;/p&gt;
+                                    &lt;p&gt;
 										Ваше звернення щодо надання копії рішення міської ради про передачу в оренду земельних ділянок державної або комунальної власності - опрацьоване.&lt;/p&gt;
+									&lt;/p&gt;
+									&lt;p&gt;
 										Ви або уповноважена Вами особа (при наявності довіреності) можете отримати копію рішення - собисто під підпис у ЦНАП.&lt;br /&gt;
                                         При собі треба мати:&lt;br /&gt;
 										1. Документ, що посвідчує особу.&lt;br /&gt;
 										2. Для уповоноваженої особи - довіреність.&lt;br /&gt;
-										
-									&lt;p&gt;&lt;/p&gt;
-										Зверніть увагу, що заяву, яку Ви подавали в електронному вигляді, треба буде засвідчити особистим підписом керівника юридичної особи/фізичної особи - підприємця.
-									&lt;p&gt;&lt;/p&gt;
-										
-Центр надання адміністративних послуг Дніпропетровської міської ради &lt;br /&gt;
-Адреса: &lt;br /&gt;
-ЦНАП „Правобережний”, м. Дніпропетровськ, просп. Карла Маркса, 75 (1-й поверх)&lt;br/&gt;
+										3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим підписом керівника юридичної особи, фізичної особи - підприємця або уповноваженої ними особи. Зразок заяви можно знайти за &lt;a href="https://drive.google.com/file/d/0B68lQ-z45GpYY3NfNnpTSzNRbkk/view?usp=sharing"&gt;посиланням&lt;/a&gt;.
+									&lt;/p&gt;
+									&lt;p&gt;	
+									ЦНАП „Правобережний”, м. Дніпропетровськ, просп. Карла Маркса, 75 (1-й поверх)&lt;br/&gt;
 									Графік роботи ЦНАП „Правобережний”:&lt;br/&gt;
 									понеділок -  з 9.00 до 18.00;&lt;br/&gt;
 									вівторок – з 9.00 до 20.00;&lt;br/&gt;
@@ -570,7 +564,8 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою, &lt;br /&gt;
-										Центр надання адміністративних послуг Дніпропетровської міської ради,&lt;br/&gt;
+										Центр надання адміністративних послуг&lt;br/&gt;
+										Дніпропетровської міської ради,&lt;br/&gt;
                                         &lt;br&gt;Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.&lt;/br&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -687,18 +682,16 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                       &lt;p&gt;
-                                        На жаль змушені Вам відмовити в наданні послуги.&lt;/p&gt;
-&lt;p&gt;Причина в наступному: 
-                                    &lt;/p&gt;
-&lt;p&gt;${decisionComment_2}&lt;/p&gt;
-                                  
-                                    &lt;/p&gt;
-                                    
+                                        На жаль неможливо видати Вам копію рішення міської ради про передачу в оренду земельних ділянок державної або комунальної власності.&lt;/p&gt;
+									&lt;p&gt;
+									Причина в наступному:&lt;br /&gt; 
+                                   ${decisionComment_2}
+                                   &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        ЦНАП м. Дніпропетровськ,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                        Центр надання адміністративних послуг&lt;br /&gt;
+                                        Дніпропетровської міської ради.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -788,20 +781,18 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;&lt;/p&gt;
+                                    &lt;p&gt;
 										Ваше звернення щодо надання копії рішення міської ради про передачу в оренду земельних ділянок державної або комунальної власності - опрацьоване.&lt;/p&gt;
+									&lt;/p&gt;
+									&lt;p&gt;
 										Ви або уповноважена Вами особа (при наявності довіреності) можете отримати копію рішення - собисто під підпис у ЦНАП.&lt;br /&gt;
                                         При собі треба мати:&lt;br /&gt;
 										1. Документ, що посвідчує особу.&lt;br /&gt;
 										2. Для уповоноваженої особи - довіреність.&lt;br /&gt;
-										
-									&lt;p&gt;&lt;/p&gt;
-										Зверніть увагу, що заяву, яку Ви подавали в електронному вигляді, треба буде засвідчити особистим підписом керівника юридичної особи/фізичної особи - підприємця.
-									&lt;p&gt;&lt;/p&gt;
-										
-Центр надання адміністративних послуг Дніпропетровської міської ради &lt;br /&gt;
-Адреса: &lt;br /&gt;
-ЦНАП „Лівобережний”: м. Дніпропетровськ, просп. Газети „Правда”, 42 (1-й та 5-й поверхи)&lt;br/&gt;
+										3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим підписом керівника юридичної особи, фізичної особи - підприємця або уповноваженої ними особи. Зразок заяви можно знайти за &lt;a href="https://drive.google.com/file/d/0B68lQ-z45GpYY3NfNnpTSzNRbkk/view?usp=sharing"&gt;посиланням&lt;/a&gt;.
+									&lt;/p&gt;
+									&lt;p&gt;
+									ЦНАП „Лівобережний”: м. Дніпропетровськ, просп. Газети „Правда”, 42 (1-й та 5-й поверхи)&lt;br/&gt;
 									Графік роботи ЦНАП „Лівобережний”:&lt;br/&gt;
 									понеділок -  з 9.00 до 18.00;&lt;br/&gt;
 									вівторок – з 9.00 до 18.00;&lt;br/&gt;
@@ -812,7 +803,8 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою, &lt;br /&gt;
-										Центр надання адміністративних послуг Дніпропетровської міської ради,&lt;br/&gt;
+										Центр надання адміністративних послуг&lt;br /&gt;
+										Дніпропетровської міської ради,&lt;br/&gt;
                                         &lt;br&gt;Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.&lt;/br&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
