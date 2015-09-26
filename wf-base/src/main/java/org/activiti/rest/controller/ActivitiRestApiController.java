@@ -1427,6 +1427,7 @@ sToken - сгенерированный случайно 20-ти символь�
         params.put("nID_Process", sID_Process);
         params.put("soData", saField);
         params.put("sToken", sToken);
+        params.put("sID_Status", "setTaskAnswer");
         String sAccessKey_HistoryEvent = accessDataDao.setAccessData(httpRequester.getFullURL(URI, params));
         params.put("sAccessKey", sAccessKey_HistoryEvent);
         log.info("sAccessKey=" + sAccessKey_HistoryEvent);
