@@ -1334,4 +1334,74 @@ sToken - сгенерированный случайно 20-ти символь�
         log.info("soJSON_HistoryEvent="+soJSON_HistoryEvent);
         return soJSON_HistoryEvent;
     }
+    
+    @RequestMapping(value = "/setTaskAnswer", method = RequestMethod.GET)
+    public @ResponseBody
+    void setTaskAnswer(@RequestParam(value = "nID_Protected") Long nID_Protected,
+                    @RequestParam(value = "saField") String saField,
+                    @RequestParam(value = "sToken") String sToken,
+                    @RequestParam(value = "sHead", required = false) String sHead,
+                    @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException {
+        try {
+        	sHead = sHead == null ? "На заявку " + nID_Protected + " дана відповідь громаданином" : sHead;
+        	
+        	AlgorithmLuna.validateProtectedNumber(nID_Protected);
+
+            String processInstanceID = String.valueOf(AlgorithmLuna.getOriginalNumber(nID_Protected));
+        	
+        	String historyEventService = getHistoryEvent_Service(nID_Protected.toString());
+        	
+        	log.info("Found history event by nID_Protected=" + nID_Protected + "|" + historyEventService);
+        	
+        	List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstanceID).list();
+        	
+        	if (tasks != null){
+        		log.info("Found " + tasks.size() + " tasks by nID_Protected...");
+        		for (Task task : tasks){
+        			log.info("task;" + task.getName() + "|" + task.getDescription() + "|" + task.getId());
+        		}
+        	}
+        	
+        	updateHistoryEvent_Service(processInstanceID, saField, null);
+        } catch (Exception e) {
+            throw new ActivitiRestException(
+                    ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                   "error during updating historyEvent_service: " + e.getMessage(),e,
+                    HttpStatus.FORBIDDEN);
+        }
+        
+        
+        try {
+            sendEmail(sHead, createEmailBody(nID_Protected,saField,sBody, sToken),"");
+        } catch (EmailException e) {
+            throw new ActivitiRestException(
+                    ActivitiExceptionController.SYSTEM_ERROR_CODE,
+                    "error during sending email: " + e.getMessage(),e,
+                    HttpStatus.FORBIDDEN);
+        }
+
+    }
+    
+    private String getHistoryEvent_Service(String nID_Protected) throws Exception {
+        String URI = "/wf/service/services/getHistoryEvent_Service";
+        Map<String, String> params = new HashMap<>();
+        params.put("nID_Protected", nID_Protected);
+        String soJSON_HistoryEvent = httpRequester.get("https://" + generalConfig.sHostCentral() + URI, params);
+        log.info("soJSON_HistoryEvent="+soJSON_HistoryEvent);
+        return soJSON_HistoryEvent;
+    }
+    
+    private String updateHistoryEvent_Service(String sID_Process, String saField, String sToken) throws Exception {
+        String URI = "/wf/service/services/updateHistoryEvent_Service";
+        Map<String, String> params = new HashMap<>();
+        params.put("nID_Process", sID_Process);
+        params.put("soData", saField);
+        params.put("sToken", sToken);
+        String sAccessKey_HistoryEvent = accessDataDao.setAccessData(httpRequester.getFullURL(URI, params));
+        params.put("sAccessKey", sAccessKey_HistoryEvent);
+        log.info("sAccessKey=" + sAccessKey_HistoryEvent);
+        String soJSON_HistoryEvent = httpRequester.get("https://" + generalConfig.sHostCentral() + URI, params);
+        log.info("soJSON_HistoryEvent="+soJSON_HistoryEvent);
+        return soJSON_HistoryEvent;
+    }
 }
