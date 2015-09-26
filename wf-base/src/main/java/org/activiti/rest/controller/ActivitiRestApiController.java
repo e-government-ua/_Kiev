@@ -1388,7 +1388,7 @@ sToken - сгенерированный случайно 20-ти символь�
                         JSONObject record = jsonArray.getJSONObject(i);
                         String fieldId = (String) record.get("id");
                     for (FormProperty property : data.getFormProperties()) {
-                    	if (fieldId.equals(fieldId)){
+                    	if (fieldId.equals(property.getId())){
                     		if (property instanceof FormPropertyImpl){
                         		log.info("Updating property's " + property.getId() + " value from " + 
                         					property.getValue() + " to " + record.get("value"));
