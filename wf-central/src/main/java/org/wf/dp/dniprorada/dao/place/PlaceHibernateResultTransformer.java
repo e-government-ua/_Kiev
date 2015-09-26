@@ -22,8 +22,8 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
 
 
     @Override
-    public PlaceHierarchyRecord transformTuple(Object[] objects, String[] strings) {
-        PlaceHierarchyRecord phr = new PlaceHierarchyRecord();
+    public PlaceHibernateHierarchyRecord transformTuple(Object[] objects, String[] strings) {
+        PlaceHibernateHierarchyRecord phr = new PlaceHibernateHierarchyRecord();
 
         phr.setPlaceId  ( toLong(objects, strings, "id"));
         phr.setTypeId   ( toLong(objects, strings, "type_id"));
@@ -59,7 +59,7 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
      *
      * @return unexpected result for list if it wasn't created via build method above
      **/
-    public static PlaceHierarchyTree toTree(List<PlaceHierarchyRecord> dataRows) {
+    public static PlaceHierarchyTree toTree(List<PlaceHibernateHierarchyRecord> dataRows) {
         Assert.isTrue(!dataRows.isEmpty(), "Entity not found");
         LOG.debug("Got {}", dataRows);
 
@@ -68,7 +68,7 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
 
         // We want to transform the list of Hibernate entities into hierarchy tree
         for(int i=0; i<dataRows.size(); i++){
-            PlaceHierarchyRecord node = dataRows.get(i);
+            PlaceHibernateHierarchyRecord node = dataRows.get(i);
             if (i==0){
                 tree = handleRootElement(node, tempParents);
 
@@ -77,22 +77,22 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
             }
             node.setAlreadyIncluded(true);                                      // Disable node for the next iteration
         }
-        LOG.debug("Whole tree {}", tree);
+        LOG.debug("Result tree {}", tree);
         tempParents.clear();                                                    // We don't need it anymore because
         return tree;                                                            // the hierarchy was build successfully
     }
 
 
-    public static PlaceHierarchy toList(List<PlaceHierarchyRecord> dataRows) {
+    public static PlaceHierarchy toList(List<PlaceHibernateHierarchyRecord> dataRows) {
         Assert.isTrue(!dataRows.isEmpty(), "Entity not found");
         LOG.debug("Got {}", dataRows);
 
         PlaceHierarchyList phl = new PlaceHierarchyList();
-        for(PlaceHierarchyRecord phr : dataRows)
+        for(PlaceHibernateHierarchyRecord phr : dataRows)
             if (phr != null)
                 phl.add(phr.toPlace());
 
-        LOG.warn("Whole tree {}", phl);
+        LOG.debug("Result list {}", phl);
         return phl;
     }
 
@@ -107,9 +107,9 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
      * @param dataRows          - our node list
      * @param nextElementIndex  - index of the next element in our list
      **/
-    private static void handleGenericNode(PlaceHierarchyRecord node,
+    private static void handleGenericNode(PlaceHibernateHierarchyRecord node,
                                           Map<Long, PlaceHierarchyTree> tempParents,
-                                          List<PlaceHierarchyRecord> dataRows,
+                                          List<PlaceHibernateHierarchyRecord> dataRows,
                                           int nextElementIndex) {
         LOG.debug("Got {}, start from {}", node, nextElementIndex);
         PlaceHierarchyTree parent  = tempParents.get( node.getParentId() ); // Get the parent node
@@ -124,7 +124,7 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
      * Root element should be registered as parent only.
      * We don't need to handle it in specific way.
      **/
-    private static PlaceHierarchyTree handleRootElement(PlaceHierarchyRecord node,
+    private static PlaceHierarchyTree handleRootElement(PlaceHibernateHierarchyRecord node,
                                                         Map<Long, PlaceHierarchyTree> tempParents) {
         LOG.debug("Got {}", node);
         register(node.toTreeElement(), tempParents );
@@ -137,12 +137,12 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
      * @param startElement its a start position. We need to check only unread nodes.
      * @param node our current node
      **/
-    private static List<PlaceHierarchyTree> getChildren( List<PlaceHierarchyRecord> dataRows,
+    private static List<PlaceHierarchyTree> getChildren( List<PlaceHibernateHierarchyRecord> dataRows,
                                                      int startElement,
                                                      PlaceHierarchyTree node ){
         List<PlaceHierarchyTree> children = new ArrayList<>();
         for(int j=startElement; j<dataRows.size(); j++){
-            PlaceHierarchyRecord phr = dataRows.get(j);
+            PlaceHibernateHierarchyRecord phr = dataRows.get(j);
 
             if (phr.isAlreadyIncluded()) // It's already belongs to our result tree
                 continue;

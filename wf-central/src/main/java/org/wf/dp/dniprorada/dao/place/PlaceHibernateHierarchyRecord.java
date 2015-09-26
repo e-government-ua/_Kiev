@@ -9,7 +9,7 @@ import static org.wf.dp.dniprorada.dao.place.PlaceDaoImpl.valid;
  * @author dgroup
  * @since  12.08.2015
  */
-public class PlaceHierarchyRecord  {
+public class PlaceHibernateHierarchyRecord {
 
     private Long placeId;
     private Long typeId;
@@ -22,12 +22,12 @@ public class PlaceHierarchyRecord  {
     private Long deep;
     private Boolean alreadyIncluded = false;
 
-    public PlaceHierarchyRecord(){
+    public PlaceHibernateHierarchyRecord(){
         // no actions required
     }
 
-    public PlaceHierarchyRecord(Long placeId, Long typeId,  String uaId,
-                                Boolean area, Boolean root, Long deep) {
+    public PlaceHibernateHierarchyRecord(Long placeId, Long typeId, String uaId,
+                                         Boolean area, Boolean root, Long deep) {
         setPlaceId(placeId);
         setTypeId(typeId);
         setUaID(uaId);
@@ -150,10 +150,10 @@ public class PlaceHierarchyRecord  {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (!(obj instanceof PlaceHierarchyRecord))
+        if (!(obj instanceof PlaceHibernateHierarchyRecord))
             return false;
 
-        PlaceHierarchyRecord that = (PlaceHierarchyRecord) obj;
+        PlaceHibernateHierarchyRecord that = (PlaceHibernateHierarchyRecord) obj;
         return placeId != null && that.placeId != null && placeId.equals(that.placeId);
     }
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author dubinka
+ * @author dgroup
  * @since  26.09.2015
  */
 public class PlaceHierarchyList implements PlaceHierarchy {

@@ -23,7 +23,7 @@ public class PlaceQueryResolver {
     private QueryLoader sqlStorage;
 
     @EnableCaching
-    public String getTreeDown(PlaceHierarchyRecord root) {
+    public String getTreeDown(PlaceHibernateHierarchyRecord root) {
         return load( valid(root.getPlaceId())
             ? "get_PlaceTree_down_by_id.sql"
             : "get_PlaceTree_down_by_UA-id.sql");
