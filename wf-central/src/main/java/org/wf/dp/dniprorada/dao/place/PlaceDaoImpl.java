@@ -45,8 +45,8 @@ public class PlaceDaoImpl extends GenericEntityDao<Place> implements PlaceDao {
             .append(root.isNotEmpty(), " where ");
 
         //  Adding additional conditionals/restrictions/constraints/etc
-        sql .append(valid(root.getTypeId()), " (type_id = :TYPE_ID", root.getTypeId())
-            .append(valid(root.isArea()) && valid(root.getTypeId()), " and ")
+        sql .append( valid(root.getTypeId()), "type_id = :TYPE_ID", root.getTypeId())
+            .append( valid(root.isArea()) && valid(root.getTypeId()), " and ")
             .append( valid(root.isArea()), " area = :AREA", root.isArea() )
             .append( valid(root.isRoot()) && (valid(root.getTypeId()) ||valid(root.isArea()))," and ")
             .append( valid(root.isRoot()), " root = :ROOT", root.isRoot())
