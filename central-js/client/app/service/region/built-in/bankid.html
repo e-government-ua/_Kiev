@@ -57,14 +57,14 @@
                              ng-if="isFieldVisible(property)">
                             <div style="display: none;">
                                 _1{{data.formData.params[property.id].required}}
-                                _2{{property.required}}
+                                _2{{isFieldRequired(property)}}
                                 _3{{form[property.id].required}}
                             </div>
 
                             <div class="col-md-5"
                                  ng-if="property.type!='invisible' && property.type!='markers'">
                                 <label style="color: red;"
-                                       ng-if="property.required==true">* </label>
+                                       ng-if="isFieldRequired(property)==true">* </label>
                                 {{property.sFieldLabel}}:
 
                                 <div class="s-field-notes"
@@ -82,11 +82,11 @@
                                 <textarea ng-switch-when="textArea"
                                           name="{{property.id}}"
                                           ng-model="data.formData.params[property.id].value"
-                                          ng-required="property.required"
+                                          ng-required="isFieldRequired(property)"
                                           class="form-control"></textarea>
                                 <label ng-switch-when="label"
                                        name="{{property.id}}"
-                                       ng-required="property.required"
+                                       ng-required="isFieldRequired(property)"
                                        class="form-control_"
                                        ng-bind-html="data.formData.params[property.id].value">
                                         <!--{{data.formData.params[property.id].value}}-->
@@ -95,14 +95,14 @@
                                 <label style="display: none;"
                                        ng-switch-when="invisible"
                                        name="{{property.id}}"
-                                       ng-required="property.required"
+                                       ng-required="isFieldRequired(property)"
                                        class="form-control_">{{data.formData.params[property.id].value}}</label>
 
                                 <input ng-switch-when="string"
                                        type="text"
                                        name="{{property.id}}"
                                        ng-model="data.formData.params[property.id].value"
-                                       ng-required="property.required"
+                                       ng-required="isFieldRequired(property)"
                                        class="form-control"
                                        value="">
                                 <input ng-switch-when="long"
@@ -110,7 +110,7 @@
                                        name="{{property.id}}"
                                        ng-model="data.formData.params[property.id].value"
                                        ng-pattern="/^\d+$/"
-                                       ng-required="property.required"
+                                       ng-required="isFieldRequired(property)"
                                        class="form-control"
                                        value="">
 
@@ -122,7 +122,7 @@
                                            is-open="data.formData.params[property.id].opened"
                                            datepicker-options="data.formData.params[property.id].options"
                                            ng-model="data.formData.params[property.id].value"
-                                           ng-required="property.required"
+                                           ng-required="isFieldRequired(property)"
                                            ng-readonly="true"
                                            close-text="Close"
                                            class="form-control"
@@ -138,14 +138,14 @@
                                         name="{{property.id}}"
                                         ng-model="data.formData.params[property.id].value"
                                         ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in property.enumValues"
-                                        ng-required="property.required"
+                                        ng-required="isFieldRequired(property)"
                                         class="form-control"></select>
 
                                 <p class="input-group"
                                    ng-switch-when="file">
                                     <file-field name="{{property.id}}"
                                                 ng-model="data.formData.params[property.id].value"
-                                                ng-required="property.required">Add File
+                                                ng-required="isFieldRequired(property)">Add File
                                     </file-field>
                                 </p>
 
@@ -153,7 +153,7 @@
                                                 ng-if="property.id==='sID_Public_SubjectOrganJoin'"
                                                 ng-model="data.formData.params[property.id].value"
                                                 service-data="oServiceData"
-                                                ng-required="property.required"></dropdown-organ>
+                                                ng-required="isFieldRequired(property)"></dropdown-organ>
 
                             </div>
 
@@ -163,7 +163,7 @@
                                 <input type="hidden"
                                        name="{{property.id}}"
                                        ng-model="data.formData.params[property.id].value"
-                                       ng-required="property.required"
+                                       ng-required="isFieldRequired(property)"
                                        class="form-control"
                                        value="">
                             </div>
