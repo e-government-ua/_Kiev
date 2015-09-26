@@ -1359,18 +1359,18 @@ sToken - сгенерированный случайно 20-ти символь�
         	
         	JSONObject fieldsJson = new JSONObject(historyEventService);
         	
-//        	if (fieldsJson.has("sToken")){
-//        		String tasksToken = fieldsJson.getString("sToken");
-//        		if (tasksToken.isEmpty() || !tasksToken.equals(sToken)){
-//            		throw new ActivitiRestException(
-//                            ActivitiExceptionController.BUSINESS_ERROR_CODE,
-//                           "Token is wrong");        			
-//        		}
-//        	} else {
-//        		throw new ActivitiRestException(
-//                        ActivitiExceptionController.BUSINESS_ERROR_CODE,
-//                       "Token is absent");
-//        	}
+        	if (fieldsJson.has("sToken")){
+        		String tasksToken = fieldsJson.getString("sToken");
+        		if (tasksToken.isEmpty() || !tasksToken.equals(sToken)){
+            		throw new ActivitiRestException(
+                            ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                           "Token is wrong");        			
+        		}
+        	} else {
+        		throw new ActivitiRestException(
+                        ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                       "Token is absent");
+        	}
         	
         	JSONObject jsnobject = new JSONObject("{ soData:" + saField + "}");
             JSONArray jsonArray = jsnobject.getJSONArray("soData");
