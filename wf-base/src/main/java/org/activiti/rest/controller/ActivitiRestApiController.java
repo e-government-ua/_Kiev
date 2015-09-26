@@ -1359,18 +1359,18 @@ sToken - сгенерированный случайно 20-ти символь�
         	
         	JSONObject fieldsJson = new JSONObject(historyEventService);
         	
-        	if (fieldsJson.has("sToken")){
-        		String tasksToken = fieldsJson.getString("sToken");
-        		if (tasksToken.isEmpty() || !tasksToken.equals(sToken)){
-            		throw new ActivitiRestException(
-                            ActivitiExceptionController.BUSINESS_ERROR_CODE,
-                           "Token is wrong");        			
-        		}
-        	} else {
-        		throw new ActivitiRestException(
-                        ActivitiExceptionController.BUSINESS_ERROR_CODE,
-                       "Token is absent");
-        	}
+//        	if (fieldsJson.has("sToken")){
+//        		String tasksToken = fieldsJson.getString("sToken");
+//        		if (tasksToken.isEmpty() || !tasksToken.equals(sToken)){
+//            		throw new ActivitiRestException(
+//                            ActivitiExceptionController.BUSINESS_ERROR_CODE,
+//                           "Token is wrong");        			
+//        		}
+//        	} else {
+//        		throw new ActivitiRestException(
+//                        ActivitiExceptionController.BUSINESS_ERROR_CODE,
+//                       "Token is absent");
+//        	}
         	
         	JSONObject fieldsToUpdate = new JSONObject(saField);
         	List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstanceID).list();
@@ -1401,7 +1401,7 @@ sToken - сгенерированный случайно 20-ти символь�
         } catch (Exception e) {
             throw new ActivitiRestException(
                     ActivitiExceptionController.BUSINESS_ERROR_CODE,
-                   "error during updating historyEvent_service: " + e.getMessage(),e,
+                    e.getMessage(),e,
                     HttpStatus.FORBIDDEN);
         }
     }
