@@ -1388,8 +1388,8 @@ sToken - сгенерированный случайно 20-ти символь�
         String URI = "/wf/service/services/getHistoryEvent_Service";
         Map<String, String> params = new HashMap<>();
         params.put("nID_Protected", nID_Protected);
-        log.info("Getting URL with parameters: https://" + generalConfig.sHostCentral() + URI + params);
-        String soJSON_HistoryEvent = httpRequester.get("https://" + generalConfig.sHostCentral() + URI, params);
+        log.info("Getting URL with parameters: " + generalConfig.sHostCentral() + URI + params);
+        String soJSON_HistoryEvent = httpRequester.get(generalConfig.sHostCentral() + URI, params);
         log.info("soJSON_HistoryEvent="+soJSON_HistoryEvent);
         return soJSON_HistoryEvent;
     }
