@@ -2522,7 +2522,7 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 
 **HTTP Metod: GET**
 
-**HTTP Context: http://server:port/wf/service/services/tasks/getAccessKey?
+**HTTP Context: http://server:port/wf/service/services/getAccessKey?
 -- возвращает ключ для аутентификации
 
 * sAccessContract - контракт
