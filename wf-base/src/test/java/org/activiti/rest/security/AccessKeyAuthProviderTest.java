@@ -49,7 +49,7 @@ public class AccessKeyAuthProviderTest {
 
         Authentication result = oAccessKeyAuthProvider.authenticate(authentication);
 
-        assertEquals(expected.getName(), result.getName());
+        assertEquals(ACCESS_LOGIN_DEFAULT, result.getName());//expected.getName()
         assertEquals(expected.getCredentials(), result.getCredentials());
         assertEquals(expected.getAuthorities(), result.getAuthorities());
     }
