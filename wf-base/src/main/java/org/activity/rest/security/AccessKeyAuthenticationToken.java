@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 /**
- * @author tasman
+ * @author tasman edited by Olga Turenko & Belyavtsev Vladimir (BW)
  */
 public class AccessKeyAuthenticationToken extends AbstractAuthenticationToken {
 
@@ -45,8 +45,7 @@ public class AccessKeyAuthenticationToken extends AbstractAuthenticationToken {
         return sID;
     }
 
-    public boolean isValidParams() {
-        return StringUtils.isNotBlank(sID)
-                && StringUtils.isNotBlank(sSecret);
+    public boolean isNotEmpty() {
+        return StringUtils.isNotBlank(sID) && StringUtils.isNotBlank(sSecret);
     }
 }

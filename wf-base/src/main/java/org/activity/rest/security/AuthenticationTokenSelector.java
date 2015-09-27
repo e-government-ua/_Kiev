@@ -15,19 +15,20 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.client.utils.URIUtils;					
 					
 /**					
- * Created by diver on 8/24/15.	edited by Olga Turenko & Belyavtsev Vladimir (BW)
+ * Created by diver edited by Olga Turenko & Belyavtsev Vladimir (BW)
  */					
 public class AuthenticationTokenSelector {					
 					
 	private final Logger oLog = LoggerFactory.getLogger(AccessKeyAuthFilter.class);				
 					
 	/* KEYS */				
-	public static final String ACCESS_CONTRACT = "sAccessContract";				
 	public static final String ACCESS_KEY = "sAccessKey";				
-	public static final String SUBJECT_ID = "nID_Subject";				
-	public static final String LOGIN = "sLogin";
+	public static final String SUBJECT_ID = "nID_Subject"; //TODO: remove in future
+	public static final String ACCESS_LOGIN = "sAccessLogin";
+	public static final String ACCESS_CONTRACT = "sAccessContract";				
 	/* VALUES */				
-	private static final String ACCESS_CONTRACT_REQUEST = "Request";				
+	public static final String ACCESS_CONTRACT_REQUEST = "Request";
+	public static final String ACCESS_CONTRACT_REQUEST_AND_LOGIN = "RequestAndLogin";
 					
 	private ServletRequest oRequest;				
 					
@@ -39,56 +40,27 @@ public class AuthenticationTokenSelector {
 	}				
 					
 	public final AccessKeyAuthenticationToken createToken() {				
-            AccessKeyAuthenticationToken oAccessKeyAuthenticationToken=
-            isAccessByContract() ?			
-                            createTokenByContract() :	
-                            createTokenBySubject();
+            AccessKeyAuthenticationToken oAccessKeyAuthenticationToken = null;
+            String sAccessKey = oRequest.getParameter(ACCESS_KEY);
+            String sAccessLogin = oRequest.getParameter(ACCESS_LOGIN);
+            String sAccessContract = oRequest.getParameter(ACCESS_CONTRACT);			
+            oLog.info("[createToken]:"+ACCESS_KEY + "=" + sAccessKey + ","+ACCESS_LOGIN + "=" + sAccessLogin + "," + ACCESS_CONTRACT + "=" + sAccessContract);			
+            if(StringUtils.isNoneBlank(sAccessContract)){
+                 String sContextAndQuery = getContextAndQuery();
+                 oLog.info("[createToken]:"+"sContextAndQuery=" + sContextAndQuery);
+                 if(ACCESS_CONTRACT_REQUEST.equalsIgnoreCase(sAccessContract) || ACCESS_CONTRACT_REQUEST_AND_LOGIN.equalsIgnoreCase(sAccessContract)){
+                        oAccessKeyAuthenticationToken = new AccessKeyAuthenticationToken(sAccessKey, sContextAndQuery);			
+                 }
+            }else{
+                oAccessKeyAuthenticationToken = createTokenBySubject();
+            }
             return oAccessKeyAuthenticationToken;
 	}				
 
-	private boolean isAccessByContract() {				
-		String sAccessContract = oRequest.getParameter(ACCESS_CONTRACT);			
-		oLog.info("[isAccessByContract]:"+ACCESS_CONTRACT + "=" + sAccessContract);			
-		return StringUtils.isNoneBlank(sAccessContract) &&			
-				ACCESS_CONTRACT_REQUEST.equalsIgnoreCase(sAccessContract);	
-	}				
-					
-	private AccessKeyAuthenticationToken createTokenBySubject() {				
-		String sAccessKey = oRequest.getParameter(ACCESS_KEY);			
-		oLog.info("[createTokenBySubject]:"+ACCESS_KEY + "=" + sAccessKey);			
-		String snID_Subject = oRequest.getParameter(SUBJECT_ID);
-		oLog.info("[createTokenBySubject]:"+SUBJECT_ID + "=" + snID_Subject);			
-		return new AccessKeyAuthenticationToken(sAccessKey, snID_Subject);			
-	}				
-					
-	private AccessKeyAuthenticationToken createTokenByContract() {				
-		String sAccessKey = oRequest.getParameter(ACCESS_KEY);
-		oLog.info("[createTokenByContract]:"+ACCESS_KEY + "=" + sAccessKey);			
-		String sQuery = getQueryStringWithContextPath();
-		oLog.info("[createTokenByContract]:"+"sQuery=" + sQuery);			
-		return new AccessKeyAuthenticationToken(sAccessKey, sQuery);			
-	}				
-					
-	private String getQueryStringWithContextPath() {				
-		String sPath = getRequestContextPath();			
+	private String getContextAndQuery() {				
+		String sContext = getRequestContextPath();			
 		String sQuery = getRequestQuery();			
-		return sPath.concat("?").concat(sQuery);			
-	}				
-					
-	private String getRequestQuery() {				
-		List<BasicNameValuePair> aParameter = new ArrayList<>();			
-		Enumeration<String> oaName = oRequest.getParameterNames();			
-		while (oaName.hasMoreElements()) {			
-			addFilteredParameter(aParameter, oaName.nextElement());		
-		}			
-		return URLEncodedUtils.format(aParameter, "UTF-8");			
-	}				
-        					
-	private void addFilteredParameter(List<BasicNameValuePair> aParameter, String sName) {				
-		if (!ACCESS_KEY.equalsIgnoreCase(sName) && !ACCESS_CONTRACT.equalsIgnoreCase(sName)) {			
-			String sValue = oRequest.getParameter(sName);		
-			aParameter.add(new BasicNameValuePair(sName, sValue));		
-		}			
+		return sContext.concat("?").concat(sQuery);			
 	}				
 					
 	private String getRequestContextPath() {				
@@ -102,4 +74,25 @@ public class AuthenticationTokenSelector {
 			return StringUtils.EMPTY;		
 		}			
 	}				
+        
+	private String getRequestQuery() {				
+		List<BasicNameValuePair> aParameter = new ArrayList<>();			
+		Enumeration<String> oaName = oRequest.getParameterNames();			
+		while (oaName.hasMoreElements()) {			
+                    String sName = oaName.nextElement();
+                    if (!ACCESS_KEY.equalsIgnoreCase(sName) && !ACCESS_CONTRACT.equalsIgnoreCase(sName)) {			
+                            String sValue = oRequest.getParameter(sName);		
+                            aParameter.add(new BasicNameValuePair(sName, sValue));		
+                    }			
+		}			
+		return URLEncodedUtils.format(aParameter, "UTF-8");			
+	}				
+        					
+	private AccessKeyAuthenticationToken createTokenBySubject() {				
+		String sAccessKey = oRequest.getParameter(ACCESS_KEY);			
+		String snID_Subject = oRequest.getParameter(SUBJECT_ID);
+		oLog.info("[createTokenBySubject]:"+ACCESS_KEY + "=" + sAccessKey+","+SUBJECT_ID + "=" + snID_Subject);			
+		return new AccessKeyAuthenticationToken(sAccessKey, snID_Subject);			
+	}				
+					
 }					

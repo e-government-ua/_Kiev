@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by diver on 6/26/15.
+ * Created by diver edited by Olga Turenko & Belyavtsev Vladimir (BW)
  */
 @Component
 public class ActivitiRestAuthProvider implements AuthenticationProvider {
@@ -53,34 +53,19 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 
 	@Override
 	public Authentication authenticate(Authentication oAuthentication) throws AuthenticationException {
-                //oLog.info("sGeneralUsername="+sGeneralUsername+",sGeneralPassword="+sGeneralPassword);
 		checkAuthByLoginAndPassword(oAuthentication);
 		String sUsername = oAuthentication.getName();
 		String sPassword = oAuthentication.getCredentials().toString();
-                //oLog.info("[authenticate]:sUsername="+sUsername+",sPassword="+sPassword);
-//                oLog.info("[authenticate]:sUsername="+sUsername);
 		if (sUsername.equals(sGeneralUsername) && sPassword.equals(sGeneralPassword)) {
-                        /*log.info("sGeneralUsername!!!1test: tech_mvd,getIdentityService="+getIdentityService().getUserInfo("tech_mvd", "tech_mvd"));
-                        Authentication oAuthentication=createBasicAuthUsernameAndPasswordToken("tech_mvd", "tech_mvd");
-                        log.info("sGeneralUsername!!!2test: tech_mvd,oAuthentication!=mull:"+(oAuthentication!=null));
-                        if(oAuthentication!=null){
-                            log.info("sGeneralUsername!!!3test: tech_mvd"
-                                    + ",oAuthentication.getName()="+oAuthentication.getName()
-                                    + ",oAuthentication.getDetails="+oAuthentication.getDetails()
-                            );
-                        }*/
-                        //oLog.info("[authenticate]:sUsername.equals(generalUsername) && sPassword.equals(generalPassword)");
                         oLog.info("[authenticate](sUsername="+sUsername+"):General - Ok!");
 			return createTokenByUsernameAndPassword(sUsername, sPassword);
 		} else {
                         boolean bCheckPassword = getIdentityService().checkPassword(sUsername, sPassword);
-                        //oLog.info("[authenticate](sUsername="+sUsername+"):Custom - "+(bCheckPassword? "Ok!":"Fail!!!"));//bCheckPassword
 			if (bCheckPassword) {
-                            oLog.info("[authenticate](sUsername="+sUsername+"):Custom - Ok!");//bCheckPassword
-                            //oLog.info("[authenticate](sUsername="+sUsername+"):getIdentityService="+getIdentityService().getUserInfo(sUsername, sPassword));
+                            oLog.info("[authenticate](sUsername="+sUsername+"):Custom - Ok!");
                             return createTokenByUsernameAndPassword(sUsername, sPassword);
 			} else {
-                            oLog.warn("[authenticate](sUsername="+sUsername+"):Custom - FAIL!");//bCheckPassword
+                            oLog.warn("[authenticate](sUsername="+sUsername+"):Custom - FAIL!");
                             return null;
 			}
 		}
@@ -95,16 +80,12 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 	private void checkAuthByLoginAndPassword(Authentication oAuthentication) throws AuthenticationException {
 		boolean bNullAuth = false;
 		boolean bInvalid = (bNullAuth = oAuthentication == null);
-                //log.info("isAuthInfoInvalid0="+isAuthInfoInvalid);
 		boolean bBlankName = false;
 		bInvalid = bInvalid || (bBlankName = StringUtils.isBlank(oAuthentication.getName()));
-                //log.info("isAuthInfoInvalid1="+isAuthInfoInvalid);
 		boolean bNullCredentials = false;
 		bInvalid = bInvalid || (bNullCredentials = oAuthentication.getCredentials() == null);
-                //log.info("isAuthInfoInvalid2="+isAuthInfoInvalid);
 		boolean bBlankCredentials = false;
 		bInvalid = bInvalid || (bBlankCredentials = StringUtils.isBlank(oAuthentication.getCredentials().toString()));
-                //log.info("isAuthInfoInvalid3="+isAuthInfoInvalid);
 		if (bInvalid) {
                         oLog.error("[checkAuthByLoginAndPassword]("
                                 + "bNullAuth="+bNullAuth + ""

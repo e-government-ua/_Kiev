@@ -12,7 +12,7 @@ import javax.servlet.ServletResponse;
 import java.io.IOException;
 
 /**
- * @author tasman
+ * @author tasman edited by Olga Turenko & Belyavtsev Vladimir (BW)
  */
 public class AccessKeyAuthFilter extends GenericFilterBean {
 
@@ -22,12 +22,12 @@ public class AccessKeyAuthFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         AuthenticationTokenSelector oAuthenticationTokenSelector = new AuthenticationTokenSelector(servletRequest);
         AccessKeyAuthenticationToken oAccessKeyAuthenticationToken = oAuthenticationTokenSelector.createToken();
-        if (oAccessKeyAuthenticationToken.isValidParams()) {
-            oLog.info("[doFilter]:sID&sSecret is Not Blank!");
+        if (oAccessKeyAuthenticationToken.isNotEmpty()) {
+            oLog.info("[doFilter]:sID&sSecret isNotEmpty!");
             //log.info("oAccessKeyAuthenticationToken!=null:" + (token != null));
             SecurityContextHolder.getContext().setAuthentication(oAccessKeyAuthenticationToken);
         } else {
-            oLog.info("[doFilter]:sID||sSecret is Blank!!!");
+            oLog.info("[doFilter]:sID||sSecret Empty!!!");
         }
         //oLog.info("[doFilter]");
         filterChain.doFilter(servletRequest, servletResponse);
