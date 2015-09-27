@@ -13,39 +13,41 @@ import java.util.Collection;
  */
 public class AccessKeyAuthenticationToken extends AbstractAuthenticationToken {
 
-    private String accessKey;
-    private String subjectId;
-    private final Logger log = LoggerFactory.getLogger(AccessKeyAuthenticationToken.class);
+    public static final String LOGIN = "sLogin";
+    
+    private String sAccessKey;
+    private String snID_Subject;
+    private final Logger oLog = LoggerFactory.getLogger(AccessKeyAuthenticationToken.class);
 
-    public AccessKeyAuthenticationToken(String accessKey, String subjectId) {
+    public AccessKeyAuthenticationToken(String sAccessKey, String snID_Subject) {
         super(null);
-        this.accessKey = accessKey;
-        this.subjectId = subjectId;
-        log.info("[AccessKeyAuthenticationToken]:accessKey="+accessKey+",subjectId="+subjectId);
+        this.sAccessKey = sAccessKey;
+        this.snID_Subject = snID_Subject;
+        //log.info("[AccessKeyAuthenticationToken]:sAccessKey="+sAccessKey+",snID_Subject="+snID_Subject);
         setAuthenticated(false);
     }
 
-    public AccessKeyAuthenticationToken(String accessKey, String subjectId, Collection<? extends GrantedAuthority> authorities) {
-        super(authorities);
-        this.accessKey = accessKey;
-        this.subjectId = subjectId;
-        log.info("[AccessKeyAuthenticationToken]:accessKey="+accessKey+",subjectId="+subjectId+",authorities!=null:"+(authorities!=null));
+    public AccessKeyAuthenticationToken(String sAccessKey, String snID_Subject, Collection<? extends GrantedAuthority> aGrantedAuthority) {
+        super(aGrantedAuthority);
+        this.sAccessKey = sAccessKey;
+        this.snID_Subject = snID_Subject;
+        //log.info("[AccessKeyAuthenticationToken]:sAccessKey="+sAccessKey+",snID_Subject="+snID_Subject+",aGrantedAuthority!=null:"+(aGrantedAuthority!=null));
         setAuthenticated(true);
     }
 
     @Override
     public Object getCredentials() {
-        log.info("[getCredentials]:subjectId=" + subjectId);
-        return subjectId;
+        //log.info("[getCredentials]:snID_Subject=" + snID_Subject);
+        return snID_Subject;
     }
 
     @Override
     public Object getPrincipal() {
-        log.info("[getPrincipal]:accessKey="+accessKey);
-        return accessKey;
+        //log.info("[getPrincipal]:sAccessKey="+sAccessKey);
+        return sAccessKey;
     }
 
     public boolean hasCorrectAccessKeyAndSubjectId() {
-        return StringUtils.isNotBlank(subjectId) && StringUtils.isNotBlank(accessKey);
+        return StringUtils.isNotBlank(snID_Subject) && StringUtils.isNotBlank(sAccessKey);
     }
 }
