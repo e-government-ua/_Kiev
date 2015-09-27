@@ -16,6 +16,7 @@ import org.wf.dp.dniprorada.constant.Language;
 import org.wf.dp.dniprorada.rest.HttpRequester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.wf.dp.dniprorada.exchange.AccessCover;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Util;
 
@@ -30,6 +31,9 @@ public class LiqBuy {
     
     @Autowired
     HttpRequester httpRequester;
+    
+    @Autowired
+    AccessCover accessCover;
     
     
     private static final Logger log = LoggerFactory.getLogger(LiqBuy.class);
@@ -61,7 +65,8 @@ public class LiqBuy {
         Map<String, String> paramMerchant = new HashMap<String, String>();
         paramMerchant.put("sID", sID_Merchant);
         paramMerchant.put("nID_Subject", String.valueOf(nID_Subject));
-        String sAccessKey_Merchant = accessDataDao.setAccessData(httpRequester.getFullURL(URI, paramMerchant));
+        //String sAccessKey_Merchant = accessDataDao.setAccessData(httpRequester.getFullURL(URI, paramMerchant));
+        String sAccessKey_Merchant = accessCover.getAccessKey(httpRequester.getFullURL(URI, paramMerchant));
         paramMerchant.put("sAccessContract", "Request");
         paramMerchant.put("sAccessKey", sAccessKey_Merchant);
         log.info("sAccessKey="+sAccessKey_Merchant);
@@ -107,7 +112,8 @@ public class LiqBuy {
             String queryParam = delimiter + "nID_Subject=" + nID_Subject;
             URI = Util.deleteContextFromURL(sURL_CallbackStatusNew) + queryParam;
             log.info("URI="+URI);
-            String sAccessKey = accessDataDao.setAccessData(URI);
+            //String sAccessKey = accessDataDao.setAccessData(URI);
+            String sAccessKey = accessCover.getAccessKey(URI);
             sURL_CallbackStatusNew = sURL_CallbackStatusNew + queryParam + "&sAccessContract=Request" + "&sAccessKey=" + sAccessKey;
         }
         log.info("sURL_CallbackStatusNew(with security-key)="+sURL_CallbackStatusNew);

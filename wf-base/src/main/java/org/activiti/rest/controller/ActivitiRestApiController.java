@@ -144,7 +144,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      * @return
      * @throws org.activiti.rest.controller.ActivitiIOException
      */
-    @RequestMapping(value = "/setAccessData", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/setAccessData", method = RequestMethod.GET)
     @Transactional
     public @ResponseBody
     String setAccessData(
@@ -152,7 +152,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
         String sKey = accessDataDao.setAccessData(sData);
         return sKey;
-    }
+    }*/
 
     /**
      * Укладываем в редис multipartFileToByteArray
