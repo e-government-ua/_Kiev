@@ -125,7 +125,7 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
         oLog.info("[createTokenByAuthentication]:sAccessLogin="+sAccessLogin);
         List<GrantedAuthority> aGrantedAuthority = new ArrayList<>();
         aGrantedAuthority.add(new SimpleGrantedAuthority(GENERAL_ROLE));
-        return new AccessKeyAuthenticationToken(sAccessLogin,//oAuthentication.getName()
+        return new AccessKeyAuthenticationToken(oAuthentication.getName(),//oAuthentication.getName()//sAccessLogin
                 oAuthentication.getCredentials().toString(),
                 aGrantedAuthority);
         //Arrays.asList(new SimpleGrantedAuthority(GENERAL_ROLE))
