@@ -324,7 +324,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     String getPatternContentReplacement(Matcher matcher) throws IOException {
         String path = matcher.group(1);
         byte[] bytes = Util.getPatternFile(path);
-        return new String(bytes);
+        return Util.sData(bytes);
     }
 
 }
