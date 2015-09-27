@@ -28,7 +28,10 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
     private String sAccessKeyUnlimited;
     private AccessDataDao oAccessDataDao;
 
-    private String sAccessLogin = "anonymous";
+    @Value("${general.auth.login}")
+    private String sGeneralUsername;
+    
+    private String sAccessLogin = sGeneralUsername;//"anonymous"
     
     private final Logger oLog = LoggerFactory.getLogger(AccessKeyAuthProvider.class);
     
@@ -119,6 +122,7 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
     private Authentication createTokenByAuthentication(Authentication oAuthentication) {
         //oLog.info("[generalCredentialsExists]:authentication.getName()="+oAuthentication.getName()
         //        +",authentication.getCredentials().toString()="+oAuthentication.getCredentials().toString());
+        oLog.info("[createTokenByAuthentication]:sAccessLogin="+sAccessLogin);
         List<GrantedAuthority> aGrantedAuthority = new ArrayList<>();
         aGrantedAuthority.add(new SimpleGrantedAuthority(GENERAL_ROLE));
         return new AccessKeyAuthenticationToken(sAccessLogin,//oAuthentication.getName()
