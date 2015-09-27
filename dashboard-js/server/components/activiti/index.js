@@ -15,7 +15,7 @@ var authBase = 'Basic ' + new Buffer(
 
 var httpProxy = require('http-proxy');
 var default_headers = {
-	'Authorization': authBase
+	'Authorization': authBase,
 };
 /*	'Authorization': config.activiti.auth.basic*/
 
@@ -98,8 +98,8 @@ exports.filedownload = function(req, res, options) {
 //downloads the file with the specified content type
 exports.typedfiledownload = function(req, res, options) {
 	var r = prepareRequest(req, options);
-	req.pipe(r).on('response', function(response) {		
-		response.headers['content-type'] = options.contentType;		
+	req.pipe(r).on('response', function(response) {
+		response.headers['content-type'] = options.contentType;
 	}).pipe(res);
 };
 
@@ -131,12 +131,14 @@ exports.pipe = function(req, res, options, data) {
 	req.pipe(r).pipe(res);
 };
 
-exports.post = function(options, onResult, data) {
+exports.post = function(options, onResult, data, json) {
+  if (typeof(json) == 'undefined')
+    json = true;
 	request.post(_.merge(getRequestOptions(options), data ? {
-			json: true,
+			json: json,
 			body: data
 		} : {
-			json: true
+			json: json
 		}),
 		function(error, response, body) {
 			if (!error) {
