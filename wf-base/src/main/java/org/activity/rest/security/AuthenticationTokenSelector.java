@@ -39,9 +39,11 @@ public class AuthenticationTokenSelector {
 	}				
 					
 	public final AccessKeyAuthenticationToken createToken() {				
-            return isAccessByContract() ?			
+            AccessKeyAuthenticationToken oAccessKeyAuthenticationToken=
+            isAccessByContract() ?			
                             createTokenByContract() :	
                             createTokenBySubject();
+            return oAccessKeyAuthenticationToken;
 	}				
 
 	private boolean isAccessByContract() {				
@@ -96,7 +98,7 @@ public class AuthenticationTokenSelector {
                                 .concat(oRequestHTTP.getServletPath())
                                 .concat(oRequestHTTP.getPathInfo());
 		} else {			
-			oLog.warn("Can't read context path. Request is not HttpServletRequest object");		
+			oLog.warn("[getRequestContextPath]:Can't read context path. Request is not HttpServletRequest object");		
 			return StringUtils.EMPTY;		
 		}			
 	}				

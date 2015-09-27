@@ -54,7 +54,7 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 	@Override
 	public Authentication authenticate(Authentication oAuthentication) throws AuthenticationException {
                 //oLog.info("sGeneralUsername="+sGeneralUsername+",sGeneralPassword="+sGeneralPassword);
-		validateAuthenticationInformation(oAuthentication);
+		checkAuthByLoginAndPassword(oAuthentication);
 		String sUsername = oAuthentication.getName();
 		String sPassword = oAuthentication.getCredentials().toString();
                 //oLog.info("[authenticate]:sUsername="+sUsername+",sPassword="+sPassword);
@@ -86,13 +86,13 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 		}
 	}
 
-	private Authentication createTokenByUsernameAndPassword(String username, String password) {
-		List<GrantedAuthority> grantedAuths = new ArrayList<>();
-		grantedAuths.add(new SimpleGrantedAuthority(GENERAL_ROLE));
-		return new UsernamePasswordAuthenticationToken(username, password, grantedAuths);
+	private Authentication createTokenByUsernameAndPassword(String sUsername, String sPassword) {
+		List<GrantedAuthority> aGrantedAuthority = new ArrayList<>();
+		aGrantedAuthority.add(new SimpleGrantedAuthority(GENERAL_ROLE));
+		return new UsernamePasswordAuthenticationToken(sUsername, sPassword, aGrantedAuthority);
 	}
 
-	private void validateAuthenticationInformation(Authentication oAuthentication) throws AuthenticationException {
+	private void checkAuthByLoginAndPassword(Authentication oAuthentication) throws AuthenticationException {
 		boolean bNullAuth = false;
 		boolean bInvalid = (bNullAuth = oAuthentication == null);
                 //log.info("isAuthInfoInvalid0="+isAuthInfoInvalid);
@@ -106,7 +106,7 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 		bInvalid = bInvalid || (bBlankCredentials = StringUtils.isBlank(oAuthentication.getCredentials().toString()));
                 //log.info("isAuthInfoInvalid3="+isAuthInfoInvalid);
 		if (bInvalid) {
-                        oLog.error("[validateAuthenticationInformation]("
+                        oLog.error("[checkAuthByLoginAndPassword]("
                                 + "bNullAuth="+bNullAuth + ""
                                 + ",bBlankName="+bBlankName + ""
                                 + ",bNullCredentials="+bNullCredentials + ""

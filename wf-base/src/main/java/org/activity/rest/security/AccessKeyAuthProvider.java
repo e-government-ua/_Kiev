@@ -49,16 +49,15 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication oAuthentication) throws AuthenticationException {
-        if (bAuthByAccessKeyAndSubject() &&
-                bAuthByAccessKeyAndSubject_Equal(oAuthentication)) {
+        if (bAuthByAccessKeyAndSubject() && bAuthByAccessKeyAndSubject_Equal(oAuthentication)) {
             //return authenticatedToken(oAuthentication);
         }else{
-            bAuthByAccessKeyAndData(oAuthentication);
+            checkAuthByAccessKeyAndData(oAuthentication);
         }
-        return generateAuthenticatedToken(oAuthentication);
+        return createTokenByAuthentication(oAuthentication);
     }
 
-    private void bAuthByAccessKeyAndData(Authentication oAuthentication) {
+    private void checkAuthByAccessKeyAndData(Authentication oAuthentication) {
         String sAccessKey = oAuthentication.getName();
         //log.info("authentication.getName()="+authentication.getName());
         //log.info("authentication.getPrincipal()="+authentication.getPrincipal());
@@ -115,12 +114,15 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
         return bEqual;
     }
 
-    private Authentication generateAuthenticatedToken(Authentication oAuthentication) {
+    private Authentication createTokenByAuthentication(Authentication oAuthentication) {
         //oLog.info("[generalCredentialsExists]:authentication.getName()="+oAuthentication.getName()
         //        +",authentication.getCredentials().toString()="+oAuthentication.getCredentials().toString());
+        List<GrantedAuthority> aGrantedAuthority = new ArrayList<>();
+        aGrantedAuthority.add(new SimpleGrantedAuthority(GENERAL_ROLE));
         return new AccessKeyAuthenticationToken(oAuthentication.getName(),
                 oAuthentication.getCredentials().toString(),
-                Arrays.asList(new SimpleGrantedAuthority(GENERAL_ROLE)));
+                aGrantedAuthority);
+        //Arrays.asList(new SimpleGrantedAuthority(GENERAL_ROLE))
     }
 
     @Override
