@@ -12,7 +12,7 @@ import java.util.*;
 public class AccessKeyAuthProviderFixtures {
     public static final String ACCESS_KEY = "test_access_key";
     public static final String ACCESS_DATA = "test_access_data";
-    public static final String ACCESS_LOGIN = "test_access_login";
+    public static final String ACCESS_LOGIN_DEFAULT = "test_access_login_default";
     public static final String DIFFERENT_ACCESS_DATA = "different_subject_id";
     public static final String GENERAL_ROLE = "ROLE_USER";
 

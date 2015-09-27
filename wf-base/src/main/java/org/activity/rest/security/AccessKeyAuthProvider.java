@@ -33,7 +33,7 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
         this.oAccessDataDao = oAccessDataDao;
     }
 
-    public void setAccessLogin(String sAccessLogin) {
+    public void setAccessLoginDefault(String sAccessLogin) {
         this.sAccessLogin = sAccessLogin;
     }
     
