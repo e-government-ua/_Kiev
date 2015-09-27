@@ -25,7 +25,7 @@ public class AuthenticationTokenSelector {
 	public static final String ACCESS_CONTRACT = "sAccessContract";				
 	public static final String ACCESS_KEY = "sAccessKey";				
 	public static final String SUBJECT_ID = "nID_Subject";				
-	//public static final String LOGIN = "sLogin";
+	public static final String LOGIN = "sLogin";
 	/* VALUES */				
 	private static final String ACCESS_CONTRACT_REQUEST = "Request";				
 					

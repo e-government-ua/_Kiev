@@ -24,61 +24,64 @@ import org.slf4j.LoggerFactory;
 @Component
 public class ActivitiRestAuthProvider implements AuthenticationProvider {
 
-	private final Logger oLog = LoggerFactory
-			.getLogger(ActivitiRestAuthProvider.class);
+	private final Logger oLog = LoggerFactory.getLogger(ActivitiRestAuthProvider.class);
     
 	private static final String GENERAL_ROLE = "ROLE_USER";
 
 	@Value("${general.auth.login}")
-	private String generalUsername;
+	private String sGeneralUsername;
 	@Value("${general.auth.password}")
-	private String generalPassword;
+	private String sGeneralPassword;
 
-	private IdentityService identityService;
+	private IdentityService oIdentityService;
 
-	public void setGeneralPassword(String generalPassword) {
-		this.generalPassword = generalPassword;
+	public void setGeneralPassword(String sGeneralPassword) {
+		this.sGeneralPassword = sGeneralPassword;
 	}
 
-	public void setGeneralUsername(String generalUsername) {
-		this.generalUsername = generalUsername;
+	public void setGeneralUsername(String sGeneralUsername) {
+		this.sGeneralUsername = sGeneralUsername;
 	}
 
-	public void setIdentityService(IdentityService identityService) {
-		this.identityService = identityService;
+	public void setIdentityService(IdentityService oIdentityService) {
+		this.oIdentityService = oIdentityService;
 	}
 
 	private IdentityService getIdentityService() {
-		return identityService == null ? ProcessEngines.getDefaultProcessEngine().getIdentityService() : identityService;
+		return oIdentityService == null ? ProcessEngines.getDefaultProcessEngine().getIdentityService() : oIdentityService;
 	}
 
 	@Override
-	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-                oLog.info("generalUsername="+generalUsername+",generalPassword="+generalPassword);
-		validateAuthenticationInformation(authentication);
-		String username = authentication.getName();
-		String password = authentication.getCredentials().toString();
-                oLog.info("username="+username+",password="+password);
-		if (username.equals(generalUsername) && password.equals(generalPassword)) {
-                        /*log.info("generalUsername!!!1test: tech_mvd,getIdentityService="+getIdentityService().getUserInfo("tech_mvd", "tech_mvd"));
+	public Authentication authenticate(Authentication oAuthentication) throws AuthenticationException {
+                //oLog.info("sGeneralUsername="+sGeneralUsername+",sGeneralPassword="+sGeneralPassword);
+		validateAuthenticationInformation(oAuthentication);
+		String sUsername = oAuthentication.getName();
+		String sPassword = oAuthentication.getCredentials().toString();
+                //oLog.info("[authenticate]:sUsername="+sUsername+",sPassword="+sPassword);
+//                oLog.info("[authenticate]:sUsername="+sUsername);
+		if (sUsername.equals(sGeneralUsername) && sPassword.equals(sGeneralPassword)) {
+                        /*log.info("sGeneralUsername!!!1test: tech_mvd,getIdentityService="+getIdentityService().getUserInfo("tech_mvd", "tech_mvd"));
                         Authentication oAuthentication=createBasicAuthUsernameAndPasswordToken("tech_mvd", "tech_mvd");
-                        log.info("generalUsername!!!2test: tech_mvd,oAuthentication!=mull:"+(oAuthentication!=null));
+                        log.info("sGeneralUsername!!!2test: tech_mvd,oAuthentication!=mull:"+(oAuthentication!=null));
                         if(oAuthentication!=null){
-                            log.info("generalUsername!!!3test: tech_mvd"
+                            log.info("sGeneralUsername!!!3test: tech_mvd"
                                     + ",oAuthentication.getName()="+oAuthentication.getName()
                                     + ",oAuthentication.getDetails="+oAuthentication.getDetails()
                             );
                         }*/
-                        oLog.info("username.equals(generalUsername) && password.equals(generalPassword)");
-			return createBasicAuthUsernameAndPasswordToken(username, password);
+                        //oLog.info("[authenticate]:sUsername.equals(generalUsername) && sPassword.equals(generalPassword)");
+                        oLog.info("[authenticate](sUsername="+sUsername+"):General - Ok!");
+			return createBasicAuthUsernameAndPasswordToken(sUsername, sPassword);
 		} else {
-                        boolean bCheckPassword = getIdentityService().checkPassword(username, password);
-                        oLog.info("bCheckPassword="+bCheckPassword);
+                        boolean bCheckPassword = getIdentityService().checkPassword(sUsername, sPassword);
+                        //oLog.info("[authenticate](sUsername="+sUsername+"):Custom - "+(bCheckPassword? "Ok!":"Fail!!!"));//bCheckPassword
 			if (bCheckPassword) {
-                                oLog.info("username="+username+",getIdentityService="+getIdentityService().getUserInfo(username, password));
-				return createBasicAuthUsernameAndPasswordToken(username, password);
+                            oLog.info("[authenticate](sUsername="+sUsername+"):Custom - Ok!");//bCheckPassword
+                            //oLog.info("[authenticate](sUsername="+sUsername+"):getIdentityService="+getIdentityService().getUserInfo(sUsername, sPassword));
+                            return createBasicAuthUsernameAndPasswordToken(sUsername, sPassword);
 			} else {
-				return null;
+                            oLog.warn("[authenticate](sUsername="+sUsername+"):Custom - FAIL!");//bCheckPassword
+                            return null;
 			}
 		}
 	}
@@ -91,19 +94,19 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 
 	private void validateAuthenticationInformation(Authentication oAuthentication) throws AuthenticationException {
 		boolean bNullAuth = false;
-		boolean isAuthInfoInvalid = (bNullAuth = oAuthentication == null);
+		boolean bInvalid = (bNullAuth = oAuthentication == null);
                 //log.info("isAuthInfoInvalid0="+isAuthInfoInvalid);
 		boolean bBlankName = false;
-		isAuthInfoInvalid = isAuthInfoInvalid || (bBlankName = StringUtils.isBlank(oAuthentication.getName()));
+		bInvalid = bInvalid || (bBlankName = StringUtils.isBlank(oAuthentication.getName()));
                 //log.info("isAuthInfoInvalid1="+isAuthInfoInvalid);
 		boolean bNullCredentials = false;
-		isAuthInfoInvalid = isAuthInfoInvalid || (bNullCredentials = oAuthentication.getCredentials() == null);
+		bInvalid = bInvalid || (bNullCredentials = oAuthentication.getCredentials() == null);
                 //log.info("isAuthInfoInvalid2="+isAuthInfoInvalid);
 		boolean bBlankCredentials = false;
-		isAuthInfoInvalid = isAuthInfoInvalid || (bBlankCredentials = StringUtils.isBlank(oAuthentication.getCredentials().toString()));
+		bInvalid = bInvalid || (bBlankCredentials = StringUtils.isBlank(oAuthentication.getCredentials().toString()));
                 //log.info("isAuthInfoInvalid3="+isAuthInfoInvalid);
-		if (isAuthInfoInvalid) {
-                        oLog.info("[validateAuthenticationInformation]("
+		if (bInvalid) {
+                        oLog.error("[validateAuthenticationInformation]("
                                 + "bNullAuth="+bNullAuth + ""
                                 + ",bBlankName="+bBlankName + ""
                                 + ",bNullCredentials="+bNullCredentials + ""
@@ -113,7 +116,11 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 	}
 
 	@Override
-	public boolean supports(Class<?> aClass) {
-		return aClass.equals(UsernamePasswordAuthenticationToken.class);
+	public boolean supports(Class<?> oAuthentication) {
+                boolean bSupport = UsernamePasswordAuthenticationToken.class.equals(oAuthentication);
+                //oLog.info("[supports]:bEquals="+bSupport);
+                return bSupport;
+                
+                
 	}
 }

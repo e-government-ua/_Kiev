@@ -13,41 +13,40 @@ import java.util.Collection;
  */
 public class AccessKeyAuthenticationToken extends AbstractAuthenticationToken {
 
-    public static final String LOGIN = "sLogin";
-    
-    private String sAccessKey;
-    private String snID_Subject;
+    private String sID;
+    private String sSecret;
     private final Logger oLog = LoggerFactory.getLogger(AccessKeyAuthenticationToken.class);
 
-    public AccessKeyAuthenticationToken(String sAccessKey, String snID_Subject) {
+    public AccessKeyAuthenticationToken(String sID, String sSecret) {
         super(null);
-        this.sAccessKey = sAccessKey;
-        this.snID_Subject = snID_Subject;
-        //log.info("[AccessKeyAuthenticationToken]:sAccessKey="+sAccessKey+",snID_Subject="+snID_Subject);
+        this.sID = sID;
+        this.sSecret = sSecret;
+        //oLog.info("[AccessKeyAuthenticationToken]:sID="+sID+",sSecret="+sSecret);
         setAuthenticated(false);
     }
 
-    public AccessKeyAuthenticationToken(String sAccessKey, String snID_Subject, Collection<? extends GrantedAuthority> aGrantedAuthority) {
+    public AccessKeyAuthenticationToken(String sID, String sSecret, Collection<? extends GrantedAuthority> aGrantedAuthority) {
         super(aGrantedAuthority);
-        this.sAccessKey = sAccessKey;
-        this.snID_Subject = snID_Subject;
-        //log.info("[AccessKeyAuthenticationToken]:sAccessKey="+sAccessKey+",snID_Subject="+snID_Subject+",aGrantedAuthority!=null:"+(aGrantedAuthority!=null));
+        this.sID = sID;
+        this.sSecret = sSecret;
+        //oLog.info("[AccessKeyAuthenticationToken]:sID="+sID+",sSecret="+sSecret+",aGrantedAuthority!=null:"+(aGrantedAuthority!=null));
         setAuthenticated(true);
     }
 
     @Override
     public Object getCredentials() {
-        //log.info("[getCredentials]:snID_Subject=" + snID_Subject);
-        return snID_Subject;
+        //oLog.info("[getCredentials]:sSecret=" + sSecret);
+        return sSecret;
     }
 
     @Override
     public Object getPrincipal() {
-        //log.info("[getPrincipal]:sAccessKey="+sAccessKey);
-        return sAccessKey;
+        //oLog.info("[getPrincipal]:sID="+sID);
+        return sID;
     }
 
-    public boolean hasCorrectAccessKeyAndSubjectId() {
-        return StringUtils.isNotBlank(snID_Subject) && StringUtils.isNotBlank(sAccessKey);
+    public boolean isValidParams() {
+        return StringUtils.isNotBlank(sID)
+                && StringUtils.isNotBlank(sSecret);
     }
 }

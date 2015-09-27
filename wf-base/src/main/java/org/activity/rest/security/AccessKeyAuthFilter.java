@@ -16,20 +16,20 @@ import java.io.IOException;
  */
 public class AccessKeyAuthFilter extends GenericFilterBean {
 
-    private final Logger log = LoggerFactory.getLogger(AccessKeyAuthFilter.class);
+    private final Logger oLog = LoggerFactory.getLogger(AccessKeyAuthFilter.class);
     
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         AuthenticationTokenSelector oAuthenticationTokenSelector = new AuthenticationTokenSelector(servletRequest);
         AccessKeyAuthenticationToken oAccessKeyAuthenticationToken = oAuthenticationTokenSelector.createToken();
-        if (oAccessKeyAuthenticationToken.hasCorrectAccessKeyAndSubjectId()) {
-            log.info("sAccessKey is Not Blank");
+        if (oAccessKeyAuthenticationToken.isValidParams()) {
+            oLog.info("[doFilter]:sID&sSecret is Not Blank!");
             //log.info("oAccessKeyAuthenticationToken!=null:" + (token != null));
             SecurityContextHolder.getContext().setAuthentication(oAccessKeyAuthenticationToken);
         } else {
-            log.info("sAccessKey is Blank!!!");
+            oLog.info("[doFilter]:sID||sSecret is Blank!!!");
         }
-        log.info("filterChain.doFilter");
+        //oLog.info("[doFilter]");
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }
