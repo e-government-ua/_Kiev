@@ -9,43 +9,43 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 /**
- * @author tasman
+ * @author tasman edited by Olga Turenko & Belyavtsev Vladimir (BW)
  */
 public class AccessKeyAuthenticationToken extends AbstractAuthenticationToken {
 
-    private String accessKey;
-    private String subjectId;
-    private final Logger log = LoggerFactory.getLogger(AccessKeyAuthenticationToken.class);
+    private String sID;
+    private String sSecret;
+    private final Logger oLog = LoggerFactory.getLogger(AccessKeyAuthenticationToken.class);
 
-    public AccessKeyAuthenticationToken(String accessKey, String subjectId) {
+    public AccessKeyAuthenticationToken(String sID, String sSecret) {
         super(null);
-        this.accessKey = accessKey;
-        this.subjectId = subjectId;
-        log.info("[AccessKeyAuthenticationToken]:accessKey="+accessKey+",subjectId="+subjectId);
+        this.sID = sID;
+        this.sSecret = sSecret;
+        //oLog.info("[AccessKeyAuthenticationToken]:sID="+sID+",sSecret="+sSecret);
         setAuthenticated(false);
     }
 
-    public AccessKeyAuthenticationToken(String accessKey, String subjectId, Collection<? extends GrantedAuthority> authorities) {
-        super(authorities);
-        this.accessKey = accessKey;
-        this.subjectId = subjectId;
-        log.info("[AccessKeyAuthenticationToken]:accessKey="+accessKey+",subjectId="+subjectId+",authorities!=null:"+(authorities!=null));
+    public AccessKeyAuthenticationToken(String sID, String sSecret, Collection<? extends GrantedAuthority> aGrantedAuthority) {
+        super(aGrantedAuthority);
+        this.sID = sID;
+        this.sSecret = sSecret;
+        //oLog.info("[AccessKeyAuthenticationToken]:sID="+sID+",sSecret="+sSecret+",aGrantedAuthority!=null:"+(aGrantedAuthority!=null));
         setAuthenticated(true);
     }
 
     @Override
     public Object getCredentials() {
-        log.info("[getCredentials]:subjectId=" + subjectId);
-        return subjectId;
+        //oLog.info("[getCredentials]:sSecret=" + sSecret);
+        return sSecret;
     }
 
     @Override
     public Object getPrincipal() {
-        log.info("[getPrincipal]:accessKey="+accessKey);
-        return accessKey;
+        //oLog.info("[getPrincipal]:sID="+sID);
+        return sID;
     }
 
-    public boolean hasCorrectAccessKeyAndSubjectId() {
-        return StringUtils.isNotBlank(subjectId) && StringUtils.isNotBlank(accessKey);
+    public boolean isNotEmpty() {
+        return StringUtils.isNotBlank(sID) && StringUtils.isNotBlank(sSecret);
     }
 }

@@ -1,9 +1,7 @@
 package org.activiti.rest.controller;
 
 import com.google.common.base.Charsets;
-
 import liquibase.util.csv.CSVWriter;
-
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
@@ -60,11 +58,7 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -1188,23 +1182,14 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     }
 
     private static class TaskAlreadyUnboundException extends Exception {
-
         public TaskAlreadyUnboundException(String message) {
             super(message);
         }
     }
 
 
-    /*issue 808
-
- 3.4) в найденную таску (по nID_Protected) сетить в глобальную переменную
- 3.4.1) saFieldQuestion - содержимое saField
- 3.4.2) sQuestion - содержимое sBody
-
-    * */
-
     /**
-     * сервис ЗАПРОСА полей, требующих уточнения, c отсылкой уведомления гражданину
+     * issue 808. сервис ЗАПРОСА полей, требующих уточнения, c отсылкой уведомления гражданину
      * @param nID_Protected - номер-ИД заявки (защищенный)
      * @param saField -- строка-массива полей (например: "[{'id':'sFamily','type':'string','value':'Белявский'},{'id':'nAge','type':'long'}]")
      * @param sMail -- строка электронного адреса гражданина
@@ -1212,7 +1197,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      * @param sBody -- строка тела письма //опциональный (если не задан, то пустота)
      * @throws ActivitiRestException
      */
-    //http://localhost:8081/service/rest/setTaskQuestions?nID_Protected=22&saField=[{%27id%27:%27sFamily%27,%27type%27:%27string%27,%27value%27:%27test%27}]&sMail=olga2012olga@gmail.com
     @RequestMapping(value = "/setTaskQuestions", method = RequestMethod.GET)
     public @ResponseBody
     void setTaskQuestions(@RequestParam(value = "nID_Protected") Long nID_Protected,
@@ -1221,7 +1205,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     @RequestParam(value = "sHead", required = false) String sHead,
                     @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException {
 
-        sHead = sHead == null ? "Необхідно уточнити дані" : sHead;
+        try {
+            sHead = sHead == null ? new String("Необхідно уточнити дані".getBytes("UTF-8"), "UTF-8") : sHead;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         sBody = sBody == null ? "" : sBody;
         String sToken = generateToken();
         try {
@@ -1234,37 +1222,28 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
         try {
             sendEmail(sHead, createEmailBody(nID_Protected,saField,sBody, sToken),sMail);
-        } catch (EmailException e) {
+        } catch (EmailException|UnsupportedEncodingException e) {
             throw new ActivitiRestException(
                     ActivitiExceptionController.SYSTEM_ERROR_CODE,
                     "error during sending email: " + e.getMessage(),e,
                     HttpStatus.FORBIDDEN);
         }
-
+        setInfo_ToActiviti("" + nID_Protected/10, saField, sBody);
     }
-/*тсылать письмо
- 3.3.1) на sMail
- 3.3.2) с заголовком sHead
- 3.3.3) и телом sBody
- 3.3.4) + перечисление полей из saField в формате таблицы: Поле / Тип / Текущее значение
- 3.3.5) И гиперссылкой в конце типа: https://igov.org.ua/order?nID_Protected=12233&sToken=LHLIUH где:
-хост должен быть текущий центральный
-nID_Protected - получный параметр
-sToken - сгенерированный случайно 20-ти символьный код*/
-    private String createEmailBody(Long nID_Protected, String soData, String sBody, String sToken) {
+
+    private String createEmailBody(Long nID_Protected, String soData, String sBody, String sToken) throws UnsupportedEncodingException {
         StringBuilder emailBody = new StringBuilder(sBody);
-        emailBody.append("\n")
+        emailBody.append("<br/>")
                 .append(createTable(soData))
-                .append("\n");
-        String link = (new StringBuilder("https://")
-                .append(generalConfig.sHostCentral())
+                .append("<br/>");
+        String link = (new StringBuilder(generalConfig.sHostCentral())
                 .append("/order?nID_Protected=")
                 .append(nID_Protected)
                 .append("&sToken=")
                 .append(sToken))
                     .toString();
         emailBody.append(link)
-                .append("\n");
+                .append("<br/>");
         return emailBody.toString();
     }
 
@@ -1276,22 +1255,24 @@ sToken - сгенерированный случайно 20-ти символь�
         oMail.send();
     }
 
-    private String createTable(String soData) {
+    private String createTable(String soData) throws UnsupportedEncodingException {
         if (soData == null || "[]".equals(soData)){
             return "";
         }
-        StringBuilder tableStr = new StringBuilder("Поле \t/ Тип \t/ Поточне значення\n");
+        StringBuilder tableStr = new StringBuilder("<table><tr><th>Поле</th><th>Тип </th><th> Поточне значення</th></tr>");
         JSONObject jsnobject = new JSONObject("{ soData:" + soData + "}");
         JSONArray jsonArray = jsnobject.getJSONArray("soData");
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject record = jsonArray.getJSONObject(i);
-            tableStr.append(record.opt("id") != null ? record.get("id") : "?")
-                    .append(" (")
+            tableStr.append("<tr><td>")
+                    .append(record.opt("id") != null ? record.get("id") : "?")
+                    .append("</td><td>")
                     .append(record.opt("type")!= null ? record.get("type").toString() : "??")
-                    .append("): ")
+                    .append("</td><td>")
                     .append(record.opt("value")!= null ? record.get("value").toString() : "")
-                    .append(" \n");
+                    .append("</td></tr>");
         }
+        tableStr.append("</table>");
         return tableStr.toString();
     }
 
@@ -1334,7 +1315,7 @@ sToken - сгенерированный случайно 20-ти символь�
         String sAccessKey_HistoryEvent = accessDataDao.setAccessData(httpRequester.getFullURL(URI, params));
         params.put("sAccessKey", sAccessKey_HistoryEvent);
         log.info("sAccessKey=" + sAccessKey_HistoryEvent);
-        String soJSON_HistoryEvent = httpRequester.get("https://" + generalConfig.sHostCentral() + URI, params);
+        String soJSON_HistoryEvent = httpRequester.get(generalConfig.sHostCentral() + URI, params);
         log.info("soJSON_HistoryEvent="+soJSON_HistoryEvent);
         return soJSON_HistoryEvent;
     }
@@ -1348,29 +1329,23 @@ sToken - сгенерированный случайно 20-ти символь�
                     @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException {
         try {
         	sHead = sHead == null ? "На заявку " + nID_Protected + " дана відповідь громаданином" : sHead;
-        	
         	AlgorithmLuna.validateProtectedNumber(nID_Protected);
-        	
             String processInstanceID = String.valueOf(AlgorithmLuna.getOriginalNumber(nID_Protected));
-            
             log.info("Found processInstanceID=" + processInstanceID + ". Will get history event service");
-        	
         	String historyEventService = getHistoryEvent_Service(nID_Protected.toString());
-        	
         	JSONObject fieldsJson = new JSONObject(historyEventService);
-        	
-//        	if (fieldsJson.has("sToken")){
-//        		String tasksToken = fieldsJson.getString("sToken");
-//        		if (tasksToken.isEmpty() || !tasksToken.equals(sToken)){
-//            		throw new ActivitiRestException(
-//                            ActivitiExceptionController.BUSINESS_ERROR_CODE,
-//                           "Token is wrong");        			
-//        		}
-//        	} else {
-//        		throw new ActivitiRestException(
-//                        ActivitiExceptionController.BUSINESS_ERROR_CODE,
-//                       "Token is absent");
-//        	}
+        	if (fieldsJson.has("sToken")){
+        		String tasksToken = fieldsJson.getString("sToken");
+        		if (tasksToken.isEmpty() || !tasksToken.equals(sToken)){
+            		throw new ActivitiRestException(
+                            ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                           "Token is wrong");        			
+        		}
+        	} else {
+        		throw new ActivitiRestException(
+                        ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                       "Token is absent");
+        	}
         	
         	JSONObject jsnobject = new JSONObject("{ soData:" + saField + "}");
             JSONArray jsonArray = jsnobject.getJSONArray("soData");
@@ -1388,7 +1363,7 @@ sToken - сгенерированный случайно 20-ти символь�
                         JSONObject record = jsonArray.getJSONObject(i);
                         String fieldId = (String) record.get("id");
                     for (FormProperty property : data.getFormProperties()) {
-                    	if (fieldId.equals(fieldId)){
+                    	if (fieldId.equals(property.getId())){
                     		if (property instanceof FormPropertyImpl){
                         		log.info("Updating property's " + property.getId() + " value from " + 
                         					property.getValue() + " to " + record.get("value"));
@@ -1401,7 +1376,6 @@ sToken - сгенерированный случайно 20-ти символь�
                     }
         		}
         	}
-        	
         	updateHistoryEvent_Service(processInstanceID, saField, null);
         } catch (Exception e) {
             throw new ActivitiRestException(
@@ -1427,11 +1401,19 @@ sToken - сгенерированный случайно 20-ти символь�
         params.put("nID_Process", sID_Process);
         params.put("soData", saField);
         params.put("sToken", sToken);
+        params.put("sID_Status", "setTaskAnswer");
         String sAccessKey_HistoryEvent = accessDataDao.setAccessData(httpRequester.getFullURL(URI, params));
         params.put("sAccessKey", sAccessKey_HistoryEvent);
         log.info("sAccessKey=" + sAccessKey_HistoryEvent);
         String soJSON_HistoryEvent = httpRequester.get(generalConfig.sHostCentral() + URI, params);
         log.info("soJSON_HistoryEvent="+soJSON_HistoryEvent);
         return soJSON_HistoryEvent;
+    }
+
+    private void setInfo_ToActiviti(String snID_Process, String saField, String sBody) {
+        log.info("try to set saField=%s and sBody=%s to snID_Process=%s", saField, sBody, snID_Process);
+        runtimeService.setVariable(snID_Process, "saFieldQuestion", saField);
+        runtimeService.setVariable(snID_Process, "sQuestion", sBody);
+        log.info("completed set saField=%s and sBody=%s to snID_Process=%s", saField, sBody, snID_Process);
     }
 }

@@ -3,7 +3,7 @@ angular.module('app').directive('slotPicker', function($http, dialogs) {
     restrict: 'EA',
     templateUrl: 'app/common/components/form/directives/slotPicker.html',
     scope: {
-      serviceId: "=",
+      serviceData: "=",
       ngModel: "="
     },
     link: function(scope) {
@@ -19,7 +19,7 @@ angular.module('app').directive('slotPicker', function($http, dialogs) {
 
       scope.$watch('selected.slot', function(newValue) {
         if (newValue) {
-          $http.post('/api/service/flow/set/' + newValue.nID).then(function(response) {
+          $http.post('/api/service/flow/set/' + newValue.nID + '?sURL=' + scope.serviceData.sURL).then(function(response) {
             scope.ngModel = JSON.stringify({
               nID_FlowSlotTicket: response.data.nID_Ticket,
               sDate: scope.selected.date.sDate + ' ' + scope.selected.slot.sTime + ':00.00'
@@ -40,7 +40,7 @@ angular.module('app').directive('slotPicker', function($http, dialogs) {
       scope.slotsData = {};
 
       scope.loadList = function(){
-        return $http.get('/api/service/flow/' + scope.serviceId).then(function(response) {
+        return $http.get('/api/service/flow/' + scope.serviceData.nID + '?sURL=' + scope.serviceData.sURL).then(function(response) {
           scope.slotsData = response.data;
         });
       };
