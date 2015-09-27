@@ -51,7 +51,6 @@ angular.module('app')
 
         // TODO improve the logic
         $scope.authControlIsVisible = function() {
-          console.log('authControlIsVisible:', $scope.authControlIsNeeded(), sControlMode);
           return $scope.authControlIsNeeded() && sControlMode !== 'placeEditMode';
         };
 
@@ -179,9 +178,9 @@ angular.module('app')
           var placeData = PlacesService.getPlaceData();
 
           console.log('processPlaceSelection');
-          console.log('region is chosen: ', $scope.regionIsChosen(), ', city is chosen: ', $scope.cityIsChosen());
+          console.log('region is chosen:', $scope.regionIsChosen(), ', city is chosen:', $scope.cityIsChosen());
           console.log('Place controls is complete:', $scope.placeControlIsComplete());
-          console.log('AuthControlIsVisible: ', $scope.authControlIsVisible());
+          console.log('AuthControlIsVisible:', $scope.authControlIsVisible());
 
           PlacesService.setPlaceData(placeData);
 
@@ -197,11 +196,12 @@ angular.module('app')
         $scope.initPlaceControls = function() {
 
           var regions = $scope.regions;
+          var placeData = PlacesService.getPlaceData();
 
           // FIXME finalize re-selection of place
           // init place data by scope data if it's available
-          $scope.region = $scope.data && $scope.data.region || $scope.region;
-          $scope.city = $scope.data && $scope.data.city || $scope.city;
+          $scope.region = $scope.data && $scope.data.region || placeData.region || $scope.region;
+          $scope.city = $scope.data && $scope.data.city || placeData.city || $scope.city;
 
           PlacesService.setPlaceData({
             region: $scope.region,
@@ -213,7 +213,7 @@ angular.module('app')
 
           $scope.regionList.initialize($scope.regions);
 
-          console.log('[] [] initPlaceControls $scope.regions.length = ', $scope.regions.length);
+          console.log('[] [] initPlaceControls $scope.regions.length = ', $scope.regions.length, '$scope.region:', $scope.region, '$scope.city:', $scope.city, ' $scope.data:', $scope.data );
 
           // FIXME we need ro reset it to work with localstorage
           // and we do not need it when coming from step to step
