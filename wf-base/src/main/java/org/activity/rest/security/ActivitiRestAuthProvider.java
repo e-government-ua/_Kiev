@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 @Component
 public class ActivitiRestAuthProvider implements AuthenticationProvider {
 
-	private final Logger log = LoggerFactory
+	private final Logger oLog = LoggerFactory
 			.getLogger(ActivitiRestAuthProvider.class);
     
 	private static final String GENERAL_ROLE = "ROLE_USER";
@@ -54,11 +54,11 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-                log.info("generalUsername="+generalUsername+",generalPassword="+generalPassword);
+                oLog.info("generalUsername="+generalUsername+",generalPassword="+generalPassword);
 		validateAuthenticationInformation(authentication);
 		String username = authentication.getName();
 		String password = authentication.getCredentials().toString();
-                log.info("username="+username+",password="+password);
+                oLog.info("username="+username+",password="+password);
 		if (username.equals(generalUsername) && password.equals(generalPassword)) {
                         /*log.info("generalUsername!!!1test: tech_mvd,getIdentityService="+getIdentityService().getUserInfo("tech_mvd", "tech_mvd"));
                         Authentication oAuthentication=createBasicAuthUsernameAndPasswordToken("tech_mvd", "tech_mvd");
@@ -69,13 +69,13 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
                                     + ",oAuthentication.getDetails="+oAuthentication.getDetails()
                             );
                         }*/
-                        log.info("username.equals(generalUsername) && password.equals(generalPassword)");
+                        oLog.info("username.equals(generalUsername) && password.equals(generalPassword)");
 			return createBasicAuthUsernameAndPasswordToken(username, password);
 		} else {
                         boolean bCheckPassword = getIdentityService().checkPassword(username, password);
-                        log.info("bCheckPassword="+bCheckPassword);
+                        oLog.info("bCheckPassword="+bCheckPassword);
 			if (bCheckPassword) {
-                                log.info("username="+username+",getIdentityService="+getIdentityService().getUserInfo(username, password));
+                                oLog.info("username="+username+",getIdentityService="+getIdentityService().getUserInfo(username, password));
 				return createBasicAuthUsernameAndPasswordToken(username, password);
 			} else {
 				return null;
@@ -89,16 +89,25 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 		return new UsernamePasswordAuthenticationToken(username, password, grantedAuths);
 	}
 
-	private void validateAuthenticationInformation(Authentication authentication) throws AuthenticationException {
-		boolean isAuthInfoInvalid = authentication == null;
-                log.info("isAuthInfoInvalid0="+isAuthInfoInvalid);
-		isAuthInfoInvalid = isAuthInfoInvalid || StringUtils.isBlank(authentication.getName());
-                log.info("isAuthInfoInvalid1="+isAuthInfoInvalid);
-		isAuthInfoInvalid = isAuthInfoInvalid || authentication.getCredentials() == null;
-                log.info("isAuthInfoInvalid2="+isAuthInfoInvalid);
-		isAuthInfoInvalid = isAuthInfoInvalid || StringUtils.isBlank(authentication.getCredentials().toString());
-                log.info("isAuthInfoInvalid3="+isAuthInfoInvalid);
+	private void validateAuthenticationInformation(Authentication oAuthentication) throws AuthenticationException {
+		boolean bNullAuth = false;
+		boolean isAuthInfoInvalid = (bNullAuth = oAuthentication == null);
+                //log.info("isAuthInfoInvalid0="+isAuthInfoInvalid);
+		boolean bBlankName = false;
+		isAuthInfoInvalid = isAuthInfoInvalid || (bBlankName = StringUtils.isBlank(oAuthentication.getName()));
+                //log.info("isAuthInfoInvalid1="+isAuthInfoInvalid);
+		boolean bNullCredentials = false;
+		isAuthInfoInvalid = isAuthInfoInvalid || (bNullCredentials = oAuthentication.getCredentials() == null);
+                //log.info("isAuthInfoInvalid2="+isAuthInfoInvalid);
+		boolean bBlankCredentials = false;
+		isAuthInfoInvalid = isAuthInfoInvalid || (bBlankCredentials = StringUtils.isBlank(oAuthentication.getCredentials().toString()));
+                //log.info("isAuthInfoInvalid3="+isAuthInfoInvalid);
 		if (isAuthInfoInvalid) {
+                        oLog.info("[validateAuthenticationInformation]("
+                                + "bNullAuth="+bNullAuth + ""
+                                + ",bBlankName="+bBlankName + ""
+                                + ",bNullCredentials="+bNullCredentials + ""
+                                + ",bBlankCredentials="+bBlankCredentials + "):User or password not valid!");
 			throw new BadCredentialsException("User or password not valid");
 		}
 	}

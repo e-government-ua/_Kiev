@@ -20,14 +20,14 @@ public class AccessKeyAuthFilter extends GenericFilterBean {
     
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        AuthenticationTokenSelector selector = new AuthenticationTokenSelector(servletRequest);
-        AccessKeyAuthenticationToken token = selector.createToken();
-        if (token.hasCorrectAccessKeyAndSubjectId()) {
-            log.info("accessKey&subjectId is Not Blank");
-            log.info("oAccessKeyAuthenticationToken!=null:" + (token != null));
-            SecurityContextHolder.getContext().setAuthentication(token);
+        AuthenticationTokenSelector oAuthenticationTokenSelector = new AuthenticationTokenSelector(servletRequest);
+        AccessKeyAuthenticationToken oAccessKeyAuthenticationToken = oAuthenticationTokenSelector.createToken();
+        if (oAccessKeyAuthenticationToken.hasCorrectAccessKeyAndSubjectId()) {
+            log.info("sAccessKey is Not Blank");
+            //log.info("oAccessKeyAuthenticationToken!=null:" + (token != null));
+            SecurityContextHolder.getContext().setAuthentication(oAccessKeyAuthenticationToken);
         } else {
-            log.info("accessKey&subjectId is Blank!!!");
+            log.info("sAccessKey is Blank!!!");
         }
         log.info("filterChain.doFilter");
         filterChain.doFilter(servletRequest, servletResponse);
