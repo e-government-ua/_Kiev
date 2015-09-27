@@ -57,7 +57,7 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
         if (StringUtils.isNotBlank(sGeneralAccessKey) && StringUtils.isNotBlank(sGeneralSubjectId)
             && sGeneralAccessKey.equals(oAuthentication.getName()) && sGeneralSubjectId.equals(oAuthentication.getCredentials())
             ) {
-                sAccessLogin = "Test";
+                //sAccessLogin = "Test";
                 oLog.info("[authenticate]:sAccessLogin="+sAccessLogin+",sGeneralSubjectId=="+sGeneralSubjectId+":By General!");
         }else{
             checkAuthByAccessKeyAndData(oAuthentication);
