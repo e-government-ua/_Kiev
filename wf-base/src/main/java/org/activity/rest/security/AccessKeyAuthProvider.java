@@ -20,18 +20,11 @@ import java.util.*;
 public class AccessKeyAuthProvider implements AuthenticationProvider {
 
     private static final String GENERAL_ROLE = "ROLE_USER";
-    @Value("${general.auth.custom.accessKey}")
-    private String sGeneralAccessKey;
-    @Value("${general.auth.custom.subjectId}")
-    private String sGeneralSubjectId;
-    @Value("${general.auth.custom.persistentKey}")
-    private String sAccessKeyUnlimited;
-    private AccessDataDao oAccessDataDao;
 
     @Value("${general.auth.login}")
-    private String sGeneralUsername;
-    
-    private String sAccessLogin = sGeneralUsername;//"anonymous"
+    private String sAccessLogin; // = sGeneralUsername; // == null ? "anonymous" : sGeneralUsername;
+
+    private AccessDataDao oAccessDataDao;
     
     private final Logger oLog = LoggerFactory.getLogger(AccessKeyAuthProvider.class);
     
@@ -40,29 +33,14 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
         this.oAccessDataDao = oAccessDataDao;
     }
 
-    public void setGeneralAccessKey(String sGeneralAccessKey) {
-        this.sGeneralAccessKey = sGeneralAccessKey;
+    public void setAccessLogin(String sAccessLogin) {
+        this.sAccessLogin = sAccessLogin;
     }
-
-    public void setGeneralSubjectId(String sGeneralSubjectId) {
-        this.sGeneralSubjectId = sGeneralSubjectId;
-    }
-
-    public void setPersistentKey(String sPersistentKey) {
-        this.sAccessKeyUnlimited = sPersistentKey;
-    }
-
+    
     @Override
     public Authentication authenticate(Authentication oAuthentication) throws AuthenticationException {
-        if (StringUtils.isNotBlank(sGeneralAccessKey) && StringUtils.isNotBlank(sGeneralSubjectId)
-            && sGeneralAccessKey.equals(oAuthentication.getName()) && sGeneralSubjectId.equals(oAuthentication.getCredentials())
-            ) {
-                //sAccessLogin = "Test";
-                oLog.info("[authenticate]:sAccessLogin="+sAccessLogin+",sGeneralSubjectId=="+sGeneralSubjectId+":By General!");
-        }else{
-            checkAuthByAccessKeyAndData(oAuthentication);
-        }
-        return createTokenByAuthentication(oAuthentication);
+        checkAuthByAccessKeyAndData(oAuthentication);
+        return createTokenByAccessKeyAndData(oAuthentication);
     }
 
     private void checkAuthByAccessKeyAndData(Authentication oAuthentication) {
@@ -73,7 +51,6 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
             oLog.warn("[checkAuthByAccessKeyAndData]:sAccessData == null");
             throw new BadAccessKeyCredentialsException("Error custom authorization - key is absent");
         }
-        //sAccessData = sAccessData.replace("&sAccessContract=Request", "").replace("sAccessContract=Request&", "");
         sAccessData = sAccessData.replace("&"+AuthenticationTokenSelector.ACCESS_CONTRACT+"="+AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST, "")
                 .replace(""+AuthenticationTokenSelector.ACCESS_CONTRACT+"="+AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST+"&", "");
         boolean bContractAndLogin = sAccessData.contains(AuthenticationTokenSelector.ACCESS_CONTRACT+"="+AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST_AND_LOGIN);
@@ -111,24 +88,16 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
             throw new BadAccessKeyCredentialsException("Error custom authorization - key data is wrong");
         }
         
-        if (sAccessKeyUnlimited == null || !sAccessKeyUnlimited.equals(sAccessKey)) {//authentication.getName()
-            oLog.info("[checkAuthByAccessKeyAndData](sAccessLogin="+sAccessLogin+",sAccessKey="+sAccessKey+"):Remove key!");
-            oAccessDataDao.removeAccessData(sAccessKey);//authentication.getName()
-        }else{
-            oLog.warn("[checkAuthByAccessKeyAndData](sAccessLogin="+sAccessLogin+",sAccessKey="+sAccessKey + ",sAccessKeyUnlimited="+sAccessKeyUnlimited+"):Can't remove key, it's Unlimited!");
-        }
+        oAccessDataDao.removeAccessData(sAccessKey);
+        oLog.info("[checkAuthByAccessKeyAndData](sAccessLogin="+sAccessLogin+",bContractAndLogin="+bContractAndLogin+",sAccessKey="+sAccessKey+"):Removed key!");
     }
 
-    private Authentication createTokenByAuthentication(Authentication oAuthentication) {
-        //oLog.info("[generalCredentialsExists]:authentication.getName()="+oAuthentication.getName()
-        //        +",authentication.getCredentials().toString()="+oAuthentication.getCredentials().toString());
-        oLog.info("[createTokenByAuthentication]:sAccessLogin="+sAccessLogin);
-        List<GrantedAuthority> aGrantedAuthority = new ArrayList<>();
+    private Authentication createTokenByAccessKeyAndData(Authentication oAuthentication) {
+        oLog.info("[createTokenByAccessKey]:sAccessLogin="+sAccessLogin);//+",oAuthentication.getName()="+oAuthentication.getName()//+",authentication.getCredentials().toString()="+oAuthentication.getCredentials().toString());
+        List<GrantedAuthority> aGrantedAuthority = new ArrayList<>(); //Arrays.asList(new SimpleGrantedAuthority(GENERAL_ROLE))
         aGrantedAuthority.add(new SimpleGrantedAuthority(GENERAL_ROLE));
-        return new AccessKeyAuthenticationToken(oAuthentication.getName(),//oAuthentication.getName()//sAccessLogin
-                oAuthentication.getCredentials().toString(),
-                aGrantedAuthority);
-        //Arrays.asList(new SimpleGrantedAuthority(GENERAL_ROLE))
+        return new AccessKeyAuthenticationToken(sAccessLogin, //sAccessLogin == null ? oAuthentication.getName() : sAccessLogin
+                oAuthentication.getCredentials().toString(), aGrantedAuthority);
     }
 
     @Override
