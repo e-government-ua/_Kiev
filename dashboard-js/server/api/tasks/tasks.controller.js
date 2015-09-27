@@ -200,3 +200,20 @@ exports.getPatternFile = function(req, res) {
   };
   activiti.filedownload(req, res, options);
 };
+
+exports.upload_content_as_attachment = function (req, res) {
+  activiti.post({
+    path: 'rest/file/upload_content_as_attachment',
+    query: {
+      nTaskId: req.params.taskId,
+      sContentType: 'text/html',
+      sDescription: req.body.sDescription,
+      sFileName: req.body.sFileName
+    },
+    headers: {
+      'Content-Type': 'text/html;charset=utf-8'
+    }
+  }, function(error, statusCode, result) {
+    error ? res.send(error) : res.status(statusCode).json(result);
+  }, req.body.sContent, false);
+};

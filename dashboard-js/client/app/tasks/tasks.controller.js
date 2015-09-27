@@ -238,7 +238,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
       $scope.taskForm.isInProcess = true;
 
-      tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
+      tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm, $scope.selectedTask)
         .then(function (result) {
           Modal.inform.success(function (result) {
             $scope.lightweightRefreshAfterSubmit();
@@ -284,7 +284,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
   //lightweight refresh only deletes the submitted task from the array of current type of tasks
   //so we don't need to refresh the whole page
       $scope.selectedTasks[$scope.$storage.menuType] = null;
-      loadTaskCounters();      
+      loadTaskCounters();
       $scope.tasks = $.grep($scope.tasks, function (e) {
         return e.id != $scope.selectedTask.id;
       });
@@ -435,7 +435,6 @@ $scope.lightweightRefreshAfterSubmit = function () {
         return aResult;
         */
 
-        console.log("[aPatternPrintNew1]...");
 
         printTemplateResult = taskForm.filter(function (item) {//form//this.form
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
@@ -457,7 +456,6 @@ $scope.lightweightRefreshAfterSubmit = function () {
 
           return result;
         });
-        console.log("[aPatternPrintNew1]aResult="+aResult);
     }
 
     return printTemplateResult;
