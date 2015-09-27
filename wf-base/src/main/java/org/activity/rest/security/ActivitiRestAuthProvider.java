@@ -56,22 +56,17 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 		checkAuthByLoginAndPassword(oAuthentication);
 		String sUsername = oAuthentication.getName();
 		String sPassword = oAuthentication.getCredentials().toString();
-		if (sUsername.equals(sGeneralUsername) && sPassword.equals(sGeneralPassword)) {
-                        oLog.info("[authenticate](sUsername="+sUsername+"):General - Ok!");
-			return createTokenByUsernameAndPassword(sUsername, sPassword);
-		} else {
-                        boolean bCheckPassword = getIdentityService().checkPassword(sUsername, sPassword);
-			if (bCheckPassword) {
-                            oLog.info("[authenticate](sUsername="+sUsername+"):Custom - Ok!");
-                            return createTokenByUsernameAndPassword(sUsername, sPassword);
-			} else {
-                            oLog.warn("[authenticate](sUsername="+sUsername+"):Custom - FAIL!");
+		if (!sUsername.equals(sGeneralUsername) || !sPassword.equals(sGeneralPassword)) {
+			if (!getIdentityService().checkPassword(sUsername, sPassword)) {
+                            oLog.warn("[authenticate](sUsername="+sUsername+"):FAIL!");
                             return null;
 			}
 		}
+                return createTokenByUsernameAndPassword(sUsername, sPassword);
 	}
 
 	private Authentication createTokenByUsernameAndPassword(String sUsername, String sPassword) {
+                oLog.info("[createTokenByUsernameAndPassword]:sUsername="+sUsername);
 		List<GrantedAuthority> aGrantedAuthority = new ArrayList<>();
 		aGrantedAuthority.add(new SimpleGrantedAuthority(GENERAL_ROLE));
 		return new UsernamePasswordAuthenticationToken(sUsername, sPassword, aGrantedAuthority);
