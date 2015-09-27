@@ -1,6 +1,5 @@
 package org.activiti.rest.controller;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,15 +70,16 @@ public class ActivitiRestServicesController {
       Service service = JsonRestUtils.readObject(jsonData, Service.class);
 
       Service updatedService = entityService.update(service);
-      clearGetServicesCache();
 
-      return regionsToJsonResponse(updatedService);
+      return tryClearGetServicesCache(regionsToJsonResponse(updatedService));
    }
 
-   private void clearGetServicesCache() {
-      if (methodCacheInterceptor != null) {
+   private ResponseEntity tryClearGetServicesCache(ResponseEntity responseEntity) {
+      if (methodCacheInterceptor != null && HttpStatus.OK.equals(responseEntity.getStatusCode())) {
          methodCacheInterceptor.clearCacheForMethod(CachedInvocationBean.class, "invokeUsingCache", GET_SERVICES_TREE);
       }
+
+      return responseEntity;
    }
 
    @RequestMapping(value = "/removeService", method = RequestMethod.DELETE)
@@ -93,7 +93,7 @@ public class ActivitiRestServicesController {
          response = recursiveForceServiceDelete(Service.class, nID);
       } else
          response = deleteEmptyContentEntity(Service.class, nID);
-      return response;
+      return tryClearGetServicesCache(response);
    }
 
    @RequestMapping(value = "/removeServiceData", method = RequestMethod.DELETE)
@@ -107,7 +107,7 @@ public class ActivitiRestServicesController {
          response = recursiveForceServiceDelete(ServiceData.class, nID);
       } else
          response = deleteEmptyContentEntity(ServiceData.class, nID);
-      return response;
+      return tryClearGetServicesCache(response);
    }
 
    @RequestMapping(value = "/removeSubcategory", method = RequestMethod.DELETE)
@@ -121,7 +121,7 @@ public class ActivitiRestServicesController {
          response = recursiveForceServiceDelete(Subcategory.class, nID);
       } else
          response = deleteEmptyContentEntity(Subcategory.class, nID);
-      return response;
+      return tryClearGetServicesCache(response);
    }
 
    @RequestMapping(value = "/removeCategory", method = RequestMethod.DELETE)
@@ -135,7 +135,7 @@ public class ActivitiRestServicesController {
          response = recursiveForceServiceDelete(Category.class, nID);
       } else
          response = deleteEmptyContentEntity(Category.class, nID);
-      return response;
+      return tryClearGetServicesCache(response);
    }
 
    private <T extends Entity> ResponseEntity deleteEmptyContentEntity(Class<T> entityClass, Long nID) {
@@ -164,12 +164,11 @@ public class ActivitiRestServicesController {
    @ResponseBody
    ResponseEntity removeServicesTree() {
       List<Category> categories = new ArrayList<>(baseEntityDao.findAll(Category.class));
-      for (int i = 0; i < categories.size(); i++) {
-         Category category = categories.get(i);
+      for (Category category : categories) {
          baseEntityDao.delete(category);
       }
-      return JsonRestUtils.toJsonResponse(HttpStatus.OK,
-              new ResultMessage("success", "ServicesTree removed"));
+      return tryClearGetServicesCache(JsonRestUtils.toJsonResponse(HttpStatus.OK,
+              new ResultMessage("success", "ServicesTree removed")));
    }
 
    private <T extends Entity> ResponseEntity deleteApropriateEntity(T entity) {
@@ -243,41 +242,45 @@ public class ActivitiRestServicesController {
         SUPPORTED_PLACE_IDS.add(String.valueOf(KOATUU.KYIV.getId()));
     }
 
-    @RequestMapping(value = "/getServicesTree", method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<String> getServicesTree(
-            @RequestParam(value = "sFind", required = false) final String partOfName, @RequestParam(
-                    value = "asID_Place_UA",
-                    required = false) final List<String> placeUaIds) {
-        final boolean bTest = generalConfig.bTest();
-        SerializableResponseEntity<String> entity = cachedInvocationBean.invokeUsingCache(new CachedInvocationBean.Callback<SerializableResponseEntity<String>>(
-                GET_SERVICES_TREE, partOfName, placeUaIds, bTest) {
-            @Override
-            public SerializableResponseEntity<String> execute() {
-                List<Category> categories = new ArrayList<>(baseEntityDao.findAll(Category.class));
+   @RequestMapping(value = "/getServicesTree", method = RequestMethod.GET)
+   public
+   @ResponseBody
+   ResponseEntity<String> getServicesTree(
+           @RequestParam(value = "sFind", required = false) final String partOfName,
+           @RequestParam(value = "asID_Place_UA", required = false) final List<String> placeUaIds,
+           @RequestParam(value = "bShowEmptyFolders", required = false, defaultValue = "false") final boolean bShowEmptyFolders) {
+      final boolean bTest = generalConfig.bTest();
+      SerializableResponseEntity<String> entity = cachedInvocationBean.invokeUsingCache(new CachedInvocationBean.Callback<SerializableResponseEntity<String>>(
+              GET_SERVICES_TREE, partOfName, placeUaIds, bTest) {
+         @Override
+         public SerializableResponseEntity<String> execute() {
+            List<Category> categories = new ArrayList<>(baseEntityDao.findAll(Category.class));
 
-                if (!bTest) {
-                    filterOutServicesByServiceNamePrefix(categories, SERVICE_NAME_TEST_PREFIX);
-                }
-
-                if (partOfName != null) {
-                    filterServicesByServiceName(categories, partOfName);
-                }
-
-                if (placeUaIds != null) {
-//TODO: Зачем это было добавлено?                    placeUaIds.retainAll(SUPPORTED_PLACE_IDS);
-                    if (!placeUaIds.isEmpty()) {
-                        filterServicesByPlaceIds(categories, placeUaIds);
-                    }
-                }
-
-                cleanEmptyContainers(categories);
-
-                return categoriesToJsonResponse(categories);
+            if (!bTest) {
+               filterOutServicesByServiceNamePrefix(categories, SERVICE_NAME_TEST_PREFIX);
             }
-        });
 
-        return entity.toResponseEntity();
-    }
+            if (partOfName != null) {
+               filterServicesByServiceName(categories, partOfName);
+            }
+
+            if (placeUaIds != null) {
+//TODO: Зачем это было добавлено?                    placeUaIds.retainAll(SUPPORTED_PLACE_IDS);
+               if (!placeUaIds.isEmpty()) {
+                  filterServicesByPlaceIds(categories, placeUaIds);
+               }
+            }
+
+            if (!bShowEmptyFolders) {
+               hideEmptyFolders(categories);
+            }
+
+            return categoriesToJsonResponse(categories);
+         }
+      });
+
+      return entity.toResponseEntity();
+   }
 
     private void filterOutServicesByServiceNamePrefix(List<Category> categories, String prefix) {
         for (Category category : categories) {
@@ -341,7 +344,7 @@ public class ActivitiRestServicesController {
     *
     * @param categories
     */
-   private void cleanEmptyContainers(List<Category> categories) {
+   private void hideEmptyFolders(List<Category> categories) {
        for (Iterator<Category> categoryIterator = categories.iterator(); categoryIterator.hasNext();) {
            Category category = categoryIterator.next();
 
@@ -366,9 +369,8 @@ public class ActivitiRestServicesController {
 
       List<Category> categories = Arrays.asList(JsonRestUtils.readObject(jsonData, Category[].class));
       List<Category> updatedCategories = entityService.update(categories);
-      clearGetServicesCache();
 
-      return categoriesToJsonResponse(updatedCategories).toResponseEntity();
+      return tryClearGetServicesCache(categoriesToJsonResponse(updatedCategories).toResponseEntity());
    }
 
    @RequestMapping(value = "/getServicesAndPlacesTables", method = RequestMethod.GET)

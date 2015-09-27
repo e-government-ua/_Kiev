@@ -246,8 +246,13 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
   $scope.isFieldVisible = function(property) {
     return property.id != 'processName'
-    && (FieldMotionService.isFieldMentioned(property.id) ?
+    && (FieldMotionService.isFieldMentioned.inShow(property.id) ?
         FieldMotionService.isFieldVisible(property.id, $scope.data.formData.params) : true);
+  };
+
+  $scope.isFieldRequired = function(property) {
+    return FieldMotionService.isFieldMentioned.inRequired(property.id) ?
+      FieldMotionService.isFieldRequired(property.id, $scope.data.formData.params) : property.required;
   };
 
   // $timeout(function () {
