@@ -1182,7 +1182,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     }
 
     private static class TaskAlreadyUnboundException extends Exception {
-
         public TaskAlreadyUnboundException(String message) {
             super(message);
         }
@@ -1198,7 +1197,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      * @param sBody -- строка тела письма //опциональный (если не задан, то пустота)
      * @throws ActivitiRestException
      */
-    //http://localhost:8081/service/rest/setTaskQuestions?nID_Protected=22&saField=[{%27id%27:%27sFamily%27,%27type%27:%27string%27,%27value%27:%27test%27}]&sMail=olga2012olga@gmail.com
     @RequestMapping(value = "/setTaskQuestions", method = RequestMethod.GET)
     public @ResponseBody
     void setTaskQuestions(@RequestParam(value = "nID_Protected") Long nID_Protected,
@@ -1232,22 +1230,13 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
         setInfo_ToActiviti("" + nID_Protected/10, saField, sBody);
     }
-/*тсылать письмо
- 3.3.1) на sMail
- 3.3.2) с заголовком sHead
- 3.3.3) и телом sBody
- 3.3.4) + перечисление полей из saField в формате таблицы: Поле / Тип / Текущее значение
- 3.3.5) И гиперссылкой в конце типа: https://igov.org.ua/order?nID_Protected=12233&sToken=LHLIUH где:
-хост должен быть текущий центральный
-nID_Protected - получный параметр
-sToken - сгенерированный случайно 20-ти символьный код*/
+
     private String createEmailBody(Long nID_Protected, String soData, String sBody, String sToken) throws UnsupportedEncodingException {
         StringBuilder emailBody = new StringBuilder(sBody);
         emailBody.append("<br/>")
                 .append(createTable(soData))
                 .append("<br/>");
-        String link = (new StringBuilder("https://")
-                .append(generalConfig.sHostCentral())
+        String link = (new StringBuilder(generalConfig.sHostCentral())
                 .append("/order?nID_Protected=")
                 .append(nID_Protected)
                 .append("&sToken=")
@@ -1340,17 +1329,11 @@ sToken - сгенерированный случайно 20-ти символь�
                     @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException {
         try {
         	sHead = sHead == null ? "На заявку " + nID_Protected + " дана відповідь громаданином" : sHead;
-        	
         	AlgorithmLuna.validateProtectedNumber(nID_Protected);
-        	
             String processInstanceID = String.valueOf(AlgorithmLuna.getOriginalNumber(nID_Protected));
-            
             log.info("Found processInstanceID=" + processInstanceID + ". Will get history event service");
-        	
         	String historyEventService = getHistoryEvent_Service(nID_Protected.toString());
-        	
         	JSONObject fieldsJson = new JSONObject(historyEventService);
-        	
         	if (fieldsJson.has("sToken")){
         		String tasksToken = fieldsJson.getString("sToken");
         		if (tasksToken.isEmpty() || !tasksToken.equals(sToken)){
@@ -1393,7 +1376,6 @@ sToken - сгенерированный случайно 20-ти символь�
                     }
         		}
         	}
-        	
         	updateHistoryEvent_Service(processInstanceID, saField, null);
         } catch (Exception e) {
             throw new ActivitiRestException(
@@ -1433,6 +1415,5 @@ sToken - сгенерированный случайно 20-ти символь�
         runtimeService.setVariable(snID_Process, "saFieldQuestion", saField);
         runtimeService.setVariable(snID_Process, "sQuestion", sBody);
         log.info("completed set saField=%s and sBody=%s to snID_Process=%s", saField, sBody, snID_Process);
-
     }
 }
