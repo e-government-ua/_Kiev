@@ -27,7 +27,7 @@ public class AccessKeyAuthProviderTest {
         Authentication expected = createAuthenticatedAuthToken();
         //provider.setGeneralAccessKey(ACCESS_KEY);
         //provider.setGeneralSubjectId(ACCESS_DATA);
-        oAccessKeyAuthProvider.setAccessLogin(ACCESS_LOGIN);
+        oAccessKeyAuthProvider.setAccessLoginDefault(ACCESS_LOGIN_DEFAULT);
         
         Authentication authentication = createAuthToken();
 
@@ -42,6 +42,9 @@ public class AccessKeyAuthProviderTest {
     public void shouldAuthenticateByDaoCredentials() throws Exception {
         Authentication expected = createAuthenticatedAuthToken();
         when(accessDataDao.getAccessData(ACCESS_KEY)).thenReturn(ACCESS_DATA);
+        
+        oAccessKeyAuthProvider.setAccessLoginDefault(ACCESS_LOGIN_DEFAULT);
+        
         Authentication authentication = createAuthToken();
 
         Authentication result = oAccessKeyAuthProvider.authenticate(authentication);
@@ -54,6 +57,9 @@ public class AccessKeyAuthProviderTest {
     @Test
     public void shouldRemoveDaoCredentialsAfterSuccessfulAuthentication() throws Exception {
         when(accessDataDao.getAccessData(ACCESS_KEY)).thenReturn(ACCESS_DATA);
+        
+        oAccessKeyAuthProvider.setAccessLoginDefault(ACCESS_LOGIN_DEFAULT);
+        
         Authentication authentication = createAuthToken();
 
         oAccessKeyAuthProvider.authenticate(authentication);
@@ -82,7 +88,7 @@ public class AccessKeyAuthProviderTest {
     }
 
     @Test
-    public void shouldThrowExceptionWhenDaoContainsDifferentSubjectId() throws Exception {
+    public void shouldThrowExceptionWhenDaoContainsDifferentAccessData() throws Exception {
         Authentication authentication = createAuthToken();
         when(accessDataDao.getAccessData(ACCESS_KEY)).thenReturn(DIFFERENT_ACCESS_DATA);
         thrown.expect(BadAccessKeyCredentialsException.class);
