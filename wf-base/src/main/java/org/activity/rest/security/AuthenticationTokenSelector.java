@@ -39,31 +39,31 @@ public class AuthenticationTokenSelector {
 	}				
 					
 	public final AccessKeyAuthenticationToken createToken() {				
-            return isRequestContainAccessContractParameter() ?			
-                            createAccessContractToken() :	
-                            createSubjectIdToken();
+            return isAccessByContract() ?			
+                            createTokenByContract() :	
+                            createTokenBySubject();
 	}				
 
-	private boolean isRequestContainAccessContractParameter() {				
+	private boolean isAccessByContract() {				
 		String sAccessContract = oRequest.getParameter(ACCESS_CONTRACT);			
-		oLog.info("[isRequestContainAccessContractParameter]:"+ACCESS_CONTRACT + "=" + sAccessContract);			
+		oLog.info("[isAccessByContract]:"+ACCESS_CONTRACT + "=" + sAccessContract);			
 		return StringUtils.isNoneBlank(sAccessContract) &&			
 				ACCESS_CONTRACT_REQUEST.equalsIgnoreCase(sAccessContract);	
 	}				
 					
-	private AccessKeyAuthenticationToken createSubjectIdToken() {				
+	private AccessKeyAuthenticationToken createTokenBySubject() {				
 		String sAccessKey = oRequest.getParameter(ACCESS_KEY);			
-		oLog.info("[createSubjectIdToken]:"+ACCESS_KEY + "=" + sAccessKey);			
+		oLog.info("[createTokenBySubject]:"+ACCESS_KEY + "=" + sAccessKey);			
 		String snID_Subject = oRequest.getParameter(SUBJECT_ID);
-		oLog.info("[createSubjectIdToken]:"+SUBJECT_ID + "=" + snID_Subject);			
+		oLog.info("[createTokenBySubject]:"+SUBJECT_ID + "=" + snID_Subject);			
 		return new AccessKeyAuthenticationToken(sAccessKey, snID_Subject);			
 	}				
 					
-	private AccessKeyAuthenticationToken createAccessContractToken() {				
+	private AccessKeyAuthenticationToken createTokenByContract() {				
 		String sAccessKey = oRequest.getParameter(ACCESS_KEY);
-		oLog.info("[createAccessContractToken]:"+ACCESS_KEY + "=" + sAccessKey);			
+		oLog.info("[createTokenByContract]:"+ACCESS_KEY + "=" + sAccessKey);			
 		String sQuery = getQueryStringWithContextPath();
-		oLog.info("[createAccessContractToken]:"+"sQuery=" + sQuery);			
+		oLog.info("[createTokenByContract]:"+"sQuery=" + sQuery);			
 		return new AccessKeyAuthenticationToken(sAccessKey, sQuery);			
 	}				
 					
@@ -92,8 +92,9 @@ public class AuthenticationTokenSelector {
 	private String getRequestContextPath() {				
 		if (oRequest instanceof HttpServletRequest) {			
 			HttpServletRequest oRequestHTTP = (HttpServletRequest) oRequest;		
-			return oRequestHTTP.getContextPath().concat(oRequestHTTP.getServletPath()).		
-					concat(oRequestHTTP.getPathInfo());
+			return oRequestHTTP.getContextPath()
+                                .concat(oRequestHTTP.getServletPath())
+                                .concat(oRequestHTTP.getPathInfo());
 		} else {			
 			oLog.warn("Can't read context path. Request is not HttpServletRequest object");		
 			return StringUtils.EMPTY;		

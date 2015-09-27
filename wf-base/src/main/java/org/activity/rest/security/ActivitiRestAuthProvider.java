@@ -71,14 +71,14 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
                         }*/
                         //oLog.info("[authenticate]:sUsername.equals(generalUsername) && sPassword.equals(generalPassword)");
                         oLog.info("[authenticate](sUsername="+sUsername+"):General - Ok!");
-			return createBasicAuthUsernameAndPasswordToken(sUsername, sPassword);
+			return createTokenByUsernameAndPassword(sUsername, sPassword);
 		} else {
                         boolean bCheckPassword = getIdentityService().checkPassword(sUsername, sPassword);
                         //oLog.info("[authenticate](sUsername="+sUsername+"):Custom - "+(bCheckPassword? "Ok!":"Fail!!!"));//bCheckPassword
 			if (bCheckPassword) {
                             oLog.info("[authenticate](sUsername="+sUsername+"):Custom - Ok!");//bCheckPassword
                             //oLog.info("[authenticate](sUsername="+sUsername+"):getIdentityService="+getIdentityService().getUserInfo(sUsername, sPassword));
-                            return createBasicAuthUsernameAndPasswordToken(sUsername, sPassword);
+                            return createTokenByUsernameAndPassword(sUsername, sPassword);
 			} else {
                             oLog.warn("[authenticate](sUsername="+sUsername+"):Custom - FAIL!");//bCheckPassword
                             return null;
@@ -86,7 +86,7 @@ public class ActivitiRestAuthProvider implements AuthenticationProvider {
 		}
 	}
 
-	private Authentication createBasicAuthUsernameAndPasswordToken(String username, String password) {
+	private Authentication createTokenByUsernameAndPassword(String username, String password) {
 		List<GrantedAuthority> grantedAuths = new ArrayList<>();
 		grantedAuths.add(new SimpleGrantedAuthority(GENERAL_ROLE));
 		return new UsernamePasswordAuthenticationToken(username, password, grantedAuths);
