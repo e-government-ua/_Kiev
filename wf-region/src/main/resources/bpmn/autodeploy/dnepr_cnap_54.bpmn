@@ -28,7 +28,7 @@
         <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <serviceTask id="mailtask2" name="Повідомлення співробітника держоргану" activiti:type="mail">
+    <serviceTask id="mailtask2" name="Повідомлення співробітника ЦНАП П" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
           <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
@@ -43,11 +43,11 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head lang="ru"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;style type="text/css"&gt;
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -63,7 +63,7 @@
         #mailer-body a {color: #2F70AF; text-decoration: none;}
         #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
         #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body p > label {width: 40px;}
         #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
         #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
         #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
@@ -71,55 +71,55 @@
         #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
         #mailer-body textarea:focus {outline: 0;}
         #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov</b><br />портал державних послуг</td>
 
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
-                                    &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження.&lt;br /&gt;
-Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Відпрацюйте це звернення на &lt;a href="https://test.region.igov.org.ua:6948/" target="_blank"&gt;порталі&lt;/a&gt;
-                                    &lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                     З повагою,&lt;br /&gt;
-					  Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
-                                        &lt;/p&gt;
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>Шановний(-а) колего!</h3>
+                                    <p>
+У Вас в черзі на обробку зареєстровано нове звернення щодо Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження.<br />
+Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}<br />
+Відпрацюйте це звернення на <a href="https://test.region.igov.org.ua:6948/" target="_blank">порталі</a>
+                                    </p>
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                     З повагою,<br />
+					  Команда Порталу державних послуг <a href="https://igov.org.ua/" target="_blank">iGov</a>
+                                        </p>
+                                    </p>
+                                </td>
+                            </tr>
                            
                           
 
-                        &lt;/table&gt;
+                        </table>
                      
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -151,11 +151,12 @@
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, підставу" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="opis" name="Завантажте опис прийнятих документів " type="file"></activiti:formProperty>
+        <activiti:formProperty id="PrintForm_1" name="[pattern/print/dnepr_cnap_54_print.html]" type="file"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_54_print.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${doc_pidpriemci}, ${perelic}</activiti:expression>
+            <activiti:expression><![CDATA[${doc_pidpriemci}, ${perelic}]]></activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -178,7 +179,6 @@
     <sequenceFlow id="flow5" name="надання дозволу П" sourceRef="exclusivegateway1" targetRef="servicetask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='accept'&&cnap=='pravij'}]]></conditionExpression>
     </sequenceFlow>
-    <endEvent id="endevent1" name="End"></endEvent>
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow12" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <sequenceFlow id="flow15" name="надання дозволу Л" sourceRef="exclusivegateway1" targetRef="servicetask4">
@@ -187,7 +187,7 @@
     <serviceTask id="mailtask6" name="повідомлення громадянина про відхилення звернення" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
+          <activiti:expression><![CDATA[${email}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -199,11 +199,11 @@
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head lang="ru"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;style type="text/css"&gt;
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -219,7 +219,7 @@
         #mailer-body a {color: #2F70AF; text-decoration: none;}
         #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
         #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body p > label {width: 40px;}
         #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
         #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
         #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
@@ -227,54 +227,54 @@
         #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
         #mailer-body textarea:focus {outline: 0;}
         #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov</b><br />портал державних послуг</td>
 
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
-           &lt;p&gt;
-Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваш запит щодо Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження відхилено.&lt;br /&gt;
-&lt;br /&gt;
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+           <p>
+Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}<br />
+Ваш запит щодо отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження відхилено.<br />
+<br />
 Підстава: ${comment_1}    
-    &lt;/pя&gt;
-                                    &lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-	З повагою,&lt;br /&gt;
-									Центр надання адміністративних послуг&lt;br /&gt;
-									Дніпропетровської міської ради&lt;br /&gt;	                                   
-								   &lt;/td&gt;
-                            &lt;/tr&gt;
+    </pя>
+                                    </p>
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+	З повагою,<br />
+									Центр надання адміністративних послуг<br />
+									Дніпропетровської міської ради<br />	                                   
+								   </td>
+                            </tr>
                            
                           
 
-                        &lt;/table&gt;
+                        </table>
                      
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -287,20 +287,20 @@
           <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
+          <activiti:expression><![CDATA["${email}"]]></activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${opis}"</activiti:expression>
+          <activiti:expression><![CDATA["${opis}","${PrintForm_1}"]]></activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head lang="ru"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;style type="text/css"&gt;
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -316,7 +316,7 @@
         #mailer-body a {color: #2F70AF; text-decoration: none;}
         #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
         #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body p > label {width: 40px;}
         #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
         #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
         #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
@@ -324,61 +324,61 @@
         #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
         #mailer-body textarea:focus {outline: 0;}
         #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov</b><br />портал державних послуг</td>
 
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
-           &lt;p&gt;
-Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваш запит щодо отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з виробництва, з переробки неїстівних продуктів тваринного походження успішно зареєстровано і буде опрацьовано управлінням ветеринарної медицини в м.Дніпропетровську впродовж 10 робочих днів.&lt;br /&gt;
-&lt;br /&gt;
-Реєстраційний номер заяви: ${reestr_numb};&lt;br /&gt;
-До листа додається опис наданих Вами документів.&lt;br /&gt;
-&lt;br /&gt;
-Ви отримаєте додаткове повідомлення за результатами розгляду запиту.&lt;br /&gt;
-    &lt;/p&gt;
-                                    &lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                  &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;&lt;br /&gt;	
-										&lt;br /&gt;	
-										Центр надання адміністративних послуг&lt;br /&gt;
-										Дніпропетровської міської ради&lt;br /&gt;	
-                                        &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+           <p>
+Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}<br />
+Ваш запит щодо отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з виробництва, з переробки неїстівних продуктів тваринного походження успішно зареєстровано і буде опрацьовано управлінням ветеринарної медицини в м.Дніпропетровську впродовж 10 робочих днів.<br />
+<br />
+Реєстраційний номер заяви: ${reestr_numb};<br />
+До листа додається опис наданих Вами документів.<br />
+<br />
+Ви отримаєте додаткове повідомлення за результатами розгляду запиту.<br />
+    </p>
+                                    </p>
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                  <p>
+                                        З повагою,<br />
+                                        Команда Порталу державних послуг <a href="https://igov.org.ua/" target="_blank">iGov</a><br />	
+										<br />	
+										Центр надання адміністративних послуг<br />
+										Дніпропетровської міської ради<br />	
+                                        </p>
+                                </td>
+                            </tr>
                            
                           
 
-                        &lt;/table&gt;
+                        </table>
                      
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -388,34 +388,32 @@
     <sequenceFlow id="flow20" name="відхилення звернення" sourceRef="exclusivegateway2" targetRef="mailtask6">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='reject'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow21" sourceRef="servicetask1" targetRef="mailtask2"></sequenceFlow>
     <sequenceFlow id="flow22" sourceRef="servicetask2" targetRef="usertask1"></sequenceFlow>
     <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
       <errorEventDefinition></errorEventDefinition>
     </boundaryEvent>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow23" sourceRef="boundaryerror1" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow24" sourceRef="mailtask6" targetRef="endevent2"></sequenceFlow>
     <serviceTask id="servicetask3" name="повідомлення громадянина о наданні експлутаційного дозволу (Правобережний)" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
+          <activiti:expression><![CDATA["${email}"]]></activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${rishen}"</activiti:expression>
+          <activiti:expression><![CDATA["${rishen}"]]></activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head lang="ru"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;style type="text/css"&gt;
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -431,7 +429,7 @@
         #mailer-body a {color: #2F70AF; text-decoration: none;}
         #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
         #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body p > label {width: 40px;}
         #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
         #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
         #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
@@ -439,102 +437,102 @@
         #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
         #mailer-body textarea:focus {outline: 0;}
         #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.<span>org.<span>ua</span></span></b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <form action="[sURL_ServiceMessage]" method="post">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.</h3>
                                     
-Ви отримали схвалення щодо свого запиту - експлуатаційний дозвіл для провадження діяльності: на потужностях (об'єктах) зз переробки неїстівних продуктів тваринного походження.&lt;br /&gt;
-&lt;br /&gt;
-Ви або уповноважена Вами особа (при наявності довіреності) можете отримати дозвіл собисто під підпис у ЦНАПі.&lt;br /&gt;
-&lt;br /&gt;
-При собі треба мати:&lt;br /&gt;
-1. Документ, що посвідчує особу.&lt;br /&gt;
-2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
-3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.&lt;br /&gt;
-&lt;a href="https://drive.google.com/open?id=0B6mOkUg9oq1zZmlOd2VockN0M3c"&gt;(шаблон заяви)&lt;/a&gt;&lt;br /&gt;
-&lt;br /&gt;
-4. Оригінал довідки про здатність провадити відповідну діяльність, в якій зазначається інформація про наявність кваліфікованого персоналу, технологічного обладнання, перелік товарів, що виготовляються. &lt;br /&gt;
-5. Перелік продуктів тваринного походження.&lt;br /&gt;
+Ви отримали схвалення щодо свого запиту - експлуатаційний дозвіл для провадження діяльності: на потужностях (об'єктах) зз переробки неїстівних продуктів тваринного походження.<br />
+<br />
+Ви або уповноважена Вами особа (при наявності довіреності) можете отримати дозвіл собисто під підпис у ЦНАПі.<br />
+<br />
+При собі треба мати:<br />
+1. Документ, що посвідчує особу.<br />
+2. Для уповоноваженої особи - довіренність.<br />
+3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.<br />
+<a href="https://drive.google.com/open?id=0B6mOkUg9oq1zZmlOd2VockN0M3c">(шаблон заяви)</a><br />
+<br />
+4. Оригінал довідки про здатність провадити відповідну діяльність, в якій зазначається інформація про наявність кваліфікованого персоналу, технологічного обладнання, перелік товарів, що виготовляються. <br />
+5. Перелік продуктів тваринного походження.<br />
 
-&lt;br /&gt;
-Адреса центру надання адміністративних послуг "Правобережний" - пр.К.Маркса 75 (1 поверх).&lt;br /&gt;&lt;br /&gt;
-Телефон для довідок (056)742-84-08&lt;br /&gt;&lt;br /&gt;
-Графік роботи (крім святкових днів):&lt;br /&gt;
-пн. ср. 9-18&lt;br /&gt;
-вт. чт. 9-20&lt;br /&gt;
-пт. 9-16:45&lt;br /&gt;
-сб. 9-16&lt;br /&gt;
-&lt;br /&gt;
-Копія рішення знаходиться у додатку до листа.&lt;br /&gt;
-&lt;br /&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                     &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;&lt;br /&gt;	
-										&lt;br /&gt;	
-										Центр надання адміністративних послуг&lt;br /&gt;
-										Дніпропетровської міської ради&lt;br /&gt;	
-                                        &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px 0 120px;"&gt;
-                                    &lt;b&gt;Оцініть, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:&lt;/b&gt;
+<br />
+Адреса центру надання адміністративних послуг "Правобережний" - пр.К.Маркса 75 (1 поверх).<br /><br />
+Телефон для довідок (056)742-84-08<br /><br />
+Графік роботи (крім святкових днів):<br />
+пн. ср. 9-18<br />
+вт. чт. 9-20<br />
+пт. 9-16:45<br />
+сб. 9-16<br />
+<br />
+Копія рішення знаходиться у додатку до листа.<br />
+<br />
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                     <p>
+                                        З повагою,<br />
+                                        Команда Порталу державних послуг <a href="https://igov.org.ua/" target="_blank">iGov</a><br />	
+										<br />	
+										Центр надання адміністративних послуг<br />
+										Дніпропетровської міської ради<br />	
+                                        </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 35px 120px 0 120px;">
+                                    <b>Оцініть, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:</b>
 
-                                    &lt;p style="text-align: center;"&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
-                                    &lt;/p&gt;
+                                    <p style="text-align: center;">
+                                        <label><input type="radio" name="sID_Rate" value="2"><span>2</span></label>
+                                        <label><input type="radio" name="sID_Rate" value="3"><span>3</span></label>
+                                        <label><input type="radio" name="sID_Rate" value="4"><span>4</span></label>
+                                        <label><input type="radio" name="sID_Rate" value="5"><span>5</span></label>
+                                    </p>
 
-                                    &lt;p style="font-size: 13px;"&gt;
-                                        Якщо ви не задоволені якістю, прокоментируйте, будь ласка.&lt;br /&gt;
-                                        Ви також &lt;b style="color: #cc3333;"&gt;можете анонімно&lt;/b&gt; подати сигнал про будь-які правопорушення державних працівників.
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
-                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
-                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
-                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                        &lt;/table&gt;
-                        &lt;/form&gt;
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
+                                    <p style="font-size: 13px;">
+                                        Якщо ви не задоволені якістю, прокоментируйте, будь ласка.<br />
+                                        Ви також <b style="color: #cc3333;">можете анонімно</b> подати сигнал про будь-які правопорушення державних працівників.
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0 120px 35px 120px;">
+                                    <label><input type="checkbox" name="warnSignal"> Подати сигнал анонімно</label>
+                                    <label style="height: 110px; display: block;"><textarea name="sBody"></textarea></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0 120px 55px 120px; text-align: center;">
+                                    <button type="submit">Відправити</button>
+                                </td>
+                            </tr>
+                        </table>
+                        </form>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -544,20 +542,20 @@
           <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
+          <activiti:expression><![CDATA["${email}"]]></activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${rishen}"</activiti:expression>
+          <activiti:expression><![CDATA["${rishen}"]]></activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head lang="ru"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;style type="text/css"&gt;
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -573,7 +571,7 @@
         #mailer-body a {color: #2F70AF; text-decoration: none;}
         #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
         #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body p > label {width: 40px;}
         #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
         #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
         #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
@@ -581,125 +579,273 @@
         #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
         #mailer-body textarea:focus {outline: 0;}
         #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.<span>org.<span>ua</span></span></b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <form action="[sURL_ServiceMessage]" method="post">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.</h3>
                                     
-Ви отримали схвалення щодо свого запиту - експлуатаційний дозвіл для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження.&lt;br /&gt;
-&lt;br /&gt;
-Ви або уповноважена Вами особа (при наявності довіреності) можете отримати дозвіл собисто під підпис у ЦНАПі.&lt;br /&gt;
-&lt;br /&gt;
-При собі треба мати:&lt;br /&gt;
-1. Документ, що посвідчує особу.&lt;br /&gt;
-2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
-3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.&lt;br /&gt;
-&lt;a href="https://drive.google.com/open?id=0B6mOkUg9oq1zZmlOd2VockN0M3c"&gt;(шаблон заяви)&lt;/a&gt;&lt;br /&gt;
-&lt;br /&gt;
-4. Оригінал довідки про здатність провадити відповідну діяльність, в якій зазначається інформація про наявність кваліфікованого персоналу, технологічного обладнання, перелік товарів, що виготовляються. &lt;br /&gt;
-5. Перелік продуктів тваринного походження.&lt;br /&gt;
-&lt;br /&gt;
+Ви отримали схвалення щодо свого запиту - експлуатаційний дозвіл для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження.<br />
+<br />
+Ви або уповноважена Вами особа (при наявності довіреності) можете отримати дозвіл собисто під підпис у ЦНАПі.<br />
+<br />
+При собі треба мати:<br />
+1. Документ, що посвідчує особу.<br />
+2. Для уповоноваженої особи - довіренність.<br />
+3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.<br />
+<a href="https://drive.google.com/open?id=0B6mOkUg9oq1zZmlOd2VockN0M3c">(шаблон заяви)</a><br />
+<br />
+4. Оригінал довідки про здатність провадити відповідну діяльність, в якій зазначається інформація про наявність кваліфікованого персоналу, технологічного обладнання, перелік товарів, що виготовляються. <br />
+5. Перелік продуктів тваринного походження.<br />
+<br />
 
-Адреса центру надання адміністративних послуг "Лівобережний" - пр.ім. Газети "Правда" 42 (5 поверх).&lt;br /&gt;&lt;br /&gt;
-Телефон для довідок (056)742-84-08&lt;br /&gt;&lt;br /&gt;
-Графік роботи (крім святкових днів):&lt;br /&gt;
-пн. вт. ср. чт. 9-18&lt;br /&gt;
-пт. 9-16:45&lt;br /&gt;
-&lt;br /&gt;
-Копія рішення знаходиться у додатку до листа.&lt;br /&gt;
-&lt;br /&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                     &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;&lt;br /&gt;	
-										&lt;br /&gt;	
-										Центр надання адміністративних послуг&lt;br /&gt;
-										Дніпропетровської міської ради&lt;br /&gt;	
-                                        &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px 0 120px;"&gt;
-                                    &lt;b&gt;Оцініть, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:&lt;/b&gt;
+Адреса центру надання адміністративних послуг "Лівобережний" - пр.ім. Газети "Правда" 42 (5 поверх).<br /><br />
+Телефон для довідок (056)742-84-08<br /><br />
+Графік роботи (крім святкових днів):<br />
+пн. вт. ср. чт. 9-18<br />
+пт. 9-16:45<br />
+<br />
+Копія рішення знаходиться у додатку до листа.<br />
+<br />
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                     <p>
+                                        З повагою,<br />
+                                        Команда Порталу державних послуг <a href="https://igov.org.ua/" target="_blank">iGov</a><br />	
+										<br />	
+										Центр надання адміністративних послуг<br />
+										Дніпропетровської міської ради<br />	
+                                        </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 35px 120px 0 120px;">
+                                    <b>Оцініть, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:</b>
 
-                                    &lt;p style="text-align: center;"&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
-                                    &lt;/p&gt;
+                                    <p style="text-align: center;">
+                                        <label><input type="radio" name="sID_Rate" value="2"><span>2</span></label>
+                                        <label><input type="radio" name="sID_Rate" value="3"><span>3</span></label>
+                                        <label><input type="radio" name="sID_Rate" value="4"><span>4</span></label>
+                                        <label><input type="radio" name="sID_Rate" value="5"><span>5</span></label>
+                                    </p>
 
-                                    &lt;p style="font-size: 13px;"&gt;
-                                        Якщо ви не задоволені якістю, прокоментируйте, будь ласка.&lt;br /&gt;
-                                        Ви також &lt;b style="color: #cc3333;"&gt;можете анонімно&lt;/b&gt; подати сигнал про будь-які правопорушення державних працівників.
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
-                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
-                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
-                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                        &lt;/table&gt;
-                        &lt;/form&gt;
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
+                                    <p style="font-size: 13px;">
+                                        Якщо ви не задоволені якістю, прокоментируйте, будь ласка.<br />
+                                        Ви також <b style="color: #cc3333;">можете анонімно</b> подати сигнал про будь-які правопорушення державних працівників.
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0 120px 35px 120px;">
+                                    <label><input type="checkbox" name="warnSignal"> Подати сигнал анонімно</label>
+                                    <label style="height: 110px; display: block;"><textarea name="sBody"></textarea></label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0 120px 55px 120px; text-align: center;">
+                                    <button type="submit">Відправити</button>
+                                </td>
+                            </tr>
+                        </table>
+                        </form>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow25" sourceRef="servicetask3" targetRef="endevent1"></sequenceFlow>
-    <sequenceFlow id="flow26" sourceRef="servicetask4" targetRef="endevent1"></sequenceFlow>
-    <serviceTask id="servicetask5" name="повідомлення громадянина про відмову у наданні експлуатаційного дозволу" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask5" name="повідомлення громадянина про відмову у наданні експлуатаційного дозволу Л" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
+          <activiti:expression><![CDATA["${email}"]]></activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${rishen}"</activiti:expression>
+          <activiti:expression><![CDATA["${rishen}"]]></activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head lang="ru"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;style type="text/css"&gt;
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; 
+
+cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; 
+
+float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 
+
+15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 
+
+22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) 
+
+left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: 
+
+url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 
+
+65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid 
+
+#dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 
+
+3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; 
+
+cursor: pointer; color: white; display: inline-block;}
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-
+
+collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" 
+
+style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: 
+
+white;"><b style="font-size: 24px;">iGov</b><br />портал державних послуг</td>
+
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" 
+
+style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+<p>
+<strong>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}</strong><br />
+Вам відмовлено у наданні експлуатаційного дозвілу з переробки неїстівних продуктів 
+тваринного походження.<br />
+Підстава: ${comment_2}<br />
+Ви або уповноважена Вами особа (при наявності довіреності) можете отримати рішення собисто під підпис у ЦНАПі.<br />
+<br />
+При собі треба мати:<br />
+1. Документ, що посвідчує особу.<br />
+2. Для уповоноваженої особи - довіренність.<br />
+3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.<br />
+<a href="https://drive.google.com/open?id=0B6mOkUg9oq1zZmlOd2VockN0M3c">(шаблон заяви)</a><br />
+<br />
+4. Оригінал довідки про здатність провадити відповідну діяльність, в якій зазначається інформація про наявність кваліфікованого персоналу, технологічного обладнання, перелік товарів, що виготовляються. <br />
+5. Перелік продуктів тваринного походження.<br />
+<br />
+
+Адреса центру надання адміністративних послуг "Лівобережний" - пр.ім. Газети "Правда" 42 (5 поверх).<br /><br />
+Телефон для довідок (056)742-84-08<br /><br />
+Графік роботи (крім святкових днів):<br />
+пн. вт. ср. чт. 9-18<br />
+пт. 9-16:45<br />
+<br />
+Копія рішення знаходиться у додатку до листа.<br />
+<br />
+                                    </p>
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 
+
+15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+З повагою,<br />
+									Центр надання 
+
+адміністративних послуг<br />
+									
+
+Дніпропетровської міської ради<br />	   
+									              
+
+                     
+								   </td>
+                            </tr>
+                           
+                          
+
+                        </table>
+                     
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="mailtask7" name="Повідомлення співробітника ЦНАП Л" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Нове  звернення. Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -715,7 +861,7 @@
         #mailer-body a {color: #2F70AF; text-decoration: none;}
         #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
         #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body p > label {width: 40px;}
         #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
         #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
         #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
@@ -723,188 +869,390 @@
         #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
         #mailer-body textarea:focus {outline: 0;}
         #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov</b><br />портал державних послуг</td>
 
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
-&lt;p&gt;
-&lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-Вам відмовлено у наданні експлуатаційного дозвілу з переробки неїстівних продуктів тваринного походження.&lt;br /&gt;
-Підстава: ${comment_2}&lt;br /&gt;
-                                    &lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-З повагою,&lt;br /&gt;
-									Центр надання адміністративних послуг&lt;br /&gt;
-									Дніпропетровської міської ради&lt;br /&gt;	   
-									                                   
-								   &lt;/td&gt;
-                            &lt;/tr&gt;
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>Шановний(-а) колего!</h3>
+                                    <p>
+У Вас в черзі на обробку зареєстровано нове звернення щодо Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження.<br />
+Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}<br />
+Відпрацюйте це звернення на <a href="https://test.region.igov.org.ua:6948/" target="_blank">порталі</a>
+                                    </p>
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                     З повагою,<br />
+					  Команда Порталу державних послуг <a href="https://igov.org.ua/" target="_blank">iGov</a>
+                                        </p>
+                                    </p>
+                                </td>
+                            </tr>
                            
                           
 
-                        &lt;/table&gt;
+                        </table>
                      
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow27" name="відмова" sourceRef="exclusivegateway1" targetRef="servicetask5">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='reject'}]]></conditionExpression>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow30" sourceRef="servicetask1" targetRef="exclusivegateway3"></sequenceFlow>
+    <sequenceFlow id="flow31" sourceRef="exclusivegateway3" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${cnap=='pravij'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow28" sourceRef="servicetask5" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow32" sourceRef="exclusivegateway3" targetRef="mailtask7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${cnap=='levij'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow33" sourceRef="mailtask7" targetRef="usertask2"></sequenceFlow>
+    <serviceTask id="servicetask6" name="повідомлення громадянина про відмову у наданні експлуатаційного дозволу П" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; 
+
+cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; 
+
+float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 
+
+15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 
+
+22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) 
+
+left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: 
+
+url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 
+
+65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid 
+
+#dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 
+
+3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; 
+
+cursor: pointer; color: white; display: inline-block;}
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-
+
+collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" 
+
+style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: 
+
+white;"><b style="font-size: 24px;">iGov</b><br />портал державних послуг</td>
+
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" 
+
+style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+<p>
+<strong>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}</strong><br />
+Вам відмовлено у наданні експлуатаційного дозвілу з переробки неїстівних продуктів 
+тваринного походження.<br />
+Підстава: ${comment_2}<br />
+Ви або уповноважена Вами особа (при наявності довіреності) можете отримати рішення собисто під підпис у ЦНАПі.<br />
+<br />
+При собі треба мати:<br />
+1. Документ, що посвідчує особу.<br />
+2. Для уповоноваженої особи - довіренність.<br />
+3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.<br />
+<a href="https://drive.google.com/open?id=0B6mOkUg9oq1zZmlOd2VockN0M3c">(шаблон заяви)</a><br />
+<br />
+4. Оригінал довідки про здатність провадити відповідну діяльність, в якій зазначається інформація про наявність кваліфікованого персоналу, технологічного обладнання, перелік товарів, що виготовляються. <br />
+5. Перелік продуктів тваринного походження.<br />
+<br />
+
+Адреса центру надання адміністративних послуг "Правобережний" - пр.К.Маркса 75 (1 поверх).<br /><br />
+Телефон для довідок (056)742-84-08<br /><br />
+Графік роботи (крім святкових днів):<br />
+пн. ср. 9-18<br />
+вт. чт. 9-20<br />
+пт. 9-16:45<br />
+сб. 9-16<br />
+<br />
+Копія рішення знаходиться у додатку до листа.<br />
+<br />
+                                    </p>
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 
+
+15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+З повагою,<br />
+									Центр надання 
+
+адміністративних послуг<br />
+									
+
+Дніпропетровської міської ради<br />	   
+									              
+
+                     
+								   </td>
+                            </tr>
+                           
+                          
+
+                        </table>
+                     
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA["${email}"]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: Отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression><![CDATA["${rishen}"]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow34" name="відхилення П" sourceRef="exclusivegateway1" targetRef="servicetask6">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='reject'&&cnap=='pravij'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow35" name="відхилення Л" sourceRef="exclusivegateway1" targetRef="servicetask5">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='reject'&&cnap=='levij'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent3" name="End"></endEvent>
+    <sequenceFlow id="flow36" sourceRef="servicetask3" targetRef="endevent3"></sequenceFlow>
+    <sequenceFlow id="flow37" sourceRef="servicetask6" targetRef="endevent3"></sequenceFlow>
+    <endEvent id="endevent4" name="End"></endEvent>
+    <sequenceFlow id="flow38" sourceRef="servicetask4" targetRef="endevent4"></sequenceFlow>
+    <sequenceFlow id="flow39" sourceRef="servicetask5" targetRef="endevent4"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_54">
     <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_54" id="BPMNPlane_dnepr_cnap_54">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="20.0" y="40.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="438.0" y="1.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="30.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="191.0" x="586.0" y="128.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
-        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="104.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="225.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="309.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="445.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
-        <omgdc:Bounds height="40.0" width="40.0" x="435.0" y="388.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="438.0" y="530.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="435.0" y="590.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
-        <omgdc:Bounds height="55.0" width="215.0" x="106.0" y="30.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="215.0" x="348.0" y="61.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
-        <omgdc:Bounds height="30.0" width="30.0" x="106.0" y="58.0"></omgdc:Bounds>
+        <omgdc:Bounds height="30.0" width="30.0" x="380.0" y="59.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
-        <omgdc:Bounds height="55.0" width="217.0" x="105.0" y="167.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="189.0" x="122.0" y="288.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
-        <omgdc:Bounds height="40.0" width="40.0" x="435.0" y="174.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="435.0" y="295.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="240.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="361.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="103.0" y="114.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="377.0" y="1.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
-        <omgdc:Bounds height="55.0" width="231.0" x="630.0" y="381.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="191.0" x="600.0" y="515.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
-        <omgdc:Bounds height="55.0" width="216.0" x="106.0" y="381.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="188.0" x="110.0" y="515.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
-        <omgdc:Bounds height="55.0" width="211.0" x="350.0" y="457.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="186.0" x="111.0" y="673.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask7" id="BPMNShape_mailtask7">
+        <omgdc:Bounds height="55.0" width="189.0" x="122.0" y="128.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="435.0" y="135.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
+        <omgdc:Bounds height="55.0" width="191.0" x="600.0" y="673.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="678.0" y="600.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="186.0" y="600.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="455.0" y="364.0"></omgdi:waypoint>
-        <omgdi:waypoint x="455.0" y="388.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="500.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="590.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="475.0" y="408.0"></omgdi:waypoint>
-        <omgdi:waypoint x="630.0" y="408.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="590.0"></omgdi:waypoint>
+        <omgdi:waypoint x="695.0" y="570.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="97.0" x="433.0" y="388.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="97.0" x="495.0" y="567.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="55.0" y="57.0"></omgdi:waypoint>
-        <omgdi:waypoint x="106.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="36.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="61.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
-        <omgdi:waypoint x="435.0" y="408.0"></omgdi:waypoint>
-        <omgdi:waypoint x="322.0" y="408.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="590.0"></omgdi:waypoint>
+        <omgdi:waypoint x="204.0" y="570.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="97.0" x="387.0" y="388.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="97.0" x="328.0" y="561.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
-        <omgdi:waypoint x="455.0" y="85.0"></omgdi:waypoint>
-        <omgdi:waypoint x="455.0" y="104.0"></omgdi:waypoint>
+        <omgdi:waypoint x="681.0" y="183.0"></omgdi:waypoint>
+        <omgdi:waypoint x="681.0" y="251.0"></omgdi:waypoint>
+        <omgdi:waypoint x="551.0" y="252.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
-        <omgdi:waypoint x="455.0" y="159.0"></omgdi:waypoint>
-        <omgdi:waypoint x="455.0" y="174.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="280.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="295.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
-        <omgdi:waypoint x="455.0" y="214.0"></omgdi:waypoint>
-        <omgdi:waypoint x="455.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="335.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="361.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="456.0" y="187.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="100.0" x="466.0" y="324.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
-        <omgdi:waypoint x="435.0" y="194.0"></omgdi:waypoint>
-        <omgdi:waypoint x="322.0" y="194.0"></omgdi:waypoint>
+        <omgdi:waypoint x="435.0" y="315.0"></omgdi:waypoint>
+        <omgdi:waypoint x="311.0" y="315.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="393.0" y="174.0"></omgdc:Bounds>
+          <omgdc:Bounds height="48.0" width="100.0" x="321.0" y="295.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
-        <omgdi:waypoint x="321.0" y="57.0"></omgdi:waypoint>
-        <omgdi:waypoint x="360.0" y="57.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
-        <omgdi:waypoint x="455.0" y="295.0"></omgdi:waypoint>
-        <omgdi:waypoint x="455.0" y="309.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="416.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="445.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
-        <omgdi:waypoint x="121.0" y="88.0"></omgdi:waypoint>
-        <omgdi:waypoint x="120.0" y="114.0"></omgdi:waypoint>
+        <omgdi:waypoint x="395.0" y="59.0"></omgdi:waypoint>
+        <omgdi:waypoint x="394.0" y="36.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
-        <omgdi:waypoint x="213.0" y="167.0"></omgdi:waypoint>
-        <omgdi:waypoint x="120.0" y="149.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
+        <omgdi:waypoint x="455.0" y="116.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="135.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
-        <omgdi:waypoint x="745.0" y="436.0"></omgdi:waypoint>
-        <omgdi:waypoint x="745.0" y="547.0"></omgdi:waypoint>
-        <omgdi:waypoint x="473.0" y="547.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="475.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="586.0" y="155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
-        <omgdi:waypoint x="214.0" y="436.0"></omgdi:waypoint>
-        <omgdi:waypoint x="213.0" y="547.0"></omgdi:waypoint>
-        <omgdi:waypoint x="438.0" y="547.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
+        <omgdi:waypoint x="435.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="311.0" y="155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
-        <omgdi:waypoint x="455.0" y="428.0"></omgdi:waypoint>
-        <omgdi:waypoint x="455.0" y="457.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
+        <omgdi:waypoint x="216.0" y="183.0"></omgdi:waypoint>
+        <omgdi:waypoint x="216.0" y="252.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="252.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
+        <omgdi:waypoint x="455.0" y="630.0"></omgdi:waypoint>
+        <omgdi:waypoint x="695.0" y="673.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="42.0" x="465.0" y="428.0"></omgdc:Bounds>
+          <omgdc:Bounds height="16.0" width="80.0" x="481.0" y="678.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
-        <omgdi:waypoint x="455.0" y="512.0"></omgdi:waypoint>
-        <omgdi:waypoint x="455.0" y="530.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="455.0" y="630.0"></omgdi:waypoint>
+        <omgdi:waypoint x="204.0" y="673.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="16.0" width="80.0" x="341.0" y="671.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
+        <omgdi:waypoint x="695.0" y="570.0"></omgdi:waypoint>
+        <omgdi:waypoint x="695.0" y="600.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="695.0" y="673.0"></omgdi:waypoint>
+        <omgdi:waypoint x="695.0" y="635.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="204.0" y="570.0"></omgdi:waypoint>
+        <omgdi:waypoint x="203.0" y="600.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
+        <omgdi:waypoint x="204.0" y="673.0"></omgdi:waypoint>
+        <omgdi:waypoint x="203.0" y="635.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
