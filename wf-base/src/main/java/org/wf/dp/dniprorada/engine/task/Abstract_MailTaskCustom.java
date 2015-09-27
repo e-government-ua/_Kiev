@@ -28,6 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
+import org.wf.dp.dniprorada.exchange.AccessCover;
 import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
 
 public abstract class Abstract_MailTaskCustom implements JavaDelegate {
@@ -51,6 +52,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 	private static final String PATTERN_SUBJECT_ID = "nID_Subject%s";
 	private static final String PATTERN_DELIMITER = "_";
 
+        @Autowired
+        AccessCover accessCover;
+    
 	@Autowired
 	public TaskService taskService;
 	@Value("${mailServerHost}")
@@ -232,7 +236,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 		if (textWithoutTags.contains(TAG_sACCESS_KEY)) {
 			textWithoutTags = textWithoutTags.replaceAll("\\Q"
 					+ TAG_sACCESS_KEY + "\\E",
-					accessDataDao.setAccessData("" + nID_Subject));
+					//accessDataDao.setAccessData("" + nID_Subject) 
+                                        accessCover.getAccessKey(String.valueOf(nID_Subject))
+                                );
 		}
 		if (textWithoutTags.contains(TAG_sURL_SERVICE_MESSAGE)) {
 			String URI = Util.deleteContextFromURL(URL_SERVICE_MESSAGE);
@@ -254,7 +260,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				queryParam = queryParam + "&nID_Subject=" + nID_Subject;
 			}
 			LOG.info("[setAccessData] URL: " + URI + queryParam);
-			String accessKey = accessDataDao.setAccessData(URI + queryParam);
+			//String accessKey = accessDataDao.setAccessData(URI + queryParam);
+                        String accessKey = accessCover.getAccessKey(URI + queryParam);
 			String replacemet = URL_SERVICE_MESSAGE + queryParam
 					+ String.format(accessKeyPattern, accessKey);
 			LOG.info("replacemet URL: " + replacemet);
