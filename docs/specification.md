@@ -33,6 +33,9 @@
 <a href="#34_upload_content_as_attach">34. Аплоад(upload) и прикрепление текстовго файла в виде атачмента к таске Activiti</a><br/>
 <a href="#35">35. Электронная эскалация</a><br/>
 <a href="#36_getTasksByText">36. Поиск заявок по тексту (в значениях полей без учета регистра)</a><br/> 
+<a href="#37_getAccessKeyt">37. Получения ключа для аутентификации</a><br/> 
+
+
 ## iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -2512,4 +2515,20 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 ```json
 ["4715238","4585243","4730773"]
 ```
+
+
+<a name="37_getAccessKeyt">
+####37. Получения ключа для аутентификации</a><br/> 
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf/service/services/tasks/getAccessKey?
+-- возвращает ключ для аутентификации
+
+* sAccessContract - контракт
+* sLogin - технический логин
+* sData - контент по которому генерируется ключ
+
+Пример
+<a href="https://test.igov.org.ua/wf/service/services/getAccessKey?sLogin=activiti-master&sAccessContract=Request&sData=/wf/service/setMessage">https://test.igov.org.ua/wf/service/services/getAccessKey?sLogin=activiti-master&sAccessContract=Request&sData=/wf/service/setMessage</a>
 
