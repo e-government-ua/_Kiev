@@ -19,6 +19,7 @@ import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Mail;			
 			
 import javax.servlet.http.HttpServletRequest;			
+import org.activity.rest.security.AuthenticationTokenSelector;
 import org.wf.dp.dniprorada.exchange.AccessCover;
 			
 @Controller			
@@ -105,9 +106,11 @@ public class ActivitiPaymentRestController {
                         .append("sID_Order=").append(sID_Order)			
                         .append("&sID_PaymentSystem=").append(sID_PaymentSystem)			
                         .append("&sData=").append("")			
-                        .append("sAccessContract=").append("Request")			
-                        .append("nID_Subject=").append(snID_Subject)			
-                        .append("&sAccessKey=").append(sAccessKey)			
+                        .append("&nID_Subject=").append(snID_Subject)			
+                        //.append("sAccessContract=").append("Request")			
+                        //.append("&sAccessKey=").append(sAccessKey)			
+                        .append("&").append(AuthenticationTokenSelector.ACCESS_CONTRACT).append("=").append(AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST)
+                        .append("&").append(AuthenticationTokenSelector.ACCESS_KEY).append("=").append(sAccessKey)
                         .toString();			
 			
                     String sFormHTML = new StringBuilder()			

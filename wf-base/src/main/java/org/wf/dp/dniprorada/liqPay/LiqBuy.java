@@ -5,6 +5,7 @@ import static org.wf.dp.dniprorada.liqPay.LiqBuyUtil.sha1;
 
 import java.util.HashMap;
 import java.util.Map;
+import org.activity.rest.security.AuthenticationTokenSelector;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -64,12 +65,18 @@ public class LiqBuy {
         String URI = "/wf/service/merchant/getMerchant";
         Map<String, String> paramMerchant = new HashMap<String, String>();
         paramMerchant.put("sID", sID_Merchant);
+        
+        /*
         paramMerchant.put("nID_Subject", String.valueOf(nID_Subject));
         //String sAccessKey_Merchant = accessDataDao.setAccessData(httpRequester.getFullURL(URI, paramMerchant));
-        String sAccessKey_Merchant = accessCover.getAccessKey(httpRequester.getFullURL(URI, paramMerchant));
-        paramMerchant.put("sAccessContract", "Request");
-        paramMerchant.put("sAccessKey", sAccessKey_Merchant);
+        String sAccessKey_Merchant = accessCover.getAccessKeyCentral(httpRequester.getFullURL(URI, paramMerchant));
+        //paramMerchant.put("sAccessContract", "Request");
+        //paramMerchant.put("sAccessKey", sAccessKey_Merchant);
+        //paramMerchant.put(AuthenticationTokenSelector.ACCESS_CONTRACT, AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST_AND_LOGIN);
+        //paramMerchant.put(AuthenticationTokenSelector.ACCESS_KEY, sAccessKey_Merchant);
         log.info("sAccessKey="+sAccessKey_Merchant);
+        */
+        
         String soJSON_Merchant = httpRequester.get(generalConfig.sHostCentral() + URI, paramMerchant);
         log.info("soJSON_Merchant="+soJSON_Merchant);
         
@@ -95,7 +102,7 @@ public class LiqBuy {
             if(jsonObject.get("sURL_CallbackPaySuccess")!=null){
                 sURL_CallbackPaySuccess = (String) jsonObject.get("sURL_CallbackPaySuccess");
             }else{
-                sURL_CallbackPaySuccess = "https://igov.org.ua";
+                sURL_CallbackPaySuccess = generalConfig.sHostCentral(); //"https://igov.org.ua";
             }
         }
         log.info("sURL_CallbackPaySuccess="+sURL_CallbackPaySuccess);
@@ -114,8 +121,12 @@ public class LiqBuy {
             log.info("URI="+URI);
             //String sAccessKey = accessDataDao.setAccessData(URI);
             String sAccessKey = accessCover.getAccessKey(URI);
-            sURL_CallbackStatusNew = sURL_CallbackStatusNew + queryParam + "&sAccessContract=Request" + "&sAccessKey=" + sAccessKey;
-        }
+//            sURL_CallbackStatusNew = sURL_CallbackStatusNew + queryParam + "&sAccessContract=Request" + "&sAccessKey=" + sAccessKey;
+            sURL_CallbackStatusNew = sURL_CallbackStatusNew + queryParam
+                + "&" + AuthenticationTokenSelector.ACCESS_CONTRACT + "=" + AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST
+                + "&" + AuthenticationTokenSelector.ACCESS_KEY + "=" + sAccessKey
+            ;
+        }        
         log.info("sURL_CallbackStatusNew(with security-key)="+sURL_CallbackStatusNew);
         
         Map<String, String> params = new HashMap<String, String>();

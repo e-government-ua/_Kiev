@@ -22,7 +22,7 @@ public class AccessKeyAuthFilter extends GenericFilterBean {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         AuthenticationTokenSelector oAuthenticationTokenSelector = new AuthenticationTokenSelector(servletRequest);
         AccessKeyAuthenticationToken oAccessKeyAuthenticationToken = oAuthenticationTokenSelector.createToken();
-        if (oAccessKeyAuthenticationToken.isNotEmpty()) {
+        if (oAccessKeyAuthenticationToken != null && oAccessKeyAuthenticationToken.isNotEmpty()) {
             oLog.info("[doFilter]:sID&sSecret isNotEmpty!");
             //log.info("oAccessKeyAuthenticationToken!=null:" + (token != null));
             SecurityContextHolder.getContext().setAuthentication(oAccessKeyAuthenticationToken);

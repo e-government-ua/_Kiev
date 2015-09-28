@@ -13,12 +13,14 @@ import java.util.Enumeration;
 import java.util.List;					
 import org.apache.http.client.utils.URIBuilder;					
 import org.apache.http.client.utils.URIUtils;					
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 					
 /**					
  * Created by diver edited by Olga Turenko & Belyavtsev Vladimir (BW)
  */					
 public class AuthenticationTokenSelector {					
-					
+				
 	private final Logger oLog = LoggerFactory.getLogger(AccessKeyAuthFilter.class);				
 					
 	/* KEYS */				
@@ -45,6 +47,21 @@ public class AuthenticationTokenSelector {
             String sAccessLogin = oRequest.getParameter(ACCESS_LOGIN);
             String sAccessContract = oRequest.getParameter(ACCESS_CONTRACT);			
             oLog.info("[createToken]:"+ACCESS_KEY + "=" + sAccessKey + ","+ACCESS_LOGIN + "=" + sAccessLogin + "," + ACCESS_CONTRACT + "=" + sAccessContract);			
+            if(sAccessLogin!=null){
+                Authentication oAuthentication = SecurityContextHolder.getContext().getAuthentication();
+                if(oAuthentication!=null){
+                    if(oAuthentication.getName()!=null){
+                        oLog.info("[createToken]:oAuthentication.getName()="+oAuthentication.getName());			
+                        if(!sAccessLogin.equals(oAuthentication.getName())){
+                            oLog.error("[createToken]:!sAccessLogin.equals(oAuthentication.getName())");		
+                            SecurityContextHolder.getContext().setAuthentication(oAccessKeyAuthenticationToken);
+                            throw new BadAccessKeyCredentialsException("[createToken]("
+                                    + "sAccessLogin="+sAccessLogin+"):!equals:"+oAuthentication.getName());
+                        }//return null;
+                    }
+                }
+            }
+            
             if(StringUtils.isNoneBlank(sAccessContract)){
                  String sContextAndQuery = getContextAndQuery();
                  oLog.info("[createToken]:"+"sContextAndQuery=" + sContextAndQuery);
@@ -70,7 +87,7 @@ public class AuthenticationTokenSelector {
                                 .concat(oRequestHTTP.getServletPath())
                                 .concat(oRequestHTTP.getPathInfo());
 		} else {			
-			oLog.warn("[getRequestContextPath]:Can't read context path. Request is not HttpServletRequest object");		
+			oLog.error("[getRequestContextPath]:Can't read context path. Request is not HttpServletRequest object");		
 			return StringUtils.EMPTY;		
 		}			
 	}				

@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.engine.task;
 
+import org.activity.rest.security.AuthenticationTokenSelector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +52,10 @@ public class CancelTaskUtil {
         String sAccessKey = accessCover.getAccessKey(sURL_ForAccessKey);
         String sURL_CancelTaskAction = new StringBuilder(generalConfig.sHost())
                 .append(sURL_ForAccessKey)
-                .append("&sAccessContract=Request")
-                .append("&sAccessKey=").append(sAccessKey)
+                //.append("&sAccessContract=Request")
+                //.append("&sAccessKey=").append(sAccessKey)
+                .append("&").append(AuthenticationTokenSelector.ACCESS_CONTRACT).append("=").append(AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST)
+                .append("&").append(AuthenticationTokenSelector.ACCESS_KEY).append("=").append(sAccessKey)
                 .toString();
         log.info("total URL for action =" + sURL_CancelTaskAction);
 

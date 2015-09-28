@@ -28,6 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
+import org.activity.rest.security.AuthenticationTokenSelector;
 import org.wf.dp.dniprorada.exchange.AccessCover;
 import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
 
@@ -39,10 +40,10 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 	private static final String TAG_CANCEL_TASK = "[cancelTask]";
 	private static final String TAG_nID_Protected = "[nID_Protected]";
 	private static final String TAG_nID_SUBJECT = "[nID_Subject]";
-	private static final String TAG_sACCESS_KEY = "[sAccessKey]";
+//	private static final String TAG_sACCESS_KEY = "[sAccessKey]";
 	private static final String TAG_sURL_SERVICE_MESSAGE = "[sURL_ServiceMessage]";
     private static final Pattern TAG_sPATTERN_CONTENT_COMPILED = Pattern.compile("\\[pattern/(.*?)\\]");
-	private static final String accessKeyPattern = "&sAccessContract=Request&sAccessKey=%s";
+//	private static final String accessKeyPattern = "&sAccessContract=Request&sAccessKey=%s";
 	private static final String TAG_Function_AtEnum = "enum{[";
 	private static final String TAG_Function_To = "]}";
 	private static final String PATTERN_MERCHANT_ID = "sID_Merchant%s";
@@ -233,13 +234,13 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 			textWithoutTags = textWithoutTags.replaceAll("\\Q"
 					+ TAG_nID_SUBJECT + "\\E", "" + nID_Subject);
 		}
-		if (textWithoutTags.contains(TAG_sACCESS_KEY)) {
+		/*if (textWithoutTags.contains(TAG_sACCESS_KEY)) {
 			textWithoutTags = textWithoutTags.replaceAll("\\Q"
 					+ TAG_sACCESS_KEY + "\\E",
 					//accessDataDao.setAccessData("" + nID_Subject) 
                                         accessCover.getAccessKey(String.valueOf(nID_Subject))
                                 );
-		}
+		}*/
 		if (textWithoutTags.contains(TAG_sURL_SERVICE_MESSAGE)) {
 			String URI = Util.deleteContextFromURL(URL_SERVICE_MESSAGE);
 			ProcessDefinition processDefinition = execution.getEngineServices()
@@ -261,9 +262,12 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 			}
 			LOG.info("[setAccessData] URL: " + URI + queryParam);
 			//String accessKey = accessDataDao.setAccessData(URI + queryParam);
-                        String accessKey = accessCover.getAccessKey(URI + queryParam);
+                        String sAccessKey = accessCover.getAccessKeyCentral(URI + queryParam);
 			String replacemet = URL_SERVICE_MESSAGE + queryParam
-					+ String.format(accessKeyPattern, accessKey);
+                            //+ String.format(accessKeyPattern, accessKey)
+                            + "&" + AuthenticationTokenSelector.ACCESS_CONTRACT + "=" + AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST_AND_LOGIN
+                            + "&" + AuthenticationTokenSelector.ACCESS_KEY + "=" + sAccessKey
+                            ;
 			LOG.info("replacemet URL: " + replacemet);
 			textWithoutTags = StringUtils.replace(textWithoutTags,
 					TAG_sURL_SERVICE_MESSAGE, replacemet);

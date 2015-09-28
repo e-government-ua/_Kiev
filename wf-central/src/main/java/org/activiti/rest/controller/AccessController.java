@@ -1,5 +1,6 @@
 package org.activiti.rest.controller;
 
+import org.activity.rest.security.AuthenticationTokenSelector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,23 @@ public class AccessController {
     
     @RequestMapping(value = "/getAccessKey", method = RequestMethod.GET)
     public @ResponseBody String getAccessKey(
-            @RequestParam(value = "sLogin") String sLogin,
-            @RequestParam(value = "sAccessContract") String sAccessContract,
+            //@RequestParam(value = "sAccessLogin") String sAccessLogin,
+            @RequestParam(value = AuthenticationTokenSelector.ACCESS_LOGIN) String sAccessLogin,
+            //@RequestParam(value = "sAccessContract") String sAccessContract,
+            @RequestParam(value = AuthenticationTokenSelector.ACCESS_CONTRACT) String sAccessContract,
             @RequestParam(value = "sData") String sData
             ) throws ActivitiRestException{
-        return accessDataDao.setAccessData(sData); 
+        
+	//public static final String ACCESS_CONTRACT_REQUEST = "Request";
+	//public static final String ACCESS_CONTRACT_REQUEST_AND_LOGIN = "RequestAndLogin";
+        if(AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST_AND_LOGIN.equals(sAccessContract)){
+            //if(sData!=null && !"".equals(sData.trim()) && !sData.trim().endsWith("?")){
+            if(sData!=null && !"".equals(sData.trim())){
+                sData=sData+"&"+(sData.contains("?")?"&":"?")+AuthenticationTokenSelector.ACCESS_LOGIN+"="+sAccessLogin;
+            }
+        //}else if(ACCESS_CONTRACT_REQUEST.equals(sAccessContract)){
+        //}else{
+        }
+        return accessDataDao.setAccessData(sData);
     }
 }
