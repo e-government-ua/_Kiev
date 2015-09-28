@@ -1386,7 +1386,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject recordJson = jsonArray.getJSONObject(i);
                         String fieldIdStartForm = (String) recordJson.get("id");
-                    for (FormProperty property : data.getFormProperties()) {
+                    for (FormProperty property : startFormData.getFormProperties()) {
 //                    	if (fieldIdStartForm.equals(property.getId())){
                     		if (property instanceof FormPropertyImpl){
                         		log.info("Updating start form property's " + property.getId() + " value from " + 
@@ -1397,7 +1397,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 //                    		log.info("Skipping property " + property.getId() + " as there is no such property in input parameter");
 //                    	}
                     }
-
+                    }
         		}
         	}
         	updateHistoryEvent_Service(processInstanceID, saField, null);
