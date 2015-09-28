@@ -17,7 +17,7 @@
         <activiti:formProperty id="edrpou_inn" name="ідентифікаційний код згідно з ЄДРПОУ або ідентифікаційний номер фізичної особи – підприємця" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="ruk" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="orgAdress" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="cnapChoose" name="Оберіть ЦНАП, в якому вам буде зручно отримати відповідь" type="enum" required="true">
+        <activiti:formProperty id="cnapChoose" name="Оберіть ЦНАП, в якому Вам буде зручно отримати відповідь" type="enum" required="true">
           <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
           <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
         </activiti:formProperty>
@@ -341,7 +341,7 @@
         <activiti:formProperty id="edrpou_inn" name="ідентифікаційний код згідно з ЄДРПОУ або ідентифікаційний номер фізичної особи – підприємця" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ruk" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="orgAdress" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="cnapChoose" name="Оберіть ЦНАП, в якому вам буде зручно отримати відповідь" type="enum" writable="false">
+        <activiti:formProperty id="cnapChoose" name="ЦНАП, в якому буде зручно отримати відповідь" type="enum" writable="false">
           <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
           <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
         </activiti:formProperty>
@@ -350,9 +350,9 @@
           <activiti:value id="reject" name="Відмовити у реєстрації звернення"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Коментар адміністратора у разі відмови у реєстрації звернення" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string"></activiti:formProperty>
-        <activiti:formProperty id="date_reestr" name="Укажіть дату реєстрації зверення у форматі ДД.ММ.РРРР" type="string"></activiti:formProperty>
-        <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string"></activiti:formProperty>
+        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="date_reestr" name="Укажіть дату реєстрації зверення у форматі ДД.ММ.РРРР" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="opis" name="Опис прийнятих документів" type="file"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_36.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
@@ -576,7 +576,7 @@
         <activiti:formProperty id="edrpou_inn" name="ідентифікаційний код згідно з ЄДРПОУ або ідентифікаційний номер фізичної особи – підприємця" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ruk" name="П.І.Б. керівника юридичної особи / фізичної особи  – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="orgAdress" name="місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="cnapChoose" name="Оберіть ЦНАП, в якому вам буде зручно отримати відповідь" type="enum" writable="false">
+        <activiti:formProperty id="cnapChoose" name="ЦНАП, в якому буде зручно отримати відповідь" type="enum" writable="false">
           <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
           <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
         </activiti:formProperty>
