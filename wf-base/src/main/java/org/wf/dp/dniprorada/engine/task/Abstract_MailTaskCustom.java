@@ -35,7 +35,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     static final transient Logger LOG = LoggerFactory
             .getLogger(Abstract_MailTaskCustom.class);
     private static final Pattern TAG_PAYMENT_BUTTON_LIQPAY = Pattern.compile("\\[paymentButton_LiqPay(.*?)\\]");
-    private static final Pattern TAG_PATTERN_PREFIX = Pattern.compile("_\\d");
+    private static final Pattern TAG_PATTERN_PREFIX = Pattern.compile("_[0-9]+");
     private static final String TAG_CANCEL_TASK = "[cancelTask]";
     private static final String TAG_nID_Protected = "[nID_Protected]";
     private static final String TAG_nID_SUBJECT = "[nID_Subject]";
