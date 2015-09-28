@@ -20,7 +20,7 @@
         <activiti:formProperty id="adres_2" name="Адреса об’єкта, на який видається дозвіл" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД; тільки цифрові позначення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="edrpo_inn" name="Ідентифікаційний код згідно з ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця; тільки цифрові позначення" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="edrpo_inn" name="Ідентифікаційний код згідно з ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця; тільки цифрові позначення" type="long" required="true" writable="true"></activiti:formProperty>
         <activiti:formProperty id="pib" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Місцезнаходження юридичної особи/місце проживання фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="doc_pidpriemci" name="Довідка про здатність провадити відповідну діяльність, в якій зазначається інформація про наявність кваліфікованого персоналу, технологічного обладнання, перелік товарів, що виготовляються" type="file" required="true"></activiti:formProperty>
