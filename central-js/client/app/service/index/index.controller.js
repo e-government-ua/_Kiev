@@ -11,7 +11,6 @@ angular.module('app').controller('IndexController', function ($scope, BankIDServ
   BankIDService.isLoggedIn().then(function (result) {
     $scope.navBarStatusVisible = result;
     BankIDService.fio().then(function (res) {
-      res = {};
       $scope.userName = capitalize(res.firstName)
         + " " +
         capitalize(res.middleName)
