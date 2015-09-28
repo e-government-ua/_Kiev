@@ -1,0 +1,1076 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="dnepr_cnap_72" name="Дніпропетровськ - ЦНАП - Дозвіл на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи - підприємця" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Електронна пошта" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Вкажіть сьогодняшню дату" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="name_object" name="Об'єкт, на який видається документ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Адреса об'єкта, на який видається документ" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="name_company" name="У давальному відмінку повне найменовання юридичної особи/П.І.Б. фізичної особи - підприємця" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб) або ідентифікаційний номер фізичної особи - підприємця" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="trusted_person" name="П.І.Б. керівника юридичної особи / фізичної особи - підприємця/уповноваженої особи" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Погодження на розміщення зовнішньої реклами з Державтоінспекцією та Укравтодором або його територіальними органами - у разі розміщення зовнішньої реклами в межах смуги відведення автомобільних доріг загального користування" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file2" name="Погодження на розміщення зовнішньої реклами з Мінкультури або місцевим органом виконавчої влади у сфері охорони культурної спадщини - у разі розміщення зовнішньої реклами на пам'ятках історії та архітектури і в межах зон охорони пам'яток національного або місцевого значення" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file3" name="Погодження на розміщення зовнішньої реклами з власником місця розташування рекламного засобу або уповноваженим ним органом (особою)" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file4" name="Копія договору, завірена власником місця розташування рекламного засобу або уповноваженим ним органом чи особою (крім заявника, що є власником такого місця) або завірена копія документа, що підтверджує право власності на місце розташування рекламного засобу (у разі якщо заявник є власником місця розташування рекламного засобу)" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="cnapСhoice" name="Оберіть ЦНАП, в якому Вам буде зручно отримати дозвіл" type="enum" required="true">
+          <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
+          <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="postlev" name="адреси e-mail ЦНАП Лівобережний" type="string" default="Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net" readable="false"></activiti:formProperty>
+        <activiti:formProperty id="postprav" name="адреси e-mail ЦНАП Правобережний" type="string" default="woobraja@mail.ru, 7751138@rambler.ru" readable="false"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <serviceTask id="servicetask1" name="Обробка фаїлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="flow13" sourceRef="boundaryerror1" targetRef="endevent2"></sequenceFlow>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow18" sourceRef="servicetask1" targetRef="exclusivegateway3"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow27" name="${cnapСhoice=='prav'}" sourceRef="exclusivegateway3" targetRef="mailtask7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${cnapСhoice=='prav'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="mailtask7" name="Повідомленя адміністратора ЦНАПу ПРАВ" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${postprav}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Нове звернення. Дозвіл на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області.]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="bcc">
+          <activiti:string><![CDATA[msvidran@gmail.com]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov</b><br />портал державних послуг</td>
+
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>Шановний(-а) колего!</h3>
+                                    <p>
+									У Вас в черзі на обробку зареєстровано нове звернення щодо "Надання дозволу на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області".<br />
+									Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}<br />
+									Опрацюйте, будь ласка, це звернення на <a href="https://region.igov.org.ua/admin" target="_blank">порталі</a>
+                                    </p>
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                     З повагою,<br />
+					  				 Команда Порталу державних послуг <a href="https://igov.org.ua/" target="_blank">iGov</a>
+                                        </p>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow28" sourceRef="mailtask7" targetRef="mailtask1"></sequenceFlow>
+    <sequenceFlow id="flow26" name="${cnapСhoice=='lev'}" sourceRef="exclusivegateway3" targetRef="mailtask6">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${cnapСhoice=='lev'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="mailtask6" name="Повідомленя адміністратора ЦНАПу ЛЕВ" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${postlev}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Нове звернення. Дозвіл на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області.]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="bcc">
+          <activiti:string><![CDATA[msvidran@gmail.com]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov</b><br />портал державних послуг</td>
+
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>Шановний(-а) колего!</h3>
+                                    <p>
+									У Вас в черзі на обробку зареєстровано нове звернення щодо "Надання дозволу на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області".<br />
+									Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}<br />
+									Опрацюйте, будь ласка, це звернення на <a href="https://region.igov.org.ua/admin" target="_blank">порталі</a>
+                                    </p>
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                     З повагою,<br />
+					  				 Команда Порталу державних послуг <a href="https://igov.org.ua/" target="_blank">iGov</a>
+                                        </p>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow19" sourceRef="mailtask6" targetRef="mailtask1"></sequenceFlow>
+    <serviceTask id="mailtask1" name="e-mail о реєстрації запита" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${email}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Дозвіл на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області.]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.<span>org.<span>ua</span></b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <form action="[sURL_ServiceMessage]" method="post">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.</h3>
+                                    <p>
+										Ваше звернення щодо дозволу на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської областіуспішно зареєстроване.<br /> 
+										Спеціалісти Центру надання адміністративних послуг Дніпропетровської міської ради повинні дати відповідь найближчім часом.
+									</p>
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                        З повагою, <br />
+                                        Центр надання адміністративних послуг<br/>
+										Дніпропетровської міської ради,<br/>
+										Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
+                                    </p>
+                                </td>
+                            </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow3" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
+    <userTask id="usertask1" name="Обробка ЦНАП Дніпропетровськ" activiti:candidateGroups="dnepr_cnap_${cnapСhoice}">
+      <extensionElements>
+        <activiti:formProperty id="clFio" name="Суб’єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="e-mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Дата подачи заяви" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="name_object" name="Об'єкт, на який видається документ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Адреса об'єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="name_company" name="У давальному відмінку повне найменовання юридичної особи/П.І.Б. фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб) або ідентифікаційний номер фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trusted_person" name="П.І.Б. керівника юридичної особи / фізичної особи - підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
+        <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string"></activiti:formProperty>
+        <activiti:formProperty id="date_registrastion" name="Вкажіть дату реєстрації (у форматі ДД/ММ/РРРР)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="status" name="Обробка заяви" type="enum">
+          <activiti:value id="attr1_wait" name="Документи передані в Управління інфраструктури Дніпропетровської облдержадміністрації"></activiti:value>
+          <activiti:value id="attr2_finish" name="Відмова громадянину у разі надання неповного пакету документів"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Якщо з документами все гаразд - завантажте скановану копію описа документів, надісланих громодянином" type="file"></activiti:formProperty>
+        <activiti:formProperty id="Per3" name="Перевірте подані громадянином дані, заповніть всі необхідні поля (П.І.Б адміністратора, дату реєстрації, реєстраційний номер та рішення про надання послуги), заповніть в полі нижче перелік документів, які прислав громадянин - потім роздрукуйте форму заяви." type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="list_documents" name="Вкажіть перелік документів, які надіслав громадянин" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_cnap_72_print.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression><![CDATA[${file1},${file2},${file3},${file4}]]></activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow5" name="status == 'attr2_finish'" sourceRef="exclusivegateway1" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status == 'attr2_finish'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="mailtask2" name="Відправка e-mail в разі неповного пакету документів" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${email}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreplay@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Дозвіл на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області.]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.<span>org.<span>ua</span></b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <form action="[sURL_ServiceMessage]" method="post">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.</h3>
+                                    <p>
+										На жаль змушені Вам відмовити в реєстрації звернення.
+									</p>
+									<p>Причина в наступному:<br />
+	                                    ${decisionComment}
+									</p>
+										
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                        З повагою, <br />
+										Центр надання адміністративних послуг<br/>
+										Дніпропетровської міської ради.
+                                    </p>
+                                </td>
+                            </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow10" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow16" name="status=='attr1_wait'" sourceRef="exclusivegateway1" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr1_wait'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="servicetask2" name="Відправка e-mail об отправки в Управління інфраструктури + опис" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${email}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Дозвіл на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області.]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.<span>org.<span>ua</span></b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <form action="[sURL_ServiceMessage]" method="post">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.</h3>
+                                    <p>
+										Ваше звернення щодо отримання дозвілу на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області було направленоий до Управління інфраструктури Дніпропетровської облдержадміністрації.<br /> 
+									Спеціалісти державного Органу повинні дати відповідь протягом 10 робочіх днів.
+									</p>
+                                    <p>
+                                    	Файл, що додається містить опис наданих Вами документів.
+									</p>
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                        З повагою, <br />
+										Центр надання адміністративних послуг<br/>
+										Дніпропетровської міської ради,<br/>
+                                        Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
+                                    </p>
+                                </td>
+                            </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression><![CDATA[${file5}]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow17" sourceRef="servicetask2" targetRef="usertask2"></sequenceFlow>    
+    <userTask id="usertask2" name="Підготовка відповіді після рішення Управління інфраструктури" activiti:candidateGroups="dnepr_cnap_${cnapСhoice}">
+      <extensionElements>
+        <activiti:formProperty id="clFio" name="Суб’єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="e-mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Дата подачи заяви" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="name_object" name="Об'єкт, на який видається документ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Адреса об'єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="name_company" name="У давальному відмінку повне найменовання юридичної особи/П.І.Б. фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="Ідентифікаційний код згідно з ЄДРПОУ (для юридичних осіб) або ідентифікаційний номер фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trusted_person" name="П.І.Б. керівника юридичної особи / фізичної особи - підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_registrastion" name="Дата реєстрації заяви" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="list_documents" name="Перелік документів, які надіслав громадянин" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="status_dozvil" name="Статус дозволу" type="enum" required="true">
+          <activiti:value id="attr3_finish" name="Дозвіл готовий"></activiti:value>
+          <activiti:value id="attr4_finish" name="Відмовити в видачі дозволу"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="decisionComment_2" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="file6" name="Завантажте скановану копию дозволу або копію відмови Управління інфраструктури" type="file" default=" " required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow8" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+	<sequenceFlow id="flow20" name="status_dozvil == 'attr3_finish' &amp;&amp; cnapСhoice == 'prav'" sourceRef="exclusivegateway2" targetRef="servicetask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status_dozvil == 'attr3_finish' && cnapСhoice == 'prav'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="servicetask3" name="Відправка e-mail о готовности дозволу в правобережному ЦНАП" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${email}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Дозвіл на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області.]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.org.ua</b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+<tr>
+                    <td align="center">
+					<form action="[sURL_ServiceMessage]" method="post">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+								  <h3>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.</h3> 
+                                    <p>
+                                        Ваш дозвіл на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області - готовий.
+                                    </p>
+									<p>
+                              		Ви або уповноважена Вами особа (при наявності довіреності) можете отримати дозвіл особисто під підпис у ЦНАП.<br />
+									При собі треба мати:<br />
+									1. Документ, що посвідчує особу.<br />
+									2. Для уповоноваженої особи - довіренність.<br />
+									3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим підписом керівника юридичної особи, фізичної особи - підприємця або уповноваженої ними особи. Зразок заяви можно знайти за <a href="https://drive.google.com/file/d/0B68lQ-z45GpYMk14N2IxU2pUQkE/view?usp=sharing">посиланням</a>.<br />
+									4. Оригінали документів, що були завантажені при подачі заяви на сайті.
+									</p>
+									<p>
+									ЦНАП „Правобережний”, м. Дніпропетровськ, просп. Карла Маркса, 75 (1-й поверх)<br/>
+									Графік роботи ЦНАП „Правобережний”:<br/>
+									понеділок -  з 9.00 до 18.00;<br/>
+									вівторок – з 9.00 до 20.00;<br/>
+									середа  - з 9.00 до 18.00;<br/>
+									четвер – з 9.00 до 20.00;<br/>
+									п’ятниця – з 9.00 до 16.45;<br/>
+									субота – з 9.00 до 16.00,<br/>
+									крім святкових днів.</p>
+                            
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                        З повагою,<br />
+										Центр надання адміністративних послуг<br/> 
+										Дніпропетровської міської ради,<br/>
+										Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
+									</p>
+                                </td>
+                            </tr>
+                           
+                        </table>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression><![CDATA[${file6}]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow23" sourceRef="servicetask3" targetRef="endevent3"></sequenceFlow>
+    <endEvent id="endevent3" name="End"></endEvent>
+    <sequenceFlow id="flow21" name="status_dozvil == 'attr3_finish' &amp;&amp; cnapСhoice == 'lev'" sourceRef="exclusivegateway2" targetRef="servicetask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status_dozvil == 'attr3_finish' && cnapСhoice == 'lev'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="servicetask4" name="Відправка e-mail о готовности дозволу в лівобережному ЦНАП" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${email}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Дозвіл на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області.]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.org.ua</b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+<tr>
+                    <td align="center">
+					<form action="[sURL_ServiceMessage]" method="post">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+								  <h3>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.</h3>
+                                    <p>
+                                        Ваш дозвіл на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області - готовий.
+                                    </p>
+									<p>
+                              		Ви або уповноважена Вами особа (при наявності довіреності) можете отримати дозвіл особисто під підпис у ЦНАП.<br />
+									При собі треба мати:<br />
+									1. Документ, що посвідчує особу.<br />
+									2. Для уповоноваженої особи - довіренність.<br />
+									3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим підписом керівника юридичної особи, фізичної особи - підприємця або уповноваженої ними особи. Зразок заяви можно знайти за <a href="https://drive.google.com/file/d/0B68lQ-z45GpYMk14N2IxU2pUQkE/view?usp=sharing">посиланням</a>.<br />
+									4. Оригінали документів, що були завантажені при подачі заяви на сайті.
+									</p>
+									<p>
+									ЦНАП „Лівобережний”: м. Дніпропетровськ, просп. Газети „Правда”, 42 (1-й та 5-й поверхи)<br/>
+									Графік роботи ЦНАП „Лівобережний”:<br/>
+									понеділок -  з 9.00 до 18.00;<br/>
+									вівторок – з 9.00 до 18.00;<br/>
+									середа  - з 9.00 до 18.00;<br/>
+									четвер – з 9.00 до 18.00;<br/>
+									п’ятниця – з 9.00 до 16.45;<br/>
+									крім святкових днів.</p>
+                            
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                        З повагою,<br />
+										Центр надання адміністративних послуг<br/> 
+										Дніпропетровської міської ради,<br/>
+										Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
+                                </td>
+                            </tr>
+                          
+                        </table>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression><![CDATA[${file6}]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow22" sourceRef="servicetask4" targetRef="endevent3"></sequenceFlow>
+    <sequenceFlow id="flow24" name="status_dozvil == 'attr4_finish'" sourceRef="exclusivegateway2" targetRef="servicetask5">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status_dozvil == 'attr4_finish'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="servicetask5" name="Відправка e-mail в разі відмови Управління інфраструктури" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${email}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Дозвіл на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області.]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.<span>org.<span>ua</span></b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <form action="[sURL_ServiceMessage]" method="post">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.</h3>
+                                    <p>
+										Ваше звернення щодо отримання дозвілу на розміщення зовнішньої реклами поза межами населених пунктів Дніпропетровської області - відхилено.
+									</p>
+									<p>Причина в наступному: <br /> 
+                                    ${decisionComment_2}</p>
+									
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                        З повагою, <br />
+										Центр надання адміністративних послуг<br />
+										Дніпропетровської міської ради.
+                                    </p>
+                                </td>
+                            </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression><![CDATA[${file6}]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow25" sourceRef="servicetask5" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_72">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_72" id="BPMNPlane_dnepr_cnap_72">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="1.0" y="122.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="81.0" width="105.0" x="61.0" y="99.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="71.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="65.0" width="105.0" x="351.0" y="107.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="65.0" width="105.0" x="481.0" y="107.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="631.0" y="119.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
+        <omgdc:Bounds height="68.0" width="105.0" x="721.0" y="106.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="91.0" width="105.0" x="599.0" y="380.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="753.0" y="405.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="937.0" y="123.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="35.0" y="212.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="102.0" width="105.0" x="599.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
+        <omgdc:Bounds height="71.0" width="115.0" x="247.0" y="29.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="98.0" width="105.0" x="721.0" y="530.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
+        <omgdc:Bounds height="91.0" width="105.0" x="902.0" y="380.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="937.0" y="561.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
+        <omgdc:Bounds height="104.0" width="105.0" x="902.0" y="230.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
+        <omgdc:Bounds height="40.0" width="40.0" x="201.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask7" id="BPMNShape_mailtask7">
+        <omgdc:Bounds height="67.0" width="115.0" x="247.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="36.0" y="139.0"></omgdi:waypoint>
+        <omgdi:waypoint x="61.0" y="139.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="456.0" y="139.0"></omgdi:waypoint>
+        <omgdi:waypoint x="481.0" y="139.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="586.0" y="139.0"></omgdi:waypoint>
+        <omgdi:waypoint x="631.0" y="139.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="671.0" y="139.0"></omgdi:waypoint>
+        <omgdi:waypoint x="721.0" y="140.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="653.0" y="81.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="704.0" y="425.0"></omgdi:waypoint>
+        <omgdi:waypoint x="753.0" y="425.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="826.0" y="140.0"></omgdi:waypoint>
+        <omgdi:waypoint x="937.0" y="140.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="86.0" y="180.0"></omgdi:waypoint>
+        <omgdi:waypoint x="52.0" y="212.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="651.0" y="159.0"></omgdi:waypoint>
+        <omgdi:waypoint x="651.0" y="230.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="95.0" x="612.0" y="180.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
+        <omgdi:waypoint x="651.0" y="332.0"></omgdi:waypoint>
+        <omgdi:waypoint x="651.0" y="380.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="166.0" y="139.0"></omgdi:waypoint>
+        <omgdi:waypoint x="201.0" y="140.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="362.0" y="64.0"></omgdi:waypoint>
+        <omgdi:waypoint x="403.0" y="64.0"></omgdi:waypoint>
+        <omgdi:waypoint x="403.0" y="107.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="773.0" y="445.0"></omgdi:waypoint>
+        <omgdi:waypoint x="773.0" y="530.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="56.0" width="100.0" x="715.0" y="459.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="793.0" y="425.0"></omgdi:waypoint>
+        <omgdi:waypoint x="902.0" y="425.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="56.0" width="100.0" x="802.0" y="419.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="954.0" y="471.0"></omgdi:waypoint>
+        <omgdi:waypoint x="954.0" y="561.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="826.0" y="579.0"></omgdi:waypoint>
+        <omgdi:waypoint x="937.0" y="578.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="773.0" y="405.0"></omgdi:waypoint>
+        <omgdi:waypoint x="773.0" y="282.0"></omgdi:waypoint>
+        <omgdi:waypoint x="902.0" y="282.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="734.0" y="314.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="954.0" y="230.0"></omgdi:waypoint>
+        <omgdi:waypoint x="954.0" y="158.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="221.0" y="120.0"></omgdi:waypoint>
+        <omgdi:waypoint x="221.0" y="64.0"></omgdi:waypoint>
+        <omgdi:waypoint x="247.0" y="64.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="221.0" y="160.0"></omgdi:waypoint>
+        <omgdi:waypoint x="221.0" y="223.0"></omgdi:waypoint>
+        <omgdi:waypoint x="247.0" y="223.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
+        <omgdi:waypoint x="362.0" y="223.0"></omgdi:waypoint>
+        <omgdi:waypoint x="404.0" y="223.0"></omgdi:waypoint>
+        <omgdi:waypoint x="403.0" y="172.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
