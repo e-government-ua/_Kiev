@@ -28,14 +28,11 @@
         <activiti:formProperty id="oxr" name="Копія договору на охорону громадського порядку з Дніпропетровським міським управлінням ГУМВС України у Дніпропетровській області (у разі необхідності)" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="vrach" name="Копія договору з департаментом охорони здоров’я Дніпропетровської міської ради (у разі необхідності)" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="stroi" name="Копія договору з департаментом комунального господарства та капітального будівництва Дніпропетровської міської ради (у разі необхідності)" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="cnapChoose" name="Оберіть ЦНАП, в якому вам буде зручно отримати відповідь" type="enum" required="true">
+        <activiti:formProperty id="cnapChoose" name="Оберіть ЦНАП, в якому Вам буде зручно отримати відповідь" type="enum" required="true">
           <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
           <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="При замовлені послуги даю згоду відповідно до Закону України „Про захист персональних даних” на обробку моїх особистих персональних даних у картотеках та/або за допомогою інформаційно-телекомунікаційних систем з метою підготовки відповідно до вимог законодавства статистичної, адміністративної та іншої інформації."></activiti:formProperty>
-        <activiti:formProperty id="postl" name="адреси e-mail ЦНАП Лівобережний" type="string" default="koffeek@i.ua" readable="false"></activiti:formProperty>
-        <activiti:formProperty id="postp" name="адреси e-mail ЦНАП Правобережний" type="string" default="koffeek1@yandex.ru" readable="false"></activiti:formProperty>
-      
         <activiti:formProperty id="postlev" name="адреси e-mail ЦНАП Лівобережний" type="string" default="Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net" readable="false"></activiti:formProperty>
         <activiti:formProperty id="postprav" name="адреси e-mail ЦНАП Правобережний" type="string" default="woobraja@mail.ru, 7751138@rambler.ru" readable="false"></activiti:formProperty>
       </extensionElements>
@@ -147,7 +144,7 @@
     <serviceTask id="mailtask4" name="Повідомлення ЦНАП про нове звернення ПРАВ" activiti:type="mail">
      <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[${postp}]]></activiti:expression>
+          <activiti:expression><![CDATA[${postprav}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -243,7 +240,7 @@
     <serviceTask id="mailtask3" name="Повідомлення ЦНАП про нове звернення ЛЕВ" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[${postl}]]></activiti:expression>
+          <activiti:expression><![CDATA[${postlev}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -353,7 +350,7 @@
         <activiti:formProperty id="eventTime1" name="Час закінчення проведення заходу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="golovniy" name="Відповідальна особа за проведення релігійного масового заходу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="cnapChoose" name="Оберіть ЦНАП, в якому вам буде зручно отримати відповідь" type="enum" writable="false">
+        <activiti:formProperty id="cnapChoose" name="ЦНАП, в якому буде зручно отримати відповідь" type="enum" writable="false">
           <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
           <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
         </activiti:formProperty>
@@ -578,7 +575,7 @@
         <activiti:formProperty id="eventTime" name="Час початку проведення заходу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventDa1" name="Дата закінчення проведення заходу" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventTime1" name="Час закінчення проведення заходу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="cnapChoose" name="Оберіть ЦНАП, в якому вам буде зручно отримати відповідь" type="enum" writable="false">
+        <activiti:formProperty id="cnapChoose" name="ЦНАП, в якому буде зручно отримати відповідь" type="enum" writable="false">
           <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
           <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
         </activiti:formProperty>
