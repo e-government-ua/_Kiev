@@ -1212,8 +1212,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         }
         sBody = sBody == null ? "" : sBody;
         String sToken = generateToken();
+        String processInstanceID = String.valueOf(AlgorithmLuna.getOriginalNumber(nID_Protected));
         try {
-            updateHistoryEvent_Service(saField, sHead, sBody, sToken);
+            updateHistoryEvent_Service(processInstanceID, saField, sHead, sBody, sToken);
         } catch (Exception e) {
             throw new ActivitiRestException(
                     ActivitiExceptionController.BUSINESS_ERROR_CODE,
@@ -1303,9 +1304,10 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return os.toString();
     }
 
-    private String updateHistoryEvent_Service(String saField, String sHead, String sBody, String sToken) throws Exception {
+    private String updateHistoryEvent_Service(String sID_Process, String saField, String sHead, String sBody, String sToken) throws Exception {
         String URI = "/wf/service/services/updateHistoryEvent_Service";
         Map<String, String> params = new HashMap<>();
+        params.put("nID_Process", sID_Process);
         params.put("soData", saField);
         params.put("sHead", sHead);
         params.put("sBody", sBody);
@@ -1315,6 +1317,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         String sAccessKey_HistoryEvent = accessDataDao.setAccessData(httpRequester.getFullURL(URI, params));
         params.put("sAccessKey", sAccessKey_HistoryEvent);
         log.info("sAccessKey=" + sAccessKey_HistoryEvent);
+        log.info("Getting URL with parameters: " + generalConfig.sHostCentral() + URI + params);
         String soJSON_HistoryEvent = httpRequester.get(generalConfig.sHostCentral() + URI, params);
         log.info("soJSON_HistoryEvent="+soJSON_HistoryEvent);
         return soJSON_HistoryEvent;

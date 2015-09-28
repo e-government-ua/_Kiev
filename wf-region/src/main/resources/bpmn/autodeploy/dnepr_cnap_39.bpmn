@@ -8,25 +8,20 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Укажіть сьогодняшню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="obect" name="Укажіть номер, дату та назву рішення міської ради:" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adres_2" name="Адреса об'єкта, на який надається копія дозвілу" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="ur_osobi" name="Зверніть увагу" type="label" default="Ничже вказані поля треба заповнити юридичним особам чи особам-підприємцям"></activiti:formProperty>
+        <activiti:formProperty id="obect" name="Укажіть номер, дату та назву рішення міської ради" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="adres_2" name="Місцезнаходження (адреса) об’єкта, на який видається документ" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="ur_nazv" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД (тільки цифрове позначення)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="edrpou" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця (тільки цифрове позначення)" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця (тільки цифрове позначення)" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="pib_ker" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adress_1" name="Місцезнаходження юридичної особи/місце проживання ФОП" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="cnapСhoice" name="Оберіть ЦНАП у якому Вам буде зручно отримати дозвіл" type="enum">
+        <activiti:formProperty id="adress_1" name="Місцезнаходження юридичної особи/місце проживання фізичної особи–підприємця" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="cnapСhoice" name="Оберіть ЦНАП, в якому вам буде зручно отримати відповідь" type="enum" required="true">
           <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
           <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та адміністративних послуг"></activiti:formProperty>
-        <activiti:formProperty id="postl" name="адреси e-mail ЦНАП Лівобережний" type="string" default="koffeek@i.ua" readable="false"></activiti:formProperty>
-        <activiti:formProperty id="postp" name="адреси e-mail ЦНАП Правобережний" type="string" default="koffeek1@yandex.ru" readable="false"></activiti:formProperty>
-      
         <activiti:formProperty id="postlev" name="адреси e-mail ЦНАП Лівобережний" type="string" default="Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net" readable="false"></activiti:formProperty>
         <activiti:formProperty id="postprav" name="адреси e-mail ЦНАП Правобережний" type="string" default="woobraja@mail.ru, 7751138@rambler.ru" readable="false"></activiti:formProperty>
       </extensionElements>
@@ -139,7 +134,7 @@
     <serviceTask id="mailtask4" name="Повідомлення ЦНАП ПРАВ про нове звернення" activiti:type="mail">
     <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[${postp}]]></activiti:expression>
+          <activiti:expression><![CDATA[${postprav}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -235,7 +230,7 @@
     <serviceTask id="mailtask3" name="Повідомлення ЦНАП ЛЕВ про нове звернення" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[${postl}]]></activiti:expression>
+          <activiti:expression><![CDATA[${postlev}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -330,29 +325,29 @@
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Контактний email" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Дата звернення" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="obect" name="Об'єкт на який надається копія дозволу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="adres_2" name="Адреса об'єкта на який надається копія дозволу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="obect" name="Номер, дата та назва рішення міської ради" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adres_2" name="Місцезнаходження (адреса) об’єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ur_nazv" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="edrpou" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib_ker" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="adress_1" name="Місцезнаходження юридичної особи/місце проживання ФОП" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="cnapСhoice" name="Оберіть ЦНАП у якому Вам буде зручно отримати дозвіл" type="enum">
+        <activiti:formProperty id="adress_1" name="Місцезнаходження юридичної особи/місце проживання фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="cnapСhoice" name="ЦНАП, в якому буде зручно отримати відповідь" type="enum" writable="false">
           <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
           <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decision" name="Обробка заяви" type="enum">
-          <activiti:value id="dok_ok" name="Документи направлені на розгляд до Департаменту корпоративних прав та правового забезпеченя Дніпропетровської міської ради"></activiti:value>
-          <activiti:value id="dok_fail" name="У наданні послуги відмовлено"></activiti:value>
+          <activiti:value id="dok_ok" name="Взяти в роботу і відправити опис документів"></activiti:value>
+          <activiti:value id="dok_fail" name="Відмовити у реєстрації звернення"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="admin_fio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
-        <activiti:formProperty id="cnap_number" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string"></activiti:formProperty>
         <activiti:formProperty id="otkaz_comment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="date_reestr" name="Укажіть дату реєстрації зверення у форматі ДД.ММ.РРРР" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="file_opis" name="Якщо з документами все гаразд - завантажте скановану копію описа документів, надісланих громодянином" type="file"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_cnap_39_print.html]" type="invisible" default="Форма заяви" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_cnap_39_print.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
@@ -560,22 +555,21 @@
     <sequenceFlow id="flow13" sourceRef="servicetask2" targetRef="usertask2"></sequenceFlow>
     <userTask id="usertask2" name="Обробка відповіді" activiti:candidateGroups="dnepr_cnap_${cnapСhoice}">
       <extensionElements>
-        <activiti:formProperty id="cnap_number" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="admin_fio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Контактний email" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Дата звернення" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="obect" name="Об'єкт на який надається копія дозволу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="adres_2" name="Адреса об'єкта на який надається копія дозволу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="obect" name="Номер, дата та назва рішення міської ради" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adres_2" name="Місцезнаходження (адреса) об’єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ur_nazv" name="У давальному відмінку повне найменування юридичної особи/П.І.Б.фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="Вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="edrpou" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="edrpou_inn" name="Код ЄДРПОУ або Ідентифікаційний номер фізичної особи–підприємця" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib_ker" name="П.І.Б. керівника юридичної особи/фізичної особи–підприємця/уповноваженої особи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="adress_1" name="Місцезнаходження юридичної особи/місце проживання ФОП" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="cnapСhoice" name="Оберіть ЦНАП у якому Вам буде зручно отримати дозвіл" type="enum">
+        <activiti:formProperty id="adress_1" name="Місцезнаходження юридичної особи/місце проживання фізичної особи–підприємця" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="cnapСhoice" name="ЦНАП, в якому буде зручно отримати відповідь" type="enum" writable="false">
           <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
           <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
         </activiti:formProperty>
@@ -584,7 +578,7 @@
           <activiti:value id="dok_fail1" name="Неможливо видати копію рішень міської ради"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment1" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="dozvil_copy" name="Завантажте копію дозволу для заявника" type="file"></activiti:formProperty>
+        <activiti:formProperty id="dozvil_copy" name="Завантажте копію рішення" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow25" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
