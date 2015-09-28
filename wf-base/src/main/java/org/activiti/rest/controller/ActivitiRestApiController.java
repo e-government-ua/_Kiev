@@ -1379,7 +1379,10 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     }                    
                     }
 
-                    StartFormData startFormData = formService.getStartFormData(processInstanceID);
+                    HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery().processInstanceId(
+                    		processInstanceID).singleResult();
+                    
+                    StartFormData startFormData = formService.getStartFormData(processInstance.getProcessDefinitionId());
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject recordJson = jsonArray.getJSONObject(i);
                         String fieldIdStartForm = (String) recordJson.get("id");
