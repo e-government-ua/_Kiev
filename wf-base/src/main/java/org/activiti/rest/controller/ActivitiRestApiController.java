@@ -12,6 +12,9 @@ import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.identity.User;
+import org.activiti.engine.impl.context.Context;
+import org.activiti.engine.impl.form.FormPropertyImpl;
+import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.impl.util.json.JSONArray;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -1352,21 +1355,27 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         		
         		log.info("Found " + tasks.size() + " tasks by nID_Protected...");
 	        		for (Task task : tasks){
-	        			log.info("task;" + task.getName() + "|" + task.getDescription() + "|" + task.getId());
-	        			TaskFormData data = formService.getTaskFormData(task.getId());
-	        			Map<String, String> newProperties = new HashMap<String, String>();
-	        			for (FormProperty property : data.getFormProperties()) {
-	        				if (property.isWritable()){
-	        					newProperties.put(property.getId(), property.getValue());
-	        				}
-	                    }      
-        			
-	                    for (int i = 0; i < jsonArray.length(); i++) {
-	                    	JSONObject record = jsonArray.getJSONObject(i);
-	                    	newProperties.put((String)record.get("id"), (String)record.get("value"));
-	                    }
-	                    log.info("Updating form data for the task " + task.getId() + "|" + newProperties);
-	                    formService.saveFormData(task.getId(), newProperties);
+//	        			log.info("task;" + task.getName() + "|" + task.getDescription() + "|" + task.getId());
+//	        			TaskFormData data = formService.getTaskFormData(task.getId());
+//	        			Map<String, String> newProperties = new HashMap<String, String>();
+//	        			for (FormProperty property : data.getFormProperties()) {
+//	        				if (property.isWritable()){
+//	        					newProperties.put(property.getId(), property.getValue());
+//	        				}
+//	                    }      
+
+        				TaskEntity taskEntity = Context.getCommandContext().getTaskEntityManager().findTaskById(task.getId());
+        				log.info("Found task entity:" + taskEntity);
+        				if (taskEntity != null){
+		                    for (int i = 0; i < jsonArray.length(); i++) {
+		                    	JSONObject record = jsonArray.getJSONObject(i);
+		                    	log.info("Current value of variable " + taskEntity.getExecution().getVariable((String)record.get("id")));
+		                    	taskEntity.getExecution().setVariable((String)record.get("id"), (String)record.get("value"));
+		                    	log.info("Set variable " + record.get("id") + " with value " + record.get("value"));
+		                    }
+        				}
+//	                    log.info("Updating form data for the task " + task.getId() + "|" + newProperties);
+//	                    formService.saveFormData(task.getId(), newProperties);
                     }
         		}
         	updateHistoryEvent_Service(processInstanceID, saField, null);
