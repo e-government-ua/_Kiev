@@ -1366,7 +1366,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	        			TaskFormData data = formService.getTaskFormData(task.getId());
 	        			Map<String, String> newProperties = new HashMap<String, String>();
 	        			for (FormProperty property : data.getFormProperties()) {
-	        				newProperties.put(property.getId(), property.getValue());
+	        				if (property.isWritable()){
+	        					newProperties.put(property.getId(), property.getValue());
+	        				}
 	                    }      
         			
         			
