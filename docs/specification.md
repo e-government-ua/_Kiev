@@ -2543,6 +2543,7 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 **HTTP Context: https://test.region.igov.org.ua/wf/service/rest/setTaskAnswer?nID_Protected=[nID_Protected]&saField=[saField]&sToken=[sToken]&sBody=[sBody]
 
 -- обновляет поля формы указанного процесса значениями, переданными в параметре saField
+**Важно:позволяет обновлять только те поля, для которых в форме бизнес процесса не стоит атрибут writable="false"**
 
 * nID_Protected - номер-ИД заявки (защищенный)
 * saField - строка-массива полей (например: "[{'id':'sFamily','type':'string','value':'Белявцев'},{'id':'nAge','type':'long','value':35}]")
@@ -2571,4 +2572,9 @@ https://test.region.igov.org.ua/wf/service/rest/setTaskAnswer?nID_Protected=5435
 Токен не совпадает со значением в HistoryEvent_Service
 ```json
 {"code":"BUSINESS_ERR","message":"Token is absent"}
+```
+
+Попытка обновить поле с атрибутом writable="false"
+```json
+{"code":"BUSINESS_ERR","message":"form property 'bankIdinn' is not writable"}
 ```
