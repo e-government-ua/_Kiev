@@ -1,13 +1,16 @@
 package org.activiti.rest.controller;
 
 import com.google.common.base.Charsets;
+
 import liquibase.util.csv.CSVWriter;
+
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.*;
 import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
@@ -60,6 +63,7 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
@@ -1208,7 +1212,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     @RequestParam(value = "sHead", required = false) String sHead,
                     @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException, CRCInvalidException {
 
-        sHead = sHead == null ? "Необхідно уточнити дані" : sHead;
+        try {
+            sHead = sHead == null ? new String("Необхідно уточнити дані".getBytes("UTF-8"), "UTF-8") : sHead;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         sBody = sBody == null ? "" : sBody;
         String sToken = generateToken();
         String processInstanceID = String.valueOf(AlgorithmLuna.getOriginalNumber(nID_Protected));
@@ -1222,7 +1230,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         } catch (Exception e) {
             throw new ActivitiRestException(
                     ActivitiExceptionController.BUSINESS_ERROR_CODE,
-                   "error during setTaskQuestions: " + e.getMessage(),e,
+                   "error during updating historyEvent_service: " + e.getMessage(),e,
                     HttpStatus.FORBIDDEN);
         }
     }
@@ -1354,31 +1362,25 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             	log.info("Added variable sAnswer to the process " + processInstanceID);
         		
         		log.info("Found " + tasks.size() + " tasks by nID_Protected...");
-	        		for (Task task : tasks){
-//	        			log.info("task;" + task.getName() + "|" + task.getDescription() + "|" + task.getId());
-//	        			TaskFormData data = formService.getTaskFormData(task.getId());
-//	        			Map<String, String> newProperties = new HashMap<String, String>();
-//	        			for (FormProperty property : data.getFormProperties()) {
-//	        				if (property.isWritable()){
-//	        					newProperties.put(property.getId(), property.getValue());
-//	        				}
-//	                    }      
-        				TaskEntity taskEntity = Context.getCommandContext()
-        							.getTaskEntityManager()
-        							.findTaskById(task.getId());
-        				log.info("Found task entity:" + taskEntity);
-        				if (taskEntity != null){
-		                    for (int i = 0; i < jsonArray.length(); i++) {
-		                    	JSONObject record = jsonArray.getJSONObject(i);
-		                    	log.info("Current value of variable " + taskEntity.getExecution().getVariable((String)record.get("id")));
-		                    	taskEntity.getExecution().setVariable((String)record.get("id"), (String)record.get("value"));
-		                    	log.info("Set variable " + record.get("id") + " with value " + record.get("value"));
-		                    }
+        		for (Task task : tasks){
+        			log.info("task;" + task.getName() + "|" + task.getDescription() + "|" + task.getId());
+        			TaskFormData data = formService.getTaskFormData(task.getId());
+        			Map<String, String> newProperties = new HashMap<String, String>();
+        			for (FormProperty property : data.getFormProperties()) {
+        				if (property.isWritable()){
+        					newProperties.put(property.getId(), property.getValue());
         				}
-//	                    log.info("Updating form data for the task " + task.getId() + "|" + newProperties);
-//	                    formService.saveFormData(task.getId(), newProperties);
+                    }      
+    				
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                    	JSONObject record = jsonArray.getJSONObject(i);
+                    	newProperties.put((String)record.get("id"), (String)record.get("value"));
+                    	log.info("Set variable " + record.get("id") + " with value " + record.get("value"));
                     }
-        		}
+                    log.info("Updating form data for the task " + task.getId() + "|" + newProperties);
+                    formService.saveFormData(task.getId(), newProperties);
+                }
+        	}
         	updateHistoryEvent_Service(processInstanceID, saField, null);
         } catch (Exception e) {
             throw new ActivitiRestException(
