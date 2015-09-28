@@ -2540,3 +2540,35 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 <a name="39_setTaskAnswer">
 ####39. Вызов сервиса ответа по полям требующим уточнения</a><br/> 
 
+**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/setTaskAnswer?nID_Protected=[nID_Protected]&saField=[saField]&sToken=[sToken]&sBody=[sBody]
+
+-- обновляет поля формы указанного процесса значениями, переданными в параметре saField
+
+* nID_Protected - номер-ИД заявки (защищенный)
+* saField - строка-массива полей (например: "[{'id':'sFamily','type':'string','value':'Белявцев'},{'id':'nAge','type':'long','value':35}]")
+* sToken -  строка-токена. Данный параметр формируется и сохраняется в запись HistoryEvent_Service во время вызова метода setTaskQuestions
+* sBody -  строка тела сообщения (опциональный параметр)
+
+Во время выполнения метод выполняет такие действия
+- Находит в сущности HistoryEvent_Service нужную запись (по nID_Protected) и сверяет токен. Eсли токен в сущности указан но не совпадает с переданным, возвращается ошибка "Token wrong". Если он в сущности не указан (null) - возвращается ошибка "Token absent".
+- Находит на региональном портале таску и устанавливает в глобальную переменную sAnswer найденной таски содержимое sBody.
+- Устанавливает в каждое из полей из saField новые значения
+- Обновляет в сущности HistoryEvent_Service поле soData значением из saField и поле sToken значением null.
+- Сохраняет информацию о действии в Мой Журнал (Текст: На заявку №____ дан ответ гражданином: [sBody])
+
+Примеры:
+
+https://test.region.igov.org.ua/wf/service/rest/setTaskAnswer?nID_Protected=54352839&saField=[{%27id%27:%27bankIdinn%27,%27type%27:%27string%27,%27value%27:%271234567890%27}]&sToken=93ODp4uPBb5To4Nn3kY1
+
+Ответы:
+Пустой ответ в случае успешного обновления
+
+Токен отсутствует
+```json
+{"code":"BUSINESS_ERR","message":"Token is absent"}
+```
+
+Токен не совпадает со значением в HistoryEvent_Service
+```json
+{"code":"BUSINESS_ERR","message":"Token is absent"}
+```
