@@ -1200,6 +1200,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      * @param sHead -- строка заголовка письма //опциональный (если не задан, то "Необходимо уточнить данные")
      * @param sBody -- строка тела письма //опциональный (если не задан, то пустота)
      * @throws ActivitiRestException
+     * @throws CRCInvalidException 
      */
     @RequestMapping(value = "/setTaskQuestions", method = RequestMethod.GET)
     public @ResponseBody
@@ -1207,7 +1208,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     @RequestParam(value = "saField") String saField,
                     @RequestParam(value = "sMail") String sMail,
                     @RequestParam(value = "sHead", required = false) String sHead,
-                    @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException {
+                    @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException, CRCInvalidException {
 
         try {
             sHead = sHead == null ? new String("Необхідно уточнити дані".getBytes("UTF-8"), "UTF-8") : sHead;
@@ -1217,23 +1218,19 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         sBody = sBody == null ? "" : sBody;
         String sToken = generateToken();
         String processInstanceID = String.valueOf(AlgorithmLuna.getOriginalNumber(nID_Protected));
+        AlgorithmLuna.validateProtectedNumber(nID_Protected);
         try {
             updateHistoryEvent_Service(processInstanceID, saField, sHead, sBody, sToken);
+            
+            sendEmail(sHead, createEmailBody(nID_Protected,saField,sBody, sToken),sMail);
+            
+            setInfo_ToActiviti("" + nID_Protected/10, saField, sBody);
         } catch (Exception e) {
             throw new ActivitiRestException(
                     ActivitiExceptionController.BUSINESS_ERROR_CODE,
                    "error during updating historyEvent_service: " + e.getMessage(),e,
                     HttpStatus.FORBIDDEN);
         }
-        try {
-            sendEmail(sHead, createEmailBody(nID_Protected,saField,sBody, sToken),sMail);
-        } catch (EmailException|UnsupportedEncodingException e) {
-            throw new ActivitiRestException(
-                    ActivitiExceptionController.SYSTEM_ERROR_CODE,
-                    "error during sending email: " + e.getMessage(),e,
-                    HttpStatus.FORBIDDEN);
-        }
-        setInfo_ToActiviti("" + nID_Protected/10, saField, sBody);
     }
 
     private String createEmailBody(Long nID_Protected, String soData, String sBody, String sToken) throws UnsupportedEncodingException {
