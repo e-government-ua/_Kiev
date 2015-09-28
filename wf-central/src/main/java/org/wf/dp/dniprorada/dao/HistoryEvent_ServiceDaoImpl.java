@@ -135,7 +135,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                 }
                 
                 log.info("(String) currValue[2])=" + snRate);
-                if(snRate==null){
+                if(snRate==null || "null".equals(snRate)){
                     snRate="0";
                 }
                 
