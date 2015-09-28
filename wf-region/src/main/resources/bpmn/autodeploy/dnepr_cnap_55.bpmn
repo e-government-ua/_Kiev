@@ -458,7 +458,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     
-Ви отримали схвалення щодо свого запиту - експлуатаційний дозвіл для провадження діяльності: на потужностях (об'єктах) зз переробки неїстівних продуктів тваринного походження.&lt;br /&gt;
+Ви отримали схвалення щодо свого запиту - експлуатаційний дозвіл для провадження діяльності: на потужностях (об'єктах) з виробництва, змішування та приготування кормових добавок, преміксів і кормів.&lt;br /&gt;
 &lt;br /&gt;
 Ви або уповноважена Вами особа (при наявності довіреності) можете отримати дозвіл собисто під підпис у ЦНАПі.&lt;br /&gt;
 &lt;br /&gt;
@@ -600,7 +600,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     
-Ви отримали схвалення щодо свого запиту - експлуатаційний дозвіл для провадження діяльності: на потужностях (об'єктах) з переробки неїстівних продуктів тваринного походження.&lt;br /&gt;
+Ви отримали схвалення щодо свого запиту - експлуатаційний дозвіл для провадження діяльності: на потужностях (об'єктах) з виробництва, змішування та приготування кормових добавок, преміксів і кормів.&lt;br /&gt;
 &lt;br /&gt;
 Ви або уповноважена Вами особа (при наявності довіреності) можете отримати дозвіл собисто під підпис у ЦНАПі.&lt;br /&gt;
 &lt;br /&gt;
@@ -768,8 +768,7 @@ style="border-collapse: collapse;"&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
 &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-Вам відмовлено у наданні експлуатаційного дозвілу з переробки неїстівних продуктів 
-тваринного походження.&lt;br /&gt;
+Вам відмовлено у наданні експлуатаційного дозвілу з виробництва, змішування та приготування кормових добавок, преміксів і кормів.&lt;br /&gt;
 Підстава: ${comment_2}&lt;br /&gt;
 Ви або уповноважена Вами особа (при наявності довіреності) можете отримати рішення собисто під підпис у ЦНАПі.&lt;br /&gt;
 &lt;br /&gt;
@@ -1010,8 +1009,7 @@ style="border-collapse: collapse;"&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
 &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-Вам відмовлено у наданні експлуатаційного дозвілу з переробки неїстівних продуктів 
-тваринного походження.&lt;br /&gt;
+Вам відмовлено у наданні експлуатаційного дозвілу з виробництва, змішування та приготування кормових добавок, преміксів і кормів.&lt;br /&gt;
 Підстава: ${comment_2}&lt;br /&gt;
 Ви або уповноважена Вами особа (при наявності довіреності) можете отримати рішення собисто під підпис у ЦНАПі.&lt;br /&gt;
 &lt;br /&gt;
@@ -1130,7 +1128,7 @@ style="border-collapse: collapse;"&gt;
         <omgdc:Bounds height="35.0" width="35.0" x="377.0" y="1.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
-        <omgdc:Bounds height="55.0" width="191.0" x="600.0" y="515.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="191.0" x="600.0" y="527.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
         <omgdc:Bounds height="55.0" width="188.0" x="110.0" y="515.0"></omgdc:Bounds>
@@ -1158,10 +1156,10 @@ style="border-collapse: collapse;"&gt;
         <omgdi:waypoint x="455.0" y="590.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="455.0" y="590.0"></omgdi:waypoint>
-        <omgdi:waypoint x="695.0" y="570.0"></omgdi:waypoint>
+        <omgdi:waypoint x="475.0" y="610.0"></omgdi:waypoint>
+        <omgdi:waypoint x="695.0" y="582.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="97.0" x="495.0" y="567.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="97.0" x="515.0" y="587.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
@@ -1238,7 +1236,7 @@ style="border-collapse: collapse;"&gt;
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
-        <omgdi:waypoint x="695.0" y="570.0"></omgdi:waypoint>
+        <omgdi:waypoint x="695.0" y="582.0"></omgdi:waypoint>
         <omgdi:waypoint x="695.0" y="600.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
