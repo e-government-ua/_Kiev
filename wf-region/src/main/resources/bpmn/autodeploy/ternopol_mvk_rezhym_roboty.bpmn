@@ -19,8 +19,8 @@
         <activiti:formProperty id="adress2" name="Місцезнаходження (адреса) об'єкта" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="time" name="Запропонований режим роботи: час роботи з .. до .., обідня перерва з .. до .., вихідні" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="specialization" name="Спеціалізація" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="double" required="true"></activiti:formProperty>
-        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="double" required="true"></activiti:formProperty>
+        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="employee" name="Кількість зареєстрованих найманих працівників" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="seats" name="Кількість посадкових місць (для закладів ресторанного господарства)" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="trusted_person" name="Ім’я, по-батькові та прізвище керівника юридичної особи / фізичної особи – підприємця / уповноваженої особи" type="string" required="true"></activiti:formProperty>
@@ -180,8 +180,8 @@
         <activiti:formProperty id="adress2" name="Місцезнаходження (адреса) об'єкта" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="time" name="Запропонований режим роботи: час роботи з .. до .., обідня перерва з .. до .., вихідні" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="specialization" name="Спеціалізація" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="double" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="double" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="employee" name="Кількість зареєстрованих найманих працівників" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="seats" name="Кількість посадкових місць;(для закладів ресторанного господарства)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="trusted_person" name="Ім’я, по-батькові та прізвище керівника юридичної особи / фізичної особи – підприємця / уповноваженої особи" type="string" writable="false"></activiti:formProperty>
@@ -553,8 +553,8 @@
         <activiti:formProperty id="adress2" name="Місцезнаходження (адреса) об'єкта" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="time" name="Запропонований режим роботи" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="specialization" name="Спеціалізація" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="double" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="double" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="employee" name="Кількість зареєстрованих найманих працівників" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="seats" name="Кількість посадкових місць (для закладів ресторанного господарства)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="trusted_person" name="Ім’я, по-батькові та прізвище керівника юридичної особи / фізичної особи – підприємця / уповноваженої особи" type="string" writable="false"></activiti:formProperty>
