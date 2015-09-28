@@ -1,13 +1,16 @@
 package org.activiti.rest.controller;
 
 import com.google.common.base.Charsets;
+
 import liquibase.util.csv.CSVWriter;
+
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.*;
 import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
@@ -58,6 +61,7 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
@@ -1375,8 +1379,25 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 //                    	} else {
 //                    		log.info("Skipping property " + property.getId() + " as there is no such property in input parameter");
 //                    	}
+                    }                    
                     }
+
+                    StartFormData startFormData = formService.getStartFormData(processInstanceID);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject recordJson = jsonArray.getJSONObject(i);
+                        String fieldIdStartForm = (String) recordJson.get("id");
+                    for (FormProperty property : data.getFormProperties()) {
+//                    	if (fieldIdStartForm.equals(property.getId())){
+                    		if (property instanceof FormPropertyImpl){
+                        		log.info("Updating start form property's " + property.getId() + " value from " + 
+                        					property.getValue() + " to " + recordJson.get("value"));
+                    			((FormPropertyImpl)property).setValue((String) recordJson.get("value"));                     			
+                    		}
+//                    	} else {
+//                    		log.info("Skipping property " + property.getId() + " as there is no such property in input parameter");
+//                    	}
                     }
+
         		}
         	}
         	updateHistoryEvent_Service(processInstanceID, saField, null);
