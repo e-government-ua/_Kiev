@@ -1363,43 +1363,28 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         		for (Task task : tasks){
         			log.info("task;" + task.getName() + "|" + task.getDescription() + "|" + task.getId());
         			TaskFormData data = formService.getTaskFormData(task.getId());
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject record = jsonArray.getJSONObject(i);
-                        String fieldId = (String) record.get("id");
-                    for (FormProperty property : data.getFormProperties()) {
+        			Map<String, String> newProperties = new HashMap<String, String>();
+	                    for (int i = 0; i < jsonArray.length(); i++) {
+	                    	JSONObject record = jsonArray.getJSONObject(i);
+	                    	newProperties.put((String)record.get("id"), (String)record.get("value"));
+	                    }
+//                        JSONObject record = jsonArray.getJSONObject(i);
+//                        String fieldId = (String) record.get("id");
+//                    for (FormProperty property : data.getFormProperties()) {
 //                    	if (fieldId.equals(property.getId())){
-                    		if (property instanceof FormPropertyImpl){
-                        		log.info("Updating property's " + property.getId() + " value from " + 
-                        					property.getValue() + " to " + record.get("value"));
-                    			((FormPropertyImpl)property).setValue((String) record.get("value"));                     			
-                    		}
+//                    		if (property instanceof FormPropertyImpl){
+//                        		log.info("Updating property's " + property.getId() + " value from " + 
+//                        					property.getValue() + " to " + record.get("value"));
+//                    			((FormPropertyImpl)property).setValue((String) record.get("value"));                     			
+//                    		}
 //                    	} else {
 //                    		log.info("Skipping property " + property.getId() + " as there is no such property in input parameter");
 //                    	}
-                    }                    
-                    }
-
-                    HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery().processInstanceId(
-                    		processInstanceID).singleResult();
-                    
-                    StartFormData startFormData = formService.getStartFormData(processInstance.getProcessDefinitionId());
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        JSONObject recordJson = jsonArray.getJSONObject(i);
-                        String fieldIdStartForm = (String) recordJson.get("id");
-                    for (FormProperty property : startFormData.getFormProperties()) {
-//                    	if (fieldIdStartForm.equals(property.getId())){
-                    		if (property instanceof FormPropertyImpl){
-                        		log.info("Updating start form property's " + property.getId() + " value from " + 
-                        					property.getValue() + " to " + recordJson.get("value"));
-                    			((FormPropertyImpl)property).setValue((String) recordJson.get("value"));                     			
-                    		}
-//                    	} else {
-//                    		log.info("Skipping property " + property.getId() + " as there is no such property in input parameter");
-//                    	}
-                    }
+//                    }                    
+	                    log.info("Updating form data for the task " + task.getId() + "|" + newProperties);
+	                    formService.saveFormData(task.getId(), newProperties);
                     }
         		}
-        	}
         	updateHistoryEvent_Service(processInstanceID, saField, null);
         } catch (Exception e) {
             throw new ActivitiRestException(
