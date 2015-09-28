@@ -123,17 +123,14 @@
 &lt;/table&gt;
 &lt;/body&gt;
 &lt;/html&gt;</activiti:expression>
-        </activiti:field>
-        <activiti:field name="bcc">
-          <activiti:string><![CDATA[cnap@kuznetsovsk-rada.gov.ua]]></activiti:string>
-        </activiti:field>
+        </activiti:field>  
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="mailtask5"></sequenceFlow>
     <serviceTask id="mailtask5" name="Повідомлення про нове звернення" activiti:type="mail">
     <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[zhigan.roman@gmail.com]]></activiti:expression>
+          <activiti:expression><![CDATA[cnap@kuznetsovsk-rada.gov.ua]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -143,6 +140,9 @@
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="bcc">
+          <activiti:string><![CDATA[zhigan.roman@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -234,7 +234,7 @@
         <activiti:formProperty id="request" name="Запитуваний документ" type="textArea" default="${docType} №  ${docNumber} від  ${docDate}: ${docName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
-          <activiti:value id="accept" name="Передати запрос на опрацювання"></activiti:value>
+          <activiti:value id="accept" name="Передати запит на опрацювання"></activiti:value>
           <activiti:value id="reject" name="Відмовити у реєстрації звернення"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар адміністратора у разі відмови у реєстрації звернення" type="textArea"></activiti:formProperty>
@@ -716,8 +716,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow15" sourceRef="mailtask4" targetRef="endevent6"></sequenceFlow>
-    
+    <sequenceFlow id="flow15" sourceRef="mailtask4" targetRef="endevent6"></sequenceFlow> 
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_kuznetsovsk_mvk_4">
     <bpmndi:BPMNPlane bpmnElement="kuznetsovsk_mvk_4" id="BPMNPlane_kuznetsovsk_mvk_4">
