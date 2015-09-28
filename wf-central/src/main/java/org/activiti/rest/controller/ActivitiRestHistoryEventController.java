@@ -118,7 +118,7 @@ public class ActivitiRestHistoryEventController {
 		mParamMessage.put(HistoryEventMessage.SERVICE_STATE, sID_Status);
 		setHistoryEvent(HistoryEventType.GET_SERVICE, nID_Subject, mParamMessage);
 		//My journal. setTaskQuestions (issue 808)
-		createHistoryEventForTaskQuestions(HistoryEventType.SET_TASK_QUESTIONS, soData, event_service.getnID_Protected(), nID_Subject);
+		createHistoryEventForTaskQuestions(HistoryEventType.SET_TASK_QUESTIONS, soData, soData, event_service.getnID_Protected(), nID_Subject);
 		return JsonRestUtils.toJsonResponse(event_service);
 	}
 
@@ -182,15 +182,18 @@ public class ActivitiRestHistoryEventController {
 		mParamMessage.put(HistoryEventMessage.TASK_NUMBER, String.valueOf(nID_Protected));
 		setHistoryEvent(HistoryEventType.ACTIVITY_STATUS_NEW, nID_Subject, mParamMessage);
 		//My journal. setTaskQuestions (issue 808, 809)
-		createHistoryEventForTaskQuestions(sToken != null ? HistoryEventType.SET_TASK_QUESTIONS : HistoryEventType.SET_TASK_ANSWERS,
-				soData, nID_Protected, nID_Subject);
+		if (soData != null) {
+			createHistoryEventForTaskQuestions(sToken != null ? HistoryEventType.SET_TASK_QUESTIONS : HistoryEventType.SET_TASK_ANSWERS,
+					soData, sBody, nID_Protected, nID_Subject);
+		}
 		return event_service;
 	}
 
-	private void createHistoryEventForTaskQuestions(HistoryEventType eventType, String soData, Long nID_Protected, Long nID_Subject) {
+	private void createHistoryEventForTaskQuestions(HistoryEventType eventType, String data, String soData, Long nID_Protected, Long nID_Subject) {
 		Map<String, String> mParamMessage = new HashMap<>();
 		if (soData != null && !"[]".equals(soData) ) {
 			mParamMessage.put(HistoryEventMessage.TASK_NUMBER, "" + nID_Protected);
+			mParamMessage.put(HistoryEventMessage.S_BODY, data == null ? "" : data);
 			mParamMessage.put(HistoryEventMessage.TABLE_BODY, HistoryEventMessage.createTable(soData));
 			setHistoryEvent(eventType, nID_Subject, mParamMessage);
 		}

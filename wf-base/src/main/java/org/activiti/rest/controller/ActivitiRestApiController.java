@@ -1,16 +1,13 @@
 package org.activiti.rest.controller;
 
 import com.google.common.base.Charsets;
-
 import liquibase.util.csv.CSVWriter;
-
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.*;
 import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
@@ -63,7 +60,6 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.*;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
@@ -1212,11 +1208,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     @RequestParam(value = "sHead", required = false) String sHead,
                     @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException, CRCInvalidException {
 
-        try {
-            sHead = sHead == null ? new String("Необхідно уточнити дані".getBytes("UTF-8"), "UTF-8") : sHead;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        sHead = sHead == null ? "Необхідно уточнити дані" : sHead;
         sBody = sBody == null ? "" : sBody;
         String sToken = generateToken();
         String processInstanceID = String.valueOf(AlgorithmLuna.getOriginalNumber(nID_Protected));
@@ -1230,7 +1222,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         } catch (Exception e) {
             throw new ActivitiRestException(
                     ActivitiExceptionController.BUSINESS_ERROR_CODE,
-                   "error during updating historyEvent_service: " + e.getMessage(),e,
+                   "error during setTaskQuestions: " + e.getMessage(),e,
                     HttpStatus.FORBIDDEN);
         }
     }
