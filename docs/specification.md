@@ -34,7 +34,8 @@
 <a href="#35">35. Электронная эскалация</a><br/>
 <a href="#36_getTasksByText">36. Поиск заявок по тексту (в значениях полей без учета регистра)</a><br/> 
 <a href="#37_getAccessKeyt">37. Получения ключа для аутентификации</a><br/> 
-
+<a href="#38_setTaskQuestions">38. Вызов сервиса уточнения полей формы</a><br/> 
+<a href="#39_setTaskAnswer">39. Вызов сервиса ответа по полям требующим уточнения</a><br/> 
 
 ## iGov.ua APIs
 
@@ -2531,4 +2532,11 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 
 Пример
 <a href="https://test.igov.org.ua/wf/service/services/getAccessKey?sLogin=activiti-master&sAccessContract=Request&sData=/wf/service/setMessage">https://test.igov.org.ua/wf/service/services/getAccessKey?sLogin=activiti-master&sAccessContract=Request&sData=/wf/service/setMessage</a>
+
+<a name="38_setTaskQuestions">
+####38. Вызов сервиса уточнения полей формы</a><br/> 
+
+
+<a name="39_setTaskAnswer">
+####39. Вызов сервиса ответа по полям требующим уточнения</a><br/> 
 
