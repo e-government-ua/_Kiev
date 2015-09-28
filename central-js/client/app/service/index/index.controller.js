@@ -11,6 +11,7 @@ angular.module('app').controller('IndexController', function ($scope, BankIDServ
   BankIDService.isLoggedIn().then(function (result) {
     $scope.navBarStatusVisible = result;
     BankIDService.fio().then(function (res) {
+      res = {};
       $scope.userName = capitalize(res.firstName)
         + " " +
         capitalize(res.middleName)
@@ -22,7 +23,7 @@ angular.module('app').controller('IndexController', function ($scope, BankIDServ
   });
 
   function capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    return string !== null && string !== undefined ? string.charAt(0).toUpperCase() + string.slice(1).toLowerCase() : '';
   }
 
 });
