@@ -1,13 +1,16 @@
 package org.activiti.rest.controller;
 
 import com.google.common.base.Charsets;
+
 import liquibase.util.csv.CSVWriter;
+
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
 import org.activiti.engine.*;
 import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
@@ -58,6 +61,7 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
@@ -1196,6 +1200,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      * @param sHead -- строка заголовка письма //опциональный (если не задан, то "Необходимо уточнить данные")
      * @param sBody -- строка тела письма //опциональный (если не задан, то пустота)
      * @throws ActivitiRestException
+     * @throws CRCInvalidException 
      */
     @RequestMapping(value = "/setTaskQuestions", method = RequestMethod.GET)
     public @ResponseBody
@@ -1203,7 +1208,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                     @RequestParam(value = "saField") String saField,
                     @RequestParam(value = "sMail") String sMail,
                     @RequestParam(value = "sHead", required = false) String sHead,
-                    @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException {
+                    @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException, CRCInvalidException {
 
         try {
             sHead = sHead == null ? new String("Необхідно уточнити дані".getBytes("UTF-8"), "UTF-8") : sHead;
@@ -1213,23 +1218,19 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         sBody = sBody == null ? "" : sBody;
         String sToken = generateToken();
         String processInstanceID = String.valueOf(AlgorithmLuna.getOriginalNumber(nID_Protected));
+        AlgorithmLuna.validateProtectedNumber(nID_Protected);
         try {
             updateHistoryEvent_Service(processInstanceID, saField, sHead, sBody, sToken);
+            
+            sendEmail(sHead, createEmailBody(nID_Protected,saField,sBody, sToken),sMail);
+            
+            setInfo_ToActiviti("" + nID_Protected/10, saField, sBody);
         } catch (Exception e) {
             throw new ActivitiRestException(
                     ActivitiExceptionController.BUSINESS_ERROR_CODE,
                    "error during updating historyEvent_service: " + e.getMessage(),e,
                     HttpStatus.FORBIDDEN);
         }
-        try {
-            sendEmail(sHead, createEmailBody(nID_Protected,saField,sBody, sToken),sMail);
-        } catch (EmailException|UnsupportedEncodingException e) {
-            throw new ActivitiRestException(
-                    ActivitiExceptionController.SYSTEM_ERROR_CODE,
-                    "error during sending email: " + e.getMessage(),e,
-                    HttpStatus.FORBIDDEN);
-        }
-        setInfo_ToActiviti("" + nID_Protected/10, saField, sBody);
     }
 
     private String createEmailBody(Long nID_Protected, String soData, String sBody, String sToken) throws UnsupportedEncodingException {
@@ -1371,6 +1372,23 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                         		log.info("Updating property's " + property.getId() + " value from " + 
                         					property.getValue() + " to " + record.get("value"));
                     			((FormPropertyImpl)property).setValue((String) record.get("value"));                     			
+                    		}
+//                    	} else {
+//                    		log.info("Skipping property " + property.getId() + " as there is no such property in input parameter");
+//                    	}
+                    }                    
+                    }
+
+                    StartFormData startFormData = formService.getStartFormData(processInstanceID);
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject recordJson = jsonArray.getJSONObject(i);
+                        String fieldIdStartForm = (String) recordJson.get("id");
+                    for (FormProperty property : startFormData.getFormProperties()) {
+//                    	if (fieldIdStartForm.equals(property.getId())){
+                    		if (property instanceof FormPropertyImpl){
+                        		log.info("Updating start form property's " + property.getId() + " value from " + 
+                        					property.getValue() + " to " + recordJson.get("value"));
+                    			((FormPropertyImpl)property).setValue((String) recordJson.get("value"));                     			
                     		}
 //                    	} else {
 //                    		log.info("Skipping property " + property.getId() + " as there is no such property in input parameter");
