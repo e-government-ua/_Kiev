@@ -1,6 +1,9 @@
 package org.wf.dp.dniprorada.base.util.caching;
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
@@ -9,6 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.util.Assert;
 
 import net.sf.ehcache.Cache;
@@ -81,6 +85,38 @@ public class MethodCacheInterceptor implements MethodInterceptor, InitializingBe
       }
 
       return result;
+   }
+
+   private void validateMethodExist(Class beanClass, String methodName) {
+      boolean exist = false;
+
+      for (Method m : beanClass.getMethods()) {
+         if (m.getName().equals(methodName)) {
+            exist = true;
+            break;
+         }
+      }
+
+      Assert.isTrue(exist, String.format("Method %s of class %s is not exist!", methodName, beanClass.getClass()));
+   }
+
+   public void clearCacheForMethod(Class beanClass, String methodName, Object... args) {
+      validateMethodExist(beanClass, methodName);
+
+      String targetName = beanClass.getName();
+      String partOfKey = getCacheKey(targetName, methodName, args);
+
+      List<String> keysToDelete = new ArrayList<>();
+      for (Object key : cache.getKeys()) {
+         String stringKey = (String) key;
+         if (stringKey.startsWith(partOfKey)) {
+            keysToDelete.add(stringKey);
+         }
+      }
+
+      if (!keysToDelete.isEmpty()) {
+         cache.removeAll(keysToDelete);
+      }
    }
 
    /**

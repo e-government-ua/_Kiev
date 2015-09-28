@@ -54,6 +54,7 @@ import javax.activation.DataSource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -64,8 +65,8 @@ import org.activiti.engine.history.HistoricDetail;
 import org.activiti.engine.impl.persistence.entity.HistoricFormPropertyEntity;
 
 /**
- * ...wf-region/service/... Example:
- * .../wf-region/service/rest/startProcessByKey/citizensRequest
+ * ...wf/service/... Example:
+ * .../wf/service/rest/startProcessByKey/citizensRequest
  *
  * @author BW
  */
@@ -357,19 +358,19 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             Task task = tasks.iterator().next();
             processInstanceId = task.getProcessInstanceId();
             assignee = task.getAssignee() != null ? task.getAssignee() : "kermit";
-            System.out.println("processInstanceId: " + processInstanceId + " taskId: " + taskId + "assignee: " + assignee);
+            log.debug("processInstanceId: " + processInstanceId + " taskId: " + taskId + "assignee: " + assignee);
         } else {
-            System.out.println("There is no tasks at all!");
+            log.error("There is no tasks at all!");
 
         }
 
         identityService.setAuthenticatedUserId(assignee);
 
         String sFilename = file.getOriginalFilename();
-        System.out.println("sFilename=" + file.getOriginalFilename());
+        log.debug("sFilename=" + file.getOriginalFilename());
         sFilename = Renamer.sRenamed(sFilename);
-        System.out.println("FileExtention: " + getFileExtention(file) + " fileContentType: " + file.getContentType() + "fileName: " + sFilename);
-        System.out.println("description: " + description);
+        log.debug("FileExtention: " + getFileExtention(file) + " fileContentType: " + file.getContentType() + "fileName: " + sFilename);
+        log.debug("description: " + description);
 
         Attachment attachment = taskService.createAttachment(file.getContentType()
                 + ";"
@@ -378,6 +379,52 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                 processInstanceId,
                 sFilename,//file.getOriginalFilename()
                 description, file.getInputStream());
+
+        AttachmentEntityAdapter adapter = new AttachmentEntityAdapter();
+
+        return adapter.apply(attachment);
+    }
+
+
+    @RequestMapping(value = "/file/upload_content_as_attachment", method = RequestMethod.POST, produces = "application/json")
+    @Transactional
+    public @ResponseBody
+    AttachmentEntityI putTextAttachmentsToExecution(
+            @RequestParam(value = "nTaskId") String taskId,
+            @RequestParam(value = "sContentType", required = false, defaultValue = "text/html") String sContentType,
+            @RequestParam(value = "sDescription") String description,
+            @RequestParam(value = "sFileName") String sFileName,
+            @RequestBody String sData) throws ActivitiIOException, Exception {
+
+        String processInstanceId = null;
+        String assignee = null;
+
+        List<Task> tasks = taskService.createTaskQuery().taskId(taskId).list();
+        if (tasks != null && !tasks.isEmpty()) {
+            Task task = tasks.iterator().next();
+            processInstanceId = task.getProcessInstanceId();
+            assignee = task.getAssignee() != null ? task.getAssignee() : "kermit";
+            log.debug("processInstanceId: " + processInstanceId + " taskId: " + taskId + "assignee: " + assignee);
+        } else {
+            log.error("There is no tasks at all!");
+
+        }
+
+        identityService.setAuthenticatedUserId(assignee);
+
+        String sFilename = sFileName;
+        log.debug("sFilename=" + sFileName);
+        sFilename = Renamer.sRenamed(sFilename);
+        log.debug("FileExtention: " + getFileExtention(sFileName) + " fileContentType: " + sContentType + "fileName: " + sFilename);
+        log.debug("description: " + description);
+
+        Attachment attachment = taskService.createAttachment(sContentType
+                        + ";"
+                        + getFileExtention(sFileName),
+                taskId,
+                processInstanceId,
+                sFilename,
+                description, new ByteArrayInputStream(sData.getBytes(Charsets.UTF_8)));
 
         AttachmentEntityAdapter adapter = new AttachmentEntityAdapter();
 
@@ -502,18 +549,23 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         log.debug("headers: " + headers);
         if (bDetail) {
             for (HistoricTaskInstance currTask : foundResults) {
-                List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
-                for (HistoricDetail historicDetail : details) {
-                    if (historicDetail instanceof HistoricFormPropertyEntity) {
-                        HistoricFormPropertyEntity formEntity = (HistoricFormPropertyEntity) historicDetail;
-                        headersExtra.add(formEntity.getPropertyId());
-                    }
+                
+            	//List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
+                HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery()
+                		.includeProcessVariables().taskId(currTask.getId()).singleResult();
+                if (details != null &&  details.getProcessVariables() != null) {
+                	log.info(" proccessVariavles: " + details.getProcessVariables());
+                	for(String key : details.getProcessVariables().keySet()){
+                		if(!key.startsWith("sBody")){
+                			headersExtra.add(key);
+                		}
+                	}
                 }
             }
             headers.addAll(headersExtra);
         }
 
-        log.debug("headers: " + headers);
+        log.info("headers: " + headers);
         csvWriter.writeNext(headers.toArray(new String[headers.size()]));
 
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
@@ -521,7 +573,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             log.debug(String.format("Found {%s} completed tasks for business process {%s} for date period {%s} - {%s}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt),
                     sdfDate.format(dateTo)));
 
-            for (HistoricTaskInstance currTask : foundResults) {
+            for (HistoricTaskInstance currTask : foundResults) { 
                 List<String> line = new ArrayList<String>();
                 line.add(currTask.getProcessInstanceId());
                 line.add(currTask.getAssignee());
@@ -534,23 +586,24 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
                 if (bDetail) {
                     log.debug("currTask: " + currTask.getId());
-                    List<HistoricDetail> details = historyService.createHistoricDetailQuery().formProperties().taskId(currTask.getId()).list();
+                    HistoricTaskInstance details = historyService.createHistoricTaskInstanceQuery().includeProcessVariables()
+                    		.taskId(currTask.getId()).singleResult(); 
                     for (String headerExtra : headersExtra) {
-                        //log.info("headerExtra: " + headerExtra);
                         String propertyValue = "";
-                        for (HistoricDetail historicDetail : details) {
-                            //log.info("details: " + historicDetail.getClass());
-                            if (historicDetail instanceof HistoricFormPropertyEntity
-                                    && ((HistoricFormPropertyEntity) historicDetail).getPropertyId().equalsIgnoreCase(headerExtra)) {
-                                propertyValue = ((HistoricFormPropertyEntity) historicDetail).getPropertyValue();
-                                //log.info("headerExtra: " + headerExtra + " propertyValue: " + propertyValue);
-                                break;
-                            }
+                        if (details != null && details.getProcessVariables() != null) {
+                        	Object variableValue = details.getProcessVariables().get(headerExtra);
+                        	if(variableValue != null){
+                        		if(variableValue instanceof String){
+                            		propertyValue = (String)variableValue;
+                            	} else {
+                            		propertyValue = String.valueOf(variableValue);
+                            	}
+                        	}
                         }
                         line.add(propertyValue);
                     }
                 }
-                log.debug("line: " + line);
+                log.info("line: " + line);
                 csvWriter.writeNext(line.toArray(new String[line.size()]));
             }
         } else {
@@ -578,7 +631,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
      * @throws IOException in case of connection aborted with client
      *
      * example:
-     * https://test.region.igov.org.ua/wf-region/service/rest/file/downloadTasksData?sID_BP=kiev_mreo_1&sDateAt=2015-06-28&sDateTo=2015-08-01&nASCI_Spliter=59&sID_Codepage=UTF8&saFields=nID_Task;bankIdPassport;bankIdlastName;bankIdfirstName;bankIdmiddleName;1;sDateCreate
+     * https://test.region.igov.org.ua/wf/service/rest/file/downloadTasksData?sID_BP=kiev_mreo_1&sDateAt=2015-06-28&sDateTo=2015-08-01&nASCI_Spliter=59&sID_Codepage=UTF8&saFields=nID_Task;bankIdPassport;bankIdlastName;bankIdfirstName;bankIdmiddleName;1;sDateCreate
      */
     @RequestMapping(value = "/file/downloadTasksData", method = RequestMethod.GET)
     @Transactional
@@ -874,6 +927,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return "";
     }
 
+    private String getFileExtention(String fileName) {
+
+        String[] parts = fileName.split("\\.");
+        if (parts.length != 0) {
+            return parts[parts.length - 1];
+        }
+        return "";
+    }
+
     @RequestMapping(value = "/test/sendAttachmentsByMail", method = RequestMethod.GET)
     @Transactional
     public void sendAttachmentsByMail(
@@ -974,6 +1036,63 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return res;
     }
 
+    @RequestMapping(value = "/tasks/getTasksByText", method = RequestMethod.GET)
+    public @ResponseBody
+    Set<String> getTasksByText(@RequestParam(value = "sFind") String sFind,
+    		@RequestParam(value = "sLogin", required = false) String sLogin,
+    		@RequestParam(value = "bAssigned", required = false) String bAssigned) throws ActivitiRestException {
+    	Set<String> res = new HashSet<String>();
+
+    	String searchTeam = sFind.toLowerCase();
+        TaskQuery taskQuery = buildTaskQuery(sLogin, bAssigned);
+    	List<Task> activeTasks = taskQuery.active().list();
+    	for (Task currTask : activeTasks){
+    		TaskFormData data = formService.getTaskFormData(currTask.getId());
+    		if (data != null){
+	    		for (FormProperty property : data.getFormProperties()) {
+	                
+	                String sValue = "";
+	                String sType = property.getType().getName();
+	                if ("enum".equalsIgnoreCase(sType)) {
+	                    sValue = parseEnumProperty(property);
+	                } else {
+	                    sValue = property.getValue();
+	                }
+	                log.info("taskId=" + currTask.getId() + "propertyName=" + property.getName() + "sValue=" + sValue);
+	                if (sValue != null) {
+	                    if (sValue.toLowerCase().indexOf(searchTeam) >= 0){
+	                    	res.add(currTask.getId());
+	                    }
+	                }
+	            }
+    		} else {
+    			log.info("TaskFormData for task " + currTask.getId() + "is null. Skipping from processing.");
+    		}
+    	}
+
+        return res;
+    }
+
+	protected TaskQuery buildTaskQuery(String sLogin, String bAssigned) {
+		TaskQuery taskQuery = taskService.createTaskQuery();
+        if (bAssigned != null){
+        	if (!Boolean.valueOf(bAssigned).booleanValue()){
+        		taskQuery.taskUnassigned();
+            	if (sLogin != null && !sLogin.isEmpty()){
+                	taskQuery.taskCandidateUser(sLogin);
+                } 
+        	} else if (sLogin != null && !sLogin.isEmpty()){
+        		taskQuery.taskAssignee(sLogin);
+        	}
+        } else {
+        	if (sLogin != null && !sLogin.isEmpty()){
+            	taskQuery.taskCandidateOrAssigned(sLogin);
+            } 
+        }
+		return taskQuery;
+	}
+    
+    
     private List<String> getTaskByOrderInternal(Long nID_Protected) throws CRCInvalidException, RecordNotFoundException {
         AlgorithmLuna.validateProtectedNumber(nID_Protected);
 

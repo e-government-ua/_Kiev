@@ -4,6 +4,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   $scope.tasks = null;
   $scope.selectedTasks = {};
   $scope.sSelectedTask = "";
+  $scope.taskFormLoaded = false;
   $scope.$storage = $localStorage.$default({
     menuType: tasks.filterTypes.selfAssigned
   });
@@ -24,18 +25,28 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     type: tasks.filterTypes.finished,
     count: 0
   }];
+  $scope.selectedSortOrder = {
+    selected: "datetime_asc"
+  };
 
   $scope.predicate = 'createTime';
   $scope.reverse = false;
-  $scope.sort_order = 'order_increase';
-  $scope.order = function(predicate, reverse) {
-    $scope.reverse = reverse;
-    $scope.predicate = predicate;
-  };
-  $scope.sortOrder = function() {
-    switch($scope.sort_order) {
-      case 'order_increase': $scope.reverse = false; break;
-      case 'order_decrease': $scope.reverse = true; break;
+
+  $scope.sortOrderOptions = [{ "value": 'datetime_asc', "text": "Від найдавніших" },
+    { "value": 'datetime_desc', "text": "Від найновіших" }];
+
+  $scope.selectedSortOrderChanged = function () {
+    switch ($scope.selectedSortOrder.selected) {
+      case 'datetime_asc':
+        if ($scope.$storage.menuType == tasks.filterTypes.finished) $scope.predicate = 'startTime';
+        else $scope.predicate = 'createTime';
+        $scope.reverse = false;
+        break;
+      case 'datetime_desc':
+        if ($scope.$storage.menuType == tasks.filterTypes.finished) $scope.predicate = 'startTime';
+        else $scope.predicate = 'createTime';
+        $scope.reverse = true;
+        break;
     }
   }
 
@@ -56,11 +67,22 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   $scope.hasUnPopulatedFields = function () {
     if ($scope.selectedTask && $scope.taskForm) {
       var unpopulated = $scope.taskForm.filter(function (item) {
-        return (item.value === undefined || item.value === null || item.value.trim() === "") && item.required;//&& item.type !== 'file'
+        return (item.value === undefined || item.value === null || item.value.trim() === "") && (item.required|| $scope.isCommentAfterReject(item));//&& item.type !== 'file'
       });
       return unpopulated.length > 0;
     } else {
       return true;
+    }
+  }
+
+  $scope.unpopulatedFields = function () {
+    if ($scope.selectedTask && $scope.taskForm) {
+      var unpopulated = $scope.taskForm.filter(function (item) {
+        return (item.value === undefined || item.value === null || item.value.trim() === "") && (item.required|| $scope.isCommentAfterReject(item));//&& item.type !== 'file'
+      });
+      return unpopulated;
+    } else {
+      return [];
     }
   }
 
@@ -102,6 +124,10 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     $scope.attachments = null;
     $scope.error = null;
     $scope.taskAttachments = null;
+    $scope.taskFormLoaded = false;
+
+    if (menuType == tasks.filterTypes.finished)
+      $scope.predicate = 'startTime';
 
     var data = {};
     if ($scope.$storage.menuType == 'tickets'){
@@ -126,6 +152,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.selectTask = function (task) {
+    $scope.taskFormLoaded = false;
     $scope.sSelectedTask = $scope.$storage.menuType;
     $scope.selectedTask = task;
     $scope.selectedTasks[$scope.$storage.menuType] = task;
@@ -142,6 +169,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           result = JSON.parse(result);
           $scope.taskForm = result.data[0].variables;
           $scope.taskForm = addIndexForFileItems($scope.taskForm);
+          $scope.taskFormLoaded = true;
         })
         .catch(defaultErrorHandler);
     }
@@ -152,6 +180,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           result = JSON.parse(result);
           $scope.taskForm = result.formProperties;
           $scope.taskForm = addIndexForFileItems($scope.taskForm);
+          $scope.taskFormLoaded = true;
         })
         .catch(defaultErrorHandler);
     }
@@ -169,35 +198,72 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
         $scope.taskAttachments = result;
       })
       .catch(defaultErrorHandler);
+
+
+
   };
 
   $scope.submitTask = function () {
     if ($scope.selectedTask && $scope.taskForm) {
-      if($scope.hasUnPopulatedFields()){
-        Modal.inform.error()('Не всі поля заповнені!');
+      $scope.taskForm.isSubmitted = true;
+
+      var unpopulatedFields = $scope.unpopulatedFields();
+      if(unpopulatedFields.length>0){
+        var errorMessage = 'Будь ласка, заповніть поля: ';
+
+        if (unpopulatedFields.length==1){
+
+          var nameToAdd = unpopulatedFields[0].name;
+          if (nameToAdd.length > 50) {
+            nameToAdd = nameToAdd.substr(0, 50)+"...";
+          }
+
+          errorMessage = "Будь ласка, заповніть полe '"+nameToAdd+"'";
+        }
+        else {
+        unpopulatedFields.forEach(function(field){
+
+          var nameToAdd = field.name;
+          if (nameToAdd.length > 50) {
+            nameToAdd = nameToAdd.substr(0, 50)+"...";
+          }
+          errorMessage = errorMessage +"'" +nameToAdd+"',<br />";
+        });
+        var comaIndex = errorMessage.lastIndexOf(',');
+        errorMessage = errorMessage.substr(0,comaIndex);
+        }
+        Modal.inform.error()(errorMessage);
         return;
       }
+
+      $scope.taskForm.isInProcess = true;
+
       tasks.submitTaskForm($scope.selectedTask.id, $scope.taskForm)
         .then(function (result) {
-          Modal.inform.success(function (event) {
-            $scope.selectedTasks[$scope.$storage.menuType] = null;
-            loadTaskCounters();
-            $scope.applyTaskFilter($scope.$storage.menuType);
-          })('Форму відправлено' + (result && result.length > 0 ? (': ' + result) : ''));
+          Modal.inform.success(function (result) {
+            $scope.lightweightRefreshAfterSubmit();
+            //$scope.selectedTask = null;
+          })("Форму відправлено." + (result && result.length > 0 ? (': ' + result) : ''));
+
         })
         .catch(defaultErrorHandler);
     }
   };
 
   $scope.assignTask = function () {
-    tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id).then(function (result) {
+    $scope.taskForm.isInProcess = true;
+
+    tasks.assignTask($scope.selectedTask.id, Auth.getCurrentUser().id)
+    .then(function (result) {
       Modal.assignTask(function (event) {
-        $scope.selectedTasks[$scope.$storage.menuType] = null;
-        loadTaskCounters();
+        //$scope.lightweightRefreshAfterSubmit();
+        $scope.selectedTasks['unassigned'] = null;
         $scope.applyTaskFilter($scope.menus[1].type, $scope.selectedTask.id);
-      }, 'Задача у вас в роботі');
+      }, 'Задача у вас в роботі', $scope.lightweightRefreshAfterSubmit);
+
     })
       .catch(defaultErrorHandler());
+
   };
 
   $scope.upload = function (files, propertyID) {
@@ -213,6 +279,25 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
       Modal.inform.error()('Помилка. ' + err.code + ' ' + err.message);
     });
   };
+
+$scope.lightweightRefreshAfterSubmit = function () {
+  //lightweight refresh only deletes the submitted task from the array of current type of tasks
+  //so we don't need to refresh the whole page
+      $scope.selectedTasks[$scope.$storage.menuType] = null;
+      loadTaskCounters();      
+      $scope.tasks = $.grep($scope.tasks, function (e) {
+        return e.id != $scope.selectedTask.id;
+      });
+      $scope.taskForm.isInProcess = false;
+      $scope.taskForm.isSuccessfullySubmitted = true;
+      if (!$scope.tasks || !$scope.tasks[0]){
+         $scope.selectedTask = null;
+      }
+      //$scope.selectTask($scope.tasks[0]);// - if another task should be selected
+      //The next line is commented out to prevent full refresh of the page
+      // $scope.applyTaskFilter($scope.$storage.menuType);
+
+  }
 
   $scope.sDateShort = function (sDateLong) {
     if (sDateLong !== null) {
@@ -264,17 +349,119 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
 
 
   $scope.aPatternPrintNew = function (taskForm) {
-    var printTemplateResult = null;
+    var aResult = [];
     if(taskForm){//this.form
+
+        /* НЕ ЗАРАБОТАЛО!
+        console.log("[loadSelfAssignedTasks]");
+        var aItem = taskForm;
+        _.forEach(aItem, function (n,oItem) {
+          //if (oItem.id == sID) {
+          if (oItem.id && oItem.id.indexOf('sBody') >= 0 && oItem.value !== "") {
+
+            //s = oItem.name;
+            var sID = oItem.id;
+            var sName = oItem.name;
+            console.log("[loadSelfAssignedTasks]sID="+sID+",sName="+sName);
+
+            if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
+                sName = oItem.value;
+                console.log("[loadSelfAssignedTasks]sName="+sName);
+            }
+            aResult = aResult.concat([{id:sID, name: sName}]);
+          }
+        });
+        return aResult;
+        */
+
+        console.log("[aPatternPrintNew]...");
+
+        var printTemplateResult = null;
         printTemplateResult = taskForm.filter(function (item) {//form//this.form
             //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
-          return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
+          //return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
+
+/*
+            if(item.id && item.id.indexOf('sBody') >= 0){
+                var oItem = item;
+                var sID = oItem.id;
+                var sName = oItem.name;
+                console.log("[aPatternPrintNew]sID="+sID+",sName="+sName);
+                //if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
+                if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
+                    sName = oItem.value;
+                    console.log("[aPatternPrintNew]sName(NEW)="+sName);
+                }
+                aResult = aResult.concat([{id:sID, name: sName}]);
+            }
+  */
+
+          return item.id && item.id.indexOf('sBody') >= 0;//item.id === s
         });
+        console.log("[aPatternPrintNew]aResult="+aResult);
+
     }
-    //return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
-    return (printTemplateResult!==null && printTemplateResult.length !== 0) ? printTemplateResult : [];
+    return (printTemplateResult!==null && printTemplateResult!==undefined && printTemplateResult.length !== 0) ? printTemplateResult : [];
+//    return aResult;
+//    return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
+
   };
 
+
+  $scope.aPatternPrintNew1 = function (taskForm) {
+    var aResult = [];
+    var printTemplateResult = [];
+    if(taskForm){//this.form
+
+        /* НЕ ЗАРАБОТАЛО!
+        console.log("[loadSelfAssignedTasks]");
+        var aItem = taskForm;
+        _.forEach(aItem, function (n,oItem) {
+          //if (oItem.id == sID) {
+          if (oItem.id && oItem.id.indexOf('sBody') >= 0 && oItem.value !== "") {
+
+            //s = oItem.name;
+            var sID = oItem.id;
+            var sName = oItem.name;
+            console.log("[loadSelfAssignedTasks]sID="+sID+",sName="+sName);
+
+            if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
+                sName = oItem.value;
+                console.log("[loadSelfAssignedTasks]sName="+sName);
+            }
+            aResult = aResult.concat([{id:sID, name: sName}]);
+          }
+        });
+        return aResult;
+        */
+
+        console.log("[aPatternPrintNew1]...");
+
+        printTemplateResult = taskForm.filter(function (item) {//form//this.form
+            //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
+          //return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
+
+          var result = false;
+
+            if(item.id && item.id.indexOf('sBody') >= 0){
+              result = true;
+              // На дашборде при вытягивани для формы печати пути к патерну, из значения поля -
+              // брать название для каждого элемента комбобокса #792
+              // https://github.com/e-government-ua/i/issues/792
+              if (item.value && item.value.trim().length > 0 && item.value.length <= 100){
+                item.displayTemplate = item.value;
+              } else {
+                item.displayTemplate = item.name;
+              }
+            }
+
+          return result;
+        });
+        console.log("[aPatternPrintNew1]aResult="+aResult);
+    }
+
+    return printTemplateResult;
+  };
 
   $scope.nID_FlowSlotTicket_FieldQueueData = function (sValue) {
     var nAt = sValue.indexOf(":");
@@ -335,6 +522,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   $scope.init = function () {
     loadTaskCounters();
     loadSelfAssignedTasks();
+    $scope.taskFormLoaded = false;
   };
 
   $scope.ticketsFilter = {
@@ -359,7 +547,8 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   $scope.lunaService = lunaService;
 
   $scope.searchTask = {
-    orderId: null
+    orderId: null,
+    text: null
   };
 
   $scope.searchTaskByOrder = function() {
@@ -381,6 +570,49 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
             return t.id == tid;
           });
           if (!taskFound) Modal.inform.warning()('У даному розділі ID не знайдено, спробуйте виконати пошук у суміжних');
+        }
+      }).catch(mapErrorHandler({'CRC Error': 'Неправильний ID', 'Record not found': 'ID не знайдено'}));
+  };
+  var searchResult = {
+    tasks: []
+  };
+  $scope.searchTaskByText = function() {
+    if (_.isEmpty($scope.searchTask.text)) {
+      Modal.inform.error()('Будь-ласка введіть текст для пошуку!');
+      return;
+    }
+    if (_.isEqual($scope.searchTask.text, searchResult.text) && !_.isEmpty(searchResult.tasks)) {
+      var taskId = searchResult.tasks[0];
+      searchResult.tasks = _.rest(searchResult.tasks);
+      $scope.tasks.some(function (task) {
+        if (task.id === taskId) {
+          $scope.selectTask(task);
+        }
+        return task.id === taskId;
+      });
+      return;
+    }
+    tasks.getTasksByText($scope.searchTask.text, $scope.sSelectedTask)//sType
+      .then(function (result) {
+        if (result === 'CRC-error') {
+          Modal.inform.error()();
+          return;
+        }
+        if (result === 'Record not found') {
+          Modal.inform.error()();
+          return;
+        }
+        searchResult.text = $scope.searchTask.text;
+        searchResult.tasks = JSON.parse(result);
+        var taskId = searchResult.tasks[0];
+        var taskFound = $scope.tasks.some(function (task) {
+          if (task.id === taskId) {
+            $scope.selectTask(task);
+          }
+          return task.id === taskId;
+        });
+        if (!taskFound) {
+          Modal.inform.warning()('У даному розділі нічого не знайдено, спробуйте виконати пошук у суміжних');
         }
       }).catch(mapErrorHandler({'CRC Error': 'Неправильний ID', 'Record not found': 'ID не знайдено'}));
   };
@@ -455,6 +687,49 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           msg = data.code + ' ' + data.message;
       }
     } catch (e) { console.log(e); }
+    if ($scope.taskForm){
+    $scope.taskForm.isSuccessfullySubmitted = false;
+    $scope.taskForm.isInProcess = false;
+    }
     Modal.inform.error()(msg);
   }
+
+  $scope.isCommentAfterReject = function (item) {
+    if (item.id != "comment") return false;
+
+    var decision = $.grep($scope.taskForm, function (e) { return e.id == "decide"; });
+
+    if (decision.length == 0) {
+      // no decision
+    } else if (decision.length == 1) {
+      if (decision[0].value == "reject") return true;
+    }
+    return false;
+  };
+
+  $scope.isRequired = function (item) {
+    return item.writable && (item.required || $scope.isCommentAfterReject(item));
+  };
+
+    $scope.isTaskSubmitted = function (item) {
+    return $scope.taskForm.isSubmitted;
+  };
+
+      $scope.isTaskSuccessfullySubmitted = function () {
+        if ($scope.selectedTask && $scope.taskForm) {
+          if ($scope.taskForm.isSuccessfullySubmitted != undefined && $scope.taskForm.isSuccessfullySubmitted)
+          return true;
+        }
+        return false;
+  };
+
+
+      $scope.isTaskInProcess = function () {
+        if ($scope.selectedTask && $scope.taskForm) {
+          if ($scope.taskForm.isInProcess != undefined && $scope.taskForm.isInProcess)
+          return true;
+        }
+        return false;
+  };
+
 });

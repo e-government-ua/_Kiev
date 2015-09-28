@@ -1,0 +1,33 @@
+<div ng-init="fillData()">
+  <table class="table">
+    <tbody>
+      <tr ng-repeat="rule in get()">
+        <td>
+          <!--replace with dynamic values properly-->
+          Якщо чиновник не відповідає 10 днів, то відправити e-mail. Послуга: {{rule.sID_BP}}
+        </td>
+        <td>
+          <div class="btn-group">
+            <button type="button" class="btn btn-default" ng-click="edit(rule)">
+              Редагувати
+            </button>
+            <button type="button" class="btn btn-warning" ng-click="copy(rule)" tooltip="Копіювати" tooltip-trigger="mouseenter" tooltip-placement="top"
+            tooltip-append-to-body="true" disabled=true>
+              <i class="fa fa-copy"></i>
+            </button>
+            <button type="button" class="btn btn-danger" ng-click="delete(rule)" tooltip="Видалити" tooltip-trigger="mouseenter" tooltip-placement="top"
+            tooltip-append-to-body="true" disabled=true>
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <button class="btn btn-primary" ng-click="add()">Додати</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

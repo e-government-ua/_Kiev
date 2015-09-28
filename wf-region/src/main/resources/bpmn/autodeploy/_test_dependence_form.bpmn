@@ -15,17 +15,17 @@
         <activiti:formProperty id="file1" name=" Файл, що додається тільки отримувачем" type="file"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Файл, що додається тільки представником отримувача" type="file"></activiti:formProperty>
         <activiti:formProperty id="email" name="email" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="markers2" name="Мареры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnNotEmpty_1&quot;:{&quot;aField_ID&quot;:[&quot;email&quot;],&quot;sField_ID_s&quot;:&quot;client&quot;},&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;info1&quot;,&quot;file1&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;client&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'attr1'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;info2&quot;,&quot;file2&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;client&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'attr2'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="подтягивание документов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <userTask id="usertask1" name="рассмотрение и загрузка" activiti:candidateGroups="sales">
       <extensionElements>
-        
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" ></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" ></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" ></activiti:formProperty>
-        <activiti:formProperty id="client" name="Заявник" type="enum" >
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="client" name="Заявник" type="enum">
           <activiti:value id="attr1" name="отримувач особисто"></activiti:value>
           <activiti:value id="attr2" name="представник отримувача"></activiti:value>
         </activiti:formProperty>

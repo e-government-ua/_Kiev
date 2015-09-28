@@ -54,7 +54,7 @@
                           novalidate>
                         <div class="row"
                              ng-repeat="property in ActivitiForm.formProperties track by property.id"
-                             ng-if="property.id != 'processName'">
+                             ng-if="isFieldVisible(property)">
                             <div style="display: none;">
                                 _1{{data.formData.params[property.id].required}}
                                 _2{{property.required}}
@@ -87,7 +87,11 @@
                                 <label ng-switch-when="label"
                                        name="{{property.id}}"
                                        ng-required="property.required"
-                                       class="form-control_">{{data.formData.params[property.id].value}}</label>
+                                       class="form-control_"
+                                       ng-bind-html="data.formData.params[property.id].value">
+                                        <!--{{data.formData.params[property.id].value}}-->
+                                </label>
+                                
                                 <label style="display: none;"
                                        ng-switch-when="invisible"
                                        name="{{property.id}}"

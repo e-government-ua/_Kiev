@@ -103,7 +103,9 @@ module.exports.scanUpload = function (req, res) {
     );
 
     var form = new FormData();
-    form.append('file', scanContentRequest);
+    form.append('file', scanContentRequest, {
+        filename: documentScan.scan.type + '.' + documentScan.scan.extension
+      });
 
     var requestOptionsForUploadContent = {
       url: uploadURL,

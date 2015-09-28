@@ -235,7 +235,7 @@ ${comment_2}</activiti:expression>
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
 
-Будь ласка, опрацюйте звернення громадянина ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName} на дозвіл на виконнаня земляних робіт за посиланням &lt;a href="#current-page"&gt;test.region.igov.org.ua/wf-region/&lt;/a&gt;&lt;br /&gt;
+Будь ласка, опрацюйте звернення громадянина ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName} на дозвіл на виконнаня земляних робіт за посиланням &lt;a href="#current-page"&gt;test.region.igov.org.ua/wf/&lt;/a&gt;&lt;br /&gt;
 мета: ${target} &lt;br /&gt;
 дата початку: ${date_start}&lt;br /&gt;
 дата закінчення: ${date_end}&lt;br /&gt;

@@ -1,0 +1,13 @@
+.rule-content{
+	padding-left:20px;
+}
+.parameters-text {
+	padding-top:7px;
+	padding-left:0px;
+}
+.control-label{
+	margin-left: -20px;
+}
+.modal-dialog {
+	width: 700px;
+}

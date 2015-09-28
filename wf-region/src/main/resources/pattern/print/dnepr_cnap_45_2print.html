@@ -109,12 +109,17 @@ table.zit_v-form2 tr td {border: 1px solid black; padding: 3px 8px;}
 .date_subm .month-fl-sm > span {height: 20px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
 .date_subm .month-fl-sm > span:nth-child(1) {width: 45px;}
 .date_subm .month-fl-sm > span {height: 50px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
-.date_subm .signature {width: 200px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
+.date_subm .signature {width: 300px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
 .date_subm .signature > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
 .date_subm .inv {width: 200px; height: 20px; float: left; border-bottom: 1px solid black; position: relative;} 
 .date_subm .inv > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
 .date_subm .invs {width: 200px; height: 20px; float: left; left: 55px; border-bottom: 1px solid black; position: relative;} 
 .date_subm .invs > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
+
+.date_subm .signature_adm {width: 300px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
+.date_subm .signature_adm > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
+.date_subm .inv_adm {width: 240px; height: 20px; float: left; border-bottom: 1px solid black; position: relative;} 
+.date_subm .inv_adm > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
 
 p {font-size: 12px;}
 
@@ -124,23 +129,12 @@ p {font-size: 12px;}
 <body>
 <section class="print_wrap">
 </div>
-    <div class="line_col ta-c m-t-25">
-        (БЛАНК НАВЧАЛЬНОГО ЗАКЛАДУ)<br /><br />
-	<div class="under_field_line ta-l"><span></span></div>
-					<div style="float:left;">
-						<tr>
-							<td><p>Вих. №___________________</p></td>
-							<td><p>від “___” ___________200_ р.</p></td>
-						</tr>	
-					</div>
+    	</div>
 					<div class="line_col ta-r">
         <div class="under_field w350 ta-l"><i>Директору департаменту освіти</i><span></span></div><br />
 		<div class="under_field w350 ta-l"><i>і науки облдержадміністрації</i><span></span></div><br />
-		<div class="under_field w350 ta-l"><i>О.І.ДЕМЧИКУ</i><span></span></div><br />
-    </div>
-	<br />
-	<div
-						
+		</div>
+	<div class="line_col ta-c m-t-25">
         <b>ЗАЯВА<br /></b><br />
         <div class="ta-l"> <b>про переоформлення ліцензії (видачу копії або дубліката ліцензії)<span></span></div><br /></b>
 		<div class="under_field_line ta-l">Заявник [zaklad]<span>(найменування навчального закладу)</span></div>
@@ -157,36 +151,39 @@ p {font-size: 12px;}
 		
 	<div class="ta-l">До  заяви додаються:<span></span></div><br />
 	<div class="ta-l">1. Документ, що засвідчує внесення плати за переоформлення (видачу копії або дубліката ліцензії);<span></span></div><br />
-	<div class="ta-l">2. Оригінал ліцензії (у разі пошкодження ліцензії її пошкоджений оригінал). <span></span></div><br />
+	<div class="ta-l">2. Оригінал ліцензії (у разі пошкодження ліцензії її пошкоджений оригінал). <span></span></div>
     </div>
     <div class="date_subm m-t-45">
-		<div class="inv"><span>(керівник навчального закладу)</span></div>
+		<div class="inv">[ruk_posada]<span>(керівник навчального закладу)</span></div>
 		<div class="invs"><span>(підпис)</span></div>
+        <div class="signature">[ruk_fio]<span>(прізвище, ініціали)</span></div>
+		<div class="clear"></div>
+    </div>
+	<br />
+	<div class="ta-l"><font size ='1'>З порядком проведення ліцензування та Ліцензійними умовами надання освітніх послуг у сфері дошкільної освіти, затвердженими наказом Міністерства освіти і науки України від 24 грудня 2003 року № 847, зареєстрованими в Міністерстві юстиції України 19 січня 2004 року за № 71/8670, ознайомлені і зобов’язуємося їх виконувати.
+Відомості, наведені в документах, поданих для проведення ліцензування, є достовірними.<span></span></div></font>
+	</div>
+    <div class="date_subm m-t-45">
+		<div class="inv"><span>(Керівник посада)</span></div>
+		<div class="invs"><span>(підпис, м.п.)</span></div>
         <div class="signature"><span>(прізвище, ініціали)</span></div>
 		<div class="clear"></div>
     </div>
 	<br />
-	<div class="ta-l">З порядком проведення ліцензування та Ліцензійними умовами надання освітніх послуг у сфері дошкільної освіти, затвердженими наказом Міністерства освіти і науки України від 24 грудня 2003 року № 847, зареєстрованими в Міністерстві юстиції України 19 січня 2004 року за № 71/8670, ознайомлені і зобов’язуємося їх виконувати.
-Відомості, наведені в документах, поданих для проведення ліцензування, є достовірними.<span></span></div><br />
-	</div>
-    <div class="date_subm m-t-45">
-		<div class="inv"><span>(Керівник М.П. посада)</span></div>
-		<div class="invs"><span>(підпис)</span></div>
-        <div class="signature"><span>(прізвище, ініціали)</span></div>
+<b><div class="ta-l">Заповнюється адміністратором:<span></span></div></b>
+<div class="date_subm m-t-45">
+        <div class="inv_adm">[date_reestr]<span>(дата реєстрації звернення)</span></div>
+        <div class="signature_adm">[reestr_numb]<span>(реєстраційний номер)</span></div>
 		<div class="clear"></div>
     </div>
-    <div class="date_subm m-t-45 x-font">
-		<div class="month-fl-sm">
-		<p><b>Адміністратор</b>&nbsp;&nbsp;________________________</p>
-		<p>Реєстраційний номер&nbsp;&nbsp;_[nomer_r]________</p>
-		</div>
-		<div class="month-fl-sm m-t-45 m-l-m200">
-			від  «<span></span>» <span></span>20<span></span>р.
-		</div>
-		<br />
-	</div>
-	<div class="clear"></div>
-	<br />
-</section>
+
+<div class="date_subm m-t-45">
+        <div class="inv_adm"><span>(підпис адміністратора)</span></div>
+        <div class="signature_adm">[pib_admin]<span>(ініціали та прізвище адміністратора)</span></div>
+		<div class="clear"></div>
+    </div>	
+	<br />	
+
+		</section>
 </body>
 </html>

@@ -14,7 +14,7 @@ var guid = function guid() {
 };
 
 var expiresUserInMs = function() {
-	return new Date(Date.now() + 1000 * 60 * 60);
+	return new Date(Date.now() + 1000 * 60 * 60 * 10);
 }
 
 exports.ping = function(req, res) {

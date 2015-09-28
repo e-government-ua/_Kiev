@@ -26,7 +26,14 @@ angular.module('dashboardJsApp')
 
         return $http.get('/api/processes/getLoginBPs')
           .then(function (response) {
-            return JSON.parse(response.data);
+            try {
+              var result = JSON.parse(response.data);
+              return result;
+            }
+            catch (error) {
+              //response.data = "error";
+              return result;
+            }
           });
       },
 

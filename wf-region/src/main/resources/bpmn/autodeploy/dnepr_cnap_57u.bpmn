@@ -1,0 +1,1806 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="dnepr_cnap_57u" name="Дніпропетровськ_ЦНАП_Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки (ФОП)" isExecutable="true">
+    <documentation>https://github.com/e-government-ua/iBP/issues/57</documentation>
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="organizationName" name="Найменування юридичної особи" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="Reestr" name="Місце реєстрації юридичної особи" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="inn" name="Код платника податків згідно з ЄДРПОУ" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="KVED" name="Код виду діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="PIB" name="Прізвище, ім'я та по батькові керівника" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Ваш e-mail: На цей e-mail Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="locacia" name="Місце (адреса) виконання робіт підвищеної небезпеки;та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата його видачі" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки;та/або машин, механізмів, устатковання підвищеної небезпеки, їх марка, номер партії, дата виготовлення, країна походження, які виконуються та/або експлуатуються (застосовуються) без отримання відповідного дозволу, кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм, будівель і споруд (приміщень), виробничих об'єктів (цехів, дільниць, структурних підрозділів)" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="another" name="Інші відомості;прізвище, ім'я та по батькові осіб, відповідальних за дотримання вимог законодавства з питань охорони праці та промислової безпеки, наявність служби охорони праці, інструкцій, інформації про проведення навчання та інструктажу з питань охорони праці, експлуатаційної документації, засобів індивідуального захисту, нормативно-правової та матеріально-технічної бази, навчально-методичного забезпечення" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="Date" name="Дата подання декларації" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dovir" name="Завантажте скан-копію довіреності;якщо документи подає довірена особа" type="file"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        </extensionElements>
+    </startEvent>
+    <serviceTask id="mailtask1" name="Лист про отримання заявки" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;Ваше звернення щодо "Декларації відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" успішно зареєстроване.&lt;/p&gt;
+					&lt;p&gt;Ви отримаєте відповідь протягом 3 робочих днів. &lt;/p&gt;
+                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        ЦНАП м. Дніпропетровськ,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/table&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow1" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="usertask3" targetRef="exclusivegateway1"></sequenceFlow>
+    <userTask id="usertask1" name="Перевірка даних службою" activiti:candidateGroups="dnepr_cnap_prav">
+      <extensionElements>
+        <activiti:formProperty id="Per2" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете сповістити заявника чи оброблено його заяву. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
+        <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clorganizationName" name="Найменування юридичної особи" type="string" default="${organizationName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clAddress" name="Місце державної реєстрації юридичної особи" type="string" default="${Reestr}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clbankIdinn" name="Код платника податків згідно з ЄДРПОУ" type="long" default="${inn}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clKVED" name="Код виду діяльності згідно з КВЕД" type="string"></activiti:formProperty>
+        <activiti:formProperty id="clPIB" name="Прізвище, ім'я та по батькові керівника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clemail" name="Електронна адреса заявника" type="string" default="${clemail}"></activiti:formProperty>
+        <activiti:formProperty id="cllocacia" name="Місце (адреса) виконання робіт підвищеної небезпеки та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" default="${locacia}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clstrahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди" type="string" default="${strahovka}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clwork" name="Найменування виду робіт підвищеної небезпеки;та/або машин, механізмів, устатковання підвищеної небезпеки, їх марка, номер партії, дата виготовлення, країна походження, які виконуються та/або експлуатуються (застосовуються) без отримання відповідного дозволу, кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм, будівель і споруд (приміщень), виробничих об'єктів (цехів, дільниць, структурних підрозділів)" type="textArea" default="${work}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clanother" name="Інші відомості" type="textArea" default="${another}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clDate" name="Дата подання декларації" type="date" default="${Date}"></activiti:formProperty>
+        <activiti:formProperty id="perevirka2" name="Рішення про реєстрацію декларації" type="enum">
+          <activiti:value id="ok" name="Декларацію зареєстровано"></activiti:value>
+          <activiti:value id="bad" name="Декларацію не зареєстровано"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="comPer2" name="Коментар: Якщо декларацію не зареєстровано, вкажіть причину." type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57u_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${dovir}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <serviceTask id="mailtask2" name="Відмова" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Стосовно декларації відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;Щодо Вашого запиту на реєстрацію "Декларації відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки"
+На жаль, ми вимушен відмовити у реєстрації.&lt;br&gt;
+${comPer2}&lt;br&gt;
+Ви можете забрати декларацію з офіційною відмовою у Правобережному ЦНАП за адресою:&lt;/p&gt;
+&lt;p&gt;49051, м.Дніпропетровськ, пр. К. Маркса, 75, каб. 105&lt;/p&gt;
+&lt;p&gt;Режим роботи центру:&lt;/p&gt;
+&lt;p&gt;понеділок, середа з 09.00 до 18.00, вівторок, четвер з 09.00 до 20.00;&lt;br&gt; 
+п’ятниця з 09.00 до 16.45, субота з 09.00 до 16.00;&lt;br&gt;
+ &lt;br&gt;
+Крім святкових днів&lt;/p&gt;  
+&lt;p&gt;телефон (056) 742-84-08&lt;/p&gt;
+&lt;p&gt;Документ видається за наявності паспорта
+                                    &lt;/p&gt;
+                                                                  &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt; З повагою,&lt;br /&gt;
+                                        ЦНАП м. Дніпропетровськ&lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           &lt;/table&gt;
+						   &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow15" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
+    <serviceTask id="mailtask3" name="Підтвердження реєстрації" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="html">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;Щодо Вашого запиту на реєстрацію "Декларації відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки"
+Вашу заяву зареєстровано.&lt;br&gt; Ви можете забрати декларацію з відзначкою про реєстрацію у Правобережному ЦНАП за адресою:&lt;/p&gt;
+&lt;p&gt;49051, м.Дніпропетровськ, пр. К. Маркса, 75, каб. 105&lt;/p&gt;
+&lt;p&gt;Режим роботи центру:&lt;/p&gt;
+&lt;p&gt;понеділок, середа з 09.00 до 18.00, вівторок, четвер з 09.00 до 20.00;&lt;br&gt; 
+п’ятниця з 09.00 до 16.45, субота з 09.00 до 16.00;&lt;br&gt;
+ &lt;br&gt;
+Крім святкових днів&lt;/p&gt;  
+&lt;p&gt;телефон (056) 742-84-08&lt;/p&gt;
+&lt;p&gt;Документ видається за наявності паспорта
+                                    &lt;/p&gt;
+                                                                  &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        ЦНАП м. Дніпропетровськ,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           &lt;/table&gt;
+						   &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px 0 120px;"&gt;
+									&lt;b&gt;Оцініть, будь ласка, наскільки Ви задоволені якістю надання цієї послуги, за шкалою від 2 до 5:&lt;/b&gt;
+                                    &lt;p style="text-align: center;"&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
+                                    &lt;/p&gt;
+                                    &lt;p style="font-size: 13px;"&gt;
+										Якщо Ви не задоволені якістю, прокоментуйте будь ласка що Вас не задовольнило.&lt;br /&gt;
+                                        Також Ви &lt;b style="color: #cc3333;"&gt;маєте пожливість анонімно&lt;/b&gt; подати сигнал о будь-яких правопорушеннях Державних службовців.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
+                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
+                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
+                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/table&gt;
+                        &lt;/form&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Стосовно декларації відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow18" sourceRef="mailtask3" targetRef="endevent1"></sequenceFlow>
+    <serviceTask id="servicetask1" name="Service Task" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <sequenceFlow id="flow19" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow20" sourceRef="boundaryerror1" targetRef="endevent2"></sequenceFlow>
+    <userTask id="usertask3" name="Формування опису або відмова при неправильних документах" activiti:candidateGroups="dnepr_cnap_prav">
+      <extensionElements>
+        <activiti:formProperty id="per1" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете ознайомитись з поданими документами, прийняти попереднє рішення про те, чи достатньо їх для виконання запиту, роздрукувати заяву і всі додатки. Якщо перевірку пройдено, додайте файл з описом прийнятих документів, номером і датою прийняття. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
+        <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clorganizationName" name="Найменування юридичної особи" type="string" default="${organizationName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clAddress" name="Місце державної реєстрації юридичної особи" type="string" default="${Reestr}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clbankIdinn" name="Код платника податків згідно з ЄДРПОУ" type="long" default="${inn}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clKVED" name="Код виду діяльності згідно з КВЕД" type="string"></activiti:formProperty>
+        <activiti:formProperty id="clPIB" name="Прізвище, ім'я та по батькові керівника" type="string"></activiti:formProperty>
+        <activiti:formProperty id="clPhone" name="Телефон заявника" type="string" default="${phone}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clemail" name="Електронна адреса заявника" type="string" default="${email}"></activiti:formProperty>
+        <activiti:formProperty id="cllocacia" name="Місце (адреса) виконання робіт підвищеної небезпеки та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" default="${locacia}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clstrahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди" type="string" default="${strahovka}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clwork" name="Найменування виду робіт підвищеної небезпеки;та/або машин, механізмів, устатковання підвищеної небезпеки, їх марка, номер партії, дата виготовлення, країна походження, які виконуються та/або експлуатуються (застосовуються) без отримання відповідного дозволу, кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм, будівель і споруд (приміщень), виробничих об'єктів (цехів, дільниць, структурних підрозділів)" type="textArea" default="${work}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clanother" name="Інші відомості" type="textArea" default="${another}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clDate" name="Дата подання декларації" type="date" default="${Date}"></activiti:formProperty>
+        <activiti:formProperty id="opis" name="Додайте файл опису прийнятих документів;якщо документи прийнято" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57u_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="perevirka1" name="Оберіть результат первинної перевірки документів:" type="enum">
+          <activiti:value id="ok" name="Документи прийнято, формується опис, документи передаються для подальшої обробки"></activiti:value>
+          <activiti:value id="bad" name="Поданих документів недостатньо для обробки"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="comPer1" name="Вкажіть, яких саме документів не вистачає (заповнювати не обов'язково)" type="textArea"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${dovir}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow21" sourceRef="mailtask1" targetRef="usertask3"></sequenceFlow>
+    <sequenceFlow id="flow22" sourceRef="servicetask2" targetRef="usertask1">
+      </sequenceFlow>
+    <serviceTask id="mailtask4" name="Не пройдено перевірку ЦНАП" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;Щодо Вашого запиту на реєстрацію "Декларації відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки"
+На жаль, вашу декларацію відхилено.&lt;br&gt;
+${comPer1} &lt;br&gt;
+Ви можете подати ще одну заяву на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;igov.org.ua&lt;/a&gt;&lt;/p&gt;
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        ЦНАП м. Дніпропетровськ&lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                                                  &lt;/table&gt;
+                                         &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow23" sourceRef="exclusivegateway1" targetRef="mailtask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${perevirka1=='bad'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow24" sourceRef="mailtask4" targetRef="endevent1"></sequenceFlow>
+    <serviceTask id="servicetask2" name="Лист з копією заяви і описом прийнятих документів" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta http-equiv="Content-Type"
+ content="text/html; charset=UTF-8"&gt;
+  &lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+  &lt;meta content="text/html; charset=UTF-8"
+ http-equiv="content-type"&gt;
+  &lt;title&gt;dnepr_cnap_57-58_print&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;table style="border-collapse: collapse;" id="mailer-body"
+ border="0" cellpadding="0" cellspacing="0"
+ width="100%"&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td align="center"&gt;
+      &lt;table style="border-collapse: collapse;" border="0"
+ cellpadding="0" cellspacing="0" width="800"&gt;
+&lt;!--header line statrs--&gt; &lt;tbody&gt;
+          &lt;tr&gt;
+            &lt;td style="padding: 35px 120px; color: white;"
+ bgcolor="#5ca3cb"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br&gt;
+портал державних послуг&lt;/td&gt;
+          &lt;/tr&gt;
+&lt;!--header line end--&gt;&lt;!--content statrs--&gt; &lt;tr&gt;
+            &lt;td align="center"&gt;
+            &lt;table style="border-collapse: collapse;"
+ border="0" cellpadding="0" cellspacing="0"
+ width="800"&gt;
+              &lt;tbody&gt;
+                &lt;tr&gt;
+                  &lt;td style="padding: 35px 120px;"&gt;
+                  &lt;h3&gt;Шановний(-а) ${bankIdfirstName}
+${bankIdmiddleName}.&lt;/h3&gt;
+                  &lt;p&gt; Нижче ви знайдете копію вашої заяви. Також
+можна завантажити опис прийнятих документів. &lt;/p&gt;
+                  &lt;hr
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(221, 221, 221); border-width: 0pt 0pt 1px; margin: 30px 0pt 15px; background: rgb(221, 221, 221) none repeat scroll 0%; width: 100%; height: 0pt; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"&gt;
+                  &lt;p&gt; З повагою,&lt;br&gt;
+ЦНАП м. Дніпропетровськ,&lt;br&gt;
+Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                  &lt;/p&gt;
+                  &lt;/td&gt;
+                &lt;/tr&gt;
+              &lt;/tbody&gt;
+            &lt;/table&gt;
+            &lt;/td&gt;
+          &lt;/tr&gt;
+&lt;!--content end--&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div style="text-align: center;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;ДЕКЛАРАЦІЯ &lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;
+&lt;br&gt;
+&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;відповідності матеріально-технічної бази
+роботодавця&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;
+&lt;br&gt;
+&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;вимогам
+законодавства з питань охорони праці&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;
+&lt;br&gt;
+&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;та
+промислової
+безпеки&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div style="text-align: center;"&gt;
+&lt;br&gt;
+&lt;/div&gt;
+&lt;table class="MsoNormalTable"
+ style="border: medium none ; border-collapse: collapse; text-align: left; margin-left: auto; margin-right: auto;"
+ border="1" cellpadding="0" cellspacing="0"&gt;
+  &lt;tbody&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="4"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 149.35pt;"
+ valign="top" width="199"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; line-height: normal;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;; letter-spacing: -1pt;"
+ lang="UK"&gt;Відомості про роботодавця&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+      &lt;td colspan="2"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 343.35pt;"
+ valign="top" width="458"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; line-height: normal;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+${clorganizationName}&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="4"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 149.35pt;"
+ valign="top" width="199"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; line-height: normal;"&gt;&lt;span
+ style="font-size: 10pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+      &lt;td colspan="2"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 343.35pt;"
+ valign="top" width="458"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;(для юридичної особи: найменування&lt;/span&gt;&lt;span
+ style="font-size: 10pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;${clAddress}&amp;nbsp;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;юридичної особи, місце її державної реєстрації,
+код платника&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;${clbankIdinn}&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;,&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;${clKVED}&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;податків згідно з ЄДРПОУ, код виду діяльності
+згідно з КВЕД,&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;${clPIB}&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;прізвище,
+ім'я та по батькові керівника;&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;для фізичної особи - підприємця: прізвище, ім'я та
+по батькові,&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;; letter-spacing: -1pt;"
+ lang="UK"&gt;&lt;br&gt;
+      &lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;серія
+і номер паспорта, ким і коли виданий, місце проживання,&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;номер
+облікової картки платника податків (не зазначається&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&amp;nbsp;&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;фізичними
+особами, які через свої релігійні переконання&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;відмовляються
+від прийняття реєстраційного номера облікової картки&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;платника
+податків та повідомили про це відповідний орган&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;державної
+податкової служби і мають відмітку в паспорті);&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;${clPhone}, ${clemail}&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;номер
+телефону, телефаксу, адреса електронної пошти;&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;${cllocacia}&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;місце
+(адреса) виконання робіт підвищеної небезпеки&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;та/або
+експлуатації (застосування) машин,&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;механізмів, устаковання підвищеної небезпеки) &lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: justify; line-height: normal;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+      &lt;/span&gt;&lt;span style="letter-spacing: -1pt;"&gt;Інформація
+про наявність договору страхування цивільної відповідальності перед
+третіми &lt;/span&gt;&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="5"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 320.35pt;"
+ valign="top" width="427"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: justify; line-height: normal;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;; letter-spacing: -1pt;"
+ lang="UK"&gt;особами стосовно відшкодування наслідків можливої
+шкоди&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+      &lt;td
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 172.35pt;"
+ valign="top" width="230"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="5"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 320.35pt;"
+ valign="top" width="427"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: justify; line-height: normal;"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+      &lt;td
+ style="border: medium none ; padding: 0cm 5.4pt; width: 172.35pt;"
+ valign="top" width="230"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;(найменування страхової компанії,&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;${clstrahovka}&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;строк
+дії страхового полісу, номер і дата його видачі)&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td
+ style="border: medium none ; padding: 0cm 5.4pt; width: 41.35pt;"
+ valign="top" width="55"&gt;
+      &lt;p class="MsoNormal"
+ style="margin: 0cm -5.4pt 0.0001pt 0cm; line-height: normal;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;; letter-spacing: -1pt;"
+ lang="UK"&gt;&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+      &lt;/span&gt;&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;/span&gt;Я,&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+      &lt;td colspan="5"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 451.35pt;"
+ valign="top" width="602"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;${clFIO}&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;(прізвище,
+ім'я та по батькові керівника юридичної особи&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;або фізичної особи - підприємця)&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: justify; line-height: normal;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;; letter-spacing: -1pt;"
+ lang="UK"&gt;цією декларацією підтверджую відповідність
+матеріально-технічної бази та умов праці вимогам законодавства з питань
+охорони праці під&lt;span style=""&gt;&amp;nbsp; &lt;/span&gt;час&lt;span
+ style=""&gt;&amp;nbsp; &lt;/span&gt;виконання&lt;span style=""&gt;&amp;nbsp;
+      &lt;/span&gt;таких&lt;span style=""&gt;&amp;nbsp; &lt;/span&gt;робіт&lt;span
+ style=""&gt;&amp;nbsp; &lt;/span&gt;підвищеної&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;
+      &lt;/span&gt;небезпеки&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+      &lt;/span&gt;та/або&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+      &lt;/span&gt;експлуатації&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;
+      &lt;/span&gt;(застосування)&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+      &lt;/span&gt;таких&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+      &lt;/span&gt;машин,&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+      &lt;/span&gt;механізмів,&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+      &lt;/span&gt;устатковання &lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="3"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 131.35pt;"
+ valign="top" width="175"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: justify; line-height: normal;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;; letter-spacing: -1pt;"
+ lang="UK"&gt;підвищеної небезпеки:&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+      &lt;td colspan="3"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 361.35pt;"
+ valign="top" width="482"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;${clwork}&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;(найменування виду робіт&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;підвищеної небезпеки та/або машин, механізмів,&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;устатковання
+підвищеної небезпеки, їх марка, номер партії,&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;дата
+виготовлення, країна походження, які виконуються&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;та/або
+експлуатуються (застосовуються) без отримання&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;відповідного
+дозволу, кількість робочих місць, в тому числі тих,&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;на
+яких існує підвищений ризик виникнення травм, будівель&amp;nbsp;&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;і споруд (приміщень), виробничих об'єктів&amp;nbsp;&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;span style=""&gt;&amp;nbsp;&lt;/span&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;(цехів, дільниць, структурних підрозділів)&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="2"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 95.35pt;"
+ valign="top" width="127"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: right; line-height: normal;"
+ align="right"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;; letter-spacing: -1pt;"
+ lang="UK"&gt;Інші відомості&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+      &lt;td colspan="4"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 397.35pt;"
+ valign="top" width="530"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;(прізвище, ім'я та по батькові осіб,&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;${clanother}&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;відповідальних
+за дотримання вимог законодавства з питань&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;охорони
+праці та промислової безпеки, наявність служби&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;охорони
+праці, інструкцій, інформації про проведення&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;навчання
+та інструктажу з питань охорони праці,&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;експлуатаційної
+документації, засобів індивідуального захисту,&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;нормативно-правової
+та матеріально-технічної бази,&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style="height: 3.5pt;"&gt;
+      &lt;td colspan="6"
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 492.7pt; height: 3.5pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td colspan="6"
+ style="border: medium none ; padding: 0cm 5.4pt; width: 492.7pt;"
+ valign="top" width="657"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;навчально-методичного
+забезпечення)&lt;/span&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+&lt;!--[if !supportMisalignedColumns]--&gt; &lt;tr height="0"&gt;
+      &lt;td style="border: medium none ;" width="55"&gt;&lt;/td&gt;
+      &lt;td style="border: medium none ;" width="72"&gt;&lt;/td&gt;
+      &lt;td style="border: medium none ;" width="48"&gt;&lt;/td&gt;
+      &lt;td style="border: medium none ;" width="24"&gt;&lt;/td&gt;
+      &lt;td style="border: medium none ;" width="228"&gt;&lt;/td&gt;
+      &lt;td style="border: medium none ;" width="230"&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;!--[endif]--&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div style="text-align: center;"&gt;
+&lt;/div&gt;
+&lt;table class="MsoNormalTable"
+ style="border-collapse: collapse; text-align: left; margin-left: auto; margin-right: auto;"
+ border="0" cellpadding="0" cellspacing="0"&gt;
+  &lt;tbody&gt;
+    &lt;tr style=""&gt;
+      &lt;td
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 158.4pt;"
+ valign="top" width="211"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+      &lt;td style="padding: 0cm 5.4pt; width: 81pt;"
+ valign="top" width="108"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; line-height: normal;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+      &lt;td
+ style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color windowtext; border-width: medium medium 1pt; padding: 0cm 5.4pt; width: 253.35pt;"
+ valign="top" width="338"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;${clFIO}&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr style=""&gt;
+      &lt;td
+ style="border: medium none ; padding: 0cm 5.4pt; width: 158.4pt;"
+ valign="top" width="211"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;(підпис)&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+      &lt;td style="padding: 0cm 5.4pt; width: 81pt;"
+ valign="top" width="108"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; line-height: normal;"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+      &lt;td
+ style="border: medium none ; padding: 0cm 5.4pt; width: 253.35pt;"
+ valign="top" width="338"&gt;
+      &lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: center; line-height: normal;"
+ align="center"&gt;&lt;span
+ style="font-size: 8pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;(ініціали
+та прізвище)&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div style="text-align: center;"&gt;
+&lt;/div&gt;
+&lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; line-height: normal; text-align: center;"&gt;&lt;span
+ style="font-size: 16pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; line-height: normal;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+&lt;/span&gt;М.П. &lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;
+&amp;nbsp;&amp;nbsp;&amp;nbsp; ${clDate}&lt;br&gt;
+&lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: justify; line-height: normal;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: justify; line-height: normal;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;span style=""&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+&lt;/span&gt;&lt;span style="letter-spacing: -1pt;"&gt;Декларація
+зареєстрована у журналі обліку суб'єктів господарювання у
+територіальному&lt;span style=""&gt;&amp;nbsp; &lt;/span&gt;органі
+Держгірпромнагляду&lt;/span&gt;&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; line-height: normal;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;___
+______________ 20__ р. &lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;№&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;
+______ &lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; line-height: normal;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"&gt;_______________
+&lt;/span&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; line-height: normal;"&gt;&lt;span
+ style="font-size: 14pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;;"
+ lang="UK"&gt;&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p class="MsoNormal"
+ style="margin-bottom: 0.0001pt; text-align: justify; line-height: normal;"&gt;&lt;span
+ style="font-size: 12pt; font-family: &amp;quot;Times New Roman&amp;quot;,&amp;quot;serif&amp;quot;; letter-spacing: -1pt;"
+ lang="UK"&gt;Примітка.
+Фізична особа - підприємець проставляє печатку в разі її наявності. &lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p class="MsoNormal"&gt;&lt;o:p&gt;&amp;nbsp;&lt;/o:p&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${opis}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow25" sourceRef="exclusivegateway1" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${perevirka1=='ok'}]]></conditionExpression>
+    </sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow26" sourceRef="usertask1" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow27" sourceRef="exclusivegateway2" targetRef="mailtask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${perevirka2=='ok'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow28" sourceRef="exclusivegateway2" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${perevirka2=='bad'}]]></conditionExpression>
+    </sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_57u">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_57u" id="BPMNPlane_dnepr_cnap_57u">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="35.0" y="249.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="192.0" y="190.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="290.0" y="77.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="650.0" y="129.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="490.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="490.0" y="28.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="35.0" y="179.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="30.0" y="206.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="27.0" y="129.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="249.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
+        <omgdc:Bounds height="55.0" width="105.0" x="290.0" y="183.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="77.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="408.0" y="84.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="87.0" y="234.0"></omgdi:waypoint>
+        <omgdi:waypoint x="87.0" y="249.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="212.0" y="249.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="230.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="595.0" y="127.0"></omgdi:waypoint>
+        <omgdi:waypoint x="650.0" y="146.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="542.0" y="83.0"></omgdi:waypoint>
+        <omgdi:waypoint x="667.0" y="129.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="87.0" y="145.0"></omgdi:waypoint>
+        <omgdi:waypoint x="87.0" y="179.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="45.0" y="206.0"></omgdi:waypoint>
+        <omgdi:waypoint x="44.0" y="164.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="140.0" y="276.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="276.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="265.0" y="104.0"></omgdi:waypoint>
+        <omgdi:waypoint x="290.0" y="104.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="232.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="290.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="342.0" y="183.0"></omgdi:waypoint>
+        <omgdi:waypoint x="667.0" y="164.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="212.0" y="190.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="132.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="395.0" y="104.0"></omgdi:waypoint>
+        <omgdi:waypoint x="408.0" y="104.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="448.0" y="104.0"></omgdi:waypoint>
+        <omgdi:waypoint x="542.0" y="83.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
+        <omgdi:waypoint x="448.0" y="104.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="127.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

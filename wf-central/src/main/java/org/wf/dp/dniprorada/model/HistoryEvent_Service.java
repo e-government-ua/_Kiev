@@ -3,7 +3,6 @@ package org.wf.dp.dniprorada.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 import org.wf.dp.dniprorada.base.model.Entity;
@@ -57,6 +56,26 @@ public class HistoryEvent_Service extends Entity {
     @JsonProperty(value="sID_UA")
     @Column(name = "sID_UA", nullable = true)
     private String sID_UA;
+
+    @JsonProperty(value = "nRate")
+    @Column(name = "nRate", nullable = true)
+    private Integer nRate;
+
+    @JsonProperty(value = "soData")
+    @Column(name = "soData", nullable = true)
+    private String soData;
+
+    @JsonProperty(value = "sToken")
+    @Column(name = "sToken", nullable = true)
+    private String sToken;
+
+    @JsonProperty(value = "sHead")
+    @Column(name = "sHead", nullable = true)
+    private String sHead;
+
+    @JsonProperty(value = "sBody")
+    @Column(name = "sBody", nullable = true)
+    private String sBody;
 
     public String getsID() {
         return sID;
@@ -137,6 +156,44 @@ public class HistoryEvent_Service extends Entity {
 	public void setsID_UA(String sID_UA) {
 		this.sID_UA = sID_UA;
 	}
-	
-	
+
+    public Integer getnRate() {
+        return nRate;
+    }
+
+    public void setnRate(Integer nRate) {
+        this.nRate = nRate;
+    }
+
+    public String getSoData() {
+        return soData;
+    }
+
+    public void setSoData(String soData) {
+        this.soData = soData;
+    }
+
+    public String getsToken() {
+        return sToken;
+    }
+
+    public void setsToken(String sToken) {
+        this.sToken = sToken;
+    }
+
+    public String getsHead() {
+        return sHead;
+    }
+
+    public void setsHead(String sHead) {
+        this.sHead = sHead;
+    }
+
+    public String getsBody() {
+        return sBody;
+    }
+
+    public void setsBody(String sBody) {
+        this.sBody = sBody;
+    }
 }
