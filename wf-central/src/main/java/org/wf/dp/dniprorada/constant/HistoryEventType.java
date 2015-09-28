@@ -52,11 +52,15 @@ public enum HistoryEventType {
     SET_TASK_QUESTIONS(9L,
             "ActivitiFinish",
             "Запрос на уточнение данных",
-            "По заявці №" + HistoryEventMessage.TASK_NUMBER + " задане прохання уточнення:\n" + HistoryEventMessage.TABLE_BODY),
+            "По заявці №" + HistoryEventMessage.TASK_NUMBER + " задане прохання уточнення:\n"
+                    + HistoryEventMessage.S_BODY + "\n"
+                    + HistoryEventMessage.TABLE_BODY),
     SET_TASK_ANSWERS(10L,
             "ActivitiFinish",
             "Ответ на запрос об уточнении данных",
-            "По заявці №" + HistoryEventMessage.TASK_NUMBER + " дана відповідь громадянином:\n" + HistoryEventMessage.TABLE_BODY);
+            "По заявці №" + HistoryEventMessage.TASK_NUMBER + " дана відповідь громадянином:\n"
+                    + HistoryEventMessage.S_BODY + "\n"
+                    + HistoryEventMessage.TABLE_BODY);
 
     private Long nID;
     private String sID;
