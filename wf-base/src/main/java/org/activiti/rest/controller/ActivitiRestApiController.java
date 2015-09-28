@@ -1383,7 +1383,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 //                    	}
 //                    }                    
 	                    log.info("Updating form data for the task " + task.getId() + "|" + newProperties);
-	                    formService.submitTaskFormData(task.getId(), newProperties);
+	                    formService.saveFormData(task.getId(), newProperties);
                     }
         		}
         	updateHistoryEvent_Service(processInstanceID, saField, null);
