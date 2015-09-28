@@ -102,6 +102,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 			return null;
 		}
 		String textWithoutTags = textStr;
+                
+                textWithoutTags = populatePatternWithContent(textWithoutTags);
+                
 		for (int i = 0; i < 10; i++) { // TODO: написать автоопределение тегов и заменить этот кусок
 			boolean isItFirstTag = (i == 0);
 			String prefix = isItFirstTag ? "" : PATTERN_DELIMITER + i;
@@ -273,7 +276,6 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 					TAG_sURL_SERVICE_MESSAGE, replacemet);
 		}
         
-        textWithoutTags = populatePatternWithContent(textWithoutTags);
 
 		return textWithoutTags;
 	}
