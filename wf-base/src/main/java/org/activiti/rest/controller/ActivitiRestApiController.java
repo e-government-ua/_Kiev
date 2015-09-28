@@ -1366,15 +1366,15 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
                         JSONObject record = jsonArray.getJSONObject(i);
                         String fieldId = (String) record.get("id");
                     for (FormProperty property : data.getFormProperties()) {
-                    	if (fieldId.equals(property.getId())){
+//                    	if (fieldId.equals(property.getId())){
                     		if (property instanceof FormPropertyImpl){
                         		log.info("Updating property's " + property.getId() + " value from " + 
                         					property.getValue() + " to " + record.get("value"));
                     			((FormPropertyImpl)property).setValue((String) record.get("value"));                     			
                     		}
-                    	} else {
-                    		log.info("Skipping property " + property.getId() + " as there is no such property in input parameter");
-                    	}
+//                    	} else {
+//                    		log.info("Skipping property " + property.getId() + " as there is no such property in input parameter");
+//                    	}
                     }
                     }
         		}
