@@ -216,7 +216,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow16" sourceRef="mailtask6" targetRef="usertask1"></sequenceFlow>
-    <userTask id="usertask1" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="cnap_rai_${rai}_1">
+    <userTask id="usertask1" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="terncnap_rai_${rai}_1">
       <extensionElements>
         <activiti:formProperty id="info" name="На цьому етапі:" type="label" default="Ви перевіряєте дані громадянина і вирішуєте чи всі вони вірні. Якщо все добре, присвоюєте реєстраційний номер зверненню, роздруковуєте прінтформи та відправляєте документи до Держгеокадастру. Якщо ні - відмовляєте у реєстрації звернення з обов'язковим коментарем."></activiti:formProperty>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
@@ -245,8 +245,8 @@
         <activiti:formProperty id="vnnumb" name="Реєстраційний номер звернення" type="string"></activiti:formProperty>
         <activiti:formProperty id="privateMail" name="e-mail спеціалістів Держкомзему" type="string"></activiti:formProperty>
         <activiti:formProperty id="doc" type="label" default="Якщо громадянин відправив Вам файли окрім копії паспорту, копії ІПН, та копії права власності на земельну ділянку, додайте їх опис у полях нижче"></activiti:formProperty>
-        <activiti:formProperty id="doc1" name="Файл 4" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="doc2" name="Файл 5" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="doc1" name="Файл 1" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="doc2" name="Файл 2" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/ternopol_rcnap-9_zayava.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_2" name="[pattern/print/ternopol_rcnap-9_vnutr.html]" type="invisible" default="Внутрішній лист" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
@@ -384,7 +384,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow15" sourceRef="servicetask2" targetRef="usertask2_green"></sequenceFlow>
-    <userTask id="usertask2_green" name="Підготовка відповіді на запит" activiti:candidateGroups="cnap_rai_${rai}_1">
+    <userTask id="usertask2_green" name="Підготовка відповіді на запит" activiti:candidateGroups="terncnap_rai_${rai}_1">
       <extensionElements>
         <activiti:formProperty id="info1" name="На цьому етапі:" type="label" default="Ви отримуєте результат розгляду звернення Держгеокадастром і відповідним чином інформуєте громадянина."></activiti:formProperty>
         <activiti:formProperty id="vnnumb" name="Реєстраційний номер звернення" type="string" writable="false"></activiti:formProperty>
@@ -406,6 +406,12 @@
           <activiti:value id="found" name="Витяг готовий"></activiti:value>
           <activiti:value id="nonfound" name="Відсутня технічна документація про нормативну грошову оцінку земельної ділянки"></activiti:value>
         </activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${file1},${file2},${file3},${file4},${file5}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow9" sourceRef="usertask2_green" targetRef="exclusivegateway2"></sequenceFlow>
