@@ -1372,7 +1372,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 //	        				}
 //	                    }      
 
-        				TaskEntity taskEntity = Context.getCommandContext().getTaskEntityManager().findTaskById(task.getId());
+        				TaskEntity taskEntity = Context.getCommandContext()
+        							.getTaskEntityManager()
+        							.findTaskById(task.getId());
         				log.info("Found task entity:" + taskEntity);
         				if (taskEntity != null){
 		                    for (int i = 0; i < jsonArray.length(); i++) {
