@@ -1355,7 +1355,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             JSONArray jsonArray = jsnobject.getJSONArray("soData");
         	List<Task> tasks = taskService.createTaskQuery().processInstanceId(processInstanceID).list();
         	
-        	
         	if (tasks != null){
             	runtimeService.setVariable(processInstanceID, "sAnswer", sBody);
             	log.info("Added variable sAnswer to the process " + processInstanceID);
@@ -1370,7 +1369,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 	        					newProperties.put(property.getId(), property.getValue());
 	        				}
 	                    }      
-        			
         			
 	                    for (int i = 0; i < jsonArray.length(); i++) {
 	                    	JSONObject record = jsonArray.getJSONObject(i);
