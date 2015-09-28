@@ -39,6 +39,12 @@ angular.module('app')
           });
         };
 
+        $scope.cityIsAvailable = function() {
+          var bCityIsAvailable = PlacesService.cityIsAvailable();
+          console.log('cityIsAvailable:', bCityIsAvailable);
+          return bCityIsAvailable;
+        };
+
         $scope.cityIsChosen = function() {
           var bCityIsChosen = PlacesService.cityIsChosen();
           // console.log('cityIsChosen:', bCityIsChosen);

@@ -29,9 +29,9 @@
 
   (п.1, п.3 и п.4. - city, п.2 - region, а п.5. - country -> place
 
-  Файл ServiceData.csv - визначає, де є послуга.
+  Файл ServiceData.csv - wf-central\src\main\resources\data\ServiceData.csv - визначає, де є послуга.
 
-  В колонках nID_City і nID_Region как раз и — прив'язка до області / міста / країни ( якщо обидва значення === null ).
+  В колонках nID_City і nID_Region — прив'язка до області / міста / країни ( якщо обидва значення === null ).
   В колонці nID_Service - ИД послуги
 
   Приклад багу: ("Тернопільска область" і "місто Кривий ріг" одночасно): https://test.igov.org.ua/wf-central/service/services/getService?nID=628  
@@ -192,6 +192,13 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     return bResult;
   };
 
+  // FIXME analyze against logic duplication with serviceIsAvailableInCity
+  self.cityIsAvailable = function() {
+    var oAvail = self.getServiceAvailability();
+    var bResult = oAvail.isCity;
+    return bResult;
+  };
+
   self.cityIsChosen = function() {
     var bResult = savedPlaceData && (savedPlaceData.city ? true : false);
     return bResult;
@@ -232,6 +239,7 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     return self.regionIsChosen() && self.findServiceDataByRegion() !== null;
   };
 
+  // FIXME analyze against logic duplication with cityIsAvailable
   self.serviceIsAvailableInCity = function() {
     return self.cityIsChosen() && self.findServiceDataByCity() !== null;
   };
