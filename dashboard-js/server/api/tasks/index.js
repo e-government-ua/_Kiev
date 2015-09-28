@@ -18,6 +18,7 @@ router.put('/:taskId', controller.updateTask);
 router.get('/:taskId', controller.getTask);
 router.get('/search/byOrder/:orderId', controller.getTasksByOrder);
 router.get('/search/byText/:text/type/:sType', controller.getTasksByText);
+router.post('/:taskId/upload_content_as_attachment', controller.upload_content_as_attachment);
 
 
 module.exports = router;

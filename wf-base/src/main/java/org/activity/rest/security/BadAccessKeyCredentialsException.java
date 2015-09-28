@@ -3,10 +3,10 @@ package org.activity.rest.security;
 import org.springframework.security.authentication.*;
 
 /**
- * @author tasman
+ * @author tasman edited by Olga Turenko & Belyavtsev Vladimir (BW)
  */
 public class BadAccessKeyCredentialsException extends AccountStatusException {
-    public BadAccessKeyCredentialsException(String msg) {
-        super(msg);
+    public BadAccessKeyCredentialsException(String sMessage) {
+        super(sMessage);
     }
 }

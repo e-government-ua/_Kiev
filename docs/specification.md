@@ -33,6 +33,9 @@
 <a href="#34_upload_content_as_attach">34. Аплоад(upload) и прикрепление текстовго файла в виде атачмента к таске Activiti</a><br/>
 <a href="#35">35. Электронная эскалация</a><br/>
 <a href="#36_getTasksByText">36. Поиск заявок по тексту (в значениях полей без учета регистра)</a><br/> 
+<a href="#37_getAccessKeyt">37. Получения ключа для аутентификации</a><br/> 
+
+
 ## iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -1616,18 +1619,15 @@ http://test.igov.org.ua/wf/service/services/addHistoryEvent_Service?nID_Process=
 
  обновляет объект события по услуге,
 параметры:
-* nID_Protected - проверочное число-ид
-* sID_Status - строка-статус
-
-- сначала проверяется корректность числа nID_Protected -- последняя цифра должна быть "контрольной" (по
-<a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%9B%D1%83%D0%BD%D0%B0">алгоритму Луна</a>) для всего числа без нее.
-- если не совпадает -- возвращается ошибка "CRC Error"  (код состояния HTTP 403)
-- если совпадает -- ищется запись по nID_Process = nID_Protected без последней цифры (берется последняя по дате добавления)
-- Если не найдена запись, то возвращает объект ошибки со значением "Record not found"  (код состояния HTTP 403)
-- обновление записи (если были изменения)
+ * nID_Process - ИД-номер задачи (long)
+ * sID_Status - строка-статус
+ * soData - строка-объект с данными (опционально, для поддержки дополнения заявки со стороны гражданина)
+ * sToken - строка-токена (опционально, для поддержки дополнения заявки со стороны гражданина)
+ * sHead - строка заглавия сообщения (опционально, для поддержки дополнения заявки со стороны гражданина)
+ * sBody - строка тела сообщения (опционально, для поддержки дополнения заявки со стороны гражданина)
 
 пример
-http://test.igov.org.ua/wf/service/services/updateHistoryEvent_Service?nID_Protected=11&sID_Status=finish
+http://test.igov.org.ua/wf/service/services/updateHistoryEvent_Service?nID_Process=1&sID_Status=finish
 
 
 <a name="18_workWithFlowSlot">
@@ -2515,4 +2515,20 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 ```json
 ["4715238","4585243","4730773"]
 ```
+
+
+<a name="37_getAccessKeyt">
+####37. Получения ключа для аутентификации</a><br/> 
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf/service/services/getAccessKey?
+-- возвращает ключ для аутентификации
+
+* sAccessContract - контракт
+* sLogin - технический логин
+* sData - контент по которому генерируется ключ
+
+Пример
+<a href="https://test.igov.org.ua/wf/service/services/getAccessKey?sLogin=activiti-master&sAccessContract=Request&sData=/wf/service/setMessage">https://test.igov.org.ua/wf/service/services/getAccessKey?sLogin=activiti-master&sAccessContract=Request&sData=/wf/service/setMessage</a>
 

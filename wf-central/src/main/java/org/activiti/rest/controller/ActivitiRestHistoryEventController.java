@@ -118,7 +118,7 @@ public class ActivitiRestHistoryEventController {
 		mParamMessage.put(HistoryEventMessage.SERVICE_STATE, sID_Status);
 		setHistoryEvent(HistoryEventType.GET_SERVICE, nID_Subject, mParamMessage);
 		//My journal. setTaskQuestions (issue 808)
-		createHistoryEventForTaskQuestions(soData, event_service.getnID_Protected(), nID_Subject);
+		createHistoryEventForTaskQuestions(HistoryEventType.SET_TASK_QUESTIONS, soData, event_service.getnID_Protected(), nID_Subject);
 		return JsonRestUtils.toJsonResponse(event_service);
 	}
 
@@ -133,7 +133,7 @@ public class ActivitiRestHistoryEventController {
 	@RequestMapping(value = "/updateHistoryEvent_Service", method = RequestMethod.GET)
 	public @ResponseBody
 	HistoryEvent_Service updateHistoryEvent_Service(
-			@RequestParam(value = "nID_Process", required = false) Long nID_Process,
+			@RequestParam(value = "nID_Process") Long nID_Process,
 			@RequestParam(value = "sID_Status") String sID_Status,
 			@RequestParam(value = "soData", required = false) String soData,
 			@RequestParam(value = "sToken", required = false) String sToken,
@@ -168,8 +168,7 @@ public class ActivitiRestHistoryEventController {
 				event_service.setsBody(sBody);
 				isChanged = true;
 			}
-			if (sToken != null
-					&& !sToken.equals(event_service.getsToken())) {
+			if (sToken == null || !sToken.equals(event_service.getsToken())) {
 				event_service.setsToken(sToken);
 				isChanged = true;
 			}
@@ -182,23 +181,18 @@ public class ActivitiRestHistoryEventController {
 		mParamMessage.put(HistoryEventMessage.SERVICE_STATE, sID_Status);
 		mParamMessage.put(HistoryEventMessage.TASK_NUMBER, String.valueOf(nID_Protected));
 		setHistoryEvent(HistoryEventType.ACTIVITY_STATUS_NEW, nID_Subject, mParamMessage);
-		//My journal. setTaskQuestions (issue 808)
-		createHistoryEventForTaskQuestions(soData, nID_Protected, nID_Subject);
+		//My journal. setTaskQuestions (issue 808, 809)
+		createHistoryEventForTaskQuestions(sToken != null ? HistoryEventType.SET_TASK_QUESTIONS : HistoryEventType.SET_TASK_ANSWERS,
+				soData, nID_Protected, nID_Subject);
 		return event_service;
 	}
 
-	private void createHistoryEventForTaskQuestions(String soData, Long nID_Protected, Long nID_Subject) {
-//		4) Обязательно сохранять информацию о действии в Мой Журнал
-//		Текст: По заявке №____ задана просьба уточнения: %sBody%
-//				перечисление полей из saField в формате таблицы:
-//		Поле / Тип / Текущее значение
-		//строка-массива полей (например: "[{'id':'sFamily','type':'string','value':'Белявский'},{'id':'nAge','type':'long'}]")
+	private void createHistoryEventForTaskQuestions(HistoryEventType eventType, String soData, Long nID_Protected, Long nID_Subject) {
 		Map<String, String> mParamMessage = new HashMap<>();
 		if (soData != null && !"[]".equals(soData) ) {
-//			mParamMessage.clear();
 			mParamMessage.put(HistoryEventMessage.TASK_NUMBER, "" + nID_Protected);
 			mParamMessage.put(HistoryEventMessage.TABLE_BODY, HistoryEventMessage.createTable(soData));
-			setHistoryEvent(HistoryEventType.SET_TASK_ANSWERS, nID_Subject, mParamMessage);
+			setHistoryEvent(eventType, nID_Subject, mParamMessage);
 		}
 	}
 

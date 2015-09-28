@@ -1,5 +1,6 @@
 package org.wf.dp.dniprorada.engine.task;
 
+import java.io.IOException;
 import org.activiti.engine.EngineServices;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -23,8 +24,12 @@ import org.wf.dp.dniprorada.util.Util;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
+import org.activity.rest.security.AuthenticationTokenSelector;
+import org.wf.dp.dniprorada.exchange.AccessCover;
 import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
 
 public abstract class Abstract_MailTaskCustom implements JavaDelegate {
@@ -35,9 +40,10 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 	private static final String TAG_CANCEL_TASK = "[cancelTask]";
 	private static final String TAG_nID_Protected = "[nID_Protected]";
 	private static final String TAG_nID_SUBJECT = "[nID_Subject]";
-	private static final String TAG_sACCESS_KEY = "[sAccessKey]";
+//	private static final String TAG_sACCESS_KEY = "[sAccessKey]";
 	private static final String TAG_sURL_SERVICE_MESSAGE = "[sURL_ServiceMessage]";
-	private static final String accessKeyPattern = "&sAccessContract=Request&sAccessKey=%s";
+    private static final Pattern TAG_sPATTERN_CONTENT_COMPILED = Pattern.compile("\\[pattern/(.*?)\\]");
+//	private static final String accessKeyPattern = "&sAccessContract=Request&sAccessKey=%s";
 	private static final String TAG_Function_AtEnum = "enum{[";
 	private static final String TAG_Function_To = "]}";
 	private static final String PATTERN_MERCHANT_ID = "sID_Merchant%s";
@@ -47,6 +53,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 	private static final String PATTERN_SUBJECT_ID = "nID_Subject%s";
 	private static final String PATTERN_DELIMITER = "_";
 
+        @Autowired
+        AccessCover accessCover;
+    
 	@Autowired
 	public TaskService taskService;
 	@Value("${mailServerHost}")
@@ -93,7 +102,10 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 			return null;
 		}
 		String textWithoutTags = textStr;
-		for (int i = 0; i < 10; i++) { //написать автоопределение тегов и заменить этот кусок
+                
+                textWithoutTags = populatePatternWithContent(textWithoutTags);
+                
+		for (int i = 0; i < 10; i++) { // TODO: написать автоопределение тегов и заменить этот кусок
 			boolean isItFirstTag = (i == 0);
 			String prefix = isItFirstTag ? "" : PATTERN_DELIMITER + i;
 			String tag_Payment_Button_Liqpay = String.format(TAG_PAYMENT_BUTTON_LIQPAY, prefix);
@@ -225,11 +237,13 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 			textWithoutTags = textWithoutTags.replaceAll("\\Q"
 					+ TAG_nID_SUBJECT + "\\E", "" + nID_Subject);
 		}
-		if (textWithoutTags.contains(TAG_sACCESS_KEY)) {
+		/*if (textWithoutTags.contains(TAG_sACCESS_KEY)) {
 			textWithoutTags = textWithoutTags.replaceAll("\\Q"
 					+ TAG_sACCESS_KEY + "\\E",
-					accessDataDao.setAccessData("" + nID_Subject));
-		}
+					//accessDataDao.setAccessData("" + nID_Subject) 
+                                        accessCover.getAccessKey(String.valueOf(nID_Subject))
+                                );
+		}*/
 		if (textWithoutTags.contains(TAG_sURL_SERVICE_MESSAGE)) {
 			String URI = Util.deleteContextFromURL(URL_SERVICE_MESSAGE);
 			ProcessDefinition processDefinition = execution.getEngineServices()
@@ -250,13 +264,18 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				queryParam = queryParam + "&nID_Subject=" + nID_Subject;
 			}
 			LOG.info("[setAccessData] URL: " + URI + queryParam);
-			String accessKey = accessDataDao.setAccessData(URI + queryParam);
+			//String accessKey = accessDataDao.setAccessData(URI + queryParam);
+                        String sAccessKey = accessCover.getAccessKeyCentral(URI + queryParam);
 			String replacemet = URL_SERVICE_MESSAGE + queryParam
-					+ String.format(accessKeyPattern, accessKey);
+                            //+ String.format(accessKeyPattern, accessKey)
+                            + "&" + AuthenticationTokenSelector.ACCESS_CONTRACT + "=" + AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST_AND_LOGIN
+                            + "&" + AuthenticationTokenSelector.ACCESS_KEY + "=" + sAccessKey
+                            ;
 			LOG.info("replacemet URL: " + replacemet);
 			textWithoutTags = StringUtils.replace(textWithoutTags,
 					TAG_sURL_SERVICE_MESSAGE, replacemet);
 		}
+        
 
 		return textWithoutTags;
 	}
@@ -282,6 +301,16 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 		}
 		return null;
 	}
+    
+    protected String populatePatternWithContent(String inputText) throws IOException {
+        StringBuffer outputTextBuffer = new StringBuffer();
+        Matcher matcher = TAG_sPATTERN_CONTENT_COMPILED.matcher(inputText);
+        while (matcher.find()) {
+            matcher.appendReplacement(outputTextBuffer, getPatternContentReplacement(matcher));
+        }
+        matcher.appendTail(outputTextBuffer);
+        return outputTextBuffer.toString();
+    }
 
 	public Mail Mail_BaseFromTask(DelegateExecution oExecution)
 			throws Exception {
@@ -301,5 +330,14 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
 		return oMail;
 	}
+    
+    /*
+     * Access modifier changed from private to default to enhance testability
+     */
+    String getPatternContentReplacement(Matcher matcher) throws IOException {
+        String path = matcher.group(1);
+        byte[] bytes = Util.getPatternFile(path);
+        return Util.sData(bytes);
+    }
 
 }

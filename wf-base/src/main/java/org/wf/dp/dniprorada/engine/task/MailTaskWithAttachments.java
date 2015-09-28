@@ -53,14 +53,18 @@ public class MailTaskWithAttachments extends Abstract_MailTaskCustom {
         
         log.info("sAttachmentsForSend=" + sAttachmentsForSend);
         List<Attachment> aAttachment = new ArrayList<>();
-        String[] saID_Attachment = sAttachmentsForSend.split(",");
-        for (String sID_Attachment : saID_Attachment) {
-            log.info("sID_Attachment=" + sID_Attachment);
-            String sID_AttachmentTrimmed = sID_Attachment.replaceAll("^\"|\"$", "");
-            log.info("sID_AttachmentTrimmed= " + sID_AttachmentTrimmed);
-            Attachment oAttachment = taskService.getAttachment(sID_AttachmentTrimmed);
-            if (oAttachment != null) {
-                aAttachment.add(oAttachment);
+        String[] asID_Attachment = sAttachmentsForSend.split(",");
+        for (String sID_Attachment : asID_Attachment) {
+            //log.info("sID_Attachment=" + sID_Attachment);
+            if(sID_Attachment!=null && !"".equals(sID_Attachment.trim()) && !"null".equals(sID_Attachment.trim())){
+                String sID_AttachmentTrimmed = sID_Attachment.replaceAll("^\"|\"$", "");
+                log.info("sID_AttachmentTrimmed= " + sID_AttachmentTrimmed);
+                Attachment oAttachment = taskService.getAttachment(sID_AttachmentTrimmed);
+                if (oAttachment != null) {
+                    aAttachment.add(oAttachment);
+                }
+            }else{
+                log.warn("sID_Attachment=" + sID_Attachment);
             }
         }
 

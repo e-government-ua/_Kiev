@@ -170,7 +170,7 @@
 
                 <slot-picker ng-switch-when="queueData"
                              name="{{property.id}}"
-                             service-id="oServiceData.nID"
+                             service-data="oServiceData"
                              ng-model="data.formData.params[property.id].value"
                              ng-required="isFieldRequired(property)"></slot-picker>
 
