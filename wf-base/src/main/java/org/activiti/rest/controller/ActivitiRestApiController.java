@@ -1361,27 +1361,19 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             	log.info("Added variable sAnswer to the process " + processInstanceID);
         		
         		log.info("Found " + tasks.size() + " tasks by nID_Protected...");
-        		for (Task task : tasks){
-        			log.info("task;" + task.getName() + "|" + task.getDescription() + "|" + task.getId());
-        			TaskFormData data = formService.getTaskFormData(task.getId());
-        			Map<String, String> newProperties = new HashMap<String, String>();
+	        		for (Task task : tasks){
+	        			log.info("task;" + task.getName() + "|" + task.getDescription() + "|" + task.getId());
+	        			TaskFormData data = formService.getTaskFormData(task.getId());
+	        			Map<String, String> newProperties = new HashMap<String, String>();
+	        			for (FormProperty property : data.getFormProperties()) {
+	        				newProperties.put(property.getId(), property.getValue());
+	                    }      
+        			
+        			
 	                    for (int i = 0; i < jsonArray.length(); i++) {
 	                    	JSONObject record = jsonArray.getJSONObject(i);
 	                    	newProperties.put((String)record.get("id"), (String)record.get("value"));
 	                    }
-//                        JSONObject record = jsonArray.getJSONObject(i);
-//                        String fieldId = (String) record.get("id");
-//                    for (FormProperty property : data.getFormProperties()) {
-//                    	if (fieldId.equals(property.getId())){
-//                    		if (property instanceof FormPropertyImpl){
-//                        		log.info("Updating property's " + property.getId() + " value from " + 
-//                        					property.getValue() + " to " + record.get("value"));
-//                    			((FormPropertyImpl)property).setValue((String) record.get("value"));                     			
-//                    		}
-//                    	} else {
-//                    		log.info("Skipping property " + property.getId() + " as there is no such property in input parameter");
-//                    	}
-//                    }                    
 	                    log.info("Updating form data for the task " + task.getId() + "|" + newProperties);
 	                    formService.saveFormData(task.getId(), newProperties);
                     }
