@@ -10,7 +10,7 @@
         <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця;(якщо Ви оберете надіслати поштою - лист прийде на цю адресу)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Вкажіть сьогодняшню дату" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Вкажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменування юридичної особи /ім’я, по-батькові та прізвище фізичної особи-підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="code_inn" name="Ідентифікаційний код згідно з ЄДРПОУ/РНОКПП" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
@@ -157,7 +157,7 @@
         <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Дата подачи заяви" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Дата подачі заяви" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменування юридичної особи /ім’я, по-батькові та прізвище фізичної особи-підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="code_inn" name="Ідентифікаційний код згідно з ЄДРПОУ/РНОКПП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
@@ -174,6 +174,13 @@
         <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" writable="false">
           <activiti:value id="attr1_yes" name="Отримаю власноруч"></activiti:value>
           <activiti:value id="attr2_no" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="object_trade" name="Обраний об'єкт торгівлі" type="enum" writable="false">
+          <activiti:value id="attr1" name="Сфера послуг та закладів ресторанного господарства в стаціонарних спорудах, павільйонах"></activiti:value>
+          <activiti:value id="attr2" name="Торгові кіоски, тимчасови споруди, автопричепи, лотки"></activiti:value>
+          <activiti:value id="attr3" name="Засоби пересувної мережі (автокав’ярні, велокав’ярні, автомобілі з реалізації питної води), торгові розноски"></activiti:value>
+          <activiti:value id="attr4" name="Кіоски, лотки в стаціонарних спорудах"></activiti:value>
+          <activiti:value id="attr5" name="Ринки"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="extension_number" name="Реєстраційний номер ЦНАП" type="string"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
@@ -530,7 +537,7 @@
         <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Дата подачи заяви" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Дата подачі заяви" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменування юридичної особи /ім’я, по-батькові та прізвище фізичної особи-підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="code_inn" name="Ідентифікаційний код згідно з ЄДРПОУ/РНОКПП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
@@ -547,6 +554,13 @@
         <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" writable="false">
           <activiti:value id="attr1_yes" name="Отримаю власноруч"></activiti:value>
           <activiti:value id="attr2_no" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="object_trade" name="Обраний об'єкт торгівлі" type="enum" writable="false">
+          <activiti:value id="attr1" name="Сфера послуг та закладів ресторанного господарства в стаціонарних спорудах, павільйонах"></activiti:value>
+          <activiti:value id="attr2" name="Торгові кіоски, тимчасови споруди, автопричепи, лотки"></activiti:value>
+          <activiti:value id="attr3" name="Засоби пересувної мережі (автокав’ярні, велокав’ярні, автомобілі з реалізації питної води), торгові розноски"></activiti:value>
+          <activiti:value id="attr4" name="Кіоски, лотки в стаціонарних спорудах"></activiti:value>
+          <activiti:value id="attr5" name="Ринки"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="extension_number" name="Реєстраційний номер ЦНАП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string" writable="false"></activiti:formProperty>
