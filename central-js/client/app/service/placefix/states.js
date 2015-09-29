@@ -28,7 +28,7 @@ angular.module('app').config(function($stateProvider) {
     .state('index.service.general.placefix.link', {
       url: '/link',
       views: {
-        'status@index.service.general.placefix': {
+        'content@index.service.general.placefix': {
           templateUrl: 'app/service/placefix/link.html',
           controller: 'PlaceFixController'
         }
