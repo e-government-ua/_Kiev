@@ -148,7 +148,7 @@
       </extensionElements>
     </serviceTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="usertask1" name="Перевірка даних службою ФОП" activiti:candidateGroups="dnepr_cnap_${vibor}">
+    <userTask id="usertask1_red" name="Перевірка даних службою ФОП" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="Per2" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете сповістити заявника чи зареєстровано його декларацію. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -203,11 +203,15 @@
           <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
           <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="proverka2" name="Рішення реєстратора про реєстрацію декларації" type="enum" required="true">
+          <activiti:value id="ok" name="декларацію зареєстровано"></activiti:value>
+          <activiti:value id="bad" name="декларацію не зареєстровано"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="vidpovid" name="Додайте скановану відповідь реєстратора" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57f_print.html]" type="invisible" default="Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <userTask id="usertask3" name="Формування опису або відмова при неправильних документах Юр особа" activiti:candidateGroups="dnepr_cnap_${vibor}">
+    <userTask id="usertask3_green" name="Формування опису або відмова при неправильних документах Юр особа" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="per1" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете ознайомитись з поданими документами, прийняти попереднє рішення про те, чи достатньо їх для виконання запиту, роздрукувати заяву і всі додатки. Якщо перевірку пройдено, додайте файл з описом прийнятих документів, номером і датою прийняття. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -271,19 +275,15 @@
           <activiti:value id="yes" name="Документи прийнято, формується опис, документи передаються для подальшої обробки"></activiti:value>
           <activiti:value id="no" name="Поданих документів недостатньо для обробки"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="proverka2" name="Рішення еєстратора про реєстрацію декларації" type="enum" required="true">
-          <activiti:value id="ok" name="декларацію зареєстровано"></activiti:value>
-          <activiti:value id="bad" name="декларацію не зареєстровано"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="opis" name="Додайте файл опису прийнятих документів, якщо документи прийнято" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="otkaz1" name="Вкажіть, яких саме документів та(або) даних не вистачає (заповнювати не обов'язково)" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57u_print.html]" type="invisible" default="Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow21" name="Юр. особа" sourceRef="exclusivegateway3" targetRef="usertask3">
+    <sequenceFlow id="flow21" name="Юр. особа" sourceRef="exclusivegateway3" targetRef="usertask3_green">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${client=='attr1'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow22" sourceRef="servicetask2" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow22" sourceRef="servicetask2" targetRef="usertask1_red"></sequenceFlow>
     <serviceTask id="mailtask4" name="Не пройдено перевірку ЦНАП" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
@@ -467,7 +467,7 @@ ${otkaz1} &lt;br&gt;
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'&&client=='attr2'}]]></conditionExpression>
     </sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow26" sourceRef="usertask1" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow26" sourceRef="usertask1_red" targetRef="exclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow29" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
     <serviceTask id="mailtask5" name="Сповіщення держслужбовця" activiti:type="mail">
       <extensionElements>
@@ -551,7 +551,7 @@ ${otkaz1} &lt;br&gt;
     </serviceTask>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow31" sourceRef="mailtask5" targetRef="exclusivegateway3"></sequenceFlow>
-    <userTask id="usertask4" name="Формування опису або відмова при неправильних документах ФОП" activiti:candidateGroups="dnepr_cnap_${vibor}">
+    <userTask id="usertask4_green" name="Формування опису або відмова при неправильних документах ФОП" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="per1" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете ознайомитись з поданими документами, прийняти попереднє рішення про те, чи достатньо їх для виконання запиту, роздрукувати заяву і всі додатки. Якщо перевірку пройдено, додайте файл з описом прийнятих документів, номером і датою прийняття. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -615,10 +615,10 @@ ${otkaz1} &lt;br&gt;
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57f_print.html]" type="invisible" default="Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow32" name="ФОП" sourceRef="exclusivegateway3" targetRef="usertask4">
+    <sequenceFlow id="flow32" name="ФОП" sourceRef="exclusivegateway3" targetRef="usertask4_green">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${client=='attr2'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow33" sourceRef="usertask4" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow33" sourceRef="usertask4_green" targetRef="exclusivegateway1"></sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow34" sourceRef="mailtask4" targetRef="endevent2"></sequenceFlow>
     <serviceTask id="servicetask3" name="Лист з копією заяви і описом прийнятих документів ФОП юр. особа" activiti:delegateExpression="#{MailTaskWithAttachments}">
@@ -721,7 +721,7 @@ ${otkaz1} &lt;br&gt;
     <sequenceFlow id="flow35" sourceRef="exclusivegateway1" targetRef="servicetask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'&&client=='attr1'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask5" name="Перевірка даних службою юр. особа" activiti:candidateGroups="dnepr_cnap_${vibor}">
+    <userTask id="usertask5_red" name="Перевірка даних службою юр. особа" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="Per2" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете сповістити заявника чи оброблено його заяву. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -781,7 +781,7 @@ ${otkaz1} &lt;br&gt;
           <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
           <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="proverka2" name="Рішення еєстратора про реєстрацію декларації" type="enum" required="true">
+        <activiti:formProperty id="proverka2" name="Рішення реєстратора про реєстрацію декларації" type="enum" required="true">
           <activiti:value id="ok" name="декларацію зареєстровано"></activiti:value>
           <activiti:value id="bad" name="декларацію не зареєстровано"></activiti:value>
         </activiti:formProperty>
@@ -791,8 +791,8 @@ ${otkaz1} &lt;br&gt;
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow36" sourceRef="servicetask3" targetRef="usertask5"></sequenceFlow>
-    <sequenceFlow id="flow37" sourceRef="usertask5" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow36" sourceRef="servicetask3" targetRef="usertask5_red"></sequenceFlow>
+    <sequenceFlow id="flow37" sourceRef="usertask5_red" targetRef="exclusivegateway2"></sequenceFlow>
     <serviceTask id="servicetask6" name="Правобережний ЦНАП відповідь" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
@@ -1057,7 +1057,7 @@ ${otkaz1} &lt;br&gt;
     </sequenceFlow>
     <sequenceFlow id="flow43" sourceRef="servicetask7" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow44" sourceRef="servicetask6" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow45" sourceRef="usertask3" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow45" sourceRef="usertask3_green" targetRef="exclusivegateway1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow46" sourceRef="mailtask1" targetRef="exclusivegateway4"></sequenceFlow>
     <sequenceFlow id="flow47" sourceRef="exclusivegateway4" targetRef="mailtask5">
@@ -1165,10 +1165,10 @@ ${otkaz1} &lt;br&gt;
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="285.0" y="164.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+      <bpmndi:BPMNShape bpmnElement="usertask1_red" id="BPMNShape_usertask1_red">
         <omgdc:Bounds height="55.0" width="105.0" x="455.0" y="230.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+      <bpmndi:BPMNShape bpmnElement="usertask3_green" id="BPMNShape_usertask3_green">
         <omgdc:Bounds height="55.0" width="105.0" x="196.0" y="86.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
@@ -1186,7 +1186,7 @@ ${otkaz1} &lt;br&gt;
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
         <omgdc:Bounds height="40.0" width="40.0" x="228.0" y="164.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+      <bpmndi:BPMNShape bpmnElement="usertask4_green" id="BPMNShape_usertask4_green">
         <omgdc:Bounds height="55.0" width="105.0" x="196.0" y="230.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
@@ -1195,7 +1195,7 @@ ${otkaz1} &lt;br&gt;
       <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
         <omgdc:Bounds height="55.0" width="105.0" x="320.0" y="86.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask5" id="BPMNShape_usertask5">
+      <bpmndi:BPMNShape bpmnElement="usertask5_red" id="BPMNShape_usertask5_red">
         <omgdc:Bounds height="55.0" width="105.0" x="455.0" y="86.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
