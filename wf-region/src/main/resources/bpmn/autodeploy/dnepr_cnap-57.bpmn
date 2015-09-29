@@ -203,6 +203,10 @@
           <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
           <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="proverka2" name="Рішення реєстратора про реєстрацію декларації" type="enum" required="true">
+          <activiti:value id="ok" name="декларацію зареєстровано"></activiti:value>
+          <activiti:value id="bad" name="декларацію не зареєстровано"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="vidpovid" name="Додайте скановану відповідь реєстратора" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57f_print.html]" type="invisible" default="Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" writable="false"></activiti:formProperty>
       </extensionElements>
@@ -270,10 +274,6 @@
         <activiti:formProperty id="proverka" name="Оберіть результат первинної перевірки документів:" type="enum" required="true">
           <activiti:value id="yes" name="Документи прийнято, формується опис, документи передаються для подальшої обробки"></activiti:value>
           <activiti:value id="no" name="Поданих документів недостатньо для обробки"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="proverka2" name="Рішення еєстратора про реєстрацію декларації" type="enum" required="true">
-          <activiti:value id="ok" name="декларацію зареєстровано"></activiti:value>
-          <activiti:value id="bad" name="декларацію не зареєстровано"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="opis" name="Додайте файл опису прийнятих документів, якщо документи прийнято" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="otkaz1" name="Вкажіть, яких саме документів та(або) даних не вистачає (заповнювати не обов'язково)" type="textArea"></activiti:formProperty>
@@ -781,7 +781,7 @@ ${otkaz1} &lt;br&gt;
           <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
           <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="proverka2" name="Рішення еєстратора про реєстрацію декларації" type="enum" required="true">
+        <activiti:formProperty id="proverka2" name="Рішення реєстратора про реєстрацію декларації" type="enum" required="true">
           <activiti:value id="ok" name="декларацію зареєстровано"></activiti:value>
           <activiti:value id="bad" name="декларацію не зареєстровано"></activiti:value>
         </activiti:formProperty>
