@@ -268,7 +268,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 357;49;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_70:1:352"}};https://test-version.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
 358;756;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_queue_cancel:1:1"}};https://test-version.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
 359;654;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_mda_subsidies:1:60054"}};https://test-version.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-360;757;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_type_HTML:1:1"}};https://test-version.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
+360;757;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_mailer:1:1"}};https://test-version.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
 361;758;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_cnap_57u:1:60054"}};https://test-version.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
 362;759;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_post_119:1:1"}};https://test-version.region.igov.org.ua/wf/;true;1;true;;BankID,EDS
 363;760;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_post_99:1:1"}};https://test-version.region.igov.org.ua/wf/;true;1;true;;BankID,EDS
