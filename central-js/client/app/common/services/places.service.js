@@ -111,7 +111,7 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
   };
 
   self.saveLocal = function(oSavedPlaceData) {
-    if( self.rememberMyData ) {
+    if (self.rememberMyData) {
       localStorage.setItem('igSavedPlaceData', JSON.stringify(oSavedPlaceData));
     }
   };
@@ -207,6 +207,18 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     return bResult;
   };
 
+  self.findServiceDataByCountry = function() {
+    var aServiceData = ServiceService.oService.aServiceData;
+    var result = null;
+    angular.forEach(aServiceData, function(oService, key) {
+      if (!oService.nID_Region && !oService.nID_City && oService.nID_ServiceType && oService.nID_ServiceType.nID) {
+        result = oService;
+      }
+    });
+    return result;
+  };
+
+
   self.findServiceDataByRegion = function() {
     var aServiceData = ServiceService.oService.aServiceData;
     var result = null;
@@ -228,14 +240,6 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
       }
     });
     return result;
-  };
-
-  self.getServiceDataForCountry = function() {
-    return {
-      nID_ServiceType: {
-        nID: 1
-      }
-    };
   };
 
   self.serviceIsAvailableInRegion = function() {
@@ -288,22 +292,33 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     return result;
   };
 
-  // self.serviceIsAvailableInPlace = function() {
-  //   var oAvail = self.getServiceAvailability();
-  //   return (oAvail.thisRegion || oAvail.thisCity);
-  // };
+  self.getServiceStateForPlace = function() {
 
-  // TODO check it again and again
-  self.getServiceDataForSelectedPlace = function() {
-    var result = self.getServiceDataForCountry();
+    var serviceType = {
+      nID_ServiceType: {
+        nID: 0
+      }
+    };
+
+    serviceType = self.findServiceDataByCountry() || serviceType;
 
     if (self.serviceIsAvailableInRegion()) {
-      result = self.findServiceDataByRegion();
+      serviceType = self.findServiceDataByRegion();
     }
     if (self.serviceIsAvailableInCity()) {
-      result = self.findServiceDataByCity();
+      serviceType = self.findServiceDataByCity();
     }
-    return result;
+
+    var stateByServiceType = {
+      // Сервіс за посиланням
+      1: 'index.service.general.placefix.link',
+      // Вбудований сервіс
+      4: 'index.service.general.placefix.built-in',
+      // Помилка - сервіс відсутній
+      0: 'index.service.general.placefix.error'
+    };
+
+    return stateByServiceType[serviceType.nID_ServiceType.nID];
   };
 
   self.getPlaceData();

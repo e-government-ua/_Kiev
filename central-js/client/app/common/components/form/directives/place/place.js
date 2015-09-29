@@ -77,7 +77,6 @@ angular.module('app')
         $scope.placeControlIsNeeded = function() {
           var bNeeded = false;
           var oAvail = PlacesService.getServiceAvailability();
-          // var bAvailForPlace = PlacesService.serviceIsAvailableInPlace();
 
           // needed because service is available for some place
           if (oAvail.isRegion || oAvail.isCity) {
@@ -119,7 +118,6 @@ angular.module('app')
           // FIXME: передбачити випадки, коли треба вибрати тільки регіон або місто, 
           // див. https://github.com/e-government-ua/i/issues/550
           var oAvail = PlacesService.getServiceAvailability();
-          // var bAvail = PlacesService.serviceIsAvailableInPlace();
 
           // return false if no region or no city is chosen (usually on startup), but service is available somewhere
           if ((!$scope.regionIsChosen() || !$scope.cityIsChosen()) && (oAvail.isRegion || oAvail.isCity)) {
@@ -184,9 +182,10 @@ angular.module('app')
           var placeData = PlacesService.getPlaceData();
 
           console.log('processPlaceSelection');
-          console.log('region is chosen:', $scope.regionIsChosen(), ', city is chosen:', $scope.cityIsChosen());
-          console.log('Place controls is complete:', $scope.placeControlIsComplete());
-          console.log('AuthControlIsVisible:', $scope.authControlIsVisible());
+          console.log('1. Region is chosen:', $scope.regionIsChosen(), ', city is chosen:', $scope.cityIsChosen());
+          console.log('2. Place controls is complete:', $scope.placeControlIsComplete());
+          console.log('3. Auth control is visible:', $scope.authControlIsVisible());
+          console.log('4. Service Availability:', JSON.stringify(PlacesService.getServiceAvailability(), null, ''));
 
           PlacesService.setPlaceData(placeData);
 
@@ -194,7 +193,6 @@ angular.module('app')
           $scope.city = PlacesService.getPlaceData().city;
 
           $scope.$emit('onPlaceChange', {
-            serviceData: PlacesService.getServiceDataForSelectedPlace(),
             placeData: PlacesService.getPlaceData()
           });
         };
@@ -219,7 +217,7 @@ angular.module('app')
 
           $scope.regionList.initialize($scope.regions);
 
-          console.log('[] [] initPlaceControls $scope.regions.length = ', $scope.regions.length, '$scope.region:', $scope.region, '$scope.city:', $scope.city, ' $scope.data:', $scope.data );
+          console.log('[] [] initPlaceControls $scope.regions.length = ', $scope.regions.length, '$scope.region:', $scope.region, '$scope.city:', $scope.city, ' $scope.data:', $scope.data);
 
           // FIXME we need ro reset it to work with localstorage
           // and we do not need it when coming from step to step

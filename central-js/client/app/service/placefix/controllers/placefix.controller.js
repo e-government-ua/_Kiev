@@ -36,24 +36,15 @@ angular.module('app').controller('PlaceFixController', function(
     // default startup
   }
 
-  // oParams = { placeData: placeData, serviceData: serviceData } }
+  // oParams = { placeData: placeData } }
   self.processPlaceChange = function(oParams) {
 
     // due to availiablity, do next steps
-    // var bAvail = PlacesService.serviceIsAvailableInPlace();
+    var oAvail = PlacesService.getServiceAvailability();
 
-    var serviceType = oParams.serviceData.nID_ServiceType.nID;
+    var stateToGo = PlacesService.getServiceStateForPlace();
 
-    var stateByServiceType = {
-      // Сервіс за посиланням
-      1: 'index.service.general.placefix.link',
-      // Вбудований сервіс
-      4: 'index.service.general.placefix.built-in',
-      // Помилка - сервіс відсутній
-      0: 'index.service.general.placefix.error'
-    };
-
-    var stateToGo = stateByServiceType[serviceType];
+    console.info('PROCESS Place сhange, $state:', $state.current.name, ', to go:', stateToGo );
 
     // obtain service data and it's notes
     angular.forEach(oService.aServiceData, function(service, key) {
@@ -71,7 +62,7 @@ angular.module('app').controller('PlaceFixController', function(
     if (!stateToGo || ($state.current.name === stateToGo)) {
       return;
     }
-    
+
     // не переходити до іншого стану, якщо даний стан є кінцевим
     // $state.current.name === 'index.service.general.placefix.built-in' ||
     if ($state.current.name === 'index.service.general.placefix.built-in.bankid' || $state.current.name === 'index.service.general.placefix.built-in.bankid.submitted') {
@@ -94,7 +85,7 @@ angular.module('app').controller('PlaceFixController', function(
     //   //$scope.onSelectRegionList(initialRegion);
     // }
 
-    console.info('PROCESS Place сhange, $state:', $state.current.name, ', to go:', stateToGo /*, 'oParams =', oParams*/ );
+    console.info('PROCESSED Place сhange, state to go:', stateToGo);
   };
 
   $scope.getRegionId = function() {
@@ -131,11 +122,4 @@ angular.module('app').controller('PlaceFixController', function(
     self.processPlaceChange(oParams);
   });
 
-  // self.processPlaceChange({
-  //   serviceData: PlacesService.getServiceDataForSelectedPlace(),
-  //   placeData: PlacesService.getPlaceData()
-  // });
-
 });
-
-// city, region - merged

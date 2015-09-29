@@ -1,9 +1,10 @@
 <div class="list-group-item place-control" ng-class="{'disabled': placeControlIsDisabled()}" ng-show="placeControlIsVisible()">
     <div class="row no-margin-bottom">
         <div class="col-md-11 form-inline {{getPlaceControlClass()}}">
-            <span class="step">Крок 1. Оберіть свій регіон</span>
+            <span ng-if="!placeControlIsComplete()" class="step">Крок 1. Оберіть свій регіон</span>
+            <span ng-if="placeControlIsComplete()" class="step">Крок 1. Ви вибрали</span>
             <div class="inline-wrapper">
-                <span>Область</span>{{fixmeRegion.sName}}
+                <span>Область:</span>
                 <div class="dropdown-wrapper" dropdown is-open="regionList.dropdown.isOpen">
                     <div class="input-group">
                         <input 
