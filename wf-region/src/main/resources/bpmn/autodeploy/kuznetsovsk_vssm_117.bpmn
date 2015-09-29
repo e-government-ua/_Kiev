@@ -18,7 +18,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="passport_father" name="Копія паспорту батька (1, 2, 10, 11-13 стор.)" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="passport_mother" name="Копія паспорту матері (1, 2, 10, 11-13 стор.)" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="passport_children" name="Копії свідотств про народження усіх дітей; завантажте єдиним архівом усі свідотства" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="passport_children" name="Копії свідотств про народження усіх дітей; завантажте єдиним архівом усі свідоцтва" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг."></activiti:formProperty>
       </extensionElements>
     </startEvent>

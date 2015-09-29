@@ -63,7 +63,6 @@
           <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnNotEmpty_1&quot;:{&quot;sField_ID_s&quot;: &quot;client&quot;},&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;: [&quot;name&quot;, &quot;Reestr&quot;, &quot;inn&quot;, &quot;KVED&quot;, &quot;PIB&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;client&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr1'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:value xmlns:activiti="http://activiti.org/bpmn" id="attr1" name="юридична особа"></activiti:value>
         <activiti:value xmlns:activiti="http://activiti.org/bpmn" id="attr2" name="фізична особа-підприємець"></activiti:value>
@@ -149,7 +148,7 @@
       </extensionElements>
     </serviceTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="usertask1" name="Перевірка даних службою ФОП" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+    <userTask id="usertask1" name="Перевірка даних службою ФОП" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="Per2" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете сповістити заявника чи зареєстровано його декларацію. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -205,10 +204,10 @@
           <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="vidpovid" name="Додайте скановану відповідь реєстратора" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57f_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57f_print.html]" type="invisible" default="Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <userTask id="usertask3" name="Формування опису або відмова при неправильних документах Юр особа" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+    <userTask id="usertask3" name="Формування опису або відмова при неправильних документах Юр особа" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="per1" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете ознайомитись з поданими документами, прийняти попереднє рішення про те, чи достатньо їх для виконання запиту, роздрукувати заяву і всі додатки. Якщо перевірку пройдено, додайте файл з описом прийнятих документів, номером і датою прийняття. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -272,9 +271,13 @@
           <activiti:value id="yes" name="Документи прийнято, формується опис, документи передаються для подальшої обробки"></activiti:value>
           <activiti:value id="no" name="Поданих документів недостатньо для обробки"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="proverka2" name="Рішення еєстратора про реєстрацію декларації" type="enum" required="true">
+          <activiti:value id="ok" name="декларацію зареєстровано"></activiti:value>
+          <activiti:value id="bad" name="декларацію не зареєстровано"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="opis" name="Додайте файл опису прийнятих документів, якщо документи прийнято" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="otkaz1" name="Вкажіть, яких саме документів та(або) даних не вистачає (заповнювати не обов'язково)" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57u_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57u_print.html]" type="invisible" default="Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow21" name="Юр. особа" sourceRef="exclusivegateway3" targetRef="usertask3">
@@ -433,7 +436,7 @@ ${otkaz1} &lt;br&gt;
                 &lt;tr&gt;
                   &lt;td style="padding: 35px 120px;"&gt;
                   &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                  &lt;p&gt; Ваше звернення про реєстрацію декларації перевірено адміністратором. Декларацію передано ${slugba}.&lt;br&gt;
+                  &lt;p&gt; Ваше звернення про реєстрацію декларації перевірено адміністратором. Декларацію передано ${usluga}.&lt;br&gt;
 				  До листа додано опис прийнятих документів. &lt;/p&gt;
                   &lt;hr
  style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(221, 221, 221); border-width: 0pt 0pt 1px; margin: 30px 0pt 15px; background: rgb(221, 221, 221) none repeat scroll 0%; width: 100%; height: 0pt; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"&gt;
@@ -478,7 +481,7 @@ ${otkaz1} &lt;br&gt;
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[Crow79@ua.fm]]></activiti:string>
+          <activiti:string><![CDATA[crow79@ua.fm]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:string><![CDATA[<style type="text/css">
@@ -522,11 +525,10 @@ ${otkaz1} &lt;br&gt;
                         <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
                             <tr>
                                 <td style="padding: 35px 120px;">
-                                    <h3>На порталі <a href=https://demo.igov.org.ua:6948/>iGov.org.ua</a> зареєстровано нове звернення на тему:</h3>
-                                    <p>
-                                       Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки</p>
+                                    <h3>На порталі <a href=https://igov.org.ua>iGov.org.ua</a> зареєстровано нове звернення на тему:</h3>
+                                    <p>Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки</p>
 									<p>
-									Ви можете перейти на <a href=https://demo.igov.org.ua:6948/>портал</a>, щоб почати опрацювання звернення.
+									Ви можете перейти на <a href=https://region.igov.org.ua>портал</a>, щоб почати опрацювання звернення.
                                     </p>
                               <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
                                     <p>
@@ -547,10 +549,9 @@ ${otkaz1} &lt;br&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow30" sourceRef="mailtask1" targetRef="mailtask5"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow31" sourceRef="mailtask5" targetRef="exclusivegateway3"></sequenceFlow>
-    <userTask id="usertask4" name="Формування опису або відмова при неправильних документах ФОП" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+    <userTask id="usertask4" name="Формування опису або відмова при неправильних документах ФОП" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="per1" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете ознайомитись з поданими документами, прийняти попереднє рішення про те, чи достатньо їх для виконання запиту, роздрукувати заяву і всі додатки. Якщо перевірку пройдено, додайте файл з описом прийнятих документів, номером і датою прийняття. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -611,7 +612,7 @@ ${otkaz1} &lt;br&gt;
         </activiti:formProperty>
         <activiti:formProperty id="opis" name="Додайте файл опису прийнятих документів, якщо документи прийнято" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="otkaz1" name="Вкажіть, яких саме документів та(або) даних не вистачає (заповнювати не обов'язково)" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57f_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57f_print.html]" type="invisible" default="Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow32" name="ФОП" sourceRef="exclusivegateway3" targetRef="usertask4">
@@ -690,7 +691,7 @@ ${otkaz1} &lt;br&gt;
                 &lt;tr&gt;
                   &lt;td style="padding: 35px 120px;"&gt;
                   &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                  &lt;p&gt; Ваше звернення про реєстрацію декларації перевірено адміністратором. Декларацію передано ${slugba}.&lt;br&gt;
+                  &lt;p&gt; Ваше звернення про реєстрацію декларації перевірено адміністратором. Декларацію передано ${usluga}.&lt;br&gt;
 				  До листа додано опис прийнятих документів. &lt;/p&gt;
                   &lt;hr
  style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(221, 221, 221); border-width: 0pt 0pt 1px; margin: 30px 0pt 15px; background: rgb(221, 221, 221) none repeat scroll 0%; width: 100%; height: 0pt; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"&gt;
@@ -720,7 +721,7 @@ ${otkaz1} &lt;br&gt;
     <sequenceFlow id="flow35" sourceRef="exclusivegateway1" targetRef="servicetask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'&&client=='attr1'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask5" name="Перевірка даних службою юр. особа" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+    <userTask id="usertask5" name="Перевірка даних службою юр. особа" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="Per2" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете сповістити заявника чи оброблено його заяву. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -780,12 +781,12 @@ ${otkaz1} &lt;br&gt;
           <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
           <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="proverka2" name="Рішення еєстратора про реєстрацію декларації" type="enum">
+        <activiti:formProperty id="proverka2" name="Рішення еєстратора про реєстрацію декларації" type="enum" required="true">
           <activiti:value id="ok" name="декларацію зареєстровано"></activiti:value>
           <activiti:value id="bad" name="декларацію не зареєстровано"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="vidpovid" name="Додайте файл скановану відповідь реєстратора" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57u_print.html]" type="invisible" default="${sBody_1}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57u_print.html]" type="invisible" default="Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
@@ -847,7 +848,7 @@ ${otkaz1} &lt;br&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
- &lt;p&gt;Надану Вами ${vidpovid}&lt;br/&gt;
+ &lt;p&gt;Надану Вами ${proverka2}&lt;br/&gt;
  Більш детальна інформація у прикріпленому файлі.&lt;/p&gt;
 &lt;br/&gt;
 &lt;p&gt;Забрати оригінал відповіді Ви можете в ЦНАП "Правобережний" за адресою:&lt;/p&gt;
@@ -977,7 +978,7 @@ ${otkaz1} &lt;br&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
- &lt;p&gt;Надану Вами ${vidpovid}&lt;br/&gt;
+ &lt;p&gt;Надану Вами ${proverka2}&lt;br/&gt;
  Більш детальна інформація у прикріпленому файлі.&lt;/p&gt;
 &lt;br/&gt;
 &lt;p&gt;Забрати оригінал відповіді Ви можете в ЦНАП «Лівобережний» за адресою:&lt;br/&gt;
@@ -1057,6 +1058,101 @@ ${otkaz1} &lt;br&gt;
     <sequenceFlow id="flow43" sourceRef="servicetask7" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow44" sourceRef="servicetask6" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow45" sourceRef="usertask3" targetRef="exclusivegateway1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow46" sourceRef="mailtask1" targetRef="exclusivegateway4"></sequenceFlow>
+    <sequenceFlow id="flow47" sourceRef="exclusivegateway4" targetRef="mailtask5">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vibor=='prav'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="mailtask6" name="Сповіщення держслужбовця" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Нове звернення на тему: Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:string><![CDATA[<style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    </style>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.<span>org.<span>ua</span></span></b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>На порталі <a href=https://igov.org.ua>iGov.org.ua</a> зареєстровано нове звернення на тему:</h3>
+                                    <p>Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки</p>
+									<p>
+									Ви можете перейти на <a href=https://region.igov.org.ua>портал</a>, щоб почати опрацювання звернення.
+                                    </p>
+                              <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                        З повагою,<br />
+                                        Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:string><![CDATA[crow79@ua.fm]]></activiti:string>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow48" sourceRef="exclusivegateway4" targetRef="mailtask6">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vibor=='lev'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow49" sourceRef="mailtask6" targetRef="exclusivegateway3"></sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net</text>
+    </textAnnotation>
+    <textAnnotation id="textannotation2">
+      <text>woobraja@mail.ru, 7751138@rambler.ru</text>
+    </textAnnotation>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap-57">
     <bpmndi:BPMNPlane bpmnElement="dnepr_cnap-57" id="BPMNPlane_dnepr_cnap-57">
@@ -1085,7 +1181,7 @@ ${otkaz1} &lt;br&gt;
         <omgdc:Bounds height="40.0" width="40.0" x="730.0" y="166.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
-        <omgdc:Bounds height="55.0" width="105.0" x="111.0" y="162.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="80.0" y="230.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
         <omgdc:Bounds height="40.0" width="40.0" x="228.0" y="164.0"></omgdc:Bounds>
@@ -1107,6 +1203,18 @@ ${otkaz1} &lt;br&gt;
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask7" id="BPMNShape_servicetask7">
         <omgdc:Bounds height="55.0" width="105.0" x="570.0" y="126.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
+        <omgdc:Bounds height="40.0" width="40.0" x="112.0" y="169.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
+        <omgdc:Bounds height="55.0" width="105.0" x="80.0" y="86.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50.0" width="100.0" x="140.0" y="50.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
+        <omgdc:Bounds height="50.0" width="100.0" x="80.0" y="310.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
         <omgdi:waypoint x="248.0" y="164.0"></omgdi:waypoint>
@@ -1136,13 +1244,9 @@ ${otkaz1} &lt;br&gt;
         <omgdi:waypoint x="42.0" y="145.0"></omgdi:waypoint>
         <omgdi:waypoint x="42.0" y="162.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
-        <omgdi:waypoint x="95.0" y="189.0"></omgdi:waypoint>
-        <omgdi:waypoint x="111.0" y="189.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
-        <omgdi:waypoint x="216.0" y="189.0"></omgdi:waypoint>
-        <omgdi:waypoint x="228.0" y="184.0"></omgdi:waypoint>
+        <omgdi:waypoint x="132.0" y="230.0"></omgdi:waypoint>
+        <omgdi:waypoint x="248.0" y="204.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
         <omgdi:waypoint x="248.0" y="204.0"></omgdi:waypoint>
@@ -1191,6 +1295,22 @@ ${otkaz1} &lt;br&gt;
       <bpmndi:BPMNEdge bpmnElement="flow45" id="BPMNEdge_flow45">
         <omgdi:waypoint x="248.0" y="141.0"></omgdi:waypoint>
         <omgdi:waypoint x="305.0" y="164.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow46" id="BPMNEdge_flow46">
+        <omgdi:waypoint x="95.0" y="189.0"></omgdi:waypoint>
+        <omgdi:waypoint x="112.0" y="189.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow47" id="BPMNEdge_flow47">
+        <omgdi:waypoint x="132.0" y="209.0"></omgdi:waypoint>
+        <omgdi:waypoint x="132.0" y="230.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow48" id="BPMNEdge_flow48">
+        <omgdi:waypoint x="132.0" y="169.0"></omgdi:waypoint>
+        <omgdi:waypoint x="132.0" y="141.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
+        <omgdi:waypoint x="132.0" y="141.0"></omgdi:waypoint>
+        <omgdi:waypoint x="248.0" y="164.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
