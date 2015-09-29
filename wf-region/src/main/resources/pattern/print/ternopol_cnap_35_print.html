@@ -1,4 +1,4 @@
-﻿<div>
+<div>
         <style type="text/css">
         html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Tahoma';}
 
@@ -10,14 +10,9 @@
 
 .ti-15 {text-indent: 25px;}
 
-.p-right {float: right;}
-.p-left {float: left;}
-
-.xs-font {font-size: 16px; line-height: 18px;}
-.xs-font p {font-size: 16px;}
-.xs-font span {font-size: 16px;}
-
 .fw {width: 100%;}
+.xs-font {font-size: 14px;}
+.xs-font p {font-size: 14px;}
 
 .w350 {width: 350px;}
 .w225 {width: 225px;}
@@ -27,7 +22,6 @@
 .w130 {width: 130px;}
 .w135 {width: 135px;}
 .w265 {width: 265px;}
-.w365 {width: 365px;}
 .w500 {width: 500px;}
 
 .b-t-0 {border-top: 0 !important;}
@@ -41,9 +35,7 @@
 
 .m-t-15 {margin-top: 15px !important;}
 .m-t-25 {margin-top: 25px !important;}
-.m-t-85 {margin-top: 85px !important;}
-.m-r-12 {margin-right: 12px !important;}
-.m-l-65 {margin-left: 65px !important;}
+.m-l-80 {margin-left: 80px !important;}
 .m-l-120 {margin-left: 120px !important;}
 .m-l-180 {margin-left: 180px !important;}
 .m-l-250 {margin-left: 250px !important;}
@@ -97,15 +89,16 @@ table.zit_v-form2 tr td {border: 1px solid black; padding: 3px 8px;}
 .date_subm .month-fl-sm > span:nth-child(2) {width: 120px;}
 .date_subm .month-fl-sm > span:nth-child(3) {width: 20px;}
 .date_subm .signature {width: 240px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
-.date_subm.invert .signature {float: left;}
 .date_subm .signature > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
+.date_subm .inv {width: 240px; height: 20px; float: left; border-bottom: 1px solid black; position: relative;} 
+.date_subm .inv > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
 
 p {font-size: 11px;}
 
 .clear {clear: both;}
 </style>
 <section class="print_wrap">
-    <div class="w365 line_col ta-l p-right xs-font">
+    <div class="w365 line_col ta-r p-right xs-font">
         <p>Начальнику управління містобудування,</p>
 		
 		<p>архітектури та кадастру</p>
@@ -128,9 +121,28 @@ p {font-size: 11px;}
 		 2. Реквізити замовника.
 	     </div>
 	</div>
-    <div class="date_subm m-t-85">
-        <div class="month-fl-sm"><span></span><span></span>2015 р.</div>
-        <div class="signature"><span>(підпис)</span></div>
+   
+        <div class="clear"></div>
+		
+		<div class="date_subm m-t-85">
+        <div class="inv">[date_today]<span>(дата)</span></div>
+        <div class="signature"><span>(підпис суб’єкта звернення)</span></div>
+		<div class="clear"></div>
+    </div>
+		
+		<div class="ta-l m-t-45"><b>Заповнюється адміністратором:</b><span></span></div>
+<div class="date_subm m-t-85">
+        <div class="inv">[date_registrastion]<span>(дата реєстрації звернення)</span></div>
+        <div class="signature">[number_cnap]<span>(реєстраційний номер)</span></div>
+		<div class="clear"></div>
+    </div>
+
+<div class="date_subm m-t-85">
+        <div class="inv"><span>(підпис адміністратора)</span></div>
+        <div class="signature">[adminFio]<span>(ініціали та прізвище адміністратора)</span></div>
+		<div class="clear"></div>
+    </div>
+		
         <div class="clear"></div>
     </div>
     <div class="clear"></div>

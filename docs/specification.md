@@ -34,7 +34,8 @@
 <a href="#35">35. Электронная эскалация</a><br/>
 <a href="#36_getTasksByText">36. Поиск заявок по тексту (в значениях полей без учета регистра)</a><br/> 
 <a href="#37_getAccessKeyt">37. Получения ключа для аутентификации</a><br/> 
-
+<a href="#38_setTaskQuestions">38. Вызов сервиса уточнения полей формы</a><br/> 
+<a href="#39_setTaskAnswer">39. Вызов сервиса ответа по полям требующим уточнения</a><br/> 
 
 ## iGov.ua APIs
 
@@ -1628,8 +1629,12 @@ http://test.igov.org.ua/wf/service/services/addHistoryEvent_Service?nID_Process=
 
 пример
 http://test.igov.org.ua/wf/service/services/updateHistoryEvent_Service?nID_Process=1&sID_Status=finish
-
-
+Также при апдейте охраняется информация о действии в <a href="https://github.com/e-government-ua/i/blob/test/docs/specification.md#13_workWithHistoryEvents">Моем Журнале</a>
+1) запись "Ваша заявка №\[nID_Process\] змiнила свiй статус на \[sID_Status\]"
+2) если есть параметр soData, то еще создается запись в виде:
+ - "По заявці №\[nID_Process\] задане прохання уточнення: \[sBody\]" (если sToken не пустой) -- согласно сервису в <a href="https://github.com/e-government-ua/i/blob/test/docs/specification.md#38_setTaskQuestions">запроса на уточнение</a>
+ - "По заявці №\[nID_Process\] дана відповідь громадянином: \[sBody\]" (если sToken пустой) -- согласно сервису <a href="https://github.com/e-government-ua/i/blob/test/docs/specification.md#39_setTaskAnswer">ответа на запрос по уточнению</a>
+ - плюс перечисление полей из soData в формате таблицы Поле / Тип / Текущее значение
 <a name="18_workWithFlowSlot">
 #### 18. Электронные очереди (слоты потока, расписания и тикеты)
 </a><a href="#0_contents">↑Up</a><br/>
@@ -2476,7 +2481,8 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 ----------------------------------------------------------------------------------------------------------------------------
 
 <a name="36_getTasksByText">
-####36. Поиск заявок по тексту (в значениях полей без учета регистра)</a><br/> 
+####36. Поиск заявок по тексту (в значениях полей без учета регистра)
+</a><a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
@@ -2518,7 +2524,8 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 
 
 <a name="37_getAccessKeyt">
-####37. Получения ключа для аутентификации</a><br/> 
+####37. Получения ключа для аутентификации
+</a><a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
@@ -2532,3 +2539,81 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 Пример
 <a href="https://test.igov.org.ua/wf/service/services/getAccessKey?sLogin=activiti-master&sAccessContract=Request&sData=/wf/service/setMessage">https://test.igov.org.ua/wf/service/services/getAccessKey?sLogin=activiti-master&sAccessContract=Request&sData=/wf/service/setMessage</a>
 
+<a name="38_setTaskQuestions">
+####38. Вызов сервиса уточнения полей формы
+</a><a href="#0_contents">↑Up</a>
+
+**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/setTaskQuestions?nID_Protected=[nID_Protected]&saField=[saField]&sMail=[sMail]
+сервис запроса полей, требующих уточнения у гражданина, с отсылкой уведомления
+параметры:
+ + nID_Protected - номер-ИД заявки (защищенный)
+ + saField - строка-массива полей (пример: "[{'id':'sFamily','type':'string','value':'Иванов'},{'id':'nAge','type':'long'}]")
+ + sMail - строка электронного адреса гражданина
+ + sHead - строка заголовка письма (опциональный, если не задан, то "Необхідно уточнити дані")
+ + sBody - строка тела письма (опциональный, добавляется перед таблицей, сли не задан, то пустота)
+
+при вызове сервиса:
+ - обновляется запись HistoryEvent_Service полем значениями из soData (из saField), sToken (сгенерированый случайно 20-ти символьный код), sHead, sBody (т.е. на этоп этапе могут быть ошибки, связанные с нахождением и апдейтом <a href="https://github.com/e-government-ua/i/blob/test/docs/specification.md#17_workWithHistoryEvent_Services">обьекта события по услуге</a>)
+ - отсылается письмо гражданину на указанный емейл (sMail):
+  * с заголовком sHead, 
+  * телом sBody 
+  * перечисление полей из saField в формате таблицы: Поле / Тип / Текущее значение
+  * гиперссылкой в конце типа: https://[hostCentral]/order?nID_Protected=[nID_Protected]&sToken=[sToken] 
+ - находитcя на региональном портале таска, которой устанавливается в глобальную переменные sQuestion содержимое sBody и  saFieldQuestion - содержимое saField
+ - сохраняется информация о действии в <a href="https://github.com/e-government-ua/i/blob/test/docs/specification.md#13_workWithHistoryEvents">Моем Журнале</a> в виде
+  *  "По заявці №____ задане прохання уточнення: [sBody]"
+  *  плюс перечисление полей из saField в формате таблицы Поле / Тип / Текущее значение
+
+Пример:
+https://test.region.igov.org.ua/wf/service/rest/setTaskQuestions?nID_Protected=52302969&saField=[{'id':'bankIdfirstName','type':'string','value':'3119325858'}]&sMail=test@email
+
+Ответы:
+Пустой ответ в случае успешного обновления (и приход на указанный емейл письма описанного выше формата)
+
+Возможные ошибки:
+ - не найдена заявка (```Record not found```) или ид заявки неверное (```CRC Error```)
+ - связанные с отсылкой письма, например, невалидный емейл (```Error happened when sending email```)
+ - из-за некорректных входящих данных, например неверный формат saField (пример ошибки: ```Expected a ',' or ']' at 72 [character 73 line 1]```)
+
+<a name="39_setTaskAnswer">
+####39. Вызов сервиса ответа по полям требующим уточнения</a><br/> 
+</a><a href="#0_contents">↑Up</a>
+
+**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/setTaskAnswer?nID_Protected=[nID_Protected]&saField=[saField]&sToken=[sToken]&sBody=[sBody]
+
+-- обновляет поля формы указанного процесса значениями, переданными в параметре saField
+**Важно:позволяет обновлять только те поля, для которых в форме бизнес процесса не стоит атрибут writable="false"**
+
+* nID_Protected - номер-ИД заявки (защищенный)
+* saField - строка-массива полей (например: "[{'id':'sFamily','type':'string','value':'Белявцев'},{'id':'nAge','type':'long','value':35}]")
+* sToken -  строка-токена. Данный параметр формируется и сохраняется в запись HistoryEvent_Service во время вызова метода setTaskQuestions
+* sBody -  строка тела сообщения (опциональный параметр)
+
+Во время выполнения метод выполняет такие действия
+- Находит в сущности HistoryEvent_Service нужную запись (по nID_Protected) и сверяет токен. Eсли токен в сущности указан но не совпадает с переданным, возвращается ошибка "Token wrong". Если он в сущности не указан (null) - возвращается ошибка "Token absent".
+- Находит на региональном портале таску и устанавливает в глобальную переменную sAnswer найденной таски содержимое sBody.
+- Устанавливает в каждое из полей из saField новые значения
+- Обновляет в сущности HistoryEvent_Service поле soData значением из saField и поле sToken значением null.
+- Сохраняет информацию о действии в Мой Журнал (Текст: На заявку №____ дан ответ гражданином: [sBody])
+
+Примеры:
+
+https://test.region.igov.org.ua/wf/service/rest/setTaskAnswer?nID_Protected=54352839&saField=[{%27id%27:%27bankIdinn%27,%27type%27:%27string%27,%27value%27:%271234567890%27}]&sToken=93ODp4uPBb5To4Nn3kY1
+
+Ответы:
+Пустой ответ в случае успешного обновления
+
+Токен отсутствует
+```json
+{"code":"BUSINESS_ERR","message":"Token is absent"}
+```
+
+Токен не совпадает со значением в HistoryEvent_Service
+```json
+{"code":"BUSINESS_ERR","message":"Token is absent"}
+```
+
+Попытка обновить поле с атрибутом writable="false"
+```json
+{"code":"BUSINESS_ERR","message":"form property 'bankIdinn' is not writable"}
+```
