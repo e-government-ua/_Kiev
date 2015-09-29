@@ -477,7 +477,7 @@ ${otkaz1} &lt;br&gt;
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[woobraja@mail.ru, 7751138@rambler.ru]]></activiti:string>
+          <activiti:string><![CDATA[crow79@ua.fm]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:string><![CDATA[<style type="text/css">
@@ -1135,7 +1135,7 @@ ${otkaz1} &lt;br&gt;
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net]]></activiti:string>
+          <activiti:string><![CDATA[crow79@ua.fm]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -1143,6 +1143,12 @@ ${otkaz1} &lt;br&gt;
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vibor=='lev'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow49" sourceRef="mailtask6" targetRef="exclusivegateway3"></sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net</text>
+    </textAnnotation>
+    <textAnnotation id="textannotation2">
+      <text>woobraja@mail.ru, 7751138@rambler.ru</text>
+    </textAnnotation>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap-57">
     <bpmndi:BPMNPlane bpmnElement="dnepr_cnap-57" id="BPMNPlane_dnepr_cnap-57">
@@ -1199,6 +1205,12 @@ ${otkaz1} &lt;br&gt;
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
         <omgdc:Bounds height="55.0" width="105.0" x="80.0" y="86.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50.0" width="100.0" x="140.0" y="50.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
+        <omgdc:Bounds height="50.0" width="100.0" x="80.0" y="310.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
         <omgdi:waypoint x="248.0" y="164.0"></omgdi:waypoint>
