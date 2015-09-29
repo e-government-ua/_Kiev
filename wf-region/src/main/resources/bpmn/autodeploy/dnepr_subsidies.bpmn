@@ -32,8 +32,8 @@
           <activiti:value id="attr1" name="Користуюсь"></activiti:value>
           <activiti:value id="attr2" name="Не користуюсь"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="electricity_number" name="Номер особового рахунка" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="electricity_name" name="Назва організації, що надає послугу" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="electricity_number" name="Номер особового рахунка" type="string"></activiti:formProperty>
+        <activiti:formProperty id="electricity_name" name="Назва організації, що надає послугу" type="string"></activiti:formProperty>
         <activiti:formProperty id="electricity_notice" name="Примітки; наприклад, наявність лічильника" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="house" name="Утримання дому та придомової території" type="enum" required="true">
           <activiti:value id="attr1" name="Користуюсь"></activiti:value>

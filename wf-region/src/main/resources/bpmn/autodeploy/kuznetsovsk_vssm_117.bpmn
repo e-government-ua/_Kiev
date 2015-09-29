@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="kusnetsovsk_vssm_117" name="Кузнецовск - Надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Серія та номер паспорту" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Адреса реєстрації громадянина" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="tel" name="Укажіть контактний номер телефону" type="long" default="38" required="true"></activiti:formProperty>
@@ -16,9 +18,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="passport_father" name="Копія паспорту батька (1, 2, 10, 11-13 стор.)" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="passport_mother" name="Копія паспорту матері (1, 2, 10, 11-13 стор.)" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="child_1" name="Копія свідотства про народження дитини 1" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="child_2" name="Копія свідотства про народження дитини 2" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="child_3" name="Копія свідотства про народження дитини 3" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="passport_children" name="Копії свідотств про народження усіх дітей; завантажте єдиним архівом усі свідоцтва" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг."></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -28,13 +28,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -119,16 +119,16 @@
     <serviceTask id="mailtask2" name="Повідомлення співробітника держоргану" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string>darja.grek@gmail.com</activiti:string>
+          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Нове  звернення. Надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося</activiti:string>
+          <activiti:string><![CDATA[Нове  звернення. Надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -183,7 +183,7 @@
                                     &lt;p&gt;
 У Вас в черзі на обробку зареєстровано нове звернення щодо надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося.&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Відпрацюйте це звернення на &lt;a href="https://test.region.igov.org.ua:6948/" target="_blank"&gt;порталі&lt;/a&gt;
+Відпрацюйте це звернення на &lt;a href="https://region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -215,9 +215,11 @@
     <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="Kuznetsovsk_vssm">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Серія та номер паспорту" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="string" ></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="дата подання звернення" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Адреса реєстрації громадянина" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="tel" name="Укажіть контактний номер телефону" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="tel" name="контактний номер телефону" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="dovidka" name="Оберіть спосіб отримання довідки" type="enum" writable="false">
           <activiti:value id="programa" name="Надіслати в електронному вигляді (скан-копія)"></activiti:value>
@@ -228,11 +230,11 @@
           <activiti:value id="reject" name="Відмовити у видачі довідки"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відмови у наданні довідки внесіть, будь ласка, причину" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="rishen" name="Завантажте копію довідки" type="file"></activiti:formProperty>
+        <activiti:formProperty id="rishen" name="Завантажте копію довідки" type="file" required="true"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${passport_father}, ${passport_mother}, ${child_2}, ${child_1}, ${child_3}</activiti:expression>
+            <activiti:expression>${passport_father}, ${passport_mother}, ${passport_children}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -326,13 +328,13 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
-          <activiti:string>noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
-          <activiti:string>UTF-8</activiti:string>
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -347,13 +349,13 @@
     <serviceTask id="servicetask2" name="повідомлення громадянина о наданні довідки" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string>test_noreply@igov.org.ua</activiti:string>
+          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося</activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
@@ -518,14 +520,14 @@
         <omgdi:waypoint x="469.0" y="240.0"></omgdi:waypoint>
         <omgdi:waypoint x="468.0" y="270.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="78.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="78.0" x="479.0" y="240.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
         <omgdi:waypoint x="489.0" y="220.0"></omgdi:waypoint>
         <omgdi:waypoint x="610.0" y="220.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="42.0" x="10.0" y="0.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="42.0" x="499.0" y="220.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
