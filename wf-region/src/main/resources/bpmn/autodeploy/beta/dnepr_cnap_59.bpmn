@@ -748,7 +748,7 @@ ${comment} &lt;br&gt;
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[crow79@ua.fm]]></activiti:string>
+          <activiti:expression>${postprav}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Декларація відповідності матеріально-технічної бази суб’єкта господарювання вимогам законодавства]]></activiti:string>
@@ -910,7 +910,7 @@ ${comment} &lt;br&gt;
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[crow79@ua.fm]]></activiti:string>
+          <activiti:expression>${postlev}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -918,12 +918,6 @@ ${comment} &lt;br&gt;
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vibor=='lev'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow40" sourceRef="mailtask6" targetRef="usertask3_green"></sequenceFlow>
-    <textAnnotation id="textannotation1">
-      <text>${postprav}</text>
-    </textAnnotation>
-    <textAnnotation id="textannotation2">
-      <text>${postlev}</text>
-    </textAnnotation>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_59">
     <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_59" id="BPMNPlane_dnepr_cnap_59">
@@ -980,12 +974,6 @@ ${comment} &lt;br&gt;
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
         <omgdc:Bounds height="71.0" width="105.0" x="101.0" y="320.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
-        <omgdc:Bounds height="50.0" width="100.0" x="150.0" y="80.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
-        <omgdc:Bounds height="50.0" width="100.0" x="230.0" y="340.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="24.0" y="73.0"></omgdi:waypoint>
