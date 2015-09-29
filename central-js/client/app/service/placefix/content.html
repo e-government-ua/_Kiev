@@ -2,9 +2,7 @@
 
     <place></place>
     
-    <div class="list-group-item" ui-view="status" ng-if="placeControlIsComplete()"> </div>
-
-    <service-auth-block 
+	<service-auth-block 
             ng-if="authControlIsVisible()"
             n-step="2" 
             redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
