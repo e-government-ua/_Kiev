@@ -209,7 +209,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 296;10;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_vityag_zem:1:128"}};https://region.igov.org.ua /wf/;false;1;true;;BankID,EDS
 297;87;42;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"post_prypynennyaFOB_32:1:1"}};https://region.igov.org.ua /wf/;false;1;true;;BankID,EDS
 298;675;43;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"uzgorod_mvk_1:1:1"}};https://region.igov.org.ua /wf/;false;1;true;;BankID,EDS
-299;724;43;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"Uzhgorod_dmg_1:1:1"}};https://region.igov.org.ua /wf/;false;1;true;;BankID,EDS
+299;724;43;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"Uzhgorod_dmg_1:1:1"}};https://region.igov.org.ua /wf/;false;1;false;;BankID,EDS
 300;10;131;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"slavuta_mvk-1:1:1"}};https://region.igov.org.ua /wf/;false;1;true;;BankID,EDS
 301;667;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_mvk_rezhym_roboty:1:1"}};https://region.igov.org.ua /wf/;false;1;true;;BankID,EDS
 302;725;10;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternop_dozvil_bud:1:1"}};https://region.igov.org.ua /wf/;false;1;true;;BankID,EDS
