@@ -22,8 +22,8 @@
           <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-        <activiti:formProperty id="postlev" name="адреси e-mail ЦНАП Лівобережний" type="string" default="Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net" readable="false"></activiti:formProperty>
-        <activiti:formProperty id="postprav" name="адреси e-mail ЦНАП Правобережний" type="string" default="woobraja@mail.ru, 7751138@rambler.ru" readable="false"></activiti:formProperty>
+        <activiti:formProperty id="postlev" name="адреси e-mail ЦНАП Лівобережний" type="string" default="koffeek@iua" readable="false"></activiti:formProperty>
+        <activiti:formProperty id="postprav" name="адреси e-mail ЦНАП Правобережний" type="string" default="koffeek1@yandex.ru" readable="false"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>

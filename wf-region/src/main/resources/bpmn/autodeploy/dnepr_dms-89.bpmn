@@ -547,8 +547,8 @@
         <activiti:formProperty id="date_of_birth" name="Дата народження" type="string"></activiti:formProperty>
         <activiti:formProperty id="Areabirth" name="Місце народження; Країна, область, район і населений пункт" type="string"></activiti:formProperty>
         <activiti:formProperty id="Nationality" name="Громадянство" type="string"></activiti:formProperty>
-        <activiti:formProperty id="RegistrationAddress" name="Звідки прибув" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="WhenCome" name="Коли прибув" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Звідки прибув" type="string"></activiti:formProperty>
+        <activiti:formProperty id="WhenCome" name="Коли прибув" type="string"></activiti:formProperty>
         <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="string"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Дніпропетровськ,якому зареєстрований громадянин" type="enum">
           <activiti:value id="bab" name="Бабушкінський"></activiti:value>
