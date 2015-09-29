@@ -34,8 +34,9 @@
         <activiti:formProperty id="bank_name" name="Назва банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string"></activiti:formProperty>
         <activiti:formProperty id="bank_mfo" name="МФО банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="long"></activiti:formProperty>
         <activiti:formProperty id="bank_okpo" name="ЄДРПОУ банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="long"></activiti:formProperty>
-        <activiti:formProperty id="bank_account" name="Номер рахунку; заповнюється у разі вибору такого варіанта перерахування коштів" type="long"></activiti:formProperty>
+        <activiti:formProperty id="bank_account" name="Номер Вашого рахунку/картки в банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="long"></activiti:formProperty>
         <activiti:formProperty id="sBody" name="sBody" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="marker1" name="вибір варіанту отримання грошей" type="markers" default="{&quot;motion&quot;: {&quot;ShowFieldsOnCondition_1&quot;: {&quot;aField_ID&quot;: [&quot;post_office&quot;],&quot;asID_Field&quot;: {&quot;sTransfer&quot;: &quot;transfer_type&quot;},&quot;sCondition&quot;: &quot;[sTransfer] == 'attr1_post'&quot;},&quot;ShowFieldsOnCondition_2&quot;: {&quot;aField_ID&quot;: [&quot;bank_name&quot;,&quot;bank_mfo&quot;,&quot;bank_okpo&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;: {&quot;sTransfer&quot;: &quot;transfer_type&quot;},&quot;sCondition&quot;: &quot;[sTransfer] == 'attr2_bank'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
