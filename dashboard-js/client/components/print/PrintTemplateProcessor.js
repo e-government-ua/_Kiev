@@ -29,17 +29,23 @@ angular.module('dashboardJsApp').factory('PrintTemplateProcessor', function ($sc
       return _printTemplate;
     },
     getPrintTemplate: function (form, originalPrintTemplate) {
-      var printTemplate = this.processPrintTemplate(form, originalPrintTemplate, /(\[(\w+)])/g, function (item) {
+      // helper function for getting field value for different types of fields
+      function fieldGetter(item) {
         if (item.type === 'enum') {
           var enumID = item.value;
-          return item.enumValues.filter(function (enumObj) {
+          var enumItem = item.enumValues.filter(function (enumObj) {
             return enumObj.id === enumID;
-          })[0].name;
+          })[0];
+          if (enumItem) {
+            return enumItem.name;
+          }
         }
         else {
           return item.value;
         }
-      });
+      }
+      var printTemplate = this.processPrintTemplate(form, originalPrintTemplate, /(\[(\w+)])/g, fieldGetter);
+      // What is this for? // Sergey P
       printTemplate = this.processPrintTemplate(form, printTemplate, /(\[label=(\w+)])/g, function (item) {
         return item.name;
       });

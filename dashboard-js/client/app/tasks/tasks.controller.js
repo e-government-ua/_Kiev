@@ -1,10 +1,11 @@
 ﻿'use strict';
 angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $window, tasks, processes, Modal, Auth,
-                                                                   PrintTemplate, $localStorage, $filter, lunaService) {
+                                                                   PrintTemplate, $localStorage, $filter, lunaService, PrintTemplateService) {
   $scope.tasks = null;
   $scope.selectedTasks = {};
   $scope.sSelectedTask = "";
   $scope.taskFormLoaded = false;
+  $scope.printTemplateList = [];
   $scope.$storage = $localStorage.$default({
     menuType: tasks.filterTypes.selfAssigned
   });
@@ -152,6 +153,8 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
   };
 
   $scope.selectTask = function (task) {
+    console.log('selectTask');
+    $scope.printTemplateList = [];
     $scope.taskFormLoaded = false;
     $scope.sSelectedTask = $scope.$storage.menuType;
     $scope.selectedTask = task;
@@ -162,6 +165,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     $scope.error = null;
     $scope.taskAttachments = null;
 
+    // TODO: move common code to one function
     if (task.endTime) {
       tasks
         .taskFormFromHistory(task.id)
@@ -169,6 +173,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           result = JSON.parse(result);
           $scope.taskForm = result.data[0].variables;
           $scope.taskForm = addIndexForFileItems($scope.taskForm);
+          $scope.printTemplateList = PrintTemplateService.getTemplates($scope.taskForm);
           $scope.taskFormLoaded = true;
         })
         .catch(defaultErrorHandler);
@@ -180,6 +185,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
           result = JSON.parse(result);
           $scope.taskForm = result.formProperties;
           $scope.taskForm = addIndexForFileItems($scope.taskForm);
+          $scope.printTemplateList = PrintTemplateService.getTemplates($scope.taskForm);
           $scope.taskFormLoaded = true;
         })
         .catch(defaultErrorHandler);
@@ -405,60 +411,6 @@ $scope.lightweightRefreshAfterSubmit = function () {
 //    return aResult;
 //    return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
 
-  };
-
-
-  $scope.aPatternPrintNew1 = function (taskForm) {
-    var aResult = [];
-    var printTemplateResult = [];
-    if(taskForm){//this.form
-
-        /* НЕ ЗАРАБОТАЛО!
-        console.log("[loadSelfAssignedTasks]");
-        var aItem = taskForm;
-        _.forEach(aItem, function (n,oItem) {
-          //if (oItem.id == sID) {
-          if (oItem.id && oItem.id.indexOf('sBody') >= 0 && oItem.value !== "") {
-
-            //s = oItem.name;
-            var sID = oItem.id;
-            var sName = oItem.name;
-            console.log("[loadSelfAssignedTasks]sID="+sID+",sName="+sName);
-
-            if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
-                sName = oItem.value;
-                console.log("[loadSelfAssignedTasks]sName="+sName);
-            }
-            aResult = aResult.concat([{id:sID, name: sName}]);
-          }
-        });
-        return aResult;
-        */
-
-
-        printTemplateResult = taskForm.filter(function (item) {//form//this.form
-            //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
-          //return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
-
-          var result = false;
-
-            if(item.id && item.id.indexOf('sBody') >= 0){
-              result = true;
-              // На дашборде при вытягивани для формы печати пути к патерну, из значения поля -
-              // брать название для каждого элемента комбобокса #792
-              // https://github.com/e-government-ua/i/issues/792
-              if (item.value && item.value.trim().length > 0 && item.value.length <= 100){
-                item.displayTemplate = item.value;
-              } else {
-                item.displayTemplate = item.name;
-              }
-            }
-
-          return result;
-        });
-    }
-
-    return printTemplateResult;
   };
 
   $scope.nID_FlowSlotTicket_FieldQueueData = function (sValue) {

@@ -149,13 +149,10 @@
               <button ng-hide="!taskFormLoaded || !selectedTask" ng-click="print()" class="btn btn-success">Роздрукувати
               </button>
             </div>
+            <div>{{ selectedTask }}</div>
           
-            <!--select class="aPatternPrint form-control_" ng-hide="aPatternPrintNew1(taskForm)===null || aPatternPrintNew1(taskForm).length===0 || selectedTask.assignee == null || sSelectedTask == 'finished'">
-              <option ng-repeat="oPatternPrint in aPatternPrintNew1(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.displayTemplate}}</option>
-            </select-->
-
-            <select class="aPatternPrint form-control_" ng-hide="aPatternPrintNew1(taskForm)===null || aPatternPrintNew1(taskForm).length===0 || selectedTask.assignee === null || sSelectedTask === 'finished'">
-              <option ng-repeat="oPatternPrint in aPatternPrintNew1(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.displayTemplate}}</option>
+            <select class="aPatternPrint form-control" ng-hide="printTemplateList.length == 0 || selectedTask.assignee === null || sSelectedTask === 'finished'">
+              <option ng-repeat="printTemplate in printTemplateList" value="{{printTemplate.id}}">{{printTemplate.displayTemplate}}</option>
             </select>
             
           </p>
