@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.engine.task;
 
 import java.io.IOException;
+
 import org.activiti.engine.EngineServices;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.DelegateExecution;
@@ -28,8 +29,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
+
 import org.activity.rest.security.AuthenticationTokenSelector;
+import org.egov.util.MVSDepartmentsTagUtil;
 import org.wf.dp.dniprorada.exchange.AccessCover;
+
 import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
 
 public abstract class Abstract_MailTaskCustom implements JavaDelegate {
@@ -102,6 +106,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 			return null;
 		}
 		String textWithoutTags = textStr;
+		
+		textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
                 
                 textWithoutTags = populatePatternWithContent(textWithoutTags);
                 
