@@ -49,7 +49,8 @@
     </div>
 
     <div class="col-md-12">
-      <h1>{{category.sName}}
+      <h1>
+        {{category.sName}}
         <a class="ctrls-admin ctrls-cat"
            href=""
            title="Редагувати категорію"
@@ -61,7 +62,7 @@
            href=""
            title="Видалити категорію"
            ng-if="bAdmin"
-           ng-click="categoryEditor.remove(category.nID)">
+           ng-click="categoryEditor.remove(category)">
           <i class="glyphicon glyphicon-remove"></i>
         </a>
       </h1>
@@ -80,7 +81,12 @@
 
     <div class="col-md-4"
          ng-repeat-start="subcategory in category.aSubcategory">
-            <h3 title="Перейти до перегляду послуг цієї категорії" class="control-element" ui-sref="index.subcategory({'catID': category.nID, 'scatID': subcategory.nID })">{{subcategory.sName}}
+      <h3>
+        <a title="Перейти до перегляду послуг цієї категорії"
+           class="control-element"
+           ui-sref="index.subcategory({'catID': category.nID, 'scatID': subcategory.nID })">
+          {{subcategory.sName}}
+        </a>
         <a class="ctrls-admin ctrls-subcat"
            href=""
            title="Редагувати підкатегорію"
@@ -92,7 +98,7 @@
            href=""
            title="Видалити підкатегорію"
            ng-if="bAdmin"
-           ng-click="subcategoryEditor.remove(subcategory.nID)">
+           ng-click="subcategoryEditor.remove(subcategory)">
           <i class="glyphicon glyphicon-remove"></i>
         </a>
       </h3>
@@ -134,7 +140,7 @@
                href=""
                title="Видалити послугу"
                ng-if="bAdmin"
-               ng-click="serviceEditor.remove(service.nID)">
+               ng-click="serviceEditor.remove(service)">
               <i class="glyphicon glyphicon-remove"></i>
             </a>
           </p>

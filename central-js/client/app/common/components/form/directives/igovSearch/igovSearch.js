@@ -1,10 +1,13 @@
-angular.module('app').directive("igovSearch", function(CatalogService, statesRepository, RegionListFactory, LocalityListFactory, $filter, messageBusService, stateStorageService) {
+angular.module('app')
+ .directive("igovSearch", ['CatalogService', 'statesRepository', 'RegionListFactory', 'LocalityListFactory', '$filter', 'messageBusService', 'stateStorageService', 'AdminService',
+ function(CatalogService, statesRepository, RegionListFactory, LocalityListFactory, $filter, messageBusService, stateStorageService, AdminService) {
   var directive = {
     restrict: 'E',
     scope: {},
     templateUrl: 'app/common/components/form/directives/igovSearch/igovSearch.html',
     link: function($scope, $el, $attr) {
       var fullCatalog = [];
+      var subscriptions = [];
 
       $scope.isCentral = statesRepository.isCentral();
       $scope.regionList = new RegionListFactory();
@@ -56,10 +59,11 @@ angular.module('app').directive("igovSearch", function(CatalogService, statesRep
         messageBusService.publish('catalog:update', ctlg);
       }
       $scope.search = function() {
+        var bShowEmptyFolders = AdminService.isAdmin();
         $scope.spinner = true;
         messageBusService.publish('catalog:updatePending');
         $scope.catalog = [];
-        return CatalogService.getModeSpecificServices(getIDPlaces(), $scope.sSearch).then(function (result) {
+        return CatalogService.getModeSpecificServices(getIDPlaces(), $scope.sSearch, bShowEmptyFolders).then(function (result) {
           fullCatalog = result;
           if ($scope.bShowExtSearch) {
             $scope.filterByExtSearch();
@@ -135,6 +139,12 @@ angular.module('app').directive("igovSearch", function(CatalogService, statesRep
         $scope.search();
       };
       $scope.search();
+
+      var subscriberId = messageBusService.subscribe('catalog:initUpdate', function() {
+        $scope.search();
+      });
+      subscriptions.push(subscriberId);
+
       // save current state on scope destroy
       $scope.$on('$destroy', function() {
         var state = {};
@@ -144,6 +154,9 @@ angular.module('app').directive("igovSearch", function(CatalogService, statesRep
         state.bShowExtSearch = $scope.bShowExtSearch;
         state.data = $scope.data;
         stateStorageService.setState('igovSearch', state);
+        subscriptions.forEach(function(item) {
+          messageBusService.unsubscribe(item);
+        });
       });
     }
   };
