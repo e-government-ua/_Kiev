@@ -52,7 +52,7 @@
         <activiti:formProperty id="place_of_liv" name="Місце проживання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail замовника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" writable="false">
+        <activiti:formProperty id="transfer_type" name="В разі призначення допомоги кошти перераховувати" type="enum" writable="false">
           <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
           <activiti:value id="bank" name="на рахунок у банку"></activiti:value>
         </activiti:formProperty>
@@ -178,7 +178,7 @@
         <activiti:formProperty id="place_of_liv" name="Місце проживання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail замовника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" writable="false">
+        <activiti:formProperty id="transfer_type" name="В разі призначення допомоги кошти перераховувати" type="enum" writable="false">
           <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
           <activiti:value id="bank" name="на рахунок у банку"></activiti:value>
         </activiti:formProperty>
