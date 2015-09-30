@@ -300,6 +300,10 @@ public class ActivitiRestHistoryEventController {
 				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
 					nCount += 812;
 				}
+			} else if (nID_Service == 772) {
+				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+					nCount += 96;
+				}
 			} else if (nID_Service == 4) {
 				  /*
 				https://igov.org.ua/service/4/general -
