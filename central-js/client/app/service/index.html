@@ -1,6 +1,7 @@
 <div class="container">
-    <div style="margin-top:20px; font-size:25px;">{{service.sName}}</div>
-    <div style="margin-bottom:20px; font-size:18px;color:#cccccc;">{{service.sSubjectOperatorName}}</div>
+    <div class="service-name">{{service.sName}}</div>
+    <div class="operator-name">{{service.sSubjectOperatorName}}</div>
+
     <div class="row">
         <div class="col-md-12">
             <ul class="nav nav-tabs">
@@ -35,6 +36,7 @@
             </ul>
         </div>
     </div>
+
     <div ui-view="content">
         <div class="text-center">
             <img class="text-center"
@@ -42,4 +44,5 @@
                  alt="Loading"/>
         </div>
     </div>
+    
 </div>

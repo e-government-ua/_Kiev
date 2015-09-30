@@ -1,5 +1,8 @@
 angular.module('app').service('ServiceService', function($http, $q) {
 
+  var self = this;
+
+  // FIXME хардкод треба замінити динамікою:
   var docTypes = {
     other: {nID: 0, sName: 'Другое'},
     reference: {nID: 1, sName: 'Справка'},
@@ -43,7 +46,8 @@ angular.module('app').service('ServiceService', function($http, $q) {
         return data;
       }]
     }).then(function(response) {
-      return response.data;
+      self.oService = response.data;
+      return self.oService;
     });
   };
 
@@ -75,7 +79,7 @@ angular.module('app').service('ServiceService', function($http, $q) {
   };
 
   this.getSearchDocumentLink = function(docnID, typeId, operatorId, code, smsPass) {
-      if(smsPass==null||smsPass==""){
+      if(smsPass==null||smsPass==''){
           smsPass=0;
       }
     return '/api/documents/search/download/' + docnID  + '/' +  code + '/'
