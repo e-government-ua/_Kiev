@@ -318,7 +318,10 @@ public class ActivitiRestServicesController {
                     //List<ServiceData> serviceDatas = service.getServiceDataFiltered(generalConfig.bTest());
                     List<ServiceData> serviceDatas = service.getServiceDataFiltered(true);
                     if (serviceDatas != null) {
-                        for (ServiceData serviceData : serviceDatas) {
+                        //for (ServiceData serviceData : serviceDatas) {
+                        for (Iterator<ServiceData> oServiceDataIterator = serviceDatas.iterator(); oServiceDataIterator.hasNext();) {
+                            ServiceData serviceData = oServiceDataIterator.next();
+                            
                             City city = serviceData.getCity();
                             if (city != null && placeIds.contains(city.getsID_UA())) {
                                 isPlaceMatched = true;
@@ -329,6 +332,7 @@ public class ActivitiRestServicesController {
                                 isPlaceMatched = true;
                                 break;
                             }
+                            oServiceDataIterator.remove();
                         }
                     }
                     if (!isPlaceMatched) {

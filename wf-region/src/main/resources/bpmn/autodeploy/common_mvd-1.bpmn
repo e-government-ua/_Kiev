@@ -3,7 +3,7 @@
   <process id="common_mvd_1" name="(загальна)- Надання довідки про відсутність або наявніcть судимості" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="text2" name="Увага" type="label" default="&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;&lt;strong&gt;Довідка буде оформлена протягом 10-20 робочих днів&lt;/strong&gt;&lt;/span&gt;"></activiti:formProperty>
+        <activiti:formProperty id="text2" name="Увага" type="label" default="&lt;strong&gt;&lt;span style=&quot;color: rgb(180, 4, 4);&quot;&gt;Довідка буде оформлена протягом 10-20 робочих днів&lt;/span&gt;&lt;/strong&gt;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="sFamily_UA" name="Прізвище (укр.); якщо Ви побачили помилку в прізвищі,надайте правильний варіант написання" type="string"></activiti:formProperty>
         <activiti:formProperty id="sFamily_RU" name="Фамилия (рус.)" type="string" required="true"></activiti:formProperty>
