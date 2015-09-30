@@ -8,17 +8,21 @@
                 <div class="dropdown-wrapper" dropdown is-open="regionList.dropdown.isOpen">
                     <div class="input-group">
                         <input 
-                            autocomplete="off" 
                             class="form-control" 
+                            autocomplete="off" 
                             name="region" 
                             type="text" 
                             min-length="3"
+                            ng-disabled="placeControlIsDisabled()" 
                             ng-model="regionList.typeahead.model" 
                             typeahead="region as region.sName for region in loadRegionList($viewValue)" 
                             typeahead-on-select="onSelectRegionList($item)" 
-                            typeahead-template-url="app/service/placefix/typeahead-match-region.html" 
+                            typeahead-template-url="app/service/place/templates/typeahead-match-region.html" 
                             typeahead-empty 
-                            ng-disabled="placeControlIsDisabled()" />
+                            />
+                            <!--
+                            placeholder="Область"
+                            -->
                         <span class="input-group-btn">
                             <button class="btn btn-default"
                                     type="button"
@@ -33,24 +37,28 @@
                             <a ng-click="onSelectRegionList(region, null, null)" ng-class="{'color-green': (region.color == 'green')}">{{region.sName}}</a>
                         </li>
                     </ul>
-                </div> <!-- div class="dropdown-wrapper" dropdown  -->
-            </div> <!-- <div class="inline-wrapper"> -->
+                </div> <!-- end: region dropdown, div class="dropdown-wrapper" dropdown  -->
+            </div> <!-- end: <div class="inline-wrapper"> -->
             <div class="inline-wrapper" ng-if="regionIsChosen() && cityIsAvailable()">
                 <span>Місто: </span>
                 <div class="dropdown-wrapper" dropdown is-open="localityList.dropdown.isOpen">
                     <div class="input-group">
                         <input 
-                            autocomplete="off" 
                             class="form-control" 
+                            autocomplete="off" 
                             name="city" 
                             type="text" 
                             min-length="3"
+                            ng-disabled="placeControlIsDisabled()" 
                             ng-model="localityList.typeahead.model" 
                             typeahead="city as city.sName for city in loadLocalityList($viewValue)" 
                             typeahead-on-select="onSelectLocalityList($item)" 
-                            typeahead-template-url="app/service/placefix/typeahead-match-city.html" 
-                            typeahead-empty 
-                            ng-disabled="placeControlIsDisabled()" />
+                            typeahead-template-url="app/service/place/templates/typeahead-match-city.html"  
+                            typeahead-empty  
+                            />
+                            <!-- 
+                            placeholder="Місто"
+                            -->
                         <span class="input-group-btn">
                             <button class="btn btn-default"
                                     type="button"
@@ -65,8 +73,8 @@
                             <a ng-click="onSelectLocalityList(city, null, null)" ng-class="{'color-green': (city.color == 'green')}">{{city.sName}}</a>
                         </li>
                     </ul>
-                </div> <!-- div class="dropdown-wrapper" dropdown  -->
-            </div> <!-- <div class="inline-wrapper"> -->
+                </div> <!-- end: city dropdown div class="dropdown-wrapper" dropdown  -->
+            </div> <!-- end: <div class="inline-wrapper"> -->
             <div class="inline-wrapper" ng-if="placeControlIsComplete()">
                 <a class="ctrls-admin ctrls-srvc-edit" href="" ng-if="bAdmin" title="Редагувати послугу в цьому регіоні"><span class="glyphicon glyphicon-pencil"></span> Редагувати</a>
                 <a class="ctrls-admin ctrls-srvc-remove" href="" ng-if="bAdmin" title="Видалити послугу в цьому регіоні"><span class="glyphicon glyphicon-remove"></span> Видалити</a>

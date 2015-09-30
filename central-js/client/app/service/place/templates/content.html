@@ -5,7 +5,7 @@
 	<service-auth-block 
             ng-if="authControlIsVisible()"
             n-step="2" 
-            redirect-uri="{{$state.href('index.service.general.placefix.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
+            redirect-uri="{{$state.href('index.service.general.place.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
     </service-auth-block>
     
 </div>

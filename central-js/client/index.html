@@ -38,7 +38,7 @@
 <body ng-app="app">
 
 <!-- Google Tag Manager -->
-<!-- FIXME UNCOMMENT AFTER DEBUG <noscript>
+<noscript>
     <iframe src="//www.googletagmanager.com/ns.html?id=GTM-WXGXTJ"
             height="0"
             width="0"
@@ -58,7 +58,7 @@
         f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-WXGXTJ');
 </script>
--->
+
 <!-- End Google Tag Manager -->
 
 <div ui-view=""
@@ -191,10 +191,9 @@
 <script src="app/service/controllers/states.js"></script>
 <script src="app/service/index/index.controller.js"></script>
 <script src="app/service/index/service.controller.js"></script>
-<script src="app/service/placefix/built-in/states.js"></script>
-<script src="app/service/placefix/controllers/placefix.controller.js"></script>
-<script src="app/service/placefix/controllers/placefixAbsent.controller.js"></script>
-<script src="app/service/placefix/states.js"></script>
+<script src="app/service/place/controllers/place.absent.controller.js"></script>
+<script src="app/service/place/controllers/place.controller.js"></script>
+<script src="app/service/place/states.js"></script>
 <script src="app/service/services/auth/serviceAuthBlock.js"></script>
 <script src="app/service/services/locationParser/serviceLocationParser.js"></script>
 <script src="app/service/subcategory/subcategory.controller.js"></script>

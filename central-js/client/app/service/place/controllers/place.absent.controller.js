@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('PlaceFixAbsentController', function($state, $rootScope, $scope, service, MessagesService, AdminService, ValidationService) {
+angular.module('app').controller('PlaceAbsentController', function($state, $rootScope, $scope, service, MessagesService, AdminService, ValidationService) {
 
   $scope.bAdmin = AdminService.isAdmin();
 
@@ -41,4 +41,5 @@ angular.module('app').controller('PlaceFixAbsentController', function($state, $r
       $scope.sendAbsentMessage(absentMessageForm, absentMessage);
     }
   };
+  
 });

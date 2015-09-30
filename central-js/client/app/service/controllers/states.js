@@ -1,18 +1,18 @@
 angular.module('app').controller('ServiceFormController', function($scope, service, regions, AdminService, ServiceService) {
   $scope.service = service;
   $scope.regions = regions;
-  console.log('ServiceFormController,  ServiceService.oService =', ServiceService.oService, ', regions =', regions.length );
+  // console.log('ServiceFormController,  ServiceService.oService =', ServiceService.oService, ', regions =', regions.length );
   $scope.bAdmin = AdminService.isAdmin();
 });
 
 angular.module('app').controller('ServiceGeneralController', function($state, $scope, ServiceService, PlacesService ) {
   var oAvail = PlacesService.getServiceAvailability();
-  console.log('ServiceGeneralController');
-  // FIXME review this logic duplications, refer also to processPlaceChange
+  // console.log('ServiceGeneralController');
+  // FIXME Перевірити, чи немає тут дублювання з processPlaceChange
   // if (oAvail.isRegion || oAvail.isCity) {
-  //   return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID}, {location: false});
+  //   return $state.go('index.service.general.place', {id: ServiceService.oService.nID}, {location: false});
   // }
-  return $state.go('index.service.general.placefix', {id: ServiceService.oService.nID}, {location: false});
+  return $state.go('index.service.general.place', {id: ServiceService.oService.nID}, {location: false});
 });
 
 angular.module('app').controller('ServiceInstructionController', function($state, $rootScope, $scope) {
@@ -52,6 +52,6 @@ angular.module('app').controller('ServiceStatisticsController', function($scope,
 
   ServiceService.getStatisticsForService(ServiceService.oService.nID).then(function(response) {
     $scope.stats = response.data;
-  }, function(response) { alert(response.status + ' ' + response.statusText + '\n' + response.data); })
+  }, function(response) { console.log(response.status + ' ' + response.statusText + '\n' + response.data); })
     .finally(function() {$scope.loaded = true;});
 });

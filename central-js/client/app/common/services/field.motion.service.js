@@ -39,21 +39,21 @@ function FieldMotionService(MarkersFactory) {
     if (!_.contains(entry.aField_ID, fieldId)) return false;
     var toEval = entry.sCondition.replace(/\[(\w+)]/g, function(str, alias) {
       var fId = entry.asID_Field[alias];
-      if (!fId) alert('Cant resolve original fieldId by alias:' + alias);
+      if (!fId) console.log('Cant resolve original fieldId by alias:' + alias);
       var result = '';
       if (formData[fId] && formData[fId].value)
         result = formData[fId].value.replace(/'/g, "\\'");
       switch(alias.charAt(0)) {
         case 's': result = "'" + result + "'"; break;
         case 'n': result = result ? parseFloat(result) : 0; break;
-        default: alert('invalid alias format, alias:' + alias);
+        default: console.log('invalid alias format, alias:' + alias);
       }
       return result;
     });
     try {
       return eval(toEval);
     } catch (e) {
-      alert('OnCondition expression error\n' + e.name + '\n' + e.message
+      console.log('OnCondition expression error\n' + e.name + '\n' + e.message
         + '\nexpression:' + entry.sCondition
         + '\nresolved expression:' + toEval);
       throw e;

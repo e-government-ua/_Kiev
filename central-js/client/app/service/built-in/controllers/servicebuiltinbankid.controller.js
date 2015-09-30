@@ -1,4 +1,5 @@
 angular.module('app').controller('ServiceBuiltInBankIDController', function(
+  $sce,
   $state,
   $stateParams,
   $scope,
@@ -23,43 +24,6 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
   'use strict';
 
-  // FIXME: Удалить это после теста задачи #584
-  /*var bankIdFound = false;
-  angular.forEach(ActivitiForm.formProperties, function(prop) {
-    if (prop.id === 'bankIdsID_Country') {
-      bankIdFound = true;
-    }
-  });*/
-  /*if (!bankIdFound) {
-    ActivitiForm.formProperties.push({
-      id: 'bankIdsID_Country',
-      name: 'Громадянство',
-      type: 'invisible',
-      value: 'UKR',
-      readable: true
-    });
-  }*/
-
-  // todo: Удалить после теста задачи #584 п.3
-  /*var sID_Country_found = false;
-  angular.forEach(ActivitiForm.formProperties, function(prop) {
-    if (prop.id === 'sID_Country') {
-      sID_Country_found = true;
-    }
-  });*/
-  /*if (!sID_Country_found) {
-    ActivitiForm.formProperties.push({
-      id: 'sID_Country',
-      name: 'Country Code',
-      type: 'string',
-      value: '',
-      readable: true,
-      writable: true
-    });
-  }*/
-
-  console.log('[ ] Service Built-In BankID Controller');
-  
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount; // FIXME потенційний хардкод
   $scope.ActivitiForm = ActivitiForm;
@@ -75,22 +39,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.data.region = currentState.data.region;
   $scope.data.city = currentState.data.city;
 
-  console.log('data.formData.params = ', JSON.stringify($scope.data.formData.params, null, '  '));
+  // console.log('data.formData.params = ', JSON.stringify($scope.data.formData.params, null, '  '));
 
-  $scope.ngIfCity = function() {
-    var result = $scope.data.region ? true : false;
-    if ($state.current.name === 'index.service.general.placefix.built-in' || $state.current.name === 'index.service.general.placefix.built-in.bankid' ) {
-      if ($scope.data.city) {
-        result = true;
-      } else {
-        result = false;
-      }
-    }
-    console.log('ng-if-city=', result);
-    return result;
-  };
-
-  // TODO try markers override here
   $scope.markers = ValidationService.getValidationMarkers();
   var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
 
@@ -124,12 +74,10 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       try {
         sourceObj = JSON.parse(field.value);
       } catch (ex) {
-        alert('markers attribute ' + field.name + ' contain bad formatted json\n' + ex.name + ', ' + ex.message
-          + '\nfield.value: ' + field.value
-        );
+        console.log('markers attribute ' + field.name + ' contain bad formatted json\n' + ex.name + ', ' + ex.message + '\nfield.value: ' + field.value);
       }
       if (sourceObj !== null) {
-        _.merge(MarkersFactory.getMarkers(), sourceObj, function (destVal, sourceVal) {
+        _.merge(MarkersFactory.getMarkers(), sourceObj, function(destVal, sourceVal) {
           if (_.isArray(sourceVal)) {
             return sourceVal;
           }
@@ -156,7 +104,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
           var submitted = $state.get(state.name + '.submitted');
           if (!result.id) {
-            console.log(result);
+            // console.log(result);
             return;
           }
           //TODO: Fix Alhoritm Luna
@@ -208,7 +156,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         if (response) {
           try {
             JSON.parse(response);
-            // alert(response);
+            // console.log(response);
           } catch (e) {
             ActivitiService.updateFileField(oServiceData,
               $scope.data.formData, $scope.files[fileKey(file)], response);
@@ -234,12 +182,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.showFormField = function(property) {
     var fieldES = FieldAttributesService.editableStatusFor(property.id);
     var ES = FieldAttributesService.EditableStatus;
-    return (
-        !$scope.data.formData.fields[property.id]
-        && property.type!=='invisible'
-        && property.type!=='markers'
-        && fieldES === ES.NOT_SET
-    ) || fieldES === ES.EDITABLE;
+    return (!$scope.data.formData.fields[property.id] && property.type !== 'invisible' && property.type !== 'markers' && fieldES === ES.NOT_SET) || fieldES === ES.EDITABLE;
   };
 
   $scope.renderAsLabel = function(property) {
@@ -247,20 +190,22 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     var ES = FieldAttributesService.EditableStatus;
     //property.type !== 'file'
     return (
-            $scope.data.formData.fields[property.id]
-      &&  fieldES === ES.NOT_SET
+      $scope.data.formData.fields[property.id] && fieldES === ES.NOT_SET
     ) || fieldES === ES.READ_ONLY;
   };
 
   $scope.isFieldVisible = function(property) {
-    return property.id !== 'processName'
-    && (FieldMotionService.isFieldMentioned.inShow(property.id) ?
-        FieldMotionService.isFieldVisible(property.id, $scope.data.formData.params) : true);
+    return property.id !== 'processName' && (FieldMotionService.isFieldMentioned.inShow(property.id) ?
+      FieldMotionService.isFieldVisible(property.id, $scope.data.formData.params) : true);
   };
 
   $scope.isFieldRequired = function(property) {
     return FieldMotionService.isFieldMentioned.inRequired(property.id) ?
       FieldMotionService.isFieldRequired(property.id, $scope.data.formData.params) : property.required;
+  };
+
+  $scope.getHtml = function(html) {
+    return $sce.trustAsHtml(html);
   };
 
   // $timeout(function () {

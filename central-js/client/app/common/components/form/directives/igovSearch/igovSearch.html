@@ -15,10 +15,12 @@
 
     <div class="panel panel-default"
          ng-show="bShowExtSearch">
+         <!-- Place Selection -->
         <div class="row clearfix">
             <div class="col-md-12 column">
                 <div class="form-group"> <!-- ng-if="selectedStatus == 2"-->
                   <div style="display:inline-block" ng-if="isCentral">
+                    <!-- Region Dropdown -->
                     <div style="position:relative" dropdown is-open="regionList.dropdown.isOpen">
                       <div class="input-group">
                         <input style="padding-left: 15px;"
@@ -27,7 +29,7 @@
                                ng-model="data.region"
                                typeahead="region as region.sName for region in loadRegionList($viewValue)"
                                typeahead-on-select="onSelectRegionList($item)"
-                               typeahead-template-url="app/service/placefix/typeahead-match-region.html">
+                               typeahead-template-url="app/service/place/templates/typeahead-match-region.html">
                       <span class="input-group-btn">
                           <button class="btn btn-default" type="button" dropdown-toggle>
                             <span class="caret"></span>
@@ -46,6 +48,7 @@
                 </div>
                 <div class="form-group" ng-if="data.region.nID"> <!--  && selectedStatus == 2-->
                   <div style="display:inline-block">
+                  <!-- City Dropdown -->
                     <div style="position:relative" dropdown is-open="localityList.dropdown.isOpen">
                       <div class="input-group">
                         <input style="padding-left: 15px;"
@@ -54,7 +57,7 @@
                                ng-model="localityList.typeahead.model"
                                typeahead="city as city.sName for city in loadLocalityList($viewValue)"
                                typeahead-on-select="onSelectLocalityList($item)"
-                               typeahead-template-url="app/service/placefix/typeahead-match-city.html"/>
+                               typeahead-template-url="app/service/place/templates/typeahead-match-city.html"/>
                       <span class="input-group-btn">
                         <button class="btn btn-default" type="button" dropdown-toggle>
                           <span class="caret"></span>

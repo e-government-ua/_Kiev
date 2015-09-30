@@ -1,40 +1,72 @@
 angular.module('app').config(function($stateProvider) {
   $stateProvider
-    .state('index.service.general.placefix.built-in', {
-      url: '/built-in',
+    .state('index.service.general.place', {
+      url: '/place',
       views: {
-        'content@index.service.general.placefix': {
-          templateUrl: 'app/service/placefix/content.html',
-          controller: 'PlaceFixController'
+        'content@index.service.general.place': {
+          templateUrl: 'app/service/place/templates/content.html'
+        },
+        'content@index.service': {
+          templateUrl: 'app/service/place/templates/content.html',
+          controller: 'PlaceController'
+        },
+        'main@': {
+          templateUrl: 'app/service/index.html',
+          controller: 'PlaceController'
         }
       }
     })
-    .state('index.service.general.placefix.built-in.bankid', { // city - moved from app.states
-      // url: '/built-in/?code',        // country
-      // url: '/{region:int}/region',   // region from .state('index.service.general.placefix.built-in.region', {
+    .state('index.service.general.place.error', {
+      url: '/absent',
+      views: {
+        'content@index.service.general.place': {
+          templateUrl: 'app/service/place/templates/absent.html',
+          controller: 'PlaceAbsentController'
+        }
+      }
+    })
+    .state('index.service.general.place.link', {
+      url: '/link',
+      views: {
+        'content@index.service.general.place': {
+          templateUrl: 'app/service/place/templates/link.html',
+          controller: 'PlaceController'
+        }
+      }
+    }) // built-in:
+    .state('index.service.general.place.built-in', {
+      url: '/built-in',
+      views: {
+        'content@index.service.general.place': {
+          templateUrl: 'app/service/place/templates/content.html',
+          controller: 'PlaceController'
+        }
+      }
+    })
+    .state('index.service.general.place.built-in.bankid', {
       url: '/built-in/region/{region:int}/city/{city:int}/?code',
-      parent: 'index.service.general.placefix',
+      parent: 'index.service.general.place',
       data: {
         region: null,
         city: null
       },
       views: {
-        'content@index.service.general.placefix': {
-          templateUrl: 'app/service/placefix/built-in/bankid.html',
+        'content@index.service.general.place': {
+          templateUrl: 'app/service/place/templates/built-in-bankid.html',
           controller: 'ServiceBuiltInBankIDController'
         }
       },
       resolve: {
         region: function($state, $stateParams, PlacesService) {
           return PlacesService.getRegion($stateParams.region).then(function(response) {
-            var currentState = $state.get('index.service.general.placefix.built-in.bankid');
+            var currentState = $state.get('index.service.general.place.built-in.bankid');
             currentState.data.region = response.data;
             return response.data;
           });
         },
         city: function($state, $stateParams, PlacesService) {
           return PlacesService.getCity($stateParams.region, $stateParams.city).then(function(response) {
-            var currentState = $state.get('index.service.general.placefix.built-in.bankid');
+            var currentState = $state.get('index.service.general.place.built-in.bankid');
             currentState.data.city = response.data;
             return response.data;
           });
@@ -100,20 +132,20 @@ angular.module('app').config(function($stateProvider) {
         }
       }
     })
-    .state('index.service.general.placefix.built-in.bankid.submitted', {
+    .state('index.service.general.place.built-in.bankid.submitted', {
       url: null,
       data: {
         id: null
       },
       onExit: function($state) {
-        var state = $state.get('index.service.general.placefix.built-in.bankid.submitted');
+        var state = $state.get('index.service.general.place.built-in.bankid.submitted');
         state.data = {
           id: null
         };
       },
       views: {
-        'content@index.service.general.placefix': {
-          templateUrl: 'app/service/placefix/built-in/bankid.submitted.html',
+        'content@index.service.general.place': {
+          templateUrl: 'app/service/place/templates/built-in-bankid.submitted.html',
           controller: 'ServiceBuiltInBankIDController'
         }
       },
