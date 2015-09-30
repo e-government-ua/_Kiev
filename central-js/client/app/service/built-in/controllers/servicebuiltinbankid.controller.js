@@ -38,6 +38,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
   $scope.data.region = currentState.data.region;
   $scope.data.city = currentState.data.city;
+  $scope.data.id = currentState.data.id;
 
   // console.log('data.formData.params = ', JSON.stringify($scope.data.formData.params, null, '  '));
 
