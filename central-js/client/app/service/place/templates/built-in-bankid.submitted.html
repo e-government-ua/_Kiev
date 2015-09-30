@@ -17,7 +17,7 @@
     <div class="list-group-item">
         <div class="row no-margin-bottom">
             <h3 class="text-center">Шановний(-а) {{account.customer.firstName}} {{account.customer.middleName}}!</h3>
-            <div class="text-center">Ваше звернення №{{state.data.id}} успішно зареєстровано,
+            <div class="text-center">Ваше звернення №{{data.id}} успішно зареєстровано,
             </div>
             <div class="text-center" ng-bind-html="getHtml(data.formData.params.response.value)" ng-if="data.formData.params.response.value"></div>
             <div class="text-center" ng-if="!data.formData.params.response.value">Результати будуть спрямовані на Ваш e-mail {{data.formData.params.email.value}}</div>
