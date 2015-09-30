@@ -1,10 +1,11 @@
 <div ng-init="fillData()">
   <table class="table">
     <tbody>
-      <tr ng-repeat="rule in get()">
+      <tr ng-repeat="rule in get() | orderBy:'nID'">
         <td>
           <!--replace with dynamic values properly-->
-          Якщо чиновник не відповідає 10 днів, то відправити e-mail. Послуга: {{rule.sID_BP}}
+          <!--Якщо чиновник не відповідає 10 днів, то відправити e-mail. Послуга: {{rule.sID_BP}}-->
+          Якщо {{rule.sCondition}}, то {{rule.nID_EscalationRuleFunction.sName}}.<br/> Параметри: {{rule.soData}}. <br/>Послуга: {{rule.sID_BP}}
         </td>
         <td>
           <div class="btn-group">
@@ -16,7 +17,7 @@
               <i class="fa fa-copy"></i>
             </button>
             <button type="button" class="btn btn-danger" ng-click="delete(rule)" tooltip="Видалити" tooltip-trigger="mouseenter" tooltip-placement="top"
-            tooltip-append-to-body="true" disabled=true>
+            tooltip-append-to-body="true">
               <i class="fa fa-trash-o"></i>
             </button>
           </div>

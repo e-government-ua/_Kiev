@@ -3,15 +3,20 @@ angular.module('dashboardJsApp')
 
     var controller = function ($scope, $modal, bpForSchedule) {
 
-      $scope.exampleRule = {
-        id: 1,
-        sID_BP: 'dnepr_spravka_o_doxodax',
-        sID_UserTask: '*',
-        sCondition: 'nElapsedDays==nDaysLimit',
-        soData: 'nDaysLimit:3,asRecipientMail:[test@email.com]',
-        sPatternFile: 'escalation/escalation_template.html',
-        nID_EscalationRuleFunction: 'EscalationHandler_SendMailAlert',
-      };
+      //var getFunc = $scope.funcs.getFunc;
+      var getAllFunc = $scope.funcs.getAllFunc;
+      var setFunc = $scope.funcs.setFunc;
+      var deleteFunc = $scope.funcs.deleteFunc;
+      
+      // $scope.exampleRule = {
+      //   id: 1,
+      //   sID_BP: 'dnepr_spravka_o_doxodax',
+      //   sID_UserTask: '*',
+      //   sCondition: 'nElapsedDays==nDaysLimit',
+      //   soData: 'nDaysLimit:3,asRecipientMail:[test@email.com]',
+      //   sPatternFile: 'escalation/escalation_template.html',
+      //   nID_EscalationRuleFunction: 'EscalationHandler_SendMailAlert',
+      // };
 
       var openModal = function (rule) {
         var modalInstance = $modal.open({
@@ -25,8 +30,24 @@ angular.module('dashboardJsApp')
           }
         });
 
-        modalInstance.result.then(function (editedSlot) {
-          //update the rule and push
+        modalInstance.result.then(function (editedRule) {
+            setFunc(editedRule)
+            .then(function (editedRule) {
+             console.log('fine');
+             var i = 0;
+             $scope.rules.every(
+               function(element){
+                 if (element.nID == editedRule.nID){
+                   $scope.rules[i] = editedRule;                   
+                   return false;
+                 }
+                 i++;
+                 return true;
+               }
+             );
+             
+            });
+          
         });
       };
 
@@ -59,46 +80,38 @@ angular.module('dashboardJsApp')
 
       };
 
-      $scope.edit = function (slot) {
-        openModal(slot);
+      $scope.edit = function (rule) {
+        openModal(rule);
       };
 
-      $scope.copy = function (slot) {
+      $scope.copy = function (rule) {
 
       };
 
-      $scope.delete = function (slot) {
-
+      $scope.delete = function (rule) {
+        deleteFunc(rule)
+          .then($scope.fillData);
       };
 
       $scope.fillData = function () {
 
         $scope.inProgress = true;
         $scope.areRulesPresent = false;
-        
-        //get the rules from the server
-        $scope.rules = [
-          $scope.exampleRule
-        ]
-        $scope.areRulesPresent = true;
-        
-        // getRules()
-        //   .then(function (data) {
-        //     rules = data;            
-        //     areRulesPresent = true;
-        //   })
-        //   .catch(function () {
-        //     areRulesPresent = false;
-        //   })
-        //   .finally(function () {
-        //     inProgress = false;
-        //   });
+
+        getAllFunc()
+          .then(function (data) {
+            $scope.rules = data;
+
+            $scope.areRulesPresent = true;
+          });
+                          
       };
     };
 
     return {
       restrict: 'E',
       scope: {
+        funcs: '='
       },
       controller: controller,
       templateUrl: 'app/escalations/rules/rules.html',
