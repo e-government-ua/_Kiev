@@ -2,6 +2,7 @@ package org.wf.dp.dniprorada.dao;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.NullPrecedence;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -48,7 +49,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
 
         AlgorithmLuna.validateProtectedNumber(nID_Protected);
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
-        criteria.addOrder(Order.desc("sDate"));
+        criteria.addOrder(Order.desc("sDate").nulls(NullPrecedence.LAST) );
         criteria.add(Restrictions.eq("nID_Task", AlgorithmLuna.getOriginalNumber(nID_Protected)));
         List<HistoryEvent_Service> list = (List<HistoryEvent_Service>)criteria.list();
         HistoryEvent_Service event_service = list.size() > 0 ? list.get(0) : null;
@@ -138,7 +139,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                 }
                 
                 log.info("(String) currValue[2])=" + snRate);
-                if(snRate==null){
+                if(snRate==null || "null".equals(snRate)){
                     snRate="0";
                 }
                 

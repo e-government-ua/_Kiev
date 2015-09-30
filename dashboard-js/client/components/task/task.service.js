@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('dashboardJsApp')
-  .factory('tasks', function tasks($http, $q, $rootScope, uiUploader) {
+  .factory('tasks', function tasks($http, $q, $rootScope, uiUploader, $compile, $timeout, processes, $filter, PrintTemplateProcessor) {
     function simpleHttpPromise(req, callback) {
       var cb = callback || angular.noop;
       var deferred = $q.defer();
@@ -130,7 +130,8 @@ angular.module('dashboardJsApp')
         }, callback);
       },
 
-      submitTaskForm: function(taskId, formProperties, callback) {
+      submitTaskForm: function(taskId, formProperties, task) {
+        var self = this;
         var createProperties = function(formProperties) {
           var properties = new Array();
           for (var i = 0; i < formProperties.length; i++) {
@@ -145,17 +146,28 @@ angular.module('dashboardJsApp')
           return properties;
         };
 
-        var submitTaskFormData = {
-          'taskId': taskId,
-          'properties': createProperties(formProperties)
-        };
+        var deferred = $q.defer();
 
-        var req = {
-          method: 'POST',
-          url: '/api/tasks/' + taskId + '/form',
-          data: submitTaskFormData
-        };
-        return simpleHttpPromise(req, callback);
+        // upload files before form submitting
+        this.uploadTaskFiles(formProperties, task, taskId).then(function()
+        {
+          var submitTaskFormData = {
+            'taskId': taskId,
+            'properties': createProperties(formProperties)
+          };
+
+          var req = {
+            method: 'POST',
+            url: '/api/tasks/' + taskId + '/form',
+            data: submitTaskFormData
+          };
+
+          simpleHttpPromise(req).then(function(result) {
+            deferred.resolve(result);
+          });
+        });
+
+        return deferred.promise;
       },
       upload: function(files, taskId) {
         var deferred = $q.defer();
@@ -188,6 +200,102 @@ angular.module('dashboardJsApp')
           }
         });
 
+        return deferred.promise;
+      },
+
+      /**
+       * Ф-ция загрузки файлов из принт-диалога в виде аттачей к форме
+       * @param formProperties
+       * @param task
+       * @param taskId
+       * @returns {deferred.promise|{then, always}}
+       */
+      uploadTaskFiles: function(formProperties, task, taskId) {
+        // нужно найти все поля с тимом "file" и id, начинающимся с "PrintForm_"
+        var filesFields = $filter('filter')(formProperties, function(prop){
+          return prop.type == 'file' && /^PrintForm_/.test(prop.id);
+        });
+        // удалить после теста. пока что нет БП с таким полем и используем все поля с типом "файл".
+        if (filesFields.length == 0)
+          filesFields = $filter('filter')(formProperties, {type:'file'});
+
+        var self = this;
+        var deferred = $q.defer();
+        var filesDefers = [];
+        // загрузить все шаблоны
+        angular.forEach(filesFields, function (fileField) {
+          var defer = $q.defer();
+          filesDefers.push(defer.promise);
+          var patternFileName = fileField.name.split(';')[2];
+          if (patternFileName) {
+            patternFileName = patternFileName.replace(/^pattern\//, '');
+            self.getPatternFile(patternFileName).then(function (result) {
+              defer.resolve({
+                fileField: fileField,
+                template: result
+              });
+            });
+          } else
+            defer.resolve({
+              fileField: fileField,
+              template: ''
+            });
+        });
+        // компиляция и отправка html
+        $q.all(filesDefers).then(function(results){
+          var uploadPromises = [];
+          angular.forEach(results, function(templateResult){
+            var scope = $rootScope.$new();
+            scope.printTemplate = {
+              form : formProperties,
+              task: task,
+              getPrintTemplate: function(){return PrintTemplateProcessor.getPrintTemplate(formProperties, templateResult.template);},
+              containsPrintTemplate: function(){return templateResult.template!='';}
+            };
+            scope.getProcessName = processes.getProcessName;
+            scope.sDateShort = function(sDateLong){
+              if (sDateLong !== null) {
+                var o = new Date(sDateLong);
+                return o.getFullYear() + '-' + ((o.getMonth() + 1)>9?'':'0')+(o.getMonth() + 1) + '-' + (o.getDate()>9?'':'0')+o.getDate() + ' ' + (o.getHours()>9?'':'0')+o.getHours() + ':' + (o.getMinutes()>9?'':'0')+o.getMinutes();
+              }
+            };
+            scope.sFieldLabel = function (sField) {
+              var s = '';
+              if (sField !== null) {
+                var a = sField.split(';');
+                s = a[0].trim();
+              }
+              return s;
+            };
+            scope.sEnumValue = function (aItem, sID) {
+              var s = sID;
+              _.forEach(aItem, function (oItem) {
+                if (oItem.id == sID) {
+                  s = oItem.name;
+                }
+              });
+              return s;
+            };
+            var compiled = $compile('<print-dialog></print-dialog>')(scope);
+            var defer = $q.defer();
+            $timeout(function(){
+              var html = '<html><head><meta charset="utf-8"></head><body>'+compiled.find('.print-modal-content').html()+'</body></html>';
+              var data = {
+                sDescription: 'User form',
+                sFileName: 'User form.html',
+                sContent: html
+              };
+              $http.post('/api/tasks/' + taskId + '/upload_content_as_attachment', data).success(function(uploadResult){
+                templateResult.fileField.value = JSON.parse(uploadResult).id;
+                defer.resolve();
+              })
+            });
+            uploadPromises.push(defer.promise);
+          });
+          $q.all(uploadPromises).then(function(uploadResults){
+            deferred.resolve();
+          });
+        });
         return deferred.promise;
       },
 

@@ -7,21 +7,23 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Ваша адреса: область, місто, вулиця, дім, квартира" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця;(якщо Ви оберете надіслати поштою - лист прийде на цю адресу)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Вкажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменування юридичної особи /ім’я, по-батькові та прізвище фізичної особи-підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="code_inn" name="Ідентифікаційний код згідно з ЄДРПОУ/РНОКПП" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="type" name="Тип закладу (наприклад: кафе, магазин, ресторан)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="name" name="Назва закладу" type="string"></activiti:formProperty>
-        <activiti:formProperty id="adress2" name="Адреса закладу" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="name" name="Об'єкт, режим роботи якого погоджується, його назва" type="string"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Місцезнаходження (адреса) об'єкта" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="time" name="Запропонований режим роботи: час роботи з .. до .., обідня перерва з .. до .., вихідні" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="specialization" name="Спеціалізація" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="double" required="true"></activiti:formProperty>
-        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="double" required="true"></activiti:formProperty>
+        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="employee" name="Кількість зареєстрованих найманих працівників" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="seats" name="Кількість посадкових місць (для закладів ресторанного господарства)" type="long"></activiti:formProperty>
+        <activiti:formProperty id="seats" name="Кількість посадкових місць (для закладів ресторанного господарства)" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="trusted_person" name="Ім’я, по-батькові та прізвище керівника юридичної особи / фізичної особи – підприємця / уповноваженої особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="object_trade" name="Оберить об'єкт торгівлі" type="enum" required="true">
           <activiti:value id="attr1" name="Сфера послуг та закладів ресторанного господарства в стаціонарних спорудах, павільйонах"></activiti:value>
           <activiti:value id="attr2" name="Торгові кіоски, тимчасови споруди, автопричепи, лотки"></activiti:value>
@@ -51,16 +53,16 @@
     </startEvent>
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
-    <serviceTask id="mailtask1" name="e-mail о реєстрації запита" activiti:type="mail">
+    <serviceTask id="mailtask1" name="Повідомленя адміністратора ЦНАПу" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
+          <activiti:string><![CDATA[msvidran@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Погодження режиму роботи об’єктів сфери торгівлі та сфери обслуговування населення на території м. Тернополя]]></activiti:string>
+          <activiti:string><![CDATA[Нове звернення. Погодження режиму роботи об’єктів сфери торгівлі та сфери обслуговування населення.]]></activiti:string>
         </activiti:field>
         <activiti:field name="bcc">
           <activiti:string><![CDATA[msvidran@3g.ua]]></activiti:string>
@@ -107,45 +109,31 @@
             &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;&lt;/p&gt;
-										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
-										
-										Спеціалісти з органу місцевого самоврядування повинні дати відповідь найближчим часом. 
-									&lt;p&gt;&lt;/p&gt;
-										Залишайтеся з нами. 	
-                                    &lt;p&gt;&lt;/p&gt;
-З повагою, ЦНАП м.Тернопіль &lt;br /&gt;
-&lt;br /&gt;
-Адреса: &lt;br /&gt;
-м.Тернопіль, вул.Князя Острозького 6, 1 поверх. &lt;br /&gt;
-&lt;br /&gt;
-Графік роботи ЦНАП-у:&lt;br /&gt;
-Понеділок, середа з 9.00 до 16.00&lt;br /&gt;
-Вівторок, четвер з 11.00 до 16.00&lt;br /&gt;
-П'ятниця з 9.00 до 13.00&lt;br /&gt;
-Без перерви на обід&lt;br /&gt;
-Телефон: (0352) 40-41-93 &lt;br /&gt; 
+                                    &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
+                                    &lt;p&gt;
+									У Вас в черзі на обробку зареєстровано нове звернення щодо "Погодження режиму роботи об’єктів сфери торгівлі та сфери обслуговування населення".&lt;br /&gt;
+									Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
+									Опрацюйте, будь ласка, це звернення на &lt;a href="https://test.region.igov.org.ua/" target="_blank"&gt;порталі&lt;/a&gt;
+                                    &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                        З повагою, &lt;br /&gt;
-										Виконавчий комітет Тернопільскої міської ради,&lt;br/&gt;
-                                        &lt;br&gt;Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.&lt;/br&gt;
+                                     З повагою,&lt;br /&gt;
+					  				 Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
+                                        &lt;/p&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                            &lt;/table&gt;
-                        &lt;/form&gt;
+                        &lt;/table&gt;
                     &lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--content end--&gt;
@@ -166,31 +154,44 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Ваша адреса: область, місто, вулиця, дім, квартира" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Дата подачі заяви" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменування юридичної особи /ім’я, по-батькові та прізвище фізичної особи-підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="code_inn" name="Ідентифікаційний код згідно з ЄДРПОУ/РНОКПП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="type" name="Тип закладу;(наприклад: кафе, магазин, ресторан)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="name" name="Назва закладу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="adress2" name="Адреса закладу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="name" name="Об'єкт, режим роботи якого погоджується, його назва" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Місцезнаходження (адреса) об'єкта" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="time" name="Запропонований режим роботи: час роботи з .. до .., обідня перерва з .. до .., вихідні" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="specialization" name="Спеціалізація" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="double" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="double" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="employee" name="Кількість зареєстрованих найманих працівників" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="seats" name="Кількість посадкових місць;(для закладів ресторанного господарства)" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="seats" name="Кількість посадкових місць;(для закладів ресторанного господарства)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trusted_person" name="Ім’я, по-батькові та прізвище керівника юридичної особи / фізичної особи – підприємця / уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" writable="false">
           <activiti:value id="attr1_yes" name="Отримаю власноруч"></activiti:value>
           <activiti:value id="attr2_no" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="object_trade" name="Обраний об'єкт торгівлі" type="enum" writable="false">
+          <activiti:value id="attr1" name="Сфера послуг та закладів ресторанного господарства в стаціонарних спорудах, павільйонах"></activiti:value>
+          <activiti:value id="attr2" name="Торгові кіоски, тимчасови споруди, автопричепи, лотки"></activiti:value>
+          <activiti:value id="attr3" name="Засоби пересувної мережі (автокав’ярні, велокав’ярні, автомобілі з реалізації питної води), торгові розноски"></activiti:value>
+          <activiti:value id="attr4" name="Кіоски, лотки в стаціонарних спорудах"></activiti:value>
+          <activiti:value id="attr5" name="Ринки"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="extension_number" name="Реєстраційний номер ЦНАП" type="string"></activiti:formProperty>
+        <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
+        <activiti:formProperty id="date_registrastion" name="Вкажіть дату реєстрації (у форматі ДД/ММ/РРРР)" type="string"></activiti:formProperty>
         <activiti:formProperty id="status" name="Обробка заяви" type="enum" required="true">
-          <activiti:value id="attr1_wait" name="З документами все гаразд - взяти до розгляду"></activiti:value>
-          <activiti:value id="attr4_bad" name="Відмовити у розгляді без реєстрації у звязку з....."></activiti:value>
+          <activiti:value id="attr1_wait" name="З документами все гаразд, заява зареєстрована"></activiti:value>
+          <activiti:value id="attr2_bad" name="Відмовити у розгляді без реєстрації у звязку з відсутністю необхідних документів (п.4.3. Регламенту роботи ЦНАП)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="list_documents" name="Вкажіть перелік документів, які надіслав громадянин" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/ternopol_rezhym_print.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -199,7 +200,6 @@
         </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow3" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <serviceTask id="servicetask2" name="Відпрвка e-mail &quot;надіслано поштою&quot;" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
@@ -268,7 +268,7 @@
 										&lt;i&gt;${adress} &lt;/i&gt; &lt;br /&gt;
 										&lt;br /&gt;
 										&lt;p&gt;&lt;/p&gt;
-З повагою, ЦНАП м.Тернопіль &lt;br /&gt;
+
 &lt;br /&gt;
 Адреса: &lt;br /&gt;
 м.Тернопіль, вул.Князя Острозького 6, 1 поверх. &lt;br /&gt;
@@ -282,8 +282,8 @@
                                  
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        Виконавчий комітет Тернопільської міської ради,&lt;br/&gt;
+                                        
+                                        З повагою, ЦНАП м.Тернопіль &lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -411,11 +411,11 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow5" sourceRef="exclusivegateway1" targetRef="servicetask2">
+    <sequenceFlow id="flow5" name="status=='attr3_finish'" sourceRef="exclusivegateway1" targetRef="servicetask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr3_finish'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow6" sourceRef="exclusivegateway1" targetRef="servicetask3">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr2_finish'}]]></conditionExpression>
+    <sequenceFlow id="flow6" name="status=='attr4_finish'" sourceRef="exclusivegateway1" targetRef="servicetask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr4_finish'}]]></conditionExpression>
     </sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <endEvent id="endevent2" name="End"></endEvent>
@@ -533,44 +533,249 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Ваша адреса: область, місто, вулиця, дім, квартира" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Дата подачі заяви" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменування юридичної особи /ім’я, по-батькові та прізвище фізичної особи-підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="code_inn" name="Ідентифікаційний код згідно з ЄДРПОУ/РНОКПП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kved" name="вид діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="type" name="Тип закладу (наприклад: кафе, магазин, ресторан)" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="name" name="Назва закладу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="adress2" name="Адреса закладу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="name" name="Об'єкт, режим роботи якого погоджується, його назва" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Місцезнаходження (адреса) об'єкта" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="time" name="Запропонований режим роботи" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="specialization" name="Спеціалізація" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="double" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="double" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="total_area" name="Загальна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trade_area" name="Торговельна площа (кв.м.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="employee" name="Кількість зареєстрованих найманих працівників" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="seats" name="Кількість посадкових місць (для закладів ресторанного господарства)" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="seats" name="Кількість посадкових місць (для закладів ресторанного господарства)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="trusted_person" name="Ім’я, по-батькові та прізвище керівника юридичної особи / фізичної особи – підприємця / уповноваженої особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" writable="false">
           <activiti:value id="attr1_yes" name="Отримаю власноруч"></activiti:value>
           <activiti:value id="attr2_no" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="object_trade" name="Обраний об'єкт торгівлі" type="enum" writable="false">
+          <activiti:value id="attr1" name="Сфера послуг та закладів ресторанного господарства в стаціонарних спорудах, павільйонах"></activiti:value>
+          <activiti:value id="attr2" name="Торгові кіоски, тимчасови споруди, автопричепи, лотки"></activiti:value>
+          <activiti:value id="attr3" name="Засоби пересувної мережі (автокав’ярні, велокав’ярні, автомобілі з реалізації питної води), торгові розноски"></activiti:value>
+          <activiti:value id="attr4" name="Кіоски, лотки в стаціонарних спорудах"></activiti:value>
+          <activiti:value id="attr5" name="Ринки"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="extension_number" name="Реєстраційний номер ЦНАП" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_registrastion" name="Дата реєстрації заяви" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="responsible" name="Управління торгівлі, відповідальний" type="string"></activiti:formProperty>
         <activiti:formProperty id="status" name="Обробка заяви" type="enum">
-          <activiti:value id="attr2_finish" name="Рішення отримане, очікуємо громадянина"></activiti:value>
-          <activiti:value id="attr3_finish" name="Рішення отримане, відправлене поштою"></activiti:value>
+          <activiti:value id="attr4_finish" name="Результат послуги отримано, очікуємо суб`єкта звернення"></activiti:value>
+          <activiti:value id="attr3_finish" name="Результат послуги отримано, відповідь відправлено поштою"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="decision" name="Сканкопія рішення" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow14" sourceRef="exclusivegateway2" targetRef="usertask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr1_wait'}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow15" sourceRef="exclusivegateway2" targetRef="mailtask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr4_bad'}]]></conditionExpression>
+    <sequenceFlow id="flow15" name="status=='attr2_bad'" sourceRef="exclusivegateway2" targetRef="mailtask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr2_bad'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow16" sourceRef="usertask2" targetRef="exclusivegateway1"></sequenceFlow>
     <endEvent id="endevent4" name="End"></endEvent>
     <sequenceFlow id="flow17" sourceRef="boundaryerror1" targetRef="endevent4"></sequenceFlow>
+    <serviceTask id="mailtask3" name="лист про успішне замовлення послуги" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Погодження режиму роботи об’єктів сфери торгівлі та сфери обслуговування населення.]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;
+                                        Ваше звернення щодо погодження режиму роботи об’єктів сфери торгівлі та сфери обслуговування населення на території м. Тернополя було направлено до органу місцевого самоврядування.&lt;br/&gt;&lt;/p&gt;
+&lt;p&gt;Спеціалісти з органу місцевого самоврядування повинні дати відповідь найближчим часом.&lt;br /&gt;
+                                    &lt;/p&gt;
+&lt;p&gt;Номер Вашого замовлення: ${extension_number}&lt;/p&gt;
+&lt;p&gt;
+Адреса: &lt;br /&gt;
+м.Тернопіль, вул.Князя Острозького 6, 1 поверх. &lt;br /&gt;
+&lt;br /&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+Понеділок, середа з 9.00 до 16.00&lt;br /&gt;
+Вівторок, четвер з 11.00 до 16.00&lt;br /&gt;
+П'ятниця з 9.00 до 13.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+Телефон: (0352) 40-41-93 &lt;br /&gt;
+&lt;/p&gt;                            
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою ЦНАП м.Тернопіль,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow18" name="status=='attr1_wait'" sourceRef="exclusivegateway2" targetRef="mailtask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr1_wait'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow19" sourceRef="mailtask3" targetRef="usertask2"></sequenceFlow>
+    <serviceTask id="mailtask4" name="Повідомлення про доставку замовлення до ЦНАПу" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Погодження режиму роботи об’єктів сфери торгівлі та сфери обслуговування населення.]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;
+                                        Ваше звернення щодо погодження режиму роботи об’єктів сфери торгівлі та сфери обслуговування населення на території м. Тернополя було зареєстровано у системі.&lt;br/&gt;&lt;/p&gt;
+Повідомлення про результат послуги буде спрямоване на Ваш e-mail.&lt;br/&gt;
+&lt;p&gt;Спеціалісти з органу місцевого самоврядування повинні дати відповідь найближчим часом.&lt;br /&gt;&lt;/p&gt;
+&lt;br /&gt;
+&lt;p&gt;Адреса: &lt;br /&gt;
+м.Тернопіль, вул.Князя Острозького 6, 1 поверх. &lt;br /&gt;
+&lt;br /&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+Понеділок, середа з 9.00 до 16.00&lt;br /&gt;
+Вівторок, четвер з 11.00 до 16.00&lt;br /&gt;
+П'ятниця з 9.00 до 13.00&lt;br /&gt;
+Без перерви на обід&lt;br /&gt;
+Телефон: (0352) 40-41-93 &lt;br /&gt; 
+                            &lt;/p&gt;
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою ЦНАП м.Тернопіль,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow20" sourceRef="mailtask1" targetRef="mailtask4"></sequenceFlow>
+    <sequenceFlow id="flow21" sourceRef="mailtask4" targetRef="usertask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_ternopol_mvk_rezhym_roboty">
     <bpmndi:BPMNPlane bpmnElement="ternopol_mvk_rezhym_roboty" id="BPMNPlane_ternopol_mvk_rezhym_roboty">
@@ -587,37 +792,43 @@
         <omgdc:Bounds height="73.0" width="105.0" x="270.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="73.0" width="105.0" x="400.0" y="108.0"></omgdc:Bounds>
+        <omgdc:Bounds height="73.0" width="105.0" x="562.0" y="107.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
-        <omgdc:Bounds height="40.0" width="40.0" x="740.0" y="123.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="692.0" y="399.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="65.0" width="105.0" x="840.0" y="110.0"></omgdc:Bounds>
+        <omgdc:Bounds height="65.0" width="105.0" x="822.0" y="387.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
-        <omgdc:Bounds height="61.0" width="105.0" x="840.0" y="193.0"></omgdc:Bounds>
+        <omgdc:Bounds height="61.0" width="105.0" x="458.0" y="391.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="990.0" y="206.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="385.0" y="404.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="990.0" y="127.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="972.0" y="404.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="65.0" width="105.0" x="498.0" y="0.0"></omgdc:Bounds>
+        <omgdc:Bounds height="65.0" width="105.0" x="802.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
-        <omgdc:Bounds height="35.0" width="35.0" x="706.0" y="15.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="972.0" y="128.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
-        <omgdc:Bounds height="40.0" width="40.0" x="530.0" y="123.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="692.0" y="122.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
-        <omgdc:Bounds height="60.0" width="105.0" x="602.0" y="113.0"></omgdc:Bounds>
+        <omgdc:Bounds height="60.0" width="105.0" x="660.0" y="315.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
-        <omgdc:Bounds height="35.0" width="35.0" x="200.0" y="222.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="207.0" y="203.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+        <omgdc:Bounds height="71.0" width="105.0" x="660.0" y="219.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
+        <omgdc:Bounds height="77.0" width="105.0" x="415.0" y="108.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="75.0" y="139.0"></omgdi:waypoint>
@@ -627,50 +838,69 @@
         <omgdi:waypoint x="245.0" y="144.0"></omgdi:waypoint>
         <omgdi:waypoint x="270.0" y="146.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="375.0" y="146.0"></omgdi:waypoint>
-        <omgdi:waypoint x="400.0" y="144.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="780.0" y="143.0"></omgdi:waypoint>
-        <omgdi:waypoint x="840.0" y="142.0"></omgdi:waypoint>
+        <omgdi:waypoint x="732.0" y="419.0"></omgdi:waypoint>
+        <omgdi:waypoint x="822.0" y="419.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="721.0" y="399.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
-        <omgdi:waypoint x="760.0" y="163.0"></omgdi:waypoint>
-        <omgdi:waypoint x="759.0" y="223.0"></omgdi:waypoint>
-        <omgdi:waypoint x="840.0" y="223.0"></omgdi:waypoint>
+        <omgdi:waypoint x="692.0" y="419.0"></omgdi:waypoint>
+        <omgdi:waypoint x="563.0" y="421.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="579.0" y="404.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="945.0" y="142.0"></omgdi:waypoint>
-        <omgdi:waypoint x="990.0" y="144.0"></omgdi:waypoint>
+        <omgdi:waypoint x="927.0" y="419.0"></omgdi:waypoint>
+        <omgdi:waypoint x="972.0" y="421.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="945.0" y="223.0"></omgdi:waypoint>
-        <omgdi:waypoint x="990.0" y="223.0"></omgdi:waypoint>
+        <omgdi:waypoint x="458.0" y="421.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="421.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="603.0" y="32.0"></omgdi:waypoint>
-        <omgdi:waypoint x="706.0" y="32.0"></omgdi:waypoint>
+        <omgdi:waypoint x="907.0" y="142.0"></omgdi:waypoint>
+        <omgdi:waypoint x="972.0" y="145.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
-        <omgdi:waypoint x="505.0" y="144.0"></omgdi:waypoint>
-        <omgdi:waypoint x="530.0" y="143.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
-        <omgdi:waypoint x="570.0" y="143.0"></omgdi:waypoint>
-        <omgdi:waypoint x="602.0" y="143.0"></omgdi:waypoint>
+        <omgdi:waypoint x="667.0" y="143.0"></omgdi:waypoint>
+        <omgdi:waypoint x="692.0" y="142.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
-        <omgdi:waypoint x="550.0" y="123.0"></omgdi:waypoint>
-        <omgdi:waypoint x="550.0" y="65.0"></omgdi:waypoint>
+        <omgdi:waypoint x="732.0" y="142.0"></omgdi:waypoint>
+        <omgdi:waypoint x="802.0" y="142.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="92.0" x="702.0" y="121.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
-        <omgdi:waypoint x="707.0" y="143.0"></omgdi:waypoint>
-        <omgdi:waypoint x="740.0" y="143.0"></omgdi:waypoint>
+        <omgdi:waypoint x="712.0" y="375.0"></omgdi:waypoint>
+        <omgdi:waypoint x="712.0" y="399.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
         <omgdi:waypoint x="225.0" y="181.0"></omgdi:waypoint>
-        <omgdi:waypoint x="217.0" y="222.0"></omgdi:waypoint>
+        <omgdi:waypoint x="224.0" y="203.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="712.0" y="162.0"></omgdi:waypoint>
+        <omgdi:waypoint x="712.0" y="219.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="95.0" x="673.0" y="188.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="712.0" y="290.0"></omgdi:waypoint>
+        <omgdi:waypoint x="712.0" y="315.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="375.0" y="146.0"></omgdi:waypoint>
+        <omgdi:waypoint x="415.0" y="146.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="520.0" y="146.0"></omgdi:waypoint>
+        <omgdi:waypoint x="562.0" y="143.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
