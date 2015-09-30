@@ -161,4 +161,4 @@ angular.module('app')
     }
   };
   return directive;
-});
+}]);
