@@ -62,7 +62,7 @@
            href=""
            title="Видалити категорію"
            ng-if="bAdmin"
-           ng-click="categoryEditor.remove(category.nID)">
+           ng-click="categoryEditor.remove(category)">
           <i class="glyphicon glyphicon-remove"></i>
         </a>
       </h1>
@@ -98,7 +98,7 @@
            href=""
            title="Видалити підкатегорію"
            ng-if="bAdmin"
-           ng-click="subcategoryEditor.remove(subcategory.nID)">
+           ng-click="subcategoryEditor.remove(subcategory)">
           <i class="glyphicon glyphicon-remove"></i>
         </a>
       </h3>
@@ -140,7 +140,7 @@
                href=""
                title="Видалити послугу"
                ng-if="bAdmin"
-               ng-click="serviceEditor.remove(service.nID)">
+               ng-click="serviceEditor.remove(service)">
               <i class="glyphicon glyphicon-remove"></i>
             </a>
           </p>

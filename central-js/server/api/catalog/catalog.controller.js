@@ -58,12 +58,13 @@ module.exports.getServicesTree = function (req, res) {
       bShowEmptyFolders: req.query.bShowEmptyFolders || false
     }
   };
-  //var cachedReply = cache.get(buildKey(options.params));
-  //if (cachedReply) {
-  //  res.send(cachedReply);
-  //  res.end;
-  //  return;
-  //}
+
+  var cachedReply = cache.get(buildKey(options.params));
+  if (cachedReply) {
+    res.send(cachedReply);
+    res.end;
+    return;
+  }
 
   var callback = function (error, response, body) {
     // set cache key for this particular request
@@ -76,10 +77,7 @@ module.exports.getServicesTree = function (req, res) {
 
   var url = buildUrl('/services/getServicesTree');
 
-  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'; // Ignore 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' authorization error
-
   return request.get({
-    'proxy': "http://127.0.0.1:8888",
     'url': url,
     'auth': {
       'username': options.username,
@@ -102,10 +100,7 @@ module.exports.setServicesTree = function(req, res) {
 
   var url = buildUrl('/services/setServicesTree');
 
-  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'; // Ignore 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' authorization error
-
   request.post({
-    'proxy': "http://127.0.0.1:8888",
     'url': url,
     'auth': {
       'username': activiti.username,
@@ -133,10 +128,7 @@ var remove = function(path, req, res){
 
   var url = buildUrl(path);
 
-  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'; // Ignore 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' authorization error
-
   request.del({
-    'proxy': "http://127.0.0.1:8888",
     'url': url,
     'auth': {
       'username': activiti.username,

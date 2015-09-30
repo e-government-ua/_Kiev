@@ -7,6 +7,7 @@ angular.module('app')
     templateUrl: 'app/common/components/form/directives/igovSearch/igovSearch.html',
     link: function($scope, $el, $attr) {
       var fullCatalog = [];
+      var subscriptions = [];
 
       $scope.regionList = new RegionListFactory();
       $scope.regionList.load(null, null);
@@ -57,7 +58,7 @@ angular.module('app')
         messageBusService.publish('catalog:update', ctlg);
       }
       $scope.search = function() {
-        var bShowEmptyFolders = AdminService.isAdmin();
+        var bShowEmptyFolders = true;// AdminService.isAdmin();
         $scope.spinner = true;
         messageBusService.publish('catalog:updatePending');
         $scope.catalog = [];
@@ -137,6 +138,12 @@ angular.module('app')
         $scope.search();
       };
       $scope.search();
+
+      var subscriberId = messageBusService.subscribe('catalog:initUpdate', function() {
+        $scope.search();
+      });
+      subscriptions.push(subscriberId);
+
       // save current state on scope destroy
       $scope.$on('$destroy', function() {
         var state = {};
@@ -146,6 +153,9 @@ angular.module('app')
         state.bShowExtSearch = $scope.bShowExtSearch;
         state.data = $scope.data;
         stateStorageService.setState('igovSearch', state);
+        subscriptions.forEach(function(item) {
+          messageBusService.unsubscribe(item);
+        });
       });
     }
   };
