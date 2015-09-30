@@ -106,6 +106,14 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
 
   self.getClassByState = function($state) {
     // FIXME
+    // var statesMap = {
+    //   'index.service.general.placefix.built-in': {
+    //     viewClass: 'state-disabled'
+    //   },
+    //   'index.service.general.placefix.built-in.bankid.submitted': {
+    //     viewClass: 'state-collapsed'
+    //   }
+    // };
     // return statesMap[$state.current.name] && statesMap[$state.current.name].viewClass || '';
     return '';
   };

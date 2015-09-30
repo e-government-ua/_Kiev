@@ -58,10 +58,10 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     });
   }*/
 
-  console.log('[   ] Service Built-In BankID Controller');
+  console.log('[ ] Service Built-In BankID Controller');
   
   $scope.oServiceData = oServiceData;
-  $scope.account = BankIDAccount;
+  $scope.account = BankIDAccount; // FIXME потенційний хардкод
   $scope.ActivitiForm = ActivitiForm;
 
   $scope.data = $scope.data || {};

@@ -3,18 +3,6 @@ angular.module('app').controller('PlaceFixController', function(
 
   var self = this;
 
-  var statesMap = {
-    'index.service.general.placefix.built-in': {
-      viewClass: 'state-disabled'
-    },
-    'index.service.general.placefix.built-in.bankid.submitted': {
-      startupFunction: function($location, $state, $rootScope) {
-        $scope.bankIDAccount = BankIDService.account();
-      },
-      viewClass: 'state-collapsed'
-    }
-  };
-
   var oService = ServiceService.oService;
 
   // FIXME remove state dependency
@@ -26,15 +14,6 @@ angular.module('app').controller('PlaceFixController', function(
   $scope.$location = $location;
   $scope.bAdmin = AdminService.isAdmin();
   $scope.state = $state.get(curState);
-
-  // console.log('PlaceFix Controller. $state name =', $state.current.name);
-
-  if (statesMap[curState] && statesMap[curState].startupFunction) {
-    console.log('PlaceFix Controller. call startup function for $state =', $state.current.name);
-    statesMap[curState].startupFunction.call($location, $state, $rootScope);
-  } else {
-    // default startup
-  }
 
   // oParams = { placeData: placeData } }
   self.processPlaceChange = function(oParams) {
@@ -64,9 +43,7 @@ angular.module('app').controller('PlaceFixController', function(
     }
 
     // не переходити до іншого стану, якщо даний стан є кінцевим
-    // $state.current.name === 'index.service.general.placefix.built-in' ||
     if ($state.current.name === 'index.service.general.placefix.built-in.bankid' || $state.current.name === 'index.service.general.placefix.built-in.bankid.submitted') {
-      // STOPPEDHERE
       return;
     }
 

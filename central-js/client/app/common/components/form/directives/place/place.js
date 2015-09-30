@@ -41,13 +41,11 @@ angular.module('app')
 
         $scope.cityIsAvailable = function() {
           var bCityIsAvailable = PlacesService.cityIsAvailable();
-          console.log('cityIsAvailable:', bCityIsAvailable);
           return bCityIsAvailable;
         };
 
         $scope.cityIsChosen = function() {
           var bCityIsChosen = PlacesService.cityIsChosen();
-          // console.log('cityIsChosen:', bCityIsChosen);
           return bCityIsChosen;
         };
 
@@ -68,7 +66,7 @@ angular.module('app')
           return bNeeded;
         };
 
-        // TODO improve the logic
+        // TODO do the logic
         $scope.authControlIsComplete = function() {
           var bComplete = false;
           return bComplete;
@@ -83,13 +81,6 @@ angular.module('app')
             bNeeded = true;
           }
 
-          // needed because is available for selected place
-          // if (bAvailForPlace === true && $scope.placeControlIsComplete()) {
-          //   bNeeded = true;
-          // }
-
-          // console.info('place control is needed:', bNeeded, ', availability:', oAvail);
-
           return bNeeded;
         };
 
@@ -98,15 +89,12 @@ angular.module('app')
 
           bResult = $scope.placeControlIsNeeded();
 
-          // console.log('placeControlIsVisible:', bResult );
-
           return bResult;
         };
 
         $scope.placeControlIsDisabled = function() {
           var bIsDisabled = false;
           bIsDisabled = $scope.placeControlIsComplete() && sControlMode !== 'placeEditMode';
-          // console.info('placeControlIsDisabled:', $scope.placeControlIsComplete(), sControlMode !== 'placeEditMode', bIsDisabled);
           return bIsDisabled;
         };
 

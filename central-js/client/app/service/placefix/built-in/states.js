@@ -1,11 +1,10 @@
 angular.module('app').config(function($stateProvider) {
   $stateProvider
-  .state('index.service.general.placefix.built-in', {
+    .state('index.service.general.placefix.built-in', {
       url: '/built-in',
       views: {
         'content@index.service.general.placefix': {
           templateUrl: 'app/service/placefix/content.html',
-          // controller: 'ServiceBuiltInController'
           controller: 'PlaceFixController'
         }
       }
@@ -101,7 +100,7 @@ angular.module('app').config(function($stateProvider) {
         }
       }
     })
-    .state('index.service.general.placefix.built-in.bankid.submitted', { // city - moved from app.states
+    .state('index.service.general.placefix.built-in.bankid.submitted', {
       url: null,
       data: {
         id: null
@@ -115,7 +114,12 @@ angular.module('app').config(function($stateProvider) {
       views: {
         'content@index.service.general.placefix': {
           templateUrl: 'app/service/placefix/built-in/bankid.submitted.html',
-          controller: 'PlaceFixController' // function moved to PlaceFixController state startupFunction
+          controller: 'ServiceBuiltInBankIDController'
+        }
+      },
+      resolve: {
+        BankIDAccount: function(BankIDService) {
+          return BankIDService.account();
         }
       }
     });
