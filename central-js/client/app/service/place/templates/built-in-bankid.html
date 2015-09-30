@@ -7,7 +7,6 @@
       <div class="col-md-11">Крок 2. Ви увійшли як 
         {{account.customer.firstName}} {{account.customer.middleName}} {{account.customer.lastName}}
       </div>
-
       <div class="col-md-1">
         <div class="link-button">
           <a ng-click="editBankId()">Змінити</a>
@@ -15,18 +14,12 @@
       </div>
     </div>
   </div>
+  
   <div class="list-group-item">
     <div class="row">
-      <div style="display: none;">0{{data.sName}} 00{{data.sProcessDefinitionName1}}
-        1{{data.formData.sProcessDefinitionName1}}
-        2{{data.formData.sProcessDefinitionName2}}
-        3{{data.formData.sProcessDefinitionName3}}
-      </div>
-
       <div class="col-md-12">Крок 3.
         {{data.formData.params["processName"].name==null?"":data.formData.params["processName"].name}}
       </div>
-
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -36,12 +29,6 @@
             <div class="row"
                  ng-repeat="property in ActivitiForm.formProperties track by property.id"
                  ng-if="property.id != 'processName'">
-
-              <div style="display: none;">
-                _1{{data.formData.params[property.id].required}}
-                _2{{isFieldRequired(property)}}
-                _3{{form[property.id].required}}
-              </div>
 
               <div class="col-md-5"
                    ng-if="property.type!='invisible' && property.type!='markers'">
