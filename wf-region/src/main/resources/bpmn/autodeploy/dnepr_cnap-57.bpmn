@@ -59,8 +59,8 @@
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="usluga" name="Яка служба повинна виконати реєстрацію декларації?" type="enum" required="true">
-          <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
-          <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
+          <activiti:value id="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
+          <activiti:value id="Територіальне управління Держгірпромнагляду у Дніпропетровській області" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnNotEmpty_1&quot;:{&quot;sField_ID_s&quot;: &quot;client&quot;},&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;: [&quot;name&quot;, &quot;Reestr&quot;, &quot;inn&quot;, &quot;KVED&quot;, &quot;PIB&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;client&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr1'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
@@ -204,8 +204,8 @@
           <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="proverka2" name="Рішення реєстратора про реєстрацію декларації" type="enum" required="true">
-          <activiti:value id="ok" name="декларацію зареєстровано"></activiti:value>
-          <activiti:value id="bad" name="декларацію не зареєстровано"></activiti:value>
+          <activiti:value id="декларацію зареєстровано" name="декларацію зареєстровано"></activiti:value>
+          <activiti:value id="декларацію не зареєстровано" name="декларацію не зареєстровано"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="vidpovid" name="Додайте скановану відповідь реєстратора" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57f_print.html]" type="invisible" default="Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" writable="false"></activiti:formProperty>
@@ -782,8 +782,8 @@ ${otkaz1} &lt;br&gt;
           <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="proverka2" name="Рішення реєстратора про реєстрацію декларації" type="enum" required="true">
-          <activiti:value id="ok" name="декларацію зареєстровано"></activiti:value>
-          <activiti:value id="bad" name="декларацію не зареєстровано"></activiti:value>
+          <activiti:value id="декларацію зареєстровано" name="декларацію зареєстровано"></activiti:value>
+          <activiti:value id="декларацію не зареєстровано" name="декларацію не зареєстровано"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="vidpovid" name="Додайте файл скановану відповідь реєстратора" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57u_print.html]" type="invisible" default="Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" writable="false"></activiti:formProperty>
