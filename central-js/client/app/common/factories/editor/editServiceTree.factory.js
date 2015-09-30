@@ -1,7 +1,7 @@
 angular.module('app')
   .factory('EditServiceTreeFactory', function($http, $modal, CatalogService) {
 
-    var createObjectWithChanges = function(editedObject, originalObject){
+    var createObjectOnlyWithChanges = function(editedObject, originalObject){
       var objectToSend = {
         nID: editedObject.nID
       };
@@ -44,7 +44,7 @@ angular.module('app')
         });
 
         modalInstance.result.then(function (editedCategory) {
-          var categoryToSend = createObjectWithChanges(editedCategory, category);
+          var categoryToSend = createObjectOnlyWithChanges(editedCategory, category);
           var catalogToSend = [ categoryToSend ];
           CatalogService.setServicesTree(catalogToSend);
         });
@@ -87,7 +87,14 @@ angular.module('app')
         });
 
         modalInstance.result.then(function (editedSubcategory) {
-          var subcategoryToSend = createObjectWithChanges(editedSubcategory, subcategory);
+          var subcategoryToSend = createObjectOnlyWithChanges(editedSubcategory, subcategory);
+
+          if (!subcategoryToSend.nID){
+            subcategoryToSend.oCategory = {
+              nID : categoryId
+            };
+          }
+
           var catalogToSend = [
             {
               nID: categoryId,
@@ -114,6 +121,7 @@ angular.module('app')
 
     var serviceEditor = (function(){
       var openModal = function (categoryId, subcategoryId, service) {
+
         var modalInstance = $modal.open({
           animation: true,
           size: 'lg',
@@ -136,7 +144,17 @@ angular.module('app')
         });
 
         modalInstance.result.then(function (editedService) {
-          var serviceToSend = createObjectWithChanges(editedService, service);
+          var serviceToSend = createObjectOnlyWithChanges(editedService, service);
+
+          if (!serviceToSend.nID){
+            serviceToSend.oSubcategory = {
+              nID : subcategoryId
+            };
+            serviceToSend.sFAQ  = "";
+            serviceToSend.sInfo  = "";
+            serviceToSend.sLaw  = "";
+          }
+
           var catalogToSend = [
             {
               nID: categoryId,

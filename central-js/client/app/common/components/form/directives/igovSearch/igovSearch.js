@@ -1,5 +1,6 @@
-angular.module('app').directive("igovSearch", ['CatalogService', 'statesRepository', 'RegionListFactory', 'LocalityListFactory', '$filter', 'messageBusService', 'stateStorageService',
- function(CatalogService, statesRepository, RegionListFactory, LocalityListFactory, $filter, messageBusService, stateStorageService) {
+angular.module('app')
+  .directive("igovSearch", ['CatalogService', 'statesRepository', 'RegionListFactory', 'LocalityListFactory', '$filter', 'messageBusService', 'stateStorageService', 'AdminService',
+ function(CatalogService, statesRepository, RegionListFactory, LocalityListFactory, $filter, messageBusService, stateStorageService, AdminService) {
   var directive = {
     restrict: 'E',
     scope: {},
@@ -56,10 +57,11 @@ angular.module('app').directive("igovSearch", ['CatalogService', 'statesReposito
         messageBusService.publish('catalog:update', ctlg);
       }
       $scope.search = function() {
+        var bShowEmptyFolders = AdminService.isAdmin();
         $scope.spinner = true;
         messageBusService.publish('catalog:updatePending');
         $scope.catalog = [];
-        return CatalogService.getModeSpecificServices(getIDPlaces(), $scope.sSearch).then(function (result) {
+        return CatalogService.getModeSpecificServices(getIDPlaces(), $scope.sSearch, bShowEmptyFolders).then(function (result) {
           fullCatalog = result;
           if ($scope.bShowExtSearch) {
             $scope.filterByExtSearch();

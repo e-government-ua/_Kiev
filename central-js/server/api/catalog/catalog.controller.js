@@ -54,7 +54,8 @@ module.exports.getServicesTree = function (req, res) {
     password: activiti.password,
     params: {
       sFind: req.query.sFind || null,
-      asIDPlaceUA: req.query.asIDPlaceUA || null
+      asIDPlaceUA: req.query.asIDPlaceUA || null,
+      bShowEmptyFolders: req.query.bShowEmptyFolders || false
     }
   };
   //var cachedReply = cache.get(buildKey(options.params));
@@ -75,7 +76,10 @@ module.exports.getServicesTree = function (req, res) {
 
   var url = buildUrl('/services/getServicesTree');
 
+  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'; // Ignore 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' authorization error
+
   return request.get({
+    'proxy': "http://127.0.0.1:8888",
     'url': url,
     'auth': {
       'username': options.username,
@@ -83,7 +87,8 @@ module.exports.getServicesTree = function (req, res) {
     },
     'qs': {
       'sFind': options.params.sFind,
-      'asID_Place_UA': options.params.asIDPlaceUA
+      'asID_Place_UA': options.params.asIDPlaceUA,
+      'bShowEmptyFolders': options.params.bShowEmptyFolders
     }
   }, callback);
 };
@@ -100,7 +105,7 @@ module.exports.setServicesTree = function(req, res) {
   process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'; // Ignore 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' authorization error
 
   request.post({
-    //'proxy': "http://127.0.0.1:8888",
+    'proxy': "http://127.0.0.1:8888",
     'url': url,
     'auth': {
       'username': activiti.username,
@@ -128,7 +133,10 @@ var remove = function(path, req, res){
 
   var url = buildUrl(path);
 
+  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'; // Ignore 'UNABLE_TO_VERIFY_LEAF_SIGNATURE' authorization error
+
   request.del({
+    'proxy': "http://127.0.0.1:8888",
     'url': url,
     'auth': {
       'username': activiti.username,
@@ -145,19 +153,19 @@ var remove = function(path, req, res){
 };
 
 module.exports.removeCategory = function(req, res) {
-  return remove('services/removeCategory', req, res);
+  return remove('/services/removeCategory', req, res);
 };
 
 module.exports.removeSubcategory = function(req, res) {
-  return remove('services/removeSubcategory', req, res);
+  return remove('/services/removeSubcategory', req, res);
 };
 
 module.exports.removeService = function(req, res) {
-  return remove('services/removeService', req, res);
+  return remove('/services/removeService', req, res);
 };
 
 module.exports.removeServiceData = function(req, res) {
-  return remove('services/removeServiceData', req, res);
+  return remove('/services/removeServiceData', req, res);
 };
 
 module.exports.removeServicesTree = function(req, res) {
@@ -167,7 +175,7 @@ module.exports.removeServicesTree = function(req, res) {
     res.end();
   };
 
-  var url = buildUrl('services/removeServicesTree');
+  var url = buildUrl('/services/removeServicesTree');
 
   request.del({
     'url': url,
