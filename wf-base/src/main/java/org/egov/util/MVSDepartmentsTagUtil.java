@@ -56,7 +56,7 @@ public class MVSDepartmentsTagUtil {
 				LOG.info("Pattern value for the specified ID: " + patternValue);
 				if (patternValue != null){
 					String[] patternColumns = patternValue.split(";");
-					String valueToReplace = patternColumns[Integer.valueOf(params[1]) + 2];// value in the map starts from second column in csv file
+					String valueToReplace = patternColumns[Integer.valueOf(params[1]) - 2];// value in the map starts from second column in csv file
 					LOG.info("Repplacing pattern with the value " + valueToReplace);
 					res = StringUtils.replace(text, "[pattern_dictonary:" + pattern + "]", valueToReplace);
 				}
