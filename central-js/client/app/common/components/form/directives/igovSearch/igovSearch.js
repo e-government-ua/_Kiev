@@ -58,7 +58,7 @@ angular.module('app')
         messageBusService.publish('catalog:update', ctlg);
       }
       $scope.search = function() {
-        var bShowEmptyFolders = true;// AdminService.isAdmin();
+        var bShowEmptyFolders = AdminService.isAdmin();
         $scope.spinner = true;
         messageBusService.publish('catalog:updatePending');
         $scope.catalog = [];
