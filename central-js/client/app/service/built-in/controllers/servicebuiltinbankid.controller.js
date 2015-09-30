@@ -24,23 +24,27 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
   'use strict';
 
+  var currentState = $state.$current;
+
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount; // FIXME потенційний хардкод
   $scope.ActivitiForm = ActivitiForm;
 
   $scope.data = $scope.data || {};
-  $scope.data.formData = new FormDataFactory();
-  $scope.data.formData.initialize(ActivitiForm);
-  $scope.data.formData.setBankIDAccount(BankIDAccount);
-  //TODO uncomment after testing
-  $scope.data.formData.uploadScansFromBankID(oServiceData);
-  var currentState = $state.$current;
 
   $scope.data.region = currentState.data.region;
   $scope.data.city = currentState.data.city;
   $scope.data.id = currentState.data.id;
+  
+  if ( !$scope.data.formData ) {
+    $scope.data.formData = new FormDataFactory();
+    $scope.data.formData.initialize(ActivitiForm);
+    $scope.data.formData.setBankIDAccount(BankIDAccount);
+    //TODO uncomment after testing
+    $scope.data.formData.uploadScansFromBankID(oServiceData);
+  }
 
-  // console.log('data.formData.params = ', JSON.stringify($scope.data.formData.params, null, '  '));
+  console.log('data.formData.params = ', JSON.stringify($scope.data.formData.params, null, '  '));
 
   $scope.markers = ValidationService.getValidationMarkers();
   var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
@@ -112,6 +116,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
           var nCRC = ValidationService.getLunaValue(result.id);
 
           submitted.data.id = result.id + nCRC; //11111111
+          submitted.data.formData = $scope.data.formData;
 
           $scope.isSending = false;
 
