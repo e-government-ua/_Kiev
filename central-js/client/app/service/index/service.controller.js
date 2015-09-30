@@ -36,7 +36,7 @@ angular.module('app')
         messageBusService.unsubscribe(item);
       });
     });
-
+  
     $scope.filterByStatus = function(status) {
       $scope.selectedStatus = status;
       var ctlg = angular.copy($scope.fullCatalog);

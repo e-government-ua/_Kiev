@@ -1,44 +1,16 @@
-<!--div style="margin-top:20px; font-size:25px;">{{service.sName}}</div>
-<div style="margin-bottom:20px; font-size:18px;color:#cccccc;">{{service.sSubjectOperatorName}}</div-->
-
 <div class="list-group">
-  <div class="list-group-item disabled">
-    <div class="row no-margin-bottom">
-      <div class="col-md-11 form-inline">
-        <span class="step">Крок 1. Оберіть свій регіон </span>
+  
+  <place></place>
 
-        <div class="select-list-label">
-          <span>Область</span>
-          <select class="form-control disabled"
-                  name="region"
-                  ng-model="data.region"
-                  ng-options="region as region.sName for region in [data.region] | orderBy:'sName'" disabled></select>
-        </div>
-        <div class="select-list-label"
-             ng-if="ngIfCity()">
-          <span>Місто</span>
-          <select class="form-control disabled"
-                  name="city"
-                  ng-model="data.city"
-                  ng-options="city as city.sName for city in [data.city] | orderBy:'sName'" disabled></select>
-        </div>
-      </div>
-      <div class="col-md-1">
-        <div class="link-button">
-          <a ng-click="step1()">Змінити</a>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="list-group-item disabled">
     <div class="row no-margin-bottom">
-      <div class="col-md-11">Крок 2. Ви увійшли як {{data.formData.params.bankIdfirstName.value}}
-        {{data.formData.params.bankIdmiddleName.value}}
-        {{data.formData.params.bankIdlastName.value}}
+      <div class="col-md-11">Крок 2. Ви увійшли як 
+        {{account.customer.firstName}} {{account.customer.middleName}} {{account.customer.lastName}}
       </div>
+
       <div class="col-md-1">
         <div class="link-button">
-          <a ng-click="step2()">Змінити</a>
+          <a ng-click="editBankId()">Змінити</a>
         </div>
       </div>
     </div>
@@ -50,6 +22,7 @@
         2{{data.formData.sProcessDefinitionName2}}
         3{{data.formData.sProcessDefinitionName3}}
       </div>
+
       <div class="col-md-12">Крок 3.
         {{data.formData.params["processName"].name==null?"":data.formData.params["processName"].name}}
       </div>
@@ -62,7 +35,7 @@
                 novalidate>
             <div class="row"
                  ng-repeat="property in ActivitiForm.formProperties track by property.id"
-                 ng-if="isFieldVisible(property)">
+                 ng-if="property.id != 'processName'">
 
               <div style="display: none;">
                 _1{{data.formData.params[property.id].required}}
@@ -147,6 +120,7 @@
 
                 <p class="input-group"
                    ng-switch-when="date">
+
                   <input type="text"
                          name="{{property.id}}"
                          datepicker-popup="{{data.formData.params[property.id].format}}"
@@ -158,12 +132,12 @@
                          close-text="Close"
                          class="form-control"
                          value="">
-									<span class="input-group-btn">
-										<button type="button"
+                  <span class="input-group-btn">
+                    <button type="button"
                             class="btn btn-default"
                             ng-click="data.formData.params[property.id].open($event)">
                       <i class="glyphicon glyphicon-calendar"></i></button>
-									</span>
+                  </span>
                 </p>
                 <select ng-switch-when="enum"
                         name="{{property.id}}"

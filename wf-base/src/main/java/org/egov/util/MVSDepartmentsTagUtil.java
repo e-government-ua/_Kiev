@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class MVSDepartmentsTagUtil {
 
-	private Logger LOG = LoggerFactory.getLogger(MVSDepartmentsTagUtil.class);
+	private static final Logger LOG = LoggerFactory.getLogger(MVSDepartmentsTagUtil.class);
 	private static final Map<String,String> VALUES = new HashMap<String,String>();
 	
 	static {
@@ -28,7 +28,7 @@ public class MVSDepartmentsTagUtil {
 					VALUES.put(valuesArr[0], valuesArr[1] + ";" + valuesArr[2]);
 			}
 		} catch (IOException e) {
-			throw new ExceptionInInitializerError(e);
+			LOG.error("Error during loading csv file" + e.getMessage());
 		} finally {
 			if (br != null) {
 				try {

@@ -114,10 +114,10 @@ angular.module('documents').controller('DocumentsContentController', function($s
   function showShareLinkError (reply) {
     switch (reply.code) {
       case 'BUSINESS_ERR':
-        alert("Сталася помилка\n" + reply.code + ': ' + reply.message);
+        console.log("Сталася помилка\n" + reply.code + ': ' + reply.message);
         break;
       default:
-        alert("Сталася помилка\n" + reply.code + ': ' + reply.message);
+        console.log("Сталася помилка\n" + reply.code + ': ' + reply.message);
     }
   }
 });
