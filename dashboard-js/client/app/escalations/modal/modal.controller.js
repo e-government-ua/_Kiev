@@ -3,18 +3,22 @@
 angular.module('dashboardJsApp')
   .controller('RuleEditorModalCtrl', function($scope, $modalInstance, ruleToEdit, processes) {
 
-    $scope.rule = ruleToEdit;
+    $scope.rule = angular.copy(ruleToEdit);
     $scope.rule.bp =  {sID:$scope.rule.sID_BP, sName:$scope.rule.sID_BP};  
     $scope.processesList = [$scope.rule.bp];
-
+    $scope.ruleBpIsIncorrect = false;
 
     processes.getUserProcesses().then(function (data) {
       $scope.processesList = data;
       if ($scope.processesList != '' && $scope.processesList.length > 0) {
-        $scope.processesList.forEach(function () {
-          if ($scope.rule.bp.sID == $scope.processesList[i].sID)
-            $scope.rule.bp = $scope.processesList[i];
+        $scope.ruleBpIsIncorrect = $scope.processesList.every(function (process) {
+          if ($scope.rule.bp.sID == process.sID){
+            $scope.rule.bp = process;
+            return false;
+          }
+          return true;
         });
+        
       }
     }, function () {
       $scope.processesList = "error";   
@@ -34,7 +38,7 @@ angular.module('dashboardJsApp')
  
     $scope.save = function () {
       // var ruleToSave = converter.convert($scope.slot);
-      // $modalInstance.close(ruleToSave);
+      $modalInstance.close($scope.rule);
     };
 
     $scope.cancel = function () {

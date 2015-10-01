@@ -184,7 +184,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport},${doc_family},${doс_income},${doc_psyho},${doc_area_reestr},${doс_zemlya}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${passport_old_human},${doc_oblic},${doc_fop},${doc_employment_history},${doc_employment_history_no},${doc_inv}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
