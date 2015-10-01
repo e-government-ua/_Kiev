@@ -305,3 +305,5 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 394;176;27;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zhytomyr_dms_passport:1:1"}};https://test.region.igov.org.ua/wf/;FALSE;1;false;;BankID,EDS
 395;785;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_sID_UA:1:238"}};https://test.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
 396;779;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_soczah_165:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
+397;786;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_soc_help_177:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
+398;787;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_soc_help_175:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
