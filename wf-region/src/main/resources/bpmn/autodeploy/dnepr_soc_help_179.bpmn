@@ -468,6 +468,9 @@
     &lt;/tbody&gt;
 &lt;/table&gt;</activiti:expression>
         </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${document}</activiti:expression>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow10" name="decision_step2=='attr3_ok'" sourceRef="exclusivegateway2" targetRef="servicetask2">
