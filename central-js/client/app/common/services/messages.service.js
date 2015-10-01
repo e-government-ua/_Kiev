@@ -7,7 +7,7 @@ angular.module('app').service('MessagesService', function($http) {
     };
 
     return $http.post('./api/messages', data).then(function(response) {
-      alert(userMessage);
+      console.log(userMessage);
       return response.data;
     });
   };

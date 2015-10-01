@@ -3,18 +3,25 @@
   <process id="dnepr_minust_128" name="Дніпропетровськ МінЮст - Підтвердження відомостей про юридичну особу (форма 6)" isExecutable="true" activiti:candidateStarterGroups="dnepr_minust_1">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="warningMessage1" name="Увага" type="label" default="Подавати реєстраційну картку про внесення змін можуть лише керівник юридичної особи і фізична особа, яка має право вчиняти дії від імені юридичної особи без довіреності, у тому числі підписувати договори."></activiti:formProperty>
+        <activiti:formProperty id="warningMessage1" name="Увага" type="label" default="Подавати реєстраційну картку форма-6 можуть лише керівник юридичної особи і фізична особа, яка має право вчиняти дії від імені юридичної особи без довіреності, у тому числі підписувати договори."></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані;серія, номер, коли і ким виданий" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта" type="file" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="blank" name="Завантажте відскановану і заповнену Форму-6" type="label" default="&lt;p&gt;обов'язково поставте дату і підпис.&lt;/p&gt; За цим &lt;a href=&quot;http://bit.ly/1KPbaQL&quot;&gt;посиланням&lt;/a&gt; ви знайдете актуальний бланк форми-6.&lt;br&gt; Роздрукуйте його, заповніть потрібні сторінки від руки, відскануйте чи сфотографуйте, та прикріпіть до цієї форми."></activiti:formProperty>
-        <activiti:formProperty id="scan_form_6" name="Форма-6" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="statut" name="Юридична особа діє на підставі:" type="enum" required="true">
+          <activiti:value id="st1" name="установчих документів, затверджених засновниками (учасниками)"></activiti:value>
+          <activiti:value id="st2" name="модельного статуту, затвердженого постановою Кабінету Міністрів України"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="INN" name="Ідентифікаційний код юридичної особи;(8 цифр)" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="opf" name="Організаційно-правова форма юридичної особи" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="fullName" name="Назва юридичної особи" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="shortName" name="Скорочене найменування юридичної особи" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="rishenia" name="Прийнято рішення засновників (учасників) юридичної особи продовжувати свою діяльність на підставі" type="enum" required="true">
+          <activiti:value id="r1" name="розроблених ними установчих документів"></activiti:value>
+          <activiti:value id="r2" name="модельного статуту"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="warningMessage" name="Увага" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -115,10 +122,21 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="statut" name="Юридична особа діє на підставі:" type="enum" writable="false">
+          <activiti:value id="st1" name="установчих документів, затверджених засновниками (учасниками)"></activiti:value>
+          <activiti:value id="st2" name="модельного статуту, затвердженого постановою Кабінету Міністрів України"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="INN" name="Ідентифікаційний код юридичної особи" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="opf" name="Організаційно-правова форма юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fullName" name="Назва юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="shortName" name="Скорочене найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="rishenia" name="Прийнято рішення засновників (учасників) юридичної особи продовжувати свою діяльність на підставі" type="enum" writable="false">
+          <activiti:value id="r1" name="розроблених ними установчих документів"></activiti:value>
+          <activiti:value id="r2" name="модельного статуту"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="decide1" name="Результат перевірки документів" type="enum" required="true">
           <activiti:value id="accept" name="Документи пройшли перевірку і передані реєстратору"></activiti:value>
           <activiti:value id="reject" name="В опрацюванні заявки відмовлено"></activiti:value>
@@ -130,16 +148,9 @@
           <activiti:value id="Документи подані особою, яка не має відповідних повноважень." name="Документи подані особою, яка не має відповідних повноважень."></activiti:value>
           <activiti:value id="До державного реєстратору надійшло рішення суду щодо заборони проведення реєстраційних дій,  яке набрало законної сили." name="До державного реєстратору надійшло рішення суду щодо заборони проведення реєстраційних дій,  яке набрало законної сили."></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="CNAP_date" name="Введіть дату опрацювання подання (якщо документи прияняті)" type="string" readable="false"></activiti:formProperty>
-        <activiti:formProperty id="CNAP_admin" name="Введіть ПІБ адміністратора ЦНАП (якщо документи прияняті)" type="string" readable="false"></activiti:formProperty>
         <activiti:formProperty id="CNAP_No" name="Введіть номер реєстрації заяви у ЦНАП (якщо документи прияняті)" type="string" readable="false"></activiti:formProperty>
         <activiti:formProperty id="comment1" name="Примітка:" type="textArea"></activiti:formProperty>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
-          <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport},${scan_form_6}</activiti:expression>
-          </activiti:field>
-        </activiti:taskListener>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_minust128_print.html]" type="invisible" default="Підтвердження відомостей про юридичну особу (форма 6)" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="mailtask4" targetRef="usertask1_green"></sequenceFlow>
@@ -150,21 +161,27 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="statut" name="Юридична особа діє на підставі:" type="enum" writable="false">
+          <activiti:value id="st1" name="установчих документів, затверджених засновниками (учасниками)"></activiti:value>
+          <activiti:value id="st2" name="модельного статуту, затвердженого постановою Кабінету Міністрів України"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="INN" name="Ідентифікаційний код юридичної особи" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="opf" name="Організаційно-правова форма юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fullName" name="Назва юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="shortName" name="Скорочене найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="rishenia" name="Прийнято рішення засновників (учасників) юридичної особи продовжувати свою діяльність на підставі" type="enum" writable="false">
+          <activiti:value id="r1" name="розроблених ними установчих документів"></activiti:value>
+          <activiti:value id="r2" name="модельного статуту"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="vidpovid" name="Оберіть відповідь реєстратора" type="enum" required="true">
           <activiti:value id="відомості підтверджені" name="відомості підтверджені"></activiti:value>
           <activiti:value id="відомості не можуть бути підтверджені" name="відомості не можуть бути підтверджені"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="vidpovidFile" name="Завантажте скан-копію відповіді реєстратора" type="file" required="true"></activiti:formProperty>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
-        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
-          <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport},${scan_form_6}</activiti:expression>
-          </activiti:field>
-        </activiti:taskListener>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_minust128_print.html]" type="invisible" default="Підтвердження відомостей про юридичну особу (форма 6)" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <serviceTask id="mailtask2" name="Повідомлення про відмову" activiti:type="mail">
@@ -366,7 +383,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net]]></activiti:string>
+          <activiti:string><![CDATA[crow79@ua.fm]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Підтвердження відомостей про юридичну особу]]></activiti:string>
@@ -529,6 +546,9 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow32" sourceRef="mailtask5" targetRef="usertask3_red"></sequenceFlow>
+    <textAnnotation id="textannotation1">
+      <text>Поменять мейлы чиновников для уведмления</text>
+    </textAnnotation>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_minust_128">
     <bpmndi:BPMNPlane bpmnElement="dnepr_minust_128" id="BPMNPlane_dnepr_minust_128">
@@ -570,6 +590,9 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
         <omgdc:Bounds height="55.0" width="191.0" x="420.0" y="390.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
+        <omgdc:Bounds height="50.0" width="100.0" x="90.0" y="215.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="285.0" y="189.0"></omgdi:waypoint>

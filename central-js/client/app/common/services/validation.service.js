@@ -69,7 +69,8 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
   var self = this;
   self.sFormat = 'YYYY-MM-DD';
 
-  // Це для того, щоб бачити дати в українському форматі. FIXME: hardcoded locale value
+  // Це для того, щоб бачити дати в українському форматі. 
+  // FIXME: хардкод значення locale
   (moment.locale || moment.lang)('uk');
   amMoment.changeLocale('uk');
 
@@ -477,10 +478,10 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
 
     nCRC = nCRC % 10;
 
-    // alert(nCRC%10);
+    // console.log(nCRC%10);
     // nCRC=Math.round(nCRC/10)
-    // alert(nCRC%10);
-    // alert(nCRC);
+    // console.log(nCRC%10);
+    // console.log(nCRC);
 
     return nCRC;
 
