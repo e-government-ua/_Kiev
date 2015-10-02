@@ -4,52 +4,39 @@
     <documentation>https://github.com/e-government-ua/iBP/issues/57</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="warningMessage1" name="Увага" type="label" default="Подавати декларацію можуть лише керівник юридичної особи і фізична особа, яка має право вчиняти дії від імені юридичної особи без довіреності, у тому числі підписувати договори."></activiti:formProperty>
+        <activiti:formProperty id="warningMessage1" name="Увага" type="label" default="Подавати декларацію від імені юридичної особи можуть лише керівник і фізична особа, яка має право вчиняти дії від імені юридичної особи без довіреності, у тому числі підписувати договори."></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані;серія, номер, коли і ким виданий" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Номер облікової картки платника податків" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Номер телефону юридичної особи або ФОП" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="fax" name="Номер факсу" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail: На цей e-mail Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="client" name="Заява подається від імені юридичної особи або ФОП?" type="enum" required="true">
           <activiti:value id="attr1" name="юридична особа"></activiti:value>
           <activiti:value id="attr2" name="фізична особа-підприємець"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="name" name="Найменування юридичної особи" type="string" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="PIB" name="Прізвище, ім'я та по-батькові керівника" type="string" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="name" name="Повне найменування юридичної особи" type="string" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="Reestr" name="Місце реєстрації юридичної особи" type="string" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="inn" name="Код платника податків згідно з ЄДРПОУ" type="string" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="KVED" name="Код виду діяльності згідно з КВЕД" type="string" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="KVED" name="Код виду діяльності згідно з КВЕД;зверніть увагу, КВЕД має бути з КВЕД 009:2010 (формат дві пари цифр, розділені крапкою)" type="string" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="PIB" name="Прізвище, ім'я та по-батькові керівника юридичної особи" type="string" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="email1" name="Додайте e-mail юридичної особи, або ФОП, які оформлюють декларацію;вноситься в декларацію, може співпадати з контактним e-mail" type="string" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="locacia" name="Місце (адреса) виконання робіт підвищеної небезпеки;та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата його видачі" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу;якщо роботи не виконуються, оберіть порожню строчку" type="enum" required="true">
-          <activiti:value id=" " name=" "></activiti:value>
-          <activiti:value id="1a" name="1. Радіологічний (дозиметричний) і піротехнічний контроль."></activiti:value>
-          <activiti:value id="2b" name="2. Виготовлення та випробування вантажозахоплюючих пристроїв."></activiti:value>
-          <activiti:value id="3c" name="3. Експлуатація і ремонт водозбірних споруд."></activiti:value>
-          <activiti:value id="4d" name="4. Продавлювання тунельних конструкцій під будинками, спорудами, магістралями і водоймищами, крім земляних робіт, що виконуються на глибині понад 2 метри або в зоні розташування підземних комунікацій чи під водою."></activiti:value>
-          <activiti:value id="5e" name="5. Роботи із застосуванням піротехнічних виробів."></activiti:value>
-          <activiti:value id="6f" name="6. Експлуатація, обслуговування, ремонт технологічного устатковання харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
-          <activiti:value id="7g" name="7. Ремонтні, монтажні, будівельні та інші роботи, що виконуються на висоті понад  1,3 метра, крім робіт верхолазних та скелелазних, що виконуються на висоті 5 метрів і більше над поверхнею ґрунту, з перекриття або робочого настилу та робіт, що виконуються за допомогою підйомних і підвісних колисок, механічних підіймачів та будівельних підйомників."></activiti:value>
-          <activiti:value id="8h" name="8. Навчання з питань охорони праці працівників інших суб'єктів господарювання."></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволуи;якщо машини не використовуються, оберіть порожню строчку" type="enum" required="true">
-          <activiti:value id=" " name=" "></activiti:value>
-          <activiti:value id="1A" name="1. Машини, механізми, устатковання для буріння, ремонту свердловин на суходолі і в акваторії моря."></activiti:value>
-          <activiti:value id="2B" name="2. Машини, механізми, устатковання для харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
-          <activiti:value id="3C" name="3. Ковальсько-пресове устаковання."></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="brand" name="Зазначте марку, номер партії, дату виготовлення, країну походження машин" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="workspace" name="Зазначте кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу;1. Радіологічний (дозиметричний) і піротехнічний контроль. 2. Виготовлення та випробування вантажозахоплюючих  пристроїв (стропів, траверсів, грейферів, захватів).  3. Експлуатація і ремонт водозбірних споруд. 4. Продавлювання   тунельних   конструкцій   під   будинками, спорудами,  магістралями і водоймищами,  крім земляних  робіт,  що виконуються  на  глибині  понад  2  метри  або в зоні розташування підземних комунікацій чи під водою.  5. Роботи із застосуванням піротехнічних виробів.  6. Експлуатація,   обслуговування,   ремонт    технологічного устатковання   харчової,   переробної,  поліграфічної,  легкої  та текстильної промисловості. 7. Ремонтні,  монтажні,  будівельні  та   інші   роботи,   що виконуються  на висоті понад 1,3 метра,  крім робіт верхолазних та скелелазних,  що виконуються на  висоті  5  метрів  і  більше  над поверхнею ґрунту,  з перекриття або робочого настилу та робіт,  що виконуються за допомогою підйомних і підвісних колисок, механічних підіймачів та будівельних підйомників. 8. Навчання   з  питань  охорони  праці  працівників  інших суб'єктів господарювання." type="string" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволу;1. Машини, механізми, устатковання для буріння, ремонту свердловин на суходолі і в акваторії моря.         2. Машини, механізми, устатковання для харчової, переробної, поліграфічної, легкої та текстильної промисловості.         3. Ковальсько-пресове устаковання." type="string" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="brand" name="Зазначте марку, номер партії, дату виготовлення, країну походження машин" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="workspace" name="Зазначте загальну кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="workspace1" name="Зазначте кількість робочих місць, на яких існує підвищений ризик виникнення травм" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="build" name="Зазначте кількість будівель і споруд (приміщень)" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="objects" name="Зазначте виробничі об'єкти (цехи, дільниці, структурні підрозділи)" type="textArea" default=" "></activiti:formProperty>
-        <activiti:formProperty id="vidpovidalni" name="Зазначте осіб, відповідальних за дотримання законодавства з питань охорони праці та промислової безпеки;Прізвище, ім'я, по-батькові, номер та дата протокола, назва головного навчально-методичного центру" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objects" name="Зазначте виробничі об'єкти (цехи, дільниці, структурні підрозділи)" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="vidpovidalni" name="Зазначте осіб, відповідальних за дотримання законодавства з питань охорони праці та промислової безпеки;Прізвище, ім'я, по-батькові, посада, номер та дата протокола, назва навчально-методичного центру" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="slugba" name="Зазначте наявність служби охорони праці;номер і дата наказу" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="instrukcii" name="Зазначте наявність інструкцій;перелік" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="instruktag" name="Надайте інформацію про проведення навчання та інструктажу з питань охорони праці" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="instrukcii" name="Зазначте наявність інструкцій з охорони праці;перелік інструкцій декларуємих робіт, машин та механізмів" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="instruktag" name="Надайте інформацію про проведення навчання та інструктажу з питань охорони праці;протокол, номер, дата та навчальний заклад" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="doks" name="Надайте інформацію про експлуатаційну документацію" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="indZahist" name="Надайте інформацію про засоби індивідуального захисту" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="metodika" name="Надайте інформацію про нормативно-правову та матеріально-технічну бази, навчально-методичне забезпечення" type="textArea" required="true"></activiti:formProperty>
@@ -57,10 +44,6 @@
         <activiti:formProperty id="vibor" name="Де ви бажаєте отримати оригінал рішення про реєстрацію декларації?" type="enum" required="true">
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="usluga" name="Яка служба повинна виконати реєстрацію декларації?" type="enum" required="true">
-          <activiti:value id="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
-          <activiti:value id="Територіальне управління Держгірпромнагляду у Дніпропетровській області" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnNotEmpty_1&quot;:{&quot;sField_ID_s&quot;: &quot;client&quot;},&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;: [&quot;name&quot;, &quot;Reestr&quot;, &quot;inn&quot;, &quot;KVED&quot;, &quot;PIB&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;client&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr1'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
@@ -164,27 +147,19 @@
           <activiti:value id="attr1" name="юридична особа"></activiti:value>
           <activiti:value id="attr2" name="фізична особа-підприємець"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="name" name="Найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="PIB" name="Прізвище, ім'я та по-батькові керівника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Reestr" name="Місце реєстрації юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="inn" name="Код платника податків згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="KVED" name="Код виду діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email1" name="Додайте e-mail юридичної особи, або ФОП, які оформлюють декларацію;вноситься в декларацію, може співпадати з контактним e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="locacia" name="Місце (адреса) виконання робіт підвищеної небезпеки;та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата його видачі" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу" type="enum" writable="false">
-          <activiti:value id=" " name=" "></activiti:value>
-          <activiti:value id="1a" name="1. Радіологічний (дозиметричний) і піротехнічний контроль."></activiti:value>
-          <activiti:value id="2b" name="2. Виготовлення та випробування вантажозахоплюючих пристроїв."></activiti:value>
-          <activiti:value id="3c" name="3. Експлуатація і ремонт водозбірних споруд."></activiti:value>
-          <activiti:value id="4d" name="4. Продавлювання тунельних конструкцій під будинками, спорудами, магістралями і водоймищами, крім земляних робіт, що виконуються на глибині понад 2 метри або в зоні розташування підземних комунікацій чи під водою."></activiti:value>
-          <activiti:value id="5e" name="5. Роботи із застосуванням піротехнічних виробів."></activiti:value>
-          <activiti:value id="6f" name="6. Експлуатація, обслуговування, ремонт технологічного устатковання харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
-          <activiti:value id="7g" name="7. Ремонтні, монтажні, будівельні та інші роботи, що виконуються на висоті понад  1,3 метра, крім робіт верхолазних та скелелазних, що виконуються на висоті 5 метрів і більше над поверхнею ґрунту, з перекриття або робочого настилу та робіт, що виконуються за допомогою підйомних і підвісних колисок, механічних підіймачів та будівельних підйомників."></activiti:value>
-          <activiti:value id="8h" name="8. Навчання з питань охорони праці працівників інших суб'єктів господарювання."></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволуи" type="enum" writable="false">
-          <activiti:value id=" " name=" "></activiti:value>
-          <activiti:value id="1A" name="1. Машини, механізми, устатковання для буріння, ремонту свердловин на суходолі і в акваторії моря."></activiti:value>
-          <activiti:value id="2B" name="2. Машини, механізми, устатковання для харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
-          <activiti:value id="3C" name="3. Ковальсько-пресове устаковання."></activiti:value>
-        </activiti:formProperty>
+        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="brand" name="Марка, номер партії, дата виготовлення, країна походження машин" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workspace" name="Кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="workspace1" name="Зазначте кількість робочих місць, на яких існує підвищений ризик виникнення травм" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="build" name="Кількість будівель і споруд (приміщень)" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objects" name="Виробничі об'єкти (цехи, дільниці, структурні підрозділи)" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vidpovidalni" name="Особи, відповідальні за дотримання законодавства з питань охорони праці та промислової безпеки;Прізвище, ім'я, по-батькові, номер та дата протокола, назва головного навчально-методичного центру" type="textArea" writable="false"></activiti:formProperty>
@@ -198,10 +173,6 @@
         <activiti:formProperty id="vibor" name="Отримати результат реєстрації декларації заявник хоче в:" type="enum" writable="false">
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="usluga" name="Реєстрацію повинно виконати" type="enum" writable="false">
-          <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
-          <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="proverka2" name="Рішення реєстратора про реєстрацію декларації" type="enum" required="true">
           <activiti:value id="декларацію зареєстровано" name="декларацію зареєстровано"></activiti:value>
@@ -232,27 +203,14 @@
         <activiti:formProperty id="Reestr" name="Місце реєстрації юридичної особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="inn" name="Код платника податків згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="KVED" name="Код виду діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email1" name="Додайте e-mail юридичної особи, або ФОП, які оформлюють декларацію;вноситься в декларацію, може співпадати з контактним e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="locacia" name="Місце (адреса) виконання робіт підвищеної небезпеки;та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата його видачі" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу" type="enum" writable="false">
-          <activiti:value id=" " name=" "></activiti:value>
-          <activiti:value id="1a" name="1. Радіологічний (дозиметричний) і піротехнічний контроль."></activiti:value>
-          <activiti:value id="2b" name="2. Виготовлення та випробування вантажозахоплюючих пристроїв."></activiti:value>
-          <activiti:value id="3c" name="3. Експлуатація і ремонт водозбірних споруд."></activiti:value>
-          <activiti:value id="4d" name="4. Продавлювання тунельних конструкцій під будинками, спорудами, магістралями і водоймищами, крім земляних робіт, що виконуються на глибині понад 2 метри або в зоні розташування підземних комунікацій чи під водою."></activiti:value>
-          <activiti:value id="5e" name="5. Роботи із застосуванням піротехнічних виробів."></activiti:value>
-          <activiti:value id="6f" name="6. Експлуатація, обслуговування, ремонт технологічного устатковання харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
-          <activiti:value id="7g" name="7. Ремонтні, монтажні, будівельні та інші роботи, що виконуються на висоті понад  1,3 метра, крім робіт верхолазних та скелелазних, що виконуються на висоті 5 метрів і більше над поверхнею ґрунту, з перекриття або робочого настилу та робіт, що виконуються за допомогою підйомних і підвісних колисок, механічних підіймачів та будівельних підйомників."></activiti:value>
-          <activiti:value id="8h" name="8. Навчання з питань охорони праці працівників інших суб'єктів господарювання."></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволуи" type="enum" writable="false">
-          <activiti:value id=" " name=" "></activiti:value>
-          <activiti:value id="1A" name="1. Машини, механізми, устатковання для буріння, ремонту свердловин на суходолі і в акваторії моря."></activiti:value>
-          <activiti:value id="2B" name="2. Машини, механізми, устатковання для харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
-          <activiti:value id="3C" name="3. Ковальсько-пресове устаковання."></activiti:value>
-        </activiti:formProperty>
+        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="brand" name="Марка, номер партії, дата виготовлення, країна походження машин" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workspace" name="Кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="workspace1" name="Зазначте кількість робочих місць, на яких існує підвищений ризик виникнення травм" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="build" name="Кількість будівель і споруд (приміщень)" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objects" name="Виробничі об'єкти (цехи, дільниці, структурні підрозділи)" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vidpovidalni" name="Особи, відповідальні за дотримання законодавства з питань охорони праці та промислової безпеки;Прізвище, ім'я, по-батькові, номер та дата протокола, назва головного навчально-методичного центру" type="textArea" writable="false"></activiti:formProperty>
@@ -266,10 +224,6 @@
         <activiti:formProperty id="vibor" name="Отримати результат реєстрації декларації заявник хоче в:" type="enum" writable="false">
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="usluga" name="Реєстрацію повинно виконати" type="enum" writable="false">
-          <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
-          <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="proverka" name="Оберіть результат первинної перевірки документів:" type="enum" required="true">
           <activiti:value id="yes" name="Документи прийнято, формується опис, документи передаються для подальшої обробки"></activiti:value>
@@ -436,7 +390,7 @@ ${otkaz1} &lt;br&gt;
                 &lt;tr&gt;
                   &lt;td style="padding: 35px 120px;"&gt;
                   &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                  &lt;p&gt; Ваше звернення про реєстрацію декларації перевірено адміністратором. Декларацію передано в ${usluga}.&lt;br&gt;
+                  &lt;p&gt; Ваше звернення про реєстрацію декларації перевірено адміністратором. Декларацію передано для реєстрації.&lt;br&gt;
 				  До листа додано опис прийнятих документів. &lt;/p&gt;
                   &lt;hr
  style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(221, 221, 221); border-width: 0pt 0pt 1px; margin: 30px 0pt 15px; background: rgb(221, 221, 221) none repeat scroll 0%; width: 100%; height: 0pt; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"&gt;
@@ -567,27 +521,19 @@ ${otkaz1} &lt;br&gt;
           <activiti:value id="attr1" name="юридична особа"></activiti:value>
           <activiti:value id="attr2" name="фізична особа-підприємець"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="name" name="Найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="PIB" name="Прізвище, ім'я та по-батькові керівника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Reestr" name="Місце реєстрації юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="inn" name="Код платника податків згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="KVED" name="Код виду діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email1" name="Додайте e-mail юридичної особи, або ФОП, які оформлюють декларацію;вноситься в декларацію, може співпадати з контактним e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="locacia" name="Місце (адреса) виконання робіт підвищеної небезпеки;та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата його видачі" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу" type="enum" writable="false">
-          <activiti:value id=" " name=" "></activiti:value>
-          <activiti:value id="1a" name="1. Радіологічний (дозиметричний) і піротехнічний контроль."></activiti:value>
-          <activiti:value id="2b" name="2. Виготовлення та випробування вантажозахоплюючих пристроїв."></activiti:value>
-          <activiti:value id="3c" name="3. Експлуатація і ремонт водозбірних споруд."></activiti:value>
-          <activiti:value id="4d" name="4. Продавлювання тунельних конструкцій під будинками, спорудами, магістралями і водоймищами, крім земляних робіт, що виконуються на глибині понад 2 метри або в зоні розташування підземних комунікацій чи під водою."></activiti:value>
-          <activiti:value id="5e" name="5. Роботи із застосуванням піротехнічних виробів."></activiti:value>
-          <activiti:value id="6f" name="6. Експлуатація, обслуговування, ремонт технологічного устатковання харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
-          <activiti:value id="7g" name="7. Ремонтні, монтажні, будівельні та інші роботи, що виконуються на висоті понад  1,3 метра, крім робіт верхолазних та скелелазних, що виконуються на висоті 5 метрів і більше над поверхнею ґрунту, з перекриття або робочого настилу та робіт, що виконуються за допомогою підйомних і підвісних колисок, механічних підіймачів та будівельних підйомників."></activiti:value>
-          <activiti:value id="8h" name="8. Навчання з питань охорони праці працівників інших суб'єктів господарювання."></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволуи" type="enum" writable="false">
-          <activiti:value id=" " name=" "></activiti:value>
-          <activiti:value id="1A" name="1. Машини, механізми, устатковання для буріння, ремонту свердловин на суходолі і в акваторії моря."></activiti:value>
-          <activiti:value id="2B" name="2. Машини, механізми, устатковання для харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
-          <activiti:value id="3C" name="3. Ковальсько-пресове устаковання."></activiti:value>
-        </activiti:formProperty>
+        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволуи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="brand" name="Марка, номер партії, дата виготовлення, країна походження машин" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workspace" name="Кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="workspace1" name="Зазначте кількість робочих місць, на яких існує підвищений ризик виникнення травм" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="build" name="Кількість будівель і споруд (приміщень)" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objects" name="Виробничі об'єкти (цехи, дільниці, структурні підрозділи)" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vidpovidalni" name="Особи, відповідальні за дотримання законодавства з питань охорони праці та промислової безпеки;Прізвище, ім'я, по-батькові, номер та дата протокола, назва головного навчально-методичного центру" type="textArea" writable="false"></activiti:formProperty>
@@ -601,10 +547,6 @@ ${otkaz1} &lt;br&gt;
         <activiti:formProperty id="vibor" name="Отримати результат реєстрації декларації заявник хоче в:" type="enum" writable="false">
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="usluga" name="Реєстрацію повинно виконати" type="enum" writable="false">
-          <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
-          <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="proverka" name="Оберіть результат первинної перевірки документів:" type="enum" required="true">
           <activiti:value id="yes" name="Документи прийнято, формується опис, документи передаються для подальшої обробки"></activiti:value>
@@ -691,7 +633,7 @@ ${otkaz1} &lt;br&gt;
                 &lt;tr&gt;
                   &lt;td style="padding: 35px 120px;"&gt;
                   &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                  &lt;p&gt; Ваше звернення про реєстрацію декларації перевірено адміністратором. Декларацію передано в ${usluga}.&lt;br&gt;
+                  &lt;p&gt; Ваше звернення про реєстрацію декларації перевірено адміністратором. Декларацію передано для реєстрації.&lt;br&gt;
 				  До листа додано опис прийнятих документів. &lt;/p&gt;
                   &lt;hr
  style="border-style: none none solid; border-color: -moz-use-text-color -moz-use-text-color rgb(221, 221, 221); border-width: 0pt 0pt 1px; margin: 30px 0pt 15px; background: rgb(221, 221, 221) none repeat scroll 0%; width: 100%; height: 0pt; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"&gt;
@@ -737,32 +679,19 @@ ${otkaz1} &lt;br&gt;
           <activiti:value id="attr1" name="юридична особа"></activiti:value>
           <activiti:value id="attr2" name="фізична особа-підприємець"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="name" name="Найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
+       <activiti:formProperty id="name" name="Найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="PIB" name="Прізвище, ім'я та по-батькові керівника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Reestr" name="Місце реєстрації юридичної особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="inn" name="Код платника податків згідно з ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="KVED" name="Код виду діяльності згідно з КВЕД" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email1" name="Додайте e-mail юридичної особи, або ФОП, які оформлюють декларацію;вноситься в декларацію, може співпадати з контактним e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="locacia" name="Місце (адреса) виконання робіт підвищеної небезпеки;та/або експлуатації (застосування) машин, механізмів, устаковання підвищеної небезпеки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="strahovka" name="Інформація про наявність договору страхування цивільної відповідальності перед третіми особами стосовно відшкодування наслідків можливої шкоди;найменування страхової компанії, строк дії страхового полісу, номер і дата його видачі" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу" type="enum" writable="false">
-          <activiti:value id=" " name=" "></activiti:value>
-          <activiti:value id="1a" name="1. Радіологічний (дозиметричний) і піротехнічний контроль."></activiti:value>
-          <activiti:value id="2b" name="2. Виготовлення та випробування вантажозахоплюючих пристроїв."></activiti:value>
-          <activiti:value id="3c" name="3. Експлуатація і ремонт водозбірних споруд."></activiti:value>
-          <activiti:value id="4d" name="4. Продавлювання тунельних конструкцій під будинками, спорудами, магістралями і водоймищами, крім земляних робіт, що виконуються на глибині понад 2 метри або в зоні розташування підземних комунікацій чи під водою."></activiti:value>
-          <activiti:value id="5e" name="5. Роботи із застосуванням піротехнічних виробів."></activiti:value>
-          <activiti:value id="6f" name="6. Експлуатація, обслуговування, ремонт технологічного устатковання харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
-          <activiti:value id="7g" name="7. Ремонтні, монтажні, будівельні та інші роботи, що виконуються на висоті понад  1,3 метра, крім робіт верхолазних та скелелазних, що виконуються на висоті 5 метрів і більше над поверхнею ґрунту, з перекриття або робочого настилу та робіт, що виконуються за допомогою підйомних і підвісних колисок, механічних підіймачів та будівельних підйомників."></activiti:value>
-          <activiti:value id="8h" name="8. Навчання з питань охорони праці працівників інших суб'єктів господарювання."></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволуи" type="enum" writable="false">
-          <activiti:value id=" " name=" "></activiti:value>
-          <activiti:value id="1A" name="1. Машини, механізми, устатковання для буріння, ремонту свердловин на суходолі і в акваторії моря."></activiti:value>
-          <activiti:value id="2B" name="2. Машини, механізми, устатковання для харчової, переробної, поліграфічної, легкої та текстильної промисловості."></activiti:value>
-          <activiti:value id="3C" name="3. Ковальсько-пресове устаковання."></activiti:value>
-        </activiti:formProperty>
+        <activiti:formProperty id="work" name="Найменування виду робіт підвищеної небезпеки, які виконуються без отримання відповідного дозволу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="avto" name="Найменування машин, механізмів устатковання підвищеної небезпеки, які експлуатуються (застосовуються) без отримання відповідного дозволуи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="brand" name="Марка, номер партії, дата виготовлення, країна походження машин" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workspace" name="Кількість робочих місць, в тому числі тих, на яких існує підвищений ризик виникнення травм" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="workspace1" name="Зазначте кількість робочих місць, на яких існує підвищений ризик виникнення травм" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="build" name="Кількість будівель і споруд (приміщень)" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objects" name="Виробничі об'єкти (цехи, дільниці, структурні підрозділи)" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="vidpovidalni" name="Особи, відповідальні за дотримання законодавства з питань охорони праці та промислової безпеки;Прізвище, ім'я, по-батькові, номер та дата протокола, назва головного навчально-методичного центру" type="textArea" writable="false"></activiti:formProperty>
@@ -776,10 +705,6 @@ ${otkaz1} &lt;br&gt;
         <activiti:formProperty id="vibor" name="Отримати результат реєстрації декларації заявник хоче в:" type="enum" writable="false">
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="usluga" name="Реєстрацію повинно виконати" type="enum" writable="false">
-          <activiti:value id="Kr" name="Криворізьке гірничопромислове територіальне управління Державної служби гірничого нагляду та промислової безпеки України"></activiti:value>
-          <activiti:value id="Dp" name="Територіальне управління Держгірпромнагляду у Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="proverka2" name="Рішення реєстратора про реєстрацію декларації" type="enum" required="true">
           <activiti:value id="декларацію зареєстровано" name="декларацію зареєстровано"></activiti:value>
