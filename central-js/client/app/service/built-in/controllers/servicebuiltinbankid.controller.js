@@ -201,14 +201,26 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   };
 
   $scope.isFieldVisible = function(property) {
-    return property.id !== 'processName' && (FieldMotionService.isFieldMentioned.inShow(property.id) ?
+    return property.id !== 'processName' && (FieldMotionService.FieldMentioned.inShow(property.id) ?
       FieldMotionService.isFieldVisible(property.id, $scope.data.formData.params) : true);
   };
 
   $scope.isFieldRequired = function(property) {
-    return FieldMotionService.isFieldMentioned.inRequired(property.id) ?
+    return FieldMotionService.FieldMentioned.inRequired(property.id) ?
       FieldMotionService.isFieldRequired(property.id, $scope.data.formData.params) : property.required;
   };
+
+  $scope.$watch('data.formData.params', watchToSetDefaultValues, true);
+  function watchToSetDefaultValues() {
+    var calcFields = FieldMotionService.getCalcFieldsIds();
+    var pars = $scope.data.formData.params;
+    calcFields.forEach(function(key) {
+      if (_.has(pars, key)) {
+        var data = FieldMotionService.calcFieldValue(key, pars);
+        if (data.value && data.differentTriggered) pars[key].value = data.value;
+      }
+    });
+  }
 
   $scope.getHtml = function(html) {
     return $sce.trustAsHtml(html);
