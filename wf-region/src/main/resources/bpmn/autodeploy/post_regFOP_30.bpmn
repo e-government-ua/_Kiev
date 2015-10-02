@@ -14,7 +14,7 @@
           <activiti:value id="fond2" name="49000.м.Дніпропетровськ"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="scan_inn" name="Копія документа, що засвідчує реєстрацію у Державному реєстрі фізичних осіб - платників податків (ІПН)" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
         <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="invisible" default="0"></activiti:formProperty>
@@ -38,10 +38,11 @@
         <activiti:formProperty id="adress" name="Ваша адреса" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="area" name="Оберіть реєстраційну службу міськрайонного управління юстиції" type="enum" writable="false">
           <activiti:value id="fond1" name="51400, Дніпропетровська обл., м.Павлоград, вул. Дніпровська, 338"></activiti:value>
+          <activiti:value id="fond2" name="49000.м.Дніпропетровськ"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="country" name="Країна громадянства" type="string" default="Україна"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="country" name="Країна громадянства" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="typeRoom" name="Тип приміщення (квартира, кімната, кабінет або офіс тощо)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="scan_inn" name="Копія документа, що засвідчує реєстрацію у Державному реєстрі фізичних осіб - платників податків (ІПН)" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="scan_receipt" name="Копія квитанції, виданої банком, або копія платіжного доручення з відміткою банку" type="file" writable="false"></activiti:formProperty>
@@ -147,7 +148,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask4" name="Відповідь у разі нехватки документів" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask4" name="Відповідь у разі нехватки документів" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -230,9 +231,6 @@
     &lt;/tr&gt;
     &lt;/tbody&gt;
 &lt;/table&gt;</activiti:expression>
-        </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${scan_inn}, ${scan_receipt}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
