@@ -113,20 +113,11 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
   };
 
   self.regionIsChosen = function() {
-    var bResult = savedPlaceData && (savedPlaceData.region ? true : false);
-    return bResult;
+    return savedPlaceData && (savedPlaceData.region ? true : false);
   };
 
-  // FIXME Перевірити, чи немає тут дублювання логіки з serviceIsAvailableInCity?
-  self.cityIsAvailable = function() {
-    var oAvail = self.getServiceAvailability();
-    var bResult = oAvail.anyCity;
-    return bResult;
-  };
-
-  self.cityIsChosen = function() {
-    var bResult = savedPlaceData && (savedPlaceData.city ? true : false);
-    return bResult;
+  self.cityIsChosen = function() {;
+    return savedPlaceData && (savedPlaceData.city ? true : false);
   };
 
   self.findServiceDataByCountry = function() {
@@ -161,15 +152,6 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
       }
     });
     return result;
-  };
-
-  self.serviceIsAvailableInRegion = function() {
-    return self.regionIsChosen() && self.findServiceDataByRegion() !== null;
-  };
-
-  // FIXME Перевірити, чи немає тут дублювання логіки з cityIsAvailable?
-  self.serviceIsAvailableInCity = function() {
-    return self.cityIsChosen() && self.findServiceDataByCity() !== null;
   };
 
   /**
@@ -232,10 +214,10 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     
     serviceType = self.findServiceDataByCountry() || serviceType;
 
-    if (self.serviceIsAvailableInRegion()) {
+    if (self.regionIsChosen() && self.findServiceDataByRegion() !== null) {
       serviceType = self.findServiceDataByRegion();
     }
-    if (self.serviceIsAvailableInCity()) {
+    if (self.cityIsChosen() && self.findServiceDataByCity() !== null) {
       serviceType = self.findServiceDataByCity();
     }
 
