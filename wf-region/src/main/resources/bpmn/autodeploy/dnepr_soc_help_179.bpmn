@@ -166,7 +166,7 @@
           <activiti:value id="attr2_bad" name="Дані заповнені неправильно, повідомити громадянина"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decision_comment1" name="Якщо ви відмовляєте замовнику, обов'язково вкажіть підставу у цьому полі" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_soc_help_179_print.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_soc_help_147_print.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -467,6 +467,9 @@
     &lt;/tr&gt;
     &lt;/tbody&gt;
 &lt;/table&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${document}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

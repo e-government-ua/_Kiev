@@ -391,7 +391,7 @@
 &lt;/table&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>1</activiti:expression>
+          <activiti:expression>${document}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

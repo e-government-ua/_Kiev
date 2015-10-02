@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_soc_help_147" name="Дніпропетровськ - УПСЗН - Призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування та грошового забезпечення прийомним батькам" isExecutable="true">
+  <process id="dnepr_soc_help_181" name="Дніпропетровськ - УПСЗН - Призначення компенсації за послуги з центрального опалення житла, електропостачання та газопостачання" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -33,18 +33,20 @@
         <activiti:formProperty id="mfo" name="МФО банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="ЄДРПОУ банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bank_account" name="Номер рахунку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Рішення районної, держадміністрації, виконавчого органу міської, районної у місті ради про влаштування дитини до дитячого будинку сімейного типу або прийомної сім'ї" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Документи, що підтверджують статус дитини" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Довідка органу державної виконавчої служби про розмір аліментів" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file4" name="Довідка з місця навчання про розмір стипендії;якщо особа з числа дітей-сиріт та дітей, позбавлених батьківського піклування, віком від 18 до 23 років або до закінчення відповідних навчальних закладів навчається за денною формою у вищих навчальних закладах I-IV рівня акредитації та професійно-технічних навчальних закладах, подаються довідки про розмір стипендії та про те, що вона не перебуває на повному державному утриманні" type="file"></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копія виписки із акта огляду медико-соціальної експертної комісії або медичного висновку лікарсько-консультативної комісії лікувально-профілактичного закладу про дитину-інваліда, виданих в установленому МОЗ порядку" type="file"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Сканована копія паспорта громадянина" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Довідка про склад сім'ї" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file2" name="Копія трудової книжки" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file3" name="Копія пенсійного посвідчення" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file4" name="Копія посвідчення інваліда або ветерана війни чи праці" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Довідка про перебування на обліку в центрі зайнятості" type="file"></activiti:formProperty>
+        <activiti:formProperty id="file6" name="Довідка з територіального органу Пенсійного фонду за місцем проживання (реєстрації) про право на пенсію у зв'язку з втратою годувальника" type="file"></activiti:formProperty>
         <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення держслужбовця про новий запит" activiti:type="mail">
       <extensionElements>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Нове звернення. Призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування та грошового забезпечення прийомним батькам.]]></activiti:string>
+          <activiti:string><![CDATA[Нове звернення. Призначення компенсації за послуги з центрального опалення житла, електропостачання та газопостачання.]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:string><![CDATA[msvidran@gmail.com]]></activiti:string>
@@ -92,7 +94,6 @@
                 &lt;!--header line statrs--&gt;
                 &lt;tr&gt;
                     &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-
                 &lt;/tr&gt;
                 &lt;!--header line end--&gt;
                 &lt;!--content statrs--&gt;
@@ -103,7 +104,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо "Призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування та грошового забезпечення прийомним батькам".&lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо "Призначення компенсації за послуги з центрального опалення житла, електропостачання та газопостачання".&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 Відпрацюйте це звернення на &lt;a href="https://test.region.igov.org.ua/" target="_blank"&gt;порталі&lt;/a&gt;
                                     &lt;/p&gt;
@@ -171,7 +172,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${file1},${file2},${file3},${file4},${file5}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${file1},${file2},${file3},${file4},${file5},${file6}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -195,7 +196,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування та грошового забезпечення прийомним батькам.]]></activiti:string>
+          <activiti:string><![CDATA[Призначення компенсації за послуги з центрального опалення житла, електропостачання та газопостачання.]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -243,11 +244,9 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-&lt;p&gt;На жаль, Ваше звернення щодо отримання  допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування та грошового забезпечення прийомним батькам - відхилено.&lt;/p&gt;
+&lt;p&gt;На жаль, Ваше звернення щодо отримання компенсації за послуги з центрального опалення житла, електропостачання та газопостачання - відхилено.&lt;/p&gt;
 &lt;p&gt;Причина: ${decision_comment1}&lt;/p&gt;
 &lt;p&gt;Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;&lt;/p&gt;
-
-                            
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -322,7 +321,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування та грошового забезпечення прийомним батькам.]]></activiti:string>
+          <activiti:string><![CDATA[Призначення компенсації за послуги з центрального опалення житла, електропостачання та газопостачання.]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -374,11 +373,8 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-&lt;p&gt;Ваше звернення щодо отримання соціальної допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування та грошового забезпечення прийомним батькам - опрацьовано.&lt;/p&gt;
-&lt;p&gt;Рішення про надання допомоги вказане у файлі, який прикріплено до цього листа.&lt;/p&gt;
-
-
-                            
+&lt;p&gt;Ваше звернення щодо отримання компенсації за послуги з центрального опалення житла, електропостачання та газопостачання - опрацьовано.&lt;/p&gt;
+&lt;p&gt;Рішення про надання компенсації вказане у файлі, який прикріплено до цього листа.&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -410,7 +406,7 @@
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування та грошового забезпечення прийомним батькам.]]></activiti:string>
+          <activiti:string><![CDATA[Призначення компенсації за послуги з центрального опалення житла, електропостачання та газопостачання.]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
@@ -455,11 +451,8 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-&lt;p&gt;На жаль, отримання соціальної допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування та грошового забезпечення прийомним батькам - відхилене.&lt;/p&gt;
+&lt;p&gt;На жаль, отримання компенсації за послуги з центрального опалення житла, електропостачання та газопостачання - відхилене.&lt;/p&gt;
 &lt;p&gt;Причина вказана у файлі, який прикріплено до цього листа.&lt;/p&gt;
-
-
-                            
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -467,11 +460,7 @@
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                           
-                          
-
                         &lt;/table&gt;
-                     
                     &lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--content end--&gt;
@@ -496,8 +485,8 @@
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow13" sourceRef="servicetask2" targetRef="endevent3"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_147">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_147" id="BPMNPlane_dnepr_soc_help_147">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_181">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_181" id="BPMNPlane_dnepr_soc_help_181">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="230.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>

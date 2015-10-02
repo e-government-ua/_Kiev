@@ -32,8 +32,8 @@
         <activiti:formProperty id="mfo" name="МФО банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="ЄДРПОУ банку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bank_account" name="Номер рахунку; заповнюється у разі вибору такого варіанта перерахування коштів" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Копія або витяг з наказу (розпорядження) роботодавця про надання відпустки" type="file"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копія свідоцтва про народження дитини" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Копія або витяг з наказу (розпорядження) роботодавця про надання відпустки" type="file"></activiti:formProperty>
         <activiti:formProperty id="file3" name="Копія трудової книжки матері (батька, усиновлювача, опікуна, дідуся, бабусі або іншого родича), яка (який) здійснює догляд за дитиною" type="file"></activiti:formProperty>
         <activiti:formProperty id="file4" name="Довідка з місця навчання;для осіб, які навчаються" type="file"></activiti:formProperty>
         <activiti:formProperty id="file5" name="Довідка про те, що  виплата допомоги по безробіттю або матеріальної допомоги по безробіттю не проводиться;для непрацюючих осіб, які перебувають на обліку в центрі зайнятості" type="file"></activiti:formProperty>
@@ -243,7 +243,8 @@
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
 &lt;p&gt;На жаль, Ваше звернення щодо отримання допомоги по догляду за дитиною до досягнення нею трирічного віку - відхилено.&lt;/p&gt;
 &lt;p&gt;Причина: ${decision_comment1}&lt;/p&gt;
-&lt;p&gt;Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a target="_blank" href="http://igov.org.ua"&gt;iGov.org.ua&lt;/a&gt;
+&lt;/p&gt;
 
                             
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -393,7 +394,7 @@
 &lt;/table&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>1</activiti:expression>
+          <activiti:expression>${document}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -467,7 +468,7 @@
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
                                         Управління соціального захисту у Дніпропетровській області,&lt;br /&gt;
-Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+Команда Порталу державних послуг &lt;a target="_blank" href="http://igov.org.ua"&gt;iGov.org.ua&lt;/a&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
