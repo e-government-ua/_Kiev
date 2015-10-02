@@ -1,7 +1,14 @@
 <div ng-init="fillData()">
   <table class="table">
     <tbody>
-      <tr ng-repeat="rule in get() | orderBy:'nID'">
+       <tr>
+         <td>
+          <button class="btn btn-primary" ng-click="add()">Додати правило</button>
+        </td>
+        <td></td>
+        
+      </tr>
+      <tr ng-repeat="rule in get() | orderBy:'-nID'">
         <td>
           <!--replace with dynamic values properly-->
           <!--Якщо чиновник не відповідає 10 днів, то відправити e-mail. Послуга: {{rule.sID_BP}}-->
@@ -23,12 +30,7 @@
           </div>
         </td>
       </tr>
-      <tr>
-        <td></td>
-        <td>
-          <button class="btn btn-primary" ng-click="add()">Додати</button>
-        </td>
-      </tr>
+     
     </tbody>
   </table>
 </div>

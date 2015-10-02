@@ -6,7 +6,7 @@ angular.module('dashboardJsApp')
       //var getFunc = $scope.funcs.getFunc;
       var getAllFunc = $scope.funcs.getAllFunc;
       var setFunc = $scope.funcs.setFunc;
-      var deleteFunc = $scope.funcs.deleteFunc;
+      var deleteFunc = $scope.funcs.deleteFunc;      
       
       // $scope.exampleRule = {
       //   id: 1,
@@ -35,7 +35,7 @@ angular.module('dashboardJsApp')
             .then(function (editedRule) {
              console.log('fine');
              var i = 0;
-             $scope.rules.every(
+             var ruleNotExistedBefore = $scope.rules.every(
                function(element){
                  if (element.nID == editedRule.nID){
                    $scope.rules[i] = editedRule;                   
@@ -45,12 +45,14 @@ angular.module('dashboardJsApp')
                  return true;
                }
              );
+             if (ruleNotExistedBefore) $scope.rules.push(editedRule);
              
             });
           
         });
       };
 
+      
       $scope.rules = [];
       $scope.get = function () {
         return $scope.rules;
@@ -77,7 +79,7 @@ angular.module('dashboardJsApp')
       };
 
       $scope.add = function () {
-
+        openModal();
       };
 
       $scope.edit = function (rule) {
