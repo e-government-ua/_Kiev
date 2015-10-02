@@ -1,6 +1,6 @@
-<print-modal show='printTemplate.showPrintModal' info='printTemplate.showPrintModal'>
+<print-modal show='showPrintModal' info='showPrintModal'>
   <div class="print-modal-content">
-    <div ng-if="!printTemplate.containsPrintTemplate()">
+    <div ng-if="!printTemplateList.length">
       <p>Звернення: {{getProcessName(printTemplate.task.processDefinitionId)}}</p>
 
       <p>джерело: igov.org.ua</p>
@@ -14,6 +14,7 @@
         <b ng-if="item.type == 'enum'">{{sEnumValue(item.enumValues,item.value)}}</b>
         <b ng-if="item.type != 'enum' && item.type != 'invisible'">{{item.value}}</b>
       </p>
+      {{ printTemplate }}
 
       <p>
         ----------------------------------------------------------------------------------------------------------------------------</p>
@@ -22,8 +23,8 @@
 
       <p>Дата _________________________ Підпис _________________________</p>
     </div>
-    <div ng-if="printTemplate.containsPrintTemplate()">
-      <div ng-bind-html="printTemplate.getPrintTemplate()"></div>
+    <div ng-if="printTemplateList.length > 0">
+      <div ng-bind-html="specificTemplate"></div>
     </div>
   </div>
 </print-modal>

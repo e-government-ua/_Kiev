@@ -2,7 +2,7 @@
 
 angular.module('dashboardJsApp').factory('PrintTemplateProcessor', function ($sce) {
   return {
-    processPrintTemplate: function (form, printTemplate, reg, fieldGetter) {
+    processPrintTemplate: function (task, form, printTemplate, reg, fieldGetter) {
       var _printTemplate = printTemplate;
       var templates = [], ids = [], found;
       while (found = reg.exec(_printTemplate)) {
@@ -28,7 +28,7 @@ angular.module('dashboardJsApp').factory('PrintTemplateProcessor', function ($sc
       }
       return _printTemplate;
     },
-    getPrintTemplate: function (form, originalPrintTemplate) {
+    getPrintTemplate: function (task, form, originalPrintTemplate) {
       // helper function for getting field value for different types of fields
       function fieldGetter(item) {
         if (item.type === 'enum') {
@@ -44,9 +44,9 @@ angular.module('dashboardJsApp').factory('PrintTemplateProcessor', function ($sc
           return item.value;
         }
       }
-      var printTemplate = this.processPrintTemplate(form, originalPrintTemplate, /(\[(\w+)])/g, fieldGetter);
+      var printTemplate = this.processPrintTemplate(task, form, originalPrintTemplate, /(\[(\w+)])/g, fieldGetter);
       // What is this for? // Sergey P
-      printTemplate = this.processPrintTemplate(form, printTemplate, /(\[label=(\w+)])/g, function (item) {
+      printTemplate = this.processPrintTemplate(task, form, printTemplate, /(\[label=(\w+)])/g, function (item) {
         return item.name;
       });
       return $sce.trustAsHtml(printTemplate);

@@ -1,11 +1,13 @@
 ﻿'use strict';
-angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $window, tasks, processes, Modal, Auth,
-                                                                   PrintTemplate, $localStorage, $filter, lunaService, PrintTemplateService) {
+angular.module('dashboardJsApp').controller('TasksCtrl',
+    ['$scope', '$window', 'tasks', 'processes', 'Modal', 'Auth', '$localStorage', '$filter', 'lunaService', 'PrintTemplateService',
+      function ($scope, $window, tasks, processes, Modal, Auth, $localStorage, $filter, lunaService, PrintTemplateService) {
   $scope.tasks = null;
   $scope.selectedTasks = {};
   $scope.sSelectedTask = "";
   $scope.taskFormLoaded = false;
   $scope.printTemplateList = [];
+  $scope.showPrintModal = false;
   $scope.$storage = $localStorage.$default({
     menuType: tasks.filterTypes.selfAssigned
   });
@@ -51,17 +53,13 @@ angular.module('dashboardJsApp').controller('TasksCtrl', function ($scope, $wind
     }
   }
 
-  $scope.printTemplate = new PrintTemplate();
-
   $scope.print = function () {
     if ($scope.selectedTask && $scope.taskForm) {
       if($scope.hasUnPopulatedFields()){
         Modal.inform.error()('Не всі поля заповнені!');
         return;
       }
-      $scope.printTemplate.task = $scope.selectedTask;
-      $scope.printTemplate.form = $scope.taskForm;
-      $scope.printTemplate.showPrintModal = !$scope.printTemplate.showPrintModal;
+      $scope.showPrintModal = !$scope.showPrintModal;
     }
   };
 
@@ -352,67 +350,6 @@ $scope.lightweightRefreshAfterSubmit = function () {
     return s;
   };
 
-
-
-  $scope.aPatternPrintNew = function (taskForm) {
-    var aResult = [];
-    if(taskForm){//this.form
-
-        /* НЕ ЗАРАБОТАЛО!
-        console.log("[loadSelfAssignedTasks]");
-        var aItem = taskForm;
-        _.forEach(aItem, function (n,oItem) {
-          //if (oItem.id == sID) {
-          if (oItem.id && oItem.id.indexOf('sBody') >= 0 && oItem.value !== "") {
-
-            //s = oItem.name;
-            var sID = oItem.id;
-            var sName = oItem.name;
-            console.log("[loadSelfAssignedTasks]sID="+sID+",sName="+sName);
-
-            if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
-                sName = oItem.value;
-                console.log("[loadSelfAssignedTasks]sName="+sName);
-            }
-            aResult = aResult.concat([{id:sID, name: sName}]);
-          }
-        });
-        return aResult;
-        */
-
-        console.log("[aPatternPrintNew]...");
-
-        var printTemplateResult = null;
-        printTemplateResult = taskForm.filter(function (item) {//form//this.form
-            //if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
-          //return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
-
-/*
-            if(item.id && item.id.indexOf('sBody') >= 0){
-                var oItem = item;
-                var sID = oItem.id;
-                var sName = oItem.name;
-                console.log("[aPatternPrintNew]sID="+sID+",sName="+sName);
-                //if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
-                if(oItem.value!=null&&oItem.value.trim().length>1&&oItem.value.trim().length<100){
-                    sName = oItem.value;
-                    console.log("[aPatternPrintNew]sName(NEW)="+sName);
-                }
-                aResult = aResult.concat([{id:sID, name: sName}]);
-            }
-  */
-
-          return item.id && item.id.indexOf('sBody') >= 0;//item.id === s
-        });
-        console.log("[aPatternPrintNew]aResult="+aResult);
-
-    }
-    return (printTemplateResult!==null && printTemplateResult!==undefined && printTemplateResult.length !== 0) ? printTemplateResult : [];
-//    return aResult;
-//    return printTemplateResult.length !== 0 ? printTemplateResult[0].value : "";
-
-  };
-
   $scope.nID_FlowSlotTicket_FieldQueueData = function (sValue) {
     var nAt = sValue.indexOf(":");
     var nTo = sValue.indexOf(",");
@@ -682,4 +619,4 @@ $scope.lightweightRefreshAfterSubmit = function () {
         return false;
   };
 
-});
+}]);
