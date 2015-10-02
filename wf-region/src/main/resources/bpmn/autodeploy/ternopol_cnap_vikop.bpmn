@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="ternopol_cnap_vikop" name="ЦНАП м.Тернопіль - Виготовлення викопіювання в масштабі 1:500, 1:2000" isExecutable="true">
+  <process id="ternopol_cnap_vikop" name="Тернопіль ЦНАП - Виготовлення викопіювання в масштабі 1:500, 1:2000" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Телефон; в форматі 380..." type="string" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Для яких потреб необхідне викопіювання" type="string" required="true"></activiti:formProperty>
@@ -203,9 +203,9 @@
     <sequenceFlow id="flow14" sourceRef="mailtask5" targetRef="usertask1"></sequenceFlow>
    <userTask id="usertask1" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="ternopol_arh">
       <extensionElements>
-        <activiti:formProperty id="info" name="На цьому етапі:" type="label" default="Ви перевіряєте дані громадянина і вирішуєте чи всі вони вірні. Якщо все добре, присвоюєте реєстраційний номер зверненню, роздруковуєте прінтформи та відправляєте документи до Управлінням містобудування, архітектури та кадастру. Якщо ні - відмовляєте у реєстрації звернення з обов'язковим коментарем."></activiti:formProperty>
+        <activiti:formProperty id="info" name="На цьому етапі:" type="label" default="Ви перевіряєте дані громадянина і вирішуєте чи всі вони вірні. Якщо все добре, присвоюєте реєстраційний номер зверненню, роздруковуєте прінтформи та відправляєте документи до Управління містобудування, архітектури та кадастру. Якщо ні - відмовляєте у реєстрації звернення з обов'язковим коментарем."></activiti:formProperty>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Для яких потреб необхідне викопіювання" type="string" writable="false"></activiti:formProperty>
@@ -339,12 +339,12 @@
                     &lt;p&gt;
                     Направляємо Вам документи для Виготовлення викопіювання в масштабі 1:500, 1:2000.&lt;/p&gt;
 					&lt;p&gt;				
-					Заявник: ${clFio};
+					Заявник: ${clFio};&lt;br /&gt;
                     Реєстраційний номер ЦНАП ${vnnumb}.
                     &lt;/p&gt;        		
                     З повагою,
                     ЦНАП м. Тернопіль,&lt;br /&gt;
-                    Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                    Команда Порталу державних послуг &lt;a href="https://igov.org.ua/"&gt;iGov.org.ua&lt;/a&gt;.
           </activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
@@ -357,10 +357,10 @@
       <extensionElements>
         <activiti:formProperty id="info1" name="На цьому етапі:" type="label" default="Ви отримуєте результат розгляду звернення Управлінням містобудування, архітектури та кадастру і відповідним чином інформуєте громадянина."></activiti:formProperty>
         <activiti:formProperty id="vnnumb" name="Реєстраційний номер звернення" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="DocumentDate" name="Дата оформлення документів" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="DocumentDate" name="Дата реєстрації звернення" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Для яких потреб необхідне викопіювання" type="string" writable="false"></activiti:formProperty>
@@ -435,7 +435,8 @@
                                     &lt;p&gt;
                                         Ваше звернення оброблено.&lt;/p&gt;
                                     &lt;p&gt; 
-                                    	Ви можете отримати викопіювання за адресою: м. Тернопіль, вул. Князя Острозького, 6, 1 поверх, зал №3&lt;/p&gt;
+                                    	Ви можете отримати викопіювання за адресою:&lt;br /&gt;
+                                    	м. Тернопіль, вул. Князя Острозького, 6, 1 поверх, зал №3&lt;/p&gt;
                                     &lt;p&gt; 
                                     	Графік прийому суб’єктів звернення:&lt;p&gt;
 										Пн., Ср. – 9.00 – 16.00.&lt;br /&gt;
@@ -532,7 +533,8 @@
                                     &lt;p&gt;
                                         Ваше звернення оброблено.&lt;/p&gt;
                                     &lt;p&gt; 
-                                    	Ви можете отримати відмову у наданні послуги, а також вхідний пакет документів за адресою: м. Тернопіль, вул. Князя Острозького, 6, 1 поверх, зал №3.&lt;/p&gt;
+                                    	Ви можете отримати відмову у наданні послуги, а також вхідний пакет документів за адресою:&lt;br /&gt;
+                                    	м. Тернопіль, вул. Князя Острозького, 6, 1 поверх, зал №3.&lt;/p&gt;
                                     &lt;p&gt; 
 	                                    Графік прийому суб’єктів звернення:&lt;p&gt;
 										Пн., Ср. – 9.00 – 16.00.&lt;br /&gt;
