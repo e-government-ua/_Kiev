@@ -31,7 +31,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="Customer_service" name="Оберіть категорію споживачів послуги" type="enum" required="true">
           <activiti:value id="invalid_1" name="Інвалід з дитинства І групи"></activiti:value>
-          <activiti:value id="invalid_23" name="Одинокий інвалід з дитинства II і III групи; які за висновком лікарсько-консультативної комісії лікувально-профілактичного закладу потребують постійного стороннього догляду"></activiti:value>
+          <activiti:value id="invalid_23" name="Одинокий інвалід з дитинства II і III групи; які потребують постійного стороннього догляду"></activiti:value>
           <activiti:value id="invalid_child" name="Дитина-інвалід"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="single_person" name="Чи маєте Ви статус одинокої особи?" type="enum" required="true">
@@ -77,9 +77,9 @@
         <activiti:formProperty id="doc_guardian" name="копія рішення про встановлення опіки чи піклування" type="file"></activiti:formProperty>
         <activiti:formProperty id="doc_single_person" name="оригінал довідки про перебування (не перебування) на обліку як одинокої особи" type="file"></activiti:formProperty>
         <activiti:formProperty id="doc_together" name="довідка про спільне проживання з дитиною-інвалідом; видана уповноваженим органом за місцем проживання" type="file"></activiti:formProperty>
-        <activiti:formProperty id="doc_adopter" name="рішення про усиновлення" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="doc_allowance" name="заява про призначення надбавки на догляд за дитиною-інвалідом" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="doc_family" name="Довідка про склад сім'ї; із зазначенням прізвищ, (крім сім'ї опікуна, піклувальника) імен та по батькові, родинних зв'язків членів сім'ї;" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="doc_adopter" name="рішення про усиновлення" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_allowance" name="заява про призначення надбавки на догляд за дитиною-інвалідом" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_family" name="Довідка про склад сім'ї; із зазначенням прізвищ, (крім сім'ї опікуна, піклувальника) імен та по батькові, родинних зв'язків членів сім'ї;" type="file"></activiti:formProperty>
         <activiti:formProperty id="doc_centre_job" name="довідка з центру зайнятості про те, що особа не перебуває на обліку як безробітна" type="file"></activiti:formProperty>
         <activiti:formProperty id="doc_employment_history" name="Копія трудової книжки" type="file"></activiti:formProperty>
         <activiti:formProperty id="doc_fop" name="довідка органу державної податкової служби про доходи за останній звітний період (рік)" type="file"></activiti:formProperty>

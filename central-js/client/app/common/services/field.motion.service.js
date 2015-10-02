@@ -2,11 +2,11 @@ angular.module('app').service('FieldMotionService', ['MarkersFactory', FieldMoti
 
 function FieldMotionService(MarkersFactory) {
 
-  this.isFieldMentioned = {
+  this.FieldMentioned = {
     'in': function(fieldId, prefix) {
-        return grepByPrefix(prefix).some(function(entry) {
-          return _.contains(entry.aField_ID, fieldId);
-        });
+      return grepByPrefix(prefix).some(function(entry) {
+        return _.contains(entry.aField_ID, fieldId);
+      });
     },
     inShow: function(fieldId) {
       return this.in(fieldId, 'ShowFieldsOn');
@@ -14,6 +14,12 @@ function FieldMotionService(MarkersFactory) {
     inRequired: function(fieldId) {
       return this.in(fieldId, 'RequiredFieldsOn');
     }
+  };
+
+  this.getCalcFieldsIds = function() {
+    return grepByPrefix('ValuesFieldsOnCondition')
+      .map(function(e) { return e.aField_ID; })
+      .reduce(function(prev, curr) { return prev.concat(curr); }, []);
   };
 
   this.isFieldVisible = function(fieldId, formData) {
@@ -33,6 +39,19 @@ function FieldMotionService(MarkersFactory) {
     return grepByPrefix('RequiredFieldsOnCondition_').some(function(entry) {
       return evalCondition(entry, fieldId, formData);
     })
+  };
+  var fieldId_entryTriggered = {};
+  this.calcFieldValue = function(fieldId, formData) {
+    var entry = _.find(grepByPrefix('ValuesFieldsOnCondition'), function(entry) {
+      return evalCondition(entry, fieldId, formData)
+    });
+    var result = {value: '', differentTriggered: false};
+    if (entry) {
+      result.differentTriggered = fieldId_entryTriggered[fieldId] ? (fieldId_entryTriggered[fieldId] != entry) : true;
+      result.value = entry.sValue ? entry.sValue : entry.asID_Field_sValue[$.inArray(fieldId, entry.aField_ID)];
+    }
+    fieldId_entryTriggered[fieldId] = entry;
+    return result;
   };
 
   function evalCondition(entry, fieldId, formData) {
