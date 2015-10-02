@@ -35,7 +35,10 @@ angular.module('dashboardJsApp')
     var setRule = function(url, ruleToSet, callback){
       var cb = callback || angular.noop;
       var deferred = $q.defer();
-
+      
+      //var id = 0;
+      //if (ruleToSet.nID != null && ruleToSet.nID != undefined) id = ruleToSet.nID;
+      
       var request = {
         method: 'POST',
         url: url,

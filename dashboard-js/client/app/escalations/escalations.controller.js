@@ -7,6 +7,7 @@ angular.module('dashboardJsApp')
       //getFunc: escalationsService.getRule,
       setFunc: escalationsService.setRule,
       getAllFunc: escalationsService.getAllRules,
-      deleteFunc: escalationsService.deleteRule
+      deleteFunc: escalationsService.deleteRule,
+      
     };
   });

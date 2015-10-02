@@ -2,8 +2,22 @@
 
 angular.module('dashboardJsApp')
   .controller('RuleEditorModalCtrl', function($scope, $modalInstance, ruleToEdit, processes) {
-
-    $scope.rule = angular.copy(ruleToEdit);
+        
+    var exampleRule = {       
+        sID_BP: 'dnepr_spravka_o_doxodax',
+        sID_UserTask: '*',
+        sCondition: 'nElapsedDays==nDaysLimit',
+        soData: 'nDaysLimit:3,asRecipientMail:[test@email.com]',
+        sPatternFile: 'escalation/escalation_template.html',
+        nID_EscalationRuleFunction: 'EscalationHandler_SendMailAlert',
+      };
+    var getTheRule = function(a){
+    if (a != null && a != undefined)
+    return angular.copy(a);
+    return exampleRule;
+    }
+    $scope.rule = getTheRule(ruleToEdit);
+    
     $scope.rule.bp =  {sID:$scope.rule.sID_BP, sName:$scope.rule.sID_BP};  
     $scope.processesList = [$scope.rule.bp];
     $scope.ruleBpIsIncorrect = false;
