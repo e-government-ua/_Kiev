@@ -25,6 +25,10 @@
           <activiti:value id="lenin" name="Ленінський"></activiti:value>
           <activiti:value id="samar" name="Самарський"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="area_reestr" name="Чи зареєстровані Ви в обраному районі?" type="enum" required="true">
+          <activiti:value id="yes_1" name="так"></activiti:value>
+          <activiti:value id="no_1" name="ні"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" required="true">
           <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
           <activiti:value id="bank" name="на рахунок у банку"></activiti:value>
@@ -38,6 +42,9 @@
         <activiti:formProperty id="passport_child" name="Завантажте копію свідоцтва про народження дитини;після внесення  змін  до актового запису про народження дитини на підставі рішення суду про усиновлення дитини" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="copy_justice" name="Копія рішення суду про усиновлення дитини" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dov_upszn" name="Довідка про неотримання допомоги з іншого управління праці та соціального захисту населення; якщо заявник зареєстрований  в іншому районі." type="file"></activiti:formProperty>
+        <activiti:formProperty id="markers3" name="Якщо заявник зареєстрований в іншому районі. - нова довідка" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;dov_upszn&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;area_reestr&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'no_1'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers1" name="Якщо заявник зареєстрований в іншому районі - рекваерд поле" type="markers" default="{&quot;motion&quot;:{&quot;RequredFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;dov_upszn&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;area_reestr&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'no_1'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers45" name="почта или банк" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника соц.захисту" activiti:type="mail">
@@ -105,7 +112,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо Призначення допомоги при усиновленні дитини.&lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо призначення допомоги при усиновленні дитини.&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 Відпрацюйте це звернення на &lt;a href="https://region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
                                     &lt;/p&gt;
