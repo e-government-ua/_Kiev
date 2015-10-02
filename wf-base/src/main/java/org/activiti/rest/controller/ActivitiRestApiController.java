@@ -912,6 +912,23 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             return "";
         }
     }
+    
+    public static String parseEnumProperty(FormProperty property, String sName) {
+        Object oValues = property.getType().getInformation("values");
+        if (oValues instanceof Map) {
+            Map<String, String> mValue = (Map) oValues;
+            log.info("[parseEnumProperty]:m=" + mValue);
+            //String sName = property.getValue();
+            log.info("[parseEnumProperty]:sName=" + sName);
+            String sValue = mValue.get(sName);
+            log.info("[parseEnumProperty]:sValue=" + sValue);
+            return parseEnumValue(sValue);
+        } else {
+            log.error("Cannot parse values for property - {}", property);
+            return "";
+        }
+    }
+    
 
     public static String parseEnumValue(String sEnumName) {
         log.info("[parseEnumValue]:sEnumName=" + sEnumName);
