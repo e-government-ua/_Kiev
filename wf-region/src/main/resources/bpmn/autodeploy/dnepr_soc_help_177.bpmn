@@ -37,7 +37,7 @@
           <activiti:value id="invalid_not_pension" name="Призначення допомоги особам, які не мають права на пенсію, та інвалідам"></activiti:value>
           <activiti:value id="invalid_dovidka" name="Видача посвідчень інвалідам з дитинства та дітям інвалідам, особам, які не мають права на пенсію та інвалідам."></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="section_children" name="Оберіть розділ" type="enum">
+        <activiti:formProperty id="section_children" name="Оберіть тип допомоги" type="enum">
           <activiti:value id="children_pregnancy" name="Призначення допомоги у зв’язку з вагітністю та пологами"></activiti:value>
           <activiti:value id="children_born" name="Призначення допомоги при народженні дитини"></activiti:value>
           <activiti:value id="children_3_years" name="Призначення допомоги по догляду за дитиною до досягнення нею трирічного віку"></activiti:value>
@@ -48,18 +48,18 @@
           <activiti:value id="children_orphan" name="Призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування"></activiti:value>
           <activiti:value id="children_bad_parents" name="Призначення тимчасової допомоги дітям, батьки яких ухиляються від сплати аліментів"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="section_care" name="Оберіть розділ" type="enum">
+        <activiti:formProperty id="section_care" name="Оберіть тип допомоги" type="enum">
           <activiti:value id="care_soc" name="Призначення компенсації фізичним особам, які надають соціальні послуги"></activiti:value>
           <activiti:value id="care_invalid" name="Призначення надбавки на догляд за інвалідом з дитинства та за дитиною-інвалідом"></activiti:value>
           <activiti:value id="care_psycho" name="Призначення допомоги малозабезпеченій особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу"></activiti:value>
           <activiti:value id="care_old_human" name="Призначення компенсації по догляду за інв.1 гр., престарілим старше 80 років"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="section_energy" name="Оберіть розділ" type="enum">
+        <activiti:formProperty id="section_energy" name="Оберіть тип допомоги" type="enum">
           <activiti:value id="energy_1" name="Призначення компенсації за послуги з центрального опалення житла, електропостачання та газопостачання"></activiti:value>
           <activiti:value id="energy_2" name="Надання пільг готівкою на придбання твердого палива і скрапленого газу за рахунок субвенцій з державного бюджету місцевим бюджетам"></activiti:value>
           <activiti:value id="energy_3" name="Призначення субсидії для відшкодування витрат на оплату житлово-комунальних послуг, придбання скрапленого газу, твердого пічного побутового палива"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="section_other" name="Оберіть розділ" type="enum">
+        <activiti:formProperty id="section_other" name="Оберіть тип допомоги" type="enum">
           <activiti:value id="other_poor" name="Призначення допомоги малозабезпеченим сім'ям"></activiti:value>
           <activiti:value id="other_funeral" name="Призначення допомоги на поховання"></activiti:value>
           <activiti:value id="other_centenarian" name="Надання стипендії особам, яким виповнилось 100 і більше років"></activiti:value>
@@ -173,6 +173,55 @@ ${section_other}
     <userTask id="usertask1" name="повідомлення громадянина про прийняте рішення" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" writable="false">
+          <activiti:value id="and" name="Амур-Нижньодніпровський"></activiti:value>
+          <activiti:value id="babush" name="Бабушкінський"></activiti:value>
+          <activiti:value id="zhovt" name="Жовтневий"></activiti:value>
+          <activiti:value id="indust" name="Індустріальний"></activiti:value>
+          <activiti:value id="kirov" name="Кіровський"></activiti:value>
+          <activiti:value id="krasn" name="Красногвардійський"></activiti:value>
+          <activiti:value id="lenin" name="Ленінський"></activiti:value>
+          <activiti:value id="samar" name="Самарський"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="content" name="Оберіть розділ" type="enum" writable="false">
+          <activiti:value id="invalid" name="допомога інвалідам"></activiti:value>
+          <activiti:value id="children" name="допомога матерям/допомога на дітей"></activiti:value>
+          <activiti:value id="care" name="допомога особам, які доглядають за іншими"></activiti:value>
+          <activiti:value id="energy" name="компенсації за використання енергетичних носіїв"></activiti:value>
+          <activiti:value id="other" name="інше"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="section_invalid" name="Оберіть тип допомоги" type="enum" writable="false">
+          <activiti:value id="invalid_child" name="Видача довідкок про отримання/неотримання усіх видів державних соціальних допомог"></activiti:value>
+          <activiti:value id="invalid_not_pension" name="Призначення допомоги особам, які не мають права на пенсію, та інвалідам"></activiti:value>
+          <activiti:value id="invalid_dovidka" name="Видача посвідчень інвалідам з дитинства та дітям інвалідам, особам, які не мають права на пенсію та інвалідам."></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="section_children" name="Оберіть тип допомоги" type="enum" writable="false">
+          <activiti:value id="children_pregnancy" name="Призначення допомоги у зв’язку з вагітністю та пологами"></activiti:value>
+          <activiti:value id="children_born" name="Призначення допомоги при народженні дитини"></activiti:value>
+          <activiti:value id="children_3_years" name="Призначення допомоги по догляду за дитиною до досягнення нею трирічного віку"></activiti:value>
+          <activiti:value id="children_adoption" name="Призначення допомоги при усиновленні дитини"></activiti:value>
+          <activiti:value id="children_mother_hero" name="Надання допомоги «Матерям-героїням»"></activiti:value>
+          <activiti:value id="children_single_mother" name="Призначення допомоги на дітей одиноким матерям"></activiti:value>
+          <activiti:value id="children_adoption" name="Призначення допомоги на дітей, які перебувають під опікою чи піклуванням"></activiti:value>
+          <activiti:value id="children_orphan" name="Призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування"></activiti:value>
+          <activiti:value id="children_bad_parents" name="Призначення тимчасової допомоги дітям, батьки яких ухиляються від сплати аліментів"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="section_care" name="Оберіть тип допомоги" type="enum" writable="false">
+          <activiti:value id="care_soc" name="Призначення компенсації фізичним особам, які надають соціальні послуги"></activiti:value>
+          <activiti:value id="care_invalid" name="Призначення надбавки на догляд за інвалідом з дитинства та за дитиною-інвалідом"></activiti:value>
+          <activiti:value id="care_psycho" name="Призначення допомоги малозабезпеченій особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу"></activiti:value>
+          <activiti:value id="care_old_human" name="Призначення компенсації по догляду за інв.1 гр., престарілим старше 80 років"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="section_energy" name="Оберіть тип допомоги" type="enum" writable="false">
+          <activiti:value id="energy_1" name="Призначення компенсації за послуги з центрального опалення житла, електропостачання та газопостачання"></activiti:value>
+          <activiti:value id="energy_2" name="Надання пільг готівкою на придбання твердого палива і скрапленого газу за рахунок субвенцій з державного бюджету місцевим бюджетам"></activiti:value>
+          <activiti:value id="energy_3" name="Призначення субсидії для відшкодування витрат на оплату житлово-комунальних послуг, придбання скрапленого газу, твердого пічного побутового палива"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="section_other" name="Оберіть тип допомоги" type="enum" writable="false">
+          <activiti:value id="other_poor" name="Призначення допомоги малозабезпеченим сім'ям"></activiti:value>
+          <activiti:value id="other_funeral" name="Призначення допомоги на поховання"></activiti:value>
+          <activiti:value id="other_centenarian" name="Надання стипендії особам, яким виповнилось 100 і більше років"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="decision_2" name="повідомлення громадянина про прийняте рішення" type="enum" required="true">
           <activiti:value id="accept" name="надати довідку"></activiti:value>
           <activiti:value id="reject" name="відмовити у наданні довідки"></activiti:value>
@@ -236,12 +285,13 @@ ${section_other}
                                 &lt;td style="padding: 35px 120px;"&gt;
 &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-На жаль, Вам відмовлено у наданні довідки:&lt;br /&gt; &lt;/p&gt;
+На жаль, Вам відмовлено у наданні довідки:&lt;br /&gt;
 ${section_invalid}
 ${section_children}
 ${section_care}
 ${section_energy}
 ${section_other}
+&lt;br /&gt;&lt;br /&gt;
 Підстава:${comment_2}&lt;br /&gt;&lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -348,16 +398,16 @@ ${section_other}
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-Згідно Вашого запиту на отрмання довідки
+Сканкопія довідки 
 ${section_invalid}
 ${section_children}
 ${section_care}
 ${section_energy}
-${section_other}                                    
-Ви отримали схвалення.&lt;br /&gt;
+${section_other}                          
+знаходиться у додатку до листа.&lt;br /&gt;
+Ви можете отримати оригінал довідки за адресою: м. Дніпропетровськ, вул. К.Лібкнехта, 70&lt;br /&gt;
+телефон для довідок: (056) 749-45-46
 &lt;br /&gt;
-Сканкопія довідки знаходиться у додатку до листа.&lt;br /&gt;
-
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -411,13 +461,13 @@ ${section_other}
       </extensionElements>
     </serviceTask>
     <endEvent id="endevent3" name="End"></endEvent>
-    <sequenceFlow id="flow25" sourceRef="mailtask4" targetRef="endevent3"></sequenceFlow>
     <sequenceFlow id="flow26" sourceRef="servicetask4" targetRef="endevent3"></sequenceFlow>
-    <sequenceFlow id="flow31" name="видача довідки" sourceRef="exclusivegateway1" targetRef="servicetask4">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='accept'}]]></conditionExpression>
-    </sequenceFlow>
     <sequenceFlow id="flow32" sourceRef="mailtask2" targetRef="usertask1"></sequenceFlow>
     <sequenceFlow id="flow33" sourceRef="boundaryerror1" targetRef="endevent3"></sequenceFlow>
+    <sequenceFlow id="flow34" name="надати довідку" sourceRef="exclusivegateway1" targetRef="servicetask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='accept'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow35" sourceRef="mailtask4" targetRef="endevent3"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_177">
     <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_177" id="BPMNPlane_dnepr_soc_help_177">
@@ -467,20 +517,9 @@ ${section_other}
         <omgdi:waypoint x="325.0" y="57.0"></omgdi:waypoint>
         <omgdi:waypoint x="360.0" y="60.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
-        <omgdi:waypoint x="272.0" y="243.0"></omgdi:waypoint>
-        <omgdi:waypoint x="174.0" y="259.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
         <omgdi:waypoint x="360.0" y="276.0"></omgdi:waypoint>
         <omgdi:waypoint x="192.0" y="276.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
-        <omgdi:waypoint x="457.0" y="220.0"></omgdi:waypoint>
-        <omgdi:waypoint x="455.0" y="241.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="478.0" y="219.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
         <omgdi:waypoint x="455.0" y="90.0"></omgdi:waypoint>
@@ -488,6 +527,17 @@ ${section_other}
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
         <omgdi:waypoint x="175.0" y="88.0"></omgdi:waypoint>
+        <omgdi:waypoint x="174.0" y="259.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
+        <omgdi:waypoint x="457.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="241.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="100.0" x="467.0" y="220.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="272.0" y="243.0"></omgdi:waypoint>
         <omgdi:waypoint x="174.0" y="259.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
