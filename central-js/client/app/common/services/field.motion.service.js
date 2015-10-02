@@ -2,11 +2,11 @@ angular.module('app').service('FieldMotionService', ['MarkersFactory', FieldMoti
 
 function FieldMotionService(MarkersFactory) {
 
-  this.isFieldMentioned = {
+  this.FieldMentioned = {
     'in': function(fieldId, prefix) {
-        return grepByPrefix(prefix).some(function(entry) {
-          return _.contains(entry.aField_ID, fieldId);
-        });
+      return grepByPrefix(prefix).some(function(entry) {
+        return _.contains(entry.aField_ID, fieldId);
+      });
     },
     inShow: function(fieldId) {
       return this.in(fieldId, 'ShowFieldsOn');
@@ -14,6 +14,12 @@ function FieldMotionService(MarkersFactory) {
     inRequired: function(fieldId) {
       return this.in(fieldId, 'RequiredFieldsOn');
     }
+  };
+
+  this.getCalcFieldsIds = function() {
+    return grepByPrefix('ValuesFieldsOnCondition')
+      .map(function(e) { return e.aField_ID; })
+      .reduce(function(prev, curr) { return prev.concat(curr); }, []);
   };
 
   this.isFieldVisible = function(fieldId, formData) {
@@ -34,26 +40,39 @@ function FieldMotionService(MarkersFactory) {
       return evalCondition(entry, fieldId, formData);
     })
   };
+  var fieldId_entryTriggered = {};
+  this.calcFieldValue = function(fieldId, formData) {
+    var entry = _.find(grepByPrefix('ValuesFieldsOnCondition'), function(entry) {
+      return evalCondition(entry, fieldId, formData)
+    });
+    var result = {value: '', differentTriggered: false};
+    if (entry) {
+      result.differentTriggered = fieldId_entryTriggered[fieldId] ? (fieldId_entryTriggered[fieldId] != entry) : true;
+      result.value = entry.sValue ? entry.sValue : entry.asID_Field_sValue[$.inArray(fieldId, entry.aField_ID)];
+    }
+    fieldId_entryTriggered[fieldId] = entry;
+    return result;
+  };
 
   function evalCondition(entry, fieldId, formData) {
     if (!_.contains(entry.aField_ID, fieldId)) return false;
     var toEval = entry.sCondition.replace(/\[(\w+)]/g, function(str, alias) {
       var fId = entry.asID_Field[alias];
-      if (!fId) alert('Cant resolve original fieldId by alias:' + alias);
+      if (!fId) console.log('Cant resolve original fieldId by alias:' + alias);
       var result = '';
       if (formData[fId] && formData[fId].value)
         result = formData[fId].value.replace(/'/g, "\\'");
       switch(alias.charAt(0)) {
         case 's': result = "'" + result + "'"; break;
         case 'n': result = result ? parseFloat(result) : 0; break;
-        default: alert('invalid alias format, alias:' + alias);
+        default: console.log('invalid alias format, alias:' + alias);
       }
       return result;
     });
     try {
       return eval(toEval);
     } catch (e) {
-      alert('OnCondition expression error\n' + e.name + '\n' + e.message
+      console.log('OnCondition expression error\n' + e.name + '\n' + e.message
         + '\nexpression:' + entry.sCondition
         + '\nresolved expression:' + toEval);
       throw e;

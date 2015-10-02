@@ -182,7 +182,11 @@ public class ActivitiRestHistoryEventController {
 		mParamMessage.put(HistoryEventMessage.TASK_NUMBER, String.valueOf(nID_Protected));
 		setHistoryEvent(HistoryEventType.ACTIVITY_STATUS_NEW, nID_Subject, mParamMessage);
 		//My journal. setTaskQuestions (issue 808, 809)
+		log.info(">>>> 1 try create history event for SET_TASK_QUESTIONS.");
+
 		if (soData != null) {
+			log.info(">>>> 2 try create history event for SET_TASK_QUESTIONS.");
+
 			createHistoryEventForTaskQuestions(sToken != null ? HistoryEventType.SET_TASK_QUESTIONS : HistoryEventType.SET_TASK_ANSWERS,
 					soData, sBody, nID_Protected, nID_Subject);
 		}
@@ -192,8 +196,12 @@ public class ActivitiRestHistoryEventController {
 	private void createHistoryEventForTaskQuestions(HistoryEventType eventType, String data, String soData, Long nID_Protected, Long nID_Subject) {
 		Map<String, String> mParamMessage = new HashMap<>();
 		if (soData != null && !"[]".equals(soData) ) {
+			log.info(">>>>create history event for SET_TASK_QUESTIONS.");
+			log.info(">>>>create history event for SET_TASK_QUESTIONS.TASK_NUMBER=" + nID_Protected);
 			mParamMessage.put(HistoryEventMessage.TASK_NUMBER, "" + nID_Protected);
+			log.info(">>>>create history event for SET_TASK_QUESTIONS.data=" + data);
 			mParamMessage.put(HistoryEventMessage.S_BODY, data == null ? "" : data);
+			log.info(">>>>create history event for SET_TASK_QUESTIONS.TABLE_BODY=" + HistoryEventMessage.createTable(soData));
 			mParamMessage.put(HistoryEventMessage.TABLE_BODY, HistoryEventMessage.createTable(soData));
 			setHistoryEvent(eventType, nID_Subject, mParamMessage);
 		}
@@ -299,6 +307,10 @@ public class ActivitiRestHistoryEventController {
 				  }*/
 				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
 					nCount += 812;
+				}
+			} else if (nID_Service == 772) {
+				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+					nCount += 96;
 				}
 			} else if (nID_Service == 4) {
 				  /*

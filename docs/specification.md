@@ -1527,6 +1527,66 @@ https://test.igov.org.ua/wf/service/services/setServicesTree
 ]
 ```
 
+Для добавления новой подкатегории нужно передать запрос вида:
+```
+[
+  {
+    "nID": 1,
+    "aSubcategory": [
+      {
+        "sID": "Yd",
+        "sName": "Yjdd",
+        "nOrder": "1",
+        "oCategory": {
+          "nID": 1
+        }
+      }
+    ]
+  }
+]
+```
+Обязательно нужно указывать внутри подкатегории ссылку на категорию, с помощью
+```
+"oCategory": {
+  "nID": 1
+}
+```
+
+Для добавления нового сервиса нужно передать запрос вида:
+```
+[
+  {
+    "nID": 1,
+    "aSubcategory": [
+      {
+        "nID": 3,
+        "aService": [
+          {
+            "sName": "service name",
+            "nOrder": 10,
+            "sSubjectOperatorName": "subjectOperatorName",
+            "oSubcategory": {
+              "nID": 3
+            },
+            "sInfo": "",
+            "sFAQ": "",
+            "sLaw": ""
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+Обязательно нужно указывать внутри сервиса ссылку на подкатегорию, с помощью
+```
+"oSubcategory": {
+  "nID": 3
+}
+```
+А также обязательные поля "sInfo", "sFAQ", "sLaw" - можно с пустыми значениями.
+
+
 <a name="16_getWorkflowStatistics">
 #### 16. Получение статистики по задачам в рамках бизнес процесса
 </a><a href="#0_contents">↑Up</a><br/>
