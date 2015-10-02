@@ -184,6 +184,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 			if (!bCashed) {
 				LOG.info("execution.getId()=" + execution.getId());
 				LOG.info("execution.getProcessDefinitionId()=" + execution.getProcessDefinitionId());
+                                
+                                
 				//EngineServices oEngineServices = execution.getEngineServices();
 				//TaskFormData oTaskFormData = oEngineServices.getFormService()
 				//		.getTaskFormData(execution.getId());// task.getId()
@@ -195,10 +197,11 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 					for (FormProperty property : oTaskFormData.getFormProperties()) {
 						aProperty.add(property);
 						LOG.info(String.format(
-								"Matching property %s:%s:%s with fieldNames",
+								"Matching property id=%s:name=%s:%s with fieldNames",
 								property.getId(), property.getName(), property
 										.getType().getName()));
-					}
+					
+                                        }
 					bCashed = true;
 				}
 				
@@ -210,9 +213,13 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				if (!bReplaced && "enum".equals(sType)
 						&& sTAG_Function_AtEnum.equals(snID)) {
 					LOG.info(String
-							.format("Found field! Matching property %s:%s:%s with fieldNames",
+							.format("Found field! Matching property snID=%s:name=%s:sType=%s with fieldNames",
 									snID, property.getName(), sType));
-					String sValue = parseEnumProperty(property);
+                                        
+                                                String sID_Enum = execution.getVariable(property.getId()).toString();
+                                            LOG.info("execution.getVariable()(sID_Enum)=" + sID_Enum);
+                                        
+					String sValue = parseEnumProperty(property,sID_Enum);
 					LOG.info("sValue=" + sValue);
 
 					textWithoutTags = textWithoutTags.replaceAll("\\Q"
