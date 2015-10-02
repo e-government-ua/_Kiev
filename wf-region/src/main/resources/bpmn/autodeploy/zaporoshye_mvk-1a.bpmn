@@ -18,11 +18,11 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="purpose" name="Мета звернення" type="enum" required="true">
-          <activiti:value id="first_permission" name="Отримання дозволу на зовнішню рекламу"></activiti:value>
-          <activiti:value id="revoke" name="Анулювання дозволу на зовнішню рекламу"></activiti:value>
-          <activiti:value id="second_permission" name="Повторне подання на отримання дозволу на зовнішню рекламу"></activiti:value>
-          <activiti:value id="continuation" name="Подовження дозволу на зовнішню рекламу"></activiti:value>
-          <activiti:value id="restructuring" name="Переоформлення дозволу на зовнішню рекламу"></activiti:value>
+          <activiti:value id="first_permission" name="отримання дозволу на розміщення зовнішньої реклами"></activiti:value>
+          <activiti:value id="revoke" name="анулювання дозволу на розміщення зовнішньої реклами"></activiti:value>
+          <activiti:value id="second_permission" name="повторне надання дозволу на розміщення зовнішньої реклами"></activiti:value>
+          <activiti:value id="continuation" name="подовження дозволу на розміщення зовнішньої реклами"></activiti:value>
+          <activiti:value id="restructuring" name="переоформлення дозволу на розміщення зовнішньої реклами"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="number_previous" name="Номер попереднього дозвільного документу" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="object" name="Назва об'єкта, на який видається документ" type="string" required="true"></activiti:formProperty>
@@ -34,9 +34,10 @@
         <activiti:formProperty id="placePhoto" name="Фотокартка або комп'ютерний макет місця, на якому планується розташування реклами; Розмір має бути не менш 6х9 см." type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="advertFile" name="Ескіз рекламного засобу з конструктивним рішенням" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="advertLicense" name="Копія виписки з єдиного державного реєстру юридичних осіб та фізичних осіб" type="file"></activiti:formProperty>
+        <activiti:formProperty id="original" name="Оригінал попереднього дозволу" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:formProperty id="markers1" name="Якщо  юридична особа" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;adres_1&quot;,&quot;edrpo&quot;,&quot;imya_ur&quot;,&quot;&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;subekt&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'ur'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers2" name="Якщо дозвіл повторний" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;number_previous&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;purpose&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'second_permission'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers2" name="Якщо дозвіл повторний, анулювання, подовження" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;number_previous&quot;,&quot;original&quot;],&quot;asID_Field&quot;:{&quot;sPerson&quot;:&quot;purpose&quot;},&quot;sCondition&quot;:&quot;[sPerson] == 'second_permission' || [sPerson] == 'revoke'|| [sPerson] == 'continuation'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування додаткових документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -105,7 +106,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо отримання дозволу на розміщення зовнішньої реклами.&lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо тутбудетенам.&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 Відпрацюйте це звернення на &lt;a href="https://region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
                                     &lt;/p&gt;
@@ -148,12 +149,12 @@
         <activiti:formProperty id="date_today" name="дата подання звернення" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="purpose" name="Мета звернення" type="enum" writable="false">
-          <activiti:value id="first_permission" name="Отримання дозволу на зовнішню рекламу"></activiti:value>
-          <activiti:value id="revoke" name="Анулювання дозволу на зовнішню рекламу"></activiti:value>
-          <activiti:value id="second_permission" name="Повторне подання на отримання дозволу на зовнішню рекламу"></activiti:value>
-          <activiti:value id="continuation" name="Подовження дозволу на зовнішню рекламу"></activiti:value>
-          <activiti:value id="restructuring" name="Переоформлення дозволу на зовнішню рекламу"></activiti:value>
+        <activiti:formProperty id="purpose" name="Оберіть необхідну дію держоргану" type="enum" writable="false">
+          <activiti:value id="first_permission" name="надати дозвіл на розміщення зовнішньої реклами"></activiti:value>
+          <activiti:value id="revoke" name="анулювати дозвіл на розміщення зовнішньої реклами"></activiti:value>
+          <activiti:value id="second_permission" name="повторно надати дозвіл на розміщення зовнішньої реклами"></activiti:value>
+          <activiti:value id="continuation" name="подовжити дозвіл на розміщення зовнішньої реклами"></activiti:value>
+          <activiti:value id="restructuring" name="переоформити дозвіл на розміщення зовнішньої реклами"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="number_previous" name="Номер попереднього дозвільного документу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="object" name="Назва об'єкта, на який видається документ" type="string" writable="false"></activiti:formProperty>
@@ -162,11 +163,11 @@
         <activiti:formProperty id="kved" name="Вид діяльності згідно КВЕД " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="edrpo" name="Iдентифікаційний код згідно ЄДРПОУ" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="imya_ur" name="Повне найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_reestr" name="Укажіть дату реєстрації звернення" type="string" default=" " required="true"></activiti:formProperty>
-        <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" default=" " required="true"></activiti:formProperty>
+        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="date_reestr" name="Укажіть дату реєстрації звернення" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="Прийняття рішення про надання послуги" type="enum" required="true">
-          <activiti:value id="accept" name="документи пройшли перевірку, послуга може бути надана"></activiti:value>
+          <activiti:value id="accept" name="документи пройшли перевірку, запит зареєстровано"></activiti:value>
           <activiti:value id="reject" name="відхилити запит"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, підставу" type="textArea"></activiti:formProperty>
@@ -175,7 +176,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport},${placePhoto},${advertFile},${doc_fop},${advertLicense}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${placePhoto},${advertFile},${doc_fop},${advertLicense},${original}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -245,15 +246,15 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-На жаль, Ваше звернення щодо  надання дозволу на розміщення зовнішньої реклами відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
+На жаль, Ваше звернення щодо тутбудетенам відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
 &lt;br /&gt;
 Підстава: ${comment_1}    &lt;br /&gt;
     &lt;/p&gt;
 Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-									З повагою,&lt;br /&gt;
-									Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
+									Центр надання адміністративних послуг&lt;br /&gt;
+									Запорізької міської ради&lt;br /&gt;	  
                                     &lt;/td&gt;
                             &lt;/tr&gt;
     &lt;/table&gt;
@@ -277,114 +278,10 @@
     <sequenceFlow id="flow1" sourceRef="boundaryerror1" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow3" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
     <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
-    <sequenceFlow id="flow5" name="документи ок" sourceRef="exclusivegateway1" targetRef="mailtask3">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='accept'}]]></conditionExpression>
-    </sequenceFlow>
     <sequenceFlow id="flow6" name="відхилення звернення" sourceRef="exclusivegateway1" targetRef="mailtask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='reject'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow8" sourceRef="mailtask3" targetRef="usertask2"></sequenceFlow>
-    <serviceTask id="mailtask3" name="Повідомлення громадянина про успішне подання зверенння" activiti:type="mail">
-      <extensionElements>
-        <activiti:field name="html">
-          <activiti:expression>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head lang="ru"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;style type="text/css"&gt;
-        body {margin: 0; padding: 0;}
-        #mailer-body {font: 400 18px/20px 'Calibri';}
-        #mailer-body div,
-        #mailer-body p,
-        #mailer-body span,
-        #mailer-body strong,
-        #mailer-body b,
-        #mailer-body em,
-        #mailer-body i,
-        #mailer-body a,
-        #mailer-body li,
-        #mailer-body td {-webkit-text-size-adjust: none;}
-        #mailer-body a {color: #2F70AF; text-decoration: none;}
-        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
-        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
-        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
-        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
-        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
-        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
-        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
-        #mailer-body textarea:focus {outline: 0;}
-        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
-           &lt;p&gt;
-Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваш запит щодо отримання дозволу на розміщення зовнішньої реклами успішно зареєстровано і буде опрацьовано управлінням державної санітарно-епідеміологічної служби у Запорізькій області впродовж 3 робочих днів.&lt;br /&gt;
-&lt;br /&gt;
-Реєстраційний номер заяви: ${reestr_numb};&lt;br /&gt;
-&lt;br /&gt;
-Ви отримаєте додаткове повідомлення за результатами розгляду запиту.&lt;br /&gt;
-    &lt;/p&gt;
-                                    &lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                  &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;&lt;br /&gt;	
-										&lt;br /&gt;	
-										Центр надання адміністративних послуг&lt;br /&gt;
-										Запорізької  міської ради&lt;br /&gt;	
-                                        &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                           
-                          
-
-                        &lt;/table&gt;
-                     
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
-        </activiti:field>
-        <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: дозвіл на розміщення зовнішньої реклами]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
-    <userTask id="usertask2" name="надання адміністративної послуги" activiti:candidateGroups="zaporoshye_mvk_1">
+    <userTask id="usertask2" name="повідомлення громадянина про прийняте рішення" activiti:candidateGroups="zaporoshye_mvk_1">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" writable="false"></activiti:formProperty>
@@ -492,8 +389,8 @@ style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
 &lt;p&gt;
-&lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-Вам відмовлено у наданні дозвілу на розміщення зовнішньої реклами.&lt;br /&gt;
+&lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
+Ви отримали відмову згідно Вашого запиту щодо тутбудетенам.&lt;br /&gt;
 Підстава: ${comment_2}&lt;br /&gt;
 Ви або уповноважена Вами особа (при наявності довіреності) можете отримати рішення собисто під підпис у ЦНАПі.&lt;br /&gt;
 &lt;br /&gt;
@@ -502,18 +399,18 @@ style="border-collapse: collapse;"&gt;
 2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
 3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.&lt;br /&gt;
 &lt;a href=" "&gt;(шаблон заяви)&lt;/a&gt;&lt;br /&gt;
-&lt;br /&gt;
-4. Фотокартка або комп'ютерний макет місця, на якому планується розташування реклами; Розмір має бути не менш 6х9 см.&lt;br /&gt;
+4. Фотокартка або комп'ютерний макет місця, на якому планується розташування реклами; розмір має бути не менш 6х9 см.&lt;br /&gt;
 5. Ескіз рекламного засобу з конструктивним рішенням.&lt;br /&gt;
 6. Копія виписки з єдиного державного реєстру юридичних осіб та фізичних осіб.&lt;br /&gt;
+7. Оригінал попереднього дозволу (якщо Ви подавали запит на анулювання, переоформлення та подовження)
 &lt;br /&gt;
-
-Адреса центру надання адміністративних послуг  - .&lt;br /&gt;&lt;br /&gt;
-Телефон для довідок &lt;br /&gt;&lt;br /&gt;
+&lt;br /&gt;
+Адреса центру надання адміністративних послуг:&lt;br /&gt; м. Запоріжжя, вулиця Українська 50.&lt;br /&gt;
+Телефон для довідок (061)787-60-11 &lt;br /&gt;&lt;br /&gt;
 Графік роботи (крім святкових днів):&lt;br /&gt;
-пн. вт. ср. чт. 9-18&lt;br /&gt;
-пт. 9-16:45&lt;br /&gt;
-&lt;br /&gt;
+пн. вт. ср. чт. 9-16&lt;br /&gt;
+пт. 9-15&lt;br /&gt;
+обідня перева з 12 до 12:45;&lt;br /&gt;&lt;br /&gt;
 Копія рішення знаходиться у додатку до листа.&lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 
@@ -603,7 +500,7 @@ style="border-collapse: collapse;"&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     
-Ви отримали схвалення щодо свого запиту про надання дозвілу на розміщення зовнішньої реклами.&lt;br /&gt;
+Ви отримали схвалення щодо тутбудетенам.&lt;br /&gt;
 &lt;br /&gt;
 Ви або уповноважена Вами особа (при наявності довіреності) можете отримати рішення собисто під підпис у ЦНАПі.&lt;br /&gt;
 &lt;br /&gt;
@@ -612,18 +509,18 @@ style="border-collapse: collapse;"&gt;
 2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
 3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.&lt;br /&gt;
 &lt;a href=" "&gt;(шаблон заяви)&lt;/a&gt;&lt;br /&gt;
-&lt;br /&gt;
 4. Фотокартка або комп'ютерний макет місця, на якому планується розташування реклами; Розмір має бути не менш 6х9 см.&lt;br /&gt;
 5. Ескіз рекламного засобу з конструктивним рішенням.&lt;br /&gt;
 6. Копія виписки з єдиного державного реєстру юридичних осіб та фізичних осіб.&lt;br /&gt;
+7. Оригінал попереднього дозволу (якщо Ви подавали запит на анулювання, переоформлення та подовження)
 &lt;br /&gt;
-
-Адреса центру надання адміністративних послуг  - .&lt;br /&gt;&lt;br /&gt;
-Телефон для довідок &lt;br /&gt;&lt;br /&gt;
+&lt;br /&gt;
+Адреса центру надання адміністративних послуг:&lt;br /&gt; м. Запоріжжя, вулиця Українська 50.&lt;br /&gt;
+Телефон для довідок (061)787-60-11 &lt;br /&gt;&lt;br /&gt;
 Графік роботи (крім святкових днів):&lt;br /&gt;
-пн. вт. ср. чт. 9-18&lt;br /&gt;
-пт. 9-16:45&lt;br /&gt;
-&lt;br /&gt;
+пн. вт. ср. чт. 9-16&lt;br /&gt;
+пт. 9-15&lt;br /&gt;
+обідня перева з 12 до 12:45&lt;br /&gt;&lt;br /&gt;
 Копія рішення знаходиться у додатку до листа.&lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 
@@ -691,6 +588,110 @@ style="border-collapse: collapse;"&gt;
     </sequenceFlow>
     <sequenceFlow id="flow23" sourceRef="servicetask2" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow24" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <serviceTask id="servicetask4" name="Повідомлення громадянина про успішне подання зверенння" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: дозвіл на розміщення зовнішньої реклами]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${opis}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head lang="ru"&gt;
+    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+    &lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+           &lt;p&gt;
+&lt;b&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+Ваш запит тутбудетенам успішно зареєстровано і буде опрацьовано депатраментом житлово-комунального господарства Запорізької міської ради впродовж 30 робочих днів.&lt;br /&gt;
+&lt;br /&gt;
+Реєстраційний номер заяви: ${reestr_numb};&lt;br /&gt;
+Ви отримаєте додаткове повідомлення за результатами розгляду запиту.&lt;br /&gt;
+До листа додається опис наданих Вами документів.&lt;br /&gt;
+
+                                    &lt;/p&gt;
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                  &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;&lt;br /&gt;	
+										&lt;br /&gt;	
+										Центр надання адміністративних послуг&lt;br /&gt;
+										Запорізької  міської ради&lt;br /&gt;	
+                                        &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow25" name="документи ок" sourceRef="exclusivegateway1" targetRef="servicetask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='accept'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow26" sourceRef="servicetask4" targetRef="usertask2"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_zaporoshye_mvk_1a">
     <bpmndi:BPMNPlane bpmnElement="zaporoshye_mvk_1a" id="BPMNPlane_zaporoshye_mvk_1a">
@@ -715,9 +716,6 @@ style="border-collapse: collapse;"&gt;
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="188.0" y="324.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="81.0" width="178.0" x="551.0" y="301.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
         <omgdc:Bounds height="91.0" width="178.0" x="552.0" y="410.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -733,6 +731,9 @@ style="border-collapse: collapse;"&gt;
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="399.0" y="436.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
+        <omgdc:Bounds height="73.0" width="181.0" x="550.0" y="305.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="135.0" y="190.0"></omgdi:waypoint>
         <omgdi:waypoint x="134.0" y="341.0"></omgdi:waypoint>
@@ -746,23 +747,12 @@ style="border-collapse: collapse;"&gt;
         <omgdi:waypoint x="501.0" y="147.0"></omgdi:waypoint>
         <omgdi:waypoint x="550.0" y="149.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="640.0" y="265.0"></omgdi:waypoint>
-        <omgdi:waypoint x="640.0" y="301.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="69.0" x="650.0" y="265.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
         <omgdi:waypoint x="620.0" y="245.0"></omgdi:waypoint>
         <omgdi:waypoint x="501.0" y="245.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="561.0" y="225.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="512.0" y="225.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="640.0" y="382.0"></omgdi:waypoint>
-        <omgdi:waypoint x="641.0" y="410.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
         <omgdi:waypoint x="640.0" y="190.0"></omgdi:waypoint>
@@ -802,6 +792,17 @@ style="border-collapse: collapse;"&gt;
       <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
         <omgdi:waypoint x="205.0" y="75.0"></omgdi:waypoint>
         <omgdi:waypoint x="205.0" y="107.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow25" id="BPMNEdge_flow25">
+        <omgdi:waypoint x="640.0" y="265.0"></omgdi:waypoint>
+        <omgdi:waypoint x="640.0" y="305.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="69.0" x="650.0" y="265.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="640.0" y="378.0"></omgdi:waypoint>
+        <omgdi:waypoint x="641.0" y="410.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
