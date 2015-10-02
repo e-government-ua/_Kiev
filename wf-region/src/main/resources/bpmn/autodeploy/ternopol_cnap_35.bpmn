@@ -12,8 +12,7 @@
         <activiti:formProperty id="email" name="Електронна пошта" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса розміщення тимчасової споруди для провадження підприємницької діяльності" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Вкажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="details" name="Реквізити замовника (найменування, ПІБ, адреса, контактна інформація)" type="textArea" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Графічні матеріали із зазначенням бажаного місця розташування тимчасової споруди, виконані замовником у довільній формі на топографо-геодезичній основі М 1:500 кресленнями контурів тимчасової споруди з прив’язкою до місцевості" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Графічні матеріали із зазначенням бажаного місця розташування тимчасової споруди, виконані замовником у довільній формі на топографо-геодезичній основі М 1:500 кресленнями контурів тимчасової споруди з прив’язкою до місцевості (два примірника)" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -119,7 +118,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow3" sourceRef="servicetask1" targetRef="mailtask1"></sequenceFlow>
-    <userTask id="usertask1" name="Обробка Тернопільським ЦНАП" activiti:candidateGroups="ternopol_cnap_35">
+    <userTask id="usertask1" name="Обробка Тернопільським ЦНАП (1-й крок)" activiti:candidateGroups="ternopol_cnap_35">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="Суб’єкт звернення; Назва юридичної особи або фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
@@ -128,7 +127,6 @@
         <activiti:formProperty id="email" name="Електронна пошта для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса розміщення тимчасової споруди для провадження підприємницької діяльності" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Дата подачі заяви" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="details" name="Реквізити замовника (найменування, ПІБ, адреса, контактна інформація)" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="status" name="Обробка заяви" type="enum">
           <activiti:value id="attr1_wait" name="Документи передані в Управління містобудування, архітектури та кадастру"></activiti:value>
           <activiti:value id="attr2_finish" name="Відмова громадянину у разі надання неповного пакету документів"></activiti:value>
@@ -137,6 +135,7 @@
         <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_registrastion" name="Вкажіть дату реєстрації (у форматі ДД/ММ/РРРР)" type="string"></activiti:formProperty>
+        <activiti:formProperty id="email_spec" name="Електронна пошта спеціаліста УМАК" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="sBody" name="[pattern/print/ternopol_cnap_35_print.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
@@ -256,7 +255,7 @@
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow7" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
-    <userTask id="usertask2" name="Підготовка відповіді після рішення УМАК" activiti:candidateGroups="ternopol_cnap_35">
+    <userTask id="usertask2" name="Підготовка відповіді після рішення УМАК (2-й крок)" activiti:candidateGroups="ternopol_cnap_35">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="Суб’єкт звернення; Назва юридичної особи або фізичної особи - підприємця" type="string" writable="false"></activiti:formProperty>
@@ -264,7 +263,6 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса розміщення тимчасової споруди для провадження підприємницької діяльності" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="details" name="Реквізити замовника (найменування, ПІБ, адреса, контактна інформація)" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Дата подачі заяви" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_registrastion" name="Дата реєстрації заяви" type="string" writable="false"></activiti:formProperty>
@@ -347,12 +345,9 @@
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
 										Ваше звернення про розгляд відповідності намірів щодо місця розташування тимчасової споруди - опрацьоване.&lt;/p&gt;
-										Отримати погодження місця розташування тимчасової споруди для провадження підприємницької діяльності може керівник юридичної особи (фізична особа - підприємець), або уповноважена ним особа за дорученням, посвідченим у встановленому порядку, у державного адміністратора ЦНАП.&lt;/p&gt;
+										Ви можете отримати розгляд відповідності намірів за адресою: м. Тернопіль, вул. Князя Острозького, 6, 1 поверх, зал №3.&lt;/p&gt;
 
 									&lt;p&gt;&lt;/p&gt;
-&lt;br /&gt;
-Адреса: &lt;br /&gt;
-м.Тернопіль, вул.Князя Острозького 6, 1 поверх. &lt;br /&gt;
 &lt;br /&gt;
 Графік роботи ЦНАП-у:&lt;br /&gt;
 Понеділок, середа з 9.00 до 16.00&lt;br /&gt;
@@ -480,9 +475,8 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										Ваше звернення про розгляд відповідності намірів щодо місця розташування тимчасової споруди - був відправлен в управління містобудування, архітектури та кадастру.&lt;br /&gt; 
-Спеціалісти з органу місцевого самоврядування повинні дати відповідь найближчим часом.&lt;br /&gt;
-										
+										Ваше звернення про розгляд відповідності намірів щодо місця розташування тимчасової споруди - відправлене в управління містобудування, архітектури та кадастру.&lt;br /&gt;
+Спеціалісти з органу місцевого самоврядування повинні дати відповідь протягом десяти робочих днів з дня реєстрації заяви.&lt;br /&gt; 
 &lt;p&gt;Номер Вашого замовлення: ${number_cnap}&lt;/p&gt; 
 									&lt;p&gt;&lt;/p&gt;
 										Залишайтеся з нами. 	
@@ -520,9 +514,6 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow14" name="status=='attr1_wait'" sourceRef="exclusivegateway1" targetRef="mailtask4">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr1_wait'}]]></conditionExpression>
-    </sequenceFlow>
     <sequenceFlow id="flow15" sourceRef="mailtask4" targetRef="usertask2"></sequenceFlow>
     <serviceTask id="mailtask5" name="Повідомлення про доставку замовлення до ЦНАПу" activiti:type="mail">
       <extensionElements>
@@ -621,6 +612,38 @@
     </serviceTask>
     <sequenceFlow id="flow16" sourceRef="mailtask1" targetRef="mailtask5"></sequenceFlow>
     <sequenceFlow id="flow17" sourceRef="mailtask5" targetRef="usertask1"></sequenceFlow>
+    <serviceTask id="servicetask2" name="Відправка документів в УМАК" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[cnapternopil@meta.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>${email_spec}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Розгляд відповідності намірів щодо місця розташування тимчасової споруди.]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>Шановні працівники Управління містобудування, архітектури та кадастру.
+                    
+                    Направляємо Вам документи на розгляд відповідності намірів щодо місця розташування тимчасової споруди.&lt;/p&gt;
+									
+					Заявник: ${clFio};
+                    Реєстраційний номер ЦНАП: ${number_cnap}.
+                            		
+                    З повагою,
+                    ЦНАП м.Тернопіль
+			Тел. 40-41-93</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${file1}"</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow18" name="status=='attr1_wait'" sourceRef="exclusivegateway1" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${status=='attr1_wait'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow19" sourceRef="servicetask2" targetRef="mailtask4"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_ternopol_cnap_35">
     <bpmndi:BPMNPlane bpmnElement="ternopol_cnap_35" id="BPMNPlane_ternopol_cnap_35">
@@ -652,19 +675,22 @@
         <omgdc:Bounds height="35.0" width="35.0" x="963.0" y="151.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
-        <omgdc:Bounds height="71.0" width="105.0" x="666.0" y="400.0"></omgdc:Bounds>
+        <omgdc:Bounds height="71.0" width="105.0" x="666.0" y="491.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
-        <omgdc:Bounds height="40.0" width="40.0" x="830.0" y="415.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="830.0" y="506.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="102.0" width="105.0" x="928.0" y="382.0"></omgdc:Bounds>
+        <omgdc:Bounds height="102.0" width="105.0" x="928.0" y="473.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
-        <omgdc:Bounds height="91.0" width="105.0" x="666.0" y="270.0"></omgdc:Bounds>
+        <omgdc:Bounds height="91.0" width="105.0" x="666.0" y="361.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
         <omgdc:Bounds height="63.0" width="105.0" x="410.0" y="141.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="81.0" width="105.0" x="666.0" y="240.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="85.0" y="167.0"></omgdi:waypoint>
@@ -694,37 +720,30 @@
         <omgdi:waypoint x="963.0" y="168.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
-        <omgdi:waypoint x="771.0" y="435.0"></omgdi:waypoint>
-        <omgdi:waypoint x="830.0" y="435.0"></omgdi:waypoint>
+        <omgdi:waypoint x="771.0" y="526.0"></omgdi:waypoint>
+        <omgdi:waypoint x="830.0" y="526.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
-        <omgdi:waypoint x="850.0" y="415.0"></omgdi:waypoint>
+        <omgdi:waypoint x="850.0" y="506.0"></omgdi:waypoint>
         <omgdi:waypoint x="850.0" y="202.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="801.0" y="331.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="801.0" y="422.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="870.0" y="435.0"></omgdi:waypoint>
-        <omgdi:waypoint x="928.0" y="433.0"></omgdi:waypoint>
+        <omgdi:waypoint x="870.0" y="526.0"></omgdi:waypoint>
+        <omgdi:waypoint x="928.0" y="524.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="838.0" y="443.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="838.0" y="534.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
-        <omgdi:waypoint x="980.0" y="382.0"></omgdi:waypoint>
+        <omgdi:waypoint x="980.0" y="473.0"></omgdi:waypoint>
         <omgdi:waypoint x="980.0" y="186.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
-        <omgdi:waypoint x="718.0" y="189.0"></omgdi:waypoint>
-        <omgdi:waypoint x="718.0" y="270.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="95.0" x="669.0" y="209.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
-        <omgdi:waypoint x="718.0" y="361.0"></omgdi:waypoint>
-        <omgdi:waypoint x="718.0" y="400.0"></omgdi:waypoint>
+        <omgdi:waypoint x="718.0" y="452.0"></omgdi:waypoint>
+        <omgdi:waypoint x="718.0" y="491.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
         <omgdi:waypoint x="385.0" y="168.0"></omgdi:waypoint>
@@ -733,6 +752,17 @@
       <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
         <omgdi:waypoint x="515.0" y="172.0"></omgdi:waypoint>
         <omgdi:waypoint x="548.0" y="168.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="718.0" y="189.0"></omgdi:waypoint>
+        <omgdi:waypoint x="718.0" y="240.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="95.0" x="669.0" y="203.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="718.0" y="321.0"></omgdi:waypoint>
+        <omgdi:waypoint x="718.0" y="361.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
