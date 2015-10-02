@@ -35,6 +35,8 @@
         <activiti:formProperty id="advertFile" name="Ескіз рекламного засобу з конструктивним рішенням" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="advertLicense" name="Копія виписки з єдиного державного реєстру юридичних осіб та фізичних осіб" type="file"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="markers1" name="Якщо  юридична особа" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;adres_1&quot;,&quot;edrpo&quot;,&quot;imya_ur&quot;,&quot;&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;subekt&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'ur'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers2" name="Якщо дозвіл повторний" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;number_previous&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;purpose&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'second_permission'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування додаткових документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -138,8 +140,8 @@
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Ідентифікаційний номер фізичної особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" default=" "  writable="false"></activiti:formProperty>
-        <activiti:formProperty id="subekt" name="Запит на дозвіл подано від" type="enum"  writable="false">
+        <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="subekt" name="Запит на дозвіл подано від" type="enum" writable="false">
           <activiti:value id="ur" name="Юридична особа"></activiti:value>
           <activiti:value id="fiz" name="Фізична особа-підприємець (фізична особа)"></activiti:value>
         </activiti:formProperty>
@@ -748,7 +750,7 @@ style="border-collapse: collapse;"&gt;
         <omgdi:waypoint x="640.0" y="265.0"></omgdi:waypoint>
         <omgdi:waypoint x="640.0" y="301.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="650.0" y="265.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="69.0" x="650.0" y="265.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
@@ -783,7 +785,7 @@ style="border-collapse: collapse;"&gt;
         <omgdi:waypoint x="399.0" y="456.0"></omgdi:waypoint>
         <omgdi:waypoint x="285.0" y="455.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="291.0" y="437.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="87.0" x="291.0" y="437.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
