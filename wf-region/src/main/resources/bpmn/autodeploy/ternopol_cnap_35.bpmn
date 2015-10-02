@@ -615,7 +615,7 @@
     <serviceTask id="servicetask2" name="Відправка документів в УМАК" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[cnapternopil@meta.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email_spec}</activiti:expression>

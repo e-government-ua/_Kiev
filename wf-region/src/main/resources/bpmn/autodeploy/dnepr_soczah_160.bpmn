@@ -407,7 +407,7 @@
         <activiti:formProperty id="mfo" name="МФО банку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="ЄДРПОУ банку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bank_account" name="Номер рахунку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decision2" name="Обробка заяви" type="enum" required="true">
+        <activiti:formProperty id="decision1" name="Обробка заяви" type="enum" required="true">
           <activiti:value id="attr3_finish" name="Зауважень немає, державана допомога буде надана"></activiti:value>
           <activiti:value id="attr4_failure" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
