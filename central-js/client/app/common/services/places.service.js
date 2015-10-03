@@ -158,19 +158,19 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
    * Визначає доступність сервісу взагалі та у вибраному місці
    * Повертає об'єкт типу:
    * {
-   *   anyRegion: false,    // сервіс доступний у якомусь із регіонів
-   *   anyCity: false,      // сервіс доступний у якомусь із міст
+   *   someRegion: false,    // сервіс доступний у якомусь із регіонів
+   *   someCity: false,      // сервіс доступний у якомусь із міст
    *   thisRegion: false,  // доступний у вибраному регіоні
    *   thisCity: false    // ...і доступний у вибраному місті
    * }
    */
   self.serviceAvailableIn = function() {
     var result = {
-      anyRegion: false,
-      anyCity: false,
+      someRegion: false,
+      someCity: false,
       thisRegion: false,
       thisCity: false,
-      anyCityInThisRegion: false,
+      someCityInThisRegion: false,
       thisCityInThisRegion: false
     };
     var oService = ServiceService.oService;
@@ -179,12 +179,12 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     angular.forEach(oService.aServiceData, function(srv) {
       // сервіс доступний у якомусь із регіонів
       if (srv.hasOwnProperty('nID_Region') && srv.nID_Region.nID !== null) {
-        result.anyRegion = true;
+        result.someRegion = true;
         // сервіс доступний у вибраному регіоні
         if (oPlace && oPlace.region && oPlace.region.nID === srv.nID_Region.nID) {
           // сервіс доступний у якомусь із міст вибраного регіону
           if (srv.hasOwnProperty('nID_City') && srv.nID_City.nID !== null && srv.nID_City.nID_Region.nID === srv.nID_Region.nID ) {
-            result.anyCityInThisRegion = true;
+            result.someCityInThisRegion = true;
             // ...і у вибраному місті, що знаходиться у вибраній області
             if (oPlace && oPlace.city && oPlace.city.nID === srv.nID_City.nID) {
                result.thisCityInThisRegion = true;
@@ -195,7 +195,7 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
       }
       // сервіс доступний у якомусь із міст
       if (srv.hasOwnProperty('nID_City') && srv.nID_City.nID !== null) {
-        result.anyCity = true;
+        result.someCity = true;
         // ...і доступний у вибраному місті
         if (oPlace && oPlace.city && oPlace.city.nID === srv.nID_City.nID) {
           result.thisCity = true;

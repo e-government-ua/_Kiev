@@ -71,8 +71,8 @@ angular.module('app')
 
         $scope.authControlIsNeeded = function() {
           var bNeeded = true;
-          var serviceAvailableIn = PlacesService.serviceAvailableIn();
-          bNeeded = bNeeded && (serviceAvailableIn.thisRegion || serviceAvailableIn.thisCity) && $scope.placeControlIsComplete();
+          var sa = PlacesService.serviceAvailableIn();
+          bNeeded = bNeeded && (sa.thisRegion || sa.thisCity) && $scope.placeControlIsComplete();
 
           return bNeeded;
         };
@@ -85,10 +85,10 @@ angular.module('app')
 
         $scope.placeControlIsNeeded = function() {
           var bNeeded = false;
-          var serviceAvailableIn = PlacesService.serviceAvailableIn();
+          var sa = PlacesService.serviceAvailableIn();
 
           // needed because service is available for some place
-          if (serviceAvailableIn.anyRegion || serviceAvailableIn.anyCity) {
+          if (sa.someRegion || sa.someCity) {
             bNeeded = true;
           }
 
@@ -114,28 +114,38 @@ angular.module('app')
          */
         $scope.placeControlIsComplete = function() {
           var bIsComplete = null;
-          var serviceAvailableIn = PlacesService.serviceAvailableIn();
+          var sa = PlacesService.serviceAvailableIn();
+          var regionIsChosen = $scope.regionIsChosen();
+          var cityIsChosen = $scope.cityIsChosen();
 
           // return false if no region or no city is chosen (usually on startup), but service is available somewhere
-          if ((!$scope.regionIsChosen() || !$scope.cityIsChosen()) && (serviceAvailableIn.anyRegion || serviceAvailableIn.anyCity)) {
+          if ((!regionIsChosen || !cityIsChosen) && (sa.someRegion || sa.someCity)) {
             bIsComplete = false;
           }
           // no region - no city, no need in choosing the place
-          if (!serviceAvailableIn.anyRegion && !serviceAvailableIn.anyCity) {
+          if (!sa.someRegion && !sa.someCity) {
             bIsComplete = true;
           }
-          // ok region - no city in region (!)
-          if ((serviceAvailableIn.anyRegion && $scope.regionIsChosen()) && !serviceAvailableIn.anyCityInThisRegion) {
+          // ok region - no city in region (!) but not this region and some other city
+          //&& (!sa.thisRegion && sa.someCity)
+          if (sa.thisRegion && !sa.someCityInThisRegion) {
+            // console.log('complete: ok region - no city in region');
             bIsComplete = true;
           }
           // ok region - ok city
-          if ((serviceAvailableIn.anyRegion && $scope.regionIsChosen()) && (serviceAvailableIn.anyCity && $scope.cityIsChosen())) {
+          if ((sa.someRegion && regionIsChosen) && (sa.someCity && cityIsChosen)) {
             bIsComplete = true;
           }
           // no region - ok city
-          if ((!serviceAvailableIn.anyRegion) && (serviceAvailableIn.anyCity && $scope.cityIsChosen())) {
+          if ((!sa.someRegion) && (sa.someCity && cityIsChosen)) {
             bIsComplete = true;
           }
+          // some region - some city
+          // Черк:
+          // {someRegion: true, someCity: true, thisRegion: true, thisCity: false, someCityInThisRegion: false, thisCityInThisRegion: false}
+          // Днеп:
+          // {someRegion: true, someCity: true, thisRegion: false, thisCity: false, someCityInThisRegion: false, thisCityInThisRegion: false}
+          //bIsComplete = bIsComplete && !sa.thisRegion && sa.someCity)
 
           return bIsComplete;
         };
@@ -167,7 +177,7 @@ angular.module('app')
         $scope.processPlaceSelection = function() {
           var placeData = PlacesService.getPlaceData();
 
-          console.log('Place: process place selection: ');
+          console.log('Process Place selection.');
           console.log('1. Region is chosen:', $scope.regionIsChosen(), ', city is chosen:', $scope.cityIsChosen());
           console.log('2. Place controls is complete:', $scope.placeControlIsComplete());
           console.log('3. Auth control is visible:', $scope.authControlIsVisible());
@@ -228,6 +238,8 @@ angular.module('app')
           $scope.localityList.reset();
           // $scope.search();
 
+          console.log('Availability: ', PlacesService.serviceAvailableIn());
+
           $scope.localityList.load(null, $item.nID, null).then(function(cities) {
             $scope.localityList.typeahead.defaultList = cities;
           });
@@ -252,8 +264,8 @@ angular.module('app')
         };
 
         $scope.showCityDropdown = function() {
-          var serviceAvailableIn = $scope.serviceAvailableIn();
-          return $scope.regionIsChosen() && (serviceAvailableIn.anyCityInThisRegion || !serviceAvailableIn.thisRegion && serviceAvailableIn.anyCity);
+          var sa = $scope.serviceAvailableIn();
+          return $scope.regionIsChosen() && (sa.someCityInThisRegion || !sa.thisRegion && sa.someCity);
         };
 
         $scope.onSelectLocalityList = function($item, $model, $label) {
