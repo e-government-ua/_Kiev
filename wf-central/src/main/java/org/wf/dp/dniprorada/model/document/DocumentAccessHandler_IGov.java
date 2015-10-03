@@ -76,7 +76,7 @@ public class DocumentAccessHandler_IGov extends AbstractDocumentAccessHandler {
     public Document getDocument() {
         Document doc = documentDao.getDocument( getAccess().getID_Document() );
 
-        LOG.info("Document doc: {}.", doc);
+        LOG.info("Document doc.getDocumentType().getId(): {}.", doc.getDocumentType().getId());
 
         if (documentTypeId != null && !documentTypeId.equals(doc.getDocumentType().getId())) {
             LOG.info("Document not found. Access code {}, type {}.", accessCode, documentTypeId);
