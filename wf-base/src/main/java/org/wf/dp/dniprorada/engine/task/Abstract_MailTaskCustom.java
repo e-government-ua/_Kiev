@@ -186,7 +186,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				LOG.info("execution.getId()=" + execution.getId());
 				LOG.info("execution.getProcessDefinitionId()=" + execution.getProcessDefinitionId());
 				LOG.info("execution.getProcessInstanceId()=" + execution.getProcessInstanceId());
-                                
+                                String[] as=execution.getProcessDefinitionId().split("\\:");
+                                String s=as[2];
+				LOG.info("s=" + s);
                                 
 				//EngineServices oEngineServices = execution.getEngineServices();
 				//TaskFormData oTaskFormData = oEngineServices.getFormService()
@@ -199,7 +201,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                                 FormData oTaskFormData = execution.getEngineServices()
                                                 .getFormService()
                                                 //.getTaskFormData(execution.getProcessDefinitionId());
-                                                .getTaskFormData(execution.getProcessInstanceId());
+                                                //.getTaskFormData(execution.getProcessInstanceId());
+                                                .getTaskFormData(s);
+                                
                                 
 				if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
 					for (FormProperty property : oTaskFormData.getFormProperties()) {
