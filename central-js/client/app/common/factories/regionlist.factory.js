@@ -1,4 +1,4 @@
-angular.module('app').factory('RegionListFactory', function($http, TypeaheadFactory, DropdownFactory) {
+angular.module('app').factory('RegionListFactory', function($http, PlacesService, TypeaheadFactory, DropdownFactory) {
   var regionList = function() {
     this.typeahead = new TypeaheadFactory();
     this.dropdown = new DropdownFactory();
@@ -20,32 +20,10 @@ angular.module('app').factory('RegionListFactory', function($http, TypeaheadFact
       sFind: search
     };
     return this.typeahead.load('./api/places/regions', search, data).then(function(regions) {
-      if (service === null) return regions;
-      var aServiceData = service.aServiceData;
-
-      angular.forEach(regions, function(region) {
-        var color = 'red';
-        angular.forEach(aServiceData, function(oServiceData) {
-          if (oServiceData.hasOwnProperty('nID_Region')) {
-            var oRegion = oServiceData.nID_Region;
-            if (oRegion.nID == region.nID) {
-              color = 'green';
-            }
-            return;
-          }
-          if (oServiceData.hasOwnProperty('nID_City')) {
-            var oCity = oServiceData.nID_City;
-            var oRegion = oCity.nID_Region;
-            if (oRegion.nID == region.nID) {
-              color = 'green';
-            }
-            return;
-          }
-        });
-        region.color = color;
-      });
-
-      return regions;
+      if (service === null) {
+        return regions;
+      }
+      return PlacesService.colorizeRegionsForService( regions, service );
     }).then(function(regions) {
       self.typeahead.list = regions;
       self.dropdown.list = regions;

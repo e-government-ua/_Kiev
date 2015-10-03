@@ -48,37 +48,40 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
    * returns saved place data
    */
   self.getPlaceData = function() {
-
     var localData = JSON.parse(localStorage.getItem('igSavedPlaceData'));
-
     if (self.rememberMyData && localData) {
       savedPlaceData = localData;
     }
-
     // console.log('get place data:', JSON.stringify(savedPlaceData));
     return savedPlaceData;
   };
 
-  self.getRegionsForService = function(service) {
-    return $http.get('./api/places/regions').then(function(response) {
-      var regions = response.data;
-      var aServiceData = service.aServiceData;
-
-      angular.forEach(regions, function(region) {
-        var color = 'red';
-        angular.forEach(aServiceData, function(oServiceData) {
-          if (oServiceData.hasOwnProperty('nID_City') === false) {
-            return;
-          }
-          var oCity = oServiceData.nID_City;
-          var oRegion = oCity.nID_Region;
-          if (oRegion.nID === region.nID) {
+  self.colorizeRegionsForService = function(regions, service) {
+    var aServiceData = service.aServiceData;
+    angular.forEach(regions, function(region) {
+      var color = 'red';
+      angular.forEach(aServiceData, function(oServiceData) {
+        if (oServiceData.hasOwnProperty('nID_Region')) {
+          if (oServiceData.nID_Region.nID === region.nID) {
             color = 'green';
           }
-        });
-        region.color = color;
+          return;
+        }
+        if (oServiceData.hasOwnProperty('nID_City')) {
+          if (oServiceData.nID_City.nID_Region.nID === region.nID) {
+            color = 'green';
+          }
+          return;
+        }
       });
-      return regions;
+      region.color = color;
+    });
+    return regions;
+  };
+
+  self.getRegionsForService = function(service) {
+    return $http.get('./api/places/regions').then(function(response) {
+      return self.colorizeRegionsForService(response.data, service);
     });
   };
 
@@ -116,7 +119,7 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     return savedPlaceData && (savedPlaceData.region ? true : false);
   };
 
-  self.cityIsChosen = function() {;
+  self.cityIsChosen = function() {
     return savedPlaceData && (savedPlaceData.city ? true : false);
   };
 
@@ -183,11 +186,11 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
         // сервіс доступний у вибраному регіоні
         if (oPlace && oPlace.region && oPlace.region.nID === srv.nID_Region.nID) {
           // сервіс доступний у якомусь із міст вибраного регіону
-          if (srv.hasOwnProperty('nID_City') && srv.nID_City.nID !== null && srv.nID_City.nID_Region.nID === srv.nID_Region.nID ) {
+          if (srv.hasOwnProperty('nID_City') && srv.nID_City.nID !== null && srv.nID_City.nID_Region.nID === srv.nID_Region.nID) {
             result.someCityInThisRegion = true;
             // ...і у вибраному місті, що знаходиться у вибраній області
             if (oPlace && oPlace.city && oPlace.city.nID === srv.nID_City.nID) {
-               result.thisCityInThisRegion = true;
+              result.thisCityInThisRegion = true;
             }
           }
           result.thisRegion = true;
@@ -211,7 +214,7 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
         nID: 0
       }
     };
-    
+
     serviceType = self.findServiceDataByCountry() || serviceType;
 
     if (self.regionIsChosen() && self.findServiceDataByRegion() !== null) {
