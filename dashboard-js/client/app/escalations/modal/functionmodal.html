@@ -1,0 +1,27 @@
+<div class="modal-header" ng-init="resolveBP()">
+  <h3 class="modal-title">Редактор функцій ескалації</h3>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal">
+    <div class="form-group">
+      <label class="col-md-4 col-xs-4 control-label">Назва функції:</label>
+      <div class="col-md-8 col-xs-8">
+        <input class="form-control" id="inputName" ng-model="ruleFunction.sName">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-4 col-xs-4 control-label">Обробник (BeanHandler):</label>
+      <div class="col-md-8 col-xs-8">
+        <input class="form-control" id="inputName" ng-model="ruleFunction.sBeanHanlder" 
+        placeholder="EscalationHandler_SendMailAlert">
+      </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+  <button type="submit" class="btn btn-primary" ng-click="saveRuleFunction()">ОК</button>
+  <button class="btn btn-warning" type="button" ng-click="cancel()">Відмінити</button>
+</div>
+</form>
+
+</div>

@@ -3,11 +3,14 @@
 angular.module('dashboardJsApp')
   .controller('EscalationsCtrl', function ($scope, $modal, escalationsService) {
     
-     $scope.rulesList = {
+     $scope.dataFunctions = {
       //getFunc: escalationsService.getRule,
       setFunc: escalationsService.setRule,
       getAllFunc: escalationsService.getAllRules,
       deleteFunc: escalationsService.deleteRule,
+      getAllFunctionsFunc:  escalationsService.getAllEscalationFunctions,
+      setRuleFunctionFunc:  escalationsService.setEscalationFunctionFunc,
+      deleteRuleFunctionFunc:  escalationsService.deleteEscalationFunctionFunc,
       
     };
   });
