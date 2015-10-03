@@ -33,26 +33,27 @@ public class DocumentAccessHandler_IGov extends AbstractDocumentAccessHandler {
 
     @Override
     public DocumentAccess getAccess() {
-        DocumentAccess access = documentAccessDao.getDocumentAccess(accessCode);
+        LOG.info("[getAccess]accessCode=", accessCode);
+        DocumentAccess oDocumentAccess = documentAccessDao.getDocumentAccess(accessCode);
 
-        if (access == null)
-            throw new DocumentNotFoundException("Document Access not found");
+        if (oDocumentAccess == null)
+            throw new DocumentNotFoundException("Document Access not found (accessCode="+accessCode+")");
 
-        if (isBlank(access.getsCodeType()))
-            return access;
+        if (isBlank(oDocumentAccess.getsCodeType()))
+            return oDocumentAccess;
 
         if (isBlank(password) || !isNumeric(password)){
-            if ("SMS".equalsIgnoreCase(access.getsCodeType())){
+            if ("SMS".equalsIgnoreCase(oDocumentAccess.getsCodeType())){
                 handleSMS();
             } else {
-                throw new DocumentAccessException("Document Access password wrong (no SMS:"+access.getsCodeType()+")");
+                throw new DocumentAccessException("Document Access password wrong (no SMS:"+oDocumentAccess.getsCodeType()+")");
             }
         }
         
-        int currPass = Integer.valueOf(access.getAnswer());
+        int currPass = Integer.valueOf(oDocumentAccess.getAnswer());
         int userPass = Integer.valueOf(password);
-        if ("SMS".equalsIgnoreCase(access.getsCodeType()) && userPass == currPass)
-            return access;
+        if ("SMS".equalsIgnoreCase(oDocumentAccess.getsCodeType()) && userPass == currPass)
+            return oDocumentAccess;
         else
             throw new DocumentAccessException("Document Access password wrong");
     }
