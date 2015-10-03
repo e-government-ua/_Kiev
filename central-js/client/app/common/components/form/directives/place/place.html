@@ -36,7 +36,7 @@
                     </ul>
                 </div> <!-- end: region dropdown, div class="dropdown-wrapper" dropdown  -->
             </div> <!-- end: <div class="inline-wrapper"> -->
-            <div class="inline-wrapper" ng-if="regionIsChosen() && available().anyCityInThisRegion">
+            <div class="inline-wrapper" ng-if="showCityDropdown()">
                 <span>Місто: </span>
                 <div class="dropdown-wrapper" dropdown is-open="localityList.dropdown.isOpen">
                     <div class="input-group">

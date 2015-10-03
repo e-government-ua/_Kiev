@@ -52,8 +52,8 @@ angular.module('app')
           });
         };
 
-        $scope.cityIsAvailable = function() {
-          return PlacesService.getServiceAvailability().anyCity;
+        $scope.serviceAvailableIn = function() {
+          return PlacesService.serviceAvailableIn();
         };
 
         $scope.cityIsChosen = function() {
@@ -71,8 +71,8 @@ angular.module('app')
 
         $scope.authControlIsNeeded = function() {
           var bNeeded = true;
-          var oAvail = PlacesService.getServiceAvailability();
-          bNeeded = bNeeded && (oAvail.thisRegion || oAvail.thisCity) && $scope.placeControlIsComplete();
+          var serviceAvailableIn = PlacesService.serviceAvailableIn();
+          bNeeded = bNeeded && (serviceAvailableIn.thisRegion || serviceAvailableIn.thisCity) && $scope.placeControlIsComplete();
 
           return bNeeded;
         };
@@ -85,10 +85,10 @@ angular.module('app')
 
         $scope.placeControlIsNeeded = function() {
           var bNeeded = false;
-          var oAvail = PlacesService.getServiceAvailability();
+          var serviceAvailableIn = PlacesService.serviceAvailableIn();
 
           // needed because service is available for some place
-          if (oAvail.anyRegion || oAvail.anyCity) {
+          if (serviceAvailableIn.anyRegion || serviceAvailableIn.anyCity) {
             bNeeded = true;
           }
 
@@ -114,26 +114,26 @@ angular.module('app')
          */
         $scope.placeControlIsComplete = function() {
           var bIsComplete = null;
-          var oAvail = PlacesService.getServiceAvailability();
+          var serviceAvailableIn = PlacesService.serviceAvailableIn();
 
           // return false if no region or no city is chosen (usually on startup), but service is available somewhere
-          if ((!$scope.regionIsChosen() || !$scope.cityIsChosen()) && (oAvail.anyRegion || oAvail.anyCity)) {
+          if ((!$scope.regionIsChosen() || !$scope.cityIsChosen()) && (serviceAvailableIn.anyRegion || serviceAvailableIn.anyCity)) {
             bIsComplete = false;
           }
           // no region - no city, no need in choosing the place
-          if (!oAvail.anyRegion && !oAvail.anyCity) {
+          if (!serviceAvailableIn.anyRegion && !serviceAvailableIn.anyCity) {
             bIsComplete = true;
           }
           // ok region - no city in region (!)
-          if ((oAvail.anyRegion && $scope.regionIsChosen()) && !oAvail.anyCityInThisRegion) {
+          if ((serviceAvailableIn.anyRegion && $scope.regionIsChosen()) && !serviceAvailableIn.anyCityInThisRegion) {
             bIsComplete = true;
           }
           // ok region - ok city
-          if ((oAvail.anyRegion && $scope.regionIsChosen()) && (oAvail.anyCity && $scope.cityIsChosen())) {
+          if ((serviceAvailableIn.anyRegion && $scope.regionIsChosen()) && (serviceAvailableIn.anyCity && $scope.cityIsChosen())) {
             bIsComplete = true;
           }
           // no region - ok city
-          if ((!oAvail.anyRegion) && (oAvail.anyCity && $scope.cityIsChosen())) {
+          if ((!serviceAvailableIn.anyRegion) && (serviceAvailableIn.anyCity && $scope.cityIsChosen())) {
             bIsComplete = true;
           }
 
@@ -171,7 +171,7 @@ angular.module('app')
           console.log('1. Region is chosen:', $scope.regionIsChosen(), ', city is chosen:', $scope.cityIsChosen());
           console.log('2. Place controls is complete:', $scope.placeControlIsComplete());
           console.log('3. Auth control is visible:', $scope.authControlIsVisible());
-          console.log('4. Service Availability:', JSON.stringify(PlacesService.getServiceAvailability(), null, ''));
+          console.log('4. Service Availability:', JSON.stringify(PlacesService.serviceAvailableIn(), null, ''));
 
           PlacesService.setPlaceData(placeData);
 
@@ -245,7 +245,15 @@ angular.module('app')
             });
           }
 
-          $scope.processPlaceSelection();
+          if ($scope.placeControlIsComplete()) {
+            $scope.processPlaceSelection();
+          }
+
+        };
+
+        $scope.showCityDropdown = function() {
+          var serviceAvailableIn = $scope.serviceAvailableIn();
+          return $scope.regionIsChosen() && (serviceAvailableIn.anyCityInThisRegion || !serviceAvailableIn.thisRegion && serviceAvailableIn.anyCity);
         };
 
         $scope.onSelectLocalityList = function($item, $model, $label) {

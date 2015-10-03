@@ -164,7 +164,7 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
    *   thisCity: false    // ...і доступний у вибраному місті
    * }
    */
-  self.getServiceAvailability = function() {
+  self.serviceAvailableIn = function() {
     var result = {
       anyRegion: false,
       anyCity: false,
