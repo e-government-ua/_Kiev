@@ -37,7 +37,7 @@ public class DocumentAccessHandler_IGov extends AbstractDocumentAccessHandler {
         DocumentAccess oDocumentAccess = documentAccessDao.getDocumentAccess(accessCode);
 
         if (oDocumentAccess == null)
-            throw new DocumentNotFoundException("Document Access not found (accessCode="+accessCode+")");
+            throw new DocumentNotFoundException("Document Access not found");// (accessCode="+accessCode+")
 
         if (isBlank(oDocumentAccess.getsCodeType()))
             return oDocumentAccess;
