@@ -1,14 +1,16 @@
 /**
- *
- Place.js - компонент, що допомогає вибирати місце - область та місто
- Використовує сервіс PlacesService
+ Place.js - компонент для вибору місця - області та міста.
+ Використовує сервіс PlacesService.
  
- TODO: передбачити можливість вибору тільки міста, якщо його назва є унікальною — 
- тобто воно належить тільки одній області, і її можна взнати автоматично.
- Див. https://github.com/e-government-ua/i/issues/550
- *
- */
+ FIXME: передбачити можливість вибору тільки міста, якщо його назва є унікальною — тобто воно належить тільки одній області, і її можна взнати автоматично.
+ 
+ FIXME: був баг: при виборі області інтерфейс дає вибрати ще й місто, хоча область у данноу випадку є кінцевоб точкою: https://github.com/e-government-ua/i/issues/540 
 
+ FIXME: наявність обласної послуги не має блокувати можливість розміщення там же і міської послуги, див https://github.com/e-government-ua/i/issues/443
+ Правильно: вибрати "Миколіївську", а потім мати можливість вибрати "Миколаїв"
+
+ Див. https://github.com/e-government-ua/i/issues/550
+**/
 angular.module('app')
   .directive('place', function($rootScope, $location, $state, $sce, AdminService, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, serviceLocationParser) {
 
@@ -50,14 +52,12 @@ angular.module('app')
           });
         };
 
-        $scope.cityIsAvailable = function() {
-          var bCityIsAvailable = PlacesService.cityIsAvailable();
-          return bCityIsAvailable;
+        $scope.serviceAvailableIn = function() {
+          return PlacesService.serviceAvailableIn();
         };
 
         $scope.cityIsChosen = function() {
-          var bCityIsChosen = PlacesService.cityIsChosen();
-          return bCityIsChosen;
+          return PlacesService.cityIsChosen();
         };
 
         $scope.regionIsChosen = function() {
@@ -71,8 +71,8 @@ angular.module('app')
 
         $scope.authControlIsNeeded = function() {
           var bNeeded = true;
-          var oAvail = PlacesService.getServiceAvailability();
-          bNeeded = bNeeded && (oAvail.thisRegion || oAvail.thisCity) && $scope.placeControlIsComplete();
+          var sa = PlacesService.serviceAvailableIn();
+          bNeeded = bNeeded && (sa.thisRegion || sa.thisCity) && $scope.placeControlIsComplete();
 
           return bNeeded;
         };
@@ -85,10 +85,10 @@ angular.module('app')
 
         $scope.placeControlIsNeeded = function() {
           var bNeeded = false;
-          var oAvail = PlacesService.getServiceAvailability();
+          var sa = PlacesService.serviceAvailableIn();
 
           // needed because service is available for some place
-          if (oAvail.isRegion || oAvail.isCity) {
+          if (sa.someRegion || sa.someCity) {
             bNeeded = true;
           }
 
@@ -114,27 +114,28 @@ angular.module('app')
          */
         $scope.placeControlIsComplete = function() {
           var bIsComplete = null;
-          var oAvail = PlacesService.getServiceAvailability();
+          var sa = PlacesService.serviceAvailableIn();
+          var regionIsChosen = $scope.regionIsChosen();
+          var cityIsChosen = $scope.cityIsChosen();
 
           // return false if no region or no city is chosen (usually on startup), but service is available somewhere
-          if ((!$scope.regionIsChosen() || !$scope.cityIsChosen()) && (oAvail.isRegion || oAvail.isCity)) {
+          if ((!regionIsChosen && sa.someRegion) || (!cityIsChosen && sa.someCity)) {
             bIsComplete = false;
           }
-
           // no region - no city, no need in choosing the place
-          if (!oAvail.isRegion && !oAvail.isCity) {
+          if (!sa.someRegion && !sa.someCity) {
             bIsComplete = true;
           }
-          // ok region - no city
-          if ((oAvail.isRegion && $scope.regionIsChosen()) && !oAvail.isCity) {
+          // this region only and no city in this region (!)
+          if (sa.thisRegion && !sa.someCityInThisRegion) {
             bIsComplete = true;
           }
-          // ok region - ok city
-          if ((oAvail.isRegion && $scope.regionIsChosen()) && (oAvail.isCity && $scope.cityIsChosen())) {
+          // this city
+          if (sa.thisCity) {
             bIsComplete = true;
           }
-          // no region - ok city
-          if ((!oAvail.isRegion) && (oAvail.isCity && $scope.cityIsChosen())) {
+          // not this region, but maybe another (but not another city)
+          if (regionIsChosen && !sa.thisRegion && sa.someRegion && !sa.someCity) {
             bIsComplete = true;
           }
 
@@ -142,11 +143,11 @@ angular.module('app')
         };
 
         $scope.editPlace = function() {
-
           sControlMode = 'placeEditMode';
-          $scope.resetPlaceData();
 
+          $scope.resetPlaceData();
           var regions = PlacesService.getRegionsForService(ServiceService.oService);
+
           $scope.regionList.reset();
           $scope.regionList.select(null);
           $scope.regionList.initialize(regions);
@@ -168,20 +169,18 @@ angular.module('app')
         $scope.processPlaceSelection = function() {
           var placeData = PlacesService.getPlaceData();
 
-          // console.log('Place: process place selection: ');
+          // console.log('Process Place selection.');
           // console.log('1. Region is chosen:', $scope.regionIsChosen(), ', city is chosen:', $scope.cityIsChosen());
           // console.log('2. Place controls is complete:', $scope.placeControlIsComplete());
           // console.log('3. Auth control is visible:', $scope.authControlIsVisible());
-          // console.log('4. Service Availability:', JSON.stringify(PlacesService.getServiceAvailability(), null, ''));
+          // console.log('4. Service Availability:', JSON.stringify(PlacesService.serviceAvailableIn(), null, ''));
 
           PlacesService.setPlaceData(placeData);
 
           $scope.region = PlacesService.getPlaceData().region;
           $scope.city = PlacesService.getPlaceData().city;
 
-          $scope.$emit('onPlaceChange', {
-            placeData: PlacesService.getPlaceData()
-          });
+          $scope.$emit('onPlaceChange');
         };
 
         // FIXME дебажити повторний вибір місця
@@ -220,15 +219,16 @@ angular.module('app')
         };
 
         $scope.onSelectRegionList = function($item, $model, $label) {
+
+          // console.info('onSelectRegionList, Service Availability:', JSON.stringify(PlacesService.serviceAvailableIn(), null, ''));
+
           PlacesService.setRegion($item);
           $scope.regionList.select($item, $model, $label);
+
           $scope.loadLocalityList(null);
-
-          console.info('onSelectRegionList:', $item);
-
           PlacesService.setCity(null);
           $scope.localityList.reset();
-          // $scope.search();
+
           $scope.localityList.load(null, $item.nID, null).then(function(cities) {
             $scope.localityList.typeahead.defaultList = cities;
           });
@@ -237,7 +237,6 @@ angular.module('app')
 
           // Сервіс недоступний у області — значить, варто завантажити міста, інакше вважати місце вибраним:
           if (serviceType !== 1 && serviceType !== 4) {
-
             $scope.localityList.load(ServiceService.oService, $item.nID, null).then(function(cities) {
               $scope.localityList.typeahead.defaultList = cities;
               var initialCity = serviceLocationParser.getSelectedCity(cities);
@@ -245,15 +244,21 @@ angular.module('app')
                 $scope.onSelectLocalityList(initialCity);
               }
             });
-          } else {
+          }
+
+          if ($scope.placeControlIsComplete()) {
             $scope.processPlaceSelection();
           }
+        };
+
+        $scope.showCityDropdown = function() {
+          var sa = $scope.serviceAvailableIn();
+          return $scope.regionIsChosen() && (sa.someCityInThisRegion || !sa.thisRegion && sa.someCity);
         };
 
         $scope.onSelectLocalityList = function($item, $model, $label) {
           PlacesService.setCity($item);
           $scope.localityList.select($item, $model, $label);
-          // $scope.search();
           $scope.processPlaceSelection();
         };
 
