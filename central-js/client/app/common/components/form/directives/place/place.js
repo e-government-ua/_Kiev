@@ -220,7 +220,7 @@ angular.module('app')
 
         $scope.onSelectRegionList = function($item, $model, $label) {
 
-          // console.info('onSelectRegionList, Service Availability:', JSON.stringify(PlacesService.serviceAvailableIn(), null, ''));
+          console.info('onSelectRegionList, Service Availability:', JSON.stringify(PlacesService.serviceAvailableIn(), null, ''), $item);
 
           PlacesService.setRegion($item);
           $scope.regionList.select($item, $model, $label);
