@@ -20,7 +20,7 @@ public abstract class AbstractDocumentAccessHandler implements DocumentAccessHan
 
 
     public DocumentAccessHandler setAccessCode(String sCode_DocumentAccess) {
-        LOG.info("sCode_DocumentAccess = {} ", accessCode);
+        LOG.info("sCode_DocumentAccess = {} ", sCode_DocumentAccess);
         this.accessCode = sCode_DocumentAccess;
         return this;
     }
