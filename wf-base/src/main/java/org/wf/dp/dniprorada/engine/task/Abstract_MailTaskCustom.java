@@ -193,17 +193,17 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				//EngineServices oEngineServices = execution.getEngineServices();
 				//TaskFormData oTaskFormData = oEngineServices.getFormService()
 				//		.getTaskFormData(execution.getId());// task.getId()
-                                /*
+                                
                                 StartFormData oTaskFormData = execution.getEngineServices()
                                                 .getFormService()
                                                 .getStartFormData(execution.getProcessDefinitionId());
-                                */
-                                FormData oTaskFormData = execution.getEngineServices()
+                                
+                                /*FormData oTaskFormData = execution.getEngineServices()
                                                 .getFormService()
                                                 //.getTaskFormData(execution.getProcessDefinitionId());
                                                 //.getTaskFormData(execution.getProcessInstanceId());
                                                 .getTaskFormData(s);
-                                
+                                */
                                 
 				if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
 					for (FormProperty property : oTaskFormData.getFormProperties()) {
