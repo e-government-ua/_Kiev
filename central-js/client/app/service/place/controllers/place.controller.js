@@ -16,7 +16,7 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
   self.processPlaceChange = function(oParams) {
 
     // діємо в залежності від доступності сервісу
-    var oAvail = PlacesService.getServiceAvailability();
+    var serviceAvailableIn = PlacesService.serviceAvailableIn();
     var stateToGo = PlacesService.getServiceStateForPlace();
 
     // отримати дані сервісу та його опис

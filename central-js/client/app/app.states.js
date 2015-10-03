@@ -8,7 +8,7 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
       resolve: {
         // TODO make sure it works stable
         service: function($stateParams, ServiceService) {
-          console.log('App.states: calling get service, $stateParams.id =', $stateParams.id);
+          // console.log('App.states: calling get service, $stateParams.id =', $stateParams.id);
           return ServiceService.get($stateParams.id);
         },
         regions: function(PlacesService, service) {

@@ -6,12 +6,6 @@ angular.module('app').controller('ServiceFormController', function($scope, servi
 });
 
 angular.module('app').controller('ServiceGeneralController', function($state, $scope, ServiceService, PlacesService ) {
-  var oAvail = PlacesService.getServiceAvailability();
-  // console.log('ServiceGeneralController');
-  // FIXME Перевірити, чи немає тут дублювання з processPlaceChange
-  // if (oAvail.isRegion || oAvail.isCity) {
-  //   return $state.go('index.service.general.place', {id: ServiceService.oService.nID}, {location: false});
-  // }
   return $state.go('index.service.general.place', {id: ServiceService.oService.nID}, {location: false});
 });
 
