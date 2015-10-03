@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('dashboardJsApp')
-  .controller('RuleEditorModalCtrl', function($scope, $modalInstance, ruleToEdit, processes) {
+  .controller('RuleEditorModalCtrl', function($scope, $modalInstance, ruleToEdit, processesList) {
         
     var exampleRule = {       
         sID_BP: 'dnepr_spravka_o_doxodax',
@@ -16,16 +16,21 @@ angular.module('dashboardJsApp')
     return angular.copy(a);
     return exampleRule;
     }
+    
+        var getTheProcesses = function(a){
+    return a;
+    }
+    
     $scope.rule = getTheRule(ruleToEdit);
+    $scope.processes = getTheProcesses(processesList);
     
     $scope.rule.bp =  {sID:$scope.rule.sID_BP, sName:$scope.rule.sID_BP};  
-    $scope.processesList = [$scope.rule.bp];
-    $scope.ruleBpIsIncorrect = false;
+    
+    $scope.ruleBpIsIncorrect = false;    
 
-    processes.getUserProcesses().then(function (data) {
-      $scope.processesList = data;
-      if ($scope.processesList != '' && $scope.processesList.length > 0) {
-        $scope.ruleBpIsIncorrect = $scope.processesList.every(function (process) {
+ $scope.resolveBP = function () {
+            if ($scope.processes != '' && $scope.processes.length > 0) {
+        $scope.ruleBpIsIncorrect = $scope.processes.every(function (process) {
           if ($scope.rule.bp.sID == process.sID){
             $scope.rule.bp = process;
             return false;
@@ -34,22 +39,8 @@ angular.module('dashboardJsApp')
         });
         
       }
-    }, function () {
-      $scope.processesList = "error";   
-    });
+    };
     
-    $scope.processesLoaded = function() {
-      if ($scope.processesList)
-      return true;
-    return false;
-    }
-    
-     $scope.processesLoadError = function() {
-      if ($scope.processesList && $scope.processesList == "error")
-      return true;
-    return false;
-    }
- 
     $scope.save = function () {
       // var ruleToSave = converter.convert($scope.slot);
       $modalInstance.close($scope.rule);
