@@ -33,7 +33,7 @@ public class DocumentAccessHandler_IGov extends AbstractDocumentAccessHandler {
 
     @Override
     public DocumentAccess getAccess() {
-        LOG.info("[getAccess]accessCode=", accessCode);
+        LOG.info("[getAccess]accessCode = {} ", accessCode);
         DocumentAccess oDocumentAccess = documentAccessDao.getDocumentAccess(accessCode);
 
         if (oDocumentAccess == null)
