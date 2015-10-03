@@ -119,33 +119,25 @@ angular.module('app')
           var cityIsChosen = $scope.cityIsChosen();
 
           // return false if no region or no city is chosen (usually on startup), but service is available somewhere
-          if ((!regionIsChosen || !cityIsChosen) && (sa.someRegion || sa.someCity)) {
+          if ((!regionIsChosen && sa.someRegion) || (!cityIsChosen && sa.someCity)) {
             bIsComplete = false;
           }
           // no region - no city, no need in choosing the place
           if (!sa.someRegion && !sa.someCity) {
             bIsComplete = true;
           }
-          // ok region - no city in region (!) but not this region and some other city
-          //&& (!sa.thisRegion && sa.someCity)
+          // this region only and no city in this region (!)
           if (sa.thisRegion && !sa.someCityInThisRegion) {
-            // console.log('complete: ok region - no city in region');
             bIsComplete = true;
           }
-          // ok region - ok city
-          if ((sa.someRegion && regionIsChosen) && (sa.someCity && cityIsChosen)) {
+          // this city
+          if (sa.thisCity) {
             bIsComplete = true;
           }
-          // no region - ok city
-          if ((!sa.someRegion) && (sa.someCity && cityIsChosen)) {
+          // not this region, but maybe another (but not another city)
+          if (regionIsChosen && !sa.thisRegion && sa.someRegion && !sa.someCity) {
             bIsComplete = true;
           }
-          // some region - some city
-          // Черк:
-          // {someRegion: true, someCity: true, thisRegion: true, thisCity: false, someCityInThisRegion: false, thisCityInThisRegion: false}
-          // Днеп:
-          // {someRegion: true, someCity: true, thisRegion: false, thisCity: false, someCityInThisRegion: false, thisCityInThisRegion: false}
-          //bIsComplete = bIsComplete && !sa.thisRegion && sa.someCity)
 
           return bIsComplete;
         };
@@ -177,11 +169,11 @@ angular.module('app')
         $scope.processPlaceSelection = function() {
           var placeData = PlacesService.getPlaceData();
 
-          console.log('Process Place selection.');
-          console.log('1. Region is chosen:', $scope.regionIsChosen(), ', city is chosen:', $scope.cityIsChosen());
-          console.log('2. Place controls is complete:', $scope.placeControlIsComplete());
-          console.log('3. Auth control is visible:', $scope.authControlIsVisible());
-          console.log('4. Service Availability:', JSON.stringify(PlacesService.serviceAvailableIn(), null, ''));
+          // console.log('Process Place selection.');
+          // console.log('1. Region is chosen:', $scope.regionIsChosen(), ', city is chosen:', $scope.cityIsChosen());
+          // console.log('2. Place controls is complete:', $scope.placeControlIsComplete());
+          // console.log('3. Auth control is visible:', $scope.authControlIsVisible());
+          // console.log('4. Service Availability:', JSON.stringify(PlacesService.serviceAvailableIn(), null, ''));
 
           PlacesService.setPlaceData(placeData);
 
@@ -228,7 +220,7 @@ angular.module('app')
 
         $scope.onSelectRegionList = function($item, $model, $label) {
 
-          console.info('onSelectRegionList:', $item);
+          // console.info('onSelectRegionList, Service Availability:', JSON.stringify(PlacesService.serviceAvailableIn(), null, ''));
 
           PlacesService.setRegion($item);
           $scope.regionList.select($item, $model, $label);
@@ -236,9 +228,6 @@ angular.module('app')
           $scope.loadLocalityList(null);
           PlacesService.setCity(null);
           $scope.localityList.reset();
-          // $scope.search();
-
-          console.log('Availability: ', PlacesService.serviceAvailableIn());
 
           $scope.localityList.load(null, $item.nID, null).then(function(cities) {
             $scope.localityList.typeahead.defaultList = cities;
@@ -260,7 +249,6 @@ angular.module('app')
           if ($scope.placeControlIsComplete()) {
             $scope.processPlaceSelection();
           }
-
         };
 
         $scope.showCityDropdown = function() {
@@ -271,7 +259,6 @@ angular.module('app')
         $scope.onSelectLocalityList = function($item, $model, $label) {
           PlacesService.setCity($item);
           $scope.localityList.select($item, $model, $label);
-          // $scope.search();
           $scope.processPlaceSelection();
         };
 
