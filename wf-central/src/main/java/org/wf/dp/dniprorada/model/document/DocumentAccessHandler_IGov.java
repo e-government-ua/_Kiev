@@ -78,7 +78,7 @@ public class DocumentAccessHandler_IGov extends AbstractDocumentAccessHandler {
 
         if (documentTypeId != null &&
             !documentTypeId.equals(doc.getDocumentType().getId())) {
-            LOG.debug("Document not found. Access code {}, type {}.", accessCode, documentTypeId);
+            LOG.info("Document not found. Access code {}, type {}.", accessCode, documentTypeId);
             throw new DocumentNotFoundException("Document Access not found");
         }
 
