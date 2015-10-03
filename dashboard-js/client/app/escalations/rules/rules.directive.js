@@ -50,7 +50,10 @@ angular.module('dashboardJsApp')
                   return true;
                 }
                 );
-              if (ruleNotExistedBefore) $scope.rules.push(editedRule);
+              if (ruleNotExistedBefore) {
+                setRuleBPName(editedRule);
+                $scope.rules.push(editedRule);
+              }
 
             });
 

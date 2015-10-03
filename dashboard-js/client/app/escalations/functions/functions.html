@@ -1,0 +1,37 @@
+<div ng-init="fillFunctionData()">
+  <table class="table">
+    <tbody>
+       <tr ng-hide="functionsLoaded()"><td><h4>Завантаження списку функцій...</h4></td></tr>
+       <tr>
+         <td>
+          <button class="btn btn-primary" ng-click="add()" ng-show="functionsLoaded()">Додати функцію</button>
+        </td>
+        <td></td>
+        
+      </tr>
+      <tr ng-repeat="ruleFunction in get() | orderBy:'-nID'">
+        <td class="col-md-8">
+          <b>ID: </b> {{ruleFunction.nID}}<br/>
+          <b>Дія: </b> {{translate(ruleFunction.sName)}}<br/> 
+          <b>Обробник:</b> {{ruleFunction.sBeanHandler}}
+        </td>
+        <td class="col-md-4 rulebuttons">
+          <div class="btn-group">
+            <button type="button" class="btn btn-default" ng-click="edit(ruleFunction)">
+              Редагувати
+            </button>
+            <button type="button" class="btn btn-warning" ng-click="copy(ruleFunction)" tooltip="Копіювати" tooltip-trigger="mouseenter" tooltip-placement="top"
+            tooltip-append-to-body="true" disabled=true>
+              <i class="fa fa-copy"></i>
+            </button>
+            <button type="button" class="btn btn-danger" ng-click="delete(ruleFunction)" tooltip="Видалити" tooltip-trigger="mouseenter" tooltip-placement="top"
+            tooltip-append-to-body="true">
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+     
+    </tbody>
+  </table>
+</div>

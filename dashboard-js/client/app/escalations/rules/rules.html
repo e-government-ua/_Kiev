@@ -11,6 +11,7 @@
       </tr>
       <tr ng-repeat="rule in get() | orderBy:'-nID'">
         <td class="col-md-8">
+           <b>ID: </b> {{rule.nID}},
           <b>Якщо</b> {{rule.sCondition}}, 
           <b>то</b> {{translate(rule.nID_EscalationRuleFunction.sName)}}.<br/> 
           <b>Параметри:</b> {{rule.soData}}. <br/>
