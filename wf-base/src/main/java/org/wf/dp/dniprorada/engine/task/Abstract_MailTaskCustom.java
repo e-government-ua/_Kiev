@@ -27,6 +27,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.StartFormData;
 
 import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
@@ -189,9 +190,14 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				//EngineServices oEngineServices = execution.getEngineServices();
 				//TaskFormData oTaskFormData = oEngineServices.getFormService()
 				//		.getTaskFormData(execution.getId());// task.getId()
+                                /*
                                 StartFormData oTaskFormData = execution.getEngineServices()
                                                 .getFormService()
                                                 .getStartFormData(execution.getProcessDefinitionId());
+                                */
+                                FormData oTaskFormData = execution.getEngineServices()
+                                                .getFormService()
+                                                .getTaskFormData(execution.getProcessDefinitionId());
                                 
 				if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
 					for (FormProperty property : oTaskFormData.getFormProperties()) {
