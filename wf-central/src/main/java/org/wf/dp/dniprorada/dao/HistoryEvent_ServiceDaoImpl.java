@@ -120,9 +120,11 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
             log.warn("List of records based on nID_Service not found" + nID_Service);
             throw new EntityNotFoundException("Record not found");
         } else {
+            int i = 0;
             for (Object item : criteria.list()) {
                 Object[] currValue = (Object[]) item;
-                log.info("Curr value:" + currValue);
+                log.info(String.format("Line %s: %s, %s, %s", i, currValue[0], currValue[1], currValue[2]));
+                i++;
                 Double nRate = 0.0;
                 try{
                     nRate = (Double) currValue[2];
