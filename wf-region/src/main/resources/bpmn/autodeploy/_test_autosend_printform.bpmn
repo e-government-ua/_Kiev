@@ -81,7 +81,7 @@
             <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
                 <!--header line statrs-->
                 <tr>
-                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov</b><br />портал державних послуг [pattern_dictonary:23423421:2]</td>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov</b><br />портал державних послуг [pattern_dictonary:MVD_Department.csv:23423421:2]</td>
 
                 </tr>
                 <!--header line end-->
@@ -237,7 +237,7 @@
             <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
                 <!--header line statrs-->
                 <tr>
-                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov</b><br />портал державних послуг [pattern_dictonary:23423421:2]</td>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov</b><br />портал державних послуг [pattern_dictonary:MVD_Department.csv:23423421:2]</td>
 
                 </tr>
                 <!--header line end-->
@@ -345,7 +345,7 @@
                             <tr>
                                 <td style="padding: 35px 120px;">
            <p>
-Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}<br /> [pattern_dictonary:23423421:2]
+Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}<br /> [pattern_dictonary:MVD_Department.csv:23423421:2]
 Ваш запит щодо отримання експлутаційного дозволу для провадження діяльності: на потужностях (об'єктах) з виробництва, з переробки неїстівних продуктів тваринного походження успішно зареєстровано і буде опрацьовано управлінням ветеринарної медицини в м.Дніпропетровську впродовж 10 робочих днів.<br />
 <br />
 Реєстраційний номер заяви: ${reestr_numb};<br />
