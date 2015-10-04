@@ -118,7 +118,11 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         try {
 			ExecutionEntity ee = (ExecutionEntity) execution;
 			String id = ee.getActivity().getId();
-			LOG.info("Task ID of the called instance: " + id);
+			
+			LOG.info("Task ID of the called instance: " + id + " tasks:" + ee.getTasks());
+			LOG.info("Properties:" + ee.getActivity().getProperties());
+			LOG.info("size of tasks:" + ee.getTasks().size());
+			
 			if (id != null){
 				FormData oTaskFormData = execution.getEngineServices()
                         .getFormService()
