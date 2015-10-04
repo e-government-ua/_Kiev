@@ -1422,9 +1422,13 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     }
 
     private void setInfo_ToActiviti(String snID_Process, String saField, String sBody) {
-        log.info(String.format("try to set saField=%s and sBody=%s to snID_Process=%s", saField, sBody, snID_Process));
-        runtimeService.setVariable(snID_Process, "saFieldQuestion", saField);
-        runtimeService.setVariable(snID_Process, "sQuestion", sBody);
-        log.info(String.format("completed set saField=%s and sBody=%s to snID_Process=%s", saField, sBody, snID_Process));
+        try {
+            log.info(String.format("try to set saField=%s and sBody=%s to snID_Process=%s", saField, sBody, snID_Process));
+            runtimeService.setVariable(snID_Process, "saFieldQuestion", saField);
+            runtimeService.setVariable(snID_Process, "sQuestion", sBody);
+            log.info(String.format("completed set saField=%s and sBody=%s to snID_Process=%s", saField, sBody, snID_Process));
+        } catch (Exception ex){
+            log.error("error during set variables to Activiti!", ex);
+        }
     }
 }
