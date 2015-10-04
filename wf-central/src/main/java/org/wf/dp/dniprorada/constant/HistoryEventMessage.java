@@ -59,7 +59,7 @@ public class HistoryEventMessage {
             return "";
         }
         StringBuilder tableStr = new StringBuilder("Поле \t/ Тип \t/ Поточне значення\n");
-        JSONObject jsnobject = new JSONObject("{ soData:" + soData.replace("'", "\"") + "}");
+        JSONObject jsnobject = new JSONObject("{ soData:" + soData + "}");
         JSONArray jsonArray = jsnobject.getJSONArray("soData");
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject record = jsonArray.getJSONObject(i);
