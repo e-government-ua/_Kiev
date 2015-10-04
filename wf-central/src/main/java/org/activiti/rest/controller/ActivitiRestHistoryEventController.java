@@ -254,9 +254,10 @@ public class ActivitiRestHistoryEventController {
 		List<Map<String, Long>> listOfHistoryEvents = historyEventServiceDao.getHistoryEvent_ServiceBynID_Service(nID_Service);
 
 		for (Map<String, Long> currMap : listOfHistoryEvents){
-			  Region region = regionDao.findByIdExpected(currMap.get("sName"));
+			Region region = regionDao.findByIdExpected(currMap.get("sName"));
 			Map<String, Object> currMapWithName = new HashMap<>();
-			  currMapWithName.put("sName", region.getName());
+			currMapWithName.put("sName", region.getName());
+			currMapWithName.put("nRate", currMap.get("nRate"));
 			log.info("[getListOfHistoryEvents]sName=" + region.getName());
 			  //currMapWithName.put("nCount", currMap.get("nCount"));
 			  /*https://igov.org.ua/service/661/general - 43
