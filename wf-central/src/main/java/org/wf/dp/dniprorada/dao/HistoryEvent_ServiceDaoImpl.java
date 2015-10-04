@@ -112,7 +112,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
         criteria.setProjection(Projections.projectionList()
                         .add(Projections.groupProperty("nID_Region"))
                         .add(Projections.count("nID_Service"))
-                .add(Projections.avg("nRate")) //for issue 777
+                        .add(Projections.avg("nRate")) //for issue 777
         );
         Object res = criteria.list();
         log.info("Received result in getHistoryEvent_ServiceBynID_Service:" + res);
@@ -123,32 +123,18 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
             for (Object item : criteria.list()) {
                 Object[] currValue = (Object[]) item;
                 log.info("Curr value:" + currValue);
-                
-                //String snRate = (String) currValue[2];
-                String snRate = "0";
+                Double nRate = 0.0;
                 try{
-                    snRate = (String) currValue[2];
+                    nRate = (Double) currValue[2];
                 }catch(Exception oException){
-                    log.error("[Curr value(String)]:" + oException.getMessage());
+                    log.error("cannot get nRate! " + currValue[2] + " caused: " + oException.getMessage());
                 }
-                
-                try{
-                    snRate = ((Long) currValue[2])+"";
-                }catch(Exception oException){
-                    log.error("[Curr value(Long)]:" + oException.getMessage());
-                }
-                
-                log.info("(String) currValue[2])=" + snRate);
-                if(snRate==null || "null".equals(snRate)){
-                    snRate="0";
-                }
-                
+                String snRate = "" + nRate * 20;
+                Long rate = Long.valueOf(snRate.substring(0, snRate.indexOf(".")));
                 Map<String, Long> currRes = new HashMap<>();
                 currRes.put("sName", (Long) currValue[0]);
                 currRes.put("nCount", (Long) currValue[1]);
-                currRes.put("nRate", Long.valueOf(snRate)*20);//for issue 777//*20//
-//                currRes.put("nRate", Long.valueOf(0));//for issue 777//*20
-                // currRes.put("nRate", new BigDecimal(Float.valueOf("" + currValue[2])).setScale(1).floatValue());//for issue 777
+                currRes.put("nRate", rate);//for issue 777//*20//
                 resHistoryEventService.add(currRes);
             }
             log.info("Found " + resHistoryEventService.size() + " records based on nID_Service " + nID_Service);
