@@ -113,7 +113,7 @@ public class ActivitiRestDocumentController {
     ) {
 
         
-        log.info("accessCode="+accessCode);
+        log.info("accessCode = {} ", accessCode);
         //log.info("organID="+organID);
         
         Document document = handlerFactory
