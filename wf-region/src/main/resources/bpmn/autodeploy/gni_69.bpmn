@@ -20,7 +20,7 @@
           <activiti:value id="dnepr_red_guard" name="Дніпропетровськ - Красногвардійський (вул. Театральна, 1-А)|0466"></activiti:value>
           <activiti:value id="dnepr_lenin" name="Дніпропетровськ - Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="subekt" name="Ви хочете замовити витяг по собі або по іншому підприємству?" type="enum" required="true">
+        <activiti:formProperty id="subekt" name="Ви хочете замовити витяг по собі або по іншому підприємству?" type="enum"  >
           <activiti:value id="ur" name="по іншому підприємству|1"></activiti:value>
           <activiti:value id="fiz" name="по собі|2"></activiti:value>
         </activiti:formProperty>
@@ -30,7 +30,7 @@
         <activiti:formProperty id="organ" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, інше" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="info_2" name=" " type="label" default="Завантажте пустий бланк запиту за &lt;a href=&quot;https://docs.google.com/document/d/1op393ACpXsaPwewbuvn4yir-8oskEXy83RcSXOuUnco/edit&quot; target=&quot;_blank&quot;&gt;посиланням&lt;/a&gt;, заповніть, додайте ЕЦП, відскануйте та завантажте у полі нижче"></activiti:formProperty>
         <activiti:formProperty id="zapit" name="Заповнений запит з ЕЦП" type="file" required="true"></activiti:formProperty>
-      </extensionElements>
+       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника держоргану" activiti:type="mail">
       <extensionElements>
