@@ -13,10 +13,10 @@ import org.slf4j.LoggerFactory;
 public class MVSDepartmentsTagUtil {
 
 	private static final Logger LOG = LoggerFactory.getLogger(MVSDepartmentsTagUtil.class);
-	private static final Map<String, Map<String,String>> VALUES = new HashMap<String,Map<String,String>>();
+	public static final Map<String, Map<String,String>> VALUES = new HashMap<String,Map<String,String>>();
 	private static final String DEFAULT_ROOT_PATH = "patterns/dictionary/"; 
 	
-	private static void loadDictionary(String path) {
+	protected static void loadDictionary(String path) {
 		Map<String, String> values = new HashMap<String, String>();
 		BufferedReader br = null;
 		try {
@@ -32,6 +32,7 @@ public class MVSDepartmentsTagUtil {
 		        values.put(key, line);
 			}
 
+			VALUES.put(path, values);
 			//Close the input stream
 			br.close();
 		} catch (IOException e) {
@@ -58,7 +59,8 @@ public class MVSDepartmentsTagUtil {
 				Map<String, String> patternValues = VALUES.get(params[0]);
 				if (patternValues == null){
 					synchronized (VALUES) {
-						loadDictionary(params[0]);						
+						loadDictionary(params[0]);		
+						patternValues = VALUES.get(params[0]);
 					}
 				}
 				if (patternValues == null){
