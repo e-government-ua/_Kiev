@@ -115,6 +115,20 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                 
                 textWithoutTags = populatePatternWithContent(textWithoutTags);
                 
+        try {
+			ExecutionEntity ee = (ExecutionEntity) execution;
+			String id = ee.getActivity().getId();
+			LOG.info("Task ID of the called instance: " + id);
+			if (id != null){
+				FormData oTaskFormData = execution.getEngineServices()
+                        .getFormService()
+                        .getTaskFormData(id);
+				LOG.info("Found task form data: " + oTaskFormData);
+		}
+		} catch (Exception e){
+			e.printStackTrace();
+		}                
+                
 		for (int i = 0; i < 10; i++) { // TODO: написать автоопределение тегов и заменить этот кусок
 			boolean isItFirstTag = (i == 0);
 			String prefix = isItFirstTag ? "" : PATTERN_DELIMITER + i;
@@ -192,19 +206,6 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                                 String s=as[2];
 				LOG.info("s=" + s);
                                 
-				try {
-				ExecutionEntity ee = (ExecutionEntity) execution;
-				String id = ee.getActivity().getId();
-				LOG.info("Task ID of the called instance: " + id);
-				if (id != null){
-					FormData oTaskFormData = execution.getEngineServices()
-                            .getFormService()
-                            .getTaskFormData(id);
-					LOG.info("Found task form data: " + oTaskFormData);
-				}
-				} catch (Exception e){
-					e.printStackTrace();
-				}
 				//EngineServices oEngineServices = execution.getEngineServices();
 				//TaskFormData oTaskFormData = oEngineServices.getFormService()
 				//		.getTaskFormData(execution.getId());// task.getId()
