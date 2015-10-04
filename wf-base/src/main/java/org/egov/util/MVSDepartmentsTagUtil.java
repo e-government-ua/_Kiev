@@ -65,7 +65,7 @@ public class MVSDepartmentsTagUtil {
 				}
 				if (patternValues == null){
 					LOG.error("Unable to find dictionary value from the path: " + params[0]);
-					return "";
+					return res;
 				}
 				LOG.info("Pattern value for the specified ID: " + patternValues);
 				if (!patternValues.isEmpty()){
