@@ -130,7 +130,12 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                     log.error("cannot get nRate! " + currValue[2] + " caused: " + oException.getMessage());
                 }
                 String snRate = "" + nRate * 20;
-                Long rate = Long.valueOf(snRate.substring(0, snRate.indexOf(".")));
+                log.info("snRate=" + snRate);
+                Long rate = 0L;
+                if (snRate.contains(".")) {
+                    rate = Long.valueOf(snRate.substring(0, snRate.indexOf(".")));
+                    log.info("total rate = " + rate);
+                }
                 Map<String, Long> currRes = new HashMap<>();
                 currRes.put("sName", (Long) currValue[0]);
                 currRes.put("nCount", (Long) currValue[1]);
