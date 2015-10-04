@@ -125,10 +125,10 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                 Object[] currValue = (Object[]) item;
                 log.info(String.format("Line %s: %s, %s, %s", i, currValue[0], currValue[1], currValue[2]));
                 i++;
-                Double nRate = 0.0;
                 Long rate = 0L;
                 try{
-                    nRate = (Double) currValue[2];
+                    Double nRate = (Double) currValue[2];
+                    log.info("nRate=" + nRate);
                     String snRate = "" + nRate * 20;
                     log.info("snRate=" + snRate);
                     if (snRate.contains(".")) {
@@ -136,16 +136,12 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                         log.info("total rate = " + rate);
                     }
                 }catch(Exception oException){
-                    log.error("cannot get nRate! " + currValue[2] + " caused: " + oException.getMessage());
+                    log.error("cannot get nRate! " + currValue[2] + " caused: " + oException.getMessage(), oException);
                 }
-
-
-
-
                 Map<String, Long> currRes = new HashMap<>();
                 currRes.put("sName", (Long) currValue[0]);
                 currRes.put("nCount", (Long) currValue[1]);
-                currRes.put("nRate", rate);//for issue 777//*20//
+                currRes.put("nRate", rate);
                 resHistoryEventService.add(currRes);
             }
             log.info("Found " + resHistoryEventService.size() + " records based on nID_Service " + nID_Service);
