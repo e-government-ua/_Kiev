@@ -46,8 +46,8 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
    * Перейти до стану редагування місця
    */
   $scope.$on('onPlaceEdit', function(evt) {
-    // FIXME переходити на попередній стан, а не на фіксований
     // TODO ще раз перевірити, як це працює у різних контекстах
+    // можливо, треба переходити на попередній стан, а не на фіксований
     return $state.go('index.service.general.place', {
       id: oService.nID
     }, {

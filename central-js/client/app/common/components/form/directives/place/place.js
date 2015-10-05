@@ -1,15 +1,10 @@
 /**
  Place.js - компонент для вибору місця - області та міста.
  Використовує сервіс PlacesService.
- 
- FIXME: передбачити можливість вибору тільки міста, якщо його назва є унікальною — тобто воно належить тільки одній області, і її можна взнати автоматично.
- 
- FIXME: був баг: при виборі області інтерфейс дає вибрати ще й місто, хоча область у данноу випадку є кінцевоб точкою: https://github.com/e-government-ua/i/issues/540 
 
- FIXME: наявність обласної послуги не має блокувати можливість розміщення там же і міської послуги, див https://github.com/e-government-ua/i/issues/443
- Правильно: вибрати "Миколіївську", а потім мати можливість вибрати "Миколаїв"
-
- Див. https://github.com/e-government-ua/i/issues/550
+ TODO: для кращого юзабіліті, розглянути можливість показу локацій, у яких сервіс доступний, у верхній частині списку
+ 
+ Див.: https://github.com/e-government-ua/i/issues/550
  */
 angular.module('app')
   .directive('place', function($rootScope, $location, $state, $sce, AdminService, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, serviceLocationParser) {
@@ -107,11 +102,6 @@ angular.module('app')
           var regionIsChosen = $scope.regionIsChosen();
           var cityIsChosen = $scope.cityIsChosen();
 
-          // return false if no region or no city is chosen (usually on startup), but service is available somewhere
-          // if ((!regionIsChosen && sa.someRegion) || (!cityIsChosen && sa.someCity)) {
-          //   bIsComplete = false;
-          // }
-
           //
           // вибір вважається зробленим, якщо:
           // 
@@ -120,6 +110,7 @@ angular.module('app')
             bIsComplete = true;
           }
           // сервіс доступний у вибраній області і недоступний у містах даної області:
+          // був баг: при виборі області можна було вибрати ще й місто, хоча область була кінцевою точкою (issues/540)
           if (sa.thisRegion && !sa.someCityInThisRegion) {
             bIsComplete = true;
           }
@@ -136,6 +127,13 @@ angular.module('app')
           if (regionIsChosen && cityIsChosen && sa.someCity ) {
            bIsComplete = true; 
           }
+
+          // для тестування:
+          // service/17/general
+          // наявність обласної послуги не має блокувати можливість розміщення там же і міської послуги (issues/443)
+          // Правильно: вибрати "Миколіївську", а потім мати можливість вибрати "Миколаїв"
+
+          // TODO: передбачити можливість вибору тільки міста, якщо його назва є унікальною — тобто воно належить тільки одній області, і її можна взнати автоматично.
 
           return bIsComplete;
         };
