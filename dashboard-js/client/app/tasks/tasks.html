@@ -1,10 +1,11 @@
 ﻿<div ng-include="'components/navbar/navbar.html'" class="navbar-fixed-top"></div>
-<div class="container" ng-style="showPrintModal && {'overflow-y':'hidden'}" ng-init="init()">
+
+<div class="container" ng-style="printModal.show && {'overflow-y':'hidden'}" ng-init="init()">
+
   <div class="container__in">
     <div class="row">
       <div class="col-xs-5 sidebar">
         <div class="tasks">
-
           <div ng-if="sSelectedTask=='tickets'" class="tasks-tickets-list-header">
             <div class="tickets-assign">
               <input type="checkbox" ng-model="ticketsFilter.bEmployeeUnassigned" id="ticketsFilter_bEmployeeUnassigned" ng-change="applyTicketsFilter()"
@@ -131,6 +132,7 @@
           </div>
         </div>
         <div class="tasks-form-buttons">
+         tasks form buttons: selectedTask: {{selectedTask}}
           <p ng-if="selectedTask">
             <div ng-hide="selectedTask.assignee != null">
               <puttowork-button></puttowork-button>
@@ -149,12 +151,9 @@
               <button ng-hide="!taskFormLoaded || !selectedTask" ng-click="print()" class="btn btn-success">Роздрукувати
               </button>
             </div>
-            <div>{{ selectedTask }}</div>
-          
-            <select class="aPatternPrint form-control" ng-hide="printTemplateList.length == 0 || selectedTask.assignee === null || sSelectedTask === 'finished'">
-              <option ng-repeat="printTemplate in printTemplateList" value="{{printTemplate.id}}">{{printTemplate.displayTemplate}}</option>
+            <select class="aPatternPrint form-control" ng-options="option.displayTemplate for option in printTemplateList track by option.id" ng-required ng-model="model.printTemplate" ng-hide="printTemplateList.length == 0 || selectedTask.assignee === null || sSelectedTask === 'finished'" >
             </select>
-            
+            {{ model }}
           </p>
         </div>
       </div>
@@ -162,4 +161,5 @@
   </div>
 </div>
 
-<print-dialog></print-dialog>
+<print-dialog print-modal-state='printModal' selected-task='selectedTask' selected-task-form='taskForm' print-template-name="model.printTemplate.id"></print-dialog>
+

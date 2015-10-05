@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dashboardJsApp').service('PrintTemplateService', ['tasks', 'PrintTemplateProcessor', '$q', function(tasks, PrintTemplateProcessor, $q) {
+angular.module('dashboardJsApp').service('PrintTemplateService', ['tasks', 'PrintTemplateProcessor', '$q', '$templateRequest', function(tasks, PrintTemplateProcessor, $q, $templateRequest) {
   // TODO: move code from PrintTemplateProcessor here
   // helper function to get path to a print template based on it's ID
   function findPrintTemplate (form, sCustomFieldID) {
@@ -12,9 +12,9 @@ angular.module('dashboardJsApp').service('PrintTemplateService', ['tasks', 'Prin
     console.log('findPrintTemplate returns', retval);
     return retval;
   };
+  var loadedTemplates = {};
   var service = {
     getTemplates: function(form) {
-      console.log('getTemplates method of PrintTemplateService');
       console.log('form is', form);
       if (!form) {
         return [];
@@ -37,24 +37,37 @@ angular.module('dashboardJsApp').service('PrintTemplateService', ['tasks', 'Prin
       console.log('returned templates', templates);
       return templates;
     },
-    getPrintTemplate: function(task, form) {
+    getPrintTemplate: function(task, form, printTemplateName) {
       var deferred = $q.defer();
-      if (!form) {
-        return "";
-      } else {
-        // FIXME: this should be fixed. selected pattern should be passed as a parameter
-        var sCustomFieldID = $('.aPatternPrint').val();
-        var printTemplateName = findPrintTemplate(form, sCustomFieldID);
-        if (!angular.isDefined(loadedTemplates[printTemplateName])) {
-          tasks.getPatternFile(printTemplateName).then(function(originalTemplate){
-            var parsedForm = PrintTemplateProcessor.getPrintTemplate(task, form, originalTemplate);
-            deferred.resolve(parsedForm);
-          }, function() {
-            deferred.reject('Помилка завантаження форми');
-          });
-        }
+      var parsedForm;
+      if (!printTemplateName) {
+        // load default template
+        $templateRequest('/app/tasks/form-buttons/print-dialog-default.html')
+          .then(function(originalTemplate) {
+              parsedForm = PrintTemplateProcessor.getPrintTemplate(task, form, originalTemplate);
+              deferred.resolve(parsedForm);
+            }, function() {
+              deferred.reject('Помилка завантаження стандартної форми');
+            }
+          );
         return deferred.promise;
       }
+      if (!angular.isDefined(loadedTemplates[printTemplatePath])) {
+        var printTemplatePath = findPrintTemplate(form, printTemplateName);
+        tasks.getPatternFile(printTemplatePath).then(function(originalTemplate){
+          // cache template
+          loadedTemplates[printTemplatePath] = originalTemplate;
+          var parsedForm = PrintTemplateProcessor.getPrintTemplate(task, form, originalTemplate);
+          deferred.resolve(parsedForm);
+        }, function() {
+          deferred.reject('Помилка завантаження форми');
+        });
+      } else {
+        // resolve deferred in case the form was cached
+        parsedForm = PrintTemplateProcessor.getPrintTemplate(task, form, loadedTemplates[printTemplatePath]);
+        deferred.resolve(parsedForm);
+      }
+      return deferred.promise;
     }
 
   };

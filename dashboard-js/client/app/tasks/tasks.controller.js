@@ -3,11 +3,13 @@ angular.module('dashboardJsApp').controller('TasksCtrl',
     ['$scope', '$window', 'tasks', 'processes', 'Modal', 'Auth', '$localStorage', '$filter', 'lunaService', 'PrintTemplateService',
       function ($scope, $window, tasks, processes, Modal, Auth, $localStorage, $filter, lunaService, PrintTemplateService) {
   $scope.tasks = null;
+  $scope.model = {printTemplate: null};
   $scope.selectedTasks = {};
   $scope.sSelectedTask = "";
   $scope.taskFormLoaded = false;
   $scope.printTemplateList = [];
-  $scope.showPrintModal = false;
+  //$scope.showPrintModal = false;
+  $scope.printModal = {show: false}; // wrapping in object required for 2-way binding
   $scope.$storage = $localStorage.$default({
     menuType: tasks.filterTypes.selfAssigned
   });
@@ -59,7 +61,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl',
         Modal.inform.error()('Не всі поля заповнені!');
         return;
       }
-      $scope.showPrintModal = !$scope.showPrintModal;
+      $scope.printModal.show = !$scope.printModal.show;
     }
   };
 
@@ -153,6 +155,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl',
   $scope.selectTask = function (task) {
     console.log('selectTask');
     $scope.printTemplateList = [];
+    $scope.model.printTemplate = null;
     $scope.taskFormLoaded = false;
     $scope.sSelectedTask = $scope.$storage.menuType;
     $scope.selectedTask = task;
@@ -172,6 +175,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl',
           $scope.taskForm = result.data[0].variables;
           $scope.taskForm = addIndexForFileItems($scope.taskForm);
           $scope.printTemplateList = PrintTemplateService.getTemplates($scope.taskForm);
+          if ($scope.printTemplateList.length > 0) {
+            $scope.model.printTemplate = $scope.printTemplateList[0];
+          }
           $scope.taskFormLoaded = true;
         })
         .catch(defaultErrorHandler);
@@ -184,6 +190,9 @@ angular.module('dashboardJsApp').controller('TasksCtrl',
           $scope.taskForm = result.formProperties;
           $scope.taskForm = addIndexForFileItems($scope.taskForm);
           $scope.printTemplateList = PrintTemplateService.getTemplates($scope.taskForm);
+          if ($scope.printTemplateList.length > 0) {
+            $scope.model.printTemplate = $scope.printTemplateList[0];
+          }
           $scope.taskFormLoaded = true;
         })
         .catch(defaultErrorHandler);
