@@ -8,8 +8,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl',
   $scope.sSelectedTask = "";
   $scope.taskFormLoaded = false;
   $scope.printTemplateList = [];
-  //$scope.showPrintModal = false;
-  $scope.printModal = {show: false}; // wrapping in object required for 2-way binding
+  $scope.printModalState = {show: false}; // wrapping in object required for 2-way binding
   $scope.$storage = $localStorage.$default({
     menuType: tasks.filterTypes.selfAssigned
   });
@@ -61,7 +60,7 @@ angular.module('dashboardJsApp').controller('TasksCtrl',
         Modal.inform.error()('Не всі поля заповнені!');
         return;
       }
-      $scope.printModal.show = !$scope.printModal.show;
+      $scope.printModalState.show = !$scope.printModalState.show;
     }
   };
 
@@ -153,7 +152,6 @@ angular.module('dashboardJsApp').controller('TasksCtrl',
   };
 
   $scope.selectTask = function (task) {
-    console.log('selectTask');
     $scope.printTemplateList = [];
     $scope.model.printTemplate = null;
     $scope.taskFormLoaded = false;

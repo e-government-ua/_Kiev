@@ -9,13 +9,13 @@ angular.module('dashboardJsApp').service('PrintTemplateService', ['tasks', 'Prin
       return item.id === s;
     });
     var retval = printTemplateResult.length !== 0 ? printTemplateResult[0].name.replace(/\[pattern(.+)\].*/, '$1') : "";
-    console.log('findPrintTemplate returns', retval);
     return retval;
   };
+  // object for caching loaded templates
   var loadedTemplates = {};
   var service = {
+    // method to get list of available print templates based on task form.
     getTemplates: function(form) {
-      console.log('form is', form);
       if (!form) {
         return [];
       }
@@ -34,30 +34,23 @@ angular.module('dashboardJsApp').service('PrintTemplateService', ['tasks', 'Prin
         }
         return result;
       });
-      console.log('returned templates', templates);
       return templates;
     },
+    // method to get parsed template 
     getPrintTemplate: function(task, form, printTemplateName) {
       var deferred = $q.defer();
-      var parsedForm;
       if (!printTemplateName) {
-        // load default template
-        $templateRequest('/app/tasks/form-buttons/print-dialog-default.html')
-          .then(function(originalTemplate) {
-              parsedForm = PrintTemplateProcessor.getPrintTemplate(task, form, originalTemplate);
-              deferred.resolve(parsedForm);
-            }, function() {
-              deferred.reject('Помилка завантаження стандартної форми');
-            }
-          );
+        deferred.reject('Неможливо завантажити форму: немає назви');
         return deferred.promise;
       }
+      // normal flow: load raw template and then process it
+      var parsedForm;
       if (!angular.isDefined(loadedTemplates[printTemplatePath])) {
         var printTemplatePath = findPrintTemplate(form, printTemplateName);
         tasks.getPatternFile(printTemplatePath).then(function(originalTemplate){
           // cache template
           loadedTemplates[printTemplatePath] = originalTemplate;
-          var parsedForm = PrintTemplateProcessor.getPrintTemplate(task, form, originalTemplate);
+          parsedForm = PrintTemplateProcessor.getPrintTemplate(task, form, originalTemplate);
           deferred.resolve(parsedForm);
         }, function() {
           deferred.reject('Помилка завантаження форми');
@@ -67,9 +60,9 @@ angular.module('dashboardJsApp').service('PrintTemplateService', ['tasks', 'Prin
         parsedForm = PrintTemplateProcessor.getPrintTemplate(task, form, loadedTemplates[printTemplatePath]);
         deferred.resolve(parsedForm);
       }
+      // return promise
       return deferred.promise;
     }
-
   };
   return service;
 }]);

@@ -1,6 +1,6 @@
 ﻿<div ng-include="'components/navbar/navbar.html'" class="navbar-fixed-top"></div>
 
-<div class="container" ng-style="printModal.show && {'overflow-y':'hidden'}" ng-init="init()">
+<div class="container" ng-style="printModalState.show && {'overflow-y':'hidden'}" ng-init="init()">
 
   <div class="container__in">
     <div class="row">
@@ -132,7 +132,6 @@
           </div>
         </div>
         <div class="tasks-form-buttons">
-         tasks form buttons: selectedTask: {{selectedTask}}
           <p ng-if="selectedTask">
             <div ng-hide="selectedTask.assignee != null">
               <puttowork-button></puttowork-button>
@@ -153,7 +152,6 @@
             </div>
             <select class="aPatternPrint form-control" ng-options="option.displayTemplate for option in printTemplateList track by option.id" ng-required ng-model="model.printTemplate" ng-hide="printTemplateList.length == 0 || selectedTask.assignee === null || sSelectedTask === 'finished'" >
             </select>
-            {{ model }}
           </p>
         </div>
       </div>
@@ -161,5 +159,5 @@
   </div>
 </div>
 
-<print-dialog print-modal-state='printModal' selected-task='selectedTask' selected-task-form='taskForm' print-template-name="model.printTemplate.id"></print-dialog>
+<print-dialog></print-dialog>
 
