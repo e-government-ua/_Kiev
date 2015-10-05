@@ -1,8 +1,8 @@
 /*
-  Сервіс для вибору регіона та міста.
+  PlacesService - cервіс для вибору регіона та міста.
 
-  Метод getPlaceData надає контроллерам інформацію про вибраний користувачем регіон та / або місто
-  Метод setPlaceData дозволяє контроллерам змінювати цю інформацию в сервісі. 
+  Метод getPlaceData надає інформацію про вибраний користувачем регіон та / або місто
+  Метод setPlaceData дозволяє контроллерам зберігати цю інформацию в сервісі.
   Може зберігати вибране міце у localStorage і читати його звідти ж.
   Сервіс ініціюється з даних URL, якщо там вказано область / місто (TODO: перевірити це). 
   Користувачами сервіса є директиви і контроллери (див. place.js) для вибору місця.
@@ -15,11 +15,12 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
 
   self.rememberMyData = false;
 
-  // Зберігаємо savedPlaceData у localStorage і потім відновлюємо, приклад формату даних:
+  // Зберігаємо savedPlaceData у сервісі (і localStorage)
   var savedPlaceData = {};
 
   self.getClassByState = function($state) {
     // TODO
+    // var curState = statesMap[$state.current.name];
     // var statesMap = {
     //   'index.service.general.place.built-in': {
     //     viewClass: 'state-disabled'
@@ -28,7 +29,7 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     //     viewClass: 'state-collapsed'
     //   }
     // };
-    // return statesMap[$state.current.name] && statesMap[$state.current.name].viewClass || '';
+    // return curState && curState.viewClass || '';
     return '';
   };
 
@@ -218,9 +219,11 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     serviceType = self.findServiceDataByCountry() || serviceType;
 
     if (self.regionIsChosen() && self.findServiceDataByRegion() !== null) {
+      // serviceType = self.findServiceDataByRegion() || serviceType;
       serviceType = self.findServiceDataByRegion();
     }
     if (self.cityIsChosen() && self.findServiceDataByCity() !== null) {
+      // serviceType = self.findServiceDataByCity() || serviceType;
       serviceType = self.findServiceDataByCity();
     }
 
