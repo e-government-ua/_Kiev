@@ -310,4 +310,4 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 399;788;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_soc_help_179:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
 400;789;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_soc_help_181:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
 401;654;NULL;26;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"cherkassi_subsidies:1:1"}};https://test.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-402;790;NULL;26;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk-118:1:1"}};https://test.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+402;790;NULL;8;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kuznetsovsk_mvk-118:1:1"}};https://test.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
