@@ -36,6 +36,7 @@ import java.util.regex.Pattern;
 
 import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.StartFormData;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 
 import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
@@ -127,6 +128,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 			
 			BpmnModel bpmnModel = execution.getEngineServices().getRepositoryService().getBpmnModel(execution.getProcessDefinitionId());
 
+			String sourceFlow = null;
 	        for (FlowElement flowElement : bpmnModel.getMainProcess().getFlowElements()) {
 	            if (flowElement instanceof ServiceTask) {
 	            	ServiceTask serviceTask = (ServiceTask) flowElement;
@@ -134,18 +136,48 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 	            	if (serviceTask.getId().equals(id)){
 	            		List<SequenceFlow> flows = serviceTask.getIncomingFlows();
 	            		for (SequenceFlow flow : flows){
-	            			LOG.info("Source ref:" + flow.getSourceRef() + " name:" + flow.getName());;
+	            			LOG.info("Source ref:" + flow.getSourceRef() + " name:" + flow.getName());
+	            			sourceFlow = flow.getSourceRef();
+	            			break;
 	            		}
 	            	}
 	            }
 	        }
-    		List<Task> tasks = execution.getEngineServices().getTaskService().createTaskQuery().executionId(execution.getId()).list();
-    		if (tasks != null){
-    			for (Task task : tasks){
-    				LOG.info("Task with ID:" + task.getId() + " name:" + task.getName() + " formKey:" + task.getFormKey());
-    			}
-    		}
-
+	        UserTask foundUserTask = null;
+	        if (sourceFlow != null){
+	        	for (FlowElement flowElement : bpmnModel.getMainProcess().getFlowElements()) {
+		            if (flowElement instanceof UserTask) {
+		            	UserTask userTask = (UserTask) flowElement;
+		            	LOG.info("Checking user task with ID: " + userTask.getId());
+		            	List<SequenceFlow> flows = userTask.getIncomingFlows();
+		            	for (SequenceFlow flow : flows){
+		            		LOG.info("Source ref:" + flow.getTargetRef() + " name:" + flow.getName());
+		            		if (sourceFlow.equals(flow.getTargetRef())){
+		            			foundUserTask = userTask;
+		            			break;
+		            		}
+		            	}
+		            }
+		        }
+	        }
+	        if (foundUserTask != null){
+	    		List<Task> tasks = execution.getEngineServices().getTaskService().createTaskQuery().executionId(execution.getId()).list();
+	    		if (tasks != null){
+	    			for (Task task : tasks){
+	    				LOG.info("Task with ID:" + task.getId() + " name:" + task.getName() + " taskDefinitionKey:" + task.getTaskDefinitionKey());
+	    				if (task.getTaskDefinitionKey().equals(foundUserTask.getId())){
+	    					FormData oTaskFormData = execution.getEngineServices()
+	    		                    .getFormService()
+	    		                    .getTaskFormData(task.getId());
+	    					LOG.info("Found task form data");
+	    					for (FormProperty formProperty : oTaskFormData.getFormProperties()){
+	    						LOG.info("Form property: " + formProperty.getId() + " form value:" + formProperty.getValue());
+	    					}
+	    				}
+	    				LOG.info("Task with ID:" + task.getId() + " name:" + task.getName() + " formKey:" + task.getFormKey());
+	    			}
+	    		}
+	        }
 		} catch (Exception e){
 			e.printStackTrace();
 		}
