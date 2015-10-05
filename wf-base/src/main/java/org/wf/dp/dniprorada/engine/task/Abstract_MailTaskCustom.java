@@ -234,10 +234,10 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				
 			}
 			boolean bReplaced = false;
+			LOG.info("Variables of execution:" + execution.getVariables());
 			for (FormProperty property : aProperty) {
 				String sType = property.getType().getName();
 				String snID = property.getId();
-				LOG.info("Variables of execution:" + execution.getVariables());
 				if (!bReplaced && "enum".equals(sType)
 						&& sTAG_Function_AtEnum.equals(snID)) {
 					LOG.info(String
