@@ -36,6 +36,7 @@ import java.util.regex.Pattern;
 
 import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.StartFormData;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 
 import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
@@ -119,36 +120,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 		
 		textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
                 
-                textWithoutTags = populatePatternWithContent(textWithoutTags);
+        textWithoutTags = populatePatternWithContent(textWithoutTags);
                 
-        try {
-			ExecutionEntity ee = (ExecutionEntity) execution;
-			String id = ee.getActivity().getId();
-			
-			BpmnModel bpmnModel = execution.getEngineServices().getRepositoryService().getBpmnModel(execution.getProcessDefinitionId());
-
-	        for (FlowElement flowElement : bpmnModel.getMainProcess().getFlowElements()) {
-	            if (flowElement instanceof ServiceTask) {
-	            	ServiceTask serviceTask = (ServiceTask) flowElement;
-	            	LOG.info("Checking service task with ID: " + serviceTask.getId());
-	            	if (serviceTask.getId().equals(id)){
-	            		List<SequenceFlow> flows = serviceTask.getIncomingFlows();
-	            		for (SequenceFlow flow : flows){
-	            			LOG.info("Source ref:" + flow.getSourceRef() + " name:" + flow.getName());;
-	            		}
-	            	}
-	            }
-	        }
-    		List<Task> tasks = execution.getEngineServices().getTaskService().createTaskQuery().executionId(execution.getId()).list();
-    		if (tasks != null){
-    			for (Task task : tasks){
-    				LOG.info("Task with ID:" + task.getId() + " name:" + task.getName() + " formKey:" + task.getFormKey());
-    			}
-    		}
-
-		} catch (Exception e){
-			e.printStackTrace();
-		}
+        String previousUserTaskId = getPreviousTaskId(execution);
                 
 		for (int i = 0; i < 10; i++) { // TODO: написать автоопределение тегов и заменить этот кусок
 			boolean isItFirstTag = (i == 0);
@@ -231,16 +205,16 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				//TaskFormData oTaskFormData = oEngineServices.getFormService()
 				//		.getTaskFormData(execution.getId());// task.getId()
                                 
-                                StartFormData oTaskFormData = execution.getEngineServices()
-                                                .getFormService()
-                                                .getStartFormData(execution.getProcessDefinitionId());
+//                                StartFormData oTaskFormData = execution.getEngineServices()
+//                                                .getFormService()
+//                                                .getStartFormData(execution.getProcessDefinitionId());
                                 
-                                /*FormData oTaskFormData = execution.getEngineServices()
+                                FormData oTaskFormData = execution.getEngineServices()
                                                 .getFormService()
                                                 //.getTaskFormData(execution.getProcessDefinitionId());
                                                 //.getTaskFormData(execution.getProcessInstanceId());
-                                                .getTaskFormData(s);
-                                */
+                                                .getTaskFormData(previousUserTaskId);
+                                
                                 
 				if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
 					for (FormProperty property : oTaskFormData.getFormProperties()) {
@@ -346,6 +320,55 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         
 
 		return textWithoutTags;
+	}
+
+	private String getPreviousTaskId(DelegateExecution execution) {
+		ExecutionEntity ee = (ExecutionEntity) execution;
+		String id = ee.getActivity().getId();
+		
+		BpmnModel bpmnModel = execution.getEngineServices().getRepositoryService().getBpmnModel(execution.getProcessDefinitionId());
+
+		String sourceFlow = null;
+		for (FlowElement flowElement : bpmnModel.getMainProcess().getFlowElements()) {
+		    if (flowElement instanceof ServiceTask) {
+		    	ServiceTask serviceTask = (ServiceTask) flowElement;
+		    	LOG.info("Checking service task with ID: " + serviceTask.getId());
+		    	if (serviceTask.getId().equals(id)){
+		    		List<SequenceFlow> flows = serviceTask.getIncomingFlows();
+		    		for (SequenceFlow flow : flows){
+		    			LOG.info("Source ref:" + flow.getSourceRef() + " name:" + flow.getName());
+		    			sourceFlow = flow.getSourceRef();
+		    			break;
+		    		}
+		    	}
+		    }
+		}
+		String previousUserTaskId = null;
+		if (sourceFlow != null){
+			for (FlowElement flowElement : bpmnModel.getMainProcess().getFlowElements()) {
+		        if (flowElement instanceof UserTask) {
+		        	UserTask userTask = (UserTask) flowElement;
+		        	LOG.info("Checking user task with ID: " + userTask.getId());
+		        	List<SequenceFlow> flows = userTask.getOutgoingFlows();
+		        	for (SequenceFlow flow : flows){
+		        		LOG.info("Target ref:" + flow.getTargetRef() + " name:" + flow.getName());
+		        		if (sourceFlow.equals(flow.getTargetRef())){
+		        			previousUserTaskId = userTask.getId();
+		        			break;
+		        		}
+		        	}
+		        }
+		    }
+		}
+		
+		List<Task> tasks = execution.getEngineServices().getTaskService().createTaskQuery().executionId(execution.getId()).taskDefinitionKey(previousUserTaskId).list();
+		if (tasks != null){
+			for (Task task : tasks){
+				LOG.info("Task with ID:" + task.getId() + " name:" + task.getName() + " taskDefinitionKey:" + task.getTaskDefinitionKey());
+				return task.getId();
+			}
+		}
+		return "";
 	}
 
 	protected String getStringFromFieldExpression(Expression expression,
