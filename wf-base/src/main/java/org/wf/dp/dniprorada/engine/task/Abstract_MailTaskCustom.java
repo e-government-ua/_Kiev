@@ -241,8 +241,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				if (!bReplaced && "enum".equals(sType)
 						&& sTAG_Function_AtEnum.equals(snID)) {
 					LOG.info(String
-							.format("Found field! Matching property snID=%s:name=%s:sType=%s with fieldNames",
-									snID, property.getName(), sType));
+							.format("Found field! Matching property snID=%s:name=%s:sType=%s:sValue=%s with fieldNames",
+									snID, property.getName(), sType, property.getValue()));
                                         
 					Object variable = execution.getVariable(property.getId());
 					if (variable != null){
