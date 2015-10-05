@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dashboardJsApp').factory('PrintTemplateProcessor', function ($sce) {
+angular.module('dashboardJsApp').factory('PrintTemplateProcessor', function ($sce, Auth) {
   return {
     processPrintTemplate: function (task, form, printTemplate, reg, fieldGetter) {
       var _printTemplate = printTemplate;
@@ -18,8 +18,8 @@ angular.module('dashboardJsApp').factory('PrintTemplateProcessor', function ($sc
             })[0];
             if (item) {
               var sValue = fieldGetter(item);
-              if(sValue==null){
-                  sValue="";
+              if (sValue === null){
+                  sValue = "";
               }
               _printTemplate = _printTemplate.replace(templateID, sValue);//fieldGetter(item)
             }
@@ -27,6 +27,13 @@ angular.module('dashboardJsApp').factory('PrintTemplateProcessor', function ($sc
         });
       }
       return _printTemplate;
+    },
+    populateSystemTag: function (printTemplate, tag, replaceWith) {
+      var replacement = replaceWith();
+      return printTemplate.replace(new RegExp(this.escapeRegExp(tag), 'g'), replacement);
+    },
+    escapeRegExp: function (str) {
+      return str.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
     },
     getPrintTemplate: function (task, form, originalPrintTemplate) {
       // helper function for getting field value for different types of fields
@@ -48,6 +55,10 @@ angular.module('dashboardJsApp').factory('PrintTemplateProcessor', function ($sc
       // What is this for? // Sergey P
       printTemplate = this.processPrintTemplate(task, form, printTemplate, /(\[label=(\w+)])/g, function (item) {
         return item.name;
+      });
+      printTemplate = this.populateSystemTag(printTemplate, "[sUserInfo]", function () {
+        var user = Auth.getCurrentUser();
+        return user.lastName + ' ' + user.firstName ;
       });
       return $sce.trustAsHtml(printTemplate);
     }

@@ -35,7 +35,10 @@ angular.module('dashboardJsApp')
     var setRule = function(url, ruleToSet, callback){
       var cb = callback || angular.noop;
       var deferred = $q.defer();
-
+      
+      //var id = 0;
+      //if (ruleToSet.nID != null && ruleToSet.nID != undefined) id = ruleToSet.nID;
+      
       var request = {
         method: 'POST',
         url: url,
@@ -64,7 +67,39 @@ angular.module('dashboardJsApp')
       return deferred.promise;
     };
 
- var getAllRules = function(url, callback){
+
+    var setEscalationFunctionFunc = function(url, ruleFunctionToSet, callback){
+      var cb = callback || angular.noop;
+      var deferred = $q.defer();
+      
+      //var id = 0;
+      //if (ruleToSet.nID != null && ruleToSet.nID != undefined) id = ruleToSet.nID;
+      
+      var request = {
+        method: 'POST',
+        url: url,
+        params: {
+          nID: ruleFunctionToSet.nID,
+          sName: ruleFunctionToSet.sName,
+          sBeanHandler: ruleFunctionToSet.sBeanHandler         
+        }
+      };
+
+      $http(request).
+        success(function (data) {
+          var slot = angular.fromJson(data);
+          deferred.resolve(slot);
+          return cb();
+        }).
+        error(function (err) {
+          deferred.reject(err);
+          return cb(err);
+        }.bind(this));
+
+      return deferred.promise;
+    };
+    
+ var getAll = function(url, callback){
       var cb = callback || angular.noop;
       var deferred = $q.defer();
 
@@ -89,7 +124,7 @@ angular.module('dashboardJsApp')
         }.bind(this));
 
       return deferred.promise;
-    };
+    };       
     
         var deleteRule = function(url, ruleToDelete, callback){
       var cb = callback || angular.noop;
@@ -121,7 +156,7 @@ angular.module('dashboardJsApp')
         //return getRule('/api/escalations/getEscalationRule', sID_BP, callback);
       },
       getAllRules: function(callback){
-        return getAllRules('/api/escalations/escalationRules', callback);
+        return getAll('/api/escalations/escalationRules', callback);
         
       },
       setRule: function(ruleToSet, callback) {
@@ -130,7 +165,15 @@ angular.module('dashboardJsApp')
       deleteRule: function(ruleToDelete, callback) {
         return deleteRule('/api/escalations/escalationRules', ruleToDelete, callback);
       },
-     
+     getAllEscalationFunctions: function(callback) {
+        return getAll('/api/escalations/escalationFunctions', callback);
+      },
+      setEscalationFunctionFunc: function(ruleFunctionToSet, callback) {
+        return setEscalationFunctionFunc('/api/escalations/escalationFunctions', ruleFunctionToSet, callback);
+      },
+      deleteEscalationFunctionFunc: function(ruleFunctionToDelete, callback) {
+        return deleteRule('/api/escalations/escalationFunctions', ruleFunctionToDelete, callback);
+      }
     };
   });
 

@@ -36,6 +36,25 @@ public class HistoryEventMessage {
     }
 
     public static String createTable(String soData) {
+//        if (soData == null || "[]".equals(soData)){
+//            return "";
+//        }
+//        StringBuilder tableStr = new StringBuilder("<table><tr><th>Поле</th><th>Тип </th><th> Поточне значення</th></tr>");
+//        JSONObject jsnobject = new JSONObject("{ soData:" + soData + "}");
+//        JSONArray jsonArray = jsnobject.getJSONArray("soData");
+//        for (int i = 0; i < jsonArray.length(); i++) {
+//            JSONObject record = jsonArray.getJSONObject(i);
+//            tableStr.append("<tr><td>")
+//                    .append(record.opt("id") != null ? record.get("id") : "?")
+//                    .append("</td><td>")
+//                    .append(record.opt("type")!= null ? record.get("type").toString() : "??")
+//                    .append("</td><td>")
+//                    .append(record.opt("value")!= null ? record.get("value").toString() : "")
+//                    .append("</td></tr>");
+//        }
+//        tableStr.append("</table>");
+//        return tableStr.toString();
+
         if (soData == null || "[]".equals(soData)){
             return "";
         }
@@ -55,6 +74,6 @@ public class HistoryEventMessage {
     }
 
     public static void main(String[] args) {
-        System.out.println(createTable("[{'id':'sFamily','type':'string','value':'Белявский'},{'id':'nAge','type':'long'}]"));
+        System.out.println(createTable("[{'id':'bankIdfirstName','type':'string','value':'3119325858'}]"));
     }
 }

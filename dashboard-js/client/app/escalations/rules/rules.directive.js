@@ -1,13 +1,14 @@
 angular.module('dashboardJsApp')
   .directive('rules', function () {
 
-    var controller = function ($scope, $modal, bpForSchedule) {
+    var controller = function ($scope, $modal, processes) {
+
 
       //var getFunc = $scope.funcs.getFunc;
       var getAllFunc = $scope.funcs.getAllFunc;
       var setFunc = $scope.funcs.setFunc;
       var deleteFunc = $scope.funcs.deleteFunc;
-      
+
       // $scope.exampleRule = {
       //   id: 1,
       //   sID_BP: 'dnepr_spravka_o_doxodax',
@@ -26,30 +27,39 @@ angular.module('dashboardJsApp')
           resolve: {
             ruleToEdit: function () {
               return angular.copy(rule);
+            },
+            processesList: function () {
+              return $scope.processesList;
             }
           }
         });
 
         modalInstance.result.then(function (editedRule) {
-            setFunc(editedRule)
+          setFunc(editedRule)
             .then(function (editedRule) {
-             console.log('fine');
-             var i = 0;
-             $scope.rules.every(
-               function(element){
-                 if (element.nID == editedRule.nID){
-                   $scope.rules[i] = editedRule;                   
-                   return false;
-                 }
-                 i++;
-                 return true;
-               }
-             );
-             
+              console.log('fine');
+              var i = 0;
+              var ruleNotExistedBefore = $scope.rules.every(
+                function (element) {
+                  if (element.nID == editedRule.nID) {
+                    $scope.rules[i] = editedRule;
+                    setRuleBPName($scope.rules[i]);
+                    return false;
+                  }
+                  i++;
+                  return true;
+                }
+                );
+              if (ruleNotExistedBefore) {
+                setRuleBPName(editedRule);
+                $scope.rules.push(editedRule);
+              }
+
             });
-          
+
         });
       };
+
 
       $scope.rules = [];
       $scope.get = function () {
@@ -77,7 +87,7 @@ angular.module('dashboardJsApp')
       };
 
       $scope.add = function () {
-
+        openModal();
       };
 
       $scope.edit = function (rule) {
@@ -92,19 +102,48 @@ angular.module('dashboardJsApp')
         deleteFunc(rule)
           .then($scope.fillData);
       };
-
+      
+      var setRuleBPName = function(rule){
+        var result = $.grep($scope.processesList, function(e){ return e.sID === rule.sID_BP; });
+        rule.bpName = (result.length>0) ? result[0].sName : rule.sID_BP+", бізнес-процес некоректний.";
+      }
+      
       $scope.fillData = function () {
 
         $scope.inProgress = true;
         $scope.areRulesPresent = false;
 
-        getAllFunc()
-          .then(function (data) {
-            $scope.rules = data;
+        processes.getUserProcesses().then(function (data) {
+          $scope.processesList = data;
+          getAllFunc()
+            .then(function (data) {
+              $scope.rules = data;
+              angular.forEach($scope.rules, function(rule, index){
+                setRuleBPName(rule);
+              });
+              $scope.areRulesPresent = true;
+            });
 
-            $scope.areRulesPresent = true;
-          });
-                          
+        }, function () {
+          $scope.processesList = "error";
+        });
+      };
+
+    $scope.processesLoaded = function() {
+      if ($scope.processesList)
+      return true;
+    return false;
+    }
+    
+    //  $scope.processesLoadError = function() {
+    //   if (processesList && processesList == "error")
+    //   return true;
+    // return false;
+    // }
+    
+      $scope.translate = function (text) {
+        if (text == 'Отсылка уведомления на электронную почту') return 'відправити повідомлення на e-mail';
+        return text;
       };
     };
 

@@ -203,7 +203,10 @@ public class ActivitiRestHistoryEventController {
 			mParamMessage.put(HistoryEventMessage.S_BODY, data == null ? "" : data);
 			log.info(">>>>create history event for SET_TASK_QUESTIONS.TABLE_BODY=" + HistoryEventMessage.createTable(soData));
 			mParamMessage.put(HistoryEventMessage.TABLE_BODY, HistoryEventMessage.createTable(soData));
+			log.info(">>>>create history event for SET_TASK_QUESTIONS.nID_Subject=" + nID_Subject);
+
 			setHistoryEvent(eventType, nID_Subject, mParamMessage);
+			log.info(">>>>create history event for SET_TASK_QUESTIONS... ok!");
 		}
 	}
 
@@ -254,9 +257,10 @@ public class ActivitiRestHistoryEventController {
 		List<Map<String, Long>> listOfHistoryEvents = historyEventServiceDao.getHistoryEvent_ServiceBynID_Service(nID_Service);
 
 		for (Map<String, Long> currMap : listOfHistoryEvents){
-			  Region region = regionDao.findByIdExpected(currMap.get("sName"));
+			Region region = regionDao.findByIdExpected(currMap.get("sName"));
 			Map<String, Object> currMapWithName = new HashMap<>();
-			  currMapWithName.put("sName", region.getName());
+			currMapWithName.put("sName", region.getName());
+			currMapWithName.put("nRate", currMap.get("nRate"));
 			log.info("[getListOfHistoryEvents]sName=" + region.getName());
 			  //currMapWithName.put("nCount", currMap.get("nCount"));
 			  /*https://igov.org.ua/service/661/general - 43

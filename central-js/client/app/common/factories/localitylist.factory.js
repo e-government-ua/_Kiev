@@ -20,15 +20,17 @@ angular.module('app').factory('LocalityListFactory', function($http, TypeaheadFa
       sFind: search
     };
     return this.typeahead.load('./api/places/region/' + region + '/cities', search, data).then(function(cities) {
-      if (service === null) return cities;
+      if (service === null) {
+        return cities;
+      }
       var aServiceData = service.aServiceData;
       angular.forEach(cities, function(oCity) {
         var color = 'red';
         angular.forEach(aServiceData, function(oServiceData) {
-          if (oServiceData.hasOwnProperty('nID_City') == false) {
+          if (oServiceData.hasOwnProperty('nID_City') === false) {
             return;
           }
-          if (oServiceData.nID_City.nID == oCity.nID) {
+          if (oServiceData.nID_City.nID === oCity.nID) {
             color = 'green';
           }
         });

@@ -20,9 +20,6 @@
                             typeahead-template-url="app/service/place/templates/typeahead-match-region.html" 
                             typeahead-empty 
                             />
-                            <!--
-                            placeholder="Область"
-                            -->
                         <span class="input-group-btn">
                             <button class="btn btn-default"
                                     type="button"
@@ -39,7 +36,7 @@
                     </ul>
                 </div> <!-- end: region dropdown, div class="dropdown-wrapper" dropdown  -->
             </div> <!-- end: <div class="inline-wrapper"> -->
-            <div class="inline-wrapper" ng-if="regionIsChosen() && cityIsAvailable()">
+            <div class="inline-wrapper" ng-if="showCityDropdown()">
                 <span>Місто: </span>
                 <div class="dropdown-wrapper" dropdown is-open="localityList.dropdown.isOpen">
                     <div class="input-group">
@@ -56,9 +53,6 @@
                             typeahead-template-url="app/service/place/templates/typeahead-match-city.html"  
                             typeahead-empty  
                             />
-                            <!-- 
-                            placeholder="Місто"
-                            -->
                         <span class="input-group-btn">
                             <button class="btn btn-default"
                                     type="button"

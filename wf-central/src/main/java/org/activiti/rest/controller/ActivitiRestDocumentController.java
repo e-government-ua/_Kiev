@@ -112,6 +112,10 @@ public class ActivitiRestDocumentController {
             HttpServletResponse resp
     ) {
 
+        
+        log.info("accessCode = {} ", accessCode);
+        //log.info("organID="+organID);
+        
         Document document = handlerFactory
                 .buildHandlerFor(documentDao.getOperator(organID))
                 .setDocumentType(docTypeID)
