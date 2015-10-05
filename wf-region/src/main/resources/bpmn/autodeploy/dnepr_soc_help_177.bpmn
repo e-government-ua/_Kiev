@@ -44,7 +44,7 @@
           <activiti:value id="children_adoption" name="Призначення допомоги при усиновленні дитини"></activiti:value>
           <activiti:value id="children_mother_hero" name="Надання допомоги «Матерям-героїням»"></activiti:value>
           <activiti:value id="children_single_mother" name="Призначення допомоги на дітей одиноким матерям"></activiti:value>
-          <activiti:value id="children_adoption" name="Призначення допомоги на дітей, які перебувають під опікою чи піклуванням"></activiti:value>
+          <activiti:value id="children_adoption_1" name="Призначення допомоги на дітей, які перебувають під опікою чи піклуванням"></activiti:value>
           <activiti:value id="children_orphan" name="Призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування"></activiti:value>
           <activiti:value id="children_bad_parents" name="Призначення тимчасової допомоги дітям, батьки яких ухиляються від сплати аліментів"></activiti:value>
         </activiti:formProperty>
