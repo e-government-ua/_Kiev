@@ -237,23 +237,25 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 			for (FormProperty property : aProperty) {
 				String sType = property.getType().getName();
 				String snID = property.getId();
+				LOG.info("Variables of execution:" + execution.getVariables());
 				if (!bReplaced && "enum".equals(sType)
 						&& sTAG_Function_AtEnum.equals(snID)) {
 					LOG.info(String
 							.format("Found field! Matching property snID=%s:name=%s:sType=%s with fieldNames",
 									snID, property.getName(), sType));
                                         
-                                                String sID_Enum = execution.getVariable(property.getId()).toString();
-                                            LOG.info("execution.getVariable()(sID_Enum)=" + sID_Enum);
-                                        
-					String sValue = parseEnumProperty(property,sID_Enum);
-					LOG.info("sValue=" + sValue);
+					Object variable = execution.getVariable(property.getId());
+					if (variable != null){
+						String sID_Enum = variable.toString();
+						LOG.info("execution.getVariable()(sID_Enum)=" + sID_Enum);
+						String sValue = parseEnumProperty(property,sID_Enum);
+						LOG.info("sValue=" + sValue);
 
-					textWithoutTags = textWithoutTags.replaceAll("\\Q"
-							+ TAG_Function_AtEnum + sTAG_Function_AtEnum
-							+ TAG_Function_To + "\\E", sValue);
-					bReplaced = true;
-
+						textWithoutTags = textWithoutTags.replaceAll("\\Q"
+								+ TAG_Function_AtEnum + sTAG_Function_AtEnum
+								+ TAG_Function_To + "\\E", sValue);
+						bReplaced = true;
+					}
 				}
 			}
 
