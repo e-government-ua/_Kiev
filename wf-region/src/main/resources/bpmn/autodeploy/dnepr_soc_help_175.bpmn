@@ -49,7 +49,7 @@
           <activiti:value id="fop" name="я фізична особа-підприємець"></activiti:value>
           <activiti:value id="centre_job" name="перебуваю на обліку у центрі зайнятості як безробітна особа"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="vacation" name="Чи перебуваєте на данний момент у довгостроковій відпустці?" type="enum" required="true">
+        <activiti:formProperty id="vacation" name="Чи перебуваєте на данний момент у довгостроковій відпустці?" type="enum">
           <activiti:value id="no_4" name="ні"></activiti:value>
           <activiti:value id="yes_4" name="так"></activiti:value>
         </activiti:formProperty>
@@ -85,6 +85,7 @@
         <activiti:formProperty id="doc_fop" name="довідка органу державної податкової служби про доходи за останній звітний період (рік)" type="file"></activiti:formProperty>
         <activiti:formProperty id="doc_ur" name="довідка державного реєстратора про проведення (відсутність) державної реєстрації особи" type="file"></activiti:formProperty>
         <activiti:formProperty id="doc_medical_2" name="довідка лікарсько-консультативної комісії лікувально-профілактичного закладу; в якій зазначено, що дитина-інвалід потребує домашнього догляду." type="file"></activiti:formProperty>
+        <activiti:formProperty id="markers910" name="Маркери способу перерахування коштів" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_9&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_10&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers1" name="Якщо  законний  представник  проживає  за  іншою адресою" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;doc_other&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;together&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'no'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers2" name="Якщо одинокий інвалід з дитинства II і III групи" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;doc_family&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;Customer_service&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'invalid_23'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers3" name="Якщо опікун чи піклувальник" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;doc_guardian&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;type_parenthood&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'guardians'&quot;}}}"></activiti:formProperty>
@@ -93,6 +94,7 @@
         <activiti:formProperty id="markers6" name="Якщо особа не працює" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;doc_allowance&quot;,&quot;doc_family&quot;,&quot;doc_fop&quot;,&quot;doc_ur&quot;,&quot;doc_together&quot;,&quot;doc_employment_history&quot;,&quot;doc_centre_job&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;employment&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'no_3'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers7" name="Якщо працевлаштована, але у відпустці" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_7&quot;:{&quot;aField_ID&quot;:[&quot;doc_medical_2&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;vacation&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_4'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers8" name="Якщо не має українського громаданятсва" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_8&quot;:{&quot;aField_ID&quot;:[&quot;doc_foreigner&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;nationality&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'not_ukraine'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers11" name="Якщо особа працює, але у відпустці" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;vacation&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;employment&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_3'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника соц.захисту" activiti:type="mail">
@@ -208,7 +210,7 @@
           <activiti:value id="lenin" name="Ленінський"></activiti:value>
           <activiti:value id="samar" name="Самарський"></activiti:value>
         </activiti:formProperty>
-          <activiti:formProperty id="together" name="Чи проживаєте Ви разом з дитиною?" type="enum" writable="false">
+        <activiti:formProperty id="together" name="Чи проживаєте Ви разом з дитиною?" type="enum" writable="false">
           <activiti:value id="yes" name="так"></activiti:value>
           <activiti:value id="no" name="ні"></activiti:value>
         </activiti:formProperty>
