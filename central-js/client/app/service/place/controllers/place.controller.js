@@ -12,7 +12,6 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
   $scope.stepNumber = 1;
 
   self.processPlaceChange = function() {
-
     // діємо в залежності від доступності сервісу
     var serviceAvailableIn = PlacesService.serviceAvailableIn();
     var stateToGo = PlacesService.getServiceStateForPlace();
@@ -42,8 +41,6 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
     });
 
     $scope.setStepNumber(2);
-
-    // console.info('PROCESSED Place сhange, state to go:', stateToGo);
   };
 
   $scope.setStepNumber = function(nStep) {
@@ -54,8 +51,20 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
     return $scope.stepNumber;
   };
 
+  $scope.getRegionId = function() {
+    var place = PlacesService.getPlaceData();
+    var region = place ? place.region || null : null;
+    return region ? region.nID : 0;
+  };
+
+  $scope.getCityId = function() {
+    var place = PlacesService.getPlaceData();
+    var city = place ? place.city || null : null;
+    return city ? city.nID : 0;
+  };
+
   /**
-   * Редагування місця
+   * Перейти до стану редагування місця
    */
   $scope.$on('onEditPlace', function(evt) {
     $scope.setStepNumber(1);
@@ -69,7 +78,7 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
   });
 
   /**
-   * Обробляти зміну місця
+   * Обробити зміну місця
    */
   $scope.$on('onPlaceChange', function(evt) {
     self.processPlaceChange();

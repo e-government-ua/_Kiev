@@ -106,6 +106,7 @@ angular.module('app')
         $scope.placeControlIsDisabled = function() {
           var bIsDisabled = false;
           bIsDisabled = $scope.placeControlIsComplete() && sControlMode !== 'placeEditMode';
+          console.log('placeControlIsDisabled:', bIsDisabled);
           return bIsDisabled;
         };
 
@@ -113,15 +114,15 @@ angular.module('app')
          * Ця функція визначає, чи заповнені всі поля, які необхідно заповнити
          */
         $scope.placeControlIsComplete = function() {
-          var bIsComplete = null;
+          var bIsComplete = false;
           var sa = PlacesService.serviceAvailableIn();
           var regionIsChosen = $scope.regionIsChosen();
           var cityIsChosen = $scope.cityIsChosen();
 
           // return false if no region or no city is chosen (usually on startup), but service is available somewhere
-          if ((!regionIsChosen && sa.someRegion) || (!cityIsChosen && sa.someCity)) {
-            bIsComplete = false;
-          }
+          // if ((!regionIsChosen && sa.someRegion) || (!cityIsChosen && sa.someCity)) {
+          //   bIsComplete = false;
+          // }
           // no region - no city, no need in choosing the place
           if (!sa.someRegion && !sa.someCity) {
             bIsComplete = true;

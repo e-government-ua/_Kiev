@@ -1,4 +1,4 @@
-angular.module('app').directive('serviceAuthBlock', function(PlacesService) {
+angular.module('app').directive('serviceAuthBlock', function() {
   return {
     restrict: 'E',
     templateUrl: 'app/service/auth/serviceAuthBlock.html',
@@ -18,18 +18,6 @@ angular.module('app').directive('serviceAuthBlock', function(PlacesService) {
 
       scope.redirectUri = attrs.redirectUri;
       scope.nStep = attrs.nStep;
-
-      scope.getRegionId = function() {
-        var place = PlacesService.getPlaceData();
-        var region = place ? place.region || null : null;
-        return region ? region.nID : 0;
-      };
-
-      scope.getCityId = function() {
-        var place = PlacesService.getPlaceData();
-        var city = place ? place.city || null : null;
-        return city ? city.nID : 0;
-      };
     }
   };
 });

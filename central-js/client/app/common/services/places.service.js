@@ -18,21 +18,6 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
   // Зберігаємо savedPlaceData у сервісі (і localStorage)
   var savedPlaceData = {};
 
-  self.getClassByState = function($state) {
-    // TODO
-    // var curState = statesMap[$state.current.name];
-    // var statesMap = {
-    //   'index.service.general.place.built-in': {
-    //     viewClass: 'state-disabled'
-    //   },
-    //   'index.service.general.place.built-in.bankid.submitted': {
-    //     viewClass: 'state-collapsed'
-    //   }
-    // };
-    // return curState && curState.viewClass || '';
-    return '';
-  };
-
   self.saveLocal = function(oSavedPlaceData) {
     if (self.rememberMyData) {
       localStorage.setItem('igSavedPlaceData', JSON.stringify(oSavedPlaceData));
@@ -237,6 +222,21 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     };
 
     return stateByServiceType[serviceType.nID_ServiceType.nID];
+  };
+
+  // TODO
+  self.getClassByState = function($state) {
+    // var curState = statesMap[$state.current.name];
+    // var statesMap = {
+    //   'index.service.general.place.built-in': {
+    //     viewClass: 'state-disabled'
+    //   },
+    //   'index.service.general.place.built-in.bankid.submitted': {
+    //     viewClass: 'state-collapsed'
+    //   }
+    // };
+    // return curState && curState.viewClass || '';
+    return '';
   };
 
   self.getPlaceData();
