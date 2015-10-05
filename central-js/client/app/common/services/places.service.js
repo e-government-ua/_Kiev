@@ -65,6 +65,23 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     return regions;
   };
 
+  self.colorizeCitiesForService = function(cities, service) {
+    var aServiceData = service.aServiceData;
+    angular.forEach(cities, function(oCity) {
+      var color = 'red';
+      angular.forEach(aServiceData, function(oServiceData) {
+        if (oServiceData.hasOwnProperty('nID_City') === false) {
+          return;
+        }
+        if (oServiceData.nID_City.nID === oCity.nID) {
+          color = 'green';
+        }
+      });
+      oCity.color = color;
+    });
+    return cities;
+  };
+
   self.getRegionsForService = function(service) {
     return $http.get('./api/places/regions').then(function(response) {
       return self.colorizeRegionsForService(response.data, service);

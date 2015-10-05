@@ -23,7 +23,7 @@ angular.module('app').factory('RegionListFactory', function($http, PlacesService
       if (service === null) {
         return regions;
       }
-      return PlacesService.colorizeRegionsForService( regions, service );
+      return PlacesService.colorizeRegionsForService(regions, service);
     }).then(function(regions) {
       self.typeahead.list = regions;
       self.dropdown.list = regions;

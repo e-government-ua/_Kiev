@@ -9,11 +9,12 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
   $scope.$location = $location;
   $scope.bAdmin = AdminService.isAdmin();
   $scope.state = $state.get($state.current.name);
-  $scope.stepNumber = 1;
 
-  self.processPlaceChange = function() {
+  /**
+   * Обробити зміну місця
+   */
+  $scope.$on('onPlaceChange', function(evt) {
     // діємо в залежності від доступності сервісу
-    var serviceAvailableIn = PlacesService.serviceAvailableIn();
     var stateToGo = PlacesService.getServiceStateForPlace();
 
     // отримати дані сервісу та його опис
@@ -39,17 +40,22 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
     }).then(function() {
       // якщо треба, робимо додаткові дії тут
     });
+  });
 
-    $scope.setStepNumber(2);
-  };
-
-  $scope.setStepNumber = function(nStep) {
-    $scope.stepNumber = nStep;
-  };
-
-  $scope.getStepNumber = function() {
-    return $scope.stepNumber;
-  };
+  /**
+   * Перейти до стану редагування місця
+   */
+  $scope.$on('onPlaceEdit', function(evt) {
+    // FIXME переходити на попередній стан, а не на фіксований
+    // TODO ще раз перевірити, як це працює у різних контекстах
+    return $state.go('index.service.general.place', {
+      id: oService.nID
+    }, {
+      location: false
+    }).then(function() {
+      //
+    });
+  });
 
   $scope.getRegionId = function() {
     var place = PlacesService.getPlaceData();
@@ -62,25 +68,4 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
     var city = place ? place.city || null : null;
     return city ? city.nID : 0;
   };
-
-  /**
-   * Перейти до стану редагування місця
-   */
-  $scope.$on('onEditPlace', function(evt) {
-    $scope.setStepNumber(1);
-    // FIXME переходити на попередній стан, а не на фіксований
-    // TODO ще раз перевірити, як це працює у різних контекстах
-    return $state.go('index.service.general.place', {
-      id: oService.nID
-    }).then(function() {
-      //
-    });
-  });
-
-  /**
-   * Обробити зміну місця
-   */
-  $scope.$on('onPlaceChange', function(evt) {
-    self.processPlaceChange();
-  });
 });
