@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_dms-89s" name="Дніпропетровськ ДМС -Зняття з реєстрації місця проживання/перебування особи" isExecutable="true">
+  <process id="dnepr_dms-89s" name="Дніпропетровськ ДМС -Зняття з реєстрації місця проживання особи" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -42,8 +42,7 @@
         <activiti:formProperty id="kidsPOB" name="Місце народження дитини; Країна, область, район і населений пункт" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="visitDay" name="У який день Вам буде зручно зайти до відділення ДМС; ДМС необхідно поставити відмітку у Ваш паспорт для завершення цієї процедури" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="visitTime" name="У який проміжок часу Вам буде зручно зустрітися; Будь ласка, вкажіть проміжок як мінімум у 2 години" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="У який день Вам буде зручно зайти до відділення ДМС; ДМС необхідно поставити відмітку у Ваш паспорт для завершення цієї процедури" type="queueData" required="true"></activiti:formProperty>
         <activiti:formProperty id="marker1" name="Попереднє ПІБ" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;lastName_UA1&quot;,&quot;firstName_UA1&quot;,&quot;middleName_UA1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;PrevName1&quot;},&quot;sCondition&quot;:&quot;[sReason]=='yes'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker3" name="Військомат" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;milName&quot;,&quot;milRank&quot;,&quot;milSpec&quot;],&quot;asID_Field&quot;:{&quot;sReason2&quot;:&quot;milit_status&quot;},&quot;sCondition&quot;:&quot;[sReason2]=='true'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker4" name="Дитина" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;lastName_UA2&quot;,&quot;firstName_UA2&quot;,&quot;middleName_UA2&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;:&quot;kids&quot;},&quot;sCondition&quot;:&quot;[sReason3]=='yesK'&quot;}}}"></activiti:formProperty>
@@ -67,7 +66,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -161,7 +160,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Нове звернення на тему: Реєстрація місця проживання/перебування особи]]></activiti:string>
+          <activiti:string><![CDATA[Нове звернення на тему: Реєстрація місця проживання особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -216,7 +215,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
 										&lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
 										&lt;p&gt;
-											У Вас в черзі на обробку зареєстровано нове звернення щодо зняття з реєстрації місця проживання/перебування особи.&lt;br /&gt;
+											У Вас в черзі на обробку зареєстровано нове звернення щодо зняття з реєстрації місця проживання особи.&lt;br /&gt;
 											Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 											Опрацюйте, будь ласка, це звернення на &lt;a href="https://test.region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
 										&lt;/p&gt;
@@ -272,15 +271,12 @@
         <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="visitDay" name="Бажаний день зустрічі" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="visitTime" name="Бажаний час зустрічі" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="Бажаний день зустрічі" type="queueData" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення працівника ДМС" type="enum" required="true">
           <activiti:value id="accept" name="Призначити зустріч у відділенні"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги &lt;br /&gt; АБО &lt;br /&gt; Додаткові деталі для закінчення процессу реєстрації" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="meetDay" name="Призначити день зустрічі" type="string"></activiti:formProperty>
-        <activiti:formProperty id="meetTime" name="Призначити час зустрічі" type="string"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow9" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
@@ -297,7 +293,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -353,11 +349,15 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-										На жаль, змушені відмовити Вам у наданні послуги: "Зняття з реєстрації місця проживання/перебування особи".&lt;/p&gt; 
+										На жаль, державний орган не може надати вам цю послугу в даний момент.
+									&lt;/p&gt; 
+									&lt;p&gt;
+										Подані вами дані не відповідають вимогам або не є вірними.  
+									&lt;/p&gt;
 									&lt;p&gt;
 										Коментар Державного службовця: &lt;br /&gt;
-											&lt;i&gt;${decisionComment}&lt;/i&gt;	
-                                    &lt;/p&gt;
+											&lt;i&gt;${decisionComment}&lt;/i&gt;
+									&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -396,7 +396,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -463,7 +463,7 @@
 										Проміжок часу - ${meetTime} &lt;br /&gt;
 									&lt;/p&gt;
 									&lt;p&gt;
-										Необхідні документи, які треба принести до відділення ДМС при реєстраціі місця проживання:&lt;br /&gt;
+										Необхідні документи, які треба принести до відділення ДМС при знятті з реєстраціі місця проживання:&lt;br /&gt;
 										&lt;li&gt;документ, до якого вносяться відомості про місце проживання, якщо дитина не досягла 16 - річного віку, подається свідоцтво про народження або свідоцтво про належність до громадянства України;&lt;/li&gt;
 										&lt;li&gt;військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку);&lt;/li&gt;
 										&lt;li&gt;документ, на підставі якого здійснюється зняття з реєстрації місця проживання:
@@ -512,8 +512,7 @@
     <userTask id="usertask2" name="Візит громадянина" activiti:candidateGroups="dnepr_dms-89s_${district}">
       <extensionElements>
         <activiti:formProperty id="info1" name="На цьому етапі:" type="label" default="Громадянин приходить до Вас. Ви звіряєте дані з ним, при необхідності вносите зміни. Роздруковуєте прінтформи, підписуєте їх та проставляєте штамп у паспорт громадянина."></activiti:formProperty>
-        <activiti:formProperty id="meetDay" name="Призначений день зустрічі" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="meetTime" name="Призначений час зустрічі" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="meetDay" name="День зустрічі" type="queueData" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
