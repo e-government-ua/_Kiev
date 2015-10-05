@@ -120,7 +120,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 		
 		textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
                 
-                textWithoutTags = populatePatternWithContent(textWithoutTags);
+        textWithoutTags = populatePatternWithContent(textWithoutTags);
                 
         String previousUserTaskId = getPreviousTaskId(execution);
                 
