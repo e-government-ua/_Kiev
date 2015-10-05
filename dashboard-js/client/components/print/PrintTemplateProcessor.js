@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('dashboardJsApp').factory('PrintTemplateProcessor', function ($sce, Auth) {
+angular.module('dashboardJsApp').factory('PrintTemplateProcessor', ['$sce', 'Auth', '$filter', function ($sce, Auth, $filter) {
   return {
     processPrintTemplate: function (task, form, printTemplate, reg, fieldGetter) {
       var _printTemplate = printTemplate;
@@ -29,7 +29,12 @@ angular.module('dashboardJsApp').factory('PrintTemplateProcessor', function ($sc
       return _printTemplate;
     },
     populateSystemTag: function (printTemplate, tag, replaceWith) {
-      var replacement = replaceWith();
+      var replacement;
+      if (replaceWith instanceof Function) {
+        replacement = replaceWith();
+      } else {
+        replacement = replaceWith;
+      }
       return printTemplate.replace(new RegExp(this.escapeRegExp(tag), 'g'), replacement);
     },
     escapeRegExp: function (str) {
@@ -60,7 +65,8 @@ angular.module('dashboardJsApp').factory('PrintTemplateProcessor', function ($sc
         var user = Auth.getCurrentUser();
         return user.lastName + ' ' + user.firstName ;
       });
+      printTemplate = this.populateSystemTag(printTemplate, "[sDateCreate]", $filter('date')(task.createTime, 'yyyy-MM-dd HH:mm'));
       return $sce.trustAsHtml(printTemplate);
     }
   }
-});
+}]);
