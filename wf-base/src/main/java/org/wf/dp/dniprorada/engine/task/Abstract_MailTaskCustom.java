@@ -360,7 +360,15 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 		        }
 		    }
 		}
-		return previousUserTaskId;
+		
+		List<Task> tasks = execution.getEngineServices().getTaskService().createTaskQuery().executionId(execution.getId()).taskDefinitionKey(previousUserTaskId).list();
+		if (tasks != null){
+			for (Task task : tasks){
+				LOG.info("Task with ID:" + task.getId() + " name:" + task.getName() + " taskDefinitionKey:" + task.getTaskDefinitionKey());
+				return task.getId();
+			}
+		}
+		return "";
 	}
 
 	protected String getStringFromFieldExpression(Expression expression,
