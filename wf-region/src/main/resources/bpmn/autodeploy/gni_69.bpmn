@@ -20,9 +20,9 @@
           <activiti:value id="dnepr_red_guard" name="Дніпропетровськ - Красногвардійський (вул. Театральна, 1-А)|0466"></activiti:value>
           <activiti:value id="dnepr_lenin" name="Дніпропетровськ - Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="subekt" name="Ви хочете замовити витяг по собі або по іншому підприємству?" type="enum">
-          <activiti:value id="ur" name="по іншому підприємству|1"></activiti:value>
-          <activiti:value id="fiz" name="по собі|2"></activiti:value>
+        <activiti:formProperty id="subekt" name="Ви хочете замовити витяг по собі або по іншому підприємству?" type="enum" default="fiz">
+           <activiti:value id="fiz" name="по собі"></activiti:value>
+          <activiti:value id="ur" name="по іншому підприємству"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;nomer&quot;,&quot;naimenov&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;subekt&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'ur'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="nomer" name="Вкажіть код ЄДРПОУ або ІНН; тільки цифрові позначення" type="string" default=" "></activiti:formProperty>
@@ -143,8 +143,8 @@
           <activiti:value id="dnepr_lenin" name="Дніпропетровськ - Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="subekt" name="Тип суб'єкта правових відносин" type="enum" writable="false">
-          <activiti:value id="ur" name="Юридична особа|1"></activiti:value>
-          <activiti:value id="fiz" name="Фізична особа|2"></activiti:value>
+           <activiti:value id="fiz" name="Фізична особа"></activiti:value>
+          <activiti:value id="ur" name="Юридична особа"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="organ" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, інше" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="nomer" name="Вкажіть код ЄДРПОУ або ІНН; тільки цифрові позначення" type="long" writable="false"></activiti:formProperty>
