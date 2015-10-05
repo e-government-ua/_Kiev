@@ -214,7 +214,7 @@ angular.module('app')
 
           var bIsComplete = $scope.placeControlIsComplete();
 
-          console.log('initPlaceControls $scope.regions.length = ', $scope.regions.length, '$scope.region:', $scope.region, '$scope.city:', $scope.city, ' $scope.data:', $scope.data, 'bIsComplete:', bIsComplete);
+          // console.log('initPlaceControls $scope.regions.length = ', $scope.regions.length, '$scope.region:', $scope.region, '$scope.city:', $scope.city, ' $scope.data:', $scope.data, 'bIsComplete:', bIsComplete);
 
           $scope.recallPlaceData();
 
@@ -226,18 +226,12 @@ angular.module('app')
 
         $scope.onSelectRegionList = function($item, $model, $label) {
 
-          // console.info('onSelectRegionList, Service Availability:', JSON.stringify(PlacesService.serviceAvailableIn(), null, ''), $item);
-
           PlacesService.setRegion($item);
           $scope.regionList.select($item, $model, $label);
 
           $scope.loadLocalityList(null);
           PlacesService.setCity(null);
           $scope.localityList.reset();
-
-          $scope.localityList.load(null, $item.nID, null).then(function(cities) {
-            $scope.localityList.typeahead.defaultList = cities;
-          });
 
           var serviceType = PlacesService.findServiceDataByRegion();
 
@@ -249,6 +243,10 @@ angular.module('app')
               if (initialCity) {
                 $scope.onSelectLocalityList(initialCity);
               }
+            });
+          } else {
+            $scope.localityList.load(null, $item.nID, null).then(function(cities) {
+              $scope.localityList.typeahead.defaultList = cities;
             });
           }
 
