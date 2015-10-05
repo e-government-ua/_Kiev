@@ -183,7 +183,6 @@
           <activiti:string><![CDATA[Запит про отримання витягу з реєстру платників єдиного податку]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
-<<<<<<< HEAD
           <activiti:expression>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head lang="ru"&gt;
@@ -291,7 +290,6 @@
 &lt;/table&gt;
 &lt;/body&gt;
 &lt;/html&gt;</activiti:expression>
-=======
           <activiti:expression><![CDATA[<!DOCTYPE html>
 <html>
 <head lang="ru">
@@ -945,11 +943,10 @@ ${comment_1}<br />
         <omgdi:waypoint x="420.0" y="220.0"></omgdi:waypoint>
         <omgdi:waypoint x="301.0" y="221.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-<<<<<<< HEAD
+
           <omgdc:Bounds height="14.0" width="80.0" x="321.0" y="200.0"></omgdc:Bounds>
-=======
+
           <omgdc:Bounds height="48.0" width="80.0" x="450.0" y="240.0"></omgdc:Bounds>
->>>>>>> branch 'test' of https://github.com/e-government-ua/i.git
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
@@ -960,18 +957,17 @@ ${comment_1}<br />
         <omgdi:waypoint x="301.0" y="57.0"></omgdi:waypoint>
         <omgdi:waypoint x="360.0" y="57.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-<<<<<<< HEAD
+
       <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
         <omgdi:waypoint x="440.0" y="240.0"></omgdi:waypoint>
         <omgdi:waypoint x="440.0" y="290.0"></omgdi:waypoint>
-=======
+	  </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
         <omgdi:waypoint x="420.0" y="220.0"></omgdi:waypoint>
         <omgdi:waypoint x="329.0" y="220.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="48.0" width="42.0" x="341.0" y="200.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
->>>>>>> branch 'test' of https://github.com/e-government-ua/i.git
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
         <omgdi:waypoint x="216.0" y="192.0"></omgdi:waypoint>
