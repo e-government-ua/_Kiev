@@ -132,7 +132,11 @@ angular.module('dashboardJsApp').factory('PrintTemplate', function($sce, $q, tas
             return item.id === id;
           })[0];
           if (item) {
-            _printTemplate = _printTemplate.replace(templateID, fieldGetter(item));
+              var sValue=fieldGetter(item);
+              if(sValue===null){
+                  sValue="";
+              }
+            _printTemplate = _printTemplate.replace(templateID, sValue);//fieldGetter(item)
           }
         }
       });
