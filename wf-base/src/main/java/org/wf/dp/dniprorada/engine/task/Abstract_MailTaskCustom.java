@@ -120,67 +120,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 		
 		textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
                 
-                textWithoutTags = populatePatternWithContent(textWithoutTags);
+        textWithoutTags = populatePatternWithContent(textWithoutTags);
                 
-        try {
-			ExecutionEntity ee = (ExecutionEntity) execution;
-			String id = ee.getActivity().getId();
-			
-			BpmnModel bpmnModel = execution.getEngineServices().getRepositoryService().getBpmnModel(execution.getProcessDefinitionId());
-
-			String sourceFlow = null;
-	        for (FlowElement flowElement : bpmnModel.getMainProcess().getFlowElements()) {
-	            if (flowElement instanceof ServiceTask) {
-	            	ServiceTask serviceTask = (ServiceTask) flowElement;
-	            	LOG.info("Checking service task with ID: " + serviceTask.getId());
-	            	if (serviceTask.getId().equals(id)){
-	            		List<SequenceFlow> flows = serviceTask.getIncomingFlows();
-	            		for (SequenceFlow flow : flows){
-	            			LOG.info("Source ref:" + flow.getSourceRef() + " name:" + flow.getName());
-	            			sourceFlow = flow.getSourceRef();
-	            			break;
-	            		}
-	            	}
-	            }
-	        }
-	        UserTask foundUserTask = null;
-	        if (sourceFlow != null){
-	        	for (FlowElement flowElement : bpmnModel.getMainProcess().getFlowElements()) {
-		            if (flowElement instanceof UserTask) {
-		            	UserTask userTask = (UserTask) flowElement;
-		            	LOG.info("Checking user task with ID: " + userTask.getId());
-		            	List<SequenceFlow> flows = userTask.getOutgoingFlows();
-		            	for (SequenceFlow flow : flows){
-		            		LOG.info("Target ref:" + flow.getTargetRef() + " name:" + flow.getName());
-		            		if (sourceFlow.equals(flow.getTargetRef())){
-		            			foundUserTask = userTask;
-		            			break;
-		            		}
-		            	}
-		            }
-		        }
-	        }
-	        if (foundUserTask != null){
-	    		List<Task> tasks = execution.getEngineServices().getTaskService().createTaskQuery().executionId(execution.getId()).list();
-	    		if (tasks != null){
-	    			for (Task task : tasks){
-	    				LOG.info("Task with ID:" + task.getId() + " name:" + task.getName() + " taskDefinitionKey:" + task.getTaskDefinitionKey());
-	    				if (task.getTaskDefinitionKey().equals(foundUserTask.getId())){
-	    					FormData oTaskFormData = execution.getEngineServices()
-	    		                    .getFormService()
-	    		                    .getTaskFormData(task.getId());
-	    					LOG.info("Found task form data");
-	    					for (FormProperty formProperty : oTaskFormData.getFormProperties()){
-	    						LOG.info("Form property: " + formProperty.getId() + " form value:" + formProperty.getValue());
-	    					}
-	    				}
-	    				LOG.info("Task with ID:" + task.getId() + " name:" + task.getName() + " formKey:" + task.getFormKey());
-	    			}
-	    		}
-	        }
-		} catch (Exception e){
-			e.printStackTrace();
-		}
+        String previousUserTaskId = getPreviousTaskId(execution);
                 
 		for (int i = 0; i < 10; i++) { // TODO: написать автоопределение тегов и заменить этот кусок
 			boolean isItFirstTag = (i == 0);
@@ -263,16 +205,20 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				//TaskFormData oTaskFormData = oEngineServices.getFormService()
 				//		.getTaskFormData(execution.getId());// task.getId()
                                 
-                                StartFormData oTaskFormData = execution.getEngineServices()
-                                                .getFormService()
-                                                .getStartFormData(execution.getProcessDefinitionId());
+//                                StartFormData oTaskFormData = execution.getEngineServices()
+//                                                .getFormService()
+//                                                .getStartFormData(execution.getProcessDefinitionId());
+				FormData oTaskFormData = null;
+				if (previousUserTaskId != null && !previousUserTaskId.isEmpty()) {
+						oTaskFormData = execution.getEngineServices()
+                        	.getFormService()
+                            .getTaskFormData(previousUserTaskId);
+				} else {
+					oTaskFormData = execution.getEngineServices()
+                        	.getFormService()
+                        	.getStartFormData(execution.getProcessDefinitionId());
+				}
                                 
-                                /*FormData oTaskFormData = execution.getEngineServices()
-                                                .getFormService()
-                                                //.getTaskFormData(execution.getProcessDefinitionId());
-                                                //.getTaskFormData(execution.getProcessInstanceId());
-                                                .getTaskFormData(s);
-                                */
                                 
 				if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
 					for (FormProperty property : oTaskFormData.getFormProperties()) {
@@ -288,26 +234,28 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				
 			}
 			boolean bReplaced = false;
+			LOG.info("Variables of execution:" + execution.getVariables());
 			for (FormProperty property : aProperty) {
 				String sType = property.getType().getName();
 				String snID = property.getId();
 				if (!bReplaced && "enum".equals(sType)
 						&& sTAG_Function_AtEnum.equals(snID)) {
 					LOG.info(String
-							.format("Found field! Matching property snID=%s:name=%s:sType=%s with fieldNames",
-									snID, property.getName(), sType));
+							.format("Found field! Matching property snID=%s:name=%s:sType=%s:sValue=%s with fieldNames",
+									snID, property.getName(), sType, property.getValue()));
                                         
-                                                String sID_Enum = execution.getVariable(property.getId()).toString();
-                                            LOG.info("execution.getVariable()(sID_Enum)=" + sID_Enum);
-                                        
-					String sValue = parseEnumProperty(property,sID_Enum);
-					LOG.info("sValue=" + sValue);
+					Object variable = execution.getVariable(property.getId());
+					if (variable != null){
+						String sID_Enum = variable.toString();
+						LOG.info("execution.getVariable()(sID_Enum)=" + sID_Enum);
+						String sValue = parseEnumProperty(property,sID_Enum);
+						LOG.info("sValue=" + sValue);
 
-					textWithoutTags = textWithoutTags.replaceAll("\\Q"
-							+ TAG_Function_AtEnum + sTAG_Function_AtEnum
-							+ TAG_Function_To + "\\E", sValue);
-					bReplaced = true;
-
+						textWithoutTags = textWithoutTags.replaceAll("\\Q"
+								+ TAG_Function_AtEnum + sTAG_Function_AtEnum
+								+ TAG_Function_To + "\\E", sValue);
+						bReplaced = true;
+					}
 				}
 			}
 
@@ -378,6 +326,55 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         
 
 		return textWithoutTags;
+	}
+
+	private String getPreviousTaskId(DelegateExecution execution) {
+		ExecutionEntity ee = (ExecutionEntity) execution;
+		String id = ee.getActivity().getId();
+		
+		BpmnModel bpmnModel = execution.getEngineServices().getRepositoryService().getBpmnModel(execution.getProcessDefinitionId());
+
+		String sourceFlow = null;
+		for (FlowElement flowElement : bpmnModel.getMainProcess().getFlowElements()) {
+		    if (flowElement instanceof ServiceTask) {
+		    	ServiceTask serviceTask = (ServiceTask) flowElement;
+		    	LOG.info("Checking service task with ID: " + serviceTask.getId());
+		    	if (serviceTask.getId().equals(id)){
+		    		List<SequenceFlow> flows = serviceTask.getIncomingFlows();
+		    		for (SequenceFlow flow : flows){
+		    			LOG.info("Source ref:" + flow.getSourceRef() + " name:" + flow.getName());
+		    			sourceFlow = flow.getSourceRef();
+		    			break;
+		    		}
+		    	}
+		    }
+		}
+		String previousUserTaskId = null;
+		if (sourceFlow != null){
+			for (FlowElement flowElement : bpmnModel.getMainProcess().getFlowElements()) {
+		        if (flowElement instanceof UserTask) {
+		        	UserTask userTask = (UserTask) flowElement;
+		        	LOG.info("Checking user task with ID: " + userTask.getId());
+		        	List<SequenceFlow> flows = userTask.getOutgoingFlows();
+		        	for (SequenceFlow flow : flows){
+		        		LOG.info("Target ref:" + flow.getTargetRef() + " name:" + flow.getName());
+		        		if (sourceFlow.equals(flow.getTargetRef())){
+		        			previousUserTaskId = userTask.getId();
+		        			break;
+		        		}
+		        	}
+		        }
+		    }
+		}
+		
+		List<Task> tasks = execution.getEngineServices().getTaskService().createTaskQuery().executionId(execution.getId()).taskDefinitionKey(previousUserTaskId).list();
+		if (tasks != null){
+			for (Task task : tasks){
+				LOG.info("Task with ID:" + task.getId() + " name:" + task.getName() + " taskDefinitionKey:" + task.getTaskDefinitionKey());
+				return task.getId();
+			}
+		}
+		return "";
 	}
 
 	protected String getStringFromFieldExpression(Expression expression,
