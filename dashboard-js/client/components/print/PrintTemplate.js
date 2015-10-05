@@ -1,104 +1,68 @@
 'use strict';
 
-angular.module('dashboardJsApp').factory('PrintTemplate', function($sce, $q, tasks, PrintTemplateProcessor) {
-
-  var loadedTemplates = {};
-
-  var PrintTemplate = function() {
-    this.task = undefined;
-    this.form = undefined;
-    this.showPrintModal = false;
-  };
-
-  PrintTemplate.prototype.findPrintTemplate = function (form, sCustomFieldID) {
+angular.module('dashboardJsApp').service('PrintTemplateService', ['tasks', 'PrintTemplateProcessor', '$q', '$templateRequest', function(tasks, PrintTemplateProcessor, $q, $templateRequest) {
+  // TODO: move code from PrintTemplateProcessor here
+  // helper function to get path to a print template based on it's ID
+  function findPrintTemplate (form, sCustomFieldID) {
     var s = ((sCustomFieldID!==null && sCustomFieldID !== undefined && sCustomFieldID!=='-') ? sCustomFieldID : 'sBody');
     var printTemplateResult = form.filter(function (item) {
       return item.id === s;
     });
-    return printTemplateResult.length !== 0 ? printTemplateResult[0].name.replace(/\[pattern(.+)\].*/, '$1') : "";
+    var retval = printTemplateResult.length !== 0 ? printTemplateResult[0].name.replace(/\[pattern(.+)\].*/, '$1') : "";
+    return retval;
   };
-
-  PrintTemplate.prototype.aPatternPrintNew = function (form, sCustomFieldID) {
-    var s = ((sCustomFieldID!==null && sCustomFieldID !== undefined && sCustomFieldID!=='-') ? sCustomFieldID : 'sBody');
-    var printTemplateResult = null;
-    if(this.form){
-        printTemplateResult = this.form.filter(function (item) {//form
-          return item.id && item.id.indexOf('sBody') >= 0 && item.value !== "";//item.id === s
-        });
-    }
-    return (printTemplateResult!==null && printTemplateResult.length !== 0) ? printTemplateResult : [];
-  };
-
-  PrintTemplate.prototype.containsPrintTemplate = function () {
-    if(this.form){
-        var printTemplateResult = this.form.filter(function (item) {
-          return item && item.id && item.id.indexOf("sBody")>=0;
-        });
-        return printTemplateResult.length > 0 && printTemplateResult[0].name !== "";
-    }else{
-        return false;
-    }
-  };
-
-  PrintTemplate.prototype.aPatternPrint = function () {
-    var form = this.form;
-    var a=[];
-
-    var aForm = [];
-
-    if(this.form){
-        aForm = this.form.filter(function (item) {
-          return item && item.id && item.id.indexOf("sBody")>=0;
-        });
-    }
-
-    if(aForm){
-        if (aForm.length > 0) {
-            aForm.forEach(function (item, i) {//this.form
-              if(item){
-                if(item.id && item.id.indexOf('sBody') >= 0 && item.value !== "" ){
-                    a.push({sID:item.id,sLabel:item.name});
-                }
-              }
-            });
+  // object for caching loaded templates
+  var loadedTemplates = {};
+  var service = {
+    // method to get list of available print templates based on task form.
+    getTemplates: function(form) {
+      if (!form) {
+        return [];
+      }
+      var templates = form.filter(function (item) {
+        var result = false;
+        if (item.id && item.id.indexOf('sBody') >= 0) {
+          result = true;
+          // На дашборде при вытягивани для формы печати пути к патерну, из значения поля -
+          // брать название для каждого элемента комбобокса #792
+          // https://github.com/e-government-ua/i/issues/792
+          if (item.value && item.value.trim().length > 0 && item.value.length <= 100){
+            item.displayTemplate = item.value;
+          } else {
+            item.displayTemplate = item.name;
+          }
         }
-    }
-
-    if(a.length===0){
-        a=a.concat([{sID:"sBody_0".id,sLabel:"-"}]);
-    }
-
-    return a;
-  };
-
-  PrintTemplate.prototype.processPrintTemplate = function (form, printTemplate, reg, fieldGetter) {
-    return PrintTemplateProcessor.processPrintTemplate(form, printTemplate, reg, fieldGetter);
-  };
-
-  PrintTemplate.prototype.getPrintTemplate = function () {//sCustomFieldID
-    if (!this.form) {
-      return "";
-    } 
-    else {
-
-      var sCustomFieldID = $('.aPatternPrint').val();
-      if(sCustomFieldID === null || sCustomFieldID === undefined || sCustomFieldID === "" || sCustomFieldID === "-"){
-//          alert("Не обран шаблон для друку!");
-          //return;
+        return result;
+      });
+      return templates;
+    },
+    // method to get parsed template 
+    getPrintTemplate: function(task, form, printTemplateName) {
+      var deferred = $q.defer();
+      if (!printTemplateName) {
+        deferred.reject('Неможливо завантажити форму: немає назви');
+        return deferred.promise;
       }
-
-      var printTemplateName = this.findPrintTemplate(this.form, sCustomFieldID);
-      if (!angular.isDefined(loadedTemplates[printTemplateName])) {
-        loadedTemplates[printTemplateName] = 'Завантаження форми...';
-        tasks.getPatternFile(printTemplateName).then(function(result){
-          loadedTemplates[printTemplateName] = result;
+      // normal flow: load raw template and then process it
+      var parsedForm;
+      if (!angular.isDefined(loadedTemplates[printTemplatePath])) {
+        var printTemplatePath = findPrintTemplate(form, printTemplateName);
+        tasks.getPatternFile(printTemplatePath).then(function(originalTemplate){
+          // cache template
+          loadedTemplates[printTemplatePath] = originalTemplate;
+          parsedForm = PrintTemplateProcessor.getPrintTemplate(task, form, originalTemplate);
+          deferred.resolve(parsedForm);
         }, function() {
-          loadedTemplates[printTemplateName] = 'Помилка завантаження форми!';
+          deferred.reject('Помилка завантаження форми');
         });
+      } else {
+        // resolve deferred in case the form was cached
+        parsedForm = PrintTemplateProcessor.getPrintTemplate(task, form, loadedTemplates[printTemplatePath]);
+        deferred.resolve(parsedForm);
       }
-      return PrintTemplateProcessor.getPrintTemplate(this.form, loadedTemplates[printTemplateName]);
+      // return promise
+      return deferred.promise;
     }
   };
-
-  return PrintTemplate;
-});
+  return service;
+}]);
