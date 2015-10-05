@@ -149,9 +149,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 		            if (flowElement instanceof UserTask) {
 		            	UserTask userTask = (UserTask) flowElement;
 		            	LOG.info("Checking user task with ID: " + userTask.getId());
-		            	List<SequenceFlow> flows = userTask.getIncomingFlows();
+		            	List<SequenceFlow> flows = userTask.getOutgoingFlows();
 		            	for (SequenceFlow flow : flows){
-		            		LOG.info("Source ref:" + flow.getTargetRef() + " name:" + flow.getName());
+		            		LOG.info("Target ref:" + flow.getTargetRef() + " name:" + flow.getName());
 		            		if (sourceFlow.equals(flow.getTargetRef())){
 		            			foundUserTask = userTask;
 		            			break;
