@@ -2,18 +2,13 @@ package org.wf.dp.dniprorada.engine.task;
 
 import java.io.IOException;
 
-import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
-import org.activiti.bpmn.model.SequenceFlow;
-import org.activiti.bpmn.model.ServiceTask;
 import org.activiti.bpmn.model.UserTask;
-import org.activiti.engine.EngineServices;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.Expression;
 import org.activiti.engine.delegate.JavaDelegate;
 import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.task.Task;
 import org.apache.commons.lang3.StringUtils;
@@ -37,8 +32,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.activiti.engine.form.FormData;
-import org.activiti.engine.form.StartFormData;
-import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 
 import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumProperty;
@@ -54,7 +47,10 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     static final transient Logger LOG = LoggerFactory
             .getLogger(Abstract_MailTaskCustom.class);
     private static final Pattern TAG_PAYMENT_BUTTON_LIQPAY = Pattern.compile("\\[paymentButton_LiqPay(.*?)\\]");
+    private static final Pattern TAG_sPATTERN_CONTENT_CATALOG = Pattern.compile("[a-zA-Z]+\\{\\[(.*?)\\]\\}");
     private static final Pattern TAG_PATTERN_PREFIX = Pattern.compile("_[0-9]+");
+    private static final Pattern TAG_PATTERN_DOUBLE_BRACKET = Pattern.compile("\\{\\[(.*?)\\]\\}");
+    private static final Pattern TAG_PATTERN_TEXT = Pattern.compile("[a-zA-Z]+");
     private static final String TAG_CANCEL_TASK = "[cancelTask]";
     private static final String TAG_nID_Protected = "[nID_Protected]";
     private static final String TAG_nID_SUBJECT = "[nID_Subject]";
@@ -107,7 +103,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
     protected String replaceTags(String textStr, DelegateExecution execution)
             throws Exception {
-        
+
         String URL_SERVICE_MESSAGE = generalConfig.sHostCentral()
                 + "/wf/service/messages/setMessage";
 
@@ -119,8 +115,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
 
         textWithoutTags = populatePatternWithContent(textWithoutTags);
-        
-        //textWithoutTags = null;
+
+        textWithoutTags = replaceTags_Catalog(textStr, execution);
 
         List<String> previousUserTaskId = getPreviousTaskId(execution);
 
@@ -194,7 +190,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             textWithoutTags = textWithoutTags.replaceAll("\\Q"
                     + TAG_nID_SUBJECT + "\\E", "" + nID_Subject);
         }
-        
+
         if (textWithoutTags.contains(TAG_sURL_SERVICE_MESSAGE)) {
             String URI = Util.deleteContextFromURL(URL_SERVICE_MESSAGE);
             ProcessDefinition processDefinition = execution.getEngineServices()
@@ -229,7 +225,29 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
         return textWithoutTags;
     }
-    
+
+    private String replaceTags_Catalog(String textStr, DelegateExecution execution) throws Exception {
+        StringBuffer outputTextBuffer = new StringBuffer();
+        String replacement = "";
+        Matcher matcher = TAG_sPATTERN_CONTENT_CATALOG.matcher(textStr);
+        while (matcher.find()) {
+            String tag_Payment_CONTENT_CATALOG = matcher.group();
+            if (!tag_Payment_CONTENT_CATALOG.startsWith(TAG_Function_AtEnum)) {
+                String prefix;
+                Matcher matcherPrefix = TAG_PATTERN_DOUBLE_BRACKET.matcher(tag_Payment_CONTENT_CATALOG);
+                if (matcherPrefix.find()) {
+                    prefix = matcherPrefix.group();
+                    Matcher matcherText = TAG_PATTERN_TEXT.matcher(prefix);
+                    if (matcherText.find()) {
+                        //получить значение поля и сделать подмену
+                        matcher.appendReplacement(outputTextBuffer, replacement);
+                    }
+                }
+            }
+        }
+        return matcher.appendTail(outputTextBuffer).toString();
+    }
+
     private String replaceTags_LIQPAY(String textStr, DelegateExecution execution) throws Exception {
         String LIQPAY_CALLBACK_URL = generalConfig.sHost()
                 + "/wf/service/setPaymentStatus_TaskActiviti?sID_Order=%s&sID_PaymentSystem=Liqpay&sData=%s&sPrefix=%s";
@@ -237,7 +255,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         StringBuffer outputTextBuffer = new StringBuffer();
         Matcher matcher = TAG_PAYMENT_BUTTON_LIQPAY.matcher(textStr);
         while (matcher.find()) {
-            
+
             String tag_Payment_Button_Liqpay = matcher.group();
             String prefix = "";
             Matcher matcherPrefix = TAG_PATTERN_PREFIX.matcher(tag_Payment_Button_Liqpay);
@@ -293,7 +311,6 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         }
         return matcher.appendTail(outputTextBuffer).toString();
     }
-
 
     private void loadPropertiesFromTasks(DelegateExecution execution,
             List<String> previousUserTaskId,
