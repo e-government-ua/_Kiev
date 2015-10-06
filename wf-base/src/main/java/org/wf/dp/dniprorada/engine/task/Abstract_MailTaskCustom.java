@@ -125,64 +125,9 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         textWithoutTags = populatePatternWithContent(textWithoutTags);
                 
         List<String> previousUserTaskId = getPreviousTaskId(execution);
-                
-		for (int i = 0; i < 10; i++) { // TODO: написать автоопределение тегов и заменить этот кусок
-			boolean isItFirstTag = (i == 0);
-			String prefix = isItFirstTag ? "" : PATTERN_DELIMITER + i;
-			String tag_Payment_Button_Liqpay = String.format(TAG_PAYMENT_BUTTON_LIQPAY, prefix);
-			if (textWithoutTags.contains(tag_Payment_Button_Liqpay)) {
-
-				String pattern_merchant = String.format(PATTERN_MERCHANT_ID, prefix);
-				String pattern_sum = String.format(PATTERN_SUM, prefix);
-				String pattern_currency = String.format(PATTERN_CURRENCY_ID, prefix);
-				String pattern_description = String.format(PATTERN_DESCRIPTION, prefix);
-				String pattern_subject = String.format(PATTERN_SUBJECT_ID, prefix);
-
-				String sID_Merchant = execution.getVariable(pattern_merchant) != null
-						? execution.getVariable(pattern_merchant).toString() 
-						: execution.getVariable(String.format(PATTERN_MERCHANT_ID, "")).toString();
-				LOG.info(pattern_merchant + "=" + sID_Merchant);
-				String sSum = execution.getVariable(pattern_sum) != null
-						? execution.getVariable(pattern_sum).toString() 
-						: execution.getVariable(String.format(PATTERN_SUM, "")).toString();
-				LOG.info(pattern_sum + "=" + sSum);
-				if (sSum != null) {
-					sSum = sSum.replaceAll(",", ".");
-				}
-				String sID_Currency = execution.getVariable(pattern_currency) != null 
-						? execution.getVariable(pattern_currency).toString() 
-						: execution.getVariable(String.format(PATTERN_CURRENCY_ID, "")).toString();
-				LOG.info(pattern_currency + "=" + sID_Currency);
-				Currency oID_Currency = Currency
-						.valueOf(sID_Currency == null ? "UAH" : sID_Currency);
-				LOG.info("oID_Currency.name()=" + oID_Currency.name());
-
-				Language sLanguage = LiqBuy.DEFAULT_LANG;
-				String sDescription = execution.getVariable(pattern_description) != null 
-						? execution.getVariable(pattern_description).toString() 
-						: execution.getVariable(String.format(PATTERN_DESCRIPTION, "")).toString();
-				LOG.info(pattern_description + "=" + sDescription);
-
-				String sID_Order = "TaskActiviti_" + execution.getId().trim() + prefix;
-				String sURL_CallbackStatusNew = String.format(
-						LIQPAY_CALLBACK_URL, sID_Order, "", prefix);
-				String sURL_CallbackPaySuccess = null;
-				Long nID_Subject = Long.valueOf(execution.getVariable(pattern_subject) != null 
-						? execution.getVariable(pattern_subject).toString() 
-						: execution.getVariable(String.format(PATTERN_SUBJECT_ID, "")).toString());
-				nID_Subject = (nID_Subject == null ? 0 : nID_Subject);
-				LOG.info(pattern_subject + "=" + nID_Subject);
-				boolean bTest = generalConfig.bTest();
-				String htmlButton = liqBuy.getPayButtonHTML_LiqPay(
-						sID_Merchant, sSum, oID_Currency, sLanguage,
-						sDescription, sID_Order, sURL_CallbackStatusNew,
-						sURL_CallbackPaySuccess, nID_Subject, bTest);
-				textWithoutTags = StringUtils.replace(textWithoutTags,
-						tag_Payment_Button_Liqpay, htmlButton);
-			}
-		}
-
-		int nLimit = StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum);
+        
+        
+        int nLimit = StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum);
 		boolean bCashed = false;
 		Map<String, FormProperty> aProperty = new HashMap<String, FormProperty>();
 		int foundIndex = 0;
@@ -279,6 +224,65 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 		Long nID_Protected = getProtectedNumber(Long.valueOf(execution
 				.getProcessInstanceId()));
 		LOG.info("nID_Protected=" + nID_Protected);
+        
+        
+                
+		for (int i = 0; i < 10; i++) { // TODO: написать автоопределение тегов и заменить этот кусок
+			boolean isItFirstTag = (i == 0);
+			String prefix = isItFirstTag ? "" : PATTERN_DELIMITER + i;
+			String tag_Payment_Button_Liqpay = String.format(TAG_PAYMENT_BUTTON_LIQPAY, prefix);
+			if (textWithoutTags.contains(tag_Payment_Button_Liqpay)) {
+
+				String pattern_merchant = String.format(PATTERN_MERCHANT_ID, prefix);
+				String pattern_sum = String.format(PATTERN_SUM, prefix);
+				String pattern_currency = String.format(PATTERN_CURRENCY_ID, prefix);
+				String pattern_description = String.format(PATTERN_DESCRIPTION, prefix);
+				String pattern_subject = String.format(PATTERN_SUBJECT_ID, prefix);
+
+				String sID_Merchant = execution.getVariable(pattern_merchant) != null
+						? execution.getVariable(pattern_merchant).toString() 
+						: execution.getVariable(String.format(PATTERN_MERCHANT_ID, "")).toString();
+				LOG.info(pattern_merchant + "=" + sID_Merchant);
+				String sSum = execution.getVariable(pattern_sum) != null
+						? execution.getVariable(pattern_sum).toString() 
+						: execution.getVariable(String.format(PATTERN_SUM, "")).toString();
+				LOG.info(pattern_sum + "=" + sSum);
+				if (sSum != null) {
+					sSum = sSum.replaceAll(",", ".");
+				}
+				String sID_Currency = execution.getVariable(pattern_currency) != null 
+						? execution.getVariable(pattern_currency).toString() 
+						: execution.getVariable(String.format(PATTERN_CURRENCY_ID, "")).toString();
+				LOG.info(pattern_currency + "=" + sID_Currency);
+				Currency oID_Currency = Currency
+						.valueOf(sID_Currency == null ? "UAH" : sID_Currency);
+				LOG.info("oID_Currency.name()=" + oID_Currency.name());
+
+				Language sLanguage = LiqBuy.DEFAULT_LANG;
+				String sDescription = execution.getVariable(pattern_description) != null 
+						? execution.getVariable(pattern_description).toString() 
+						: execution.getVariable(String.format(PATTERN_DESCRIPTION, "")).toString();
+				LOG.info(pattern_description + "=" + sDescription);
+
+				String sID_Order = "TaskActiviti_" + execution.getId().trim() + prefix;
+				String sURL_CallbackStatusNew = String.format(
+						LIQPAY_CALLBACK_URL, sID_Order, "", prefix);
+				String sURL_CallbackPaySuccess = null;
+				Long nID_Subject = Long.valueOf(execution.getVariable(pattern_subject) != null 
+						? execution.getVariable(pattern_subject).toString() 
+						: execution.getVariable(String.format(PATTERN_SUBJECT_ID, "")).toString());
+				nID_Subject = (nID_Subject == null ? 0 : nID_Subject);
+				LOG.info(pattern_subject + "=" + nID_Subject);
+				boolean bTest = generalConfig.bTest();
+				String htmlButton = liqBuy.getPayButtonHTML_LiqPay(
+						sID_Merchant, sSum, oID_Currency, sLanguage,
+						sDescription, sID_Order, sURL_CallbackStatusNew,
+						sURL_CallbackPaySuccess, nID_Subject, bTest);
+				textWithoutTags = StringUtils.replace(textWithoutTags,
+						tag_Payment_Button_Liqpay, htmlButton);
+			}
+		}
+
 
 		if (textWithoutTags.contains(TAG_nID_Protected)) {
 			LOG.info("TAG_nID_Protected:Found");
