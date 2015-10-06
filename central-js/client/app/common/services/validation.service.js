@@ -93,18 +93,19 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
   };
 
   self.validatorNameByMarkerName = {
-    'Mail': 'email'
-    ,'AutoVIN': 'autovin'
-    ,'PhoneUA': 'tel'
-    ,'TextUA': 'textua'
-    ,'TextRU': 'textru'
-    ,'DateFormat': 'dateformat'
-    ,'DateElapsed': 'dateelapsed'
-    ,'CodeKVED': 'CodeKVED'
-    ,'CodeEDRPOU': 'CodeEDRPOU'
-    ,'CodeMFO': 'CodeMFO'
-    ,'NumberBetween': 'numberbetween'
-    ,'NumberFractionalBetween': 'numberfractionalbetween'
+    'Mail': 'email',
+    'AutoVIN': 'autovin',
+    'PhoneUA': 'tel',
+    'TextUA': 'textua',
+    'TextRU': 'textru',
+    'DateFormat': 'dateformat',
+    'DateElapsed': 'dateelapsed',
+    'CodeKVED': 'CodeKVED',
+    'CodeEDRPOU': 'CodeEDRPOU',
+    'CodeMFO': 'CodeMFO',
+    'NumberBetween': 'numberbetween',
+    'NumberFractionalBetween': 'numberfractionalbetween',
+    'Numbers_Accounts': 'numbersaccounts'
   };
 
   /**
@@ -170,7 +171,9 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
      * Текст помилки: 'Текст може містити тількі українські літери або мінус чи пробіл'
      */
     'TextUA': function(modelValue, viewValue) {
-      if(modelValue===null || modelValue===''){return true;}
+      if (modelValue === null || modelValue === '') {
+        return true;
+      }
       var TEXTUA_REGEXP = /^[ААБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя`'-\s]+$/g;
       var TEXTRU_ONLY = /[ЁёЪъЫыЭэ]+/g;
       var bValid = TEXTUA_REGEXP.test(modelValue) && !TEXTRU_ONLY.test(modelValue);
@@ -183,7 +186,9 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
      * Текст помилки: 'Текст може містити тількі російські літери або мінус че пробіл'
      */
     'TextRU': function(modelValue, viewValue) {
-      if(modelValue===null || modelValue===''){return true;}
+      if (modelValue === null || modelValue === '') {
+        return true;
+      }
       var TEXTRU_REGEXP = /^[АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя-\s]+$/g;
       var TEXTUA_ONLY = /[ҐЄІЇґєії]+/g;
       var bValid = TEXTRU_REGEXP.test(modelValue) && !TEXTUA_ONLY.test(modelValue);
@@ -223,7 +228,8 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
      *  bLess: true,     // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
      *  nDays: 3,
      *  nMonths: 0,
-     *  nYears: 1
+     *  nYears: 1,
+     *  sFormat: 'YYYY-MM-DD'
      *       
      * Текст помилки: 'Від/до дати до/після сьогоднішньої має бути більше/менше ніж х-днів, х-місяців, х-років.
      * х-___        - підставляти тільки, якщо x не дорівнює 0
@@ -237,7 +243,7 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       var bValid = true;
       var errors = [];
       var now = moment();
-      var fmt = self.sFormat;
+      var fmt = self.sFormat || options.sFormat;
       var modelMoment = moment(modelValue, fmt);
 
       // if (o.bDebug) {
@@ -372,12 +378,12 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       //     console.log('\t\t' + sMessage);
       //   }
       // }
-    }
+    },
     /*
     Логика: две цифры точка две цифры (первые две цифры не могут быть 04, 34, 40, 44, 48, 54, 57, 67, 76, 83, 89)
     Сообщение: Такого КВЕД не існує - (ви не можете вписувати літери)
      */
-    ,'CodeKVED': function(sValue) { //вид экономической деятельности по КВЕД.
+    'CodeKVED': function(sValue) { //вид экономической деятельности по КВЕД.
 
       if (!sValue) {
         return false;
@@ -386,27 +392,27 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       var bValid = true;
       bValid = bValid && (sValue !== null);
       bValid = bValid && (sValue.trim().length === 5);
-      bValid = bValid && (sValue.trim().substr(2,1) === '.');
-      var s=bValid ? sValue.trim().substr(0,2) : "";
-      bValid = bValid && (s !== '04' && s !== '34' && s !== '40'
-              && s !== '44' && s !== '48' && s !== '54' && s !== '57'
-              && s !== '67' && s !== '76' && s !== '83' && s !== '89');
-      
-      console.log('Validate CodeKVED: ', sValue, ' is valid: ' + bValid );
+      bValid = bValid && (sValue.trim().substr(2, 1) === '.');
+      var s = bValid ? sValue.trim().substr(0, 2) : '';
+      bValid = bValid && (s !== '04' && s !== '34' && s !== '40' &&
+        s !== '44' && s !== '48' && s !== '54' && s !== '57' &&
+        s !== '67' && s !== '76' && s !== '83' && s !== '89');
+
+      console.log('Validate CodeKVED: ', sValue, ' is valid: ' + bValid);
       //bValid = bValid && (/^[a-zA-Z0-9]+$/.test(sValue));
       //bValid = bValid && (sValue.indexOf('q') < 0 && sValue.indexOf('o') < 0 && sValue.indexOf('i') < 0);
       //bValid = bValid && (sValue.indexOf('Q') < 0 && sValue.indexOf('O') < 0 && sValue.indexOf('I') < 0);
       //
       // console.log('Validate AutoVIN: ', sValue, ' is valid: ' + bValid );
       return bValid;
-    }
-/*    
-11) EDRPOU //код ЄДРПОУ.
-Логика: жестко восемь цифр, тип стринг(чтобы можно было ставить default=” ”)
-Сообщение: Такий код ЄДРПОУ не існує - (ви не можете вписувати літери)
-Поля: edrpou
-*/
-    ,'CodeEDRPOU': function(sValue) { //вид экономической деятельности по КВЕД.
+    },
+    /*    
+    11) EDRPOU //код ЄДРПОУ.
+    Логика: жестко восемь цифр, тип стринг(чтобы можно было ставить default=” ”)
+    Сообщение: Такий код ЄДРПОУ не існує - (ви не можете вписувати літери)
+    Поля: edrpou
+    */
+    'CodeEDRPOU': function(sValue) { //вид экономической деятельности по КВЕД.
 
       if (!sValue) {
         return false;
@@ -421,22 +427,22 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
               && s !== '44' && s !== '48' && s !== '54' && s !== '57'
               && s !== '67' && s !== '76' && s !== '83' && s !== '89');
       */
-      console.log('Validate CodeEDRPOU: ', sValue, ' is valid: ' + bValid );
+      console.log('Validate CodeEDRPOU: ', sValue, ' is valid: ' + bValid);
       //bValid = bValid && (/^[a-zA-Z0-9]+$/.test(sValue));
       //bValid = bValid && (sValue.indexOf('q') < 0 && sValue.indexOf('o') < 0 && sValue.indexOf('i') < 0);
       //bValid = bValid && (sValue.indexOf('Q') < 0 && sValue.indexOf('O') < 0 && sValue.indexOf('I') < 0);
       //
       // console.log('Validate AutoVIN: ', sValue, ' is valid: ' + bValid );
       return bValid;
-    }
+    },
 
-/*
-12) MFO //код банка.
-Логика: жестко шесть цифр.тип стринг.(чтобы можно было ставить default=” ”)
-Сообщение: Такого коду банку не існує - (ви не можете вписувати літери)
-Поля: mfo    
-*/
-    ,'CodeMFO': function(sValue) { //вид экономической деятельности по КВЕД.
+    /*
+    12) MFO //код банка.
+    Логика: жестко шесть цифр.тип стринг.(чтобы можно было ставить default=” ”)
+    Сообщение: Такого коду банку не існує - (ви не можете вписувати літери)
+    Поля: mfo    
+    */
+    'CodeMFO': function(sValue) { //вид экономической деятельности по КВЕД.
 
       if (!sValue) {
         return false;
@@ -450,7 +456,7 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
               && s !== '44' && s !== '48' && s !== '54' && s !== '57'
               && s !== '67' && s !== '76' && s !== '83' && s !== '89');
       */
-      console.log('Validate CodeMFO: ', sValue, ' is valid: ' + bValid );
+      console.log('Validate CodeMFO: ', sValue, ' is valid: ' + bValid);
       //bValid = bValid && (/^[a-zA-Z0-9]+$/.test(sValue));
       //bValid = bValid && (sValue.indexOf('q') < 0 && sValue.indexOf('o') < 0 && sValue.indexOf('i') < 0);
       //bValid = bValid && (sValue.indexOf('Q') < 0 && sValue.indexOf('O') < 0 && sValue.indexOf('I') < 0);
@@ -471,21 +477,20 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       }
     */
     'NumberBetween': function(modelValue, viewValue, options) {
-      if(modelValue === null || modelValue === ''){
+      if (modelValue === null || modelValue === '') {
         return true;
       }
-      if (!options || !options.nMin === null || !options.nMax === null) {
+      if (!options || options.nMin === null || options.nMax === null) {
         return false;
       }
-      var value = parseInt(modelValue, 10);
-      var DIGITS_REGEXP = /^[0-9]*$/g;
-      var bValid = DIGITS_REGEXP.test(value) && value >= options.nMin && value <= options.nMax;
+      var DIGITS_REGEXP = /^\d+$/;
+      var bValid = DIGITS_REGEXP.test(modelValue) && modelValue >= options.nMin && modelValue <= options.nMax;
 
-      console.log('Validate Number Between: ' + value + ' is between: ' + options.nMin + ' and ' + options.nMax + ': ' + bValid);
+      // console.log('Validate Number Between: ' + modelValue  + ' is between: ' + options.nMin + ' and ' + options.nMax + ': ' + bValid);
 
-      options.lastError = '' ;
+      options.lastError = '';
       if (bValid === false) {
-        options.lastError = options.sMessage || 'Число має бути між ' + options.nMin + ' та ' + options.nMax; // options.sFormat;
+        options.lastError = options.sMessage || 'Число має бути між ' + options.nMin + ' та ' + options.nMax;
       }
       return bValid;
     },
@@ -499,28 +504,57 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       }
       Логика: разрешены только цифры, максимум 8
       Сообщение: Проверьте правильность заполнения поля - площадь помещения может состоять максимум из 8 цифр
-      }
     */
     'NumberFractionalBetween': function(modelValue, viewValue, options) {
-      if(modelValue === null || modelValue === ''){
+      if (modelValue === null || modelValue === '') {
         return true;
       }
-      if (!options || !options.nMin === null || !options.nMax === null) {
+      if (!options || options.nMin === null || options.nMax === null) {
         return false;
       }
 
-      var DIGITS_REGEXP = /^[0-9]*$/g;
-      var bValid = DIGITS_REGEXP.test(modelValue) && modelValue >= options.nMin && modelValue <= options.nMax;
+      var FRACTIONAL_REGEXP = /^[0-9]+[\.?[0-9]*]?$/;
+      var bValid = FRACTIONAL_REGEXP.test(modelValue) && modelValue >= options.nMin && modelValue <= options.nMax;
 
       console.log('Validate NumberFractionalBetween: ' + modelValue + ' is between: ' + options.nMin + ' and ' + options.nMax + ': ' + bValid);
 
-      options.lastError = '' ;
+      options.lastError = '';
 
       if (bValid === false) {
         options.lastError = options.sMessage || 'Проверьте правильность заполнения поля - площадь помещения может состоять максимум из ' + options.nMax + ' цифр';
       }
       return bValid;
+    },
+
+    /**
+      Формат маркера: 
+      Numbers_Accounts: { //разрешены цифры и дефисы, буквы любые запрещены
+        aField_ID: ['house_number', 'gas_number', 'coolwater_number', 'hotwater_number', 'waterback_number', 'warming_number', 'electricity_number', 'garbage_number']
+      }
+      Логика: разрешены цифры и дефисы, буквы любые запрещены
+      Сообщение: Проверьте правильность вводимого номера (буквы не разрешены к заполнению)
+    */
+    'Numbers_Accounts': function(modelValue, viewValue, options) {
+      if (modelValue === null || modelValue === '') {
+        return true;
+      }
+      if (!options) {
+        return false;
+      }
+
+      var DIGITS_AND_DASH_REGEXP = /^[\d+\-*]*\d+$/g;
+      var bValid = DIGITS_AND_DASH_REGEXP.test(modelValue);
+
+      console.log('Validate Numbers_Accounts: ' + modelValue + ' is valid: ' + bValid);
+
+      options.lastError = '';
+
+      if (bValid === false) {
+        options.lastError = options.sMessage || 'Проверьте правильность вводимого номера (буквы не разрешены к заполнению)';
+      }
+      return bValid;
     }
+
   };
 
   /* * *
@@ -531,42 +565,11 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
 
   ЗАДАЧА: Добавить следующие валидаторы в элемент validate, объекта markers:
 
-  1)
-  NumberBetween: { //Целочисленное между
-  aField_ID: ['floors'],
-  nMin: 1,
-  nMax: 3
-  }
-  Логика: разрешены только цифры, максимум 3
-  Сообщение: Проверьте правильность заполнения - число этажей состоит максимум из 3 цифр
-
-   2)
-  NumberFractionalBetween: { //Дробное число между
-  aField_ID: ['total_place', 'warming_place'],
-  nMin: 0,
-  nMax: 99999999
-  }
-  Логика: разрешены только цифры, максимум 8
-  Сообщение: Проверьте правильность заполнения поля - площадь помещения может состоять максимум из 8 цифр
-
-   3)
-  Numbers_Accounts: { //разрешены цифры и дефисы, буквы любые запрещены
-  aField_ID: ['house_number', 'gas_number', 'coolwater_number', 'hotwater_number', 'waterback_number', 'warming_number', 'electricity_number', 'garbage_number']
-  }
-  Логика: разрешены цифры и дефисы, буквы любые запрещены
-  Сообщение: Проверьте правильность вводимого номера (буквы не разрешены к заполнению)
-
-   4)
-
-   4.1) Доработать "DateElapsed", добавив туда опциональный параметр:
-  sFormat: 'YYYY-MM-DD' //формат даты
-  Если он задан то распознавать дату именно по жтому формату.
-  Параметры сделать опциональными (если не заданы считать нулем):
-  nDays: 0,
-  nMonths: 0,
-  nYears: 0
-
-   4.2) Наследоваться от "DateElapsed" (поведение именно такое-же, но просто с другими параметрами):
+  1)  NumberBetween: { //Целочисленное между
+  2)  NumberFractionalBetween: { //Дробное число между
+  3)  Numbers_Accounts: { //разрешены цифры и дефисы, буквы любые запрещены
+  4.1) Доработать "DateElapsed", добавив туда опциональный параметр sFormat: 'YYYY-MM-DD' //формат даты
+  4.2) Наследоваться от "DateElapsed" (поведение именно такое-же, но просто с другими параметрами):
   DateElapsed_1: {
   aField_ID: ['date_of_birth'],
   sFormat: 'YYYY-MM-DD' //формат даты
@@ -575,17 +578,9 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
   Логика: не разрешено выбирать дату больше текущей
   Сообщение: Выберите корректную дату - дата не может быть больше текущей
 
-   5) Сделать опциональный параметр для всех элементов маркера валидации, где можно указывать то сообщение, которое должно выводиться в случае не валидности содержимого поля, по критериям текущего валидатора:
-  sMessage: "Значение не валидно!"
+  5) Сделать опциональный параметр sMessage для всех элементов маркера валидации.
 
-   6) Для всех валидаторов сделать умолчательный пропуск проверки (приравнивать это к валидности), если содержимого поля нет (т.е. там пусто)
-
-  ДЛЯ СПРАВКИ(старое описание, не принимать в рассчет!!!) : 
-  
-  9) ИД: DateOfBirth - дата рождения гражданина
-  Логика: не разрешено выбирать дату больше текущей
-  Сообщение: Выберите корректную дату - дата не может быть больше текущей
-  Поля: date_of_birth
+  6) Для всех валидаторов сделать умолчательный пропуск проверки (приравнивать это к валидности), если содержимого поля нет (т.е. там пусто)
   */
 
 

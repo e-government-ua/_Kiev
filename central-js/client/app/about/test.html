@@ -115,6 +115,20 @@
             </div>
             <!-- End Number Between -->
 
+            <!-- Numbers Accounts -->
+            <div class="form-group">
+                <label for="house_number" class="col-sm-2 control-label">Numbers Accounts:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="house_number" ng-model="formData.house_number" class="form-control" required>
+                    <p class="help-block">Уведіть число, допускається знак дефісу, літери - ні</p>
+                </div>
+                <div class="col-sm-4" ng-messages="testForm.house_number.$error" role="alert">
+                    <div ng-message="required">Будь ласка, заповніть це поле</div>
+                    <div ng-message="numbersaccounts">{{testForm.house_number.lastErrorMessage}}</div>
+                </div>
+            </div>
+            <!-- End Number Between -->
+
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="submit" class="btn btn-default" ng-click="formSubmit(formData)" value="ОК" ng-disabled="testForm.$invalid">
@@ -129,7 +143,7 @@
             <pre>testForm.dateOrder = {{testForm.dateOrder | json}}</pre>
         </div>
         <div class="col-sm-6">
-            <pre>testForm.dateFormat = {{testForm.total_place | json}}</pre>
+            <pre>testForm.dateFormat = {{testForm.house_number | json}}</pre>
         </div>
     </div>
 </div>

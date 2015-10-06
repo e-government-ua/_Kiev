@@ -41,7 +41,8 @@ angular.module('app').factory('MarkersFactory', function() {
         bLess: true, // якщо true, то 'дельта' між modelValue та зараз має бути 'менше ніж' вказана нижніми параметрами
         nDays: 10,
         nMonths: 0,
-        nYears: 0
+        nYears: 0,
+        sFormat: 'YYYY-MM-DD'
         //,sDebug: 'Додаткова опція - інформація для дебагу'
         //,bDebug: false; // Опція для дебагу
       }
@@ -54,7 +55,7 @@ angular.module('app').factory('MarkersFactory', function() {
       ,CodeMFO: {
         aField_ID: ['mfo']
       }
-      ,NumberBetween: {
+      ,NumberBetween: { //Целочисленное между
         aField_ID: ['numberBetween'],
         nMin: 1,
         nMax: 999,
@@ -65,6 +66,10 @@ angular.module('app').factory('MarkersFactory', function() {
         nMin: 0,
         nMax: 99999999,
         sMessage: 'Перевірте правильність заповнення поля - площа приміщення може складатися максимум з 8 цифр'
+      }
+      ,Numbers_Accounts: { //разрешены цифры и дефисы, буквы любые запрещены
+        aField_ID: ['house_number', 'gas_number', 'coolwater_number', 'hotwater_number', 'waterback_number', 'warming_number', 'electricity_number', 'garbage_number'],
+        sMessage: 'Перевірте правильність увведеного номера (літери не дозволені до заповнення)'
       }
     },
     attributes: {
