@@ -13,18 +13,25 @@
         <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adres_2" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="category" name="Категорія та соціальний стан" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="adres_2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="subekt" name="Оберіть відповідний Вам варіант суб'єкта підприємницької діяльності" type="enum" required="true">
+          <activiti:value id="fiz" name="фізична особа-підприємець"></activiti:value>
+          <activiti:value id="ur" name="юридична особа"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="adres_3" name="Місцезнаходження(адреса) юридичної особи" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="phone_1" name="Контактний телефон юридичної особи" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="duration_fair" name="Тривалість ярмарку" type="enum" required="true">
-        <activiti:value id="less" name="до 1 місяця"></activiti:value>
-        <activiti:value id="longer" name="більше 1 місяця"></activiti:value>
+          <activiti:value id="less" name="до 1 місяця"></activiti:value>
+          <activiti:value id="longer" name="більше 1 місяця"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Адреса проведення ярмарку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="type_fair" name="Тип ярмарку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="type_fair" name="Тип ярмарку; чим саме будете торгувати" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_1" name="Термін проведення ярмарку з" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_2" name="Термін проведення ярмарку по" type="date" required="true"></activiti:formProperty>
-     <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність"></activiti:formProperty>
-     </extensionElements>
+        <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність"></activiti:formProperty>
+        <activiti:formProperty id="markers1" name="Маркери якщо юридична особа" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;imya_ur&quot;,&quot;adres_3&quot;,&quot;phone_1&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;subekt&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'ur'&quot;}}}"></activiti:formProperty>
+      </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника цнапу" activiti:type="mail">
       <extensionElements>
@@ -129,21 +136,31 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adres_2" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="category" name="Категорія та соціальний стан" type="string" writable="false"></activiti:formProperty>
-         <activiti:formProperty id="duration_fair" name="тривалість ярмарку" type="enum" writable="false">
-        <activiti:value id="less" name="до 1 місяця"></activiti:value>
-        <activiti:value id="longer" name="більше 1 місяця"></activiti:value>
+        <activiti:formProperty id="subekt" name="Оберіть відповідний Вам варіант суб'єкта підприємницької діяльності" type="enum" writable="false">
+          <activiti:value id="fiz" name="фізична особа-підприємець"></activiti:value>
+          <activiti:value id="ur" name="юридична особа"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adres_3" name="Місцезнаходження(адреса) юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone_1" name="Контактний телефон юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="duration_fair" name="тривалість ярмарку" type="enum" writable="false">
+          <activiti:value id="less" name="до 1 місяця"></activiti:value>
+          <activiti:value id="longer" name="більше 1 місяця"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="adres_1" name="адреса проведення ярмарку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="type_fair" name="Тип ярмарку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_1" name="Термін проведення ярмарку з" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_2" name="Термін проведення ярмарку по" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер звернення" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="Перевірка данних" type="enum" required="true">
           <activiti:value id="accept" name="Заповнені дані вірні, інформація направлена на розгляд, очікується рішення"></activiti:value>
           <activiti:value id="reject" name="Дані заповнені неправильно, повідомити громадянина (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dndz_cnap_186_print.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="PrintForm_1" name="File label;File title;pattern/print/dndz_cnap_186_print.html" type="file"></activiti:formProperty>
+        <activiti:formProperty id="PrintForm_2" name="File label;File title;pattern/print/dndz_cnap_187_print.html" type="file"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dndz_cnap_186_print.html]" type="invisible" default="заява фізичної особи-підприємця" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_2" name="[pattern/print/dndz_cnap_187_print.html]" type="invisible" default="заява юридичної особи" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -155,14 +172,15 @@
     <userTask id="usertask1" name="повідомлення громадянина про прийняте рішення" activiti:candidateGroups="dndz_cnap_1">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер звернення" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_2" name="повідомлення громадянина про прийняте рішення" type="enum" required="true">
           <activiti:value id="accept" name="схвалено організацію ярмарки"></activiti:value>
           <activiti:value id="reject" name="відмовлено у організації ярмарки"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_2" name="У разі відмови внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="head" name="Завантажте розпорядження міського голови про організацію та проведення ярмарку" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="protokol" name="Завантажте протокол засідання організаційного комітету" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dogovor" name="Завантажте договір про спільну діяльність щодо підготовки та проведення ярмарку" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="head" name="Завантажте розпорядження міського голови про організацію та проведення ярмарку" type="file"></activiti:formProperty>
+        <activiti:formProperty id="protokol" name="Завантажте протокол засідання організаційного комітету" type="file"></activiti:formProperty>
+        <activiti:formProperty id="dogovor" name="Завантажте договір про спільну діяльність щодо підготовки та проведення ярмарку" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
@@ -222,7 +240,6 @@
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
 На жаль, Вам відмовлено у організації ярмарок на території міста.&lt;br /&gt; &lt;/p&gt;
 Підстава:${comment_2}&lt;br /&gt;&lt;br /&gt;
-Відповідь від управління надання муніципальних послуг та розвитку підприємництва знаходиться у додатку до листа.&lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
 									З повагою,&lt;br /&gt;
@@ -367,10 +384,10 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Організація ярмарок на території міста ]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Організація ярмарок на території міста]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${head},${protokol},${dogovor}"</activiti:expression>
+          <activiti:expression>"${head},${protokol},${dogovor},${PrintForm_1},${PrintForm_2}"</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -513,7 +530,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Організація ярмарок на території міста ]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Організація ярмарок на території міста]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
