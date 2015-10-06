@@ -101,6 +101,20 @@
             </div>
             <!-- End Number Between -->
 
+            <!-- Number Fractional Between -->
+            <div class="form-group">
+                <label for="total_place" class="col-sm-2 control-label">Number Fractional Between:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="total_place" ng-model="formData.total_place" class="form-control" required>
+                    <p class="help-block">Уведіть число, максимум 8 цифр</p>
+                </div>
+                <div class="col-sm-4" ng-messages="testForm.total_place.$error" role="alert">
+                    <div ng-message="required">Будь ласка, заповніть це поле</div>
+                    <div ng-message="numberfractionalbetween">{{testForm.total_place.lastErrorMessage}}</div>
+                </div>
+            </div>
+            <!-- End Number Between -->
+
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="submit" class="btn btn-default" ng-click="formSubmit(formData)" value="ОК" ng-disabled="testForm.$invalid">
@@ -115,7 +129,7 @@
             <pre>testForm.dateOrder = {{testForm.dateOrder | json}}</pre>
         </div>
         <div class="col-sm-6">
-            <pre>testForm.dateFormat = {{testForm.numberBetween | json}}</pre>
+            <pre>testForm.dateFormat = {{testForm.total_place | json}}</pre>
         </div>
     </div>
 </div>

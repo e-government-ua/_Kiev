@@ -104,6 +104,7 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
     ,'CodeEDRPOU': 'CodeEDRPOU'
     ,'CodeMFO': 'CodeMFO'
     ,'NumberBetween': 'numberbetween'
+    ,'NumberFractionalBetween': 'numberfractionalbetween'
   };
 
   /**
@@ -473,24 +474,124 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       if(modelValue === null || modelValue === ''){
         return true;
       }
-      if (!options || !options.nMin || !options.nMax) {
+      if (!options || !options.nMin === null || !options.nMax === null) {
         return false;
       }
+      var value = parseInt(modelValue, 10);
+      var DIGITS_REGEXP = /^[0-9]*$/g;
+      var bValid = DIGITS_REGEXP.test(value) && value >= options.nMin && value <= options.nMax;
 
-      var DIGITS_REGEXP = /^[0-9]{1,3}$/g;
-      var bValid = DIGITS_REGEXP.test(modelValue) && modelValue.length >= options.nMin && modelValue.length <= options.nMax;
-
-      console.log('Validate Number Between: ' + modelValue + ' is between: ' + options.nMin + ' and ' + options.nMax + ': ' + bValid);
+      console.log('Validate Number Between: ' + value + ' is between: ' + options.nMin + ' and ' + options.nMax + ': ' + bValid);
 
       options.lastError = '' ;
       if (bValid === false) {
         options.lastError = options.sMessage || 'Число має бути між ' + options.nMin + ' та ' + options.nMax; // options.sFormat;
       }
+      return bValid;
+    },
 
+    /**
+      Формат маркера: 
+      NumberFractionalBetween: { //Дробное число между
+        aField_ID: ['total_place', 'warming_place'],
+        nMin: 0,
+        nMax: 99999999
+      }
+      Логика: разрешены только цифры, максимум 8
+      Сообщение: Проверьте правильность заполнения поля - площадь помещения может состоять максимум из 8 цифр
+      }
+    */
+    'NumberFractionalBetween': function(modelValue, viewValue, options) {
+      if(modelValue === null || modelValue === ''){
+        return true;
+      }
+      if (!options || !options.nMin === null || !options.nMax === null) {
+        return false;
+      }
+
+      var DIGITS_REGEXP = /^[0-9]*$/g;
+      var bValid = DIGITS_REGEXP.test(modelValue) && modelValue >= options.nMin && modelValue <= options.nMax;
+
+      console.log('Validate NumberFractionalBetween: ' + modelValue + ' is between: ' + options.nMin + ' and ' + options.nMax + ': ' + bValid);
+
+      options.lastError = '' ;
+
+      if (bValid === false) {
+        options.lastError = options.sMessage || 'Проверьте правильность заполнения поля - площадь помещения может состоять максимум из ' + options.nMax + ' цифр';
+      }
       return bValid;
     }
-
   };
+
+  /* * *
+  dmitrijzabrudskij commented on Aug 18
+  ВАЖНО: фактическое название элементов может быть любым, начинающимся, например, с "NumberBetween". Типа: NumberBetween_1, NumberBetween_Floor_Subs, NumberBetween_MaxBlocks и т.д. и все эти элементы должны работать паралельно, дополняя друг-друга (в элементах motion уже такой подход реализован)
+
+  Также должно так-же работать наследование маркеров (тоже, так-же как и в motion, и скорей всего уже работает унифицировано на весь markers, но стоит уточнить)
+
+  ЗАДАЧА: Добавить следующие валидаторы в элемент validate, объекта markers:
+
+  1)
+  NumberBetween: { //Целочисленное между
+  aField_ID: ['floors'],
+  nMin: 1,
+  nMax: 3
+  }
+  Логика: разрешены только цифры, максимум 3
+  Сообщение: Проверьте правильность заполнения - число этажей состоит максимум из 3 цифр
+
+   2)
+  NumberFractionalBetween: { //Дробное число между
+  aField_ID: ['total_place', 'warming_place'],
+  nMin: 0,
+  nMax: 99999999
+  }
+  Логика: разрешены только цифры, максимум 8
+  Сообщение: Проверьте правильность заполнения поля - площадь помещения может состоять максимум из 8 цифр
+
+   3)
+  Numbers_Accounts: { //разрешены цифры и дефисы, буквы любые запрещены
+  aField_ID: ['house_number', 'gas_number', 'coolwater_number', 'hotwater_number', 'waterback_number', 'warming_number', 'electricity_number', 'garbage_number']
+  }
+  Логика: разрешены цифры и дефисы, буквы любые запрещены
+  Сообщение: Проверьте правильность вводимого номера (буквы не разрешены к заполнению)
+
+   4)
+
+   4.1) Доработать "DateElapsed", добавив туда опциональный параметр:
+  sFormat: 'YYYY-MM-DD' //формат даты
+  Если он задан то распознавать дату именно по жтому формату.
+  Параметры сделать опциональными (если не заданы считать нулем):
+  nDays: 0,
+  nMonths: 0,
+  nYears: 0
+
+   4.2) Наследоваться от "DateElapsed" (поведение именно такое-же, но просто с другими параметрами):
+  DateElapsed_1: {
+  aField_ID: ['date_of_birth'],
+  sFormat: 'YYYY-MM-DD' //формат даты
+  bFuture: false,
+  }
+  Логика: не разрешено выбирать дату больше текущей
+  Сообщение: Выберите корректную дату - дата не может быть больше текущей
+
+   5) Сделать опциональный параметр для всех элементов маркера валидации, где можно указывать то сообщение, которое должно выводиться в случае не валидности содержимого поля, по критериям текущего валидатора:
+  sMessage: "Значение не валидно!"
+
+   6) Для всех валидаторов сделать умолчательный пропуск проверки (приравнивать это к валидности), если содержимого поля нет (т.е. там пусто)
+
+  ДЛЯ СПРАВКИ(старое описание, не принимать в рассчет!!!) : 
+  
+  9) ИД: DateOfBirth - дата рождения гражданина
+  Логика: не разрешено выбирать дату больше текущей
+  Сообщение: Выберите корректную дату - дата не может быть больше текущей
+  Поля: date_of_birth
+  */
+
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Утиліти
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   self.fromDateToDate = function(dateA, dateB, fmt) {
     var sFormat = fmt ? fmt : self.sFormat;

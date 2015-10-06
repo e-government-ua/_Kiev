@@ -57,8 +57,14 @@ angular.module('app').factory('MarkersFactory', function() {
       ,NumberBetween: {
         aField_ID: ['numberBetween'],
         nMin: 1,
-        nMax: 3,
-        sMessage: 'Проверьте правильность заполнения - число этажей состоит максимум из 3 цифр'
+        nMax: 999,
+        sMessage: 'Перевірте правильність заповнення - число поверхів складається максимум з трьох цифр'
+      }
+      ,NumberFractionalBetween: { //Дробное число между
+        aField_ID: ['total_place'],
+        nMin: 0,
+        nMax: 99999999,
+        sMessage: 'Перевірте правильність заповнення поля - площа приміщення може складатися максимум з 8 цифр'
       }
     },
     attributes: {
