@@ -41,5 +41,5 @@ angular.module('app').controller('PlaceAbsentController', function($state, $root
       $scope.sendAbsentMessage(absentMessageForm, absentMessage);
     }
   };
-  
+
 });

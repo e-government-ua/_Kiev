@@ -18,7 +18,7 @@
           <activiti:value id="physical" name="Фізична копія"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="dogov" name="Копія договору оренди земельної ділянки та додаткових угод (при їх наявності); Якщо є додаткові угоди об'єднайте, будь ласка, всі файли у архів або PDF-документ" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
@@ -96,7 +96,7 @@
 									&lt;p&gt;
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 										Спеціалісти з державного Органу повинні дати відповідь найближчим часом. &lt;br /&gt;
-									;&lt;/p&gt;
+									&lt;/p&gt;
 									&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -232,9 +232,9 @@
           <activiti:value id="accept" name="Передати документи спеціалістам"></activiti:value>
           <activiti:value id="reject" name="Відмовити в реєстрації звернення"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="decisionComment" name="Якщо ви відмовляєте замовнику у реєстрації звернення, обов'язково вкажіть підставу у цьому полі." type="string"></activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Коментар адміністратора у разі відмови у реєстрації звернення" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="spec" name="електронна адреса спеціаліста" type="string"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/ternopol_rcnap-9_zayava.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/kuznetsovsk_118.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -319,17 +319,6 @@
 										Коментар державного службовця: &lt;br /&gt;
 											&lt;i&gt;${decisionComment}&lt;/i&gt;
 									&lt;/p&gt;
-										Центр надання адміністративних послуг Кузнецовської міської ради &lt;br /&gt;
-									&lt;br /&gt;
-										Адреса: &lt;br /&gt;
-										м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
-									&lt;br /&gt;
-										Графік роботи ЦНАП-у:&lt;br /&gt;
-										Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
-										Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
-										П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
-										Без перерви на обід&lt;br /&gt;
-										Телефон: (03636) 2-23-73 &lt;br /&gt; 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -425,7 +414,7 @@
 									&lt;p&gt;
 										Ваше звернення щодо поновлення договору оренди земельної ділянки передане на розгляд профільному спеціалісту.&lt;br /&gt;
 										Ви отримаєте відповідь у визначений законом термін.
-									;&lt;/p&gt;
+									&lt;/p&gt;
 									&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -566,7 +555,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
         <activiti:formProperty id="decisionComment1" name="Коментар при відмові у наданні послуги для адміністратора ЦНАП" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/ternopol_rcnap-9_zayava.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/kuznetsovsk_118.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -597,9 +586,10 @@
           <activiti:value id="digital" name="Електронна копія"></activiti:value>
           <activiti:value id="physical" name="Фізична копія"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="searchResult" name="Результат обробки запиту" type="enum" required="true">
+        <activiti:formProperty id="searchResult" name="Результат обробки запиту" type="enum" required="true" default="no">
           <activiti:value id="ponovleno" name="Договір оренди поновлено"></activiti:value>
           <activiti:value id="vidmovleno" name="Відмовлено у поновлені договора оренди"></activiti:value>
+          <activiti:value id="no" name=" "></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар до рішення для громадянина" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="decisionComment1" name="Коментар до рішення для адміністратора ЦНАП" type="textArea"></activiti:formProperty>
@@ -623,7 +613,7 @@
           <activiti:value id="physical" name="Фізична копія"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decideSpec" name="Рішення про надання послуги" type="enum" writable="false">
-          <activiti:value id="accept" name="Готується проект рішення"></activiti:value>
+          <activiti:value id="accept" name="Проект рішення у додатку"></activiti:value>
           <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="searchResult" name="Результат обробки запиту" type="enum" writable="false">
@@ -869,7 +859,7 @@
     </serviceTask>
     <sequenceFlow id="flow22" sourceRef="servicetask3" targetRef="endevent6"></sequenceFlow>
     <sequenceFlow id="flow29" name="${decideSpec == 'reject'}" sourceRef="exclusivegateway2" targetRef="mailtask8">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decideSpec == 'reject'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decideSpec == 'reject' &&searchResult == 'no'}}]]></conditionExpression>
     </sequenceFlow>
     <serviceTask id="mailtask8" name="Відповідь про відмову у наднні послуги" activiti:type="mail">
       <extensionElements>

@@ -6,8 +6,6 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Серія та номер паспорту" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="ІПН" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Адреса реєстрації громадянина" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="tel" name="Укажіть контактний номер телефону" type="long" default="38" required="true"></activiti:formProperty>
@@ -19,7 +17,7 @@
         <activiti:formProperty id="passport_father" name="Копія паспорту батька (1, 2, 10, 11-13 стор.)" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="passport_mother" name="Копія паспорту матері (1, 2, 10, 11-13 стор.)" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="passport_children" name="Копії свідотств про народження усіх дітей; завантажте єдиним архівом усі свідоцтва" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Даю згоду на обробку своїх персональних даних, відповідно до закону України «Про захист персональних даних» від 01 червня 2010 року за №2297-VI, з метою оформлення/переоформлення/анулювання/видачі  документів дозвільного характеру та  адміністративних послуг."></activiti:formProperty>
+        <activiti:formProperty id="zgoda" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення громадянина про успішне подання звернення" activiti:type="mail">
@@ -87,15 +85,15 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                                                       &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваше звернення щодо видачі надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося отримано та буде опрацьовано працівником відділу у справах сім’ї та молоді протягом десяти робочих днів.&lt;br /&gt;
+Ваше звернення щодо видачі надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося отримано та буде опрацьовано протягом 10 робочих днів.&lt;br /&gt;
 Ви отримаєте додаткове повідомлення за результатами розгляду запиту.&lt;br /&gt;
     &lt;/p&gt;
     
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
-                                        &lt;/p&gt;
+                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;&lt;br /&gt;
+                                        Виконавчий комітет Кузнецовської міської ради&lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
                            
@@ -215,8 +213,6 @@
     <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="Kuznetsovsk_vssm">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdPassport" name="Серія та номер паспорту" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdinn" name="ІПН" type="string" ></activiti:formProperty>
         <activiti:formProperty id="date_today" name="дата подання звернення" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adres_1" name="Адреса реєстрації громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="tel" name="контактний номер телефону" type="long" writable="false"></activiti:formProperty>
@@ -225,12 +221,12 @@
           <activiti:value id="programa" name="Надіслати в електронному вигляді (скан-копія)"></activiti:value>
           <activiti:value id="other" name="Особисто"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="decision_1" name="прийняття рішення про видачу довідки" type="enum" required="true">
-          <activiti:value id="accept" name="Видати довідку"></activiti:value>
-          <activiti:value id="reject" name="Відмовити у видачі довідки"></activiti:value>
+        <activiti:formProperty id="decision_1" name="Результат послуги" type="enum" required="true">
+          <activiti:value id="accept" name="схвалення"></activiti:value>
+          <activiti:value id="reject" name="відмова"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відмови у наданні довідки внесіть, будь ласка, причину" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="rishen" name="Завантажте копію довідки" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="rishen" name="Завантажте копію документа" type="file" required="true"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -304,7 +300,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
+                                        Виконавчий комітет Кузнецовської міської ради&lt;/p&gt;
                                         &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -410,23 +406,24 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
-Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;&lt;br /&gt;
+&lt;b&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 Ваше звернення щодо надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося - опрацьовано.&lt;br /&gt;&lt;br /&gt;
-Копія довідки знаходиться у додатку до листа.&lt;br /&gt;
+Копія документу знаходиться у додатку до листа.&lt;br /&gt;
 &lt;br /&gt;
 Ви або уповноважена Вами особа (при наявності довіреності) можете отримати довідку собисто під підпис у центрі надання адміністративних послуг
 за адресою:&lt;br /&gt;
 м.Кузнецовськ, майдан Незалежності 2, каб.№105-1&lt;br /&gt;&lt;br /&gt;
 Телефон для довідок (3636)2-23-73&lt;br /&gt;&lt;br /&gt;
 Графік роботи (крім святкових днів):&lt;br /&gt;
-пн. вт. ср. чт. 8:00-17:15&lt;br /&gt;
-птн. 8:00-16:00&lt;br /&gt;
-обідня перерва 13:00-14:00&lt;br /&gt;
-&lt;br /&gt;
+Понеділок, середа 8.00-17.15&lt;br /&gt;
+Вівторок, четвер &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;8.00-20.00&lt;br /&gt;
+П'ятниця, субота &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;8.00-16.00&lt;br /&gt;&lt;br /&gt;
+обідня перерва &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;13:00-14:00&lt;br /&gt;
                                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
+                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;&lt;br /&gt;
+                                        Виконавчий комітет Кузнецовської міської ради&lt;/p&gt;
                                         &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
