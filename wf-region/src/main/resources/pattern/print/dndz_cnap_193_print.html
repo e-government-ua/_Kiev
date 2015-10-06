@@ -2,9 +2,9 @@
 <html>
 <head lang="ru">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>отримання експлутаційного дозволу для провадження діяльності</title>
+    <title>Видача довідки про встановлення режиму роботи об’єкта</title>
 <style>
-html, body {margin: 0; padding: 0; height: 100%; font: 400 12px/14px 'Tahoma';}
+html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Tahoma';}
 
 .print_wrap {width: 705px; padding: 35px 25px 85px 35px; min-height: 100%; height: 100%; margin: 0 auto;}
 
@@ -16,7 +16,6 @@ html, body {margin: 0; padding: 0; height: 100%; font: 400 12px/14px 'Tahoma';}
 
 .fw {width: 100%;}
 
-.w450 {width: 450px;}
 .w350 {width: 350px;}
 .w225 {width: 225px;}
 .w145 {width: 145px;}
@@ -96,7 +95,6 @@ table.zit_v-form2 tr td {border: 1px solid black; padding: 3px 8px;}
 .date_subm .inv {width: 240px; height: 20px; float: left; border-bottom: 1px solid black; position: relative;} 
 .date_subm .inv > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
 
-
 p {font-size: 11px;}
 
 .clear {clear: both;}
@@ -107,34 +105,47 @@ p {font-size: 11px;}
 <body>
 <section class="print_wrap">
     <div class="line_col ta-r">
-        <div class="under_field w450 ta-l"><i>Начальнику управління надання муніципальних послуг</i><span></span></div><br />
-		<div class="under_field w450 ta-l"><i>та розвитку підприємництва</i><span></span></div><br />
-		<div class="under_field w450 ta-l"><i>директору міського центру муніципальних послуг міської ради</i><span></span></div><br />
-		<div class="under_field w450 ta-l"><i>[clFio]</i><span>(прізвище, ім’я, по батькові фізичної особи – підприємця)</span></div><br />
-		<div class="under_field w450 ta-l"><i>[adres_2] [phone]</i><span>(домашня адреса, телефон)</span></div><br />
-		<div class="under_field w450 ta-l"><i>фізична особа-підприємець</i><span>(категорія та соціальний стан)</span></div><br />
-    </div>
+        <div class="under_field w350 ta-l"><i>Начальникові управління надання</i><span></span></div><br />
+		<div class="under_field w350 ta-l"><i>муніципальних послуг та розвитку</i><span></span></div><br />
+		<div class="under_field w350 ta-l"><i>підприємництва, директору міського</i><span></span></div><br />
+		<div class="under_field w350 ta-l"><i>центру муніципальних послуг</i><span></span></div><br />
+		<div class="under_field w350 ta-l"><i>міської ради</i><span></span></div><br />
+	</div>
     <div class="line_col ta-c m-t-25">
-        <b>ЗАЯВА<br /></b><br />
-        <div class="ta-l">Прошу розглянути можливість щодо підготовки та проведення ярмарку за адресою<span></span></div><br />
-		<div class="under_field_line ta-l">[adres_1]<span></span></div>
-        <div class="under_field_line ta-l">Термін проведення ярмарку з [date_1] по [date_2]<span></span></div>
-		<div class="under_field_line ta-l">Тип ярмарку: [type_fair]<span></span></div>
-		</span></div>
-		</div>
+        <b>ЗАЯВА-ПРОПОЗИЦІЯ<br /></b><br />
+        
+       <div class="under_field_line ta-c">[name]<span>(у родовому відмінку повне найменування об'єкта торгівлі, ресторанного господарства  або сфери послуг)</span></div>
+	   <div class="under_field_line ta-c">[adress2]<span>(місцезнаходження об'єкта торгівлі, ресторанного господарства або сфери послуг)</span></div>
+		<div class="under_field_line ta-c">[trusted_person]<span>(ім'я, по батькові та прізвище фізичної особи – підприємця або юридичної особи)</span></div>
+		<div class="under_field_line ta-c">[adress]<span>(місцезнаходження юридичної особи або місце проживання фізичної особи – підприємця)</span></div>
+		<div class="under_field_line ta-c">[phone]<span>(телефон, телефакс)</span></div>
 		<br />
-		<br />
-<div class="date_subm m-t-85">
-        <div class="inv">[date_today]<span>(дата подання звернення)</span></div>
+		<div class="ta-l">Початок та закінчення роботи: <span>[time_full]</span></div><br />
+		<div class="ta-l">Перерва: <span>[time_break]</span></div><br />
+		<div class="ta-l">Вихідні дні: <span>[weekend]</span></div><br />
+		<p></p>
+		<div class="ta-l">Особливі умови роботи: <span>[special]</span></div><br />
+		<p></p>
+	</div>
+	<div class="date_subm m-t-85">
+        <div class="inv">[date_today]<span>(дата)</span></div>
         <div class="signature"><span>(підпис заявника)</span></div>
 		<div class="clear"></div>
     </div>
-	<br /><br />
-<div class="ta-l">Відповідно до положень Закону України «Про захист персональних даних» для виконання повноважень щодо надання адміністративних послуг, надаю згоду та дозвіл на зберігання, обробку, використання та поширення відповідно до вимог чинного законодавства моїх персональних даних, в тому числі, але не обмежуючись даних паспорта, дати та місця народження, місця проживання та адреси для листування, даних індивідуального податкового номера, та інших даних, які зазначені в моїх зверненнях (заявах). Передання Зберігачем моїх персональних даних відповідно до вимог чинного законодавства державним органам, органам місцевого самоврядування може бути здійснено без моєї попередньої згоди<span></span></div><br />
+	<br />
+	<b><div class="ta-l">Заповнюється посадовою особою управління надання муніципальних послуг та розвитку підприємництва (Міський центр муніципальних послуг) міської ради:<span></span></div><br /></b>
 <div class="date_subm m-t-85">
-        <div class="signature"><span>(підпис заявника)</span></div>
+        <div class="inv">[date_registrastion]<span>(дата реєстрації звернення)</span></div>
+        <div class="signature">[extension_number]<span>(реєстраційний номер)</span></div>
 		<div class="clear"></div>
-    </div>			
+    </div>
+
+<div class="date_subm m-t-85">
+        <div class="inv"><span>(підпис адміністратора)</span></div>
+        <div class="signature">[adminFio]<span>(ініціали та прізвище адміністратора)</span></div>
+		<div class="clear"></div>
+    </div>	
+	<br />		
 		</section>
 </body>
 </html>

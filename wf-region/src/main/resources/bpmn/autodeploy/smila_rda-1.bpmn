@@ -8,7 +8,7 @@
         <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Домашня адреса" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="+380" required="true"></activiti:formProperty>
-        <activiti:formProperty id="goal" name="Мета отримання довідки" type="enum">
+        <activiti:formProperty id="goal" name="Мета отримання довідки" type="enum" required="true">
           <activiti:value id="Для отримання земельної ділянки у власність" name="Для отримання земельної ділянки у власність"></activiti:value>
           <activiti:value id="Для оформлення договору оренди" name="Для оформлення договору оренди"></activiti:value>
           <activiti:value id="Для подачі в податкову для нарахування податку на землю" name="Для подачі в податкову для нарахування податку на землю"></activiti:value>
@@ -21,7 +21,7 @@
         <activiti:formProperty id="rai" name="Оберіть район в якому розташовано земельну ділянку" type="enum" required="true">
           <activiti:value id="smil" name="Смілянський район"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Перевірка даних" activiti:candidateGroups="cherkcnap_rai_${rai}_1">
@@ -32,7 +32,7 @@
         <activiti:formProperty id="clArea" name="Місцезнаходження і площа ділянки" type="string" default="${place}, ${area} м2" writable="false"></activiti:formProperty>
         <activiti:formProperty id="requestGoal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="proverka" name="Рішення про прийняття або відхилення заяви" type="enum">
-          <activiti:value id="ok" name="Заяву прийнято"></activiti:value>
+          <activiti:value id="ok" name="Довідку виготовлено"></activiti:value>
           <activiti:value id="bad" name="Заяву відхилено"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Коментар: Якщо позивачу відмовлено, вкажіть причину." type="textArea" default=" "></activiti:formProperty>
