@@ -11,9 +11,10 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації; вкажіть область, населенний пункт, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="rai" name="Оберіть район, в якому розташована земельна ділянка" type="enum" required="true">
-          <activiti:value id="tern" name="Тернопільський район"></activiti:value>
+          <activiti:value id="smil" name="Смілянський район"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="landShape" name="Площа земельної ділянки; у гектрах" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета звернення" type="enum" required="true">
           <activiti:value id="item1" name="визначення розміру земельного податку при міні або даруванні земельних ділянок"></activiti:value>
           <activiti:value id="item2" name="визначення розміру земельного податку при спадкуванні земельних ділянок"></activiti:value>
@@ -216,7 +217,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow16" sourceRef="mailtask6" targetRef="usertask1"></sequenceFlow>
-    <userTask id="usertask1" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="terncnap_rai_${rai}_1">
+    <userTask id="usertask1" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="cherkcnap_rai_${rai}_1">
       <extensionElements>
         <activiti:formProperty id="info" name="На цьому етапі:" type="label" default="Ви перевіряєте дані громадянина і вирішуєте чи всі вони вірні. Якщо все добре, присвоюєте реєстраційний номер зверненню, роздруковуєте прінтформи та відправляєте документи до Держгеокадастру. Якщо ні - відмовляєте у реєстрації звернення з обов'язковим коментарем."></activiti:formProperty>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
@@ -225,9 +226,10 @@
         <activiti:formProperty id="email" name="e-mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="rai" name="Район, в якому розташована земельна ділянка" type="enum" writable="false">
-          <activiti:value id="tern" name="Тернопільський район"></activiti:value>
+          <activiti:value id="smil" name="Смілянський район"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="landShape" name="Площа земельної ділянки; у гектрах" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета звернення" type="enum" writable="false">
           <activiti:value id="item1" name="визначення розміру земельного податку при міні або даруванні земельних ділянок"></activiti:value>
           <activiti:value id="item2" name="визначення розміру земельного податку при спадкуванні земельних ділянок"></activiti:value>
@@ -383,7 +385,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow15" sourceRef="servicetask2" targetRef="usertask2_green"></sequenceFlow>
-    <userTask id="usertask2_green" name="Підготовка відповіді на запит" activiti:candidateGroups="terncnap_rai_${rai}_1">
+    <userTask id="usertask2_green" name="Підготовка відповіді на запит" activiti:candidateGroups="smila_rda-1">
       <extensionElements>
         <activiti:formProperty id="info1" name="На цьому етапі:" type="label" default="Ви отримуєте результат розгляду звернення Держгеокадастром і відповідним чином інформуєте громадянина."></activiti:formProperty>
         <activiti:formProperty id="vnnumb" name="Реєстраційний номер звернення" type="string" writable="false"></activiti:formProperty>
@@ -394,6 +396,7 @@
         <activiti:formProperty id="email" name="e-mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="landShape" name="Площа земельної ділянки; у гектрах" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета звернення" type="enum" writable="false">
           <activiti:value id="item1" name="визначення розміру земельного податку при міні або даруванні земельних ділянок"></activiti:value>
           <activiti:value id="item2" name="визначення розміру земельного податку при спадкуванні земельних ділянок"></activiti:value>
