@@ -105,7 +105,8 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
     'CodeMFO': 'CodeMFO',
     'NumberBetween': 'numberbetween',
     'NumberFractionalBetween': 'numberfractionalbetween',
-    'Numbers_Accounts': 'numbersaccounts'
+    'Numbers_Accounts': 'numbersaccounts',
+    'DateElapsed_1': 'dateofbirth'
   };
 
   /**
@@ -553,13 +554,32 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
         options.lastError = options.sMessage || 'Проверьте правильность вводимого номера (буквы не разрешены к заполнению)';
       }
       return bValid;
+    },
+
+    'DateElapsed_1': function(modelValue, viewValue, options) {
+      if (modelValue === null || modelValue === '') {
+        return true;
+      }
+      if (!options) {
+        return false;
+      }
+
+      if (options.inheritedValidator) {
+        //options.inheritedValidator.call
+        console.log('DateElapsed_1: inheritedValidator:', options.inheritedValidator);
+      }
+
     }
 
   };
 
   /* * *
   dmitrijzabrudskij commented on Aug 18
-  ВАЖНО: фактическое название элементов может быть любым, начинающимся, например, с "NumberBetween". Типа: NumberBetween_1, NumberBetween_Floor_Subs, NumberBetween_MaxBlocks и т.д. и все эти элементы должны работать паралельно, дополняя друг-друга (в элементах motion уже такой подход реализован)
+
+  ВАЖНО: фактическое название элементов может быть любым, начинающимся, например, с "NumberBetween". 
+
+  Типа: NumberBetween_1, NumberBetween_Floor_Subs, NumberBetween_MaxBlocks и т.д. 
+  и все эти элементы должны работать паралельно, дополняя друг-друга (в элементах motion уже такой подход реализован)
 
   Также должно так-же работать наследование маркеров (тоже, так-же как и в motion, и скорей всего уже работает унифицировано на весь markers, но стоит уточнить)
 
@@ -570,19 +590,11 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
   3)  Numbers_Accounts: { //разрешены цифры и дефисы, буквы любые запрещены
   4.1) Доработать "DateElapsed", добавив туда опциональный параметр sFormat: 'YYYY-MM-DD' //формат даты
   4.2) Наследоваться от "DateElapsed" (поведение именно такое-же, но просто с другими параметрами):
-  DateElapsed_1: {
-  aField_ID: ['date_of_birth'],
-  sFormat: 'YYYY-MM-DD' //формат даты
-  bFuture: false,
-  }
-  Логика: не разрешено выбирать дату больше текущей
-  Сообщение: Выберите корректную дату - дата не может быть больше текущей
 
   5) Сделать опциональный параметр sMessage для всех элементов маркера валидации.
 
   6) Для всех валидаторов сделать умолчательный пропуск проверки (приравнивать это к валидности), если содержимого поля нет (т.е. там пусто)
   */
-
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Утиліти

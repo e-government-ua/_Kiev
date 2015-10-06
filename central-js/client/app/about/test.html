@@ -129,6 +129,22 @@
             </div>
             <!-- End Number Between -->
 
+            <!-- Date Of Birth -->
+            <div class="form-group">
+                <label for="date_of_birth" class="col-sm-2 control-label">Date Of Birth:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="date_of_birth" ng-model="formData.date_of_birth" class="form-control" required>
+                    <p class="help-block">Уведіть дату вашого народження</p>
+                </div>
+                <div class="col-sm-4" ng-messages="testForm.date_of_birth.$error" role="alert">
+                    <div ng-message="required">Будь ласка, заповніть це поле</div>
+                    <div ng-message="dateofbirth">{{testForm.date_of_birth.lastErrorMessage}}</div>
+                </div>
+            </div>
+
+            <!-- End Date Of Birth -->
+
+
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="submit" class="btn btn-default" ng-click="formSubmit(formData)" value="ОК" ng-disabled="testForm.$invalid">
@@ -143,7 +159,7 @@
             <pre>testForm.dateOrder = {{testForm.dateOrder | json}}</pre>
         </div>
         <div class="col-sm-6">
-            <pre>testForm.dateFormat = {{testForm.house_number | json}}</pre>
+            <pre>testForm.dateFormat = {{testForm.date_of_birth | json}}</pre>
         </div>
     </div>
 </div>

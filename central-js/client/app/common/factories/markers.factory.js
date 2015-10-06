@@ -46,6 +46,13 @@ angular.module('app').factory('MarkersFactory', function() {
         //,sDebug: 'Додаткова опція - інформація для дебагу'
         //,bDebug: false; // Опція для дебагу
       }
+      ,DateElapsed_1: {
+        inheritedValidator: 'DateElapsed', // розширюэмо існуючий валідатор 'DateElapsed'
+        aField_ID: ['date_of_birth'],
+        sFormat: 'YYYY-MM-DD', //формат дати
+        bFuture: false, // дата modelValue має бути у минулому
+        sMessage: 'Виберіть коректну дату - дата не може бути більше поточної'
+      }
       ,CodeKVED: {
         aField_ID: ['kved']
       }
