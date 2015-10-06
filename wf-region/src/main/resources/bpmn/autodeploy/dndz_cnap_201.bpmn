@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dndz_cnap_196" name="Дніпродзержинськ_ЦНАП-Погодження розміщення об’єктів виносної дрібно-роздрібної торгівлі для продажу морозива та безалкогольних напоїв у весняно-літній період" isExecutable="true">
+  <process id="dndz_cnap_201" name="Дніпродзержинськ_ЦНАП - Надання інформації згідно з містобудівною документацією щодо функціонального призначення земельної ділянки" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -10,9 +10,9 @@
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="objectAddress" name="Адреса розміщення об`єкта дрібно-роздрібної торгівлі" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dergReestracia" name="Завантажте копію свідоцтва про державну реєстрацію суб’єкта господарювання;або копію виписки з ЄДР юридичних осіб та фізичних осіб-підприємців" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="EP" name="Завантажте копію свідоцтва про сплату єдиного податку" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objectAddress" name="Адреса земельної ділянки" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objectAppointment" name="Цільове призначення земельної ділянки" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="objectScan" name="Завантажте графічні матеріали;(викопіювання із топографо-геодезичної зйомки М 1:2000) із зазначенням місця розташування  та чітко визначених контурів запитуваної земельної ділянки (графічні матеріали можливо отримати в спецчастині Служби містобудівного кадастру управління містобудування та архітектури міської ради, якщо проект відведення земельної ділянки не розроблявся)" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="warningMessage" name="Увага" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта" type="file" required="true"></activiti:formProperty>
       </extensionElements>
@@ -26,7 +26,7 @@
           <activiti:string><![CDATA[crow79@ua.fm]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Погодження розміщення об’єктів виносної дрібно-роздрібної торгівлі для продажу морозива та безалкогольних напоїв у весняно-літній період]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання інформації згідно з містобудівною документацією щодо функціонального призначення земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -76,7 +76,7 @@
                                 <td style="padding: 35px 120px;">
                                     <h3>На порталі <a href=https://igov.org.ua>iGov.org.ua</a> зареєстровано нове звернення на тему:</h3>
                                     <p>
-                                       Погодження розміщення об’єктів виносної дрібно-роздрібної торгівлі для продажу морозива та безалкогольних напоїв у весняно-літній період</p>
+                                       Надання інформації згідно з містобудівною документацією щодо функціонального призначення земельної ділянки</p>
 									<p>
 									Ви можете перейти на <a href=https://region.igov.org.ua>портал</a>, щоб почати опрацювання звернення.
                                     </p>
@@ -110,7 +110,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Погодження розміщення об’єктів виносної дрібно-роздрібної торгівлі для продажу морозива та безалкогольних напоїв у весняно-літній період]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання інформації згідно з містобудівною документацією щодо функціонального призначення земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -165,8 +165,8 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                       Ваше звернення щодо погодження розміщення об’єктів виносної дрібно-роздрібної торгівлі для продажу морозива та безалкогольних напоїв у весняно-літній період успішно зареєстровано. &lt;br /&gt;
-					   Ви отримаєте відповідь протягом 30 робочих днів на цю email-адресу.&lt;/p&gt;
+                                       Ваше звернення про надання інформації згідно з містобудівною документацією щодо функціонального призначення земельної ділянки успішно зареєстровано. &lt;br /&gt;
+					   Ви отримаєте відповідь у строк від 15 до 30 робочих днів на цю email-адресу.&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -200,17 +200,18 @@
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="objectAddress" name="Адреса розміщення об`єкта дрібно-роздрібної торгівлі" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objectAddress" name="Адреса земельної ділянки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objectAppointment" name="Цільове призначення земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="perevirka1" name="Результат первинної перевірки документів" type="enum">
           <activiti:value id="accept" name="Документи пройшли перевірку"></activiti:value>
           <activiti:value id="reject" name="Документи не пройшли перевірку"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Ви можете додати коментар за результатами перевірки документів" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dndz_cnap_196_print.html]" type="invisible" default="Заява щодо розміщення об`єктів торгівлі" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dndz_cnap_201_print.html]" type="invisible" default="Заява про надання інформації" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${dergReestracia}, ${EP}, ${bankId_scan_passport}</activiti:expression>
+            <activiti:expression>${objectScan}, ${bankId_scan_passport}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -227,7 +228,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Погодження розміщення об’єктів виносної дрібно-роздрібної торгівлі для продажу морозива та безалкогольних напоїв у весняно-літній період]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання інформації згідно з містобудівною документацією щодо функціонального призначення земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -354,7 +355,7 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;Ваше подання опрацьовано адміністратором ЦНАП та передано до комісії з питань впорядкування організації роботи торговельної мережі, сфери послуг та ринків міста&lt;/p&gt;
+                                    &lt;p&gt;Ваше подання опрацьовано адміністратором ЦНАП та передано до управління містобудування та архітектури&lt;/p&gt;
 &lt;p&gt;${comment}&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -385,7 +386,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Погодження розміщення об’єктів виносної дрібно-роздрібної торгівлі для продажу морозива та безалкогольних напоїв у весняно-літній період]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання інформації згідно з містобудівною документацією щодо функціонального призначення земельної ділянки]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -411,17 +412,18 @@
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="objectAddress" name="Адреса розміщення об`єкта дрібно-роздрібної торгівлі" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="perevirka2" name="Результат розгляду документів" type="enum">
-          <activiti:value id="accept" name="Комісія винесла позитивне рішення"></activiti:value>
-          <activiti:value id="reject" name="Комісія відхилила заяву"></activiti:value>
+        <activiti:formProperty id="objectAddress" name="Адреса земельної ділянки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="objectAppointment" name="Цільове призначення земельної ділянки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="perevirka2" name="Результат первинної перевірки документів" type="enum">
+          <activiti:value id="accept" name="Документи пройшли перевірку"></activiti:value>
+          <activiti:value id="reject" name="Документи не пройшли перевірку"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="comment2" name="Ви можете додати коментар за результатами розгляду документів" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dndz_cnap_196_print.html]" type="invisible" default="Заява щодо розміщення об`єктів торгівлі" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="Ви можете додати коментар за результатами перевірки документів" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dndz_cnap_201_print.html]" type="invisible" default="Заява про надання інформації" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${dergReestracia}, ${EP}, ${bankId_scan_passport}</activiti:expression>
+            <activiti:expression>${objectScan}, ${bankId_scan_passport}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -485,7 +487,7 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;На жаль, комісія з питань впорядкування організації роботи торговельної мережі, сфери послуг та ринків міста відхилила Вашу заяву.&lt;br /&gt;${comment}&lt;/p&gt;
+                                    &lt;p&gt;На жаль, вашу заяву відхилено.&lt;br /&gt;${comment}&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -505,7 +507,7 @@
 &lt;/html&gt;</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Погодження розміщення об’єктів виносної дрібно-роздрібної торгівлі для продажу морозива та безалкогольних напоїв у весняно-літній період]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання інформації згідно з містобудівною документацією щодо функціонального призначення земельної ділянки]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -565,8 +567,8 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;Комісія з питань впорядкування організації роботи торговельної мережі, сфери послуг та ринків міста розглянула Вашу заяву.&lt;br /&gt;${comment}&lt;/p&gt;
-									&lt;p&gt;Отримати протокол засідання комісії ви можете у Міському центрі муніципальних послуг за адресою:&lt;/p&gt;
+                                    &lt;p&gt;Листа з інформацією підготовлено.&lt;br /&gt;${comment}&lt;/p&gt;
+									&lt;p&gt;Отримати його ви можете у Міському центрі муніципальних послуг за адресою:&lt;/p&gt;
 									&lt;p&gt;м. Дніпродзержинськ, пр. Комсомольський 10/12&lt;/p&gt;
                                     &lt;p&gt;Тел./факс 2-61-50; тел. 2-73-03, 2-60-94; Email: dozvildndz@ukr.net&lt;/p&gt;
 									&lt;p&gt;Графік роботи:&lt;/p&gt;
@@ -602,7 +604,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Погодження розміщення об’єктів виносної дрібно-роздрібної торгівлі для продажу морозива та безалкогольних напоїв у весняно-літній період]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Надання інформації згідно з містобудівною документацією щодо функціонального призначення земельної ділянки]]></activiti:string>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -612,8 +614,8 @@
     <sequenceFlow id="flow15" sourceRef="mailtask6" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow16" sourceRef="mailtask5" targetRef="endevent1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dndz_cnap_196">
-    <bpmndi:BPMNPlane bpmnElement="dndz_cnap_196" id="BPMNPlane_dndz_cnap_196">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dndz_cnap_201">
+    <bpmndi:BPMNPlane bpmnElement="dndz_cnap_201" id="BPMNPlane_dndz_cnap_201">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="200.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
