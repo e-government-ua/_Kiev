@@ -236,6 +236,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 			}
 			boolean bReplaced = false;
 			LOG.info("Variables of execution:" + execution.getVariables());
+			LOG.info("local variables of execution:" + execution.getVariablesLocal());
 			for (FormProperty property : aProperty) {
 				String sType = property.getType().getName();
 				String snID = property.getId();
@@ -345,7 +346,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 	    }
 		
 		for (String taskIdInBPMN : resIDs){
-			List<Task> tasks = execution.getEngineServices().getTaskService().createTaskQuery().executionId(execution.getId()).taskDefinitionKey(taskIdInBPMN).list();
+			List<Task> tasks = execution.getEngineServices().getTaskService().createTaskQuery().executionId(execution.getId()).list();
 			if (tasks != null){
 				for (Task task : tasks){
 					LOG.info("Task with ID:" + task.getId() + " name:" + task.getName() + " taskDefinitionKey:" + task.getTaskDefinitionKey());
