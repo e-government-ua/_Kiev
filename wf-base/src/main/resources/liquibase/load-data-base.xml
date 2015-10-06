@@ -85,6 +85,14 @@
             <column name="nID_SubjectOrgan" type="NUMERIC"/>
         </loadUpdateData>
 
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/AccessServiceLoginRight.csv"
+                        tableName="AccessServiceLoginRight" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sLogin" type="STRING"/>
+            <column name="sService" type="STRING"/>
+            <column name="sHandlerBean" type="STRING"/>
+        </loadUpdateData>
+
     </changeSet>    
 
 
