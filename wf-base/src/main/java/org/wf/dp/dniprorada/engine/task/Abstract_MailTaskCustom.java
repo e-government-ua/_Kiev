@@ -208,12 +208,16 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 //                                StartFormData oTaskFormData = execution.getEngineServices()
 //                                                .getFormService()
 //                                                .getStartFormData(execution.getProcessDefinitionId());
-                                
-                                FormData oTaskFormData = execution.getEngineServices()
-                                                .getFormService()
-                                                //.getTaskFormData(execution.getProcessDefinitionId());
-                                                //.getTaskFormData(execution.getProcessInstanceId());
-                                                .getTaskFormData(previousUserTaskId);
+				FormData oTaskFormData = null;
+				if (previousUserTaskId != null && !previousUserTaskId.isEmpty()) {
+						oTaskFormData = execution.getEngineServices()
+                        	.getFormService()
+                            .getTaskFormData(previousUserTaskId);
+				} else {
+					oTaskFormData = execution.getEngineServices()
+                        	.getFormService()
+                        	.getStartFormData(execution.getProcessDefinitionId());
+				}
                                 
                                 
 				if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
@@ -230,26 +234,28 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				
 			}
 			boolean bReplaced = false;
+			LOG.info("Variables of execution:" + execution.getVariables());
 			for (FormProperty property : aProperty) {
 				String sType = property.getType().getName();
 				String snID = property.getId();
 				if (!bReplaced && "enum".equals(sType)
 						&& sTAG_Function_AtEnum.equals(snID)) {
 					LOG.info(String
-							.format("Found field! Matching property snID=%s:name=%s:sType=%s with fieldNames",
-									snID, property.getName(), sType));
+							.format("Found field! Matching property snID=%s:name=%s:sType=%s:sValue=%s with fieldNames",
+									snID, property.getName(), sType, property.getValue()));
                                         
-                                                String sID_Enum = execution.getVariable(property.getId()).toString();
-                                            LOG.info("execution.getVariable()(sID_Enum)=" + sID_Enum);
-                                        
-					String sValue = parseEnumProperty(property,sID_Enum);
-					LOG.info("sValue=" + sValue);
+					Object variable = execution.getVariable(property.getId());
+					if (variable != null){
+						String sID_Enum = variable.toString();
+						LOG.info("execution.getVariable()(sID_Enum)=" + sID_Enum);
+						String sValue = parseEnumProperty(property,sID_Enum);
+						LOG.info("sValue=" + sValue);
 
-					textWithoutTags = textWithoutTags.replaceAll("\\Q"
-							+ TAG_Function_AtEnum + sTAG_Function_AtEnum
-							+ TAG_Function_To + "\\E", sValue);
-					bReplaced = true;
-
+						textWithoutTags = textWithoutTags.replaceAll("\\Q"
+								+ TAG_Function_AtEnum + sTAG_Function_AtEnum
+								+ TAG_Function_To + "\\E", sValue);
+						bReplaced = true;
+					}
 				}
 			}
 

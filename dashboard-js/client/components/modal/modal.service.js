@@ -135,7 +135,9 @@ angular.module('dashboardJsApp')
             }, 'modal-danger');
 
             warningModal.result.then(function(event) {
-              callBack.apply(event, args);
+              if (callBack) {
+                callBack.apply(event, args);
+              }
             });
           };
         },
