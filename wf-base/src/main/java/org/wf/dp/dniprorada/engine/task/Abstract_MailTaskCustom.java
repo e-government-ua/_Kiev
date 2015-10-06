@@ -110,6 +110,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         if (textStr == null) {
             return null;
         }
+        LOG.info("begin textStr: " + textStr);
         String textWithoutTags = replaceTags_LIQPAY(textStr, execution);
 
         textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
@@ -118,56 +119,8 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
         textWithoutTags = replaceTags_Catalog(textStr, execution);
 
-        List<String> previousUserTaskId = getPreviousTaskId(execution);
+        textWithoutTags = replaceTags_Enum(textWithoutTags, execution);
 
-
-        int nLimit = StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum);
-        Map<String, FormProperty> aPropertiesMap = new HashMap<String, FormProperty>();
-        int foundIndex = 0;
-        while (nLimit > 0) {
-            nLimit--;
-            int nAt = textWithoutTags.indexOf(TAG_Function_AtEnum, foundIndex);
-            LOG.info("sTAG_Function_AtEnum,nAt=" + nAt);
-            int nTo = textWithoutTags.indexOf(TAG_Function_To, foundIndex);
-            foundIndex = nTo + 1;
-            LOG.info("sTAG_Function_AtEnum,nTo=" + nTo);
-            String sTAG_Function_AtEnum = textWithoutTags.substring(nAt
-                    + TAG_Function_AtEnum.length(), nTo);
-            LOG.info("sTAG_Function_AtEnum=" + sTAG_Function_AtEnum);
-
-            if (aPropertiesMap.isEmpty()) {
-                loadPropertiesFromTasks(execution, previousUserTaskId,
-                        aPropertiesMap);
-            }
-            boolean bReplaced = false;
-            for (FormProperty property : aPropertiesMap.values()) {
-                String sType = property.getType().getName();
-                String snID = property.getId();
-                if (!bReplaced && "enum".equals(sType)
-                        && sTAG_Function_AtEnum.equals(snID)) {
-                    LOG.info(String
-                            .format("Found field! Matching property snID=%s:name=%s:sType=%s:sValue=%s with fieldNames",
-                            snID, property.getName(), sType, property.getValue()));
-
-                    Object variable = execution.getVariable(property.getId());
-                    if (variable != null) {
-                        String sID_Enum = variable.toString();
-                        LOG.info("execution.getVariable()(sID_Enum)=" + sID_Enum);
-                        String sValue = parseEnumProperty(property, sID_Enum);
-                        LOG.info("sValue=" + sValue);
-
-                        textWithoutTags = textWithoutTags.replaceAll("\\Q"
-                                + TAG_Function_AtEnum + sTAG_Function_AtEnum
-                                + TAG_Function_To + "\\E", sValue);
-                        bReplaced = true;
-                    }
-                }
-            }
-
-        }
-
-        LOG.info("execution.getProcessInstanceId()="
-                + execution.getProcessInstanceId());
         Long nID_Protected = getProtectedNumber(Long.valueOf(execution
                 .getProcessInstanceId()));
         LOG.info("nID_Protected=" + nID_Protected);
@@ -226,23 +179,86 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         return textWithoutTags;
     }
 
+    private String replaceTags_Enum(String textWithoutTags, DelegateExecution execution) {
+        List<String> previousUserTaskId = getPreviousTaskId(execution);
+        int nLimit = StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum);
+        Map<String, FormProperty> aProperty = new HashMap<String, FormProperty>();
+        int foundIndex = 0;
+        while (nLimit > 0) {
+            nLimit--;
+            int nAt = textWithoutTags.indexOf(TAG_Function_AtEnum, foundIndex);
+            LOG.info("sTAG_Function_AtEnum,nAt=" + nAt);
+            int nTo = textWithoutTags.indexOf(TAG_Function_To, foundIndex);
+            foundIndex = nTo + 1;
+            LOG.info("sTAG_Function_AtEnum,nTo=" + nTo);
+            String sTAG_Function_AtEnum = textWithoutTags.substring(nAt
+                    + TAG_Function_AtEnum.length(), nTo);
+            LOG.info("sTAG_Function_AtEnum=" + sTAG_Function_AtEnum);
+
+            if (aProperty.isEmpty()) {
+                loadPropertiesFromTasks(execution, previousUserTaskId,
+                        aProperty);
+            }
+            boolean bReplaced = false;
+            for (FormProperty property : aProperty.values()) {
+                String sType = property.getType().getName();
+                String snID = property.getId();
+                if (!bReplaced && "enum".equals(sType)
+                        && sTAG_Function_AtEnum.equals(snID)) {
+                    LOG.info(String
+                            .format("Found field! Matching property snID=%s:name=%s:sType=%s:sValue=%s with fieldNames",
+                            snID, property.getName(), sType, property.getValue()));
+
+                    Object variable = execution.getVariable(property.getId());
+                    if (variable != null) {
+                        String sID_Enum = variable.toString();
+                        LOG.info("execution.getVariable()(sID_Enum)=" + sID_Enum);
+                        String sValue = parseEnumProperty(property, sID_Enum);
+                        LOG.info("sValue=" + sValue);
+
+                        textWithoutTags = textWithoutTags.replaceAll("\\Q"
+                                + TAG_Function_AtEnum + sTAG_Function_AtEnum
+                                + TAG_Function_To + "\\E", sValue);
+                        bReplaced = true;
+                    }
+                }
+            }
+
+        }
+        return textWithoutTags;
+    }
+
     private String replaceTags_Catalog(String textStr, DelegateExecution execution) throws Exception {
         StringBuffer outputTextBuffer = new StringBuffer();
         String replacement = "";
         Matcher matcher = TAG_sPATTERN_CONTENT_CATALOG.matcher(textStr);
-        while (matcher.find()) {
-            String tag_Payment_CONTENT_CATALOG = matcher.group();
-            if (!tag_Payment_CONTENT_CATALOG.startsWith(TAG_Function_AtEnum)) {
-                String prefix;
-                Matcher matcherPrefix = TAG_PATTERN_DOUBLE_BRACKET.matcher(tag_Payment_CONTENT_CATALOG);
-                if (matcherPrefix.find()) {
-                    prefix = matcherPrefix.group();
-                    Matcher matcherText = TAG_PATTERN_TEXT.matcher(prefix);
-                    if (matcherText.find()) {
-                        //получить значение поля и сделать подмену
-                        matcher.appendReplacement(outputTextBuffer, replacement);
+        if (matcher.find()) {
+            matcher.lookingAt();
+            List<String> aPreviousUserTask_ID = getPreviousTaskId(execution);
+            LOG.info("aPreviousUserTask_ID: " + aPreviousUserTask_ID);
+            Map<String, FormProperty> mProperty = new HashMap<String, FormProperty>();
+            loadPropertiesFromTasks(execution, aPreviousUserTask_ID, mProperty);
+            while (matcher.find()) {
+                String tag_Payment_CONTENT_CATALOG = matcher.group();
+                LOG.info("tag_Payment_CONTENT_CATALOG: " + tag_Payment_CONTENT_CATALOG);
+                if (!tag_Payment_CONTENT_CATALOG.startsWith(TAG_Function_AtEnum)) {
+                    String prefix;
+                    Matcher matcherPrefix = TAG_PATTERN_DOUBLE_BRACKET.matcher(tag_Payment_CONTENT_CATALOG);
+                    if (matcherPrefix.find()) {
+                        prefix = matcherPrefix.group();
+                        LOG.info("prefix: " + prefix);
+                        Matcher matcherText = TAG_PATTERN_TEXT.matcher(prefix);
+                        if (matcherText.find()) {
+                            String form_ID = matcherText.group();
+                            LOG.info("form_ID: " + form_ID);
+                            FormProperty formProperty = mProperty.get(form_ID);
+                            if(formProperty != null && formProperty.getValue() != null){
+                               replacement = formProperty.getValue(); 
+                            }
+                        }
                     }
                 }
+                matcher.appendReplacement(outputTextBuffer, replacement);
             }
         }
         return matcher.appendTail(outputTextBuffer).toString();
@@ -314,7 +330,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
     private void loadPropertiesFromTasks(DelegateExecution execution,
             List<String> previousUserTaskId,
-            Map<String, FormProperty> aPropertiesMap) {
+            Map<String, FormProperty> aProperty) {
         LOG.info("execution.getId()=" + execution.getId());
         LOG.info("execution.getProcessDefinitionId()=" + execution.getProcessDefinitionId());
         LOG.info("execution.getProcessInstanceId()=" + execution.getProcessInstanceId());
@@ -333,7 +349,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 
                 if (oTaskFormData != null && oTaskFormData.getFormProperties() != null) {
                     for (FormProperty property : oTaskFormData.getFormProperties()) {
-                        aPropertiesMap.put(property.getId(), property);
+                        aProperty.put(property.getId(), property);
                         LOG.info(String.format(
                                 "Matching property id=%s:name=%s:%s:%s with fieldNames",
                                 property.getId(), property.getName(), property
@@ -350,7 +366,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                     .getStartFormData(execution.getProcessDefinitionId());
             if (oTaskFormData != null && oTaskFormData.getFormProperties() != null) {
                 for (FormProperty property : oTaskFormData.getFormProperties()) {
-                    aPropertiesMap.put(property.getId(), property);
+                    aProperty.put(property.getId(), property);
                     LOG.info(String.format(
                             "Matching property id=%s:name=%s:%s:%s with fieldNames",
                             property.getId(), property.getName(), property
@@ -369,6 +385,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         List<String> resIDs = new LinkedList<String>();
 
         for (FlowElement flowElement : execution.getEngineServices().getRepositoryService().getBpmnModel(ee.getProcessDefinitionId()).getMainProcess().getFlowElements()) {
+            LOG.info("flowElement.getClass " + flowElement.getClass());
             if (flowElement instanceof UserTask) {
                 UserTask userTask = (UserTask) flowElement;
                 LOG.info("Checking user task with ID: " + userTask.getId());
