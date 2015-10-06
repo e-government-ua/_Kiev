@@ -122,7 +122,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                 
         textWithoutTags = populatePatternWithContent(textWithoutTags);
                 
-        String previousUserTaskId = getPreviousTaskId(execution);
+        List<String> previousUserTaskId = getPreviousTaskId(execution);
                 
 		for (int i = 0; i < 10; i++) { // TODO: написать автоопределение тегов и заменить этот кусок
 			boolean isItFirstTag = (i == 0);
@@ -200,36 +200,37 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                                 String[] as=execution.getProcessDefinitionId().split("\\:");
                                 String s=as[2];
 				LOG.info("s=" + s);
-                                
-				//EngineServices oEngineServices = execution.getEngineServices();
-				//TaskFormData oTaskFormData = oEngineServices.getFormService()
-				//		.getTaskFormData(execution.getId());// task.getId()
-                                
-//                                StartFormData oTaskFormData = execution.getEngineServices()
-//                                                .getFormService()
-//                                                .getStartFormData(execution.getProcessDefinitionId());
-				FormData oTaskFormData = null;
-				if (previousUserTaskId != null && !previousUserTaskId.isEmpty()) {
-						oTaskFormData = execution.getEngineServices()
-                        	.getFormService()
-                            .getTaskFormData(previousUserTaskId);
-				} else {
-					oTaskFormData = execution.getEngineServices()
-                        	.getFormService()
-                        	.getStartFormData(execution.getProcessDefinitionId());
+
+				for (String taskId : previousUserTaskId){
+					FormData oTaskFormData = null;
+					if (previousUserTaskId != null && !previousUserTaskId.isEmpty()) {
+							oTaskFormData = execution.getEngineServices()
+	                        	.getFormService()
+	                            .getTaskFormData(taskId);
+					} 
+	                                
+					if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
+						for (FormProperty property : oTaskFormData.getFormProperties()) {
+							aProperty.add(property);
+							LOG.info(String.format(
+									"Matching property id=%s:name=%s:%s:%s with fieldNames",
+									property.getId(), property.getName(), property
+											.getType().getName(), property.getValue()));
+						}
+						bCashed = true;
+					}
 				}
-                                
-                                
+				FormData oTaskFormData = execution.getEngineServices()
+                    	.getFormService()
+                    	.getStartFormData(execution.getProcessDefinitionId());
 				if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
 					for (FormProperty property : oTaskFormData.getFormProperties()) {
 						aProperty.add(property);
 						LOG.info(String.format(
-								"Matching property id=%s:name=%s:%s with fieldNames",
+								"Matching property id=%s:name=%s:%s:%s with fieldNames",
 								property.getId(), property.getName(), property
-										.getType().getName()));
-					
-                                        }
-					bCashed = true;
+										.getType().getName(), property.getValue()));
+					}
 				}
 				
 			}
@@ -328,53 +329,31 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 		return textWithoutTags;
 	}
 
-	private String getPreviousTaskId(DelegateExecution execution) {
+	private List<String> getPreviousTaskId(DelegateExecution execution) {
 		ExecutionEntity ee = (ExecutionEntity) execution;
-		String id = ee.getActivity().getId();
 		
-		BpmnModel bpmnModel = execution.getEngineServices().getRepositoryService().getBpmnModel(execution.getProcessDefinitionId());
-
-		String sourceFlow = null;
-		for (FlowElement flowElement : bpmnModel.getMainProcess().getFlowElements()) {
-		    if (flowElement instanceof ServiceTask) {
-		    	ServiceTask serviceTask = (ServiceTask) flowElement;
-		    	LOG.info("Checking service task with ID: " + serviceTask.getId());
-		    	if (serviceTask.getId().equals(id)){
-		    		List<SequenceFlow> flows = serviceTask.getIncomingFlows();
-		    		for (SequenceFlow flow : flows){
-		    			LOG.info("Source ref:" + flow.getSourceRef() + " name:" + flow.getName());
-		    			sourceFlow = flow.getSourceRef();
-		    			break;
-		    		}
-		    	}
-		    }
-		}
-		String previousUserTaskId = null;
-		if (sourceFlow != null){
-			for (FlowElement flowElement : bpmnModel.getMainProcess().getFlowElements()) {
-		        if (flowElement instanceof UserTask) {
-		        	UserTask userTask = (UserTask) flowElement;
-		        	LOG.info("Checking user task with ID: " + userTask.getId());
-		        	List<SequenceFlow> flows = userTask.getOutgoingFlows();
-		        	for (SequenceFlow flow : flows){
-		        		LOG.info("Target ref:" + flow.getTargetRef() + " name:" + flow.getName());
-		        		if (sourceFlow.equals(flow.getTargetRef())){
-		        			previousUserTaskId = userTask.getId();
-		        			break;
-		        		}
-		        	}
-		        }
-		    }
-		}
+		List<String> tasksRes = new LinkedList<String>();
+		List<String> resIDs = new LinkedList<String>();
 		
-		List<Task> tasks = execution.getEngineServices().getTaskService().createTaskQuery().executionId(execution.getId()).taskDefinitionKey(previousUserTaskId).list();
-		if (tasks != null){
-			for (Task task : tasks){
-				LOG.info("Task with ID:" + task.getId() + " name:" + task.getName() + " taskDefinitionKey:" + task.getTaskDefinitionKey());
-				return task.getId();
+		for (FlowElement flowElement : execution.getEngineServices().getRepositoryService().getBpmnModel(ee.getProcessDefinitionId()).getMainProcess().getFlowElements()) {
+	        if (flowElement instanceof UserTask) {
+	        	UserTask userTask = (UserTask) flowElement;
+	        	LOG.info("Checking user task with ID: " + userTask.getId());
+	        	resIDs.add(userTask.getId());
+	        	
+	        }
+	    }
+		
+		for (String taskIdInBPMN : resIDs){
+			List<Task> tasks = execution.getEngineServices().getTaskService().createTaskQuery().executionId(execution.getId()).taskDefinitionKey(taskIdInBPMN).list();
+			if (tasks != null){
+				for (Task task : tasks){
+					LOG.info("Task with ID:" + task.getId() + " name:" + task.getName() + " taskDefinitionKey:" + task.getTaskDefinitionKey());
+					tasksRes.add(task.getId());
+				}
 			}
 		}
-		return "";
+		return tasksRes;
 	}
 
 	protected String getStringFromFieldExpression(Expression expression,
