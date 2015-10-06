@@ -572,9 +572,7 @@ public class ActivitiRestFlowController {
                           " as they have not valid  start-end date" + currFlowSlotTicket.getsDateStart().toString() + ":" +
                           currFlowSlotTicket.getsDateFinish());
                }
-            } else {
-               log.info("List of tasks doesn't contain tasks with ID: " + currFlowSlotTicket.getnID_Task_Activiti());
-            }
+            } 
          }
       }
 
