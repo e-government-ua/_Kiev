@@ -29,8 +29,10 @@ import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Mail;
 import org.wf.dp.dniprorada.util.Util;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -180,12 +182,14 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 			}
 		}
 
-		int nLimit = 10;
+		int nLimit = StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum);
 		boolean bCashed = false;
-		List<FormProperty> aProperty = new LinkedList();
-		while (nLimit > 0 && textWithoutTags.contains(TAG_Function_AtEnum)) {
+		Map<String, FormProperty> aProperty = new HashMap<String, FormProperty>();
+		int foundIndex = 0;
+		while (nLimit > 0) {
 			nLimit--;
-			int nAt = textWithoutTags.indexOf(TAG_Function_AtEnum);
+			int nAt = textWithoutTags.indexOf(TAG_Function_AtEnum, foundIndex);
+			foundIndex = nAt;
 			LOG.info("sTAG_Function_AtEnum,nAt=" + nAt);
 			int nTo = textWithoutTags.indexOf(TAG_Function_To);
 			LOG.info("sTAG_Function_AtEnum,nTo=" + nTo);
@@ -202,42 +206,49 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				LOG.info("s=" + s);
 
 				for (String taskId : previousUserTaskId){
-					FormData oTaskFormData = null;
-					if (previousUserTaskId != null && !previousUserTaskId.isEmpty()) {
-							oTaskFormData = execution.getEngineServices()
-	                        	.getFormService()
-	                            .getTaskFormData(taskId);
-					} 
-	                                
+					try {
+						FormData oTaskFormData = null;
+						if (previousUserTaskId != null && !previousUserTaskId.isEmpty()) {
+								oTaskFormData = execution.getEngineServices()
+		                        	.getFormService()
+		                            .getTaskFormData(taskId);
+						} 
+		                                
+						if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
+							for (FormProperty property : oTaskFormData.getFormProperties()) {
+								aProperty.put(property.getId(), property);
+								LOG.info(String.format(
+										"Matching property id=%s:name=%s:%s:%s with fieldNames",
+										property.getId(), property.getName(), property
+												.getType().getName(), property.getValue()));
+							}
+							bCashed = true;
+						}
+					} catch (Exception e){
+						LOG.error("Error occured while looking for a form for task: " + taskId + " Message:" + e.getMessage());
+					}
+				}
+				try {
+					FormData oTaskFormData = execution.getEngineServices()
+	                    	.getFormService()
+	                    	.getStartFormData(execution.getProcessDefinitionId());
 					if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
 						for (FormProperty property : oTaskFormData.getFormProperties()) {
-							aProperty.add(property);
+							aProperty.put(property.getId(), property);
 							LOG.info(String.format(
 									"Matching property id=%s:name=%s:%s:%s with fieldNames",
 									property.getId(), property.getName(), property
 											.getType().getName(), property.getValue()));
 						}
-						bCashed = true;
 					}
-				}
-				FormData oTaskFormData = execution.getEngineServices()
-                    	.getFormService()
-                    	.getStartFormData(execution.getProcessDefinitionId());
-				if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
-					for (FormProperty property : oTaskFormData.getFormProperties()) {
-						aProperty.add(property);
-						LOG.info(String.format(
-								"Matching property id=%s:name=%s:%s:%s with fieldNames",
-								property.getId(), property.getName(), property
-										.getType().getName(), property.getValue()));
-					}
+				} catch (Exception e){
+					LOG.error("Error occured while looking for a start form for a process. " + e.getMessage());
 				}
 				
 			}
+			LOG.info("Variables of the process:" + execution.getVariables());
 			boolean bReplaced = false;
-			LOG.info("Variables of execution:" + execution.getVariables());
-			LOG.info("local variables of execution:" + execution.getVariablesLocal());
-			for (FormProperty property : aProperty) {
+			for (FormProperty property : aProperty.values()) {
 				String sType = property.getType().getName();
 				String snID = property.getId();
 				if (!bReplaced && "enum".equals(sType)
@@ -346,7 +357,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 	    }
 		
 		for (String taskIdInBPMN : resIDs){
-			List<Task> tasks = execution.getEngineServices().getTaskService().createTaskQuery().executionId(execution.getId()).list();
+			List<Task> tasks = execution.getEngineServices().getTaskService().createTaskQuery().executionId(execution.getId()).taskDefinitionKey(taskIdInBPMN).list();
 			if (tasks != null){
 				for (Task task : tasks){
 					LOG.info("Task with ID:" + task.getId() + " name:" + task.getName() + " taskDefinitionKey:" + task.getTaskDefinitionKey());
