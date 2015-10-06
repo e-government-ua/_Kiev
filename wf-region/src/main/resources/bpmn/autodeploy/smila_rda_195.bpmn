@@ -245,7 +245,6 @@
         <activiti:formProperty id="DocumentDate" name="Дата оформлення документів у форматі - ДД.ММ.PPPP" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="vnnumb" name="Реєстраційний номер звернення" type="string"></activiti:formProperty>
-        <activiti:formProperty id="privateMail" name="e-mail спеціалістів Держкомзему" type="string"></activiti:formProperty>
         <activiti:formProperty id="doc" type="label" default="Якщо громадянин відправив Вам файли окрім копії паспорту, копії ІПН, та копії права власності на земельну ділянку, додайте їх опис у полях нижче"></activiti:formProperty>
         <activiti:formProperty id="doc1" name="Файл 1" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="doc2" name="Файл 2" type="string" default=" "></activiti:formProperty>
