@@ -13,6 +13,9 @@ function FieldMotionService(MarkersFactory) {
     },
     inRequired: function(fieldId) {
       return this.in(fieldId, 'RequiredFieldsOn');
+    },
+    inWritable: function(fieldId) {
+      return this.in(fieldId , "WritableFieldsOnCondition_");
     }
   };
 
@@ -20,6 +23,12 @@ function FieldMotionService(MarkersFactory) {
     return grepByPrefix('ValuesFieldsOnCondition')
       .map(function(e) { return e.aField_ID; })
       .reduce(function(prev, curr) { return prev.concat(curr); }, []);
+  };
+
+  this.isFieldWritable = function(fieldId, formData) {
+    return grepByPrefix('WritableFieldsOnCondition_').some(function(entry) {
+      return evalCondition(entry, fieldId, formData);
+    });
   };
 
   this.isFieldVisible = function(fieldId, formData) {
