@@ -1,20 +1,13 @@
 /**
  Place.js - компонент для вибору місця - області та міста.
  Використовує сервіс PlacesService.
- 
- FIXME: передбачити можливість вибору тільки міста, якщо його назва є унікальною — тобто воно належить тільки одній області, і її можна взнати автоматично.
- 
- FIXME: був баг: при виборі області інтерфейс дає вибрати ще й місто, хоча область у данноу випадку є кінцевоб точкою: https://github.com/e-government-ua/i/issues/540 
 
- FIXME: наявність обласної послуги не має блокувати можливість розміщення там же і міської послуги, див https://github.com/e-government-ua/i/issues/443
- Правильно: вибрати "Миколіївську", а потім мати можливість вибрати "Миколаїв"
-
- Див. https://github.com/e-government-ua/i/issues/550
-**/
+ TODO: для кращого юзабіліті, розглянути можливість показу локацій, у яких сервіс доступний, у верхній частині списку
+ 
+ Див.: https://github.com/e-government-ua/i/issues/550
+ */
 angular.module('app')
   .directive('place', function($rootScope, $location, $state, $sce, AdminService, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, serviceLocationParser) {
-
-    var sControlMode = 'default';
 
     return {
       restrict: 'E',
@@ -66,15 +59,8 @@ angular.module('app')
 
         // TODO improve the logic
         $scope.authControlIsVisible = function() {
-          return $scope.authControlIsNeeded() && sControlMode !== 'placeEditMode';
-        };
-
-        $scope.authControlIsNeeded = function() {
-          var bNeeded = true;
           var sa = PlacesService.serviceAvailableIn();
-          bNeeded = bNeeded && (sa.thisRegion || sa.thisCity) && $scope.placeControlIsComplete();
-
-          return bNeeded;
+          return (sa.thisRegion || sa.thisCity) && $scope.placeControlIsComplete();
         };
 
         // TODO do the logic
@@ -97,15 +83,13 @@ angular.module('app')
 
         $scope.placeControlIsVisible = function() {
           var bResult = true;
-
           bResult = $scope.placeControlIsNeeded();
-
           return bResult;
         };
 
         $scope.placeControlIsDisabled = function() {
           var bIsDisabled = false;
-          bIsDisabled = $scope.placeControlIsComplete() && sControlMode !== 'placeEditMode';
+          bIsDisabled = $scope.placeControlIsComplete();
           return bIsDisabled;
         };
 
@@ -113,39 +97,50 @@ angular.module('app')
          * Ця функція визначає, чи заповнені всі поля, які необхідно заповнити
          */
         $scope.placeControlIsComplete = function() {
-          var bIsComplete = null;
+          var bIsComplete = false;
           var sa = PlacesService.serviceAvailableIn();
           var regionIsChosen = $scope.regionIsChosen();
           var cityIsChosen = $scope.cityIsChosen();
 
-          // return false if no region or no city is chosen (usually on startup), but service is available somewhere
-          if ((!regionIsChosen && sa.someRegion) || (!cityIsChosen && sa.someCity)) {
-            bIsComplete = false;
-          }
-          // no region - no city, no need in choosing the place
+          //
+          // вибір вважається зробленим, якщо:
+          // 
+          // сервіс недоступний ні в областях, ні в містах, отже вибирати місце не треба:
           if (!sa.someRegion && !sa.someCity) {
             bIsComplete = true;
           }
-          // this region only and no city in this region (!)
+          // сервіс доступний у вибраній області і недоступний у містах даної області:
+          // був баг: при виборі області можна було вибрати ще й місто, хоча область була кінцевою точкою (issues/540)
           if (sa.thisRegion && !sa.someCityInThisRegion) {
             bIsComplete = true;
           }
-          // this city
+          // сервіс доступний у вибраному місті:
           if (sa.thisCity) {
             bIsComplete = true;
           }
-          // not this region, but maybe another (but not another city)
+          // сервіс недоступний у вибраній області, але доступний у якійсь іншій (але не в містах):
           if (regionIsChosen && !sa.thisRegion && sa.someRegion && !sa.someCity) {
             bIsComplete = true;
           }
+          // сервіс недоступний у вибраних області та місті, але доступний у якомусь місті:
+          // Приклад: /service/159/general, Дніпропетровська > Апостолове, має бути "bIsComplete"
+          if (regionIsChosen && cityIsChosen && sa.someCity ) {
+           bIsComplete = true; 
+          }
+
+          // для тестування:
+          // service/17/general
+          // наявність обласної послуги не має блокувати можливість розміщення там же і міської послуги (issues/443)
+          // Правильно: вибрати "Миколіївську", а потім мати можливість вибрати "Миколаїв"
+
+          // TODO: передбачити можливість вибору тільки міста, якщо його назва є унікальною — тобто воно належить тільки одній області, і її можна взнати автоматично.
 
           return bIsComplete;
         };
 
         $scope.editPlace = function() {
-          sControlMode = 'placeEditMode';
-
           $scope.resetPlaceData();
+
           var regions = PlacesService.getRegionsForService(ServiceService.oService);
 
           $scope.regionList.reset();
@@ -155,8 +150,19 @@ angular.module('app')
           $scope.localityList.reset();
           $scope.localityList.select(null);
 
-          $scope.$emit('onEditPlace', {});
+          $scope.setStepNumber(1);
+
+          $scope.$emit('onPlaceEdit');
         };
+
+        $scope.setStepNumber = function(nStep) {
+          $scope.stepNumber = nStep;
+        };
+
+        $scope.getStepNumber = function() {
+          return $scope.stepNumber;
+        };
+
 
         $scope.loadRegionList = function(search) {
           return $scope.regionList.load(ServiceService.oService, search);
@@ -180,14 +186,17 @@ angular.module('app')
           $scope.region = PlacesService.getPlaceData().region;
           $scope.city = PlacesService.getPlaceData().city;
 
+          $scope.setStepNumber(2);
+
           $scope.$emit('onPlaceChange');
         };
 
-        // FIXME дебажити повторний вибір місця
         $scope.initPlaceControls = function() {
 
           var regions = $scope.regions;
           var placeData = PlacesService.getPlaceData();
+
+          $scope.stepNumber = 1;
 
           // ініціюємо дані зі scope, якщо вони там є:
           $scope.region = $scope.data && $scope.data.region || placeData.region || $scope.region;
@@ -203,24 +212,19 @@ angular.module('app')
 
           $scope.regionList.initialize($scope.regions);
 
-          // console.log('initPlaceControls $scope.regions.length = ', $scope.regions.length, '$scope.region:', $scope.region, '$scope.city:', $scope.city, ' $scope.data:', $scope.data);
+          var bIsComplete = $scope.placeControlIsComplete();
 
-          // TODO обнуляти дані, коли працюємо з localstorage, але не коли йдемо "крок за кроком":
-          if (sControlMode === 'placeEditMode') {
-            $scope.resetPlaceData();
-          }
+          // console.log('initPlaceControls $scope.regions.length = ', $scope.regions.length, '$scope.region:', $scope.region, '$scope.city:', $scope.city, ' $scope.data:', $scope.data, 'bIsComplete:', bIsComplete);
 
           $scope.recallPlaceData();
 
           // Якщо форма вже заповнена після відновлення даних з localStorage, то перейти до наступного кроку:
-          if ($scope.placeControlIsComplete()) {
+          if (bIsComplete) {
             $scope.processPlaceSelection();
           }
         };
 
         $scope.onSelectRegionList = function($item, $model, $label) {
-
-          console.info('onSelectRegionList, Service Availability:', JSON.stringify(PlacesService.serviceAvailableIn(), null, ''), $item);
 
           PlacesService.setRegion($item);
           $scope.regionList.select($item, $model, $label);
@@ -228,10 +232,6 @@ angular.module('app')
           $scope.loadLocalityList(null);
           PlacesService.setCity(null);
           $scope.localityList.reset();
-
-          $scope.localityList.load(null, $item.nID, null).then(function(cities) {
-            $scope.localityList.typeahead.defaultList = cities;
-          });
 
           var serviceType = PlacesService.findServiceDataByRegion();
 
@@ -243,6 +243,10 @@ angular.module('app')
               if (initialCity) {
                 $scope.onSelectLocalityList(initialCity);
               }
+            });
+          } else {
+            $scope.localityList.load(null, $item.nID, null).then(function(cities) {
+              $scope.localityList.typeahead.defaultList = cities;
             });
           }
 

@@ -45,7 +45,7 @@
         <activiti:formProperty id="marker1" name="Фізична особа" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;bankId_scan_passport&quot;,&quot;scan_inn&quot;,&quot;graphics&quot;,&quot;right&quot;,&quot;coordination&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;subject_of_appeal&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'attr1'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker2" name="Юридична особа або фізична особа - підприємець" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;copy_vytyag&quot;,&quot;graphics&quot;,&quot;right&quot;,&quot;coordination&quot;],&quot;asID_Field&quot;:{&quot;sReason1&quot;:&quot;subject_of_appeal&quot;},&quot;sCondition&quot;:&quot;[sReason1] == 'attr2'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker3" name="ОСББ, ЖБК, ОК" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;file1&quot;,&quot;file2&quot;,&quot;file3&quot;,&quot;file4&quot;,&quot;file5&quot;,&quot;file6&quot;,&quot;file7&quot;,&quot;file8&quot;,&quot;file9&quot;,&quot;file10&quot;,&quot;file11&quot;],&quot;asID_Field&quot;:{&quot;sReason2&quot;:&quot;subject_of_appeal&quot;},&quot;sCondition&quot;:&quot;[sReason2] == 'attr3'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="marker4" name="Обробка району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;23423424&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'andrush'&quot;},&quot;ValuesFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;23423425&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'baran'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker4" name="Обробка району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;1&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'andrush'&quot;},&quot;ValuesFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;2&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'baran'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -631,23 +631,23 @@
 										
 &lt;br /&gt;
 Адреса: &lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:${region}:3]&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:1:3]&lt;br /&gt;
 &lt;br /&gt;
 Графік роботи ЦНАП-у:&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:${region}:4]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:${region}:5]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:${region}:6]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:${region}:7]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:${region}:8]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:${region}:9]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:${region}:10]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:${region}:11]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:${region}:12]&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:1:4]&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:1:5]&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:1:6]&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:1:7]&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:1:8]&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:1:9]&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:1:10]&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:1:11]&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:1:12]&lt;br /&gt;
 &lt;br /&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою, &lt;br /&gt;
-										[pattern_dictonary:zhytomir_reg_cnap.csv:${region}:2],&lt;br/&gt;
+										[pattern_dictonary:zhytomir_reg_cnap.csv:1:2],&lt;br/&gt;
                                         &lt;br&gt;Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.&lt;/br&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
