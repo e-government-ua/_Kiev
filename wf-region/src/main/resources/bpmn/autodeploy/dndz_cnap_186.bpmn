@@ -18,9 +18,9 @@
           <activiti:value id="fiz" name="фізична особа-підприємець"></activiti:value>
           <activiti:value id="ur" name="юридична особа"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи" type="string"></activiti:formProperty>
-        <activiti:formProperty id="adres_3" name="Місцезнаходження(адреса) юридичної особи" type="string"></activiti:formProperty>
-        <activiti:formProperty id="phone_1" name="Контактний телефон юридичної особи" type="string"></activiti:formProperty>
+        <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="adres_3" name="Місцезнаходження(адреса) юридичної особи" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="phone_1" name="Контактний телефон юридичної особи" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="duration_fair" name="Тривалість ярмарку" type="enum" required="true">
           <activiti:value id="less" name="до 1 місяця"></activiti:value>
           <activiti:value id="longer" name="більше 1 місяця"></activiti:value>
@@ -140,6 +140,9 @@
           <activiti:value id="fiz" name="фізична особа-підприємець"></activiti:value>
           <activiti:value id="ur" name="юридична особа"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="imya_ur" name="У давальному відмінку повне найменування юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adres_3" name="Місцезнаходження(адреса) юридичної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone_1" name="Контактний телефон юридичної особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="duration_fair" name="тривалість ярмарку" type="enum" writable="false">
           <activiti:value id="less" name="до 1 місяця"></activiti:value>
           <activiti:value id="longer" name="більше 1 місяця"></activiti:value>
