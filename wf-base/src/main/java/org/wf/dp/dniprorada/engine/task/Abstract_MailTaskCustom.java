@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.engine.task;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.activiti.bpmn.model.StartEvent;
 
 import org.activiti.engine.form.FormData;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
@@ -38,6 +40,7 @@ import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumPr
 
 import org.activity.rest.security.AuthenticationTokenSelector;
 import org.egov.util.MVSDepartmentsTagUtil;
+import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import org.wf.dp.dniprorada.exchange.AccessCover;
 
 import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
@@ -63,7 +66,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     private static final String PATTERN_CURRENCY_ID = "sID_Currency%s";
     private static final String PATTERN_DESCRIPTION = "sDescription%s";
     private static final String PATTERN_SUBJECT_ID = "nID_Subject%s";
-    private static final String PATTERN_DELIMITER = "_";
+    //private static final String PATTERN_DELIMITER = "_";
     @Autowired
     AccessCover accessCover;
     @Autowired
@@ -233,7 +236,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         String replacement = "";
         Matcher matcher = TAG_sPATTERN_CONTENT_CATALOG.matcher(textStr);
         if (matcher.find()) {
-            matcher.lookingAt();
+            matcher = TAG_sPATTERN_CONTENT_CATALOG.matcher(textStr);
             List<String> aPreviousUserTask_ID = getPreviousTaskId(execution);
             LOG.info("aPreviousUserTask_ID: " + aPreviousUserTask_ID);
             Map<String, FormProperty> mProperty = new HashMap<String, FormProperty>();
@@ -252,8 +255,18 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                             String form_ID = matcherText.group();
                             LOG.info("form_ID: " + form_ID);
                             FormProperty formProperty = mProperty.get(form_ID);
-                            if(formProperty != null && formProperty.getValue() != null){
-                               replacement = formProperty.getValue(); 
+                            if (formProperty != null) {
+                                if (formProperty.getValue() != null) {
+                                    replacement = formProperty.getValue();
+                                } else {
+                                    List<String> aID = new ArrayList<String>();
+                                    aID.add(formProperty.getId());
+                                    List<String> proccessVariable = AbstractModelTask.getVariableValues(execution, aID);
+                                    if (!proccessVariable.isEmpty() && proccessVariable.get(0) != null) {
+                                        replacement = proccessVariable.get(0);
+                                    }
+                                }
+
                             }
                         }
                     }
