@@ -21,7 +21,7 @@
         <activiti:formProperty id="rai" name="Оберіть район в якому розташовано земельну ділянку" type="enum" required="true">
           <activiti:value id="smil" name="Смілянський район"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Перевірка даних" activiti:candidateGroups="cherkcnap_rai_${rai}_1">
