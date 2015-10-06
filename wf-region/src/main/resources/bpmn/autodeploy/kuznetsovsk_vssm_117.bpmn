@@ -85,15 +85,15 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                                                       &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваше звернення щодо видачі надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося отримано та буде опрацьовано працівником відділу у справах сім’ї та молоді протягом трьох робочих днів.&lt;br /&gt;
+Ваше звернення щодо видачі надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося отримано та буде опрацьовано протягом 10 робочих днів.&lt;br /&gt;
 Ви отримаєте додаткове повідомлення за результатами розгляду запиту.&lt;br /&gt;
     &lt;/p&gt;
     
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
-                                        &lt;/p&gt;
+                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;&lt;br /&gt;
+                                        Виконавчий комітет Кузнецовської міської ради&lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
                            
@@ -300,7 +300,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
+                                        Виконавчий комітет Кузнецовської міської ради&lt;/p&gt;
                                         &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -406,7 +406,7 @@
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
-Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;&lt;br /&gt;
+&lt;b&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 Ваше звернення щодо надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося - опрацьовано.&lt;br /&gt;&lt;br /&gt;
 Копія документу знаходиться у додатку до листа.&lt;br /&gt;
 &lt;br /&gt;
@@ -415,15 +415,15 @@
 м.Кузнецовськ, майдан Незалежності 2, каб.№105-1&lt;br /&gt;&lt;br /&gt;
 Телефон для довідок (3636)2-23-73&lt;br /&gt;&lt;br /&gt;
 Графік роботи (крім святкових днів):&lt;br /&gt;
-пн.  ср. 8.00-17.15
-вт.  чт. 8.00-20.00
-птн. сб. 8.00-16.00
-обідня перерва 13:00-14:00&lt;br /&gt;
-&lt;br /&gt;
+Понеділок, середа 8.00-17.15&lt;br /&gt;
+Вівторок, четвер &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;8.00-20.00&lt;br /&gt;
+П'ятниця, субота &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;8.00-16.00&lt;br /&gt;&lt;br /&gt;
+обідня перерва &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;13:00-14:00&lt;br /&gt;
                                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
+                                        Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;&lt;br /&gt;
+                                        Виконавчий комітет Кузнецовської міської ради&lt;/p&gt;
                                         &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
