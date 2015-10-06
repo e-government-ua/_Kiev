@@ -54,6 +54,12 @@ angular.module('app').factory('MarkersFactory', function() {
       ,CodeMFO: {
         aField_ID: ['mfo']
       }
+      ,NumberBetween: {
+        aField_ID: ['numberBetween'],
+        nMin: 1,
+        nMax: 3,
+        sMessage: 'Проверьте правильность заполнения - число этажей состоит максимум из 3 цифр'
+      }
     },
     attributes: {
       Editable_1: {aField_ID:['sPhone_User1', 'sMail_User1', 'bankIdlastName'], bValue: true},

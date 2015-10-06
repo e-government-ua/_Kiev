@@ -102,7 +102,8 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
     ,'DateElapsed': 'dateelapsed'
     ,'CodeKVED': 'CodeKVED'
     ,'CodeEDRPOU': 'CodeEDRPOU'
-    ,'CodeMFO': 'CodeMFO'      
+    ,'CodeMFO': 'CodeMFO'
+    ,'NumberBetween': 'numberbetween'
   };
 
   /**
@@ -455,7 +456,40 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       //
       // console.log('Validate AutoVIN: ', sValue, ' is valid: ' + bValid );
       return bValid;
+    },
+
+    /**
+     'NumberBetween' - тільки цифри, максимум 3
+     Текст помилки: options.sMessage або 'Число має бути між ' + options.nMin + ' та ' + options.nMax;
+     Формат маркера: 
+      NumberBetween: { // Целочисленное между
+        aField_ID: ['floors'],
+        nMin: 1,
+        nMax: 3,
+        sMessage: ''
+      }
+    */
+    'NumberBetween': function(modelValue, viewValue, options) {
+      if(modelValue === null || modelValue === ''){
+        return true;
+      }
+      if (!options || !options.nMin || !options.nMax) {
+        return false;
+      }
+
+      var DIGITS_REGEXP = /^[0-9]{1,3}$/g;
+      var bValid = DIGITS_REGEXP.test(modelValue) && modelValue.length >= options.nMin && modelValue.length <= options.nMax;
+
+      console.log('Validate Number Between: ' + modelValue + ' is between: ' + options.nMin + ' and ' + options.nMax + ': ' + bValid);
+
+      options.lastError = '' ;
+      if (bValid === false) {
+        options.lastError = options.sMessage || 'Число має бути між ' + options.nMin + ' та ' + options.nMax; // options.sFormat;
+      }
+
+      return bValid;
     }
+
   };
 
   self.fromDateToDate = function(dateA, dateB, fmt) {
