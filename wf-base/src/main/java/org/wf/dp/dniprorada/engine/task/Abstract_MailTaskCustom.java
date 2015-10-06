@@ -182,11 +182,11 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 			}
 		}
 
-		int nLimit = 10;
+		int nLimit = StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum);
 		boolean bCashed = false;
 		Map<String, FormProperty> aProperty = new HashMap<String, FormProperty>();
 		int foundIndex = 0;
-		while (nLimit > 0 && textWithoutTags.contains(TAG_Function_AtEnum)) {
+		while (nLimit > 0) {
 			nLimit--;
 			int nAt = textWithoutTags.indexOf(TAG_Function_AtEnum, foundIndex);
 			foundIndex = nAt;
