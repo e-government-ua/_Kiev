@@ -128,8 +128,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         
         
         int nLimit = StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum);
-		boolean bCashed = false;
-		Map<String, FormProperty> aProperty = new HashMap<String, FormProperty>();
+		Map<String, FormProperty> aPropertiesMap = new HashMap<String, FormProperty>();
 		int foundIndex = 0;
 		while (nLimit > 0) {
 			nLimit--;
@@ -142,58 +141,12 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 					+ TAG_Function_AtEnum.length(), nTo);
 			LOG.info("sTAG_Function_AtEnum=" + sTAG_Function_AtEnum);
 
-			if (!bCashed) {
-				LOG.info("execution.getId()=" + execution.getId());
-				LOG.info("execution.getProcessDefinitionId()=" + execution.getProcessDefinitionId());
-				LOG.info("execution.getProcessInstanceId()=" + execution.getProcessInstanceId());
-                                String[] as=execution.getProcessDefinitionId().split("\\:");
-                                String s=as[2];
-				LOG.info("s=" + s);
-
-				for (String taskId : previousUserTaskId){
-					try {
-						FormData oTaskFormData = null;
-						if (previousUserTaskId != null && !previousUserTaskId.isEmpty()) {
-								oTaskFormData = execution.getEngineServices()
-		                        	.getFormService()
-		                            .getTaskFormData(taskId);
-						} 
-		                                
-						if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
-							for (FormProperty property : oTaskFormData.getFormProperties()) {
-								aProperty.put(property.getId(), property);
-								LOG.info(String.format(
-										"Matching property id=%s:name=%s:%s:%s with fieldNames",
-										property.getId(), property.getName(), property
-												.getType().getName(), property.getValue()));
-							}
-							bCashed = true;
-						}
-					} catch (Exception e){
-						LOG.error("Error occured while looking for a form for task: " + taskId + " Message:" + e.getMessage());
-					}
-				}
-				try {
-					FormData oTaskFormData = execution.getEngineServices()
-	                    	.getFormService()
-	                    	.getStartFormData(execution.getProcessDefinitionId());
-					if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
-						for (FormProperty property : oTaskFormData.getFormProperties()) {
-							aProperty.put(property.getId(), property);
-							LOG.info(String.format(
-									"Matching property id=%s:name=%s:%s:%s with fieldNames",
-									property.getId(), property.getName(), property
-											.getType().getName(), property.getValue()));
-						}
-					}
-				} catch (Exception e){
-					LOG.error("Error occured while looking for a start form for a process. " + e.getMessage());
-				}
-				
+			if (aPropertiesMap.isEmpty()) {
+				loadPropertiesFromTasks(execution, previousUserTaskId,
+						aPropertiesMap);				
 			}
-			LOG.info("Variables of the process:" + execution.getVariables());
 			boolean bReplaced = false;
-			for (FormProperty property : aProperty.values()) {
+			for (FormProperty property : aPropertiesMap.values()) {
 				String sType = property.getType().getName();
 				String snID = property.getId();
 				if (!bReplaced && "enum".equals(sType)
@@ -343,6 +296,56 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         
 
 		return textWithoutTags;
+	}
+
+	private void loadPropertiesFromTasks(DelegateExecution execution,
+			List<String> previousUserTaskId,
+			Map<String, FormProperty> aPropertiesMap) {
+		LOG.info("execution.getId()=" + execution.getId());
+		LOG.info("execution.getProcessDefinitionId()=" + execution.getProcessDefinitionId());
+		LOG.info("execution.getProcessInstanceId()=" + execution.getProcessInstanceId());
+		                String[] as=execution.getProcessDefinitionId().split("\\:");
+		                String s=as[2];
+		LOG.info("s=" + s);
+
+		for (String taskId : previousUserTaskId){
+			try {
+				FormData oTaskFormData = null;
+				if (previousUserTaskId != null && !previousUserTaskId.isEmpty()) {
+						oTaskFormData = execution.getEngineServices()
+		                	.getFormService()
+		                    .getTaskFormData(taskId);
+				} 
+		                        
+				if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
+					for (FormProperty property : oTaskFormData.getFormProperties()) {
+						aPropertiesMap.put(property.getId(), property);
+						LOG.info(String.format(
+								"Matching property id=%s:name=%s:%s:%s with fieldNames",
+								property.getId(), property.getName(), property
+										.getType().getName(), property.getValue()));
+					}
+				}
+			} catch (Exception e){
+				LOG.error("Error occured while looking for a form for task: " + taskId + " Message:" + e.getMessage());
+			}
+		}
+		try {
+			FormData oTaskFormData = execution.getEngineServices()
+		        	.getFormService()
+		        	.getStartFormData(execution.getProcessDefinitionId());
+			if(oTaskFormData != null && oTaskFormData.getFormProperties() != null){
+				for (FormProperty property : oTaskFormData.getFormProperties()) {
+					aPropertiesMap.put(property.getId(), property);
+					LOG.info(String.format(
+							"Matching property id=%s:name=%s:%s:%s with fieldNames",
+							property.getId(), property.getName(), property
+									.getType().getName(), property.getValue()));
+				}
+			}
+		} catch (Exception e){
+			LOG.error("Error occured while looking for a start form for a process. " + e.getMessage());
+		}
 	}
 
 	private List<String> getPreviousTaskId(DelegateExecution execution) {
