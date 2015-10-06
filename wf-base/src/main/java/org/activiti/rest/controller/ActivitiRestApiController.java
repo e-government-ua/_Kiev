@@ -1218,7 +1218,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     public @ResponseBody
     void setTaskQuestions(@RequestParam(value = "nID_Protected") Long nID_Protected,
                     @RequestParam(value = "saField") String saField,
-                    @RequestParam(value = "sMail") String sMail,
+                     String sMail,
                     @RequestParam(value = "sHead", required = false) String sHead,
                     @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException, CRCInvalidException {
 
