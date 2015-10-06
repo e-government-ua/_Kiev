@@ -316,3 +316,5 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 405;10;NULL;26;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"smila_rda_195:1:1"}};https://test.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
 406;1376;28;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dndz_cnap_186:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
 407;761;28;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dndz_cnap_192:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
+408;1377;28;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dndz_cnap_196:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
+409;1378;28;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dndz_cnap_201:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
