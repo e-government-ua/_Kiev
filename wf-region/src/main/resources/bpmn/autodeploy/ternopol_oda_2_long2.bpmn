@@ -448,7 +448,7 @@
     <sequenceFlow id="flow5" name="${workerDecision=='accept'}" sourceRef="exclusivegateway1" targetRef="mailtask5">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='accept'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask5" name="Mail Task" activiti:type="mail">
+    <serviceTask id="mailtask5" name="Звернення передане до коміссії" activiti:type="mail">
     <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -780,7 +780,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                       На жаль, ми змушені відмовити вам у наданні послуги "надання одноразової матеріальної допомоги громадянам" було успішно розглянуте.&lt;br /&gt;
+                                       На жаль, ми змушені відмовити вам у наданні послуги "надання одноразової матеріальної допомоги громадянам".&lt;br /&gt;
 									&lt;/p&gt;
 									&lt;p&gt;
 										Причина в наступному:&lt;br /&gt;
