@@ -64,7 +64,7 @@ module.exports.submit = function (req, res) {
     if (id === 'sID_UA') {
       value = options.formData.sID_UA;
     }
-    
+
     properties.push({
       id: id,
       value: value
@@ -117,22 +117,13 @@ module.exports.scanUpload = function (req, res) {
       headers: form.getHeaders()
     };
 
-    var decoder = new StringDecoder('utf8');
-    var result = {};
-    form.pipe(request.post(requestOptionsForUploadContent))
-      .on('response', function (response) {
-        result.statusCode = response.statusCode;
-      }).on('data', function (chunk) {
-        if (result.fileID) {
-          result.fileID += decoder.write(chunk);
-        } else {
-          result.fileID = decoder.write(chunk);
-        }
-      }).on('end', function () {
-        result.scanField= documentScan;
-        uploadResults.push(result);
-        callback();
+    pipeFormDataToRequest(form, requestOptionsForUploadContent, function(result){
+      uploadResults.push({
+        fileID : result.data,
+        scanField : documentScan
       });
+      callback();
+    });
   };
 
   async.forEach(documentScans, function (documentScan, callback) {
@@ -144,6 +135,68 @@ module.exports.scanUpload = function (req, res) {
 
 };
 
+
+module.exports.save = function(req, res) {
+  var data = req.body;
+  var formData = data.formData;
+  var uploadURL = data.url;
+
+  var form = new FormData();
+  form.append('file', JSON.stringify(formData), {
+    filename: 'formData.json'
+  });
+
+  var requestOptionsForUploadContent = {
+    url: uploadURL,
+    auth: getAuth(),
+    headers: form.getHeaders()
+  };
+
+  pipeFormDataToRequest(form, requestOptionsForUploadContent, function(result){
+    res.send({formID : result.data});
+  });
+};
+
+module.exports.load = function(req, res) {
+  ///file/download_file_from_redis?key=
+  var data = req.body;
+  var formID = data.formID;
+  var downloadURL = data.url;
+
+  var callback = function (error, response, body) {
+    if(error){
+      res.status(401).send(error);
+    } else {
+      res.send(JSON.parse(body));
+    }
+  };
+
+  return request.get({
+    url: downloadURL,
+    auth: getAuth(),
+    qs: {
+      key: formID
+    },
+    json: true
+  }, callback);
+};
+
+function pipeFormDataToRequest(form, requestOptionsForUploadContent, callback){
+  var decoder = new StringDecoder('utf8');
+  var result = {};
+  form.pipe(request.post(requestOptionsForUploadContent))
+    .on('response', function (response) {
+      result.statusCode = response.statusCode;
+    }).on('data', function (chunk) {
+      if (result.fileID) {
+        result.data += decoder.write(chunk);
+      } else {
+        result.data = decoder.write(chunk);
+      }
+    }).on('end', function () {
+      callback(result);
+    });
+}
 
 function getOptions() {
   var config = require('../../config/environment');
