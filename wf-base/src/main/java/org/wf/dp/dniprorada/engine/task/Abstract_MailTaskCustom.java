@@ -189,7 +189,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 		while (nLimit > 0) {
 			nLimit--;
 			int nAt = textWithoutTags.indexOf(TAG_Function_AtEnum, foundIndex);
-			foundIndex = nAt;
+			foundIndex = nAt + 1;
 			LOG.info("sTAG_Function_AtEnum,nAt=" + nAt);
 			int nTo = textWithoutTags.indexOf(TAG_Function_To);
 			LOG.info("sTAG_Function_AtEnum,nTo=" + nTo);
