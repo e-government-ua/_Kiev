@@ -110,6 +110,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         if (textStr == null) {
             return null;
         }
+        LOG.info("begin textStr: " + textStr);
         String textWithoutTags = replaceTags_LIQPAY(textStr, execution);
 
         textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
@@ -233,27 +234,31 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         Matcher matcher = TAG_sPATTERN_CONTENT_CATALOG.matcher(textStr);
         if (matcher.find()) {
             matcher.lookingAt();
-            List<String> aPreviousUserTask = getPreviousTaskId(execution);
-            Map<String, FormProperty> mProperties = new HashMap<String, FormProperty>();
-            loadPropertiesFromTasks(execution, aPreviousUserTask, mProperties);
+            List<String> aPreviousUserTask_ID = getPreviousTaskId(execution);
+            LOG.info("aPreviousUserTask_ID: " + aPreviousUserTask_ID);
+            Map<String, FormProperty> mProperty = new HashMap<String, FormProperty>();
+            loadPropertiesFromTasks(execution, aPreviousUserTask_ID, mProperty);
             while (matcher.find()) {
                 String tag_Payment_CONTENT_CATALOG = matcher.group();
+                LOG.info("tag_Payment_CONTENT_CATALOG: " + tag_Payment_CONTENT_CATALOG);
                 if (!tag_Payment_CONTENT_CATALOG.startsWith(TAG_Function_AtEnum)) {
                     String prefix;
                     Matcher matcherPrefix = TAG_PATTERN_DOUBLE_BRACKET.matcher(tag_Payment_CONTENT_CATALOG);
                     if (matcherPrefix.find()) {
                         prefix = matcherPrefix.group();
+                        LOG.info("prefix: " + prefix);
                         Matcher matcherText = TAG_PATTERN_TEXT.matcher(prefix);
                         if (matcherText.find()) {
                             String form_ID = matcherText.group();
-                            FormProperty formProperty = mProperties.get(form_ID);
+                            LOG.info("form_ID: " + form_ID);
+                            FormProperty formProperty = mProperty.get(form_ID);
                             if(formProperty != null && formProperty.getValue() != null){
                                replacement = formProperty.getValue(); 
                             }
-                            matcher.appendReplacement(outputTextBuffer, replacement);
                         }
                     }
                 }
+                matcher.appendReplacement(outputTextBuffer, replacement);
             }
         }
         return matcher.appendTail(outputTextBuffer).toString();
@@ -380,6 +385,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         List<String> resIDs = new LinkedList<String>();
 
         for (FlowElement flowElement : execution.getEngineServices().getRepositoryService().getBpmnModel(ee.getProcessDefinitionId()).getMainProcess().getFlowElements()) {
+            LOG.info("flowElement.getClass " + flowElement.getClass());
             if (flowElement instanceof UserTask) {
                 UserTask userTask = (UserTask) flowElement;
                 LOG.info("Checking user task with ID: " + userTask.getId());
