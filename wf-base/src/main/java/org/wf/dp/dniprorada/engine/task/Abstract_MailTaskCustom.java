@@ -185,9 +185,11 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 		int nLimit = 10;
 		boolean bCashed = false;
 		Map<String, FormProperty> aProperty = new HashMap<String, FormProperty>();
+		int foundIndex = 0;
 		while (nLimit > 0 && textWithoutTags.contains(TAG_Function_AtEnum)) {
 			nLimit--;
-			int nAt = textWithoutTags.indexOf(TAG_Function_AtEnum);
+			int nAt = textWithoutTags.indexOf(TAG_Function_AtEnum, foundIndex);
+			foundIndex = nAt;
 			LOG.info("sTAG_Function_AtEnum,nAt=" + nAt);
 			int nTo = textWithoutTags.indexOf(TAG_Function_To);
 			LOG.info("sTAG_Function_AtEnum,nTo=" + nTo);
@@ -244,6 +246,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 				}
 				
 			}
+			LOG.info("Variables of the process:" + execution.getVariables());
 			boolean bReplaced = false;
 			for (FormProperty property : aProperty.values()) {
 				String sType = property.getType().getName();
