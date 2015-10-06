@@ -1,0 +1,939 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="kiev_subsidies" name="Київ - Отримання субсидії на оплату житлово-комунальних послуг" isExecutable="true" activiti:candidateStarterGroups="kiev_upzsn">
+    <startEvent id="startevent1" name="Start" activiti:initiator="initiator">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Ваш ІПН" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string"></activiti:formProperty>
+        <activiti:formProperty id="chapter1" name="Деталі" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
+          <activiti:value id="svyatosh" name="Києво-Святошинський"></activiti:value>
+          <activiti:value id="bucha" name="м.Буча"></activiti:value>
+          <activiti:value id="irpen" name="м.Ірпінь"></activiti:value>
+        </activiti:formProperty>
+         <activiti:formProperty id="place_of_living" name="Місце реєстрації; вкажіть область, місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Е-мейл" type="string" default="email@email.com" required="true"></activiti:formProperty>
+        <activiti:formProperty id="subsidy" name="Тип субсидії" type="enum">
+          <activiti:value id="1" name="Оплата житлово-комунальних послуг"></activiti:value>
+          <activiti:value id="2" name="Оплата зрідженого газу, твердого та рідкого палива"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="name_services" name="Заповніть ці дані, якщо Ви користуєтесь відповідними комунальними послугами" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="electricity" name="Електроенергія" type="enum" required="true">
+          <activiti:value id="attr1" name="Користуюсь"></activiti:value>
+          <activiti:value id="attr2" name="Не користуюсь"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="electricity_number" name="Номер особового рахунка" type="string"></activiti:formProperty>
+        <activiti:formProperty id="electricity_name" name="Назва організації, що надає послугу" type="string"></activiti:formProperty>
+        <activiti:formProperty id="electricity_notice" name="Примітки; наприклад, наявність лічильника" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="house" name="Утримання дому та придомової території" type="enum" required="true">
+          <activiti:value id="attr1" name="Користуюсь"></activiti:value>
+          <activiti:value id="attr2" name="Не користуюсь"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="house_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="house_name" name="Назва організації, що надає послугу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="house_notice" name="Примітки; наприклад, наявність лічильника" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="gas" name="Газ" type="enum" required="true">
+          <activiti:value id="attr1" name="Користуюсь"></activiti:value>
+          <activiti:value id="attr2" name="Не користуюсь"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="gas_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="gas_name" name="Назва організації, що надає послугу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="gas_notice" name="Примітки; наприклад, наявність лічильника" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="coolwater" name="Холодна вода" type="enum" required="true">
+          <activiti:value id="attr1" name="Користуюсь"></activiti:value>
+          <activiti:value id="attr2" name="Не користуюсь"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="coolwater_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="coolwater_name" name="Назва організації, що надає послугу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="coolwater_notice" name="Примітки; наприклад, наявність лічильника" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="hotwater" name="Гаряча вода" type="enum" required="true">
+          <activiti:value id="attr1" name="Користуюсь"></activiti:value>
+          <activiti:value id="attr2" name="Не користуюсь"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="hotwater_number" name="Номер особого рахунка" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="hotwater_name" name="Назва організації, що надає послугу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="hotwater_notice" name="Примітки; наприклад, наявність лічильника" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="waterback" name="Водовідведення" type="enum" required="true">
+          <activiti:value id="attr1" name="Користуюсь"></activiti:value>
+          <activiti:value id="attr2" name="Не користуюсь"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="waterback_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="waterback_name" name="Назва організації, що надає послугу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="waterback_notice" name="Примітки; наприклад, наявність лічильника" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="warming" name="Опалення" type="enum" required="true">
+          <activiti:value id="attr1" name="Користуюсь"></activiti:value>
+          <activiti:value id="attr2" name="Не користуюсь"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="warming_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="warming_name" name="Назва організації, що надає послугу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="warming_notice" name="Примітки; наприклад, наявність лічильника" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="garbage" name="Вивіз побутових відходів" type="enum" required="true">
+          <activiti:value id="attr1" name="Користуюсь"></activiti:value>
+          <activiti:value id="attr2" name="Не користуюсь"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="garbage_number" name="Номер особового рахунка" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="garbage_name" name="Назва організації, що надає послугу" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="garbage_notice" name="Примітки; наприклад, наявність лічильника" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="notice2" name="Примітки" type="label" default="Я та особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку, даємо згоду на обробку персональних даних про сім’ю, доходи, майно, що необхідні для призначення житлової субсидії, та оприлюднення відомостей щодо її призначення. "></activiti:formProperty>
+        <activiti:formProperty id="declaration" name="Дані для декларації" type="label" default="--------------------"></activiti:formProperty>
+        <activiti:formProperty id="place_type" name="Тип дома" type="enum" required="true">
+          <activiti:value id="1" name="окремий будинок"></activiti:value>
+          <activiti:value id="2" name="багатоквартирний будинок"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="floors" name="Кількість поверхів" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="total_place" name="Загальна площа; кв. м." type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="warming_place" name="Опалювальна площа; кв.м." type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_from" name="Період, за який Ви заповнюєте декларацію, з" type="date" default="01/01/2014" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_to" name="Період, за який Ви заповнюєте декларацію, по " type="date" default="31/12/2014" required="true"></activiti:formProperty>
+        <activiti:formProperty id="income0" name="Ваш вид доходу" type="enum" required="true">
+          <activiti:value id="attr1" name="заробітна плата"></activiti:value>
+          <activiti:value id="attr2" name="стипендія"></activiti:value>
+          <activiti:value id="attr3" name="пенсія"></activiti:value>
+          <activiti:value id="attr4" name="соціальна допомога"></activiti:value>
+          <activiti:value id="attr5" name="безробітний(а)"></activiti:value>
+          <activiti:value id="attr6" name="доходи від підприємницької діяльності"></activiti:value>
+          <activiti:value id="attr7" name="сдача майна в оренду"></activiti:value>
+          <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
+          <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="org0" name="Назва організації, де Ви працюєте" type="string" default="Назва організації" required="true"></activiti:formProperty>
+        <activiti:formProperty id="other_people" name="Разом з Вами мешкають інші особи?" type="enum" required="true">
+          <activiti:value id="attr1" name="Так, 1 особа"></activiti:value>
+          <activiti:value id="attr2" name="Так, 2 особи"></activiti:value>
+          <activiti:value id="attr3" name="Так, 3 особи"></activiti:value>
+          <activiti:value id="attr4" name="Так, 4 особи"></activiti:value>
+          <activiti:value id="attr5" name="Так, 5 осіб"></activiti:value>
+          <activiti:value id="attr6" name="Ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="fio1" name="Прізвище, ім'я, по-батькові особи1; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="date1" name="Дата народження особи1; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="passport1" name="Серія та номер паспорту особи1; Наприклад: АА 111111, якщо Ви заповнюєте дані дитини можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="card1" name="Реєстраційний номер облікової картки платника податків особи1" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="income1" name="Вид доходу особи1" type="enum" default="attr0">
+          <activiti:value id="attr0" name=" "></activiti:value>
+          <activiti:value id="attr1" name="заробітна плата"></activiti:value>
+          <activiti:value id="attr2" name="стипендія"></activiti:value>
+          <activiti:value id="attr3" name="пенсія"></activiti:value>
+          <activiti:value id="attr4" name="соціальна допомога"></activiti:value>
+          <activiti:value id="attr5" name="безробітний(а)"></activiti:value>
+          <activiti:value id="attr6" name="доходи від підприємницької діяльності"></activiti:value>
+          <activiti:value id="attr7" name="сдача майна в оренду"></activiti:value>
+          <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
+          <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="org1" name="Найменування організації, де отримує дохід особа1; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="fio2" name="Прізвище, ім'я, по-батькові особи2; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="date2" name="Дата народження особи2; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="passport2" name="Серія та номер паспорту особи2; Наприклад: АА 111111, якщо Ви заповнюєте дані дитини можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="card2" name="Реєстраційний номер облікової картки платника податків особи2; якщо Ви заповнюєте дані дитини можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="income2" name="Вид доходу особи2" type="enum" default=" attr0">
+          <activiti:value id="attr0" name=" "></activiti:value>
+          <activiti:value id="attr1" name="заробітна плата"></activiti:value>
+          <activiti:value id="attr2" name="стипендія"></activiti:value>
+          <activiti:value id="attr3" name="пенсія"></activiti:value>
+          <activiti:value id="attr4" name="соціальна допомога"></activiti:value>
+          <activiti:value id="attr5" name="безробітний(а)"></activiti:value>
+          <activiti:value id="attr6" name="доходи від підприємницької діяльності"></activiti:value>
+          <activiti:value id="attr7" name="сдача майна в оренду"></activiti:value>
+          <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
+          <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="org2" name="Найменування організації, де отримує дохід особа2; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="fio3" name="Прізвище, ім'я, по-батькові особи3; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="date3" name="Дата народження особи3; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="passport3" name="Серія та номер паспорту особи3; Наприклад: АА 111111, якщо Ви заповнюєте дані дитини можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="card3" name="Реєстраційний номер облікової картки платника податків особи3; якщо Ви заповнюєте дані дитини можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="income3" name="Вид доходу особи3" type="enum" default="attr0">
+          <activiti:value id="attr0" name=" "></activiti:value>
+          <activiti:value id="attr1" name="заробітна плата"></activiti:value>
+          <activiti:value id="attr2" name="стипендія"></activiti:value>
+          <activiti:value id="attr3" name="пенсія"></activiti:value>
+          <activiti:value id="attr4" name="соціальна допомога"></activiti:value>
+          <activiti:value id="attr5" name="безробітний(а)"></activiti:value>
+          <activiti:value id="attr6" name="доходи від підприємницької діяльності"></activiti:value>
+          <activiti:value id="attr7" name="сдача майна в оренду"></activiti:value>
+          <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
+          <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="org3" name="Найменування організації, де отримує дохід особи3; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="fio4" name="Прізвище, ім'я, по-батькові особи4; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="date4" name="Дата народження особи4; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="passport4" name="Серія та номер паспорту особи4; Наприклад: АА 111111, якщо Ви заповнюєте дані дитини можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="card4" name="Реєстраційний номер облікової картки платника податків особи4; якщо Ви заповнюєте дані дитини можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="income4" name="Вид доходу особи4" type="enum" default="attr0">
+          <activiti:value id="attr0" name=" "></activiti:value>
+          <activiti:value id="attr1" name="заробітна плата"></activiti:value>
+          <activiti:value id="attr2" name="стипендія"></activiti:value>
+          <activiti:value id="attr3" name="пенсія"></activiti:value>
+          <activiti:value id="attr4" name="соціальна допомога"></activiti:value>
+          <activiti:value id="attr5" name="безробітний(а)"></activiti:value>
+          <activiti:value id="attr6" name="доходи від підприємницької діяльності"></activiti:value>
+          <activiti:value id="attr7" name="сдача майна в оренду"></activiti:value>
+          <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
+          <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="org4" name="Найменування організації, де отримує дохід особа4; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="fio5" name="Прізвище, ім'я, по-батькові особи5; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="date5" name="Дата народження особи5; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="passport5" name="Серія та номер паспорту особи5; Наприклад: АА 111111, якщо Ви заповнюєте дані дитини можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="card5" name="Реєстраційний номер облікової картки платника податків особи5; якщо Ви заповнюєте дані дитини можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="income5" name="Вид доходу особи5" type="enum" default="attr0">
+          <activiti:value id="attr0" name=" "></activiti:value>
+          <activiti:value id="attr1" name="заробітна плата"></activiti:value>
+          <activiti:value id="attr2" name="стипендія"></activiti:value>
+          <activiti:value id="attr3" name="пенсія"></activiti:value>
+          <activiti:value id="attr4" name="соціальна допомога"></activiti:value>
+          <activiti:value id="attr5" name="безробітний(а)"></activiti:value>
+          <activiti:value id="attr6" name="доходи від підприємницької діяльності"></activiti:value>
+          <activiti:value id="attr7" name="сдача майна в оренду"></activiti:value>
+          <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
+          <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="org5" name="Найменування організації, де отримує дохід особа5; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені за останні 12 місяців; по кожній покупці напишить: ПІБ особи, що здійснила покупку, що саме придбано, дату та вартість купівлі, інформацію про кожну покупку писати з нового рядку" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="marker1" name="маркер динамічної форми - особи, що мешкають" type="markers" default="{&quot;motion&quot;: {&quot;ShowFieldsOnCondition_1&quot;: {&quot;aField_ID&quot;: [&quot;fio1&quot;,&quot;date1&quot;,&quot;passport1&quot;,&quot;card1&quot;,&quot;income1&quot;,&quot;org1&quot;],&quot;asID_Field&quot;: {&quot;sPeople&quot;: &quot;other_people&quot;},&quot;sCondition&quot;: &quot;[sPeople] == 'attr1'&quot;},&quot;ShowFieldsOnCondition_2&quot;: {&quot;aField_ID&quot;: [&quot;fio1&quot;,&quot;date1&quot;,&quot;passport1&quot;,&quot;card1&quot;,&quot;income1&quot;,&quot;org1&quot;,&quot;fio2&quot;,&quot;date2&quot;,&quot;passport2&quot;,&quot;card2&quot;,&quot;income2&quot;,&quot;org2&quot;],&quot;asID_Field&quot;: {&quot;sPeople&quot;: &quot;other_people&quot;},&quot;sCondition&quot;: &quot;[sPeople] == 'attr2'&quot;},&quot;ShowFieldsOnCondition_3&quot;: {&quot;aField_ID&quot;: [&quot;fio1&quot;,&quot;date1&quot;,&quot;passport1&quot;,&quot;card1&quot;,&quot;income1&quot;,&quot;org1&quot;,&quot;fio2&quot;,&quot;date2&quot;,&quot;passport2&quot;,&quot;card2&quot;,&quot;income2&quot;,&quot;org2&quot;,&quot;fio3&quot;,&quot;date3&quot;,&quot;passport3&quot;,&quot;card3&quot;,&quot;income3&quot;,&quot;org3&quot;],&quot;asID_Field&quot;: {&quot;sPeople&quot;: &quot;other_people&quot;},&quot;sCondition&quot;: &quot;[sPeople] == 'attr3'&quot;},&quot;ShowFieldsOnCondition_13&quot;: {&quot;aField_ID&quot;: [&quot;fio1&quot;,&quot;date1&quot;,&quot;passport1&quot;,&quot;card1&quot;,&quot;income1&quot;,&quot;org1&quot;,&quot;fio2&quot;,&quot;date2&quot;,&quot;passport2&quot;,&quot;card2&quot;,&quot;income2&quot;,&quot;org2&quot;,&quot;fio3&quot;,&quot;date3&quot;,&quot;passport3&quot;,&quot;card3&quot;,&quot;income3&quot;,&quot;org3&quot;,&quot;fio4&quot;,&quot;date4&quot;,&quot;passport4&quot;,&quot;card4&quot;,&quot;income4&quot;,&quot;org4&quot;],&quot;asID_Field&quot;: {&quot;sPeople&quot;: &quot;other_people&quot;},&quot;sCondition&quot;: &quot;[sPeople] == 'attr4'&quot;},&quot;ShowFieldsOnCondition_12&quot;: {&quot;aField_ID&quot;: [&quot;fio1&quot;,&quot;date1&quot;,&quot;passport1&quot;,&quot;card1&quot;,&quot;income1&quot;,&quot;org1&quot;,&quot;fio2&quot;,&quot;date2&quot;,&quot;passport2&quot;,&quot;card2&quot;,&quot;income2&quot;,&quot;org2&quot;,&quot;fio3&quot;,&quot;date3&quot;,&quot;passport3&quot;,&quot;card3&quot;,&quot;income3&quot;,&quot;org3&quot;,&quot;fio4&quot;,&quot;date4&quot;,&quot;passport4&quot;,&quot;card4&quot;,&quot;income4&quot;,&quot;org4&quot;,&quot;fio5&quot;,&quot;date5&quot;,&quot;passport5&quot;,&quot;card5&quot;,&quot;income5&quot;,&quot;org5&quot;],&quot;asID_Field&quot;: {&quot;sPeople&quot;: &quot;other_people&quot;},&quot;sCondition&quot;: &quot;[sPeople] == 'attr5'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker2" name="маркер динамічної форми - послуги" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;house_number&quot;,&quot;house_name&quot;,&quot;house_notice&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;house&quot;},&quot;sCondition&quot;:&quot;[sService]=='attr1'&quot;},&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;gas_number&quot;,&quot;gas_name&quot;,&quot;gas_notice&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;gas&quot;},&quot;sCondition&quot;:&quot;[sService]=='attr1'&quot;},&quot;ShowFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;coolwater_number&quot;,&quot;coolwater_name&quot;,&quot;coolwater_notice&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;coolwater&quot;},&quot;sCondition&quot;:&quot;[sService]=='attr1'&quot;},&quot;ShowFieldsOnCondition_7&quot;:{&quot;aField_ID&quot;:[&quot;hotwater_number&quot;,&quot;hotwater_name&quot;,&quot;hotwater_notice&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;hotwater&quot;},&quot;sCondition&quot;:&quot;[sService]=='attr1'&quot;},&quot;ShowFieldsOnCondition_8&quot;:{&quot;aField_ID&quot;:[&quot;waterback_number&quot;,&quot;waterback_name&quot;,&quot;waterback_notice&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;waterback&quot;},&quot;sCondition&quot;:&quot;[sService]=='attr1'&quot;},&quot;ShowFieldsOnCondition_9&quot;:{&quot;aField_ID&quot;:[&quot;warming_number&quot;,&quot;warming_name&quot;,&quot;warming_notice&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;warming&quot;},&quot;sCondition&quot;:&quot;[sService]=='attr1'&quot;},&quot;ShowFieldsOnCondition_10&quot;:{&quot;aField_ID&quot;:[&quot;garbage_number&quot;,&quot;garbage_name&quot;,&quot;garbage_notice&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;garbage&quot;},&quot;sCondition&quot;:&quot;[sService]=='attr1'&quot;},&quot;ShowFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;electricity_number&quot;,&quot;electricity_name&quot;,&quot;electricity_notice&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;electricity&quot;},&quot;sCondition&quot;:&quot;[sService]=='attr1'&quot;}}}"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="usertask1" name="Взяти в роботу" activiti:candidateGroups="kiev_upzsn_${area}">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Им'я" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="Ваш ІПН" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="chapter1" name="Деталі" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" writable="false">
+          <activiti:value id="svyatosh" name="Києво-Святошинський"></activiti:value>
+          <activiti:value id="bucha" name="м.Буча"></activiti:value>
+          <activiti:value id="irpen" name="м.Ірпінь"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="place_of_living" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Е-мейл" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="subsidy" name="Тип субсидії" type="enum" writable="false">
+          <activiti:value id="1" name="Оплата житлово-комунальних послуг"></activiti:value>
+          <activiti:value id="2" name="Оплата скрапленого газу, твердого/рідкого палива"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="name_services" name="Заповніть ці дані, якщо Ви користуєтесь відповідними комунальними послугами" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="electricity" name="Електроенергія" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="electricity_number" name="Номер особового рахунка" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="electricity_name" name="Назва організації, що надає послугу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="electricity_notice" name="Примітки; наприклад, наявність лічильника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="house" name="Утримання будинку та придомової території" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="house_number" name="Номер особового рахунка" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="house_name" name="Назва організації, що надає послугу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="house_notice" name="Примітки; наприклад, наявність лічильника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="gas" name="Газ" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="gas_number" name="Номер особового рахунка" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="gas_name" name="Назва організації, що надає послугу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="gas_notice" name="Примітки; наприклад, наявність лічильника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="coolwater" name="Холодна вода" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="coolwater_number" name="Номер особового рахунка" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="coolwater_name" name="Назва організації, що надає послугу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="coolwater_notice" name="Примітки; наприклад, наявність лічильника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="hotwater" name="Гаряча вода" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="hotwater_number" name="Номер особового рахунка" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="hotwater_name" name="Назва організації, що надає послугу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="hotwater_notice" name="Примітки; наприклад, наявність лічильника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="waterback" name="Водовідведення" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="waterback_number" name="Номер особового рахунка" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="waterback_name" name="Назва організації, що надає послугу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="waterback_notice" name="Примітки; наприклад, наявність лічильника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="warming" name="Опалення" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="warming_number" name="Номер особового рахунка" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="warming_name" name="Назва організації, що надає послугу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="warming_notice" name="Примітки; наприклад, наявність лічильника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="garbage" name="Вивіз побутових відходів" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="garbage_number" name="Номер особового рахунка" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="garbage_name" name="Назва організації, що надає послугу" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="garbage_notice" name="Примітки; наприклад, наявність лічильника" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="notice2" name="Примітки" type="label" default="Я та особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку, даємо згоду на обробку персональних даних про сім’ю, доходи, майно, що необхідні для призначення житлової субсидії, та оприлюднення відомостей щодо її призначення. " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="declaration" name="Данные для декларации" type="label" default="--------------------" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="place_type" name="Тип будинку" type="enum" writable="false">
+          <activiti:value id="1" name="окремий будинок"></activiti:value>
+          <activiti:value id="2" name="багатоквартирний будинок"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="floors" name="Кількість поверхів" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="total_place" name="Загальна площа" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="warming_place" name="Опалювальна площа; кв.м." type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_from" name="Період, за який Ви заповнюєте деклацію, з" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date_to" name="Період, за який Ви заповнюєте декларацію, по" type="date" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="income0" name="Ваш вид доходу" type="enum" writable="false">
+          <activiti:value id="attr1" name="заробітна плата"></activiti:value>
+          <activiti:value id="attr2" name="стипендія"></activiti:value>
+          <activiti:value id="attr3" name="пенсія"></activiti:value>
+          <activiti:value id="attr4" name="соціальна допомога"></activiti:value>
+          <activiti:value id="attr5" name="безробітний(а)"></activiti:value>
+          <activiti:value id="attr6" name="доходи від підприємницької діяльності"></activiti:value>
+          <activiti:value id="attr7" name="сдача майна в оренду"></activiti:value>
+          <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
+          <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="org0" name="Назва організації, що надає послугу, де Ви працюєте" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="man1" name="Особи, які мешкають разом з вами (якщо нікого - не заповнюйте цю частину)" type="label" default=" " writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fio1" name="Прізвище, ім'я, по-батькові особи1; Наприклад: Остапчук Остап Остапович" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date1" name="Дата народження особи1; наприклад: 01.01.1960" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="passport1" name="Серія та номер паспорту особи1; Наприклад: АА 111111" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="card1" name="Реєстраційний номер облікової картки платника податків особи1" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="income1" name="Вид доходу особи1" type="enum" writable="false">
+          <activiti:value id="attr1" name="заробітна плата"></activiti:value>
+          <activiti:value id="attr2" name="стипендія"></activiti:value>
+          <activiti:value id="attr3" name="пенсія"></activiti:value>
+          <activiti:value id="attr4" name="соціальна допомога"></activiti:value>
+          <activiti:value id="attr5" name="безробітний(а)"></activiti:value>
+          <activiti:value id="attr6" name="доходи від підприємницької діяльності"></activiti:value>
+          <activiti:value id="attr7" name="сдача майна в оренду"></activiti:value>
+          <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
+          <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
+          <activiti:value id="attr0" name=" "></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="org1" name="Найменування організації, де отримує дохід особа1; для фізичних осіб-підприємців - група платника єдиного податку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fio2" name="Прізвище, ім'я, по-батькові особи2; Наприклад: Остапчук Остап Остапович" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date2" name="Дата народження особи2; наприклад: 01.01.1960" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="passport2" name="Серія та номер паспорту особи2; Наприклад: АА 111111" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="card2" name="Реєстраційний номер облікової картки платника податків особи2" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="income2" name="Вид доходу особи2" type="enum" writable="false">
+          <activiti:value id="attr1" name="заробітна плата"></activiti:value>
+          <activiti:value id="attr2" name="стипендія"></activiti:value>
+          <activiti:value id="attr3" name="пенсія"></activiti:value>
+          <activiti:value id="attr4" name="соціальна допомога"></activiti:value>
+          <activiti:value id="attr5" name="безробітний(а)"></activiti:value>
+          <activiti:value id="attr6" name="доходи від підприємницької діяльності"></activiti:value>
+          <activiti:value id="attr7" name="сдача майна в оренду"></activiti:value>
+          <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
+          <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
+          <activiti:value id="attr0" name=" "></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="org2" name="Найменування організації, де отримує дохід особа2; для фізичних осіб-підприємців - група платника єдиного податку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fio3" name="Прізвище, ім'я, по-батькові особи3; Наприклад: Остапчук Остап Остапович" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date3" name="Дата народження особи3; наприклад: 01.01.1960" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="passport3" name="Серія та номер паспорту особи3; Наприклад: АА 111111" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="card3" name="Реєстраційний номер облікової картки платника податків особи3" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="income3" name="Вид доходу особи3" type="enum" writable="false">
+          <activiti:value id="attr1" name="заробітна плата"></activiti:value>
+          <activiti:value id="attr2" name="стипендія"></activiti:value>
+          <activiti:value id="attr3" name="пенсія"></activiti:value>
+          <activiti:value id="attr4" name="соціальна допомога"></activiti:value>
+          <activiti:value id="attr5" name="безробітний(а)"></activiti:value>
+          <activiti:value id="attr6" name="доходи від підприємницької діяльності"></activiti:value>
+          <activiti:value id="attr7" name="сдача майна в оренду"></activiti:value>
+          <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
+          <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
+          <activiti:value id="attr0" name=" "></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="org3" name="Найменування організації, де отримує дохід особа3; для фізичних осіб-підприємців - група платника єдиного податку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fio4" name="Прізвище, ім'я, по-батькові особи4; Наприклад: Остапчук Остап Остапович" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date4" name="Дата народження особи4; наприклад: 01.01.1960" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="passport4" name="Серія та номер паспорту особи4; Наприклад: АА 111111" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="card4" name="Реєстраційний номер облікової картки платника податків особи4" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="income4" name="Вид доходу особи4" type="enum" writable="false">
+          <activiti:value id="attr1" name="заробітна плата"></activiti:value>
+          <activiti:value id="attr2" name="стипендія"></activiti:value>
+          <activiti:value id="attr3" name="пенсія"></activiti:value>
+          <activiti:value id="attr4" name="соціальна допомога"></activiti:value>
+          <activiti:value id="attr5" name="безробітний(а)"></activiti:value>
+          <activiti:value id="attr6" name="доходи від підприємницької діяльності"></activiti:value>
+          <activiti:value id="attr7" name="сдача майна в оренду"></activiti:value>
+          <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
+          <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
+          <activiti:value id="attr0" name=" "></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="org4" name="Найменування організації, де отримує дохід особа4; для фізичних осіб-підприємців - група платника єдиного податку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="fio5" name="Прізвище, ім'я, по-батькові особи5; Наприклад: Остапчук Остап Остапович" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="date5" name="Дата народження особи5; наприклад: 01.01.1960" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="passport5" name="Серія та номер паспорту особи5; Наприклад: АА 111111" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="card5" name="Реєстраційний номер облікової картки платника податків особи5" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="income5" name="Вид доходу особи5" type="enum" writable="false">
+          <activiti:value id="attr1" name="заробітна плата"></activiti:value>
+          <activiti:value id="attr2" name="стипендія"></activiti:value>
+          <activiti:value id="attr3" name="пенсія"></activiti:value>
+          <activiti:value id="attr4" name="соціальна допомога"></activiti:value>
+          <activiti:value id="attr5" name="безробітний(а)"></activiti:value>
+          <activiti:value id="attr6" name="доходи від підприємницької діяльності"></activiti:value>
+          <activiti:value id="attr7" name="сдача майна в оренду"></activiti:value>
+          <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
+          <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
+          <activiti:value id="attr0" name=" "></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="org5" name="Найменування організації, де отримує дохід особа5; для фізичних осіб-підприємців - група платника єдиного податку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="overload" name="Інформація про витрати на придбання майна, товарів або оплату послуг на суму, що перевищує 50 тис. гривень, які здійснені за останні 12 місяців; по кожній покупці напишить: ПІБ особи, що здійснила покупку, що саме придбано, дату та вартість купівлі, інформацію про кожну покупку писати з нового рядку" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="comment" name="Примітки" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="selection" name="Стан" type="enum" required="true">
+          <activiti:value id="attr1" name="відправлені запроси, очікують відповіді"></activiti:value>
+          <activiti:value id="attr2" name="відмова в обробці (обов'язково вкажіть причину в коментарі)"></activiti:value>
+          <activiti:value id="attr3" name="відповідь отримана (відмовлено у субсидії)"></activiti:value>
+          <activiti:value id="attr4" name="відповідь отримана (субсидія погоджена)"></activiti:value>
+          <activiti:value id="attr5" name="відповідь отримана (субсидія потребує розгляду комісії)"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="decision" name="Рішення про надання субсидії" type="file"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/subsidy_zayava.html]" type="invisible" default="Заява" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_2" name="[pattern/print/subsidy_declaration.html]" type="invisible" default="Декларація" writable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow3" name="${selection=='attr2'}" sourceRef="exclusivegateway1" targetRef="mailtask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr2'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="mailtask1" name="неправильно заповнена заява" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему "Отримання субсидії на оплату житлово-комунальних послуг"]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;На жаль, Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних послуг відхилене через недостатню або неправильну інформацію..&lt;/p&gt;
+&lt;p&gt;Причина: ${comment}&lt;/p&gt;
+&lt;p&gt;Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;&lt;/p&gt;
+
+                            
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Управління соціального захисту у Київській області&lt;br /&gt;
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow5" sourceRef="mailtask1" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow6" name="${selection=='attr1'}" sourceRef="exclusivegateway1" targetRef="usertask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr1'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="exclusivegateway1" targetRef="servicetask1">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr3'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="exclusivegateway1" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr4'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="servicetask1" name="негативна відповідь" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;На жаль, Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних послуг відхилене.&lt;/p&gt;
+&lt;p&gt;Причина вказана у файлі, який прикріплено до цього листа.&lt;/p&gt;
+
+
+                            
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Управління соціального захисту у Кийвській області&lt;br /&gt;
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему "Отримання субсидії на оплату житлово-комунальних послуг"]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${decision}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask2" name="позитивна відповідь" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${decision}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему "Отримання субсидії на оплату житлово-комунальних послуг"]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних послуг опрацьовано.&lt;/p&gt;
+&lt;p&gt;Розмір субсидії вказаний у файлі, який прикріплено до цього листа.&lt;/p&gt;
+
+
+                            
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Управління соціального захисту у Київській області,&lt;br /&gt;
+Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow9" sourceRef="servicetask1" targetRef="endevent2"></sequenceFlow>
+    <endEvent id="endevent3" name="End"></endEvent>
+    <sequenceFlow id="flow10" sourceRef="servicetask2" targetRef="endevent3"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="startevent1" targetRef="mailtask2"></sequenceFlow>
+    <sequenceFlow id="flow12" sourceRef="mailtask2" targetRef="usertask1"></sequenceFlow>
+    <serviceTask id="mailtask2" name="імейл про успішну реєстрацію заяви" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему "Отримання субсидії на оплату житлово-комунальних послуг"]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="bcc">
+          <activiti:string><![CDATA[dmitrij.zabrudskij@privatbank.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних послуг зареєстроване. Ви отримаєте відповідь протягом 20 робочих днів.&lt;/p&gt;
+
+
+                            
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                       Управління соціального захисту у Київській області&lt;br /&gt;
+                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow13" sourceRef="exclusivegateway1" targetRef="servicetask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${selection=='attr5'}]]></conditionExpression>
+    </sequenceFlow>
+    <endEvent id="endevent4" name="End"></endEvent>
+    <sequenceFlow id="flow14" sourceRef="servicetask3" targetRef="endevent4"></sequenceFlow>
+    <serviceTask id="servicetask3" name="відповідь у разі засідання комісії" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${decision}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему "Отримання субсидії на оплату житлово-комунальних послуг"]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>&lt;style type="text/css"&gt;
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    &lt;/style&gt;
+&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
+    &lt;tbody&gt;
+    &lt;tr&gt;
+        &lt;td align="center"&gt;
+            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                &lt;!--header line statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--header line end--&gt;
+                &lt;!--content statrs--&gt;
+                &lt;tr&gt;
+                    &lt;td align="center"&gt;
+                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px;"&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+&lt;p&gt;Ваше звернення щодо отримання  субсидії на оплату житлово-комунальних послуг опрацьоване.&lt;/p&gt;
+&lt;p&gt;Ваші документи підлягають комісійному розгляду. Про дату і час засідання комісії Вас буде поінформовано додатково.&lt;/p&gt;
+
+
+                            
+                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+                                    &lt;p&gt;
+                                        З повагою,&lt;br /&gt;
+                                        Управління соціального захисту у Київській області
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                           
+                          
+
+                        &lt;/table&gt;
+                     
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;!--content end--&gt;
+            &lt;/table&gt;
+        &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_subsidies">
+    <bpmndi:BPMNPlane bpmnElement="kiev_subsidies" id="BPMNPlane_kiev_subsidies">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="-20.0" y="13.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="160.0" y="3.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="320.0" y="10.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="406.0" y="3.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="570.0" y="13.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="406.0" y="79.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="410.0" y="150.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="570.0" y="89.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="570.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="56.0" y="79.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="570.0" y="304.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="410.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="265.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="30.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="360.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="406.0" y="30.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="95.0" x="349.0" y="70.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="511.0" y="30.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="30.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="340.0" y="50.0"></omgdi:waypoint>
+        <omgdi:waypoint x="339.0" y="186.0"></omgdi:waypoint>
+        <omgdi:waypoint x="282.0" y="186.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="186.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="58.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="95.0" x="230.0" y="170.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="340.0" y="50.0"></omgdi:waypoint>
+        <omgdi:waypoint x="340.0" y="108.0"></omgdi:waypoint>
+        <omgdi:waypoint x="406.0" y="106.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="340.0" y="50.0"></omgdi:waypoint>
+        <omgdi:waypoint x="340.0" y="185.0"></omgdi:waypoint>
+        <omgdi:waypoint x="374.0" y="185.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="177.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="511.0" y="106.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="106.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="515.0" y="177.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="177.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="-3.0" y="48.0"></omgdi:waypoint>
+        <omgdi:waypoint x="108.0" y="79.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="108.0" y="79.0"></omgdi:waypoint>
+        <omgdi:waypoint x="212.0" y="58.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="340.0" y="50.0"></omgdi:waypoint>
+        <omgdi:waypoint x="340.0" y="319.0"></omgdi:waypoint>
+        <omgdi:waypoint x="410.0" y="307.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="515.0" y="307.0"></omgdi:waypoint>
+        <omgdi:waypoint x="570.0" y="321.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
