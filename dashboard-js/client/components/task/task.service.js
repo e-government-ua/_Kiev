@@ -216,9 +216,9 @@ angular.module('dashboardJsApp')
           return prop.type == 'file' && /^PrintForm_/.test(prop.id);
         });
         // удалить после теста. пока что нет БП с таким полем и используем все поля с типом "файл".
-        if (filesFields.length == 0)
-          filesFields = $filter('filter')(formProperties, {type:'file'});
-
+        //if (filesFields.length == 0)
+        //  filesFields = $filter('filter')(formProperties, {type:'file'});
+        //
         var self = this;
         var deferred = $q.defer();
         var filesDefers = [];
