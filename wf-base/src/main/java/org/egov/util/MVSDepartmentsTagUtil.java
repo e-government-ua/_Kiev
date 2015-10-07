@@ -50,7 +50,9 @@ public class MVSDepartmentsTagUtil {
 	
 	public String replaceMVSTagWithValue(String text){
 		String res = text;
-		if (text.indexOf("[pattern_dictonary:") != -1){
+                int n=0;
+		while (text.indexOf("[pattern_dictonary:") != -1 && n<20){
+                    n++;
 			String pattern = StringUtils.substringBetween(text, "[pattern_dictonary:", "]");
 			LOG.info("Found pattern in the text: " + pattern);
 			String[] params = pattern.split(":");
@@ -76,6 +78,7 @@ public class MVSDepartmentsTagUtil {
 					res = StringUtils.replace(text, "[pattern_dictonary:" + pattern + "]", valueToReplace);
 				}
 			}
+                        text = res;
 		}
 		return res;
 	}
