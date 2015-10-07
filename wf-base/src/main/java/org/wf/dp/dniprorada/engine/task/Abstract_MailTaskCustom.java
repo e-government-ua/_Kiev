@@ -261,6 +261,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                                     List<String> aID = new ArrayList<String>();
                                     aID.add(formProperty.getId());
                                     List<String> proccessVariable = AbstractModelTask.getVariableValues(execution, aID);
+                                    LOG.info("proccessVariable: " + proccessVariable);
                                     if (!proccessVariable.isEmpty() && proccessVariable.get(0) != null) {
                                         replacement = proccessVariable.get(0);
                                     }
