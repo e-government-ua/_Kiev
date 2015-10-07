@@ -27,17 +27,23 @@
           <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
           <activiti:value id="bank" name="на рахунок у банку"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers1" name="Вибір отримання коштів" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bank_name" name="Назва банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="mfo" name="МФО банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="ЄДРПОУ банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bank_account" name="Номер рахунку в банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Завантажте копію паспорту уповноваженого представника сім'ї" type="file" required="true"></activiti:formProperty>
+        
+        <activiti:formProperty id="label1" name="ДЕКЛАРАЦІЯ" type="label" default="про доходи та майновий стан осіб, які звернулися за призначенням усіх видів соціальної допомоги"></activiti:formProperty>
+        
+        
+        
         <activiti:formProperty id="dov_sclad_sim" name="Завантажте довідку про склад сім'ї" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dov_doh_sim" name="Завантажте довідки о доходах всіх членів сімї" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dekl_doh" name="Завантажте декларацію про доходи та майно" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dov_zem" name="Завантажте довідку про наявність та розмір земельної частки (паю)" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Я усвідомлюю, що наведені мною відомості про доходи та майно, що вплинули або могли вплинути на прийняте рішення щодо надання соціальної допомоги, компенсацій та пільг, будуть перевірені згідно з чинним законодавством України."></activiti:formProperty>
+        <activiti:formProperty id="dov_zem" name="Завантажте довідку про наявність та розмір земельної частки (паю);(якщо є в наявноті)" type="file"></activiti:formProperty>
+        <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Я усвідомлюю, що наведені мною відомості про доходи та майно, що вплинули або могли вплинути на прийняте рішення щодо надання соціальної допомоги, компенсацій та пільг, будуть перевірені згідно з чинним законодавством України."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
