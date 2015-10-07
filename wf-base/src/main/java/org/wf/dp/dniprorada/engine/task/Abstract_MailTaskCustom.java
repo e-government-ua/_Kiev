@@ -123,10 +123,10 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         textWithoutTags = populatePatternWithContent(textWithoutTags);
 
         LOG.info("3. Occurences of enums in text" + StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum));
-        textWithoutTags = replaceTags_Catalog(textWithoutTags, execution);
-
-        LOG.info("4. Occurences of enums in text" + StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum));
         textWithoutTags = replaceTags_Enum(textWithoutTags, execution);
+        
+        LOG.info("4. Occurences of enums in text" + StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum));
+        textWithoutTags = replaceTags_Catalog(textWithoutTags, execution);
         
         LOG.info("5. Occurences of enums in text" + StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum));
         textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
