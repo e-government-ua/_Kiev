@@ -113,13 +113,16 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         if (textStr == null) {
             return null;
         }
-        String textWithoutTags = replaceTags_LIQPAY(textStr, execution);
+        
+        String textWithoutTags = textStr;
+        
+        textWithoutTags = replaceTags_LIQPAY(textWithoutTags, execution);
 
         textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
 
         textWithoutTags = populatePatternWithContent(textWithoutTags);
 
-        textWithoutTags = replaceTags_Catalog(textStr, execution);
+        textWithoutTags = replaceTags_Catalog(textWithoutTags, execution);
 
         textWithoutTags = replaceTags_Enum(textWithoutTags, execution);
 

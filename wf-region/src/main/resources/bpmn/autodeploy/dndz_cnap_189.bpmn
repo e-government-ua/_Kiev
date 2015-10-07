@@ -21,11 +21,13 @@
         <activiti:formProperty id="eventTime1" name="Час закінчення проведення заходу" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="eventSize" name="Очікувана кількість учасників" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="text1" name="Зверніть увагу" type="label" default="Наступні дані стосуються особи, відповідальної за проведення заходу"></activiti:formProperty>
-        <activiti:formProperty id="golovniy" name="ПІБ відповідальної особи" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="lastName_UA1" name="Прізвище відповідальної особи" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA1" name="Ім'я відповідальної особи" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA1" name="По батькові відповідальної особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="posada" name="Посада відповідальної особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_of_liv" name="Місце проживання; вкажіть місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="privatePhone" name="Телефон відповідальної особи; в форматі 380..." type="string" default="+38" required="true"></activiti:formProperty>
-        <activiti:formProperty id="plan" name="План проведення релігійного заходу" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта заявника" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="При замовлені послуги даю згоду відповідно до Закону України „Про захист персональних даних” на обробку моїх особистих персональних даних у картотеках та/або за допомогою інформаційно-телекомунікаційних систем з метою підготовки відповідно до вимог законодавства статистичної, адміністративної та іншої інформації."></activiti:formProperty>
        </extensionElements>
     </startEvent>
@@ -224,7 +226,7 @@
     <sequenceFlow id="flow20" sourceRef="mailtask3" targetRef="usertask1"></sequenceFlow>
     <userTask id="usertask1" name="Заява поступає до ЦНАП" activiti:candidateGroups="dndz_cnap_1">
       <extensionElements>
-        <activiti:formProperty id="clFio" name="Суб'єкт звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="clFio" name="Суб'єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Телефон" type="string" writable="false"></activiti:formProperty>
@@ -238,7 +240,7 @@
         <activiti:formProperty id="eventDa1" name="Дата закінчення проведення заходу" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventTime1" name="Час закінчення проведення заходу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="golovniy" name="ПІБ відповідальної особи" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="golovniy" name="ПІБ відповідальної особи" type="string" default="${lastName_UA1} ${firstName_UA1} ${middleName_UA1}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="posada" name="Посада відповідальної особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_of_liv" name="Місце проживання; вкажіть місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="privatePhone" name="Телефон відповідальної особи; в форматі 380..." type="string" default="+38" required="true"></activiti:formProperty>
@@ -247,15 +249,11 @@
           <activiti:value id="decline" name="Відмовити у реєстрації звернення"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Коментар адміністратора у разі відмови у реєстрації звернення" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="date_reestr" name="Укажіть дату реєстрації зверення у форматі ДД/ММ/РРРР" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="opis" name="Опис прийнятих документів" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_44.html]" type="invisible" default="Клопотання про проведення заходу" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dndz_cnap_189.html]" type="invisible" default="Прохання про надання дозволу" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${plan}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -364,10 +362,10 @@
     </serviceTask>
     <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow13" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="servicetask2">
+    <sequenceFlow id="flow13" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="mailtask4">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="servicetask2" name="Відправка опису" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="mailtask4" name="Відправка опису" activiti:type="mail">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -378,7 +376,10 @@
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Надання дозволу релігійним організаціям на проведення релігійних заходів, які проводяться поза межами культових споруд]]></activiti:string>
         </activiti:field>
-        <activiti:field name="text">
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
           <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';} 
@@ -420,9 +421,6 @@
 									Спеціалісти державного Органу повинні дати відповідь протягом 10 календарних днів.
 								&lt;/p&gt;
 								&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;	
-								&lt;p&gt;
-									Файл, що додається містить опис наданих Вами документів.
-								&lt;/p&gt;
 								&lt;p&gt;	
 										З повагою,&lt;br /&gt;
 										Центр надання адміністративних послуг&lt;br/&gt; 
@@ -441,16 +439,11 @@
    		 &lt;/tbody&gt;
 	&lt;/table&gt;</activiti:expression>
         </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${opis}</activiti:expression>
-        </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow15" sourceRef="servicetask2" targetRef="usertask2"></sequenceFlow>
+    <sequenceFlow id="flow15" sourceRef="mailtask4" targetRef="usertask2"></sequenceFlow>
     <userTask id="usertask2" name="Відповідь поступає до ЦНАП" activiti:candidateGroups="dndz_cnap_1">
       <extensionElements>
-        <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clFio" name="Суб'єкт звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
@@ -542,14 +535,13 @@
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
                               		Ваш дозвіл для релігійних організацій на проведення релігійних заходів, які проводяться поза межами культових споруд готовий.&lt;br /&gt;
+                              		Скан-копію рішення ви знайдете у додатках до листа.
                               		&lt;/p&gt;
                               		&lt;p&gt;
-                              		Ви або уповноважена Вами особа (при наявності довіреності) можете отримати дозвіл особисто під підпис у ЦНАП.&lt;br /&gt;
+                              		Ви або уповноважена Вами особа (при наявності довіреності) можете отримати оригінал дозвілу особисто під підпис у ЦНАП.&lt;br /&gt;
 									При собі треба мати:&lt;br /&gt;
 									1. Документ, що посвідчує особу.&lt;br /&gt;
 									2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
-									3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим підписом керівника юридичної особи, фізичної особи - підприємця або уповноваженої ними особи. Зразок заяви можно знайти за &lt;a href="https://drive.google.com/file/d/0B68lQ-z45GpYVnM1X29menpoQVk/view?usp=sharing"&gt;посиланням&lt;/a&gt;.&lt;br /&gt;
-									4. План проведення релігійного заходу, а також інші документи, що були завантажені при подачі заяви на сайті.
 									&lt;/p&gt;
 									&lt;p&gt;
                              		ЦНАП м.Дніпродзержинськ, просп. Комсомольський, 10/12&lt;br /&gt;
@@ -679,14 +671,14 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
 								  &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        На жаль змушені Вам відмовити у наданні послуги.&lt;/p&gt;
+                                        На жаль змушені Вам відмовити у наданні послуги.&lt;br /&gt;
+                                    	Скан-копію рішення ви знайдете у додатках до листа.
+                                    &lt;/p&gt;
 									&lt;p&gt;
-                              		Ви або уповноважена Вами особа (при наявності довіреності) можете отримати заперечення в проведенні заходу з вказаними причинами особисто під підпис у ЦНАП.&lt;br /&gt;
+                              		Ви або уповноважена Вами особа (при наявності довіреності) можете отримати оригінал заперечення в проведенні заходу з вказаними причинами особисто під підпис у ЦНАП.&lt;br /&gt;
 									При собі треба мати:&lt;br /&gt;
 									1. Документ, що посвідчує особу.&lt;br /&gt;
 									2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
-									3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим підписом керівника юридичної особи, фізичної особи - підприємця або уповноваженої ними особи. Зразок заяви можно знайти за &lt;a href="https://drive.google.com/file/d/0B68lQ-z45GpYVnM1X29menpoQVk/view?usp=sharing"&gt;посиланням&lt;/a&gt;.&lt;br /&gt;
-									4. План проведення релігійного заходу, а також інші документи, що були завантажені при подачі заяви на сайті.
 									&lt;/p&gt;
 									&lt;p&gt;
                              		ЦНАП м.Дніпродзержинськ, просп. Комсомольський, 10/12&lt;br /&gt;
@@ -756,7 +748,7 @@
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="610.0" y="295.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+      <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
         <omgdc:Bounds height="67.0" width="117.0" x="601.0" y="164.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
