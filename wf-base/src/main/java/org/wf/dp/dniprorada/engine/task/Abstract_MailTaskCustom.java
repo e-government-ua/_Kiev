@@ -116,14 +116,19 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         
         String textWithoutTags = textStr;
         
+        LOG.info("1. Occurences of enums in text" + StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum));
         textWithoutTags = replaceTags_LIQPAY(textWithoutTags, execution);
-
+        
+        LOG.info("2. Occurences of enums in text" + StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum));
         textWithoutTags = populatePatternWithContent(textWithoutTags);
 
+        LOG.info("3. Occurences of enums in text" + StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum));
         textWithoutTags = replaceTags_Catalog(textWithoutTags, execution);
 
+        LOG.info("4. Occurences of enums in text" + StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum));
         textWithoutTags = replaceTags_Enum(textWithoutTags, execution);
         
+        LOG.info("5. Occurences of enums in text" + StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum));
         textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
 
         Long nID_Protected = getProtectedNumber(Long.valueOf(execution
