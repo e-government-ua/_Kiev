@@ -50,6 +50,7 @@
         <activiti:formProperty id="phone" name="Ваш телефон" type="long" default="38" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваша електронна пошта" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="visitDate" name="В який день Ви бажаєте звернутися до міграційної служби?" type="queueData" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="visitDate2" name="В який день Ви бажаєте звернутися до міграційної служби?2" type="queueData" writable="false"></activiti:formProperty>
         <activiti:formProperty id="finish" name="Стан" type="enum" required="true">
           <activiti:value id="attr1_ok" name="Громадянин прийшов у назначений час"></activiti:value>
           <activiti:value id="attr2_missed" name="Громадянин не надійшов у зазначений час"></activiti:value>
