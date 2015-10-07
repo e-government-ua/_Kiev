@@ -161,9 +161,9 @@ ${mreo_workflow}&lt;br /&gt;
           <activiti:value id="accept" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"></activiti:value>
           <activiti:value id="warning" name="Авто підлягає арешту. Надіслати громадянину повідомлення про час / дату візиту"></activiti:value>
           <activiti:value id="reject" name="Знайдені обтяження. Відмовити громадянину в наданні послуги."></activiti:value>
-          <activiti:value id="reject2" name="Відмовити громадянину в наданні послуги; звернення містить невірні дані "></activiti:value>
+          <activiti:value id="reject2" name="Відмовити громадянину в наданні послуги. Звернення містить невірні дані "></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="sSum" name="Розмір держ.збору за надання послуги (для генерації рахунку для сплати через LIQPAY)" type="enum" default=" ">
+        <activiti:formProperty id="sSum" name="Розмір держ.збору за надання послуги (для генерації рахунку для сплати через LIQPAY)" type="enum" default="0">
           <activiti:value id="506.92" name="497.95 грн - Реєстрація іноземного авто з видачею свідоцтва про реєстрацію(або дубліката) та номерного знака "></activiti:value>
           <activiti:value id="468.72" name="460.43 грн - Реєстрація відчизняного авто та країн СНД з видачею свідоцтва про реєстрацію(або дубліката) та номерного знака "></activiti:value>
           <activiti:value id="398.19" name="391.15 грн - Реєстрація іноземного авто з видачею свідоцтва про реєстрацію(або його дубліката) без номерного знака"></activiti:value>
