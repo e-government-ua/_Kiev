@@ -36,9 +36,13 @@
         <activiti:formProperty id="bankId_scan_passport" name="Завантажте копію паспорту уповноваженого представника сім'ї" type="file" required="true"></activiti:formProperty>
         
         <activiti:formProperty id="label1" name="ДЕКЛАРАЦІЯ" type="label" default="про доходи та майновий стан осіб, які звернулися за призначенням усіх видів соціальної допомоги"></activiti:formProperty>
-        <activiti:formProperty id="ant_members" name="Кількість членів сім'ї або зареєстровані у житловому приміщенні/будинку особи, члени сімей, що проживають окремо (дружина,чоловік,неповнолітні діти)" type="enum" required="true">
-          <activiti:value id="1_user" name="через національного оператора поштового зв'язку"></activiti:value>
-          <activiti:value id="2_user" name="на рахунок у банку"></activiti:value>
+        <activiti:formProperty id="members" name="Кількість членів сім'ї або зареєстровані у житловому приміщенні/будинку особи, члени сімей, що проживають окремо (дружина,чоловік,неповнолітні діти)" type="enum" required="true">
+          <activiti:value id="memb_1" name="1 - особа"></activiti:value>
+          <activiti:value id="memb_2" name="2 - особи"></activiti:value>
+          <activiti:value id="memb_3" name="3 - особи"></activiti:value>
+          <activiti:value id="memb_4" name="4 - особи"></activiti:value>
+          <activiti:value id="memb_5" name="5 - особи"></activiti:value>
+          <activiti:value id="memb_null" name="Немає"></activiti:value>
         </activiti:formProperty>
         
         
