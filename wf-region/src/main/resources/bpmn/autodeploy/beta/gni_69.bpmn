@@ -152,6 +152,7 @@
         <activiti:formProperty id="organ" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, інше" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="nomer" name="Вкажіть код ЄДРПОУ або ІНН; тільки цифрові позначення" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="naimenov" name="Найменування або ПІБ платника податку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="zapit" name="Заповнений бланк" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="Прийняття рішення про отримання витягу" type="enum" required="true">
           <activiti:value id="accept" name="Надати витяг з реєстру платників єдиного податку"></activiti:value>
           <activiti:value id="reject" name="Відмовити у наданні витягу"></activiti:value>
@@ -236,9 +237,9 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     
-&lt;p&gt;Ваша заява на отримання витягу з реєстру платників єдиного податку прийнята в роботу. &lt;/p&gt;
+&lt;p&gt;Ваша заява на отримання витягу з реєстру платників єдиного податку опрацьована. &lt;/p&gt;
 
-&lt;p&gt; Забрати витяг Ви зможете  через 5 робочих днів в тому відділенні податкової служби, яке Ви вказували при замовленні послуги.&lt;br/&gt;
+&lt;p&gt; Забрати витяг Ви зможете  в тому відділенні податкової служби, яке Ви вказували при замовленні послуги.&lt;br/&gt;
 Перелік відділень Ви можете переглянути &lt;a href="https://docs.google.com/spreadsheets/d/1b4697fd3ESupi6XrO4JqHv2GZ0Va98QXGD6hVvK1q70/edit#gid=2095016794" target="_blank"&gt;тут&lt;/a&gt;
 &lt;/p&gt;
 
