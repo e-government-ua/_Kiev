@@ -116,14 +116,19 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         
         String textWithoutTags = textStr;
         
+        LOG.info("1. Occurences of enums in text" + StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum));
         textWithoutTags = replaceTags_LIQPAY(textWithoutTags, execution);
-
+        
+        LOG.info("2. Occurences of enums in text" + StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum));
         textWithoutTags = populatePatternWithContent(textWithoutTags);
 
+        LOG.info("3. Occurences of enums in text" + StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum));
         textWithoutTags = replaceTags_Catalog(textWithoutTags, execution);
 
+        LOG.info("4. Occurences of enums in text" + StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum));
         textWithoutTags = replaceTags_Enum(textWithoutTags, execution);
         
+        LOG.info("5. Occurences of enums in text" + StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum));
         textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
 
         Long nID_Protected = getProtectedNumber(Long.valueOf(execution
@@ -187,6 +192,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     private String replaceTags_Enum(String textWithoutTags, DelegateExecution execution) {
         List<String> previousUserTaskId = getPreviousTaskId(execution);
         int nLimit = StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum);
+        LOG.info("Found " + nLimit + " enum occurrences in the text");
         Map<String, FormProperty> aProperty = new HashMap<String, FormProperty>();
         int foundIndex = 0;
         while (nLimit > 0) {
