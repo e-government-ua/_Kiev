@@ -17,12 +17,20 @@
         <activiti:formProperty id="trans_number" name="транзитний номер авто; зазначте  у разі наявності" type="string"></activiti:formProperty>
         <activiti:formProperty id="regDocData" name="Серія та номер свідоцтва про реєстрацію авто" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="invoiceNumber" name="Серія та номер довідки-рахунка" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="invoiceDate" name="Дата  видачі довідки-рахунка" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="invoiceDate" name="Дата видачі довідки-рахунка" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="mreo" name="Оберіть МРЕВ, де Ви б бажали отримати послугу" type="enum" required="true">
+          <activiti:value id="dnepr_mreo" name="Правий берег. узвіз Тол'яті "></activiti:value>
+          <activiti:value id="dnepr_mreo2" name="лівий берег %адреса%"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="visitDate" name="Бажана дата візиту до МРЕВ" type="queueData" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш контактний телефон" type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:formProperty id="markers" name="markersForValidations" type="markers" default="{}"></activiti:formProperty>
+        <activiti:formProperty id="mail_employee" name="notifications" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="mreo_address" name="address" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="mreo_workflow" name="workflow" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="marker1" name="Назначение емейлов/ адресов МРЭО/ графиков работы" type="markers" default="{“motion&quot;:{“ValuesFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;,&quot;mreo_address&quot;,&quot;mreo_workflow&quot;],&quot;asID_Field_sValue&quot;:[&quot;kyrbatsky@gmail.com.ua&quot;,&quot;адрес МРЭО 1&quot;,&quot;график 1&quot;],&quot;asID_Field&quot;:{&quot;sMreo&quot;:&quot;mreo&quot;},&quot;sCondition&quot;:&quot;[sMreo] == 'dnepr_mreo'&quot;},“ValuesFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;,&quot;mreo_address&quot;,&quot;mreo_workflow&quot;],&quot;asID_Field_sValue&quot;:[&quot;kurbpa@gmail.com.ua&quot;,&quot;адресс МРЭО 2&quot;,&quot;график 2&quot;],&quot;asID_Field&quot;:{&quot;sMreo&quot;:&quot;mreo&quot;},&quot;sCondition&quot;:&quot;[sMreo] =='dnepr_mreo2'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -93,7 +101,9 @@
                                     &lt;p&gt;
                                        Ваше звернення успішно зареєстровано. &lt;br /&gt;
                                        Результат обробки звернення будуть спрямовані на цей е-мейл
-										
+${mail_employee} &lt;br /&gt;
+${mreo_address} &lt;br /&gt;
+${mreo_workflow}&lt;br /&gt;									
                                   
                                     &lt;/p&gt;
                                     
@@ -129,7 +139,7 @@
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow3" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask1" name="Перевірка наявності обтяжень" activiti:candidateGroups="dnepr_mreo_bo">
+    <userTask id="usertask1" name="Перевірка наявності обтяжень" activiti:candidateGroups="${mreo}_bo">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -275,7 +285,7 @@
     </sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent2"></sequenceFlow>
-    <userTask id="usertask2" name="Надання послуги: Огляд авто " activiti:candidateGroups="dnepr_mreo_bo">
+    <userTask id="usertask2" name="Надання послуги: Огляд авто " activiti:candidateGroups="${mreo}_bo">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -306,7 +316,7 @@
         </activiti:formProperty>
       </extensionElements>
     </userTask>
-    <userTask id="usertask3" name="Перевірка наданих документів" activiti:candidateGroups="dnepr_mreo_bo">
+    <userTask id="usertask3" name="Перевірка наданих документів" activiti:candidateGroups="${mreo}_bo">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -354,7 +364,7 @@
     <sequenceFlow id="flow18" name="${decide3 == 'accept3' &amp;&amp; sIDPayment!=' '}" sourceRef="exclusivegateway3" targetRef="servicetask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide3 == 'accept3' && sIDPayment!=' '}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask4" name="Друк держ.номерів" activiti:candidateGroups="dnepr_mreo_bo">
+    <userTask id="usertask4" name="Друк держ.номерів" activiti:candidateGroups="${mreo}_bo">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
@@ -472,6 +482,7 @@
 ${date_of_visit}&lt;br /&gt;
 &lt;p&gt;
 Графік прийому громадян:&lt;br /&gt;
+ &lt;br /&gt;
 Пн - Птн з 9:00 до 18:00 (перерва з  13:00 до 14:00) &lt;br /&gt;
 Сб з 9:00 до 14:00 &lt;br /&gt;
 Неділя вихідний &lt;br /&gt;
@@ -707,7 +718,7 @@ ${visitDate}&lt;br /&gt;
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[galichenko@gai.dp.ua]]></activiti:string>
+          <activiti:expression>${mail_employee}</activiti:expression>
         </activiti:field>
         <activiti:field name="bcc">
           <activiti:string><![CDATA[pavel.kurbatskij@privatbank.ua, vladimir.zimenko@privatbank.ua]]></activiti:string>
