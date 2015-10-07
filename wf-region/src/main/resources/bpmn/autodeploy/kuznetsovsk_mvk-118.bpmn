@@ -3,10 +3,10 @@
   <process id="kuznetsovsk_mvk-118" name="Кузнецовськ МВК - Поновлення договору оренди земельної ділянки" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="place_of_liv" name="Адреса проживання; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="place_of_liv" name="Адреса проживання; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" required="true"></activiti:formProperty>
@@ -581,7 +581,7 @@
           <activiti:value id="digital" name="Електронна копія"></activiti:value>
           <activiti:value id="physical" name="Фізична копія"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="decideSpec" name="Рішення про надання послуги" type="enum" required="true">
+        <activiti:formProperty id="decideSpec" name="Рішення про надання послуги" type="enum" writable="false">
           <activiti:value id="ponovleno" name="Договір оренди поновлено"></activiti:value>
           <activiti:value id="vidmovleno" name="Відмовлено у поновленні договора оренди"></activiti:value>
           <activiti:value id="reject" name="Відмовити в наданні послуги"></activiti:value>
@@ -675,6 +675,7 @@
 									&lt;p&gt;
 										Якщо Ви бажаєте отримати фізичну копію цього документа - зверніться до центру надання адміністративних послуг &lt;br /&gt;
                                     &lt;/p&gt;
+                                    &lt;p&gt;
 										Адреса: &lt;br /&gt;
 										м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
 									&lt;br /&gt;
@@ -683,8 +684,8 @@
 										Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
 										П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
 										Без перерви на обід&lt;br /&gt;
-										Телефон: (03636) 2-23-73 &lt;br /&gt; 
-                                    
+										Телефон: (03636) 2-23-73
+                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -788,17 +789,21 @@
 										 ${decisionComment}
 									&lt;/p&gt;
 									&lt;p&gt;
-										Документ знаходиться у додатку до цього листа.&lt;br /&gt;
+										Документ знаходиться у додатку до цього листа.
+									&lt;p&gt;
 										Якщо Ви бажаєте отримати фізичну копію цього документа - зверніться до центру надання адміністративних послуг &lt;br /&gt;
-                                    	Адреса: м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
+                                    &lt;/p&gt;
+                                    &lt;p&gt;
+										Адреса: &lt;br /&gt;
+										м.Кузнецовськ, майдан Незалежності, 2, каб. 1-105. &lt;br /&gt;
 									&lt;br /&gt;
 										Графік роботи ЦНАП-у:&lt;br /&gt;
 										Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
 										Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
 										П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
 										Без перерви на обід&lt;br /&gt;
-										Телефон: (03636) 2-23-73 &lt;br /&gt; 
-                                    
+										Телефон: (03636) 2-23-73 
+                                    &lt;/p&gt
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
@@ -825,7 +830,7 @@
     </serviceTask>
     <sequenceFlow id="flow22" sourceRef="servicetask3" targetRef="endevent6"></sequenceFlow>
     <sequenceFlow id="flow29" name="${decideSpec == 'reject'}" sourceRef="exclusivegateway2" targetRef="mailtask8">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decideSpec == 'reject'}}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decideSpec == 'reject'}]]></conditionExpression>
     </sequenceFlow>
     <serviceTask id="mailtask8" name="Відповідь про відмову у наднні послуги" activiti:type="mail">
       <extensionElements>
@@ -837,6 +842,9 @@
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Звернення на тему: Поновлення договору оренди земельної ділянки</activiti:expression>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
