@@ -202,7 +202,7 @@
         <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objectAddress" name="Адреса земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objectAppointment" name="Цільове призначення земельної ділянки" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="perevirka1" name="Результат первинної перевірки документів" type="enum">
+        <activiti:formProperty id="perevirka1" name="Результат первинної перевірки документів" type="enum" required="true">
           <activiti:value id="accept" name="Документи пройшли перевірку"></activiti:value>
           <activiti:value id="reject" name="Документи не пройшли перевірку"></activiti:value>
         </activiti:formProperty>
@@ -414,7 +414,7 @@
         <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objectAddress" name="Адреса земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objectAppointment" name="Цільове призначення земельної ділянки" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="perevirka2" name="Результат первинної перевірки документів" type="enum">
+        <activiti:formProperty id="perevirka2" name="Результат первинної перевірки документів" type="enum" required="true">
           <activiti:value id="accept" name="Документи пройшли перевірку"></activiti:value>
           <activiti:value id="reject" name="Документи не пройшли перевірку"></activiti:value>
         </activiti:formProperty>
@@ -650,7 +650,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="280.0" y="54.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask2_red" id="BPMNShape_usertask2_red">
-        <omgdc:Bounds height="55.0" width="105.0" x="630.0" y="30.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="640.0" y="30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
         <omgdc:Bounds height="40.0" width="40.0" x="662.0" y="117.0"></omgdc:Bounds>
@@ -705,10 +705,10 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
         <omgdi:waypoint x="503.0" y="57.0"></omgdi:waypoint>
-        <omgdi:waypoint x="630.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="640.0" y="57.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="682.0" y="85.0"></omgdi:waypoint>
+        <omgdi:waypoint x="692.0" y="85.0"></omgdi:waypoint>
         <omgdi:waypoint x="682.0" y="117.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
