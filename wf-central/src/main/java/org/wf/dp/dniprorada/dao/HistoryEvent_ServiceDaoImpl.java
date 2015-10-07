@@ -105,6 +105,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
             Map<String, Long> currRes = new HashMap<>();
             currRes.put("sName", 5L);
             currRes.put("nCount", 1L);
+            currRes.put("nRate", 0L);
             resHistoryEventService.add(currRes);
         }
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);

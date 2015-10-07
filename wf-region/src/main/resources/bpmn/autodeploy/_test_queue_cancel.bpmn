@@ -19,9 +19,14 @@
           <activiti:value id="attr1_no" name="ні"></activiti:value>
           <activiti:value id="attr2_yes" name="так"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="nID_Department_visitDate" name="Департамент" type="enum" required="true">
+          <activiti:value id="1" name="Департамент 1"></activiti:value>
+          <activiti:value id="2" name="Департамент 2"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш телефон" type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваша електронна пошта" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="visitDate" name="В який день Ви бажаєте звернутися до міграційної служби?" type="queueData" required="true"></activiti:formProperty>
+        <activiti:formProperty id="visitDate1" name="В який день Ви бажаєте звернутися до міграційної служби?1" type="queueData" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_of_visit" name="дата візиту" type="invisible"></activiti:formProperty>
       </extensionElements>
     </startEvent>
