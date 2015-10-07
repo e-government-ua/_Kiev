@@ -47,10 +47,10 @@ angular.module('app').factory('MarkersFactory', function() {
         //,bDebug: false; // Опція для дебагу
       }
       ,DateElapsed_1: {
-        inheritedValidator: 'DateElapsed', // розширюэмо існуючий валідатор 'DateElapsed'
+        inheritedValidator: 'DateElapsed', // наслідуємо існуючий валідатор 'DateElapsed'
         aField_ID: ['date_of_birth'],
-        sFormat: 'YYYY-MM-DD', //формат дати
-        bFuture: false, // дата modelValue має бути у минулому
+        sFormat: 'YYYY-MM-DD',  // задаємо формат дати
+        bFuture: false,         // дата має бути у минулому
         sMessage: 'Виберіть коректну дату - дата не може бути більше поточної'
       }
       ,CodeKVED: {
@@ -76,7 +76,7 @@ angular.module('app').factory('MarkersFactory', function() {
       }
       ,Numbers_Accounts: { //разрешены цифры и дефисы, буквы любые запрещены
         aField_ID: ['house_number', 'gas_number', 'coolwater_number', 'hotwater_number', 'waterback_number', 'warming_number', 'electricity_number', 'garbage_number'],
-        sMessage: 'Перевірте правильність увведеного номера (літери не дозволені до заповнення)'
+        sMessage: 'Перевірте правильність уведеного номеру (літери не дозволені до заповнення)'
       }
     },
     attributes: {

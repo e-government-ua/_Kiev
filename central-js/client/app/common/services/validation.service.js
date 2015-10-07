@@ -1,13 +1,18 @@
 /**
- * markers має посилання на поля, що потребують валідації.
- * Валідатори пов'язуються з полями форми через назви ($name) у масиві aField_ID.
+ * Сервіс ValidationService надає послуги з валідації форм, використовуючи маркери валідації.
+ * Вони входять до об`єкту markers і мають посилання на поля, що потребують валідації, а також параметри валідації, наприклад формат дати для валідатора дати і т.п.
+ * Посилання на поля форми записані у масиві aField_ID маркера як назви полів форми ($name). Це можливість пов'язати маркер валідації і валідатор з даним полем, див. @setValidatorByMarker.
+ * Маркер має опціональний параметр sMessage - повідомлення про помилку валідації для користувача. TODO: перевірити
  *
- * Різні маркери можуть призначатися одним і тим же полям. 
- * Див. i/issues/375, 654
- *  
+ * Різні маркери можуть призначатися одним і тим же полям форми.
+ * Фактична назва полів может бути довільною (NumberBetween_1, NumberBetween_Floor_Subs, NumberBetween_MaxBlocks і т.д.)
+ *
+ * Валідатори можуть доповнювати один одного (в елементах motion це також зроблено). TODO: перевірити ще раз.
+ * Працює наслідування маркерів (як і в motion)
+ * Валідатори за замовчуванням вважають пусті поля валідними. TODO: уточнити, чи усі без винятку валідатори мають лдіяти саме так.
+ *
+ * Більше вимог до валідації: i/issues/375, 654 та 685.
  */
-
-'use strict';
 
 angular.module('app').service('ValidationService', ['moment', 'amMoment', 'angularMomentConfig', 'MarkersFactory', ValidationService])
   .constant('angularMomentConfig', {
@@ -15,12 +20,15 @@ angular.module('app').service('ValidationService', ['moment', 'amMoment', 'angul
     timezone: 'Europe/Kiev',
     format: 'HH:mm:ss, YYYY-MM-DD'
   });
-// TODO
-// .value('defaultDateFormat', 'YYYY-MM-DD' );
+
+// TODO .value('defaultDateFormat', 'YYYY-MM-DD' );
 
 function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory) {
+
   this.markers = MarkersFactory.getMarkers();
+
   var self = this;
+
   self.sFormat = 'YYYY-MM-DD';
 
   // Це для того, щоб бачити дати в українському форматі. 
@@ -34,13 +42,14 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
 
   /**
    * Основний метод валідації. Призначає валідатори полям форми form (за назвами полів з параметру markers),
-   * а також проводить першу валадіацію, якщо параметр forceValidation === true;
+   * а також проводить першу валідіацію, якщо параметр immediateValidation === true;
+   *
    * Параметри:
-   * form - форма, яку треба валідувати за маркерами валідації. Обов'язковий параметр
-   * markers - маркери валідації. Необов'язковий параметр. Якщо він відсутній, то спрацюють маркери за замовчуванням, див. _resolveValidationMarkers
-   * forceValidation - необов'язковий, вказує, чи треба проводити першу валідацію одразу після призначення валідаторів.
+   * @param form - форма, яку треба валідувати за маркерами валідації. Обов'язковий параметр.
+   * @param {object} markers - маркери валідації. Необов'язковий параметр. Якщо він відсутній, то спрацюють маркери за замовчуванням, див. _resolveValidationMarkers
+   * @param {boolean} immediateValidation - необов'язковий, вказує, чи треба проводити першу валідацію одразу після призначення валідаторів.
    */
-  self.validateByMarkers = function(form, markers, forceValidation) {
+  self.validateByMarkers = function(form, markers, immediateValidation) {
 
     // Якщо маркери валідації прийшли зовні - то використати їх
     function _resolveValidationMarkers(markers) {
@@ -52,46 +61,51 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
 
     markers = _resolveValidationMarkers(markers);
 
-    // немає маркерів - виходимо
+    // Немає маркерів - немає валідатора. Виходимо з функції
     if (!markers || !markers.validate || markers.validate.length < 1) {
       return;
     }
 
     angular.forEach(markers.validate, function(marker, markerName) {
 
-      var keyByMarkerName = self.validatorNameByMarkerName[markerName];
-
       angular.forEach(form, function(formField) {
 
-        function fieldNameIsListedInMarker(formField) {
-          return formField && formField.$name && _.indexOf(marker.aField_ID, formField.$name) !== -1;
-        }
+        self.setValidatorByMarker(marker, markerName, formField, immediateValidation);
 
-        if (fieldNameIsListedInMarker(formField)) {
-
-          var existingValidator = formField.$validators[keyByMarkerName];
-
-          // overwrite the default Angular field validator - ONLY ONCE 
-          if (!existingValidator) {
-
-            // запам'ятовуємо опції маркера - це важливо для того, щоб передати параметри, такі як, sFormat, bFuture, bLess, nDays ітн.
-            var markerOptions = angular.copy(marker) || {};
-            markerOptions.key = keyByMarkerName;
-
-            formField.$validators[keyByMarkerName] = self.getValidatorByName(markerName, markerOptions, formField);
-
-            // console.log('set validator, marker name:', markerName, ', form field name:', formField.$name);
-
-            // і проводимо валідацію
-            if (forceValidation === true) {
-              formField.$validate();
-            }
-          }
-        }
       });
     });
   };
 
+  self.setValidatorByMarker = function(marker, markerName, formField, immediateValidation, forceValidation) {
+
+    var keyByMarkerName = self.validatorNameByMarkerName[markerName];
+    var fieldNameIsListedInMarker = formField && formField.$name && _.indexOf(marker.aField_ID, formField.$name) !== -1;
+    var existingValidator = formField && formField.$validators && formField.$validators[keyByMarkerName];
+
+    // Встановлюємо валідатор Angular - тільки для поля, що згадується у маркері валідації, і тільки один раз.
+    if ((fieldNameIsListedInMarker /* || forceValidation */ ) && !existingValidator) {
+
+      // запам'ятовуємо опції маркера щоб передати параметри типу sMessage, sFormat, bFuture, bLess, nDays ітн.
+      var markerOptions = angular.copy(marker) || {};
+      markerOptions.key = keyByMarkerName;
+
+      formField.$validators[keyByMarkerName] = self.getValidatorByName(markerName, markerOptions, formField);
+
+      // ...і проводимо першу валідацію, якщо треба
+      if (immediateValidation === true) {
+        formField.$validate();
+      }
+
+      // реалізація наслідування
+      if (markerOptions.inheritedValidator && typeof markerOptions.inheritedValidator === 'string') {
+        // використати існуючий валідатор
+        self.setValidatorByMarker(marker, markerOptions.inheritedValidator, formField, immediateValidation, true);
+      }
+    }
+  };
+
+  // Це необхідно також для відображення помилок валідації у UI
+  // @todo FIXME це хардкод, треба зробити його частиною маркерів валідації
   self.validatorNameByMarkerName = {
     'Mail': 'email',
     'AutoVIN': 'autovin',
@@ -110,8 +124,11 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
   };
 
   /**
-   * formField - додатковий параметр.
-   * Важливо: функція повертає null для неіснуючого валідатора (тобто такого, що не знаходиться за даним markerName).
+   * Отримати замикання функції-валідатора за назвою маркера валідації
+   * @param {string} markerName Назва маркера валідації з об'єкту markers
+   * @param {object} markerOptions Опції маркера валідацїї, передаються у функцію-валідатор
+   * @param formField - поле форми, яке будемо валідувати даним маркером, Необов`язковий параметр.
+   * @returns {function|null} функція-замикання або null для неіснуючого валідатора (тобто такого, що не знаходиться за даним markerName).
    */
   self.getValidatorByName = function(markerName, markerOptions, formField) {
 
@@ -119,11 +136,11 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
     // замикання для збереження опцій
     var validationClosure = function(modelValue, viewValue) {
       var result = null;
-      // зберігаємо опції
+      // зберігаємо опції для замикання
       var savedOptions = markerOptions || {};
       if (fValidator) {
         result = fValidator.call(self, modelValue, viewValue, savedOptions);
-        // Якщо валідатор зберіг помилку у savedOptions.lastError - привласнити її полю форми
+        // Якщо валідатор зберіг помилку у savedOptions.lastError, то привласнити її полю форми
         if (formField && formField.$error && savedOptions.lastError) {
           formField.lastErrorMessage = savedOptions.lastError;
         }
@@ -133,6 +150,9 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
     return validationClosure;
   };
 
+  /** Об`єкт з переліком функцій-валідаторів. 
+   @todo Розглянути можливість винесення цих функцій назовні (структура нечітка, файл розростається).
+   */
   self.validatorFunctionsByFieldId = {
     /**
      * 'Mail' - перевіряє адресу електронної пошти
@@ -141,7 +161,6 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       var bValid = true;
       var EMAIL_REGEXP = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
       bValid = bValid && EMAIL_REGEXP.test(modelValue);
-      // console.log('Validate Email: ' + modelValue + ' is valid email: ' + bValid );
       return bValid;
     },
 
@@ -161,7 +180,6 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       bValid = bValid && (/^[a-zA-Z0-9]+$/.test(sValue));
       bValid = bValid && (sValue.indexOf('q') < 0 && sValue.indexOf('o') < 0 && sValue.indexOf('i') < 0);
       bValid = bValid && (sValue.indexOf('Q') < 0 && sValue.indexOf('O') < 0 && sValue.indexOf('I') < 0);
-      // console.log('Validate AutoVIN: ', sValue, ' is valid: ' + bValid );
       return bValid;
     },
 
@@ -178,7 +196,6 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       var TEXTUA_REGEXP = /^[ААБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯабвгґдеєжзиіїйклмнопрстуфхцчшщьюя`'-\s]+$/g;
       var TEXTRU_ONLY = /[ЁёЪъЫыЭэ]+/g;
       var bValid = TEXTUA_REGEXP.test(modelValue) && !TEXTRU_ONLY.test(modelValue);
-      //console.log('Validate TextUA: ' + modelValue + ' is valid: ' + bValid );
       return bValid;
     },
 
@@ -193,7 +210,6 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       var TEXTRU_REGEXP = /^[АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя-\s]+$/g;
       var TEXTUA_ONLY = /[ҐЄІЇґєії]+/g;
       var bValid = TEXTRU_REGEXP.test(modelValue) && !TEXTUA_ONLY.test(modelValue);
-      // console.log('Validate TextRU: ' + modelValue + ' is valid: ' + bValid );
       return bValid;
     },
 
@@ -207,15 +223,11 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
         return false;
       }
 
-      options.lastError = '';
-
       // Строга відповідніcть (нестрога - var bValid = moment(modelValue, options.sFormat).isValid())
       var bValid = (moment(modelValue, options.sFormat).format(options.sFormat) === modelValue);
 
-      // console.log('Validate DateFomat: ' + modelValue + ' is valid Date: ' + bValid + ' in ' + sFormat, ' format' );
-
       if (bValid === false) {
-        options.lastError = 'Дата може бути тільки формату ' + options.sFormat;
+        options.lastError = options.sMessage || ('Дата може бути тільки формату ' + options.sFormat);
       }
 
       return bValid;
@@ -284,7 +296,7 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
         // зберегти повідомлення про помилку у зовніщньому об'єкті опцій - замикання
         for (var errorName in errors) {
           // myLog(errors[errorName], 1);
-          o.lastError = errors[errorName];
+          o.lastError = o.sMessage || errors[errorName];
         }
       }
 
@@ -380,7 +392,8 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       //   }
       // }
     },
-    /*
+
+    /**
     Логика: две цифры точка две цифры (первые две цифры не могут быть 04, 34, 40, 44, 48, 54, 57, 67, 76, 83, 89)
     Сообщение: Такого КВЕД не існує - (ви не можете вписувати літери)
      */
@@ -399,15 +412,14 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
         s !== '44' && s !== '48' && s !== '54' && s !== '57' &&
         s !== '67' && s !== '76' && s !== '83' && s !== '89');
 
-      console.log('Validate CodeKVED: ', sValue, ' is valid: ' + bValid);
+      // console.log('Validate CodeKVED: ', sValue, ' is valid: ' + bValid);
       //bValid = bValid && (/^[a-zA-Z0-9]+$/.test(sValue));
       //bValid = bValid && (sValue.indexOf('q') < 0 && sValue.indexOf('o') < 0 && sValue.indexOf('i') < 0);
       //bValid = bValid && (sValue.indexOf('Q') < 0 && sValue.indexOf('O') < 0 && sValue.indexOf('I') < 0);
-      //
-      // console.log('Validate AutoVIN: ', sValue, ' is valid: ' + bValid );
       return bValid;
     },
-    /*    
+
+    /**
     11) EDRPOU //код ЄДРПОУ.
     Логика: жестко восемь цифр, тип стринг(чтобы можно было ставить default=” ”)
     Сообщение: Такий код ЄДРПОУ не існує - (ви не можете вписувати літери)
@@ -422,22 +434,21 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       var bValid = true;
       bValid = bValid && (sValue !== null);
       bValid = bValid && (sValue.trim().length === 8);
-      /*bValid = bValid && (sValue.trim().substr(2,1) === '.');
+      /* bValid = bValid && (sValue.trim().substr(2,1) === '.');
       var s=bValid ? sValue.trim().substr(0,2) : "";
       bValid = bValid && (s !== '04' && s !== '34' && s !== '40'
               && s !== '44' && s !== '48' && s !== '54' && s !== '57'
               && s !== '67' && s !== '76' && s !== '83' && s !== '89');
       */
-      console.log('Validate CodeEDRPOU: ', sValue, ' is valid: ' + bValid);
+      // console.log('Validate CodeEDRPOU: ', sValue, ' is valid: ' + bValid);
       //bValid = bValid && (/^[a-zA-Z0-9]+$/.test(sValue));
       //bValid = bValid && (sValue.indexOf('q') < 0 && sValue.indexOf('o') < 0 && sValue.indexOf('i') < 0);
       //bValid = bValid && (sValue.indexOf('Q') < 0 && sValue.indexOf('O') < 0 && sValue.indexOf('I') < 0);
-      //
-      // console.log('Validate AutoVIN: ', sValue, ' is valid: ' + bValid );
+
       return bValid;
     },
 
-    /*
+    /**
     12) MFO //код банка.
     Логика: жестко шесть цифр.тип стринг.(чтобы можно было ставить default=” ”)
     Сообщение: Такого коду банку не існує - (ви не можете вписувати літери)
@@ -457,12 +468,11 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
               && s !== '44' && s !== '48' && s !== '54' && s !== '57'
               && s !== '67' && s !== '76' && s !== '83' && s !== '89');
       */
-      console.log('Validate CodeMFO: ', sValue, ' is valid: ' + bValid);
+      // console.log('Validate CodeMFO: ', sValue, ' is valid: ' + bValid);
       //bValid = bValid && (/^[a-zA-Z0-9]+$/.test(sValue));
       //bValid = bValid && (sValue.indexOf('q') < 0 && sValue.indexOf('o') < 0 && sValue.indexOf('i') < 0);
       //bValid = bValid && (sValue.indexOf('Q') < 0 && sValue.indexOf('O') < 0 && sValue.indexOf('I') < 0);
-      //
-      // console.log('Validate AutoVIN: ', sValue, ' is valid: ' + bValid );
+
       return bValid;
     },
 
@@ -487,12 +497,10 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       var DIGITS_REGEXP = /^\d+$/;
       var bValid = DIGITS_REGEXP.test(modelValue) && modelValue >= options.nMin && modelValue <= options.nMax;
 
-      // console.log('Validate Number Between: ' + modelValue  + ' is between: ' + options.nMin + ' and ' + options.nMax + ': ' + bValid);
-
-      options.lastError = '';
       if (bValid === false) {
-        options.lastError = options.sMessage || 'Число має бути між ' + options.nMin + ' та ' + options.nMax;
+        options.lastError = options.sMessage || ('Перевірте правильність заповнення - число має бути між ' + options.nMin + ' та ' + options.nMax);
       }
+
       return bValid;
     },
 
@@ -517,18 +525,14 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       var FRACTIONAL_REGEXP = /^[0-9]+[\.?[0-9]*]?$/;
       var bValid = FRACTIONAL_REGEXP.test(modelValue) && modelValue >= options.nMin && modelValue <= options.nMax;
 
-      console.log('Validate NumberFractionalBetween: ' + modelValue + ' is between: ' + options.nMin + ' and ' + options.nMax + ': ' + bValid);
-
-      options.lastError = '';
-
       if (bValid === false) {
-        options.lastError = options.sMessage || 'Проверьте правильность заполнения поля - площадь помещения может состоять максимум из ' + options.nMax + ' цифр';
+        options.lastError = options.sMessage || ('Перевірте правильність заповнення поля - число може складатися максимум з ' + options.nMax + ' цифр');
       }
       return bValid;
     },
 
     /**
-      Формат маркера: 
+      Формат маркера:
       Numbers_Accounts: { //разрешены цифры и дефисы, буквы любые запрещены
         aField_ID: ['house_number', 'gas_number', 'coolwater_number', 'hotwater_number', 'waterback_number', 'warming_number', 'electricity_number', 'garbage_number']
       }
@@ -546,55 +550,13 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
       var DIGITS_AND_DASH_REGEXP = /^[\d+\-*]*\d+$/g;
       var bValid = DIGITS_AND_DASH_REGEXP.test(modelValue);
 
-      console.log('Validate Numbers_Accounts: ' + modelValue + ' is valid: ' + bValid);
-
-      options.lastError = '';
-
       if (bValid === false) {
-        options.lastError = options.sMessage || 'Проверьте правильность вводимого номера (буквы не разрешены к заполнению)';
+        options.lastError = options.sMessage || ('Перевірте правильність уведеного номеру (використовувати літери не можна)');
       }
       return bValid;
-    },
-
-    'DateElapsed_1': function(modelValue, viewValue, options) {
-      if (modelValue === null || modelValue === '') {
-        return true;
-      }
-      if (!options) {
-        return false;
-      }
-
-      if (options.inheritedValidator) {
-        //options.inheritedValidator.call
-        console.log('DateElapsed_1: inheritedValidator:', options.inheritedValidator);
-      }
-
     }
 
   };
-
-  /* * *
-  dmitrijzabrudskij commented on Aug 18
-
-  ВАЖНО: фактическое название элементов может быть любым, начинающимся, например, с "NumberBetween". 
-
-  Типа: NumberBetween_1, NumberBetween_Floor_Subs, NumberBetween_MaxBlocks и т.д. 
-  и все эти элементы должны работать паралельно, дополняя друг-друга (в элементах motion уже такой подход реализован)
-
-  Также должно так-же работать наследование маркеров (тоже, так-же как и в motion, и скорей всего уже работает унифицировано на весь markers, но стоит уточнить)
-
-  ЗАДАЧА: Добавить следующие валидаторы в элемент validate, объекта markers:
-
-  1)  NumberBetween: { //Целочисленное между
-  2)  NumberFractionalBetween: { //Дробное число между
-  3)  Numbers_Accounts: { //разрешены цифры и дефисы, буквы любые запрещены
-  4.1) Доработать "DateElapsed", добавив туда опциональный параметр sFormat: 'YYYY-MM-DD' //формат даты
-  4.2) Наследоваться от "DateElapsed" (поведение именно такое-же, но просто с другими параметрами):
-
-  5) Сделать опциональный параметр sMessage для всех элементов маркера валидации.
-
-  6) Для всех валидаторов сделать умолчательный пропуск проверки (приравнивать это к валидности), если содержимого поля нет (т.е. там пусто)
-  */
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Утиліти
@@ -606,12 +568,15 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
   };
 
   /**
-   * Перетворює числа nUnits та ключ key на слова такі як: 
+   * Перетворює числа nUnits та ключ sKey на слова такі як: 
    * - 1 день, 2 дні, 5 днів, 
    * - 1 місяць, 3 місяці, 10 місяців
    * - 1 рік, 4 роки, 5 років
+   * @param {number} nUnits кількість днів, місяців чи років, які треба привести до множини
+   * @param {string} sKey назва одиниці виміру часу: день, місяць чи рік.
+   * @returns {string} множинна форма на кшталт "5 днів", "2 роки" і т.д.
    */
-  self.pluralize = function(nUnits, key) {
+  self.pluralize = function(nUnits, sKey) {
     var types = {
       'days': {
         single: 'день',
@@ -629,9 +594,9 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
         multiple: 'років'
       }
     };
-    var form = nUnits === 0 ? '' : Math.abs(nUnits) === 1 ? types[key].single : Math.abs(nUnits) < 5 ? types[key].about : types[key].multiple;
-    form = form === '' ? '' : Math.abs(nUnits) + ' ' + form;
-    return form;
+    var sPluralized = nUnits === 0 ? '' : Math.abs(nUnits) === 1 ? types[sKey].single : Math.abs(nUnits) < 5 ? types[sKey].about : types[sKey].multiple;
+    sPluralized = sPluralized === '' ? '' : Math.abs(nUnits) + ' ' + sPluralized;
+    return sPluralized;
   };
 
   /**
@@ -670,5 +635,4 @@ function ValidationService(moment, amMoment, angularMomentConfig, MarkersFactory
     return nCRC;
 
   };
-
 }
