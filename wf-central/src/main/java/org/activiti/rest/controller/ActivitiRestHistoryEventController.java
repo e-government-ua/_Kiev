@@ -368,8 +368,10 @@ public class ActivitiRestHistoryEventController {
 				n += getCountFromStatisticArrayMap(am);
 
 				log.info("[getListOfHistoryEvents]nCount(summ)=" + n);
-				mValue.put("nCount", n);
-				//listOfHistoryEventsWithMeaningfulNames.add(mValue);
+				nCount += n;
+//				mValue.put("nCount", n);
+//				mValue.put("nRate", 0L);//???
+//				listOfHistoryEventsWithMeaningfulNames.add(mValue);
 			}
 
 			log.info("[getListOfHistoryEvents]nCount=" + nCount);
