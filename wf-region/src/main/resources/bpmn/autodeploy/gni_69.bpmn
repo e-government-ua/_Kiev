@@ -27,9 +27,9 @@
         <activiti:formProperty id="nomer" name="Вкажіть код ЄДРПОУ або ІНН; тільки цифрові позначення" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="naimenov" name="Найменування підприємства" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="organ" name="Навіщо Вам потрібна ця довідка?" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="info_1" type="label" default="&lt;a href=&quot;https://docs.google.com/document/d/17kd6pC_2PwfDgk1zJpZ6D1BkTRMJqDQLIAYq_9Pvri0/edit&quot; target=&quot;_blank&quot;&gt;примітка&lt;/a&gt;"></activiti:formProperty>
         <activiti:formProperty id="info_2" name="Заповніть бланк" type="label" default="Завантажте &lt;a href=&quot;https://docs.google.com/document/d/1op393ACpXsaPwewbuvn4yir-8oskEXy83RcSXOuUnco/edit&quot; target=&quot;_blank&quot;&gt;бланк&lt;/a&gt;, заповніть, накладіть на нього електронно-цифровий підпис та додайте у наступному полі."></activiti:formProperty>
         <activiti:formProperty id="zapit" name="Заповнений бланк" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="info_1" type="label" default="&lt;a href=&quot;https://docs.google.com/document/d/17kd6pC_2PwfDgk1zJpZ6D1BkTRMJqDQLIAYq_9Pvri0/edit&quot; target=&quot;_blank&quot;&gt;примітка&lt;/a&gt;"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника держоргану" activiti:type="mail">
