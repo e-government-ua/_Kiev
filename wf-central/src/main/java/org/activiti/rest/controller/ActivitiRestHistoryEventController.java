@@ -268,7 +268,6 @@ public class ActivitiRestHistoryEventController {
 				https://igov.org.ua/service/176/general - 546
 				https://igov.org.ua/service/654/general - 307   */
 
-
 			Long nCount = currMap.get("nCount");
 			if (nCount == null) {
 				nCount = 0L;
@@ -370,12 +369,12 @@ public class ActivitiRestHistoryEventController {
 
 				log.info("[getListOfHistoryEvents]nCount(summ)=" + n);
 				mValue.put("nCount", n);
-				listOfHistoryEventsWithMeaningfulNames.add(mValue);
+				//listOfHistoryEventsWithMeaningfulNames.add(mValue);
 			}
 
 			log.info("[getListOfHistoryEvents]nCount=" + nCount);
-			  currMapWithName.put("nCount", nCount);
-			  listOfHistoryEventsWithMeaningfulNames.add(currMapWithName);
+			currMapWithName.put("nCount", nCount);
+			listOfHistoryEventsWithMeaningfulNames.add(currMapWithName);
 		}
 
 		return listOfHistoryEventsWithMeaningfulNames;
