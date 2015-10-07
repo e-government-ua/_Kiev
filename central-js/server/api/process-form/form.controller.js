@@ -1,3 +1,4 @@
+var url = require('url');
 var request = require('request');
 var FormData = require('form-data');
 var config = require('../../config/environment');
@@ -135,14 +136,85 @@ module.exports.scanUpload = function (req, res) {
 
 };
 
+module.exports.signForm = function(req, res) {
+  var callbackURL = url.resolve(originalURL(req, {}),
+    '/api/process-form/sign/callback' +
+    '?uploadLink=' + req.query.uploadLink +
+    '&formLink=' + req.query.formLink +
+    '&formID=' + req.query.formID);
 
-module.exports.save = function(req, res) {
+  var options = _.merge(getBankIDOptions(req.session.access.access_token), {
+    acceptKeyUrl: callbackURL,
+    formToUpload: '<html><body><p>test</p></body></html>'
+  });
+
+  accountService.signHtmlForm(options, function (error, result) {
+    if (error) {
+      res.status(401).send(error);
+    } else {
+      res.redirect(result.desc);
+    }
+  });
+};
+
+module.exports.signFormCallback = function(req, res){
+  var codeValue = req.query.code;
+  var uploadURL = req.query.uploadLink;
+  var formLink = req.query.formLink;
+  var formID = req.query.formID;
+
+  var bankIDOptions = getBankIDOptions(req.session.access.accessToken);
+  var signedFormForUpload = accountService.prepareScanContentRequest(bankIDOptions, codeValue);
+
+  async.waterfall([
+    function (callback) {
+      var form = new FormData();
+      form.append('file', signedFormForUpload, {
+        filename: 'signedForm.pdf'
+      });
+
+      var requestOptionsForUploadContent = {
+        url: uploadURL,
+        auth: getAuth(),
+        headers: form.getHeaders()
+      };
+
+      var decoder = new StringDecoder('utf8');
+      var result = {};
+      form.pipe(request.post(requestOptionsForUploadContent))
+        .on('response', function (response) {
+          result.statusCode = response.statusCode;
+        }).on('data', function (chunk) {
+          if (result.fileID) {
+            result.fileID += decoder.write(chunk);
+          } else {
+            result.fileID = decoder.write(chunk);
+          }
+        }).on('end', function () {
+          callback(null, {signedUpload: result});
+        });
+    }
+  ], function (err, result) {
+    if (err) {
+      res.redirect(formLink
+        + '?formID=' + result.signedUpload.fileID
+        + '&error=' + JSON.stringify(err));
+    } else {
+      res.redirect(formLink
+        + '?formID=' + result.signedUpload.fileID
+        + '?signedFileID=' + result.signedUpload.fileID);
+    }
+  });
+
+};
+
+module.exports.saveForm = function(req, res) {
   var data = req.body;
   var formData = data.formData;
-  var uploadURL = data.url;
+  var uploadURL = data.uploadFormUrl;
 
   var form = new FormData();
-  form.append('file', JSON.stringify(formData), {
+  form.append('file', JSON.stringify(data), {
     filename: 'formData.json'
   });
 
@@ -157,7 +229,7 @@ module.exports.save = function(req, res) {
   });
 };
 
-module.exports.load = function(req, res) {
+module.exports.loadForm = function(req, res) {
   ///file/download_file_from_redis?key=
   var data = req.body;
   var formID = data.formID;
@@ -197,6 +269,22 @@ function pipeFormDataToRequest(form, requestOptionsForUploadContent, callback){
       callback(result);
     });
 }
+
+var originalURL = function (req, options) {
+  options = options || {};
+  var app = req.app;
+  if (app && app.get && app.get('trust proxy')) {
+    options.proxy = true;
+  }
+  var trustProxy = options.proxy;
+
+  var proto = (req.headers['x-forwarded-proto'] || '').toLowerCase()
+    , tls = req.connection.encrypted || (trustProxy && 'https' == proto.split(/\s*,\s*/)[0])
+    , host = (trustProxy && req.headers['x-forwarded-host']) || req.headers.host
+    , protocol = tls ? 'https' : 'http'
+    , path = req.url || '';
+  return protocol + '://' + host + path;
+};
 
 function getOptions() {
   var config = require('../../config/environment');

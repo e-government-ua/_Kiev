@@ -4,6 +4,11 @@ var async = require('async');
 var syncSubject = require('../service/syncSubject.controller');
 var Admin = require('../../components/admin');
 
+
+var getAuth = function (options) {
+  return 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id;
+};
+
 var createError = function (error, error_description, response) {
   return {
     code: response ? response.statusCode : 500,
@@ -31,7 +36,7 @@ module.exports.index = function (options, callback) {
     'url': url,
     'headers': {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id,
+      'Authorization': getAuth(options),
       'Accept': 'application/json'
     },
     json: true,
@@ -72,7 +77,7 @@ module.exports.scansRequest = function (options, callback) {
     'url': url,
     'headers': {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id,
+      'Authorization': getAuth(options),
       'Accept': 'application/json'
     },
     json: true,
@@ -94,7 +99,7 @@ module.exports.prepareScanContentRequest = function (options) {
   var o = {
     'url': options.url,
     'headers': {
-      'Authorization': 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id
+      'Authorization': getAuth(options)
     }
   };
   return request.get(o);
@@ -112,7 +117,7 @@ module.exports.syncWithSubject = function (options, done) {
         params: {
           client_id: bankid.client_id,
           client_secret: bankid.client_secret,
-          access_token: options.access.accessToken || null
+          access_token: options.params.accessToken || null
         }
       };
 
@@ -157,17 +162,22 @@ module.exports.syncWithSubject = function (options, done) {
   });
 };
 
+/**
+ *  Content-Type = "multipart/form-data"
+ * Authorization = "Bearer access_token, Id client_id" - (последовательность не важна)
+ * Accept = "application/json"
+ * acceptKeyUrl = URL_callback - (урл перенаправления браузера и передача ключа для забора подписанного PDF)
+ * fileType = "pdf" (так же принимает еще значения html, image, которые будут преобразованы в формат PDF )
+ * В результате ответа будет получен JSON вида
+ * {"state":"ok","code":"000000","desc":"https://{IP:port}/IdentDigitalSignature/signPdf?sidBi=sidBi_value"}
+ *
+ * @param options
+ * @param callback
+ */
 module.exports.signHtmlForm = function (options, callback) {
   var uploadURL = options.protocol + '://' + options.hostname + options.path + '/checked/uploadFileForSignature';
 
-  //Content-Type = "multipart/form-data"
-  //Authorization = "Bearer access_token, Id client_id" - (последовательность не важна)
-  //Accept = "application/json"
-  //acceptKeyUrl = URL_callback - (урл перенаправления браузера и передача ключа для забора подписанного PDF)
-  //fileType = "pdf" (так же принимает еще значения html, image, которые будут преобразованы в формат PDF )
-  //В результате ответа будет получен JSON вида
-  //{"state":"ok","code":"000000","desc":"https://{IP:port}/IdentDigitalSignature/signPdf?sidBi=sidBi_value"}
-  var formToUpload = options.params.formToUpload;//'<html><body><p>test</p></body></html>';
+  var formToUpload = options.params.formToUpload;
   var form = new FormData();
   form.append('file', formToUpload, {
     contentType: 'text/html'
@@ -176,7 +186,7 @@ module.exports.signHtmlForm = function (options, callback) {
   var requestOptionsForUploadContent = {
     url: uploadURL,
     headers: _.merge({
-      Authorization: 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id,
+      Authorization: getAuth(options),
       acceptKeyUrl: options.params.acceptKeyUrl,
       fileType: 'html'
     }, form.getHeaders()),
@@ -187,7 +197,7 @@ module.exports.signHtmlForm = function (options, callback) {
   };
 
   request.post(requestOptionsForUploadContent, function (error, response, body) {
-    if(body.error){
+    if (body.error) {
       callback(error, null);
     } else {
       callback(null, body);
@@ -195,4 +205,20 @@ module.exports.signHtmlForm = function (options, callback) {
   });
 };
 
+/**
+ * После отработки п.3 (подписание), BankID делает редирект на https://{PI:port}/URL_callback?code=code_value с передачей
+ * параметра авторизационного ключа code, тем самым заканчивая фазу п.4.
+ *
+ * @param req
+ * @param res
+ */
+module.exports.prepareSignedContentRequest = function (bankIDOptions, codeValue) {
+  var url = bankIDOptions.protocol + '://' + bankIDOptions.hostname
+    + bankIDOptions.path + '/checked/claim/' + codeValue + '/clientPdfClaim';
+  var options = _.merge(bankIDOptions, {
+    url: url
+  });
+
+  return module.exports.prepareScanContentRequest(options);
+};
 

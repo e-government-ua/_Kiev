@@ -35,7 +35,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.data.region = currentState.data.region;
   $scope.data.city = currentState.data.city;
   $scope.data.id = currentState.data.id;
-  
+
   if ( !$scope.data.formData ) {
     $scope.data.formData = new FormDataFactory();
     $scope.data.formData.initialize(ActivitiForm);
@@ -90,6 +90,29 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       }
     }
   });
+
+  $scope.signForm = function (form) {
+    $scope.isSending = true;
+    form.$setSubmitted();
+    var bValid = true;
+
+    ValidationService.validateByMarkers(form, null, true);
+    if (form.$valid && bValid) { //
+
+      ActivitiService.saveForm(oService, oServiceData, $scope.data.formData).then(function(result){
+
+        ActivitiService.loadForm(result).then(function(result){
+
+        });
+        //ActivitiService.signForm(oService, oServiceData, $scope.data.formData)
+        //  .then(function(result){
+        //    $scope.isSending = false;
+        //  });
+      });
+
+
+    }
+  };
 
   $scope.submit = function(form) {
     $scope.isSending = true;

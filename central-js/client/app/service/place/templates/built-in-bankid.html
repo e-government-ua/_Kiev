@@ -1,10 +1,10 @@
 <div class="list-group">
-  
+
   <place></place>
 
   <div class="list-group-item disabled">
     <div class="row no-margin-bottom">
-      <div class="col-md-11">Крок 2. Ви увійшли як 
+      <div class="col-md-11">Крок 2. Ви увійшли як
         {{account.customer.firstName}} {{account.customer.middleName}} {{account.customer.lastName}}
       </div>
       <div class="col-md-1">
@@ -14,7 +14,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="list-group-item">
     <div class="row">
       <div class="col-md-12">Крок 3.
@@ -201,6 +201,12 @@
                         ng-disable="cantSubmit(form)"
                         ng-hide="bSending(form)">
                   Замовити послугу
+                </button>
+                <button class="btn btn-info"
+                        ng-click="signForm(form)"
+                        ng-disable="cantSubmit(form)"
+                        ng-hide="bSending(form)">
+                  Підписати
                 </button>
                 <br><label ng-show="bSending(form)">Зачекайте...</label>
               </div>
