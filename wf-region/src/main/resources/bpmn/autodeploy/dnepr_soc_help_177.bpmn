@@ -29,18 +29,15 @@
           <activiti:value id="invalid" name="допомога інвалідам"></activiti:value>
           <activiti:value id="children" name="допомога матерям/допомога на дітей"></activiti:value>
           <activiti:value id="care" name="допомога особам, які доглядають за іншими"></activiti:value>
-          <activiti:value id="energy" name="компенсації за використання енергетичних носіїв"></activiti:value>
           <activiti:value id="other" name="інше"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="section_invalid" name="Оберіть тип допомоги" type="enum">
           <activiti:value id="invalid_child" name="Призначення допомоги інвалідам з дитинства та дітям-інвалідам"></activiti:value>
           <activiti:value id="invalid_not_pension" name="Призначення допомоги особам, які не мають права на пенсію, та інвалідам"></activiti:value>
-          <activiti:value id="invalid_dovidka" name="Видача посвідчень інвалідам з дитинства та дітям інвалідам, особам, які не мають права на пенсію та інвалідам."></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="section_children" name="Оберіть тип допомоги" type="enum">
           <activiti:value id="children_pregnancy" name="Призначення допомоги у зв’язку з вагітністю та пологами"></activiti:value>
           <activiti:value id="children_born" name="Призначення допомоги при народженні дитини"></activiti:value>
-          <activiti:value id="children_3_years" name="Призначення допомоги по догляду за дитиною до досягнення нею трирічного віку"></activiti:value>
           <activiti:value id="children_adoption" name="Призначення допомоги при усиновленні дитини"></activiti:value>
           <activiti:value id="children_mother_hero" name="Надання допомоги «Матерям-героїням»"></activiti:value>
           <activiti:value id="children_single_mother" name="Призначення допомоги на дітей одиноким матерям"></activiti:value>
@@ -54,15 +51,10 @@
           <activiti:value id="care_psycho" name="Призначення допомоги малозабезпеченій особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу"></activiti:value>
           <activiti:value id="care_old_human" name="Призначення компенсації по догляду за інв.1 гр., престарілим старше 80 років"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="section_energy" name="Оберіть тип допомоги" type="enum">
-          <activiti:value id="energy_1" name="Призначення компенсації за послуги з центрального опалення житла, електропостачання та газопостачання"></activiti:value>
-          <activiti:value id="energy_2" name="Надання пільг готівкою на придбання твердого палива і скрапленого газу за рахунок субвенцій з державного бюджету місцевим бюджетам"></activiti:value>
-          <activiti:value id="energy_3" name="Призначення субсидії для відшкодування витрат на оплату житлово-комунальних послуг, придбання скрапленого газу, твердого пічного побутового палива"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="section_other" name="Оберіть тип допомоги" type="enum">
           <activiti:value id="other_poor" name="Призначення допомоги малозабезпеченим сім'ям"></activiti:value>
           <activiti:value id="other_funeral" name="Призначення допомоги на поховання"></activiti:value>
-          <activiti:value id="other_centenarian" name="Надання стипендії особам, яким виповнилось 100 і більше років"></activiti:value>
+          <activiti:value id="energy_3" name="Призначення субсидії для відшкодування витрат на оплату житлово-комунальних послуг, придбання скрапленого газу, твердого пічного побутового палива"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="markers1" name="Маркеры1" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;section_invalid&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'invalid'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;section_children&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'children'&quot;}}}"></activiti:formProperty>
@@ -88,22 +80,19 @@
           <activiti:value id="invalid" name="допомога інвалідам"></activiti:value>
           <activiti:value id="children" name="допомога матерям/допомога на дітей"></activiti:value>
           <activiti:value id="care" name="допомога особам, які доглядають за іншими"></activiti:value>
-          <activiti:value id="energy" name="компенсації за використання енергетичних носіїв"></activiti:value>
           <activiti:value id="other" name="інше"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="section_invalid" name="Оберіть тип допомоги" type="enum" writable="false">
-          <activiti:value id="invalid_child" name="Видача довідкок про отримання/неотримання усіх видів державних соціальних допомог"></activiti:value>
+          <activiti:value id="invalid_child" name="Призначення допомоги інвалідам з дитинства та дітям-інвалідам"></activiti:value>
           <activiti:value id="invalid_not_pension" name="Призначення допомоги особам, які не мають права на пенсію, та інвалідам"></activiti:value>
-          <activiti:value id="invalid_dovidka" name="Видача посвідчень інвалідам з дитинства та дітям інвалідам, особам, які не мають права на пенсію та інвалідам."></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="section_children" name="Оберіть тип допомоги" type="enum" writable="false">
           <activiti:value id="children_pregnancy" name="Призначення допомоги у зв’язку з вагітністю та пологами"></activiti:value>
           <activiti:value id="children_born" name="Призначення допомоги при народженні дитини"></activiti:value>
-          <activiti:value id="children_3_years" name="Призначення допомоги по догляду за дитиною до досягнення нею трирічного віку"></activiti:value>
           <activiti:value id="children_adoption" name="Призначення допомоги при усиновленні дитини"></activiti:value>
           <activiti:value id="children_mother_hero" name="Надання допомоги «Матерям-героїням»"></activiti:value>
           <activiti:value id="children_single_mother" name="Призначення допомоги на дітей одиноким матерям"></activiti:value>
-          <activiti:value id="children_adoption" name="Призначення допомоги на дітей, які перебувають під опікою чи піклуванням"></activiti:value>
+          <activiti:value id="children_adoption_1" name="Призначення допомоги на дітей, які перебувають під опікою чи піклуванням"></activiti:value>
           <activiti:value id="children_orphan" name="Призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування"></activiti:value>
           <activiti:value id="children_bad_parents" name="Призначення тимчасової допомоги дітям, батьки яких ухиляються від сплати аліментів"></activiti:value>
         </activiti:formProperty>
@@ -113,15 +102,10 @@
           <activiti:value id="care_psycho" name="Призначення допомоги малозабезпеченій особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу"></activiti:value>
           <activiti:value id="care_old_human" name="Призначення компенсації по догляду за інв.1 гр., престарілим старше 80 років"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="section_energy" name="Оберіть тип допомоги" type="enum" writable="false">
-          <activiti:value id="energy_1" name="Призначення компенсації за послуги з центрального опалення житла, електропостачання та газопостачання"></activiti:value>
-          <activiti:value id="energy_2" name="Надання пільг готівкою на придбання твердого палива і скрапленого газу за рахунок субвенцій з державного бюджету місцевим бюджетам"></activiti:value>
-          <activiti:value id="energy_3" name="Призначення субсидії для відшкодування витрат на оплату житлово-комунальних послуг, придбання скрапленого газу, твердого пічного побутового палива"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="section_other" name="Оберіть тип допомоги" type="enum" writable="false">
           <activiti:value id="other_poor" name="Призначення допомоги малозабезпеченим сім'ям"></activiti:value>
           <activiti:value id="other_funeral" name="Призначення допомоги на поховання"></activiti:value>
-          <activiti:value id="other_centenarian" name="Надання стипендії особам, яким виповнилось 100 і більше років"></activiti:value>
+          <activiti:value id="energy_3" name="Призначення субсидії для відшкодування витрат на оплату житлово-комунальних послуг, придбання скрапленого газу, твердого пічного побутового палива"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decision_2" name="повідомлення громадянина про прийняте рішення" type="enum" required="true">
           <activiti:value id="accept" name="надати довідку"></activiti:value>
@@ -190,7 +174,6 @@
 ${section_invalid}
 ${section_children}
 ${section_care}
-${section_energy}
 ${section_other}
 &lt;br /&gt;&lt;br /&gt;
 Підстава:${comment_2}&lt;br /&gt;&lt;br /&gt;
@@ -299,11 +282,10 @@ ${section_other}
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
 Сканкопія довідки 
-${section_invalid}
-${section_children}
-${section_care}
-${section_energy}
-${section_other}                          
+enum{[section_invalid]} 
+enum{[section_children]} 
+enum{[section_care]} 
+enum{[section_other]}                         
 знаходиться у додатку до листа.&lt;br /&gt;
 Ви можете отримати оригінал довідки за адресою: м. Дніпропетровськ, вул. К.Лібкнехта, 70&lt;br /&gt;
 телефон для довідок: (056) 749-45-46
@@ -433,7 +415,6 @@ ${section_other}
 enum{[section_invalid]} 
 enum{[section_children]} 
 enum{[section_care]} 
-enum{[section_energy]} 
 enum{[section_other]} 
 &lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
