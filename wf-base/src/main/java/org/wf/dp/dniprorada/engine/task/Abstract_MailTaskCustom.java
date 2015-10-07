@@ -118,13 +118,13 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         
         textWithoutTags = replaceTags_LIQPAY(textWithoutTags, execution);
 
-        textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
-
         textWithoutTags = populatePatternWithContent(textWithoutTags);
 
         textWithoutTags = replaceTags_Catalog(textWithoutTags, execution);
 
         textWithoutTags = replaceTags_Enum(textWithoutTags, execution);
+        
+        textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
 
         Long nID_Protected = getProtectedNumber(Long.valueOf(execution
                 .getProcessInstanceId()));
