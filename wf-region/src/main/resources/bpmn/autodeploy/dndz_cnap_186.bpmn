@@ -157,8 +157,8 @@
           <activiti:value id="reject" name="Дані заповнені неправильно, повідомити громадянина (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="PrintForm_1" name="File label;File title;pattern/print/dndz_cnap_186_print.html" type="file"></activiti:formProperty>
-        <activiti:formProperty id="PrintForm_2" name="File label;File title;pattern/print/dndz_cnap_187_print.html" type="file"></activiti:formProperty>
+        <activiti:formProperty id="PrintForm_1" name="File label;File title;print/dndz_cnap_186_print.html" type="file"></activiti:formProperty>
+       
         <activiti:formProperty id="sBody_1" name="[pattern/print/dndz_cnap_186_print.html]" type="invisible" default="заява фізичної особи-підприємця" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_2" name="[pattern/print/dndz_cnap_187_print.html]" type="invisible" default="заява юридичної особи" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
@@ -387,7 +387,7 @@
           <activiti:string><![CDATA[Звернення на тему: Організація ярмарок на території міста]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${head},${protokol},${dogovor},${PrintForm_1},${PrintForm_2}"</activiti:expression>
+          <activiti:expression>"${head},${protokol},${dogovor},${PrintForm_1}"</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;

@@ -118,13 +118,13 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         
         textWithoutTags = replaceTags_LIQPAY(textWithoutTags, execution);
 
-        textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
-
         textWithoutTags = populatePatternWithContent(textWithoutTags);
 
         textWithoutTags = replaceTags_Catalog(textWithoutTags, execution);
 
         textWithoutTags = replaceTags_Enum(textWithoutTags, execution);
+        
+        textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
 
         Long nID_Protected = getProtectedNumber(Long.valueOf(execution
                 .getProcessInstanceId()));
@@ -261,6 +261,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                                     List<String> aID = new ArrayList<String>();
                                     aID.add(formProperty.getId());
                                     List<String> proccessVariable = AbstractModelTask.getVariableValues(execution, aID);
+                                    LOG.info("proccessVariable: " + proccessVariable);
                                     if (!proccessVariable.isEmpty() && proccessVariable.get(0) != null) {
                                         replacement = proccessVariable.get(0);
                                     }
