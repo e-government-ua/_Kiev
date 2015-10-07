@@ -19,7 +19,7 @@
           <activiti:value id="attr1_no" name="ні"></activiti:value>
           <activiti:value id="attr2_yes" name="так"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="nID_Department_visitDate" name="Департамент" type="enum" default="1" required="true">
+        <activiti:formProperty id="nID_Department_visitDate" name="Департамент" type="enum" required="true">
           <activiti:value id="1" name="Департамент 1"></activiti:value>
           <activiti:value id="2" name="Департамент 2"></activiti:value>
         </activiti:formProperty>
