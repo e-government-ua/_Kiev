@@ -12,7 +12,7 @@
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="objectAddress" name="Адреса розміщення об`єкта дрібно-роздрібної торгівлі" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="dergReestracia" name="Завантажте копію свідоцтва про державну реєстрацію суб’єкта господарювання;або копію виписки з ЄДР юридичних осіб та фізичних осіб-підприємців" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="EP" name="Завантажте копію свідоцтва про сплату єдиного податку" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="EP" name="Завантажте Витяг з реєстру платників єдиного податку" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="warningMessage" name="Увага" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Скан-копія паспорта" type="file" required="true"></activiti:formProperty>
       </extensionElements>
