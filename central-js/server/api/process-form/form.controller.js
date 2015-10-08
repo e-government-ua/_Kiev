@@ -109,8 +109,8 @@ module.exports.scanUpload = function (req, res) {
 
     var form = new FormData();
     form.append('file', scanContentRequest, {
-        filename: documentScan.scan.type + '.' + documentScan.scan.extension
-      });
+      filename: documentScan.scan.type + '.' + documentScan.scan.extension
+    });
 
     var requestOptionsForUploadContent = {
       url: uploadURL,
@@ -118,10 +118,10 @@ module.exports.scanUpload = function (req, res) {
       headers: form.getHeaders()
     };
 
-    pipeFormDataToRequest(form, requestOptionsForUploadContent, function(result){
+    pipeFormDataToRequest(form, requestOptionsForUploadContent, function (result) {
       uploadResults.push({
-        fileID : result.data,
-        scanField : documentScan
+        fileID: result.data,
+        scanField: documentScan
       });
       callback();
     });
@@ -136,16 +136,20 @@ module.exports.scanUpload = function (req, res) {
 
 };
 
-module.exports.signForm = function(req, res) {
+module.exports.signForm = function (req, res) {
+  var data = req.body;
+
   var callbackURL = url.resolve(originalURL(req, {}),
     '/api/process-form/sign/callback' +
-    '?uploadLink=' + req.query.uploadLink +
-    '&formLink=' + req.query.formLink +
-    '&formID=' + req.query.formID);
+    '?signedFormUpload=' + data.signedFormUpload +
+    '&formID=' + data.formID);
 
-  var options = _.merge(getBankIDOptions(req.session.access.access_token), {
-    acceptKeyUrl: callbackURL,
-    formToUpload: '<html><body><p>test</p></body></html>'
+  var options = _.merge(getBankIDOptions(req.session.access.accessToken), {
+    path: '/ResourceService',
+    params: {
+      acceptKeyUrl: callbackURL,
+      formToUpload: '<html><body><p>test</p></body></html>'
+    }
   });
 
   accountService.signHtmlForm(options, function (error, result) {
@@ -157,59 +161,61 @@ module.exports.signForm = function(req, res) {
   });
 };
 
-module.exports.signFormCallback = function(req, res){
+module.exports.signFormCallback = function (req, res) {
   var codeValue = req.query.code;
-  var uploadURL = req.query.uploadLink;
-  var formLink = req.query.formLink;
   var formID = req.query.formID;
+  var signedFormUpload = req.query.signedFormUpload;
 
   var bankIDOptions = getBankIDOptions(req.session.access.accessToken);
   var signedFormForUpload = accountService.prepareScanContentRequest(bankIDOptions, codeValue);
 
   async.waterfall([
-    function (callback) {
+    function (loadedForm, callback) {
       var form = new FormData();
       form.append('file', signedFormForUpload, {
         filename: 'signedForm.pdf'
       });
 
       var requestOptionsForUploadContent = {
-        url: uploadURL,
+        url: signedFormUpload,
         auth: getAuth(),
         headers: form.getHeaders()
       };
 
-      var decoder = new StringDecoder('utf8');
-      var result = {};
-      form.pipe(request.post(requestOptionsForUploadContent))
-        .on('response', function (response) {
-          result.statusCode = response.statusCode;
-        }).on('data', function (chunk) {
-          if (result.fileID) {
-            result.fileID += decoder.write(chunk);
-          } else {
-            result.fileID = decoder.write(chunk);
-          }
-        }).on('end', function () {
-          callback(null, {signedUpload: result});
-        });
+      pipeFormDataToRequest(form, requestOptionsForUploadContent, function (result) {
+        callback(null, {signedFormID: result.data});
+      });
     }
   ], function (err, result) {
     if (err) {
       res.redirect(formLink
-        + '?formID=' + result.signedUpload.fileID
+        + '?formID=' + formID
         + '&error=' + JSON.stringify(err));
     } else {
       res.redirect(formLink
-        + '?formID=' + result.signedUpload.fileID
-        + '?signedFileID=' + result.signedUpload.fileID);
+        + '?formID=' + formID
+        + '?signedFileID=' + result.signedFormID.fileID);
     }
   });
 
 };
 
-module.exports.saveForm = function(req, res) {
+module.exports.saveForm = function (req, res) {
   var data = req.body;
+
+  if (!data.uploadFormUrl) {
+    res.status(400).send({error: 'Cant save form without uploadFormUrl'});
+    return;
+  }
+  if (!data.restoreFormUrl) {
+    res.status(400).send({error: 'Cant save form without restoreFormUrl'});
+    return;
+  }
+  if (!data.uploadSignedFormUrl) {
+    res.status(400).send({error: 'Cant save form without uploadSignedFormUrl'});
+    return;
+  }
+
   var formData = data.formData;
   var uploadURL = data.uploadFormUrl;
 
@@ -224,26 +230,29 @@ module.exports.saveForm = function(req, res) {
     headers: form.getHeaders()
   };
 
-  pipeFormDataToRequest(form, requestOptionsForUploadContent, function(result){
-    res.send({formID : result.data});
+  pipeFormDataToRequest(form, requestOptionsForUploadContent, function (result) {
+    res.send({formID: result.data});
   });
 };
 
-module.exports.loadForm = function(req, res) {
+module.exports.loadForm = function (req, res) {
   ///file/download_file_from_redis?key=
-  var data = req.body;
-  var formID = data.formID;
-  var downloadURL = data.url;
+  var formID = req.query.formID;
+  var downloadURL = req.query.loadFormUrl;
 
   var callback = function (error, response, body) {
-    if(error){
-      res.status(401).send(error);
+    if (error) {
+      res.status(400).send(error);
     } else {
-      res.send(JSON.parse(body));
+      res.send(body);
     }
   };
 
-  return request.get({
+  loadForm(formID, downloadURL, callback);
+};
+
+function loadForm(formID, downloadURL, callback) {
+  request.get({
     url: downloadURL,
     auth: getAuth(),
     qs: {
@@ -251,16 +260,16 @@ module.exports.loadForm = function(req, res) {
     },
     json: true
   }, callback);
-};
+}
 
-function pipeFormDataToRequest(form, requestOptionsForUploadContent, callback){
+function pipeFormDataToRequest(form, requestOptionsForUploadContent, callback) {
   var decoder = new StringDecoder('utf8');
   var result = {};
   form.pipe(request.post(requestOptionsForUploadContent))
     .on('response', function (response) {
       result.statusCode = response.statusCode;
     }).on('data', function (chunk) {
-      if (result.fileID) {
+      if (result.data) {
         result.data += decoder.write(chunk);
       } else {
         result.data = decoder.write(chunk);

@@ -3,7 +3,7 @@ var FormData = require('form-data');
 var async = require('async');
 var syncSubject = require('../service/syncSubject.controller');
 var Admin = require('../../components/admin');
-
+var _ = require('lodash');
 
 var getAuth = function (options) {
   return 'Bearer ' + options.params.access_token + ', Id ' + options.params.client_id;
@@ -197,7 +197,7 @@ module.exports.signHtmlForm = function (options, callback) {
   };
 
   request.post(requestOptionsForUploadContent, function (error, response, body) {
-    if (body.error) {
+    if (error || (error = body.error)) {
       callback(error, null);
     } else {
       callback(null, body);

@@ -92,26 +92,16 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   });
 
   $scope.signForm = function (form) {
-    $scope.isSending = true;
-    form.$setSubmitted();
-    var bValid = true;
-
-    ValidationService.validateByMarkers(form, null, true);
-    if (form.$valid && bValid) { //
-
-      ActivitiService.saveForm(oService, oServiceData, $scope.data.formData).then(function(result){
-
-        ActivitiService.loadForm(result).then(function(result){
-
-        });
-        //ActivitiService.signForm(oService, oServiceData, $scope.data.formData)
-        //  .then(function(result){
-        //    $scope.isSending = false;
-        //  });
-      });
-
-
-    }
+    ActivitiService.saveForm(oService, oServiceData, $scope.data.formData).then(function(result){
+      ActivitiService.signForm(oService, oServiceData, $scope.data.formData, result.formID);
+      //ActivitiService.loadForm(oServiceData, result.formID).then(function(result){
+      //
+      //});
+      //ActivitiService.signForm(oService, oServiceData, $scope.data.formData)
+      //  .then(function(result){
+      //    $scope.isSending = false;
+      //  });
+    });
   };
 
   $scope.submit = function(form) {

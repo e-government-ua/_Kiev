@@ -103,8 +103,14 @@ angular.module('app').config(function($stateProvider) {
             return $q.reject(null);
           });
         },
-        BankIDAccount: function(BankIDService) {
-          return BankIDService.account();
+        BankIDAccount: function($q, BankIDService) {
+          return BankIDService.account().then(function(result){
+            if(!result){
+              return $q.reject(null);
+            } else {
+              return result;
+            }
+          });
         },
         processDefinitions: function(ServiceService, oServiceData) {
           return ServiceService.getProcessDefinitions(oServiceData, true);
