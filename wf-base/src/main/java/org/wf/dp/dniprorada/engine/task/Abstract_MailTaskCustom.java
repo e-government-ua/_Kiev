@@ -1,6 +1,7 @@
 package org.wf.dp.dniprorada.engine.task;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.activiti.bpmn.model.StartEvent;
 
 import org.activiti.engine.form.FormData;
 import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
@@ -38,6 +40,7 @@ import static org.activiti.rest.controller.ActivitiRestApiController.parseEnumPr
 
 import org.activity.rest.security.AuthenticationTokenSelector;
 import org.egov.util.MVSDepartmentsTagUtil;
+import org.wf.dp.dniprorada.base.model.AbstractModelTask;
 import org.wf.dp.dniprorada.exchange.AccessCover;
 
 import static org.wf.dp.dniprorada.util.luna.AlgorithmLuna.getProtectedNumber;
@@ -63,7 +66,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     private static final String PATTERN_CURRENCY_ID = "sID_Currency%s";
     private static final String PATTERN_DESCRIPTION = "sDescription%s";
     private static final String PATTERN_SUBJECT_ID = "nID_Subject%s";
-    private static final String PATTERN_DELIMITER = "_";
+    //private static final String PATTERN_DELIMITER = "_";
     @Autowired
     AccessCover accessCover;
     @Autowired
@@ -110,16 +113,18 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         if (textStr == null) {
             return null;
         }
-        LOG.info("begin textStr: " + textStr);
-        String textWithoutTags = replaceTags_LIQPAY(textStr, execution);
-
-        textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
-
+        
+        String textWithoutTags = textStr;
+        
+        textWithoutTags = replaceTags_LIQPAY(textWithoutTags, execution);
+        
         textWithoutTags = populatePatternWithContent(textWithoutTags);
 
-        textWithoutTags = replaceTags_Catalog(textStr, execution);
-
         textWithoutTags = replaceTags_Enum(textWithoutTags, execution);
+        
+        textWithoutTags = replaceTags_Catalog(textWithoutTags, execution);
+        
+        textWithoutTags = new MVSDepartmentsTagUtil().replaceMVSTagWithValue(textWithoutTags);
 
         Long nID_Protected = getProtectedNumber(Long.valueOf(execution
                 .getProcessInstanceId()));
@@ -182,6 +187,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     private String replaceTags_Enum(String textWithoutTags, DelegateExecution execution) {
         List<String> previousUserTaskId = getPreviousTaskId(execution);
         int nLimit = StringUtils.countMatches(textWithoutTags, TAG_Function_AtEnum);
+        LOG.info("Found " + nLimit + " enum occurrences in the text");
         Map<String, FormProperty> aProperty = new HashMap<String, FormProperty>();
         int foundIndex = 0;
         while (nLimit > 0) {
@@ -233,27 +239,35 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         String replacement = "";
         Matcher matcher = TAG_sPATTERN_CONTENT_CATALOG.matcher(textStr);
         if (matcher.find()) {
-            matcher.lookingAt();
+            matcher = TAG_sPATTERN_CONTENT_CATALOG.matcher(textStr);
             List<String> aPreviousUserTask_ID = getPreviousTaskId(execution);
-            LOG.info("aPreviousUserTask_ID: " + aPreviousUserTask_ID);
             Map<String, FormProperty> mProperty = new HashMap<String, FormProperty>();
             loadPropertiesFromTasks(execution, aPreviousUserTask_ID, mProperty);
             while (matcher.find()) {
                 String tag_Payment_CONTENT_CATALOG = matcher.group();
-                LOG.info("tag_Payment_CONTENT_CATALOG: " + tag_Payment_CONTENT_CATALOG);
                 if (!tag_Payment_CONTENT_CATALOG.startsWith(TAG_Function_AtEnum)) {
                     String prefix;
                     Matcher matcherPrefix = TAG_PATTERN_DOUBLE_BRACKET.matcher(tag_Payment_CONTENT_CATALOG);
                     if (matcherPrefix.find()) {
                         prefix = matcherPrefix.group();
-                        LOG.info("prefix: " + prefix);
                         Matcher matcherText = TAG_PATTERN_TEXT.matcher(prefix);
                         if (matcherText.find()) {
                             String form_ID = matcherText.group();
                             LOG.info("form_ID: " + form_ID);
                             FormProperty formProperty = mProperty.get(form_ID);
-                            if(formProperty != null && formProperty.getValue() != null){
-                               replacement = formProperty.getValue(); 
+                            if (formProperty != null) {
+                                if (formProperty.getValue() != null) {
+                                    replacement = formProperty.getValue();
+                                } else {
+                                    List<String> aID = new ArrayList<String>();
+                                    aID.add(formProperty.getId());
+                                    List<String> proccessVariable = AbstractModelTask.getVariableValues(execution, aID);
+                                    LOG.info("proccessVariable: " + proccessVariable);
+                                    if (!proccessVariable.isEmpty() && proccessVariable.get(0) != null) {
+                                        replacement = proccessVariable.get(0);
+                                    }
+                                }
+
                             }
                         }
                     }
@@ -385,7 +399,6 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
         List<String> resIDs = new LinkedList<String>();
 
         for (FlowElement flowElement : execution.getEngineServices().getRepositoryService().getBpmnModel(ee.getProcessDefinitionId()).getMainProcess().getFlowElements()) {
-            LOG.info("flowElement.getClass " + flowElement.getClass());
             if (flowElement instanceof UserTask) {
                 UserTask userTask = (UserTask) flowElement;
                 LOG.info("Checking user task with ID: " + userTask.getId());

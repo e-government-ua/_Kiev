@@ -210,7 +210,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow2" sourceRef="mailtask1" targetRef="mailtask2"></sequenceFlow>
-    <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="Kuznetsovsk_vssm">
+    <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="kuznetsovsk_cnap_78">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="дата подання звернення" type="date" writable="false"></activiti:formProperty>

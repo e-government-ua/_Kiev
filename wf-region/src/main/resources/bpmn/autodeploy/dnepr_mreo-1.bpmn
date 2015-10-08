@@ -27,10 +27,10 @@
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:formProperty id="markers" name="markersForValidations" type="markers" default="{}"></activiti:formProperty>
-        <activiti:formProperty id="mail_employee" name="notifications" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="mreo_address" name="address" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="mreo_workflow" name="workflow" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="marker1" name="Назначение емейлов/ адресов МРЭО/ графиков работы" type="markers" default="{“motion&quot;:{“ValuesFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;,&quot;mreo_address&quot;,&quot;mreo_workflow&quot;],&quot;asID_Field_sValue&quot;:[&quot;kyrbatsky@gmail.com.ua&quot;,&quot;адрес МРЭО 1&quot;,&quot;график 1&quot;],&quot;asID_Field&quot;:{&quot;sMreo&quot;:&quot;mreo&quot;},&quot;sCondition&quot;:&quot;[sMreo] == 'dnepr_mreo'&quot;},“ValuesFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;,&quot;mreo_address&quot;,&quot;mreo_workflow&quot;],&quot;asID_Field_sValue&quot;:[&quot;kurbpa@gmail.com.ua&quot;,&quot;адресс МРЭО 2&quot;,&quot;график 2&quot;],&quot;asID_Field&quot;:{&quot;sMreo&quot;:&quot;mreo&quot;},&quot;sCondition&quot;:&quot;[sMreo] =='dnepr_mreo2'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="mail_employee" name="notifications" type="string"></activiti:formProperty>
+        <activiti:formProperty id="mreo_address" name="address" type="string"></activiti:formProperty>
+        <activiti:formProperty id="mreo_workflow" name="workflow" type="string"></activiti:formProperty>
+        <activiti:formProperty id="marker1" name="Назначение емейлов/ адресов МРЭО/ графиков работы" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;,&quot;mreo_address&quot;,&quot;mreo_workflow&quot;],&quot;asID_Field_sValue&quot;:[&quot;kyrbatsky@gmail.com.ua&quot;,&quot;адрес МРЭО 1&quot;,&quot;график 1&quot;],&quot;asID_Field&quot;:{&quot;sMreo&quot;:&quot;mreo&quot;},&quot;sCondition&quot;:&quot;[sMreo] == 'dnepr_mreo'&quot;},&quot;ValuesFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;,&quot;mreo_address&quot;,&quot;mreo_workflow&quot;],&quot;asID_Field_sValue&quot;:[&quot;kurbpa@gmail.com.ua&quot;,&quot;адресс МРЭО 2&quot;,&quot;график 2&quot;],&quot;asID_Field&quot;:{&quot;sMreo&quot;:&quot;mreo&quot;},&quot;sCondition&quot;:&quot;[sMreo] == 'dnepr_mreo2'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -161,9 +161,9 @@ ${mreo_workflow}&lt;br /&gt;
           <activiti:value id="accept" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"></activiti:value>
           <activiti:value id="warning" name="Авто підлягає арешту. Надіслати громадянину повідомлення про час / дату візиту"></activiti:value>
           <activiti:value id="reject" name="Знайдені обтяження. Відмовити громадянину в наданні послуги."></activiti:value>
-          <activiti:value id="reject2" name="Відмовити громадянину в наданні послуги; звернення містить невірні дані "></activiti:value>
+          <activiti:value id="reject2" name="Відмовити громадянину в наданні послуги. Звернення містить невірні дані "></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="sSum" name="Розмір держ.збору за надання послуги (для генерації рахунку для сплати через LIQPAY)" type="enum" default=" ">
+        <activiti:formProperty id="sSum" name="Розмір держ.збору за надання послуги (для генерації рахунку для сплати через LIQPAY)" type="enum" default="0">
           <activiti:value id="506.92" name="497.95 грн - Реєстрація іноземного авто з видачею свідоцтва про реєстрацію(або дубліката) та номерного знака "></activiti:value>
           <activiti:value id="468.72" name="460.43 грн - Реєстрація відчизняного авто та країн СНД з видачею свідоцтва про реєстрацію(або дубліката) та номерного знака "></activiti:value>
           <activiti:value id="398.19" name="391.15 грн - Реєстрація іноземного авто з видачею свідоцтва про реєстрацію(або його дубліката) без номерного знака"></activiti:value>

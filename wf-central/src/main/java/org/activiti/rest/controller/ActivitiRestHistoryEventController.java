@@ -225,7 +225,7 @@ public class ActivitiRestHistoryEventController {
 			throws IOException {
 
 		return historyEventDao.setHistoryEvent(nID_Subject,
-				  nID_HistoryEventType, sEventName_Custom, sMessage);
+				nID_HistoryEventType, sEventName_Custom, sMessage);
 
 	}
 	
@@ -255,150 +255,134 @@ public class ActivitiRestHistoryEventController {
 
 		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String, Object>>();
 		List<Map<String, Long>> listOfHistoryEvents = historyEventServiceDao.getHistoryEvent_ServiceBynID_Service(nID_Service);
-
+		Map<String, Object> currMapWithName;
+		Region region;
+		Long nRate;
+		Long nCount;
 		for (Map<String, Long> currMap : listOfHistoryEvents){
-			Region region = regionDao.findByIdExpected(currMap.get("sName"));
-			Map<String, Object> currMapWithName = new HashMap<>();
-			currMapWithName.put("sName", region.getName());
-			currMapWithName.put("nRate", currMap.get("nRate"));
+			currMapWithName = new HashMap<>();
+
+			region = regionDao.findByIdExpected(currMap.get("sName"));
 			log.info("[getListOfHistoryEvents]sName=" + region.getName());
-			  //currMapWithName.put("nCount", currMap.get("nCount"));
+			currMapWithName.put("sName", region.getName());
+
+			nRate = currMap.get("nRate") == null ? 0L : currMap.get("nRate");
+			nCount = currMap.get("nCount") == null ? 0L : currMap.get("nCount");
+
+			nCount = addSomeServicesCount(nCount, nID_Service, region);
+
+			if (nID_Service == 159) {//issue 750 + 777
+				log.info("[getListOfHistoryEvents]!!!nID_Service=" + nID_Service);
+				List<Map<String, Object>> am;
+				Long[] arr;
+				Long nSumRate = nRate * nCount;
+				for (Long nID = 726L; nID < 734L; nID++) {
+					am = getListOfHistoryEvents(nID);
+					arr = getCountFromStatisticArrayMap(am);
+					nCount += arr[0];
+					nSumRate += arr[1];
+				}
+				log.info("[getListOfHistoryEvents]nCount(summ)=" + nCount);
+				nRate = nSumRate / nCount;
+				log.info("[getListOfHistoryEvents]nRAte(summ)=" + nRate);
+			}
+			log.info("[getListOfHistoryEvents]nCount=" + nCount);
+			currMapWithName.put("nCount", nCount);
+			currMapWithName.put("nRate", nRate);
+			listOfHistoryEventsWithMeaningfulNames.add(currMapWithName);
+		}
+		return listOfHistoryEventsWithMeaningfulNames;
+	}
+
+	private Long addSomeServicesCount(Long nCount, Long nID_Service, Region region) {
+		//currMapWithName.put("nCount", currMap.get("nCount"));
 			  /*https://igov.org.ua/service/661/general - 43
 				https://igov.org.ua/service/655/generall - 75
 				https://igov.org.ua/service/176/general - 546
 				https://igov.org.ua/service/654/general - 307   */
 
-
-			Long nCount = currMap.get("nCount");
-			if (nCount == null) {
-				nCount = 0L;
+		if (nID_Service == 661) {
+			if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+				nCount += 43;
 			}
-			if (nID_Service == 661) {
-				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
-					nCount += 43;
-				}
-			} else if (nID_Service == 665) {
-				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
-					nCount += 75;
-				}
-			} else if (nID_Service == 176) {
-				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
-					nCount += 546;
-				}
-			} else if (nID_Service == 654) {
-				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
-					nCount += 307;
-				}
-			} else if (nID_Service == 159) {
-					/*https://igov.org.ua/service/159/general
-					Днепропетровская область - 53
-					Киевская область - 69
-					1;Дніпропетровська;"1200000000"
-					5;Київ;"8000000000"
-					16;Київська;"3200000000"*/
-				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
-					nCount += 53;
-				} else if ("8000000000".equals(region.getsID_UA()) || "3200000000".equals(region.getsID_UA())) {
-					nCount += 69;
-				}
-			} else if (nID_Service == 1) {
-				 /*https://igov.org.ua/service/1/general
-				Днепропетровская область - 812*/
-				  /*if("".equals(region.getsID_UA())){
-					nCount+=53;
-				  }else if("".equals(region.getsID_UA())){
-					nCount+=69;
-				  }*/
-				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
-					nCount += 812;
-				}
-			} else if (nID_Service == 772) {
-				if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
-					nCount += 96;
-				}
-			} else if (nID_Service == 4) {
-				  /*
-				https://igov.org.ua/service/4/general -
-				Днепропетровская область - услуга временно приостановлена
-				по иным регионам заявок вне было.
-				  */
-				nCount += 0;
-			} else if (nID_Service == 0) {
-				nCount += 0;
-				//region.getsID_UA()
+		} else if (nID_Service == 665) {
+			if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+				nCount += 75;
 			}
-
-			if (nID_Service == 159) {
-				//if(region.getName()==null){
-				log.info("[getListOfHistoryEvents]!!!nID_Service=" + nID_Service);
-				Map<String, Object> mValue = new HashMap<String, Object>();
-				//currMapWithName.put("sName", region.getName());
-				Long n = new Long(0);
-				mValue.put("sName", "Київ");
-				//}
-				log.info("[getListOfHistoryEvents]sName(real)=" + region.getName());
-				log.info("[getListOfHistoryEvents]sName(summ)=Київ");
-				//log.info("[getListOfHistoryEvents]sName="+region.getName());
-
-				List<Map<String, Object>> am = new LinkedList<Map<String, Object>>();
-				am = getListOfHistoryEvents(new Long(726));
-				//am.get(0).get("nCount");
-					/*if(am.size()>0){
-						if(am.get(0).containsKey("nCount")){
-							String s = (String)am.get(0).get("nCount");
-							if(s!=null){
-								Long n = new Long(s);
-								nCount+=n;
-							}
-						}
-					}*/
-				n += getCountFromStatisticArrayMap(am);
-				am = getListOfHistoryEvents(new Long(727));
-				n += getCountFromStatisticArrayMap(am);
-				am = getListOfHistoryEvents(new Long(728));
-				n += getCountFromStatisticArrayMap(am);
-				am = getListOfHistoryEvents(new Long(729));
-				n += getCountFromStatisticArrayMap(am);
-				am = getListOfHistoryEvents(new Long(730));
-				n += getCountFromStatisticArrayMap(am);
-				am = getListOfHistoryEvents(new Long(731));
-				n += getCountFromStatisticArrayMap(am);
-				am = getListOfHistoryEvents(new Long(732));
-				n += getCountFromStatisticArrayMap(am);
-				am = getListOfHistoryEvents(new Long(733));
-				n += getCountFromStatisticArrayMap(am);
-
-				log.info("[getListOfHistoryEvents]nCount(summ)=" + n);
-				mValue.put("nCount", n);
-				listOfHistoryEventsWithMeaningfulNames.add(mValue);
+		} else if (nID_Service == 176) {
+			if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+				nCount += 546;
 			}
-
-			log.info("[getListOfHistoryEvents]nCount=" + nCount);
-			  currMapWithName.put("nCount", nCount);
-			  listOfHistoryEventsWithMeaningfulNames.add(currMapWithName);
+		} else if (nID_Service == 654) {
+			if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+				nCount += 307;
+			}
+		} else if (nID_Service == 159) {
+				/*https://igov.org.ua/service/159/general
+				Днепропетровская область - 53
+                Киевская область - 69
+                1;Дніпропетровська;"1200000000"
+                5;Київ;"8000000000"
+                16;Київська;"3200000000"*/
+			if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+				nCount += 53;
+			} else if ("8000000000".equals(region.getsID_UA()) || "3200000000".equals(region.getsID_UA())) {
+				nCount += 69;
+			}
+		} else if (nID_Service == 1) {
+			 /*https://igov.org.ua/service/1/general
+			Днепропетровская область - 812*/
+			  /*if("".equals(region.getsID_UA())){
+				nCount+=53;
+              }else if("".equals(region.getsID_UA())){
+                nCount+=69;
+              }*/
+			if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+				nCount += 812;
+			}
+		} else if (nID_Service == 772) {
+			if ("1200000000".equals(region.getsID_UA()) || "1200000000".equals(region.getsID_UA())) {
+				nCount += 96;
+			}
+		} else if (nID_Service == 4) {
+			  /*
+			https://igov.org.ua/service/4/general -
+            Днепропетровская область - услуга временно приостановлена
+            по иным регионам заявок вне было.
+              */
+			nCount += 0;
+		} else if (nID_Service == 0) {
+			nCount += 0;
+			//region.getsID_UA()
 		}
-
-		return listOfHistoryEventsWithMeaningfulNames;
+		return nCount;
 	}
 
 
-	private Long getCountFromStatisticArrayMap(List<Map<String, Object>> am){
-            Long n= new Long(0);
-            log.info("[getCountFromStatisticArrayMap]am="+am);
-            if(am.size()>0){
-                if(am.get(0).containsKey("nCount")){
-                    String s = am.get(0).get("nCount")+"";
-                    if(s!=null){
-                        n = new Long(s);
-                        log.info("[getCountFromStatisticArrayMap]n="+n);
-                        //nCount+=n;
-                    }
-                }
-            }
-            return n;
-        }
-        
-        
+	private Long[] getCountFromStatisticArrayMap(List<Map<String, Object>> am) {
+		Long n = 0L;
+		Long nRate = 0L;
+		log.info("[getCountFromStatisticArrayMap] am=" + am);
+		if (am.size() > 0) {
+			if (am.get(0).containsKey("nCount")) {
+				String s = am.get(0).get("nCount") + "";
+				if (!"null".equals(s)) {
+					n = new Long(s);
+					log.info("[getCountFromStatisticArrayMap] n=" + n);
+				}
+			}
+			if (am.get(0).containsKey("nRate")) {
+				String s = am.get(0).get("nRate") + "";
+				if (!"null".equals(s)) {
+					nRate = new Long(s);
+					log.info("[getCountFromStatisticArrayMap] nRate=" + n);
+				}
+			}
+		}
+		return new Long[]{n, nRate * n};
+	}
+
+
 	private void setHistoryEvent(HistoryEventType eventType,
 			Long nID_Subject, Map<String, String> mParamMessage) {
 		try {

@@ -202,7 +202,7 @@
         <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objectAddress" name="Адреса земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objectAppointment" name="Цільове призначення земельної ділянки" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="perevirka1" name="Результат первинної перевірки документів" type="enum">
+        <activiti:formProperty id="perevirka1" name="Результат первинної перевірки документів" type="enum" required="true">
           <activiti:value id="accept" name="Документи пройшли перевірку"></activiti:value>
           <activiti:value id="reject" name="Документи не пройшли перевірку"></activiti:value>
         </activiti:formProperty>
@@ -414,9 +414,9 @@
         <activiti:formProperty id="email" name="e-mail" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objectAddress" name="Адреса земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="objectAppointment" name="Цільове призначення земельної ділянки" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="perevirka2" name="Результат первинної перевірки документів" type="enum">
-          <activiti:value id="accept" name="Документи пройшли перевірку"></activiti:value>
-          <activiti:value id="reject" name="Документи не пройшли перевірку"></activiti:value>
+        <activiti:formProperty id="perevirka2" name="Результат первинної перевірки документів" type="enum" required="true">
+          <activiti:value id="accept" name="ЦНАП отримав інформацію з містобудівної документації"></activiti:value>
+          <activiti:value id="reject" name="Заяву було відхилено"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Ви можете додати коментар за результатами перевірки документів" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dndz_cnap_201_print.html]" type="invisible" default="Заява про надання інформації" writable="false"></activiti:formProperty>

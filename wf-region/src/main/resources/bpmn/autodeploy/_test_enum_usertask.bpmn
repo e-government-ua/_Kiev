@@ -20,7 +20,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Нове  звернення. Запит про отримання витягу з реєстру платників єдиного податку]]></activiti:string>
+          <activiti:string><![CDATA[Нове  звернення. test enum]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
@@ -76,7 +76,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо отримання витягу з реєстру платників єдиного податку. &lt;br /&gt;&lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо тестування енаму. &lt;br /&gt;&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;&lt;br /&gt;
 Відпрацюйте це звернення на &lt;a href="https://test.region.igov.org.ua/" target="_blank"&gt;порталі&lt;/a&gt;
                                     &lt;/p&gt;
