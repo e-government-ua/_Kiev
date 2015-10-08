@@ -55,7 +55,7 @@
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow5" sourceRef="servicetask2" targetRef="endevent1"></sequenceFlow>
     <sequenceFlow id="flow7" sourceRef="servicetask1" targetRef="servicetask3"></sequenceFlow>
-    <serviceTask id="servicetask3" name="оповещение сотрудника" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+    <serviceTask id="servicetask3" name="оповещение сотрудника" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
