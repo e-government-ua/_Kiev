@@ -211,7 +211,7 @@
         <activiti:formProperty id="clFio" name="Суб’єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Дата подачи заяви" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="name" name="У родовому відмінку повне найменування об'єкта торгівлі, ресторанного господарства або сфери послуг" type="string" writable="false"></activiti:formProperty>
@@ -456,7 +456,7 @@
         <activiti:formProperty id="clFio" name="Суб’єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Дата подачи заяви" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="name" name="У родовому відмінку повне найменування об'єкта торгівлі, ресторанного господарства або сфери послуг" type="string" writable="false"></activiti:formProperty>
