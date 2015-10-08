@@ -103,7 +103,6 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
@@ -112,9 +111,8 @@
 Ви подали звернення на відстрілювання вогнепальної зброї та огляд її технічного стану.&lt;br/&gt;
 Далі Вам необхідно:&lt;br /&gt;
 1. Роздрукувати заяву у додатку до листа, поставити на ній свій підпис.&lt;br /&gt;
-2. Здійснити оплату за відстрілювання зброї у розмірі 84 грн 42 коп. Ви можете це зробити в електронному варіанті натиснувши цю кнопку&lt;br /&gt;
+2. Здійснити оплату за відстрілювання зброї у розмірі 85 грн 94 коп. Ви можете це зробити в електронному варіанті натиснувши цю кнопку&lt;br /&gt;
 [paymentButton_LiqPay]
-&lt;br /&gt;
 або іншим зручним способом. За результатами  Ви повинні мати на руках квитанцію про сплату.&lt;br /&gt;
 3. Відвідати науково-дослідний експертно-криміналістичний &lt;a href="http://ndekcmvd.dp.ua/" target="_blank"&gt;центр&lt;/a&gt; при ГУМВС України. Окрім підписаної Вами заяви та квитанції про сплату при собі треба мати:&lt;br /&gt;
 4. Дозвіл (постійний або тимчасовий) на володіння зброєю.&lt;br /&gt;
@@ -137,34 +135,7 @@
                             &lt;/tr&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px 0 120px;"&gt;
-                                    &lt;b&gt;Оцініть, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:&lt;/b&gt;
-
-                                    &lt;p style="text-align: center;"&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
-                                    &lt;/p&gt;
-
-                                    &lt;p style="font-size: 13px;"&gt;
-                                        Якщо ви не задоволені якістю, прокоментируйте, будь ласка.&lt;br /&gt;
-                                        Ви також &lt;b style="color: #cc3333;"&gt;можете анонімно&lt;/b&gt; подати сигнал про будь-які правопорушення державних працівників.
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
-                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
-                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
-                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                        &lt;/table&gt;
-                        &lt;/form&gt;
+                                  
                     &lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--content end--&gt;
