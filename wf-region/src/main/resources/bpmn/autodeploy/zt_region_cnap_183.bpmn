@@ -435,10 +435,6 @@
     <textAnnotation id="textannotation1">
       <text>Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ</text>
     </textAnnotation>
-    <textAnnotation id="textannotation2">
-      <text>Приймається рішення, чи є доцільний запит</text>
-    </textAnnotation>
-    <association id="association2" sourceRef="usertask4" targetRef="textannotation2"></association>
     <association id="association3" sourceRef="startevent1" targetRef="textannotation1"></association>
     <textAnnotation id="textannotation3">
       <text>Змінити адресата</text>
@@ -472,9 +468,6 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="50.0" width="299.0" x="387.0" y="237.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
-        <omgdc:Bounds height="50.0" width="341.0" x="170.0" y="510.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
         <omgdc:Bounds height="50.0" width="100.0" x="190.0" y="341.0"></omgdc:Bounds>
@@ -516,10 +509,6 @@
       <bpmndi:BPMNEdge bpmnElement="flow55" id="BPMNEdge_flow55">
         <omgdi:waypoint x="432.0" y="415.0"></omgdi:waypoint>
         <omgdi:waypoint x="432.0" y="430.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
-        <omgdi:waypoint x="377.0" y="465.0"></omgdi:waypoint>
-        <omgdi:waypoint x="340.0" y="510.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
         <omgdi:waypoint x="519.0" y="313.0"></omgdi:waypoint>
