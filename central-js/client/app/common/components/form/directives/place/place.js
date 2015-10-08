@@ -60,7 +60,7 @@ angular.module('app')
         // TODO improve the logic
         $scope.authControlIsVisible = function() {
           var sa = PlacesService.serviceAvailableIn();
-          return (sa.thisRegion || sa.thisCity) && $scope.placeControlIsComplete();
+          return (sa.thisCountry || sa.thisRegion || sa.thisCity) && $scope.placeControlIsComplete();
         };
 
         // TODO do the logic
@@ -175,11 +175,11 @@ angular.module('app')
         $scope.processPlaceSelection = function() {
           var placeData = PlacesService.getPlaceData();
 
-          // console.log('Process Place selection.');
-          // console.log('1. Region is chosen:', $scope.regionIsChosen(), ', city is chosen:', $scope.cityIsChosen());
-          // console.log('2. Place controls is complete:', $scope.placeControlIsComplete());
-          // console.log('3. Auth control is visible:', $scope.authControlIsVisible());
-          // console.log('4. Service Availability:', JSON.stringify(PlacesService.serviceAvailableIn(), null, ''));
+          console.log('Process Place selection.');
+          console.log('1. Region is chosen:', $scope.regionIsChosen(), ', city is chosen:', $scope.cityIsChosen());
+          console.log('2. Place controls is complete:', $scope.placeControlIsComplete());
+          console.log('3. Auth control is visible:', $scope.authControlIsVisible());
+          console.log('4. Service Availability:', JSON.stringify(PlacesService.serviceAvailableIn(), null, ''));
 
           PlacesService.setPlaceData(placeData);
 
