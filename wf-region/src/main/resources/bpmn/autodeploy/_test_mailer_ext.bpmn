@@ -21,6 +21,8 @@
     <userTask id="usertask1" name="рассмотрение и загрузка" activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="file" name="file" type="file"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/dms/dnepr_dms_print.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
     </userTask>
@@ -37,6 +39,7 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
+&lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;&lt;br /&gt;
  Ви отримали схвалення щодо організації ярмарок на території міста.&lt;br /&gt;
 &lt;br /&gt;
 Ви або уповноважена Вами особа (при наявності довіреності) можете отримати відповідні документи собисто під підпис у ЦНАПі.&lt;br /&gt;
