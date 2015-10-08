@@ -273,48 +273,24 @@ public class ActivitiRestHistoryEventController {
 
 			if (nID_Service == 159) {//issue 750 + 777
 				log.info("[getListOfHistoryEvents]!!!nID_Service=" + nID_Service);
-
 				List<Map<String, Object>> am;
 				Long[] arr;
-				Long nSumRate = 0L;
+				Long nSumRate = nRate * nCount;
 				for (Long nID = 726L; nID < 734L; nID++) {
 					am = getListOfHistoryEvents(nID);
 					arr = getCountFromStatisticArrayMap(am);
 					nCount += arr[0];
 					nSumRate += arr[1];
 				}
-//				am = getListOfHistoryEvents(727L);
-//				arr = getCountFromStatisticArrayMap(am);
-//				nCount += arr[0];
-//				nRate  += arr[1];
-//
-//				am = getListOfHistoryEvents(new Long(728));
-//				nCount += getCountFromStatisticArrayMap(am);
-//				am = getListOfHistoryEvents(new Long(729));
-//				nCount += getCountFromStatisticArrayMap(am);
-//				am = getListOfHistoryEvents(new Long(730));
-//				nCount += getCountFromStatisticArrayMap(am);
-//				am = getListOfHistoryEvents(new Long(731));
-//				nCount += getCountFromStatisticArrayMap(am);
-//				am = getListOfHistoryEvents(new Long(732));
-//				nCount += getCountFromStatisticArrayMap(am);
-//				am = getListOfHistoryEvents(new Long(733));
-//				nCount += getCountFromStatisticArrayMap(am);
-
 				log.info("[getListOfHistoryEvents]nCount(summ)=" + nCount);
 				nRate = nSumRate / nCount;
 				log.info("[getListOfHistoryEvents]nRAte(summ)=" + nRate);
-//				mValue.put("nCount", n);
-//				mValue.put("nRate", 0L);//???
-//				listOfHistoryEventsWithMeaningfulNames.add(mValue);
 			}
-
 			log.info("[getListOfHistoryEvents]nCount=" + nCount);
 			currMapWithName.put("nCount", nCount);
 			currMapWithName.put("nRate", nRate);
 			listOfHistoryEventsWithMeaningfulNames.add(currMapWithName);
 		}
-
 		return listOfHistoryEventsWithMeaningfulNames;
 	}
 
