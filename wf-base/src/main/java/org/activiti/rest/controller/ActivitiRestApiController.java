@@ -61,6 +61,8 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import org.activiti.redis.model.ByteArrayMultipartFile;
+import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getByteArrayMultipartFileFromRedis;
 
 /**
  * ...wf/service/... Example:
@@ -188,6 +190,76 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return upload;
     }
 
+    @RequestMapping(value = "/file/download_file_from_redis_bytes", method = RequestMethod.GET)
+    @Transactional
+    public @ResponseBody
+    byte[] getAttachmentsFromRedisBytes(@RequestParam("key") String key) throws ActivitiIOException {
+        byte[] upload = null;
+        try {
+//            upload = redisService.getAttachments(key);
+            
+            
+            
+            
+                        //byte[] aByteFile = getRedisService().getAttachments(sKeyRedis);
+                        byte[] aByteFile = redisService.getAttachments(key);
+                        ByteArrayMultipartFile oByteArrayMultipartFile = null;
+                        try {
+                            oByteArrayMultipartFile = getByteArrayMultipartFileFromRedis(aByteFile);
+                        } catch (ClassNotFoundException | IOException e1) {
+                            throw new ActivitiException(e1.getMessage(), e1);
+                        }
+                        if (oByteArrayMultipartFile != null) {
+                            
+                            upload = oByteArrayMultipartFile.getBytes();
+                            /*
+                            String sFileName = null;
+                            try {
+                                sFileName = new String(oByteArrayMultipartFile.getOriginalFilename().getBytes(), "UTF-8");
+                            } catch (java.io.UnsupportedEncodingException e) {
+                                log.error("on getting sFileName", e);
+                                throw new ActivitiException(e.getMessage(), e);
+                            }
+                            log.info("sFileName=" + sFileName);
+
+                            //===
+                            InputStream oInputStream = null;
+                            try {
+                                oInputStream = oByteArrayMultipartFile.getInputStream();
+                            } catch (Exception e) {
+                                throw new ActivitiException(e.getMessage(), e);
+                            }
+                            Attachment oAttachment = oExecution.getEngineServices().getTaskService().createAttachment(
+                                    oByteArrayMultipartFile.getContentType() + ";" + oByteArrayMultipartFile.getExp(), oTask.getId(), oExecution.getProcessInstanceId(), sFileName, sDescription, oInputStream);
+
+                            if (oAttachment != null) {
+                                String nID_Attachment = oAttachment.getId();
+                                //LOG.info("nID_Attachment=" + nID_Attachment);
+                                log.info("Try set variable(sID_Field) '" + sID_Field + "' with the value(nID_Attachment) '" + nID_Attachment + "', for new attachment...");
+                                oExecution.getEngineServices().getRuntimeService().setVariable(oExecution.getProcessInstanceId(), sID_Field, nID_Attachment);
+                                log.info("Finished setting new value for variable with attachment(sID_Field) '" + sID_Field + "'");
+                            } else {
+                                log.error("Can't add attachment to oTask.getId()=" + oTask.getId());
+                            }
+                            //===
+                            */
+                        } else {
+                            log.error("[getAttachmentsFromRedisBytes]oByteArrayMultipartFile==null! aByteFile=" + aByteFile.toString());
+                        }            
+            
+            
+            
+            
+            
+            
+            
+            
+        } catch (RedisException e) {
+            throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR, e.getMessage());
+        }
+        return upload;
+    }
+    
     /**
      * Получение Attachment средствами активити из
      * таблицы ACT_HI_ATTACHMENT
@@ -1206,7 +1278,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     /**
      * issue 808. сервис ЗАПРОСА полей, требующих уточнения, c отсылкой уведомления гражданину
-     * @param nID_Protected - номер-ИД заявки (защищенный)
+     * @param nID_Protected - номер-�?Д заявки (защищенный)
      * @param saField -- строка-массива полей (например: "[{'id':'sFamily','type':'string','value':'Белявский'},{'id':'nAge','type':'long'}]")
      * @param sMail -- строка электронного адреса гражданина
      * @param sHead -- строка заголовка письма //опциональный (если не задан, то "Необходимо уточнить данные")
