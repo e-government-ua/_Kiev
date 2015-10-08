@@ -57,6 +57,14 @@
           <activiti:value id="ukraine" name="так"></activiti:value>
           <activiti:value id="not_ukraine" name="ні"></activiti:value>
         </activiti:formProperty>
+          <activiti:formProperty id="attestat" name="Чи отримували Ви ці виплати раніше?" type="enum" required="true">
+          <activiti:value id="no_5" name="ні"></activiti:value>
+          <activiti:value id="yes_5" name="так"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="education" name="Чи перебуває дитина на повному державному утриманні за місцем навчання?" type="enum" required="true">
+          <activiti:value id="no_6" name="ні"></activiti:value>
+          <activiti:value id="yes_6" name="так"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" required="true">
           <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
           <activiti:value id="bank" name="на рахунок у банку"></activiti:value>
@@ -69,8 +77,8 @@
         <activiti:formProperty id="scan_inn" name="довідка про присвоєння ідентифікаційного номера" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="passport_inv" name="сканована копія свідоцтва про народження дитини-інваліда" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="doc_inv_location" name="довідка про місце проживання дитини-інваліда (або копія паспорта)" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="doc_education" name="довідка з місця навчання; із зазначенням факту перебування на повному  державному утриманні" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="doc_attestat" name="довідка-атестат про припинення виплати раніше призначеної пенсії" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="doc_education" name="довідка з місця навчання; із зазначенням факту перебування на повному  державному утриманні" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_attestat" name="довідка-атестат про припинення виплати раніше призначеної пенсії" type="file"></activiti:formProperty>
         <activiti:formProperty id="doc_medical" name="витяг з акта огляду медико-соціальної експертизи чи медичний висновок закладу охорони здоров'я" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="doc_other" name="довідка про те, що другий із законних представників не отримує державну соціальну допомогу на дитину-інваліда за місцем свого проживання" type="file"></activiti:formProperty>
         <activiti:formProperty id="doc_foreigner" name="копія посвідки на постійне або тимчасове проживання" type="file"></activiti:formProperty>
@@ -85,6 +93,8 @@
         <activiti:formProperty id="doc_fop" name="довідка органу державної податкової служби про доходи за останній звітний період (рік)" type="file"></activiti:formProperty>
         <activiti:formProperty id="doc_ur" name="довідка державного реєстратора про проведення (відсутність) державної реєстрації особи" type="file"></activiti:formProperty>
         <activiti:formProperty id="doc_medical_2" name="довідка лікарсько-консультативної комісії лікувально-профілактичного закладу; в якій зазначено, що дитина-інвалід потребує домашнього догляду." type="file"></activiti:formProperty>
+         <activiti:formProperty id="info_2" name="Заповніть декларацію" type="label" default="Завантажте &lt;a href=&quot;https://drive.google.com/file/d/0B6mOkUg9oq1zRDcyeFpMamYwNGs/view?usp=sharing&quot; target=&quot;_blank&quot;&gt;декларацію&lt;/a&gt;, заповніть, та додайте у наступному полі."></activiti:formProperty>
+        <activiti:formProperty id="declaration" name="Заповнена декларація" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="markers910" name="Маркери способу перерахування коштів" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_9&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_10&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers1" name="Якщо  законний  представник  проживає  за  іншою адресою" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;doc_other&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;together&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'no'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers2" name="Якщо одинокий інвалід з дитинства II і III групи" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;doc_family&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;Customer_service&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'invalid_23'&quot;}}}"></activiti:formProperty>
@@ -95,7 +105,9 @@
         <activiti:formProperty id="markers7" name="Якщо працевлаштована, але у відпустці" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_7&quot;:{&quot;aField_ID&quot;:[&quot;doc_medical_2&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;vacation&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_4'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers8" name="Якщо не має українського громаданятсва" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_8&quot;:{&quot;aField_ID&quot;:[&quot;doc_foreigner&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;nationality&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'not_ukraine'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers11" name="Якщо особа працює, але у відпустці" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;vacation&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;employment&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_3'&quot;}}}"></activiti:formProperty>
-      </extensionElements>
+        <activiti:formProperty id="markers12" name="Якщо отримували виплати раніше" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;doc_attestat&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;attestat&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_5'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers13" name="Якщо дитина перебуває на повному державному утриманні" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;doc_education&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;education&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_6'&quot;}}}"></activiti:formProperty>
+         </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника соц.захисту" activiti:type="mail">
       <extensionElements>
@@ -260,7 +272,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport}${scan_inn},${passport_inv},${doc_inv_location},${doc_education},${doc_attestat},${doc_medical},${doc_other},${doc_foreigner},${doc_guardian},${doc_family},${doc_single_person},${doc_together},${doc_adopter},${doc_allowance},${doc_centre_job},${doc_employment_history},${doc_fop},${doc_ur},${doc_medical_2}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport}${scan_inn},${passport_inv},${doc_inv_location},${doc_education},${doc_attestat},${doc_medical},${doc_other},${doc_foreigner},${doc_guardian},${doc_family},${doc_single_person},${doc_together},${doc_adopter},${doc_allowance},${doc_centre_job},${doc_employment_history},${doc_fop},${doc_ur},${doc_medical_2},${declaration}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>

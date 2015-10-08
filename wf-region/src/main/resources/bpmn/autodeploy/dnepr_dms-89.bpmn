@@ -80,6 +80,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="rozklad" name="Зверніть увагу" type="label" default="Перед вибором дати і часу візиту у ДМС ознайомтесь із його графіком работи за &lt;a href=&quot;https://docs.google.com/document/d/14Q-uz2N315EbB4LMFWJ0lZhKhVutrBWnXSvzwce97lA&quot; target=&quot;_blank&quot;&gt;посиланням&lt;/a&gt; "></activiti:formProperty>
         <activiti:formProperty id="visitDay" name="У який день та час Вам буде зручно зайти до відділення ДМС; ДМС необхідно поставити відмітку у Ваш паспорт для завершення цієї процедури" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="lable" name="В залежності від підстави для реєстрації будь-ласка завантажте" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="svid" name="Свідоцтво про право власності, або договір куплі/продажу та витяг з державного реєстру речових прав на нерухоме майно" type="file"></activiti:formProperty>
         <activiti:formProperty id="ord" name="Ордер, або копія ордеру з печаткою ЖЕКу" type="file"></activiti:formProperty>
         <activiti:formProperty id="sprsost" name="Справка про склад сім'ї або зареєстрованих осіб" type="file"></activiti:formProperty>
