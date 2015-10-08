@@ -93,6 +93,7 @@
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                      Long{[bankIdlastName]}&lt;br /&gt;
+                                     [pattern/mail/feedback.html]&lt;br /&gt;
                                      Long{[bankIdfirstName]}&lt;br /&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
