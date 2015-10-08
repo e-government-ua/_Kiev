@@ -305,9 +305,9 @@
         </activiti:formProperty>
         <activiti:formProperty id="citizenTypeExtended" name="Група і причину інвалідності (для інваліда/представника інваліда)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpTo" name="Кому потрібно надати матеріальну допомогу" type="enum" writable="false">
-          <activiti:value id="Мені" name="Заявнику"></activiti:value>
-          <activiti:value id="На підопічного" name="Підопічному"></activiti:value>
-          <activiti:value id="На дитину-інваліда" name="Дитині-інваліду"></activiti:value>
+          <activiti:value id="Мені" name="мені"></activiti:value>
+          <activiti:value id="На підопічного" name="підопічному"></activiti:value>
+          <activiti:value id="На дитину-інваліда" name="дитині-інваліду"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="pidopich" name="ПІБ підопічного/ дитини-інваліда" type="string" default="${lastName_UA1} ${firstName_UA1} ${middleName_UA1}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeAddress" name="Місце проживання (реєстрації) підопічного/ дитини-інваліда" type="string" writable="false"></activiti:formProperty>
@@ -567,9 +567,9 @@
         </activiti:formProperty>
         <activiti:formProperty id="citizenTypeExtended" name="Група і причину інвалідності (для інваліда/представника інваліда)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpTo" name="Кому потрібно надати матеріальну допомогу" type="enum" writable="false">
-          <activiti:value id="Мені" name="Заявнику"></activiti:value>
-          <activiti:value id="На підопічного" name="Підопічному"></activiti:value>
-          <activiti:value id="На дитину-інваліда" name="Дитині-інваліду"></activiti:value>
+          <activiti:value id="Мені" name="мені"></activiti:value>
+          <activiti:value id="На підопічного" name="підопічному"></activiti:value>
+          <activiti:value id="На дитину-інваліда" name="дитині-інваліду"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="pidopich" name="ПІБ підопічного/ дитини-інваліда" type="string" default="${lastName_UA1} ${firstName_UA1} ${middleName_UA1}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="helpeeAddress" name="Місце проживання (реєстрації) підопічного/ дитини-інваліда" type="string" writable="false"></activiti:formProperty>
