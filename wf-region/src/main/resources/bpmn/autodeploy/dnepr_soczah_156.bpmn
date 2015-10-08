@@ -47,6 +47,8 @@
         <activiti:formProperty id="doc_psyho" name="Висновок лікарської комісії; медичного закладу щодо необхідності постійного стороннього догляду за інвалідом I чи II групи внаслідок психічного розладу" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="doc_area_reestr" name="Довідка про неотримання допомоги з Управління праці та соціального захисту населення за місцем Вашої реєстрації" type="file"></activiti:formProperty>
         <activiti:formProperty id="doс_zemlya" name="Довідки про наявність і розміри земельних ділянок; завантажте єдиним архівом" type="file" ></activiti:formProperty>
+        <activiti:formProperty id="info_2" name="Заповніть декларацію" type="label" default="Завантажте &lt;a href=&quot;https://drive.google.com/file/d/0B6mOkUg9oq1zRDcyeFpMamYwNGs/view?usp=sharing&quot; target=&quot;_blank&quot;&gt;декларацію&lt;/a&gt;, заповніть, та додайте у наступному полі."></activiti:formProperty>
+        <activiti:formProperty id="declaration" name="Заповнена декларація" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="markers45" name="Маркери способу перерахування коштів" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers1" name="Маркери якщо живе не за місцем реєстрації" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;doc_area_reestr&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;area_reestr&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'no_1'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers2" name="Маркери якщо є земельні ділянки або частки" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;doс_zemlya&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;zemlya&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_2'&quot;}}}"></activiti:formProperty>
@@ -183,7 +185,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport},${doc_family},${doс_income},${doc_psyho},${doc_area_reestr},${doс_zemlya}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${doc_family},${doс_income},${doc_psyho},${doc_area_reestr},${doс_zemlya},${declaration}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
