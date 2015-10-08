@@ -37,6 +37,14 @@
           <activiti:value id="ukraine" name="так"></activiti:value>
           <activiti:value id="not_ukraine" name="ні"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="education" name="Чи перебуває дитина на повному державному утриманні за місцем навчання?" type="enum" required="true">
+          <activiti:value id="no_1" name="ні"></activiti:value>
+          <activiti:value id="yes_1" name="так"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="attestat" name="Чи отримували Ви ці виплати раніше?" type="enum" required="true">
+          <activiti:value id="no_2" name="ні"></activiti:value>
+          <activiti:value id="yes_2" name="так"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" required="true">
           <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
           <activiti:value id="bank" name="на рахунок у банку"></activiti:value>
@@ -49,16 +57,17 @@
         <activiti:formProperty id="scan_inn" name="довідка про присвоєння ідентифікаційного номера" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="passport_inv" name="сканована копія свідоцтва про народження дитини-інваліда" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dovidka_inv" name="довідка про місце проживання дитини-інваліда (або копія паспорта)" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dovidka_education" name="довідка  з місця навчання із зазначенням факту перебування на повному  державному утриманні" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dovidka_attestat" name="довідка-атестат про припинення виплати раніше призначеної пенсії" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="dovidka_medical" name="витяг з акта огляду медико-соціальної експертизи чи медичний висновок закладу охорони здоров'я" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dovidka_education" name="довідка  з місця навчання із зазначенням факту перебування на повному  державному утриманні" type="file"></activiti:formProperty>
+        <activiti:formProperty id="dovidka_attestat" name="довідка-атестат про припинення виплати раніше призначеної пенсії" type="file"></activiti:formProperty>
         <activiti:formProperty id="dovidka_other" name="довідка про те, що другий із законних представників не отримує державну соціальну допомогу на дитину-інваліда за місцем свого проживання" type="file"></activiti:formProperty>
         <activiti:formProperty id="dovidka_foreigner" name="копія посвідки на постійне або тимчасове проживання" type="file"></activiti:formProperty>
         <activiti:formProperty id="dovidka_guardian" name="копія рішення про встановлення опіки чи піклування" type="file"></activiti:formProperty>
         <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers3" name="Маркеры3" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;dovidka_parents&quot;,&quot;dovidka_other&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;together&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'no'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers4" name="маркеры 4" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;dovidka_guardian&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;type_parenthood&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'guardians'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers5" name="маркеры5" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;dovidka_foreigner&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;nationality&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'not_ukraine'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers4" name="Маркеры4" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;dovidka_guardian&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;type_parenthood&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'guardians'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers5" name="Маркеры5" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;dovidka_foreigner&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;nationality&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'not_ukraine'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers6" name="Якщо дитина перебуває на повному державному утриманні" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_7&quot;:{&quot;aField_ID&quot;:[&quot;dovidka_education&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;education&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_1'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers7" name="Якщо отримували виплати раніше" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;dovidka_attestat&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;attestat&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_2'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника соц.захисту" activiti:type="mail">
@@ -192,7 +201,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport},${scan_inn},${passport_inv},${dovidka_inv},${dovidka_education},${dovidka_attestat},${dovidka_medical},${dovidka_other},${dovidka_foreigner},${dovidka_guardian}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${scan_inn},${passport_inv},${dovidka_inv},${dovidka_education},${dovidka_attestat},${dovidka_other},${dovidka_foreigner},${dovidka_guardian}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -735,7 +744,7 @@
         <omgdi:waypoint x="456.0" y="219.0"></omgdi:waypoint>
         <omgdi:waypoint x="456.0" y="240.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="466.0" y="219.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="69.0" x="466.0" y="219.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
