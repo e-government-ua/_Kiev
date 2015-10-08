@@ -20,7 +20,7 @@
         <activiti:formProperty id="eventDa1" name="Дата закінчення проведення заходу" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="eventTime1" name="Час закінчення проведення заходу" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="eventSize" name="Очікувана кількість учасників" type="long" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text1" name="Зверніть увагу" type="label" default="Наступні дані стосуються особи, відповідальної за проведення заходу"></activiti:formProperty>
+        <activiti:formProperty id="text2" name="Зверніть увагу" type="label" default="Наступні дані стосуються особи, відповідальної за проведення заходу"></activiti:formProperty>
         <activiti:formProperty id="lastName_UA1" name="Прізвище відповідальної особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="firstName_UA1" name="Ім'я відповідальної особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="middleName_UA1" name="По батькові відповідальної особи" type="string" required="true"></activiti:formProperty>
@@ -241,11 +241,11 @@
         <activiti:formProperty id="eventTime1" name="Час закінчення проведення заходу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventSize" name="Очікувана кількість присутніх" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="golovniy" name="ПІБ відповідальної особи" type="string" default="${lastName_UA1} ${firstName_UA1} ${middleName_UA1}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="posada" name="Посада відповідальної особи" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="place_of_liv" name="Місце проживання; вкажіть місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="privatePhone" name="Телефон відповідальної особи; в форматі 380..." type="string" default="+38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="posada" name="Посада відповідальної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="place_of_liv" name="Місце проживання; вкажіть місто, вулицю, дім, квартиру" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="privatePhone" name="Телефон відповідальної особи; в форматі 380..." type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення адміністратора" type="enum">
-          <activiti:value id="accept" name="Взяти в роботу і відправити опис документів"></activiti:value>
+          <activiti:value id="accept" name="Взяти в роботу"></activiti:value>
           <activiti:value id="decline" name="Відмовити у реєстрації звернення"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Коментар адміністратора у разі відмови у реєстрації звернення" type="textArea"></activiti:formProperty>
@@ -454,10 +454,10 @@
         <activiti:formProperty id="eventTime" name="Час початку проведення заходу" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventDa1" name="Дата закінчення проведення заходу" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="eventTime1" name="Час закінчення проведення заходу" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="golovniy" name="ПІБ відповідальної особи" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="posada" name="Посада відповідальної особи" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="place_of_liv" name="Місце проживання; вкажіть місто, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="privatePhone" name="Телефон відповідальної особи; в форматі 380..." type="string" default="+38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="golovniy" name="ПІБ відповідальної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="posada" name="Посада відповідальної особи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="place_of_liv" name="Місце проживання; вкажіть місто, вулицю, дім, квартиру" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="privatePhone" name="Телефон відповідальної особи; в форматі 380..." type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="dozvil" name="Рішення державного органу" type="enum" required="true">
           <activiti:value id="dozv" name="Дозвіл готовий"></activiti:value>
           <activiti:value id="decline" name="Готове заперечення в проведенні заходу"></activiti:value>
