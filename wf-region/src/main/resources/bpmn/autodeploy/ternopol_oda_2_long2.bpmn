@@ -538,8 +538,8 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow20" sourceRef="mailtask5" targetRef="usertask3"></sequenceFlow>
-    <userTask id="usertask3" name="На розгляді комісії" activiti:candidateGroups="ternopil_oda3">
+    <sequenceFlow id="flow20" sourceRef="mailtask5" targetRef="usertask2"></sequenceFlow>
+    <userTask id="usertask2" name="На розгляді комісії" activiti:candidateGroups="ternopil_oda3">
       <extensionElements>
         <activiti:formProperty id="docID" name="ID номер заяви" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clFio" name="ПІБ заявника, oдержувача допомоги АБО його законного представника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
@@ -604,7 +604,7 @@
         </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow16" sourceRef="usertask3" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow16" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow15" name="${workerDecision1 == 'accept'}" sourceRef="exclusivegateway2" targetRef="servicetask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision1 == 'accept'}]]></conditionExpression>
     </sequenceFlow>
@@ -840,7 +840,7 @@
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="490.0" y="238.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
         <omgdc:Bounds height="64.0" width="121.0" x="782.0" y="97.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
