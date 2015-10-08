@@ -27,9 +27,9 @@
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:formProperty id="markers" name="markersForValidations" type="markers" default="{}"></activiti:formProperty>
-        <activiti:formProperty id="mail_employee" name="notifications" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="mreo_address" name="address" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="mreo_workflow" name="workflow" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="mail_employee" name="notifications" type="string"></activiti:formProperty>
+        <activiti:formProperty id="mreo_address" name="address" type="string"></activiti:formProperty>
+        <activiti:formProperty id="mreo_workflow" name="workflow" type="string"></activiti:formProperty>
         <activiti:formProperty id="marker1" name="Назначение емейлов/ адресов МРЭО/ графиков работы" type="markers" default="{“motion&quot;:{“ValuesFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;,&quot;mreo_address&quot;,&quot;mreo_workflow&quot;],&quot;asID_Field_sValue&quot;:[&quot;kyrbatsky@gmail.com.ua&quot;,&quot;адрес МРЭО 1&quot;,&quot;график 1&quot;],&quot;asID_Field&quot;:{&quot;sMreo&quot;:&quot;mreo&quot;},&quot;sCondition&quot;:&quot;[sMreo] == 'dnepr_mreo'&quot;},“ValuesFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;,&quot;mreo_address&quot;,&quot;mreo_workflow&quot;],&quot;asID_Field_sValue&quot;:[&quot;kurbpa@gmail.com.ua&quot;,&quot;адресс МРЭО 2&quot;,&quot;график 2&quot;],&quot;asID_Field&quot;:{&quot;sMreo&quot;:&quot;mreo&quot;},&quot;sCondition&quot;:&quot;[sMreo] =='dnepr_mreo2'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>

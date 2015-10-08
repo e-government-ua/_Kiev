@@ -68,6 +68,7 @@
         <activiti:formProperty id="scanDeath" name="Копія свідоцтва про смерть" type="file"></activiti:formProperty>
         <activiti:formProperty id="scanMed" name="Копія висновку з медичної установи" type="file"></activiti:formProperty>
         <activiti:formProperty id="scanSum" name="Копія документу, що підтверджує суму завданих збитків" type="file"></activiti:formProperty>
+        <activiti:formProperty id="scanOth" name="Копія документу, що підтверджує скрутний матеріальний стан" type="file"></activiti:formProperty>
         <activiti:formProperty id="warning" name="Зверніть увагу" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
         <activiti:formProperty id="marker1" name="документ представника" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;repProof&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;whoIs&quot;},&quot;sCondition&quot;:&quot;[sService]=='predst'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker2" name="дані підопічної особи" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;lastName_UA1&quot;,&quot;firstName_UA1&quot;,&quot;middleName_UA1&quot;,&quot;helpeeAddress&quot;,&quot;helpeePassport&quot;,&quot;helpeeINN&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;helpTo&quot;},&quot;sCondition&quot;:&quot;[sService]=='На підопічного' || [sService]=='На дитину-інваліда'&quot;}}}"></activiti:formProperty>
@@ -82,6 +83,7 @@
         <activiti:formProperty id="marker11" name="файл при пенсіонерів" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;pens&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;citizenType&quot;},&quot;sCondition&quot;:&quot;[sService]=='Пенсіонер'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker12" name="файл для АТО і демонстрантів" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;atoProtest&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;citizenType&quot;},&quot;sCondition&quot;:&quot;[sService]=='Особа, яка брала участь в АТО' || [sService]=='Особа, яка брала участь в акціях громадського протесту'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker13" name="файл для інваліда" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_14&quot;:{&quot;aField_ID&quot;:[&quot;inval&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;citizenType&quot;},&quot;sCondition&quot;:&quot;[sService]=='Інвалід'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker14" name="файл при інших обставинах" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_8&quot;:{&quot;aField_ID&quot;:[&quot;scanOth&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;helpReason&quot;},&quot;sCondition&quot;:&quot;[sService]=='Інші особливі обставини'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
@@ -332,12 +334,11 @@
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Якщо ви відмовляєте замовнику у реєстрації звернення, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
         <activiti:formProperty id="docID" name="ID-номер заяви" type="string"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/tern_raz_soc_helpFr.html]" type="invisible" default="Заява на отримання допомоги (лист 1)" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_2" name="[pattern/print/tern_raz_soc_helpBk.html]" type="invisible" default="Заява на отримання допомоги (лист 2)" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/tern_raz_soc_helpFr.html]" type="invisible" default="Заява на отримання допомоги" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport},${bankId_scan_inn},${maloz},${inval},${pens},${atoProtest},${chInval},${repProof},${helpeePassportScan},${childScan},${scanINN},${scanDeath},${scanMed},${scanSum}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${bankId_scan_inn},${maloz},${inval},${pens},${atoProtest},${chInval},${repProof},${helpeePassportScan},${childScan},${scanINN},${scanDeath},${scanMed},${scanSum},${scanOth}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -598,7 +599,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport},${bankId_scan_inn},${maloz},${inval},${pens},${atoProtest},${chInval},${repProof},${helpeePassportScan},${childScan},${scanINN},${scanDeath},${scanMed},${scanSum}</activiti:expression>
+           <activiti:expression>${bankId_scan_passport},${bankId_scan_inn},${maloz},${inval},${pens},${atoProtest},${chInval},${repProof},${helpeePassportScan},${childScan},${scanINN},${scanDeath},${scanMed},${scanSum},${scanOth}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
