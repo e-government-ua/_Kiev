@@ -158,7 +158,6 @@
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="PrintForm_1" name="File label;File title;print/dndz_cnap_186_print.html" type="file"></activiti:formProperty>
-       
         <activiti:formProperty id="sBody_1" name="[pattern/print/dndz_cnap_186_print.html]" type="invisible" default="заява фізичної особи-підприємця" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_2" name="[pattern/print/dndz_cnap_187_print.html]" type="invisible" default="заява юридичної особи" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
