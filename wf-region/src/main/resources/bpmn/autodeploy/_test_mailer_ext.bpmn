@@ -21,7 +21,7 @@
     <userTask id="usertask1" name="рассмотрение и загрузка" activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="file" name="file" type="file"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/dms/dnepr_dms_print.html]" type="invisible" default="${sBody}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/dms/dnepr_dms_print.html]" type="invisible" default="принт" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
       </extensionElements>
