@@ -40,23 +40,7 @@
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;&lt;br /&gt;
- Ви отримали схвалення щодо організації ярмарок на території міста.&lt;br /&gt;
-&lt;br /&gt;
-Ви або уповноважена Вами особа (при наявності довіреності) можете отримати відповідні документи собисто під підпис у ЦНАПі.&lt;br /&gt;
-&lt;br /&gt;
-При собі треба мати:&lt;br /&gt;
-1. Документ, що посвідчує особу.&lt;br /&gt;
-2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
-3. Роздруковану заяву, яку ви подавали в електронному вигляді, засвідчену особистим  підписом  керівника  юридичної  особи, фізичної особи - підприємця  або  уповноваженої  ними  особи.&lt;br /&gt;
-&lt;a href=" "&gt;(шаблон заяви)&lt;/a&gt;&lt;br /&gt;
-&lt;br /&gt;
-Адреса центру надання адміністративних послуг: м. Дніпродзержинськ, пр. Комсомольський 10/12&lt;br /&gt;&lt;br /&gt;
-Телефон для довідок (05692)2-73-03, 2-60-94&lt;br /&gt;&lt;br /&gt;
-Графік роботи (крім святкових днів):&lt;br /&gt;
-пн.вт.ср.чт.пт. 8-20&lt;br /&gt;
-сб. 8-16&lt;br /&gt;
-&lt;br /&gt;
-Відповідні документи від управління надання муніципальних послуг та розвитку підприємництва знаходиться у додатку до листа.&lt;br /&gt; 
+ 
 [pattern/mail/test/_test_body.html]
 [pattern/mail/_common_signature.html]
 [pattern/mail/_common_feedback.html]
@@ -70,7 +54,24 @@
     <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="servicetask2"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow5" sourceRef="servicetask2" targetRef="endevent1"></sequenceFlow>
-    <sequenceFlow id="flow7" sourceRef="servicetask1" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="servicetask1" targetRef="servicetask3"></sequenceFlow>
+    <serviceTask id="servicetask3" name="оповещение сотрудника" activiti:delegateExpression="#{MailTaskWithoutAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${mail}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>subject</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow8" sourceRef="servicetask3" targetRef="usertask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram__test_mailer_ext">
     <bpmndi:BPMNPlane bpmnElement="_test_mailer_ext" id="BPMNPlane__test_mailer_ext">
@@ -92,6 +93,9 @@
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="900.0" y="170.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="400.0" y="250.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow0" id="BPMNEdge_flow0">
         <omgdi:waypoint x="217.0" y="170.0"></omgdi:waypoint>
         <omgdi:waypoint x="352.0" y="155.0"></omgdi:waypoint>
@@ -109,8 +113,12 @@
         <omgdi:waypoint x="900.0" y="187.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
-        <omgdi:waypoint x="405.0" y="187.0"></omgdi:waypoint>
-        <omgdi:waypoint x="510.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="352.0" y="215.0"></omgdi:waypoint>
+        <omgdi:waypoint x="452.0" y="250.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="452.0" y="250.0"></omgdi:waypoint>
+        <omgdi:waypoint x="562.0" y="215.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
