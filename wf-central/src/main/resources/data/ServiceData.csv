@@ -325,3 +325,4 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 414;1382;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_enum_usertask:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
 415;23;NULL;13;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zt_region_cnap_183:1:1"}};https://test.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
 416;15;28;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dndz_cnap_188:1:1"}};https://test.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+417;1383;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_soc_help_176:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
