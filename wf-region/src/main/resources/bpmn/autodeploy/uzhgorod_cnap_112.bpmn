@@ -165,7 +165,7 @@
         <activiti:formProperty id="date_today" name="Дата подачі заяви" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="destination" name="Цільове призначення зазначеної земельної ділянки" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Вулиця на якій розташована земельна ділянка" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="total_area" name="Загальна площа земельної ділянки" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="total_area" name="Загальна площа земельної ділянки (га)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="subject_of_appeal" name="Оберить суб’єкт звернення" type="enum" writable="false">
           <activiti:value id="attr1" name="Фізична особа"></activiti:value>
           <activiti:value id="attr2" name="Юридична особа або фізична особа - підприємець"></activiti:value>
@@ -257,7 +257,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
-										Ваше звернення щодо надання рішення міської ради про надання дозволів на розробку проектів землеустрою - забраковане.&lt;/p&gt;
+										Вашому зверненню щодо надання рішення міської ради про надання дозволів на розробку проектів землеустрою було відмовлено.&lt;/p&gt;
 &lt;p&gt;Причина в наступному: 
                                     &lt;/p&gt;
 &lt;p&gt;${decisionComment}&lt;/p&gt;

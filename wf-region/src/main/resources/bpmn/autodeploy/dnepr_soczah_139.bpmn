@@ -27,22 +27,34 @@
           <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
           <activiti:value id="bank" name="на рахунок у банку"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="marker1" name="Спосіб отримання коштів" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
+        
         <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bank_account" name="Номер рахунку в банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="mfo" name="МФО банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bank_name" name="Назва банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="ЄДРПОУ банку" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="scsvid" name="Копія свідоцтва про народження дитини" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="reg_reb" name="Довідка про реєстрацію місця проживання (перебування) дитини" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="reg_oder" name="Довідка про реєстрацію місця проживання (перебування) одержувача" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="label1" name="Залежно від підстав, на яких призначається тимчасова допомога, додатково подаються такі документи" type="label" default=" "></activiti:formProperty>
+        <activiti:formProperty id="choice_visit" name="Ваше звернення до Управління праці та соціального захисту населення за даной послугой" type="enum" required="true">
+          <activiti:value id="visit_1" name="Первинне"></activiti:value>
+          <activiti:value id="visit_2" name="Повторне"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="choice_file_downloads" name="Оберіть підстави, на яких призначається тимчасова допомога" type="enum" required="true">
+          <activiti:value id="case_1" name="Після рішення суду - аліменти не сплачуються протягом 6-ти місяців"></activiti:value>
+          <activiti:value id="case_2" name="Один з батьків знаходиться у місцях позбавлення волі, на примусовому лікуванні або перебування на строковій військовій службі"></activiti:value>
+          <activiti:value id="case_3" name="Місце проживання (перебування) одного з батьків дитини не встановлено (виплата призначається на 6-ть місяців)"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="scsvid" name="Копія свідоцтва про народження дитини" type="file"></activiti:formProperty>
+        <activiti:formProperty id="reg_reb" name="Довідка про реєстрацію місця проживання (перебування) дитини" type="file"></activiti:formProperty>
+        <activiti:formProperty id="reg_oder" name="Довідка про реєстрацію місця проживання (перебування) одержувача" type="file"></activiti:formProperty>
         <activiti:formProperty id="rish_sudu" name="Рішення суду про стягнення з одного з батьків аліментів на дитину" type="file"></activiti:formProperty>
         <activiti:formProperty id="dov_vikon" name="Довідка Державної виконавчої служби, про несплату аліментів одним з батьків протягом 6 міс., що передують місяцю звернення" type="file"></activiti:formProperty>
         <activiti:formProperty id="dov_provad" name="Довідка відповідної установи про здійснення стосовно одного з батьків кримінального провадження або про його перебування на примусовому лікуванні, у місцях позбавлення волі, визнання його в установленому порядку недієздатним, а також перебування на строковій військовій службі" type="file"></activiti:formProperty>
         <activiti:formProperty id="dov_ovs" name="Повідомлення органу внутрішніх справ про те, що місце перебування одного з батьків не встановлено" type="file"></activiti:formProperty>
         <activiti:formProperty id="rozmir_alim" name="Довідка про розмір аліментів;(якщо розмір аліментів, визначений судом у твердій грошовій сумі, менший від мінімального розміру аліментів на одну дитину, що передбачений частиною другою статті 182 Сімейного кодексу  України)" type="file"></activiti:formProperty>
         <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Я усвідомлюю, що наведені мною відомості про доходи та майно, що вплинули або могли вплинути на прийняте рішення щодо надання соціальної допомоги, компенсацій та пільг, будуть перевірені згідно з чинним законодавством України."></activiti:formProperty>
+        <activiti:formProperty id="marker1" name="Спосіб отримання коштів" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker2" name="Аліменти не сплачуються" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;: [&quot;scsvid&quot;, &quot;reg_reb&quot;, &quot;reg_oder&quot;, &quot;rish_sudu&quot;, &quot;dov_vikon&quot;, &quot;rozmir_alim&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;choice_file_downloads&quot;, &quot;sClient_1&quot;: &quot;choice_visit&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'case_1' &amp;&amp; [sClient_1] == 'visit_1'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker3" name="Знаходиться у місцях позбавлення волі" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;: [&quot;scsvid&quot;, &quot;reg_reb&quot;, &quot;reg_oder&quot;, &quot;dov_provad&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;choice_file_downloads&quot;, &quot;sClient_1&quot;: &quot;choice_visit&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'case_2' &amp;&amp; [sClient_1] == 'visit_1'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker4" name="Місце проживання не встановлено" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;: [&quot;scsvid&quot;, &quot;reg_reb&quot;, &quot;reg_oder&quot;, &quot;dov_ovs&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;choice_file_downloads&quot;, &quot;sClient_1&quot;: &quot;choice_visit&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'case_3' &amp;&amp; [sClient_1] == 'visit_1'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
