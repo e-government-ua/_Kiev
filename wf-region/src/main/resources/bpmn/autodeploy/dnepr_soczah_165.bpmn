@@ -67,7 +67,16 @@
         <activiti:formProperty id="markers7" name="Маркери якщо ліквідували підприємство" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_7&quot;:{&quot;aField_ID&quot;:[&quot;doc_liquidation&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;woman&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'liquidation'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers8" name="Маркери якщо жінка є фопом" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_8&quot;:{&quot;aField_ID&quot;:[&quot;doc_fop&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;woman&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'fop'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers9" name="Маркери якщо жінка зареєстрована у центрі зайнятості" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_9&quot;:{&quot;aField_ID&quot;:[&quot;doc_unemployed&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;woman&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'unemployed'&quot;}}}"></activiti:formProperty>
-      </extensionElements>
+        <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="markers14" name="маркер Амур-Нижньодніпровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_14&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='and'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers15" name="маркер Бабушкінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_15&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;2&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='babush'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers16" name="маркер Жовтневий району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_16&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;3&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='zhovt'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers17" name="маркер Індустріальний району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_17&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;4&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='indust'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers10" name="маркер Кіровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_10&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;5&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='kirov'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers11" name="маркер Красногвардійський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;6&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krasn'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers12" name="маркер Ленінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;7&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='lenin'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers13" name="маркер Самарський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;8&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='samar'&quot;}}}"></activiti:formProperty>
+       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника соц.захисту" activiti:type="mail">
       <extensionElements>
@@ -195,8 +204,7 @@
           <activiti:value id="accept" name="Заповнені дані вірні, громадянці назначена дата та час візиту для надання оригіналу лікарняного"></activiti:value>
           <activiti:value id="reject" name="Дані заповнені неправильно, повідомити громадянку (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="date_visit" name="Внесіть дату та час для надання громадянкою довідки виданої лікувально-профілактичним закладом" type="string"></activiti:formProperty>
-        <activiti:formProperty id="adres_visit" name="Внесіть адресу - куди прийти громадянці" type="string"></activiti:formProperty>
+        <activiti:formProperty id="date_visit" name="Внесіть дату та час візиту громадянки для надання довідки виданої лікувально-профілактичним закладом" type="string"></activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_165_print.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
@@ -276,8 +284,7 @@
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
 На жаль, Ваше звернення щодо призначення державної допомоги у зв'язку з вагітністю та пологами відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
 &lt;br /&gt;
-Підстава: ${comment_1}    &lt;br /&gt;
-    &lt;/p&gt;
+${comment_1}    &lt;br /&gt;
 Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -378,7 +385,9 @@
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
 Ваше звернення щодо призначення державної допомоги у зв'язку з вагітністю та пологами прийнято в роботу.
 Вам призначено дату і час візиту для надання оригіналу довідки виданої лікувально-профілактичним закладом -  ${date_visit}.&lt;br /&gt;
-Адреса ${adres_visit}.&lt;br /&gt;
+Адреса: &lt;br /&gt;[pattern_dictonary:dnepr_soc_help.csv:${rName}:3]&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:${rName}:5]
+&lt;br /&gt;
 Після надання оригіналу документу, звернення буде передано на подальше опрацювання.&lt;/h3&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
