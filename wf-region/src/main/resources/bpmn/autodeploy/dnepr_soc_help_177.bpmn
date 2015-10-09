@@ -13,7 +13,7 @@
         <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина; заповнювати не треба - він завантажується автоматично" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true" default="+380"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
           <activiti:value id="and" name="Амур-Нижньодніпровський"></activiti:value>
@@ -49,24 +49,33 @@
           <activiti:value id="care_soc" name="призначення компенсації фізичним особам, які надають соціальні послуги"></activiti:value>
           <activiti:value id="care_invalid" name="призначення надбавки на догляд за інвалідом з дитинства та за дитиною-інвалідом"></activiti:value>
           <activiti:value id="care_psycho" name="призначення допомоги малозабезпеченій особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу"></activiti:value>
-          <activiti:value id="care_old_human" name="призначення компенсації по догляду за інв.1 гр., престарілим старше 80 років"></activiti:value>
+          <activiti:value id="care_old_human" name="призначення компенсації по догляду за інвалідом I гр., престарілим старше 80 років"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="section_other" name="Оберіть тип допомоги" type="enum">
           <activiti:value id="other_poor" name="призначення допомоги малозабезпеченим сім'ям"></activiti:value>
           <activiti:value id="other_funeral" name="призначення допомоги на поховання"></activiti:value>
           <activiti:value id="energy_3" name="призначення субсидії для відшкодування витрат на оплату житлово-комунальних послуг, придбання скрапленого газу, твердого пічного побутового палива"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
+        
         <activiti:formProperty id="markers1" name="Маркеры1" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;section_invalid&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'invalid'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;section_children&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'children'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers3" name="Маркеры3" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;section_care&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'care'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers4" name="маркеры4" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;section_energy&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'energy'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers5" name="маркеры5" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;section_other&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'other'&quot;}}}"></activiti:formProperty>
-      </extensionElements>
+        <activiti:formProperty id="markers6" name="маркер Амур-Нижньодніпровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='and'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers7" name="маркер Бабушкінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_7&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;2&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='babush'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers8" name="маркер Жовтневий району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_8&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;3&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='zhovt'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers9" name="маркер Індустріальний району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_9&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;4&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='indust'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers10" name="маркер Кіровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_10&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;5&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='kirov'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers11" name="маркер Красногвардійський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;6&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krasn'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers12" name="маркер Ленінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;7&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='lenin'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers13" name="маркер Самарський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;8&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='samar'&quot;}}}"></activiti:formProperty>
+       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="повідомлення громадянина про прийняте рішення" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" writable="false">
+        <activiti:formProperty id="area" name="район обслуговування" type="enum" writable="false">
           <activiti:value id="and" name="Амур-Нижньодніпровський"></activiti:value>
           <activiti:value id="babush" name="Бабушкінський"></activiti:value>
           <activiti:value id="zhovt" name="Жовтневий"></activiti:value>
@@ -194,10 +203,10 @@ enum{[section_invalid]}
 enum{[section_children]} 
 enum{[section_care]} 
 enum{[section_other]}
-.&lt;br /&gt;
+&lt;br /&gt;
 Сканкопія довідки знаходиться у додатку до листа.&lt;br /&gt;
-Ви можете отримати оригінал довідки за адресою: &lt;br /&gt;м. Дніпропетровськ, вул. К.Лібкнехта, 70&lt;br /&gt;
-телефон для довідок: (056) 749-45-46
+Ви можете отримати оригінал довідки в [pattern_dictonary:dnepr_soc_help.csv:${rName}:2] за адресою: &lt;br /&gt;[pattern_dictonary:dnepr_soc_help.csv:${rName}:3]&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:${rName}:5]
 &lt;br /&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -326,7 +335,7 @@ enum{[section_care]}
 enum{[section_other]} 
 &lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Відпрацюйте це звернення на &lt;a href="https://region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
+Опрацюйте це звернення на &lt;a href="https://region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -421,8 +430,7 @@ enum{[section_invalid]}
 enum{[section_children]} 
 enum{[section_care]} 
 enum{[section_other]}
-&lt;br /&gt;&lt;br /&gt;
-Підстава:${comment_2}&lt;br /&gt;
+${comment_2}&lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
 									З повагою,&lt;br /&gt;

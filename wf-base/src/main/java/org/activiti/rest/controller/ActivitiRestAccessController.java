@@ -34,14 +34,16 @@ public class ActivitiRestAccessController {
    @RequestMapping(value = "/setAccessServiceLoginRight", method = RequestMethod.POST)
    public void setAccessServiceLoginRight(@RequestParam(value = "sLogin") String sLogin,
                                           @RequestParam(value = "sService") String sService,
-                                          @RequestParam(value = "sHandlerBean", required = false) String sHandlerBean)
+                                          @RequestParam(value = "sHandlerBean", required = false) String sHandlerBean,
+                                          HttpServletResponse response)
       throws ActivitiRestException {
       try {
+
          accessService.saveOrUpdateAccessServiceLoginRight(sLogin, sService, sHandlerBean);
+         response.setStatus(HttpStatus.OK.value());
+
       } catch (HandlerBeanValidationException e) {
-         throw new ActivitiRestException(
-                 ActivitiExceptionController.BUSINESS_ERROR_CODE,
-                 e.getMessage());
+         throw new ActivitiRestException(ActivitiExceptionController.BUSINESS_ERROR_CODE, e.getMessage());
       }
    }
 
