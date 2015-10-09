@@ -18,6 +18,7 @@ import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.*;
 import org.activiti.redis.exception.RedisException;
+import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
 import org.activiti.rest.controller.adapter.AttachmentEntityAdapter;
 import org.activiti.rest.controller.adapter.ProcDefinitionAdapter;
@@ -61,7 +62,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import org.activiti.redis.model.ByteArrayMultipartFile;
+
 import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getByteArrayMultipartFileFromRedis;
 
 /**
@@ -1278,7 +1279,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     /**
      * issue 808. сервис ЗАПРОСА полей, требующих уточнения, c отсылкой уведомления гражданину
-     * @param nID_Protected - номер-�?Д заявки (защищенный)
+     * @param nID_Protected - номер-�?Д заявки (защищенный)
      * @param saField -- строка-массива полей (например: "[{'id':'sFamily','type':'string','value':'Белявский'},{'id':'nAge','type':'long'}]")
      * @param sMail -- строка электронного адреса гражданина
      * @param sHead -- строка заголовка письма //опциональный (если не задан, то "Необходимо уточнить данные")
@@ -1338,7 +1339,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     }
 
     private String createTable(String soData) throws UnsupportedEncodingException {
-        if (soData == null || "[]".equals(soData)){
+        if (soData == null || "[]".equals(soData) || "".equals(soData)) {
             return "";
         }
         StringBuilder tableStr = new StringBuilder("<table><tr><th>Поле</th><th>Тип </th><th> Поточне значення</th></tr>");
@@ -1393,7 +1394,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         params.put("sHead", sHead);
         params.put("sBody", sBody);
         params.put("sToken", sToken);
-        params.put("sID_Status", "setTaskQuestions");
+        params.put("sID_Status", "Запит на уточнення даних");
         params.put("sAccessContract", "Request");
         String sAccessKey_HistoryEvent = accessDataDao.setAccessData(httpRequester.getFullURL(URI, params));
         params.put("sAccessKey", sAccessKey_HistoryEvent);
@@ -1484,7 +1485,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         params.put("nID_Process", sID_Process);
         params.put("soData", saField);
         params.put("sToken", sToken);
-        params.put("sID_Status", "setTaskAnswer");
+        params.put("sID_Status", "Відповідь на запит по уточненню даних");
         String sAccessKey_HistoryEvent = accessDataDao.setAccessData(httpRequester.getFullURL(URI, params));
         params.put("sAccessKey", sAccessKey_HistoryEvent);
         log.info("sAccessKey=" + sAccessKey_HistoryEvent);
