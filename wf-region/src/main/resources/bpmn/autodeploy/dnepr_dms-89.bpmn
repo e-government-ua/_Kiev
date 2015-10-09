@@ -667,10 +667,15 @@
           <activiti:value id="nejav" name="Громадянин не з'явився"></activiti:value>
           <activiti:value id="nazad" name="Повернути у необроблені"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/zajava_r(dnepr).html]" type="invisible" default="Заява для реєстрації" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_2" name="[pattern/print/zajava_zn(dnepr).html]" type="invisible" default="Заява для зняття з реєстрації" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_3" name="[pattern/print/talon4bk(dnepr).html]" type="invisible" default="Талон зворотня" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_4" name="[pattern/print/talon4fr(dnepr).html]" type="invisible" default="Талон лицьова" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/zajava_regfr(dnepr).html]" type="invisible" default="Заява для реєстрації лицьова" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_2" name="[pattern/print/zajava_regbk(dnepr).html]" type="invisible" default="Заява для реєстрації зворотня" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_3" name="[pattern/print/kartka(dnepr)fr.html]" type="invisible" default="Картка реєстрації лицьова" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_4" name="[pattern/print/kartka(dnepr)bk.html]" type="invisible" default="Картка реєстрації зворотня" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_5" name="[pattern/print/vidomist_4(dnepr).html]" type="invisible" default="Відомості про реєстрацію" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_6" name="[pattern/print/talon4(dnepr).html]" type="invisible" default="Талон про зняття з реєстрації" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_7" name="[pattern/print/dodat12(dnepr).html]" type="invisible" default="Повідомлення про зняття з реєстрації" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_8" name="[pattern/print/zajava_znfr(dnepr).html]" type="invisible" default="Заява для зняття з реєстрації лицьова" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_9" name="[pattern/print/zajava_znbk(dnepr).html]" type="invisible" default="Заява для зняття з реєстрації зворотня" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
