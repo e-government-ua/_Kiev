@@ -48,7 +48,17 @@ angular.module('app').controller('ServiceStatisticsController', function($scope,
   };
 
   ServiceService.getStatisticsForService(ServiceService.oService.nID).then(function(response) {
-      $scope.stats = response.data;
+    $scope.stats = response.data;
+    $scope.nRate = 0;
+    var nRate=0;
+    angular.forEach(response.data, function (oStatistic) {
+      if (oStatistic.nRate !== null && oStatistic.nRate > 0) {
+          nRate=nRate+oStatistic.nRate;
+      }
+    });
+    $scope.nRate = nRate;
+      
+      
     }, function(response) {
       console.log(response.status + ' ' + response.statusText + '\n' + response.data);
     })
