@@ -10,19 +10,23 @@
         <activiti:formProperty id="bankIdAddress" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш контактний  телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Оберить ЦНАП району до якого ви відноситесь" type="enum" required="true">
-          <activiti:value id="ztT" name="ЦНАП Житомирської міськради"></activiti:value>
-          <activiti:value id="volvo" name="ЦНАП Володар-Волинської РДА"></activiti:value>
-          <activiti:value id="korosten" name="ЦНАП Коростенської РДА"></activiti:value>
+          <activiti:value id="volvo" name="ЦНАП Володарсько-Волинської РДА"></activiti:value>
           <activiti:value id="roman" name="ЦНАП Романівської РДА"></activiti:value>
+          <activiti:value id="korosten" name="ЦНАП Коростенської РДА"></activiti:value>
+          <activiti:value id="popel" name="ЦНАП Попільнянської РДА"></activiti:value>
+          <activiti:value id="cherarm" name="ЦНАП Червоноармійської РДА"></activiti:value>
+          <activiti:value id="ztT" name="ЦНАП Житомирської міськради"></activiti:value>
           <activiti:value id="malinT" name="ЦНАП Малинської міськради"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="region" name="Регион" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-        <activiti:formProperty id="marker5" name="Володимир-Волинський р-н" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;5&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'volvo'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker5" name="Володимирсько-Волинський р-н" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;5&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'volvo'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker6" name="Романівський р-н" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;6&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'roman'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker9" name="Коростенський р-н" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_9&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;9&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'korosten'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker18" name="Попільнянський р-н" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_18&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;18&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'popel'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker21" name="Червоноармійський р-н" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_21&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;21&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'cherarm'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker25" name="м. Житомир" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_25&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;25&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'ztT'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker27" name="м. Малин" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_27&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;27&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'malinT'&quot;}}}"></activiti:formProperty>
       </extensionElements>
@@ -117,16 +121,16 @@
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;&lt;/p&gt;
 										Ваше звернення щодо надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ опрацьоване.&lt;/p&gt;
-										Ви або уповноважена Вами особа можете отримати довідку ообисто під підпис у ЦНАП.&lt;br /&gt;
+										Ви або уповноважена Вами особа можете отримати довідку особисто під підпис у ЦНАП.&lt;br /&gt;
                                         При собі мати:&lt;br /&gt;
 										1. Документ, що посвідчує особу.&lt;br /&gt;
-										2. Для уповоноваженої особи - довіренність.&lt;br /&gt;
+										2. Для уповноваженої особи - довіреність.&lt;br /&gt;
 									&lt;p&gt;&lt;/p&gt;
 										Зверніть увагу, що заяву, яку Ви подавали в електронному вигляді, треба буде засвідчити особистим підписом.
 									&lt;p&gt;&lt;/p&gt;
 										
 &lt;br /&gt;
-Адреса: &lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:2] чекає на Вас за адресою: &lt;br /&gt;
 [pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
 &lt;br /&gt;
 &lt;p&gt;Графік роботи ЦНАП:&lt;/p&gt;
