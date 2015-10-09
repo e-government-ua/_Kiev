@@ -1,0 +1,1291 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <style>
+        body {
+            font-family: 'Times New Roman';
+            padding: 0px;
+            margin: 0px;
+        }
+
+        table {
+            border-collapse: collapse; 
+            font-size: 2.4mm !important; 
+        }
+
+        .page1, .page2 {
+            background-color: #FFFFFF;
+            border-top: 1px solid #000;
+            color: #000;
+            height: 297mm;
+            width: 210mm;
+        }
+
+            .page1 .row-top, .page2 .row-top {
+                border-bottom: 1px solid #000;
+                width: 100%;
+                height: 148mm;
+            }
+
+            .page1 .row-bottom, .page2 .row-bottom {
+                width: 100%;
+                height: 148mm;
+            }
+
+            .page1 .row-top td.block, .page2 .row-top td.block {
+                width: 50%;
+                border-left: 1px solid #000;
+            }
+
+            .page1 .row-bottom td.block, .page2 .row-bottom td.block {
+                width: 50%;
+                border-left: 1px solid #000;
+            }
+
+        .dodatok4, .dodatok42 {
+            font-size: 2.4mm !important;
+        }
+
+        .page1 td, .page2 td {
+            /* border: 1px solid #000; */
+            height: 2mm;
+        }
+
+        .underline {
+            width: 78mm;
+            border-bottom: 1px solid;
+        }
+
+        .text-top {
+            padding-left: 50%;
+            padding-bottom: 20px;
+        }
+
+        .top-number {
+            padding-left: 46mm;
+        }
+
+        .block-number {
+            padding-left: 20mm;
+        }
+
+        .block1 {
+            border: 1px solid;
+            width: 12mm;
+        }
+
+        .block2 {
+            border: 1px solid;
+            width: 12mm;
+        }
+
+        .font-bold {
+            font-weight: bold;
+        }
+
+        .align-center {
+            text-align: center;
+        }
+
+        .surname, .name, .patronimic {
+            width: 20mm;
+            margin: 100mm;
+        }
+
+        .row4 .underline {
+            width: 60mm;
+        }
+
+        .previous-name {
+            width: 38mm;
+        }
+
+        .birthday {
+            width: 38mm;
+        }
+
+        .row5 .underline {
+            width: 60mm;
+        }
+
+        .birthplace {
+            width: 38mm;
+        }
+
+        .row6 .underline {
+            width: 60mm;
+            border: none;
+        }
+
+        .row6 .title {
+            border-bottom: 1px solid;
+            width: 40mm;
+        }
+
+        .row6 .block-left, .row6 .block-center, .row6 .block-right, .row6 .block-bottom {
+            border-collapse: collapse;
+            width: 30mm;
+            border: 1px solid;
+            height: 4mm;
+        }
+
+        .sex {
+            width: 38mm;
+        }
+
+        .row9 .block-top, .row9 .block-middle, .row9 .block-bottom, .row8 .block-top, .row8 .block-bottom, .row7 .block-top, .row7 .block-bottom {
+            width: 20mm;
+            border: 1px solid;
+        }
+
+        .row7 .values {
+            width: 34.2mm;
+        }
+
+        .row7 .underline {
+            width: 60mm;
+        }
+
+        .row8 .national {
+            width: 38mm;
+        }
+
+        .row8 .underline {
+            width: 60mm;
+        }
+
+        .row9 .address {
+            width: 38mm;
+        }
+
+        .row9 .underline {
+            width: 60mm;
+        }
+
+        .row10 .authority {
+            width: 38mm;
+        }
+
+        .row10 .underline {
+            width: 60mm;
+        }
+
+        .row11 .from-address {
+            width: 38mm;
+        }
+
+        .row11 .underline {
+            width: 60mm;
+        }
+
+        .dodatok42 td {
+            height: 4mm;
+        }
+
+        .row12 .passport-id {
+        }
+
+        .row12 .table-block {
+            width: 58mm;
+        }
+
+        .row13 .kids-doc {
+        }
+
+        .row13 .table-block {
+            width: 100%;
+        }
+
+        .row14 .kids-names {
+        }
+
+        .row14 .kids-table {
+            border: 1px solid;
+            width: 100%;
+        }
+
+            .row14 .kids-table .headers td {
+                text-align: center;
+            }
+
+            .row14 .kids-table td {
+                border: 1px solid;
+                margin: 0px;
+                padding: 0px 1px 0px 1px;
+            }
+
+            .row14 .kids-table .sex {
+                width: 100%;
+            }
+
+                .row14 .kids-table .sex td {
+                    border: none;
+                    width: 50%;
+                }
+
+            .row14 .kids-table .names-column {
+                width: 58mm;
+                height: 8mm;
+            }
+
+            .row14 .kids-table .sex-column {
+                width: 48mm !important;
+            }
+
+            .row14 .kids-table .birthday-column {
+                width: 34mm;
+            }
+
+            .row14 .kids-table .birthplace-column {
+                width: 36mm;
+            }
+
+        .sex .sex-name {
+            border-right: 1px solid !important;
+        }
+
+        .sex .underline {
+            border-bottom: 1px solid !important;
+        }
+
+        .row15 .registered-date {
+            width: 60mm;
+        }
+
+        .row15 .year {
+            width: 80mm;
+        }
+
+        .row15 .sign {
+            padding-left: 10mm;
+        }
+
+        .row16 .registered {
+            width: 60mm;
+        }
+
+        .row16 .year {
+            width: 80mm;
+        }
+
+        .row16 .sign {
+            padding-left: 10mm;
+        }
+
+        .row17 .notices {
+        }
+
+        .row17 table {
+            width: 100%;
+        }
+
+        .row8 .table-block, .row9 .table-block, .row12 .table-block, .row13 .table-block {
+            border-top: none;
+        }
+
+        .row8 .table-block, .row12 .table-block, .row13 .table-block {
+            border-bottom: none;
+        }
+
+        .table-block td {
+            height: 3.52mm;
+        }
+
+        .table-block {
+            border-top: 1px solid;
+            border-left: 1px solid;
+            border-bottom: 1px solid;
+            width: 32mm;
+        }
+
+        .clear-left-border {
+            border-left: none;
+        }
+
+        .questions-left-bottom, .block-right-bottom {
+            padding: 0px;
+            margin: 0px;
+            vertical-align: top;
+            padding-right: 4.8mm;
+        }
+
+            .questions-left-bottom .row7 td {
+                height: 3.72mm;
+            }
+
+            .block-right-bottom td {
+                border: 1px solid;
+                width: 28mm;
+                height: 3.74mm;
+            }
+
+            .block-right-bottom .clear {
+                border: 0px;
+            }
+
+            .block-right-bottom .sex {
+                width: 12mm;
+                display: inline-block;
+            }
+
+            .block-right-bottom .sex1 {
+                border-bottom: 0px;
+            }
+
+        .row-spacer .block-top {
+            width: 20mm;
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+    ﻿
+    <table style="width: 210mm; height: 297mm; position: absolute; border: 1px solid #00FF00;"><tr><td>&nbsp;</td></tr></table>
+    <table style="top: 310mm; width: 210mm; height: 297mm; position: absolute; border: 1px solid #FF0000;"><tr><td>&nbsp;</td></tr></table>
+
+    <div text="#FF0000">
+
+        <table class="page1" style="border: 1px solid #000;">
+            <tbody>
+                <tr class="row-top">
+                    <td class="block">
+
+                        <table class="dodatok4">
+
+                            <tr><td class="text-top">Додаток 4<br />до Порядку реєстрації місця проживання та місця перебування фізичних осіб в Україні<br />та зразків необхідних для цього документів</td></tr>
+                            <tr><td class="align-center font-bold">ВІДОМОСТІ</td></tr>
+                            <tr><td class="align-center font-bold">про реєстрацію місця проживання особи</td></tr>
+                            <tr><td><table><tr><td class="top-number">Номер</td><td class="block-number"><table><tr><td class="block1">&nbsp;</td><td class="block2">&nbsp;</td></tr></table></td></tr></table></td></tr>
+                            <tr class="row1"><td><table><tr><td class="surname">1. Прізвище</td><td class="underline">[bankIdLastName]</td></tr></table></td></tr>
+                            <tr class="row2"><td><table><tr><td class="name">2. Ім'я</td><td class="underline">[bankIdFirstName]</td></tr></table></tr>
+                            <tr class="row3"><td><table><tr><td class="patronimic">3. По батькові</td><td class="underline">[bankIdMiddleName]</td></tr></table></td></tr>
+                            <tr class="row4"><td><table><tr><td class="previous-name">4. Попереднє прізвище, ім'я та<br />по батькові (за наявності)</td><td class="underline">[PrevName]</td></tr></table></td></tr>
+                            <tr class="row5"><td><table><tr><td class="birthday">5. Дата народження</td><td class="underline">[Date_of_birth]</td></tr></table></td></tr>
+                            <tr class="row6">
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td class="birthplace">6. Місце народження</td>
+                                            <td class="underline">
+                                                <table>
+                                                    <tr><td class="title">[Areabirth]</td><td class="block-left">&nbsp;</td><td class="block-center">&nbsp;</td><td class="block-right">&nbsp;</td></tr>
+                                                    <tr><td class="under-title"></td><td colspan="3" class="block-bottom"></td></tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+
+                                    <table>
+                                        <tr>
+                                            <td class="questions-left-bottom">
+
+                                                <table>
+
+                                                    <tr class="row7">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+                                                                    <td class="sex">7. Стать</td>
+                                                                    <td>
+
+                                                                        <table>
+                                                                            <tr><td></td></tr>
+                                                                            <tr><td class="values">чоловіча-1</td></tr>
+                                                                            <tr>
+                                                                                <td class="values">жіноча-2</td>
+                                                                            </tr>
+                                                                            <tr><td></td></tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="row8">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+
+                                                                    <td class="national">8. Громадянство (підданство)<br />(за наявності)</td>
+                                                                    <td><table class="table-block"><tr><td class="underline">[Nationality]</td></tr><tr><td>&nbsp;</td></tr></table></td>
+
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                    <tr class="row9">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+                                                                    <td class="address">9. Реєстрація місця<br />проживання</td>
+                                                                    <td>
+
+                                                                        <table class="table-block"><tr><td class="underline">[newAddress]</td></tr><tr><td class="underline">&nbsp;</td></tr><tr><td class="underline">&nbsp;</td></tr></table>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                    <tr class="row10">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+                                                                    <td class="authority">10. Орган, що<br />здійснив реєстрацію</td>
+                                                                    <td>
+
+                                                                        <table class="table-block"><tr><td>&nbsp;</td></tr><tr><td>[RegistrationService]</td></tr></table>
+                                                                    </td>
+
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                    <tr class="row11"><td><table><tr><td class="from-address">11. Звідки прибув (прибула) і коли</td><td><table class="table-block"><tr><td>[RegistrationAddress],&nbsp;</td></tr><tr><td>&nbsp;[WhenCome]</td></tr></table></td></tr></table></td></tr>
+
+                                                </table>
+
+                                            </td>
+                                            <td class="block-right-bottom">
+
+                                                <table>
+
+                                                    <tr><td class="clear">&nbsp;</td></tr>
+                                                    <tr><td class="sex sex1">&nbsp;</td></tr>
+                                                    <tr><td class="sex sex2">&nbsp;</td></tr>
+                                                    <tr><td class="clear">&nbsp;</td></tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                </table>
+
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </td>
+                            </tr>
+
+
+                        </table>
+
+                    </td>
+                    <td class="block">
+
+
+                        <table class="dodatok4">
+
+                            <tr><td class="text-top">Додаток 4<br />до Порядку реєстрації місця проживання та місця перебування фізичних осіб в Україні<br />та зразків необхідних для цього документів</td></tr>
+                            <tr><td class="align-center font-bold">ВІДОМОСТІ</td></tr>
+                            <tr><td class="align-center font-bold">про реєстрацію місця проживання особи</td></tr>
+                            <tr><td><table><tr><td class="top-number">Номер</td><td class="block-number"><table><tr><td class="block1">&nbsp;</td><td class="block2">&nbsp;</td></tr></table></td></tr></table></td></tr>
+                            <tr class="row1"><td><table><tr><td class="surname">1. Прізвище</td><td class="underline">[bankIdLastName]</td></tr></table></td></tr>
+                            <tr class="row2"><td><table><tr><td class="name">2. Ім'я</td><td class="underline">[bankIdFirstName]</td></tr></table></tr>
+                            <tr class="row3"><td><table><tr><td class="patronimic">3. По батькові</td><td class="underline">[bankIdMiddleName]</td></tr></table></td></tr>
+                            <tr class="row4"><td><table><tr><td class="previous-name">4. Попереднє прізвище, ім'я та<br />по батькові (за наявності)</td><td class="underline">[PrevName]</td></tr></table></td></tr>
+                            <tr class="row5"><td><table><tr><td class="birthday">5. Дата народження</td><td class="underline">[Date_of_birth]</td></tr></table></td></tr>
+                            <tr class="row6">
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td class="birthplace">6. Місце народження</td>
+                                            <td class="underline">
+                                                <table>
+                                                    <tr><td class="title">[Areabirth]</td><td class="block-left">&nbsp;</td><td class="block-center">&nbsp;</td><td class="block-right">&nbsp;</td></tr>
+                                                    <tr><td class="under-title"></td><td colspan="3" class="block-bottom"></td></tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+
+                                    <table>
+                                        <tr>
+                                            <td class="questions-left-bottom">
+
+                                                <table>
+
+                                                    <tr class="row7">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+                                                                    <td class="sex">7. Стать</td>
+                                                                    <td>
+
+                                                                        <table>
+                                                                            <tr><td></td></tr>
+                                                                            <tr><td class="values">чоловіча-1</td></tr>
+                                                                            <tr>
+                                                                                <td class="values">жіноча-2</td>
+                                                                            </tr>
+                                                                            <tr><td></td></tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="row8">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+
+                                                                    <td class="national">8. Громадянство (підданство)<br />(за наявності)</td>
+                                                                    <td><table class="table-block"><tr><td class="underline">[Nationality]</td></tr><tr><td>&nbsp;</td></tr></table></td>
+
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                    <tr class="row9">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+                                                                    <td class="address">9. Реєстрація місця<br />проживання</td>
+                                                                    <td>
+
+                                                                        <table class="table-block"><tr><td class="underline">[newAddress]</td></tr><tr><td class="underline">&nbsp;</td></tr><tr><td class="underline">&nbsp;</td></tr></table>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                    <tr class="row10">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+                                                                    <td class="authority">10. Орган, що<br />здійснив реєстрацію</td>
+                                                                    <td>
+
+                                                                        <table class="table-block"><tr><td>&nbsp;</td></tr><tr><td>[RegistrationService]</td></tr></table>
+                                                                    </td>
+
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                    <tr class="row11"><td><table><tr><td class="from-address">11. Звідки прибув (прибула) і коли</td><td><table class="table-block"><tr><td>[RegistrationAddress],&nbsp;</td></tr><tr><td>&nbsp;[WhenCome]</td></tr></table></td></tr></table></td></tr>
+
+                                                </table>
+
+                                            </td>
+                                            <td class="block-right-bottom">
+
+                                                <table>
+
+                                                    <tr><td class="clear">&nbsp;</td></tr>
+                                                    <tr><td class="sex sex1">&nbsp;</td></tr>
+                                                    <tr><td class="sex sex2">&nbsp;</td></tr>
+                                                    <tr><td class="clear">&nbsp;</td></tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                </table>
+
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </td>
+                </tr>
+
+                <tr class="row-bottom">
+                    <td class="block">
+
+                        <table class="dodatok4">
+
+                            <tr><td class="text-top">Додаток 4<br />до Порядку реєстрації місця проживання та місця перебування фізичних осіб в Україні<br />та зразків необхідних для цього документів</td></tr>
+                            <tr><td class="align-center font-bold">ВІДОМОСТІ</td></tr>
+                            <tr><td class="align-center font-bold">про реєстрацію місця проживання особи</td></tr>
+                            <tr><td><table><tr><td class="top-number">Номер</td><td class="block-number"><table><tr><td class="block1">&nbsp;</td><td class="block2">&nbsp;</td></tr></table></td></tr></table></td></tr>
+                            <tr class="row1"><td><table><tr><td class="surname">1. Прізвище</td><td class="underline">[bankIdLastName]</td></tr></table></td></tr>
+                            <tr class="row2"><td><table><tr><td class="name">2. Ім'я</td><td class="underline">[bankIdFirstName]</td></tr></table></tr>
+                            <tr class="row3"><td><table><tr><td class="patronimic">3. По батькові</td><td class="underline">[bankIdMiddleName]</td></tr></table></td></tr>
+                            <tr class="row4"><td><table><tr><td class="previous-name">4. Попереднє прізвище, ім'я та<br />по батькові (за наявності)</td><td class="underline">[PrevName]</td></tr></table></td></tr>
+                            <tr class="row5"><td><table><tr><td class="birthday">5. Дата народження</td><td class="underline">[Date_of_birth]</td></tr></table></td></tr>
+                            <tr class="row6">
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td class="birthplace">6. Місце народження</td>
+                                            <td class="underline">
+                                                <table>
+                                                    <tr><td class="title">[Areabirth]</td><td class="block-left">&nbsp;</td><td class="block-center">&nbsp;</td><td class="block-right">&nbsp;</td></tr>
+                                                    <tr><td class="under-title"></td><td colspan="3" class="block-bottom"></td></tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+
+                                    <table>
+                                        <tr>
+                                            <td class="questions-left-bottom">
+
+                                                <table>
+
+                                                    <tr class="row7">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+                                                                    <td class="sex">7. Стать</td>
+                                                                    <td>
+
+                                                                        <table>
+                                                                            <tr><td></td></tr>
+                                                                            <tr><td class="values">чоловіча-1</td></tr>
+                                                                            <tr>
+                                                                                <td class="values">жіноча-2</td>
+                                                                            </tr>
+                                                                            <tr><td></td></tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="row8">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+
+                                                                    <td class="national">8. Громадянство (підданство)<br />(за наявності)</td>
+                                                                    <td><table class="table-block"><tr><td class="underline">[Nationality]</td></tr><tr><td>&nbsp;</td></tr></table></td>
+
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                    <tr class="row9">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+                                                                    <td class="address">9. Реєстрація місця<br />проживання</td>
+                                                                    <td>
+
+                                                                        <table class="table-block"><tr><td class="underline">[newAddress]</td></tr><tr><td class="underline">&nbsp;</td></tr><tr><td class="underline">&nbsp;</td></tr></table>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                    <tr class="row10">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+                                                                    <td class="authority">10. Орган, що<br />здійснив реєстрацію</td>
+                                                                    <td>
+
+                                                                        <table class="table-block"><tr><td>&nbsp;</td></tr><tr><td>[RegistrationService]</td></tr></table>
+                                                                    </td>
+
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                    <tr class="row11"><td><table><tr><td class="from-address">11. Звідки прибув (прибула) і коли</td><td><table class="table-block"><tr><td>[RegistrationAddress],&nbsp;</td></tr><tr><td>&nbsp;[WhenCome]</td></tr></table></td></tr></table></td></tr>
+
+                                                </table>
+
+                                            </td>
+                                            <td class="block-right-bottom">
+
+                                                <table>
+
+                                                    <tr><td class="clear">&nbsp;</td></tr>
+                                                    <tr><td class="sex sex1">&nbsp;</td></tr>
+                                                    <tr><td class="sex sex2">&nbsp;</td></tr>
+                                                    <tr><td class="clear">&nbsp;</td></tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                </table>
+
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </td>
+                            </tr>
+
+
+                        </table>
+
+                    </td>
+                    <td class="block">
+
+                        <table class="dodatok4">
+
+                            <tr><td class="text-top">Додаток 4<br />до Порядку реєстрації місця проживання та місця перебування фізичних осіб в Україні<br />та зразків необхідних для цього документів</td></tr>
+                            <tr><td class="align-center font-bold">ВІДОМОСТІ</td></tr>
+                            <tr><td class="align-center font-bold">про реєстрацію місця проживання особи</td></tr>
+                            <tr><td><table><tr><td class="top-number">Номер</td><td class="block-number"><table><tr><td class="block1">&nbsp;</td><td class="block2">&nbsp;</td></tr></table></td></tr></table></td></tr>
+                            <tr class="row1"><td><table><tr><td class="surname">1. Прізвище</td><td class="underline">[bankIdLastName]</td></tr></table></td></tr>
+                            <tr class="row2"><td><table><tr><td class="name">2. Ім'я</td><td class="underline">[bankIdFirstName]</td></tr></table></tr>
+                            <tr class="row3"><td><table><tr><td class="patronimic">3. По батькові</td><td class="underline">[bankIdMiddleName]</td></tr></table></td></tr>
+                            <tr class="row4"><td><table><tr><td class="previous-name">4. Попереднє прізвище, ім'я та<br />по батькові (за наявності)</td><td class="underline">[PrevName]</td></tr></table></td></tr>
+                            <tr class="row5"><td><table><tr><td class="birthday">5. Дата народження</td><td class="underline">[Date_of_birth]</td></tr></table></td></tr>
+                            <tr class="row6">
+                                <td>
+                                    <table>
+                                        <tr>
+                                            <td class="birthplace">6. Місце народження</td>
+                                            <td class="underline">
+                                                <table>
+                                                    <tr><td class="title">[Areabirth]</td><td class="block-left">&nbsp;</td><td class="block-center">&nbsp;</td><td class="block-right">&nbsp;</td></tr>
+                                                    <tr><td class="under-title"></td><td colspan="3" class="block-bottom"></td></tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+
+                                    <table>
+                                        <tr>
+                                            <td class="questions-left-bottom">
+
+                                                <table>
+
+                                                    <tr class="row7">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+                                                                    <td class="sex">7. Стать</td>
+                                                                    <td>
+
+                                                                        <table>
+                                                                            <tr><td></td></tr>
+                                                                            <tr><td class="values">чоловіча-1</td></tr>
+                                                                            <tr>
+                                                                                <td class="values">жіноча-2</td>
+                                                                            </tr>
+                                                                            <tr><td></td></tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr class="row8">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+
+                                                                    <td class="national">8. Громадянство (підданство)<br />(за наявності)</td>
+                                                                    <td><table class="table-block"><tr><td class="underline">[Nationality]</td></tr><tr><td>&nbsp;</td></tr></table></td>
+
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                    <tr class="row9">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+                                                                    <td class="address">9. Реєстрація місця<br />проживання</td>
+                                                                    <td>
+
+                                                                        <table class="table-block"><tr><td class="underline">[newAddress]</td></tr><tr><td class="underline">&nbsp;</td></tr><tr><td class="underline">&nbsp;</td></tr></table>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                    <tr class="row10">
+                                                        <td>
+
+                                                            <table>
+                                                                <tr>
+                                                                    <td class="authority">10. Орган, що<br />здійснив реєстрацію</td>
+                                                                    <td>
+
+                                                                        <table class="table-block"><tr><td>&nbsp;</td></tr><tr><td>[RegistrationService]</td></tr></table>
+                                                                    </td>
+
+                                                                </tr>
+                                                            </table>
+
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                    <tr class="row11"><td><table><tr><td class="from-address">11. Звідки прибув (прибула) і коли</td><td><table class="table-block"><tr><td>[RegistrationAddress],&nbsp;</td></tr><tr><td>&nbsp;[WhenCome]</td></tr></table></td></tr></table></td></tr>
+
+                                                </table>
+
+                                            </td>
+                                            <td class="block-right-bottom">
+
+                                                <table>
+
+                                                    <tr><td class="clear">&nbsp;</td></tr>
+                                                    <tr><td class="sex sex1">&nbsp;</td></tr>
+                                                    <tr><td class="sex sex2">&nbsp;</td></tr>
+                                                    <tr><td class="clear">&nbsp;</td></tr>
+
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+                                                    <tr><td>&nbsp;</td></tr>
+
+                                                </table>
+
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </td>
+                            </tr>
+
+
+                        </table>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        Друга сторінка
+        <br />
+
+        <table class="page2">
+
+            <tr class="row-top">
+
+                <td class="block">
+
+                    <table class="dodatok42">
+
+                        <tr class="row12">
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td class="passport-id">12. Тип, серія і номер паспортного<br />документа, дата і орган, що його видав</td>
+                                        <td><table class="table-block"><tr><td class="underline">[bankIdPassport]</td></tr><tr><td class="underline">&nbsp;</td></tr><tr><td>&nbsp;</td></tr></table></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr class="row13">
+                            <td>
+                                <table>
+
+                                    <tr><td class="kids-doc">13. Свідоцтво про народження або свідоцтво про належність до громадянства України, дата і орган, що його видав (у разі оформлення окремого талона на дітей, які не досягли 16-річного віку)</td></tr>
+
+                                    <tr><td><table class="table-block clear-left-border"><tr><td class="underline">[kidsDoc]&nbsp;</td></tr><tr><td class="underline">[kidsDoc2]&nbsp;</td></tr><tr><td class="underline">[kidsDoc3]&nbsp;</td></tr><tr><td class="underline">[kidsDoc4]&nbsp;</td></tr></table></td></tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="row14">
+                            <td>
+                                <table>
+                                    <tr><td class="kids-names">14. Відомості про дітей віком до 14 років, що прибувають разом з особою, на яку оформляється талон (кожна дитина вписується лише один раз у талон одного з батьків):</td></tr>
+                                    <tr>
+                                        <td>
+                                            <table class="kids-table">
+
+                                                <tr class="headers"><td class="names-column">Прізвище, ім'я, по батькові</td><td class="sex-column">Стать</td><td class="birthday-column">Дата народження</td><td class="birthplace-column">Місце народження</td></tr>
+                                                <tr><td>[ChildName1]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth]</td><td>[kidsPOB]</td></tr>
+                                                <tr><td>[ChildName2]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth2]</td><td>[kidsPOB2]</td></tr>
+                                                <tr><td>[ChildName3]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth3]</td><td>[kidsPOB3]</td></tr>
+                                                <tr><td>[ChildName4]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth4]</td><td>[kidsPOB4]</td></tr>
+
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="row15"><td><table><tr><td class="registered-date">15. Дата оформлення</td><td class="underline"></td><td class="year">року</td></tr><tr><td class="underline" colspan="3">&nbsp;</td></tr><tr><td colspan="3" class="sign">(підпис, ініціали та прізвище посадової особи)</td></tr></table></td></tr>
+
+                        <tr class="row16">
+                            <td>
+
+                                <table>
+
+                                    <tr><td class="registered">16. Реєстрацію здійснено</td><td class="underline">&nbsp;</td><td class="year">року</td></tr>
+                                    <tr><td colspan="3" class="underline">&nbsp;</td></tr>
+                                    <tr><td colspan="3" class="sign">(підпис, ініціали та прізвище посадової особи)</td></tr>
+                                    <tr><td colspan="3">Одночасно знято з реєстрації</td></tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="row17"><td><table><tr><td class="notices">17. Відмітки</td><td class="underline">&nbsp;</td></tr></table></td></tr>
+
+                        <tr><td>&nbsp;</td></tr>
+
+                        <tr><td>Примітка. Один примірник оформлених відомостей (без внесення відомостей до пунктів 1-4) передаєтсья до органу державної статистики</td></tr>
+
+                    </table>
+
+                </td>
+
+                <td class="block">
+
+
+                    <table class="dodatok42">
+
+                        <tr class="row12">
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td class="passport-id">12. Тип, серія і номер паспортного<br />документа, дата і орган, що його видав</td>
+                                        <td><table class="table-block"><tr><td class="underline">[bankIdPassport]</td></tr><tr><td class="underline">&nbsp;</td></tr><tr><td>&nbsp;</td></tr></table></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr class="row13">
+                            <td>
+                                <table>
+
+                                    <tr><td class="kids-doc">13. Свідоцтво про народження або свідоцтво про належність до громадянства України, дата і орган, що його видав (у разі оформлення окремого талона на дітей, які не досягли 16-річного віку)</td></tr>
+
+                                    <tr><td><table class="table-block clear-left-border"><tr><td class="underline">[kidsDoc]&nbsp;</td></tr><tr><td class="underline">[kidsDoc2]&nbsp;</td></tr><tr><td class="underline">[kidsDoc3]&nbsp;</td></tr><tr><td class="underline">[kidsDoc4]&nbsp;</td></tr></table></td></tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="row14">
+                            <td>
+                                <table>
+                                    <tr><td class="kids-names">14. Відомості про дітей віком до 14 років, що прибувають разом з особою, на яку оформляється талон (кожна дитина вписується лише один раз у талон одного з батьків):</td></tr>
+                                    <tr>
+                                        <td>
+                                            <table class="kids-table">
+
+                                                <tr class="headers"><td class="names-column">Прізвище, ім'я, по батькові</td><td class="sex-column">Стать</td><td class="birthday-column">Дата народження</td><td class="birthplace-column">Місце народження</td></tr>
+                                                <tr><td>[ChildName1]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth]</td><td>[kidsPOB]</td></tr>
+                                                <tr><td>[ChildName2]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth2]</td><td>[kidsPOB2]</td></tr>
+                                                <tr><td>[ChildName3]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth3]</td><td>[kidsPOB3]</td></tr>
+                                                <tr><td>[ChildName4]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth4]</td><td>[kidsPOB4]</td></tr>
+
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="row15"><td><table><tr><td class="registered-date">15. Дата оформлення</td><td class="underline"></td><td class="year">року</td></tr><tr><td class="underline" colspan="3">&nbsp;</td></tr><tr><td colspan="3" class="sign">(підпис, ініціали та прізвище посадової особи)</td></tr></table></td></tr>
+
+                        <tr class="row16">
+                            <td>
+
+                                <table>
+
+                                    <tr><td class="registered">16. Реєстрацію здійснено</td><td class="underline">&nbsp;</td><td class="year">року</td></tr>
+                                    <tr><td colspan="3" class="underline">&nbsp;</td></tr>
+                                    <tr><td colspan="3" class="sign">(підпис, ініціали та прізвище посадової особи)</td></tr>
+                                    <tr><td colspan="3">Одночасно знято з реєстрації</td></tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="row17"><td><table><tr><td class="notices">17. Відмітки</td><td class="underline">&nbsp;</td></tr></table></td></tr>
+
+                        <tr><td>&nbsp;</td></tr>
+
+                        <tr><td>Примітка. Один примірник оформлених відомостей (без внесення відомостей до пунктів 1-4) передаєтсья до органу державної статистики</td></tr>
+
+                    </table>
+
+                </td>
+            </tr>
+
+            <tr class="row-bottom">
+
+                <td class="block">
+
+
+                    <table class="dodatok42">
+
+                        <tr class="row12">
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td class="passport-id">12. Тип, серія і номер паспортного<br />документа, дата і орган, що його видав</td>
+                                        <td><table class="table-block"><tr><td class="underline">[bankIdPassport]</td></tr><tr><td class="underline">&nbsp;</td></tr><tr><td>&nbsp;</td></tr></table></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr class="row13">
+                            <td>
+                                <table>
+
+                                    <tr><td class="kids-doc">13. Свідоцтво про народження або свідоцтво про належність до громадянства України, дата і орган, що його видав (у разі оформлення окремого талона на дітей, які не досягли 16-річного віку)</td></tr>
+
+                                   <tr><td><table class="table-block clear-left-border"><tr><td class="underline">[kidsDoc]&nbsp;</td></tr><tr><td class="underline">[kidsDoc2]&nbsp;</td></tr><tr><td class="underline">[kidsDoc3]&nbsp;</td></tr><tr><td class="underline">[kidsDoc4]&nbsp;</td></tr></table></td></tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="row14">
+                            <td>
+                                <table>
+                                    <tr><td class="kids-names">14. Відомості про дітей віком до 14 років, що прибувають разом з особою, на яку оформляється талон (кожна дитина вписується лише один раз у талон одного з батьків):</td></tr>
+                                    <tr>
+                                        <td>
+                                            <table class="kids-table">
+
+                                                <tr class="headers"><td class="names-column">Прізвище, ім'я, по батькові</td><td class="sex-column">Стать</td><td class="birthday-column">Дата народження</td><td class="birthplace-column">Місце народження</td></tr>
+                                                <tr><td>[ChildName1]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth]</td><td>[kidsPOB]</td></tr>
+                                                <tr><td>[ChildName2]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth2]</td><td>[kidsPOB2]</td></tr>
+                                                <tr><td>[ChildName3]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth3]</td><td>[kidsPOB3]</td></tr>
+                                                <tr><td>[ChildName4]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth4]</td><td>[kidsPOB4]</td></tr>
+
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="row15"><td><table><tr><td class="registered-date">15. Дата оформлення</td><td class="underline"></td><td class="year">року</td></tr><tr><td class="underline" colspan="3">&nbsp;</td></tr><tr><td colspan="3" class="sign">(підпис, ініціали та прізвище посадової особи)</td></tr></table></td></tr>
+
+                        <tr class="row16">
+                            <td>
+
+                                <table>
+
+                                    <tr><td class="registered">16. Реєстрацію здійснено</td><td class="underline">&nbsp;</td><td class="year">року</td></tr>
+                                    <tr><td colspan="3" class="underline">&nbsp;</td></tr>
+                                    <tr><td colspan="3" class="sign">(підпис, ініціали та прізвище посадової особи)</td></tr>
+                                    <tr><td colspan="3">Одночасно знято з реєстрації</td></tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="row17"><td><table><tr><td class="notices">17. Відмітки</td><td class="underline">&nbsp;</td></tr></table></td></tr>
+
+                        <tr><td>&nbsp;</td></tr>
+
+                        <tr><td>Примітка. Один примірник оформлених відомостей (без внесення відомостей до пунктів 1-4) передаєтсья до органу державної статистики</td></tr>
+
+                    </table>
+
+
+                </td>
+
+                <td class="block">
+
+
+                    <table class="dodatok42">
+
+                        <tr class="row12">
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td class="passport-id">12. Тип, серія і номер паспортного<br />документа, дата і орган, що його видав</td>
+                                        <td><table class="table-block"><tr><td class="underline">[bankIdPassport]</td></tr><tr><td class="underline">&nbsp;</td></tr><tr><td>&nbsp;</td></tr></table></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr class="row13">
+                            <td>
+                                <table>
+
+                                    <tr><td class="kids-doc">13. Свідоцтво про народження або свідоцтво про належність до громадянства України, дата і орган, що його видав (у разі оформлення окремого талона на дітей, які не досягли 16-річного віку)</td></tr>
+<tr><td><table class="table-block clear-left-border"><tr><td class="underline">[kidsDoc]&nbsp;</td></tr><tr><td class="underline">[kidsDoc2]&nbsp;</td></tr><tr><td class="underline">[kidsDoc3]&nbsp;</td></tr><tr><td class="underline">[kidsDoc4]&nbsp;</td></tr></table></td></tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="row14">
+                            <td>
+                                <table>
+                                    <tr><td class="kids-names">14. Відомості про дітей віком до 14 років, що прибувають разом з особою, на яку оформляється талон (кожна дитина вписується лише один раз у талон одного з батьків):</td></tr>
+                                    <tr>
+                                        <td>
+                                            <table class="kids-table">
+
+                                                <tr class="headers"><td class="names-column">Прізвище, ім'я, по батькові</td><td class="sex-column">Стать</td><td class="birthday-column">Дата народження</td><td class="birthplace-column">Місце народження</td></tr>
+                                                <tr><td>[ChildName1]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth]</td><td>[kidsPOB]</td></tr>
+                                                <tr><td>[ChildName2]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth2]</td><td>[kidsPOB2]</td></tr>
+                                                <tr><td>[ChildName3]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth3]</td><td>[kidsPOB3]</td></tr>
+                                                <tr><td>[ChildName4]</td><td><table class="sex"><tr><td class="sex-name">Чоловіча-1</td><td class="underline">&nbsp;</td></tr><tr><td class="sex-name">Жіноча-2</td><td>&nbsp;</td></tr></table></td><td>[kidsBirth4]</td><td>[kidsPOB4]</td></tr>
+
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="row15"><td><table><tr><td class="registered-date">15. Дата оформлення</td><td class="underline"></td><td class="year">року</td></tr><tr><td class="underline" colspan="3">&nbsp;</td></tr><tr><td colspan="3" class="sign">(підпис, ініціали та прізвище посадової особи)</td></tr></table></td></tr>
+
+                        <tr class="row16">
+                            <td>
+
+                                <table>
+
+                                    <tr><td class="registered">16. Реєстрацію здійснено</td><td class="underline">&nbsp;</td><td class="year">року</td></tr>
+                                    <tr><td colspan="3" class="underline">&nbsp;</td></tr>
+                                    <tr><td colspan="3" class="sign">(підпис, ініціали та прізвище посадової особи)</td></tr>
+                                    <tr><td colspan="3">Одночасно знято з реєстрації</td></tr>
+
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr class="row17"><td><table><tr><td class="notices">17. Відмітки</td><td class="underline">&nbsp;</td></tr></table></td></tr>
+
+                        <tr><td>&nbsp;</td></tr>
+
+                        <tr><td>Примітка. Один примірник оформлених відомостей (без внесення відомостей до пунктів 1-4) передаєтсья до органу державної статистики</td></tr>
+
+                    </table>
+
+                </td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</body>
+</html>
