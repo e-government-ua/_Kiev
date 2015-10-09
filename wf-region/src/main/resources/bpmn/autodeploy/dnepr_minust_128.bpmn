@@ -175,7 +175,6 @@
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
  &lt;p&gt;Заявлені Вами ${vidpovid}&lt;br/&gt;
  Більш детальна інформація у прикріпленому файлі.&lt;/p&gt;
-&lt;p&gt;${comment1}&lt;/p&gt;
 &lt;br/&gt;
 &lt;p&gt;Забрати оригінал відповіді Ви можете в ЦНАП «Лівобережний» за адресою:&lt;br/&gt;
 49051, м. Дніпропетровськ, просп. Газети «Правда», 42 (5-й поверх)&lt;br/&gt;
@@ -270,7 +269,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                       Ваше звернення щодо "Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ" успішно зареєстроване.&lt;/p&gt;
+                                       Ваше звернення щодо "Підтвердження відомостей про юридичну особу (форма 6)" успішно зареєстроване.&lt;/p&gt;
 									&lt;p&gt;
 									Ви отримаєте відповідь протягом 3 робочих днів. 
                                     &lt;/p&gt;
@@ -278,7 +277,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                       [pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:2],&lt;br /&gt;
+                                      Державна реєстраційна служба ,&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="https://igov.org.ua/"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -352,7 +351,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Надійшло нове звернення&lt;/h3&gt;
                                     &lt;p&gt;
-                                      Тема: "Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ"&lt;/p&gt;
+                                      Тема: "Підтвердження відомостей про юридичну особу (форма 6)"&lt;/p&gt;
 									&lt;p&gt;
 									Ви можете зайти на &lt;a href="https://region.igov.org.ua/"&gt;портал&lt;/a&gt;, щоб опрацювати звернення.
                                     &lt;/p&gt;
