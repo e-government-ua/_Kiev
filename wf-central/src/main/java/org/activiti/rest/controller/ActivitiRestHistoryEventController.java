@@ -193,7 +193,7 @@ public class ActivitiRestHistoryEventController {
 		return event_service;
 	}
 
-	private void createHistoryEventForTaskQuestions(HistoryEventType eventType, String data, String soData, Long nID_Protected, Long nID_Subject) {
+	private void createHistoryEventForTaskQuestions(HistoryEventType eventType, String soData, String data, Long nID_Protected, Long nID_Subject) {
 		Map<String, String> mParamMessage = new HashMap<>();
 		if (soData != null && !"[]".equals(soData) ) {
 			log.info(">>>>create history event for SET_TASK_QUESTIONS.");
@@ -204,7 +204,6 @@ public class ActivitiRestHistoryEventController {
 			log.info(">>>>create history event for SET_TASK_QUESTIONS.TABLE_BODY=" + HistoryEventMessage.createTable(soData));
 			mParamMessage.put(HistoryEventMessage.TABLE_BODY, HistoryEventMessage.createTable(soData));
 			log.info(">>>>create history event for SET_TASK_QUESTIONS.nID_Subject=" + nID_Subject);
-
 			setHistoryEvent(eventType, nID_Subject, mParamMessage);
 			log.info(">>>>create history event for SET_TASK_QUESTIONS... ok!");
 		}
