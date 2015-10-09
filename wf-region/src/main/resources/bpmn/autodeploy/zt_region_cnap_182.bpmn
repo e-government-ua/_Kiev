@@ -11,6 +11,25 @@
         <activiti:formProperty id="area" name="Оберить ЦНАП району до якого ви відноситесь" type="enum" required="true">
           <activiti:value id="andrush" name="ЦНАП Андрушівської РДА"></activiti:value>
           <activiti:value id="baran" name="ЦНАП Баранівської РДА"></activiti:value>
+          <activiti:value id="berdich" name="ЦНАП Бердичівської РДА"></activiti:value>
+          <activiti:value id="brusil" name="ЦНАП Брусилівської РДА"></activiti:value>
+          <activiti:value id="volvo" name="ЦНАП Володарсько-Волинської РДА"></activiti:value>
+          <activiti:value id="emil" name="ЦНАП Ємільчинської РДА"></activiti:value>
+          <activiti:value id="zt" name="ЦНАП Житомирської РДА"></activiti:value>
+          <activiti:value id="korosten" name="ЦНАП Коростенської РДА"></activiti:value>
+          <activiti:value id="lugin" name="ЦНАП Лугинської РДА"></activiti:value>
+          <activiti:value id="lubar" name="ЦНАП Любарської РДА"></activiti:value>
+          <activiti:value id="malin" name="ЦНАП Малинської РДА"></activiti:value>
+          <activiti:value id="novvo" name="ЦНАП Новоград-Волинської РДА"></activiti:value>
+          <activiti:value id="ovrush" name="ЦНАП Овруцької РДА"></activiti:value>
+          <activiti:value id="olevsk" name="ЦНАП Олевської РДА"></activiti:value>
+          <activiti:value id="popel" name="ЦНАП Попільнянської РДА"></activiti:value>
+          <activiti:value id="roman" name="ЦНАП Романівської РДА"></activiti:value>
+          <activiti:value id="ruzhin" name="ЦНАП Ружинської РДА"></activiti:value>
+          <activiti:value id="cherarm" name="ЦНАП Червоноармійської РДА"></activiti:value>
+          <activiti:value id="ztT" name="ЦНАП Житомирської міської ради"></activiti:value>
+          <activiti:value id="korostenT" name="ЦНАП Коростенської міської ради"></activiti:value>
+          <activiti:value id="malinT" name="ЦНАП Малинської міської ради"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="adress" name="Ваша адреса: область, місто, вулиця, будинок, квартира" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
@@ -45,7 +64,27 @@
         <activiti:formProperty id="marker1" name="Фізична особа" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;bankId_scan_passport&quot;,&quot;scan_inn&quot;,&quot;graphics&quot;,&quot;right&quot;,&quot;coordination&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;subject_of_appeal&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'attr1'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker2" name="Юридична особа або фізична особа - підприємець" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;copy_vytyag&quot;,&quot;graphics&quot;,&quot;right&quot;,&quot;coordination&quot;],&quot;asID_Field&quot;:{&quot;sReason1&quot;:&quot;subject_of_appeal&quot;},&quot;sCondition&quot;:&quot;[sReason1] == 'attr2'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker3" name="ОСББ, ЖБК, ОК" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;file1&quot;,&quot;file2&quot;,&quot;file3&quot;,&quot;file4&quot;,&quot;file5&quot;,&quot;file6&quot;,&quot;file7&quot;,&quot;file8&quot;,&quot;file9&quot;,&quot;file10&quot;,&quot;file11&quot;],&quot;asID_Field&quot;:{&quot;sReason2&quot;:&quot;subject_of_appeal&quot;},&quot;sCondition&quot;:&quot;[sReason2] == 'attr3'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="marker4" name="Обробка району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;1&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'andrush'&quot;},&quot;ValuesFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;2&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'baran'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker4" name="Андрушівської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;1&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'andrush'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker5" name="Баранівської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;2&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'baran'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker6" name="Бердичівської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;3&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'berdich'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker7" name="Брусилівської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;4&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'brusil'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker8" name="Володар-Волинської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;5&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'volvo'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker9" name="Романівської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;6&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'roman'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker10" name="Ємільчинської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_7&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;7&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'emil'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker11" name="Житомирської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_8&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;8&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'zt'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker12" name="Коростенської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_9&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;9&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'korosten'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker13" name="Лугинської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;11&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'lugin'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker14" name="Любарської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;12&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'lubar'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker15" name="Малинської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;13&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'malin'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker16" name="Новоград-Волинської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_15&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;15&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'novvo'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker17" name="Овруцької РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_16&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;16&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'ovrush'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker18" name="Олевської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_17&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;17&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'olevsk'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker19" name="Попільнянській РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_18&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;18&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'popel'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker20" name="Ружинської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_20&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;20&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'ruzhin'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker21" name="Червоноармійської РДА" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_21&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;21&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'cherarm'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker22" name="Житомирської міськради" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_25&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;25&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'ztT'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker23" name="Коростенської міськради" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_26&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;26&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'korostenT'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker24" name="Малинської міськради" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_27&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;27&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'malinT'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -128,24 +167,17 @@
 Відділ з питань надання адміністративних послуг Андрушівської районної державної адміністрації &lt;br /&gt;
 &lt;br /&gt;
 Адреса: &lt;br /&gt;
-Житомирська область, Андрушівський район, м.Андрушівка, вул.Зазулінського, 5 &lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
 &lt;br /&gt;
 Графік роботи ЦНАП-у:&lt;br /&gt;
-Понеділок з 8.00 до 17.00&lt;br /&gt;
-Вівторок з 8.00 до 20.00&lt;br /&gt;
-Середа з 8.00 до 17.00&lt;br /&gt;
-Четвер з 8.00 до 20.00&lt;br /&gt;
-П'ятниця з 8.00 до 17.00&lt;br /&gt;
-Субота з 8.00 до 15.00&lt;br /&gt;
-Вихідний - Неділя
-Без перерви на обід.&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
 &lt;br /&gt;
-Телефон: (04136) 2-10-48&lt;br /&gt; 
+[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:5]&lt;br /&gt; 
 &lt;br /&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою, &lt;br /&gt;
-										ЦНАП Андрушівської районної державної адміністрації,&lt;br/&gt;
+										[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
                                         &lt;br&gt;Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.&lt;/br&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -276,25 +308,17 @@
 Відділ з питань надання адміністративних послуг Андрушівської районної державної адміністрації &lt;br /&gt;
 &lt;br /&gt;
 Адреса: &lt;br /&gt;
-Житомирська область, Андрушівський район, м.Андрушівка, вул.Зазулінського, 5 &lt;br /&gt;
-&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
 Графік роботи ЦНАП-у:&lt;br /&gt;
-Понеділок з 8.00 до 17.00&lt;br /&gt;
-Вівторок з 8.00 до 20.00&lt;br /&gt;
-Середа з 8.00 до 17.00&lt;br /&gt;
-Четвер з 8.00 до 20.00&lt;br /&gt;
-П'ятниця з 8.00 до 17.00&lt;br /&gt;
-Субота з 8.00 до 15.00&lt;br /&gt;
-Вихідний - Неділя
-Без перерви на обід.&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
 &lt;br /&gt;
-Телефон: (04136) 2-10-48&lt;br /&gt; 
+[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:5]&lt;br /&gt; 
 &lt;br /&gt;
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою, &lt;br /&gt;
-										ЦНАП Андрушівської районної державної адміністрації,&lt;br/&gt;
+										[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
                                         &lt;br&gt;Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.&lt;/br&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -384,28 +408,19 @@
 									&lt;p&gt;&lt;/p&gt;
 										Залишайтеся з нами. 	
                                     &lt;p&gt;&lt;/p&gt;
-Відділ з питань надання адміністративних послуг Андрушівської районної державної адміністрації &lt;br /&gt;
 &lt;br /&gt;
 Адреса: &lt;br /&gt;
-Житомирська область, Андрушівський район, м.Андрушівка, вул.Зазулінського, 5 &lt;br /&gt;
-&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
 Графік роботи ЦНАП-у:&lt;br /&gt;
-Понеділок з 8.00 до 17.00&lt;br /&gt;
-Вівторок з 8.00 до 20.00&lt;br /&gt;
-Середа з 8.00 до 17.00&lt;br /&gt;
-Четвер з 8.00 до 20.00&lt;br /&gt;
-П'ятниця з 8.00 до 17.00&lt;br /&gt;
-Субота з 8.00 до 15.00&lt;br /&gt;
-Вихідний - Неділя
-Без перерви на обід.&lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
 &lt;br /&gt;
-Телефон: (04136) 2-10-48&lt;br /&gt; 
+[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:5]&lt;br /&gt; 
 &lt;br /&gt;
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою, &lt;br /&gt;
-										ЦНАП Андрушівської районної державної адміністрації,&lt;br/&gt;
+										[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
                                         &lt;br&gt;Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.&lt;/br&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -635,15 +650,8 @@
 &lt;br /&gt;
 Графік роботи ЦНАП-у:&lt;br /&gt;
 [pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:5]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:6]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:7]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:8]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:9]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:10]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:11]&lt;br /&gt;
-[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:12]&lt;br /&gt;
 &lt;br /&gt;
+[pattern_dictonary:zhytomir_reg_cnap.csv:value{[region]}:5]&lt;br /&gt;
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
