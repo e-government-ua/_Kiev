@@ -93,21 +93,8 @@ angular.module('app').service('ActivitiService', function ($http, ErrorsFactory)
     });
   };
 
-  this.signForm = function (oServiceData, formID) {
-    var params = {
-      formID: formID,
-      sURL : oServiceData.sURL
-    };
-
-    return $http.get('./api/process-form/sign', {params: params}).then(function (response) {
-      if (/err/i.test(response.data.code)) {
-        ErrorsFactory.push({
-          type: "danger",
-          text: [response.data.code, response.data.message].join(" ")
-        });
-      }
-      return response.data;
-    });
+  this.getSignFormPath = function (oServiceData, formID) {
+    return '/api/process-form/sign?formID=' + formID + '&sURL=' + oServiceData.sURL;
   };
 
   this.getUploadFileURL = function (oServiceData) {

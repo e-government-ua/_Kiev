@@ -5,6 +5,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope,
   $timeout,
   $location,
+  $window,
   $rootScope,
   FormDataFactory,
   ActivitiService,
@@ -93,14 +94,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
   $scope.signForm = function (form) {
     ActivitiService.saveForm(oService, oServiceData, $scope.data.formData).then(function(result){
-      ActivitiService.signForm(oServiceData, result.formID);
-      //ActivitiService.loadForm(oServiceData, result.formID).then(function(result){
-      //
-      //});
-      //ActivitiService.signForm(oService, oServiceData, $scope.data.formData)
-      //  .then(function(result){
-      //    $scope.isSending = false;
-      //  });
+      var signPath = ActivitiService.getSignFormPath(oServiceData, result.formID);
+      $window.location.href = $location.protocol() + '://' + $location.host() + ':' + $location.port() + signPath;
     });
   };
 
