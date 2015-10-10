@@ -57,8 +57,7 @@ angular.module('app').service('ActivitiService', function ($http, ErrorsFactory)
   };
 
   this.loadForm = function (oServiceData, formID) {
-    var loadFormUrl = oServiceData.sURL + 'service/rest/file/download_file_from_redis_bytes';
-    var data = {loadFormUrl: loadFormUrl, formID: formID};
+    var data = {sURL: oServiceData.sURL, formID: formID};
 
     return $http.get('./api/process-form/load', {params: data}).then(function (response) {
       if (/err/i.test(response.data.code)) {
@@ -74,17 +73,16 @@ angular.module('app').service('ActivitiService', function ($http, ErrorsFactory)
   this.saveForm = function (oService, oServiceData, formData) {
     var url = oServiceData.sURL + oServiceData.oData.sPath;
     var data = prepareFormData(oService, oServiceData, formData, url);
-    var uploadFormUrl = oServiceData.sURL + 'service/rest/file/upload_file_to_redis';
-    var uploadSignedFormUrl = oServiceData.sURL + 'service/rest/file/upload_file_to_redis';
-    var restoreFormUrl = 'http://localhost:9000/service/720/general/place/built-in/region/1/city/1/';
+    var restoreFormUrl = 'http://localhost:9000/service/720/general/place/built-in/region/1/city/1';
 
+    var params = {
+      sURL : oServiceData.sURL
+    };
     data = angular.extend(data, {
-      uploadFormUrl: uploadFormUrl,
-      restoreFormUrl: restoreFormUrl,
-      uploadSignedFormUrl : uploadSignedFormUrl
+      restoreFormUrl: restoreFormUrl
     });
 
-    return $http.post('./api/process-form/save', data).then(function (response) {
+    return $http.post('./api/process-form/save', data, {params : params}).then(function (response) {
       if (/err/i.test(response.data.code)) {
         ErrorsFactory.push({
           type: "danger",
@@ -95,16 +93,13 @@ angular.module('app').service('ActivitiService', function ($http, ErrorsFactory)
     });
   };
 
-  this.signForm = function (oService, oServiceData, formData, formID) {
-    var signedFormUpload = getUploadFileURLPart(oServiceData);
-
-    var data = prepareFormData(oService, oServiceData, formData);
-    data = angular.extend(data, {
+  this.signForm = function (oServiceData, formID) {
+    var params = {
       formID: formID,
-      signedFormUpload : signedFormUpload
-    });
+      sURL : oServiceData.sURL
+    };
 
-    return $http.post('./api/process-form/sign', data).then(function (response) {
+    return $http.get('./api/process-form/sign', {params: params}).then(function (response) {
       if (/err/i.test(response.data.code)) {
         ErrorsFactory.push({
           type: "danger",
@@ -117,10 +112,6 @@ angular.module('app').service('ActivitiService', function ($http, ErrorsFactory)
 
   this.getUploadFileURL = function (oServiceData) {
     return './api/uploadfile?url=' + oServiceData.sURL + 'service/rest/file/upload_file_to_redis';
-  };
-
-  getUploadFileURLPart = function (oServiceData) {
-    return oServiceData.sURL + 'service/rest/file/upload_file_to_redis';
   };
 
   this.updateFileField = function (oServiceData, formData, propertyID, fileUUID) {

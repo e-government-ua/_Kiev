@@ -137,24 +137,63 @@ module.exports.scanUpload = function (req, res) {
 };
 
 module.exports.signForm = function (req, res) {
-  var data = req.body;
+  var formID = req.query.formID;
+  var oServiceDataNID = req.query.oServiceDataNID;
+  var sURL = req.query.sURL;
 
-  var callbackURL = url.resolve(originalURL(req, {}),
-    '/api/process-form/sign/callback' +
-    '?signedFormUpload=' + data.signedFormUpload +
-    '&formID=' + data.formID);
+  if(!formID){
+    res.status(400).send({error : 'formID should be specified'});
+  }
 
-  var options = _.merge(getBankIDOptions(req.session.access.accessToken), {
-    path: '/ResourceService',
-    params: {
-      acceptKeyUrl: callbackURL,
-      formToUpload: '<html><body><p>test</p></body></html>'
+  if(!oServiceDataNID && !sURL){
+    res.status(400).send({error : 'Either sURL or oServiceDataNID should be specified'});
+    return;
+  }
+
+  var callbackURL = url.resolve(originalURL(req, {}), '/api/process-form/sign/callback');
+  if(oServiceDataNID){
+    //TODO use oServiceDataNID in callback
+    callbackURL +='?oServiceDataNID=' + oServiceDataNID + '&formID=' + formID;
+    //TODO fill sURL from oServiceData to use it below
+    sURL = '';
+  } else if (sURL) {
+    callbackURL +='?sURL=' + sURL + '&formID=' + formID;
+  }
+
+  var createHtml = function(formData){
+    return  '<html><body><p>test</p></body></html>';
+  };
+
+  async.waterfall([
+    function (callback) {
+      loadForm(formID, sURL, function(error, response, body){
+        if(error){
+          callback(error, null);
+        } else {
+          callback(null, body);
+        }
+      });
+    },
+    function (formData, callback) {
+      var options = _.merge(getBankIDOptions(req.session.access.accessToken), {
+        path: '/ResourceService',
+        params: {
+          acceptKeyUrl: callbackURL,
+          formToUpload: createHtml(formData)
+        }
+      });
+
+      accountService.signHtmlForm(options, function (error, result) {
+        if (error) {
+          callback(error, null);
+        } else {
+          callback(null, result)
+        }
+      });
     }
-  });
-
-  accountService.signHtmlForm(options, function (error, result) {
+  ], function(error, result){
     if (error) {
-      res.status(401).send(error);
+      res.status(500).send(error);
     } else {
       res.redirect(result.desc);
     }
@@ -164,13 +203,29 @@ module.exports.signForm = function (req, res) {
 module.exports.signFormCallback = function (req, res) {
   var codeValue = req.query.code;
   var formID = req.query.formID;
-  var signedFormUpload = req.query.signedFormUpload;
+  var oServiceDataNID = req.query.oServiceDataNID;
+  var sURL = req.query.sURL;
+
+  if(oServiceDataNID){
+    //TODO fill sURL from oServiceData to use it below
+    sURL = '';
+  }
 
   var bankIDOptions = getBankIDOptions(req.session.access.accessToken);
   var signedFormForUpload = accountService.prepareScanContentRequest(bankIDOptions, codeValue);
 
   async.waterfall([
-    function (loadedForm, callback) {
+    function(callback){
+      loadForm(formID, sURL, function(error, response, body){
+        if(error){
+          callback(error, null);
+        } else {
+          callback(null, body);
+        }
+      });
+    },
+    function (formData, callback) {
+      var signedFormUpload = sURL + 'service/rest/file/upload_file_to_redis';
       var form = new FormData();
       form.append('file', signedFormForUpload, {
         filename: 'signedForm.pdf'
@@ -183,18 +238,18 @@ module.exports.signFormCallback = function (req, res) {
       };
 
       pipeFormDataToRequest(form, requestOptionsForUploadContent, function (result) {
-        callback(null, {signedFormID: result.data});
+        callback(null, {formData: formData, signedFormID: result.data});
       });
     }
   ], function (err, result) {
     if (err) {
-      res.redirect(formLink
+      res.redirect(result.formData.restoreFormUrl
         + '?formID=' + formID
         + '&error=' + JSON.stringify(err));
     } else {
-      res.redirect(formLink
+      res.redirect(result.formData.restoreFormUrl
         + '?formID=' + formID
-        + '?signedFileID=' + result.signedFormID.fileID);
+        + '?signedFileID=' + result.signedFormID);
     }
   });
 
@@ -202,22 +257,16 @@ module.exports.signFormCallback = function (req, res) {
 
 module.exports.saveForm = function (req, res) {
   var data = req.body;
+  var oServiceDataNID = req.query.oServiceDataNID;
+  var sURL = req.query.sURL;
 
-  if (!data.uploadFormUrl) {
-    res.status(400).send({error: 'Cant save form without uploadFormUrl'});
-    return;
-  }
-  if (!data.restoreFormUrl) {
-    res.status(400).send({error: 'Cant save form without restoreFormUrl'});
-    return;
-  }
-  if (!data.uploadSignedFormUrl) {
-    res.status(400).send({error: 'Cant save form without uploadSignedFormUrl'});
-    return;
+  if(oServiceDataNID){
+    //TODO fill sURL from oServiceData to use it below
+    sURL = '';
   }
 
   var formData = data.formData;
-  var uploadURL = data.uploadFormUrl;
+  var uploadURL = sURL + 'service/rest/file/upload_file_to_redis';
 
   var form = new FormData();
   form.append('file', JSON.stringify(data), {
@@ -236,9 +285,8 @@ module.exports.saveForm = function (req, res) {
 };
 
 module.exports.loadForm = function (req, res) {
-  ///file/download_file_from_redis?key=
   var formID = req.query.formID;
-  var downloadURL = req.query.loadFormUrl;
+  var sURL = req.query.sURL;
 
   var callback = function (error, response, body) {
     if (error) {
@@ -248,10 +296,11 @@ module.exports.loadForm = function (req, res) {
     }
   };
 
-  loadForm(formID, downloadURL, callback);
+  loadForm(formID, sURL, callback);
 };
 
-function loadForm(formID, downloadURL, callback) {
+function loadForm(formID, sURL, callback) {
+  var downloadURL = sURL + 'service/rest/file/download_file_from_redis_bytes';
   request.get({
     url: downloadURL,
     auth: getAuth(),
