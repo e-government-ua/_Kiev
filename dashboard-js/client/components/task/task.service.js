@@ -249,7 +249,8 @@ angular.module('dashboardJsApp')
             scope.printTemplate = {
               form : formProperties,
               task: task,
-              getPrintTemplate: function(){return PrintTemplateProcessor.getPrintTemplate(formProperties, templateResult.template);},
+              //getPrintTemplate: function(){return PrintTemplateProcessor.getPrintTemplate(formProperties, templateResult.template);},
+              getPrintTemplate: function(){return PrintTemplateProcessor.getPrintTemplate(task, formProperties, templateResult.template);},
               containsPrintTemplate: function(){return templateResult.template!='';}
             };
             scope.getProcessName = processes.getProcessName;
