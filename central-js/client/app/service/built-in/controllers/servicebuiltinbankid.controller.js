@@ -44,7 +44,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     $scope.data.formData.uploadScansFromBankID(oServiceData);
   }
 
-  // console.log('data.formData.params = ', JSON.stringify($scope.data.formData.params, null, '  '));
+  console.log('data.formData.params = ', JSON.stringify($scope.data.formData.params, null, '  '));
 
   $scope.markers = ValidationService.getValidationMarkers();
   var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
