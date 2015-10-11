@@ -60,7 +60,7 @@ angular.module('app')
         // TODO improve the logic
         $scope.authControlIsVisible = function() {
           var sa = PlacesService.serviceAvailableIn();
-          return (sa.thisRegion || sa.thisCity) && $scope.placeControlIsComplete();
+          return (sa.thisCountry || sa.thisRegion || sa.thisCity) && $scope.placeControlIsComplete();
         };
 
         // TODO do the logic

@@ -164,6 +164,7 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
    * Визначає доступність сервісу взагалі та у вибраному місці
    * Повертає об'єкт типу:
    * {
+   *   thisCountry: false,    // сервіс доступний у країні
    *   someRegion: false,    // сервіс доступний у якомусь із регіонів
    *   someCity: false,      // сервіс доступний у якомусь із міст
    *   thisRegion: false,  // доступний у вибраному регіоні
@@ -172,6 +173,7 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
    */
   self.serviceAvailableIn = function() {
     var result = {
+      thisCountry: false,
       someRegion: false,
       someCity: false,
       thisRegion: false,
@@ -183,6 +185,10 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     var oPlace = self.getPlaceData();
 
     angular.forEach(oService.aServiceData, function(srv) {
+      // сервіс доступний у країні
+      if (self.findServiceDataByCountry() !== null ) {
+        result.thisCountry = true;
+      }
       // сервіс доступний у якомусь із регіонів
       if (srv.hasOwnProperty('nID_Region') && srv.nID_Region.nID !== null) {
         result.someRegion = true;
