@@ -7,7 +7,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="weapon_type" name="Тип зброї" type="enum" required="true">
           <activiti:value id="rifle" name="нарізна"></activiti:value>
@@ -18,10 +18,10 @@
         <activiti:formProperty id="weapon_caliber" name="Калібр зброї" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
         <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="invisible" default="0"></activiti:formProperty>
-        <activiti:formProperty id="sID_Merchant" name="ИД-строковой мерчанта (магазина)" type="invisible" default="i10172968078"></activiti:formProperty>
-        <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="84.42"></activiti:formProperty>
+        <activiti:formProperty id="sID_Merchant" name="ИД-строковой мерчанта (магазина)" type="invisible" default="i14273228627"></activiti:formProperty>
+        <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="85.94"></activiti:formProperty>
         <activiti:formProperty id="sID_Currency" name="ИД-строковой валюты" type="invisible" default="UAH"></activiti:formProperty>
-        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default="відстрілювання вогнепальної зброї та огляд її технічного стану: нарізної і комбінованої мисливської та спортивної зброї"></activiti:formProperty>
+        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default=";04000043; 036032;1;відстрілювання вогнепальної зброї та огляд її технічного стану: нарізної і комбінованої мисливської та спортивної зброї. (у т.ч. коміссія 1.8%)"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="обробка звернення" activiti:candidateGroups="dnepr_mvd_199">
@@ -103,26 +103,25 @@
                 &lt;!--content statrs--&gt;
                 &lt;tr&gt;
                     &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    
-Ви подали звернення на відстрілювання вогнепальної зброї та огляд її технічного стану.&lt;/br&gt;
-Далі Вам необхідно:&lt;/br&gt;
-&lt;ol&gt;
-&lt;li&gt;Роздрукувати заяву у додатку до листа, поставити на ній свій підпис.&lt;/li&gt;
-&lt;li&gt;Здійснити оплату за відстрілювання зброї у розмірі 84 грн 42 коп. Ви можете це зробити в електронному варіанті натиснувши цю кнопку [paymentButton_LiqPay],&lt;/br&gt;&lt;/br&gt;або іншим зручним способом. За результатами  Ви повинні мати на руках квитанцію про сплату. &lt;/li&gt;
-&lt;li&gt;Відвідати науково-дослідний експертно-криміналістичний &lt;a href="http://ndekcmvd.dp.ua/" target="_blank"&gt;центр&lt;/a&gt; при ГУМВС України. Окрім підписаної Вами заяви та квитанції про сплату при собі треба мати:&lt;/li&gt;
-&lt;li&gt;Дозвіл (постійний або тимчасовий) на володіння зброєю.&lt;/li&gt;
-&lt;li&gt;Зброю та 4 патрони для відстрілювання (для револьверів треба надати по 1 патрону на кожну камеру в барабані).&lt;/li&gt;
-&lt;/ol&gt;
-Графік роботи науково-дослідного експертно-криміналістичного центру:&lt;/br&gt;&lt;/br&gt;
-понеділок-п’ятниця с 9:30 до 17:30.&lt;/br&gt;&lt;/br&gt;
-Перерва с 13:00 до 14:00&lt;/br&gt;&lt;/br&gt;
-
-Адреса: вул. Будівельний тупік, 1а &lt;a href="http://ndekcmvd.dp.ua/images/p004_0_01_01.jpg" target="_blank"&gt;(карта)&lt;/a&gt;.&lt;/br&gt;
+                                    &lt;p&gt;
+Ви подали звернення на відстрілювання вогнепальної зброї та огляд її технічного стану.&lt;br/&gt;
+Далі Вам необхідно:&lt;br /&gt;
+1. Роздрукувати заяву у додатку до листа, поставити на ній свій підпис.&lt;br /&gt;
+2. Здійснити оплату за відстрілювання зброї у розмірі 85 грн 94 коп. Ви можете це зробити в електронному варіанті натиснувши цю кнопку&lt;br /&gt;
+[paymentButton_LiqPay]
+або іншим зручним способом. За результатами  Ви повинні мати на руках квитанцію про сплату.&lt;br /&gt;
+3. Відвідати науково-дослідний експертно-криміналістичний &lt;a href="http://ndekcmvd.dp.ua/" target="_blank"&gt;центр&lt;/a&gt; при ГУМВС України. Окрім підписаної Вами заяви та квитанції про сплату при собі треба мати:&lt;br /&gt;
+4. Дозвіл (постійний або тимчасовий) на володіння зброєю.&lt;br /&gt;
+5. Зброю та 4 патрони для відстрілювання (для револьверів треба надати по 1 патрону на кожну камеру в барабані).&lt;br /&gt;
+&lt;br /&gt;
+Графік роботи науково-дослідного експертно-криміналістичного центру:&lt;br /&gt;
+понеділок-п’ятниця с 9:30 до 17:30.&lt;br /&gt;
+Перерва с 13:00 до 14:00&lt;br /&gt;
+Адреса: вул. Будівельний тупік, 1а &lt;a href="http://ndekcmvd.dp.ua/images/p004_0_01_01.jpg" target="_blank"&gt;(карта)&lt;/a&gt;.&lt;br/&gt;
 
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -136,34 +135,7 @@
                             &lt;/tr&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px 0 120px;"&gt;
-                                    &lt;b&gt;Оцініть, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:&lt;/b&gt;
-
-                                    &lt;p style="text-align: center;"&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
-                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
-                                    &lt;/p&gt;
-
-                                    &lt;p style="font-size: 13px;"&gt;
-                                        Якщо ви не задоволені якістю, прокоментируйте, будь ласка.&lt;br /&gt;
-                                        Ви також &lt;b style="color: #cc3333;"&gt;можете анонімно&lt;/b&gt; подати сигнал про будь-які правопорушення державних працівників.
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
-                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
-                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
-                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                        &lt;/table&gt;
-                        &lt;/form&gt;
+                                  
                     &lt;/td&gt;
                 &lt;/tr&gt;
                 &lt;!--content end--&gt;
