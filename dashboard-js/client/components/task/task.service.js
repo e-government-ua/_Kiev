@@ -246,13 +246,10 @@ angular.module('dashboardJsApp')
           var uploadPromises = [];
           angular.forEach(results, function(templateResult){
             var scope = $rootScope.$new();
-            scope.printTemplate = {
-              form : formProperties,
-              task: task,
-              //getPrintTemplate: function(){return PrintTemplateProcessor.getPrintTemplate(formProperties, templateResult.template);},
-              getPrintTemplate: function(){return PrintTemplateProcessor.getPrintTemplate(task, formProperties, templateResult.template);},
-              containsPrintTemplate: function(){return templateResult.template!='';}
-            };
+            scope.selectedTask = task;
+            scope.taskForm = formProperties;
+            scope.getPrintTemplate = function(){return PrintTemplateProcessor.getPrintTemplate(task, formProperties, templateResult.template);},
+            scope.containsPrintTemplate = function(){return templateResult.template!='';}
             scope.getProcessName = processes.getProcessName;
             scope.sDateShort = function(sDateLong){
               if (sDateLong !== null) {
