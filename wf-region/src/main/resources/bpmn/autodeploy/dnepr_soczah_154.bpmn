@@ -11,7 +11,7 @@
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Місце реєстрації (вкажіть область, місто, вулицю, будинок, квартиру)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_of_liv" name="Місце проживання (вкажіть область, місто, вулицю, будинок, квартиру)" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
+        <activiti:formProperty id="area" name="Оберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
           <activiti:value id="and" name="АНД, вул. Радістів, 8"></activiti:value>
           <activiti:value id="babush" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
           <activiti:value id="zhovt" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
@@ -140,9 +140,7 @@
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-Ви отримали схвалення щодо свого звернення - про призначення державної соціальної допомоги малозабезпеченим сім’ям.&lt;br /&gt;
-&lt;br /&gt;
-За додатковою інформацією можете звернутись до планового фінансового відділу департаменту соціального захисту населення (0562) 68 3501.&lt;br /&gt;
+Ви отримали схвалення щодо свого звернення про призначення державної соціальної допомоги малозабезпеченим сім’ям.&lt;br /&gt;
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
@@ -178,7 +176,6 @@ ${comment2}&lt;br /&gt;&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
-[pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
@@ -257,7 +254,7 @@ ${comment2}&lt;br /&gt;&lt;br /&gt;
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 &lt;p&gt;На жаль, Ваше звернення щодо призначення державної соціальної допомоги малозабезпеченим сім’ям відхилене.&lt;/p&gt;
-&lt;p&gt;Причина: ${decision_comment}&lt;/p&gt;
+&lt;p&gt;Причина: ${comment}&lt;/p&gt;
 &lt;p&gt;Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;&lt;/p&gt;
 &lt;br /&gt;
 [pattern_dictonary:dnepr_soc_help.csv:${rName}:5]
