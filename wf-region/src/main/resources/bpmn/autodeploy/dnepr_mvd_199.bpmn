@@ -27,7 +27,7 @@
     <userTask id="usertask1" name="обробка звернення" activiti:candidateGroups="dnepr_mvd_199">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="weapon_type" name="Тип зброї" type="enum" writable="false">
+        <activiti:formProperty id="weapon_type" name="Примітка" type="enum" writable="false">
           <activiti:value id="rifle" name=" "></activiti:value>
           <activiti:value id="traumatic" name="Про можливість руйнування пристрою внаслідок використання наданих мною патронів, попереджений."></activiti:value>
         </activiti:formProperty>
@@ -56,30 +56,33 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
-Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;br /&gt;&lt;br /&gt;
+&lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
+
 Ви подали звернення на відстрілювання вогнепальної зброї та огляд її технічного стану.&lt;br/&gt;
-Далі Вам необхідно:&lt;br /&gt;
-
-1. Роздрукувати заяву у додатку до листа, поставити на ній свій підпис.&lt;br /&gt;&lt;br /&gt;
-
+&lt;p&gt;
+&lt;b&gt;Далі Вам необхідно:&lt;/b&gt;&lt;br /&gt;
+1. Роздрукувати заяву у додатку до листа, поставити на ній свій підпис.&lt;br /&gt;
 2. Сплатити вартість послуги будь-яким зручним для Вас способом. Вартість послуги становить  84 грн 42 коп. з ПДВ.  &lt;br /&gt;
-&lt;br /&gt;
-
 3. Відвідати науково-дослідний експертно-криміналістичний &lt;a href="http://ndekcmvd.dp.ua/" target="_blank"&gt;центр&lt;/a&gt; при ГУМВС України. Окрім підписаної Вами заяви та квитанції про сплату при собі треба мати:&lt;br /&gt;
  - Дозвіл (постійний або тимчасовий) на володіння зброєю.&lt;br /&gt;
  - Зброю та 4 патрони для відстрілювання (для револьверів треба надати по 1 патрону на кожну камеру в барабані).&lt;br /&gt;
-&lt;br /&gt;&lt;br /&gt;
-
-Графік роботи науково-дослідного експертно-криміналістичного центру:&lt;br /&gt;
+&lt;/p&gt;
+&lt;p&gt;
+&lt;b&gt;Адреса: &lt;/b&gt;
+вул. Будівельний тупік, 1а &lt;a href="http://ndekcmvd.dp.ua/images/p004_0_01_01.jpg" target="_blank"&gt;(карта)&lt;/a&gt;.&lt;br/&gt;
+&lt;/p&gt;
+&lt;p&gt;
+&lt;b&gt;Графік роботи науково-дослідного експертно-криміналістичного центру:&lt;/b&gt;&lt;br /&gt;
 понеділок-п’ятниця с 9:30 до 17:30.&lt;br /&gt;
 Перерва с 13:00 до 14:00&lt;br /&gt;
-Адреса: вул. Будівельний тупік, 1а &lt;a href="http://ndekcmvd.dp.ua/images/p004_0_01_01.jpg" target="_blank"&gt;(карта)&lt;/a&gt;.&lt;br/&gt;
-
-Реквізити для сплати: &lt;br/&gt;
+&lt;/p&gt;
+&lt;p&gt;
+&lt;b&gt;Реквізити для сплати:&lt;/b&gt; &lt;br/&gt;
 р/р: 31251201114278&lt;br/&gt;
 ЄДРПОУ: 25575055&lt;br/&gt;
 МФО:805012&lt;br/&gt;
 Призначення: 04000043;036032;1;відстрілюв. вогнеп. зброї та огляд її тех.стану: нарізної і комбінованої мисливської та спортивної, в т.ч. ПДВ &lt;br/&gt;
+&lt;/p&gt;
 [paymentButton_LiqPay]&lt;br/&gt;
 В разі онлайн сплати додатково утримується комісія в розмірі 1.8%&lt;br/&gt;
 
@@ -105,7 +108,7 @@
           <activiti:string><![CDATA[kyrbatsky@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Новая заявка: Отстрел оружия]]></activiti:string>
+          <activiti:string><![CDATA[Нове звернення: Відстрілювання зброї]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
