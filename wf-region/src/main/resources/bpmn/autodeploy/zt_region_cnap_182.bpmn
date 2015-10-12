@@ -94,7 +94,7 @@
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow2" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask1" name="Обробка ЦНАП Ужгород (1-й крок)" activiti:candidateGroups="zt_${area}_1">
+    <userTask id="usertask1" name="Обробка ЦНАП  (1-й крок)" activiti:candidateGroups="zt_${area}_1">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
@@ -416,7 +416,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
+          <activiti:string><![CDATA[msvidran@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Нове звернення. Надання рішення міської ради про надання дозволів на розробку проектів землеустрою щодо відведення земельних ділянок]]></activiti:string>
