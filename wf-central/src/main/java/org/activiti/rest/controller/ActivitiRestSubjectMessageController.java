@@ -62,7 +62,7 @@ public class ActivitiRestSubjectMessageController {
     }
     
     
-    @RequestMapping(value = "/setMessageFeedback", method = RequestMethod.POST)
+    @RequestMapping(value = "/setMessageFeedback", method = RequestMethod.POST)//Feedback
     public
     @ResponseBody
     String setMessageFeedback(
@@ -73,7 +73,7 @@ public class ActivitiRestSubjectMessageController {
             @RequestParam(value = "sContacts", required = false) String sContacts,
             @RequestParam(value = "sData", required = false) String sData,
             @RequestParam(value = "nID_SubjectMessageType", required = false) Long nID_SubjectMessageType,
-           @RequestParam(value = "nID_Protected", required = false) Long nID_Protected,
+            @RequestParam(value = "nID_Protected", required = false) Long nID_Protected,
             @RequestParam(value = "sID_Rate", required = false) String sID_Rate) throws ActivitiRestException {
 
         SubjectMessage message =
@@ -81,7 +81,8 @@ public class ActivitiRestSubjectMessageController {
         subjectMessagesDao.setMessage(message);
         message = subjectMessagesDao.getMessage(message.getId());
         checkRate(nID_Protected, sID_Rate);
-        return "Спасибо! Вы успешно отправили отзыв!";
+        //return "Спасибо! Вы успешно отправили отзыв!";
+        return "Ok!";
     }
 
     
