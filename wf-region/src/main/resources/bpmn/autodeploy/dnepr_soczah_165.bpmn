@@ -76,7 +76,7 @@
         <activiti:formProperty id="markers11" name="маркер Красногвардійський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;6&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krasn'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers12" name="маркер Ленінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;7&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='lenin'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers13" name="маркер Самарський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;8&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='samar'&quot;}}}"></activiti:formProperty>
-       </extensionElements>
+      </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника соц.захисту" activiti:type="mail">
       <extensionElements>
@@ -318,7 +318,11 @@ ${comment_1}    &lt;br /&gt;
     <sequenceFlow id="flow29" name="відхилення" sourceRef="exclusivegateway2" targetRef="mailtask6">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='reject'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask7" name="Повідомлення громадянки про дату і час візиту" activiti:type="mail">
+    <sequenceFlow id="flow32" name="документи ок" sourceRef="exclusivegateway2" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='accept'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow34" sourceRef="mailtask6" targetRef="endevent2"></sequenceFlow>
+    <serviceTask id="servicetask2" name="Повідомлення громадянки про дату і час візиту" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -329,10 +333,7 @@ ${comment_1}    &lt;br /&gt;
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: призначення державної допомоги у зв'язку з вагітністю та пологами]]></activiti:string>
         </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="html">
+        <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head lang="ru"&gt;
@@ -383,9 +384,9 @@ ${comment_1}    &lt;br /&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-Ваше звернення щодо призначення державної допомоги у зв'язку з вагітністю та пологами прийнято в роботу.
+Ваше звернення щодо призначення державної допомоги у зв'язку з вагітністю та пологами прийнято в роботу.&lt;br /&gt;
 Вам призначено дату і час візиту для надання оригіналу довідки виданої лікувально-профілактичним закладом -  ${date_visit}.&lt;br /&gt;
-Адреса: &lt;br /&gt;[pattern_dictonary:dnepr_soc_help.csv:${rName}:3]&lt;br /&gt;
+Адреса: [pattern_dictonary:dnepr_soc_help.csv:${rName}:3]&lt;br /&gt;
 [pattern_dictonary:dnepr_soc_help.csv:${rName}:5]
 &lt;br /&gt;
 Після надання оригіналу документу, звернення буде передано на подальше опрацювання.&lt;/h3&gt;
@@ -412,11 +413,7 @@ ${comment_1}    &lt;br /&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow32" name="документи ок" sourceRef="exclusivegateway2" targetRef="mailtask7">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='accept'}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow33" sourceRef="mailtask7" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow34" sourceRef="mailtask6" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow35" sourceRef="servicetask2" targetRef="endevent2"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soczah_165">
     <bpmndi:BPMNPlane bpmnElement="dnepr_soczah_165" id="BPMNPlane_dnepr_soczah_165">
@@ -444,8 +441,8 @@ ${comment_1}    &lt;br /&gt;
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="157.0" y="250.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask7" id="BPMNShape_mailtask7">
-        <omgdc:Bounds height="55.0" width="190.0" x="361.0" y="240.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="195.0" x="358.0" y="240.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
         <omgdi:waypoint x="135.0" y="57.0"></omgdi:waypoint>
@@ -476,18 +473,18 @@ ${comment_1}    &lt;br /&gt;
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
         <omgdi:waypoint x="456.0" y="219.0"></omgdi:waypoint>
-        <omgdi:waypoint x="456.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="240.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="14.0" width="69.0" x="465.0" y="216.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
-        <omgdi:waypoint x="361.0" y="267.0"></omgdi:waypoint>
-        <omgdi:waypoint x="192.0" y="267.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
         <omgdi:waypoint x="264.0" y="231.0"></omgdi:waypoint>
         <omgdi:waypoint x="174.0" y="250.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="358.0" y="267.0"></omgdi:waypoint>
+        <omgdi:waypoint x="192.0" y="267.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

@@ -37,8 +37,8 @@ var all = {
     username: process.env.ACTIVITI_USER,
     password: process.env.ACTIVITI_PASSWORD,
     session: {
-      sessionIdle: process.env.ACTIVITI_SESSION_IDLE || 60 * 8, //sec show warning
-      timeOut: process.env.ACTIVITI_SESSION_TIMEOUT || 60 * 2, //sec close session after warning
+      sessionIdle: process.env.ACTIVITI_SESSION_IDLE || 60 * 80, //sec show warning
+      timeOut: process.env.ACTIVITI_SESSION_TIMEOUT || 60 * 20, //sec close session after warning
       interval: process.env.ACTIVITI_SESSION_INTERVAL || 60 * 10 //sec update session
     }
   },

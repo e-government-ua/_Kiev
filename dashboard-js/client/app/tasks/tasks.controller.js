@@ -392,7 +392,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
   $scope.sDate_FieldQueueData = function (sValue) {
     var nAt = sValue.indexOf("sDate");
     var nTo = sValue.indexOf("}");
-    var s = sValue.substring(nAt + 5 + 1 + 1, nTo - 1 - 6);
+    var s = sValue.substring(nAt + 5 + 1 + 1 + 1, nTo - 1 - 6);
     var sDate = "Дата назначена!";
     try {
       sDate = s;
