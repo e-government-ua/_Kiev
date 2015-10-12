@@ -28,7 +28,7 @@
         <activiti:formProperty id="nomer" name="Вкажіть код ЄДРПОУ або ІНН; тільки цифрові позначення" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="naimenov" name="Найменування підприємства" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="organ" name="Навіщо Вам потрібна ця довідка?" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="info_2" name="Заповніть бланк" type="label" default="Завантажте &lt;a href=&quot;https://drive.google.com/a/privatbank.ua/file/d/0B-f8gnAShc39SzBHV0R3d2JIbkU/view&quot;_blank&quot;&gt;бланк&lt;/a&gt;, заповніть, накладіть на нього електронно-цифровий підпис та додайте у наступному полі."></activiti:formProperty>
+        <activiti:formProperty id="info_2" name="Заповніть бланк" type="label" default="Завантажте &lt;a href=&quot;https://drive.google.com/a/privatbank.ua/file/d/0B-f8gnAShc39SzBHV0R3d2JIbkU/view&quot; target=&quot;_blank&quot;&gt;бланк&lt;/a&gt;, заповніть, накладіть на нього електронно-цифровий підпис та додайте у наступному полі."></activiti:formProperty>
         <activiti:formProperty id="zapit" name="Заповнений бланк" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
