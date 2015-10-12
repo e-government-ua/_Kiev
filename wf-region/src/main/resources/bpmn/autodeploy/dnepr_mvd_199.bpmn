@@ -6,7 +6,6 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="weapon_type" name="Тип зброї" type="enum" required="true">
@@ -27,7 +26,6 @@
     <userTask id="usertask1" name="обробка звернення" activiti:candidateGroups="dnepr_mvd_199">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Укажіть сьогоднішню дату" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="weapon_type" name="Тип зброї" type="enum" writable="false">
         <activiti:value id="rifle" name=" "></activiti:value>
         <activiti:value id="traumatic" name="Про можливість руйнування пристрою внаслідок використання наданих мною патронів, попереджений."></activiti:value>
