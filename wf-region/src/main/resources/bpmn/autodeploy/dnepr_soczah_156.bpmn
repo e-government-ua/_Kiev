@@ -247,7 +247,11 @@ ${comment_1}&lt;br /&gt;
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
         </activiti:field>
-        <br></br>
+       <activiti:field name="text">
+          <activiti:expression>
+          тили-тили трали-вали
+          </activiti:expression>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <serviceTask id="servicetask8" name="повідомлення громадянина про відмову у  призначенні допомоги" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
@@ -261,9 +265,11 @@ ${comment_1}&lt;br /&gt;
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Призначення допомоги інвалідам з дитинства та дітям-інвалідам]]></activiti:string>
         </activiti:field>
-        <br></br>
-        <br></br>
-        <br></br>
+       <activiti:field name="text">
+          <activiti:expression>
+          тили-тили1 трали-вали1
+          </activiti:expression>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow37" sourceRef="servicetask6" targetRef="usertask1"></sequenceFlow>
