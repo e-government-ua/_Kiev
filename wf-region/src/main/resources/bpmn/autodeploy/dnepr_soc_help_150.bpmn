@@ -72,11 +72,11 @@
         <activiti:formProperty id="scan_inn" name="довідка про присвоєння ідентифікаційного номера" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="passport_inv" name="сканована копія свідоцтва про народження дитини-інваліда" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dovidka_inv" name="довідка про місце проживання дитини-інваліда (або копія паспорта)" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="dovidka_other" name="довідка про те, що другий із законних представників не отримує державну соціальну допомогу на дитину-інваліда за місцем свого проживання" type="file"></activiti:formProperty>
+        <activiti:formProperty id="dovidka_guardian" name="копія рішення про встановлення опіки чи піклування" type="file"></activiti:formProperty>
+        <activiti:formProperty id="dovidka_foreigner" name="копія посвідки на постійне або тимчасове проживання" type="file"></activiti:formProperty>
         <activiti:formProperty id="dovidka_education" name="довідка  з місця навчання із зазначенням факту перебування на повному  державному утриманні" type="file"></activiti:formProperty>
         <activiti:formProperty id="dovidka_attestat" name="довідка-атестат про припинення виплати раніше призначеної пенсії" type="file"></activiti:formProperty>
-        <activiti:formProperty id="dovidka_other" name="довідка про те, що другий із законних представників не отримує державну соціальну допомогу на дитину-інваліда за місцем свого проживання" type="file"></activiti:formProperty>
-        <activiti:formProperty id="dovidka_foreigner" name="копія посвідки на постійне або тимчасове проживання" type="file"></activiti:formProperty>
-        <activiti:formProperty id="dovidka_guardian" name="копія рішення про встановлення опіки чи піклування" type="file"></activiti:formProperty>
         <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers3" name="Маркеры3" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;dovidka_parents&quot;,&quot;dovidka_other&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;together&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'no'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers4" name="Маркеры4" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;dovidka_guardian&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;type_parenthood&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'guardians'&quot;}}}"></activiti:formProperty>
@@ -84,15 +84,6 @@
         <activiti:formProperty id="markers6" name="Якщо дитина перебуває на повному державному утриманні" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_7&quot;:{&quot;aField_ID&quot;:[&quot;dovidka_education&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;education&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_1'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers7" name="Якщо отримували виплати раніше" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;dovidka_attestat&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;attestat&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_2'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="pr_one" name="pr_one" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="pr_two" name="pr_one" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="pr_three" name="pr_one" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="pr_do_18" name="pr_one" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="pr_one_a" name="pr_one" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="pr_one_b" name="pr_one" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="pr_one_two" name="pr_one" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="pr_do_6" name="pr_one" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="pr_vid_6_do_18" name="pr_one" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="markers14" name="маркер Амур-Нижньодніпровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_14&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='and'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers15" name="маркер Бабушкінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_15&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;2&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='babush'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers8" name="маркер Жовтневий району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_8&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;3&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='zhovt'&quot;}}}"></activiti:formProperty>
@@ -101,7 +92,7 @@
         <activiti:formProperty id="markers11" name="маркер Красногвардійський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;6&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krasn'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers12" name="маркер Ленінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;7&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='lenin'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers13" name="маркер Самарський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;8&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='samar'&quot;}}}"></activiti:formProperty>
-       </extensionElements>
+      </extensionElements>
     </startEvent>
     <userTask id="usertask2" name="перевірка документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
@@ -362,7 +353,7 @@ ${comment_1}&lt;br /&gt;
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow26" sourceRef="servicetask4" targetRef="endevent3"></sequenceFlow>
     <sequenceFlow id="flow29" name="треба ще документи" sourceRef="exclusivegateway2" targetRef="servicetask7">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='reject'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='accept_but'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow31" name="призначення допомоги" sourceRef="exclusivegateway1" targetRef="servicetask4">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='accept'}]]></conditionExpression>
