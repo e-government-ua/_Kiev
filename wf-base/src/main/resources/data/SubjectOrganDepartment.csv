@@ -8,5 +8,6 @@ nID;sName;sGroup_Activiti;nID_SubjectOrgan
 7;МРЕО,Киев,вул. Павла Усенка, 8 (kiev_mreo5_1);demomreo;2
 8;МРЕО,Киев,вул. Новокостянтинівська, 8 (kiev_mreo6_1);demomreo;2
 9;МРЕО,Киев,пров. Балтійський, 20 (kiev_mreo7_1);demomreo;2
-10;МРЕО,Днепр (dnepr_mreo_1);demomreo;2
+10;МРЕО,Днепр пр.берег (dnepr_mreo_1);demomreo;2
 11;АВИР, Днепр, Поля 1 (dnepr_dms_passport);demoavir;2
+12;МРЕО,Днепр л.берег (dnepr_mreo_1);demomreo;2
