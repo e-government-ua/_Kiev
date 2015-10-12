@@ -154,8 +154,8 @@
         <activiti:formProperty id="naimenov" name="Найменування або ПІБ платника податку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="zapit" name="Заповнений бланк" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="Прийняття рішення про отримання витягу" type="enum" required="true">
-          <activiti:value id="accept" name="Надати витяг з реєстру платників єдиного податку"></activiti:value>
-          <activiti:value id="reject" name="Відмовити у наданні витягу"></activiti:value>
+          <activiti:value id="accept" name="Надати довідку про відсутність заборгованості з податків"></activiti:value>
+          <activiti:value id="reject" name="Відмовити у наданні довідки"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decision_reject" name="У разі відмови у наданні витягу оберіть причину" type="enum">
           <activiti:value id="not_subekt" name="не значиться зареєстрованим суб’єктом господарювання (фізичною особою–підприємцем або юридичною особою)"></activiti:value>
