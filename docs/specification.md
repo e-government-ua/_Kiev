@@ -2594,11 +2594,11 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 -- возвращает ключ для аутентификации
 
 * sAccessContract - контракт
-* sLogin - технический логин
+* sAccessLogin - технический логин
 * sData - контент по которому генерируется ключ
 
 Пример
-<a href="https://test.igov.org.ua/wf/service/services/getAccessKey?sLogin=activiti-master&sAccessContract=Request&sData=/wf/service/setMessage">https://test.igov.org.ua/wf/service/services/getAccessKey?sLogin=activiti-master&sAccessContract=Request&sData=/wf/service/setMessage</a>
+<a href="https://test.igov.org.ua/wf/service/services/getAccessKey?sAccessLogin=activiti-master&sAccessContract=Request&sData=/wf/service/setMessage">https://test.igov.org.ua/wf/service/services/getAccessKey?sAccessLogin=activiti-master&sAccessContract=Request&sData=/wf/service/setMessage</a>
 
 <a name="38_setTaskQuestions">
 ####38. Вызов сервиса уточнения полей формы
