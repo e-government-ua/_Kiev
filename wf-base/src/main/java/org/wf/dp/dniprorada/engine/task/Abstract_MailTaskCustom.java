@@ -108,7 +108,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             throws Exception {
 
         String URL_SERVICE_MESSAGE = generalConfig.sHostCentral()
-                + "/wf/service/messages/setMessage";
+                + "/wf/service/messages/setMessageFeedback";
 
         if (textStr == null) {
             return null;
