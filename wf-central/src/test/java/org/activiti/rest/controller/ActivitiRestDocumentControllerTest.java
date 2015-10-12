@@ -142,7 +142,7 @@ public class ActivitiRestDocumentControllerTest {
     }
 
     @Test
-    public void getDocumentByCodeAndOrganAndPassword() throws Exception {
+    public void getDocumentByCodeAndOrganAndPassword() throws Exception{
         String jsonData = mockMvc
             .perform(get("/services/getDocumentAccessByHandler")
                     .param("sCode_DocumentAccess", "2")
@@ -167,7 +167,7 @@ public class ActivitiRestDocumentControllerTest {
 
 
     @Test @Ignore
-    public void getDocumentByCodeAndOrganAndWrongPassword() throws Exception {
+    public void getDocumentByCodeAndOrganAndWrongPassword() throws Exception{
         String jsonData = mockMvc
             .perform(get("/services/getDocumentAccessByHandler")
                     .param("sCode_DocumentAccess", "2")

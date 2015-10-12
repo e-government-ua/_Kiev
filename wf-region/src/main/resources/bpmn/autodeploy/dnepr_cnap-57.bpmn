@@ -51,9 +51,7 @@
         <activiti:value xmlns:activiti="http://activiti.org/bpmn" id="attr2" name="фізична особа-підприємець"></activiti:value>
       </extensionElements>
     </startEvent>
-    <serviceTask id="servicetask1" name="подтягивание документов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
-    <userTask id="usertask1" name="рассмотрение и загрузка" activiti:candidateGroups="sales">
+    <serviceTask id="mailtask1" name="Лист про отримання заявки" activiti:type="mail">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -1093,8 +1091,8 @@ dnepr_cnap57_${vibor}
 на dnepr_cnap_${vibor}</text>
     </textAnnotation>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram__test_dependence_form">
-    <bpmndi:BPMNPlane bpmnElement="_test_dependence_form" id="BPMNPlane__test_dependence_form">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap-57">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_cnap-57" id="BPMNPlane_dnepr_cnap-57">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="25.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>

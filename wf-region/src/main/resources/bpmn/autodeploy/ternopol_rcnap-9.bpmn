@@ -636,8 +636,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent5"></sequenceFlow>
-   
+    <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent5"></sequenceFlow> 
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_ternopol_rcnap-9">
     <bpmndi:BPMNPlane bpmnElement="ternopol_rcnap-9" id="BPMNPlane_ternopol_rcnap-9">

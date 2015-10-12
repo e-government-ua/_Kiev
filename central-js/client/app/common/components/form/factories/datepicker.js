@@ -28,10 +28,6 @@ angular.module('app').factory('DatepickerFactory', function($filter) {
   datepicker.prototype.isFit = function(property){
     return property.type === 'date';
   };
-  
-  datepicker.prototype.createFactory = function(){
-    return new datepicker();
-  };
 
   datepicker.prototype.createFactory = function(){
     return new datepicker();

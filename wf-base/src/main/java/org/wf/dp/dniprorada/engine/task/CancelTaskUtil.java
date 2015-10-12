@@ -26,7 +26,6 @@ public class CancelTaskUtil {
 
 
 
-
     private static final String TAG_action = "[sURL_CancelTask]";
     private static String TAG_nID_Protected = "[nID_Protected]";
     private static final String cancelButtonHTML = new StringBuilder()
@@ -48,7 +47,6 @@ public class CancelTaskUtil {
 
         String sURL_ForAccessKey = new StringBuilder(sURL_CancelTask)
                 .append("?nID_Protected=").append(nID_Protected)
-                .append("&sAccessContract=Request")
                 .toString();
         //String sAccessKey = accessDataDao.setAccessData(sURL_ForAccessKey);
         String sAccessKey = accessCover.getAccessKey(sURL_ForAccessKey);

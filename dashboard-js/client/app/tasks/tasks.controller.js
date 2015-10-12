@@ -313,7 +313,7 @@ $scope.lightweightRefreshAfterSubmit = function () {
   //lightweight refresh only deletes the submitted task from the array of current type of tasks
   //so we don't need to refresh the whole page
       $scope.selectedTasks[$scope.$storage.menuType] = null;
-      loadTaskCounters();      
+      loadTaskCounters();
       $scope.tasks = $.grep($scope.tasks, function (e) {
         return e.id != $scope.selectedTask.id;
       });
