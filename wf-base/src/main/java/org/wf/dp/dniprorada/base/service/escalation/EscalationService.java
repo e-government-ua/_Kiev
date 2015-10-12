@@ -21,6 +21,7 @@ import org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDao;
 import org.wf.dp.dniprorada.base.model.EscalationRule;
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
 import org.wf.dp.dniprorada.base.util.BPMNUtil;
+import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
 
 import java.util.HashMap;
 import java.util.List;
@@ -152,7 +153,7 @@ public class EscalationService {
         }
         
         m.put("sID_BP", StringUtils.substringBefore(oTask.getProcessDefinitionId(), ":"));
-        m.put("nID_task_activiti", oTask.getId());
+        m.put("nID_task_activiti", AlgorithmLuna.getProtectedNumber(Long.valueOf(oTask.getProcessInstanceId())));
         m.put("sTaskName", oTask.getName());
         m.put("sTaskDescription", oTask.getDescription());
         m.put("sProcessInstanceId", oTask.getProcessInstanceId());
