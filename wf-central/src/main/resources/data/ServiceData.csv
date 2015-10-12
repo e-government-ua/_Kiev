@@ -126,7 +126,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 131;674;NULL;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_liqpay:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
 132;675;9;NULL;1;{};http://www.ap.lutsk.ua/uk/info/service/2683/details;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Луцьк;BankID,EDS
 133;10;9;NULL;1;{};http://www.ap.lutsk.ua/uk/info/service/2802/details;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Луцьк;BankID,EDS
-134;676;9;NULL;1;{};http://www.ap.lutsk.ua/uk/info/service/2805/details;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Луцьк;BankID,EDS
+134;676;NULL;NULL;1;{};http://map.land.gov.ua/;false;1;false;Ви можете отримати послугу через публічну кадастрову карту. Обов’язковою умовою отримання доступу до інформації є  електронна ідентифікація заявника з використанням електронного цифрового підпису або BankID;BankID,EDS
 135;677;9;NULL;1;{};http://www.ap.lutsk.ua/uk/info/service/2543/details;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Луцьк;BankID,EDS
 136;678;9;NULL;1;{};http://www.ap.lutsk.ua/uk/info/service/2542/details;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Луцьк;BankID,EDS
 137;679;9;NULL;1;{};http://www.ap.lutsk.ua/uk/info/service/2632/details;FALSE;1;FALSE;Ви можете отримати послугу на порталі адміністративних послуг м.Луцьк;BankID,EDS
@@ -198,7 +198,7 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 285;718;6;NULL;1;{};http://dracs.minjust.gov.ua/;true;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися електронно-цифровим підписом;BankID,EDS
 286;718;12;NULL;1;{};http://dracs.minjust.gov.ua/;true;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися електронно-цифровим підписом;BankID,EDS
 287;719;1;NULL;1;{};http://e-services.dp.gov.ua/_layouts/Information/pgServices.aspx;FALSE;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися BankID. Знайти послугу Ви сможете у розділі "Адміністративні послуги" за допомогою фільтрів;BankID,EDS
-288;10;1;NULL;1;{};http://e-services.dp.gov.ua/_layouts/Information/pgServices.aspx;FALSE;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися BankID. Знайти послугу Ви сможете у розділі "Адміністративні послуги" за допомогою фільтрів;BankID,EDS
+288;10;NULL;NULL;1;{};http://map.land.gov.ua/;false;1;false;Ви можете отримати послугу через публічну кадастрову карту. Обов’язковою умовою отримання доступу до інформації є  електронна ідентифікація заявника з використанням електронного цифрового підпису або BankID;BankID,EDS
 289;102;1;NULL;1;{};http://e-services.dp.gov.ua/_layouts/Information/pgServices.aspx;FALSE;1;FALSE;Для одержання послуги потрібно зареєструватися на порталі та скористатися BankID. Знайти послугу Ви сможете у розділі "Адміністративні послуги" за допомогою фільтрів;BankID,EDS
 290;720;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_fields_bankid:1:151"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
 291;29;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_dms_40:1:147"}};https://test.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
@@ -326,3 +326,8 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 415;23;NULL;13;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zt_region_cnap_183:1:1"}};https://test.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
 416;15;28;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dndz_cnap_188:1:1"}};https://test.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
 417;1383;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_soc_help_176:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
+418;376;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_dfs_dovidka_nodebts:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
+419;1384;NULL;NULL;1;{};http://map.land.gov.ua/;false;1;false;Ви можете отримати послугу через публічну кадастрову карту. Обов’язковою умовою отримання доступу до інформації є  електронна ідентифікація заявника з використанням електронного цифрового підпису або BankID;BankID,EDS
+420;1385;NULL;NULL;1;{};http://map.land.gov.ua/;false;1;false;Ви можете отримати послугу через публічну кадастрову карту. Обов’язковою умовою отримання доступу до інформації є  електронна ідентифікація заявника з використанням електронного цифрового підпису або BankID;BankID,EDS
+421;1386;NULL;NULL;1;{};https://rrp.minjust.gov.ua/en-extract;false;1;false;Ви можете отримати послугу через пошукову форму на сайті онлайн-сервісів Міністерства юстиції зареєструвашись на сайті онлайн-сервісів Мін’юсту та увійти до свого кабінету;BankID,EDS
+422;1387;NULL;NULL;1;{};https://rrp.minjust.gov.ua/en-extract;false;1;false;Ви можете отримати послугу через пошукову форму на сайті онлайн-сервісів Міністерства юстиції зареєструвашись на сайті онлайн-сервісів Мін’юсту та увійти до свого кабінету;BankID,ED

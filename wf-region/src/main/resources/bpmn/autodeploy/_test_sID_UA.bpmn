@@ -6,9 +6,14 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
- 
         <activiti:formProperty id="sID_UA" name="Country Code" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="email" name="емейл" type="string"></activiti:formProperty>
+        <activiti:formProperty id="mark1" name="активные / неактивные поля" type="markers" default="{&quot;motion&quot;:{&quot;WritableFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;: [&quot;info&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;client&quot;},&quot;sCondition&quot;:&quot;[sClient]=='attr1'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="client" name="сделать активным ?" type="enum">
+          <activiti:value id="attr1" name="да"></activiti:value>
+          <activiti:value id="attr2" name="нет"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="info" name="поле для проверки активности" type="string"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <endEvent id="endevent1" name="End"></endEvent>

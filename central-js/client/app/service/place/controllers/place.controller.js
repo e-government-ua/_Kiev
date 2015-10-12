@@ -26,7 +26,7 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
       }
     });
 
-    console.info('PROCESS Place сhange, $state:', $state.current.name, ', to go:', stateToGo);
+    // console.info('PROCESS Place сhange, $state:', $state.current.name, ', to go:', stateToGo);
 
     // не переходити до іншого стану, якщо даний стан є кінцевим
     if (!stateToGo || ($state.current.name === stateToGo) || $state.current.name === 'index.service.general.place.built-in.bankid' || $state.current.name === 'index.service.general.place.built-in.bankid.submitted') {
