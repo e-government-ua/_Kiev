@@ -66,7 +66,7 @@
         <activiti:formProperty id="kidsPOB4" name="Місце народження 4-ї дитини; Країна, область, район і населений пункт" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsDoc4" name="Свідоцтво про народження 4-ї дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship4" name="Громадянство 4-ї дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="visitDay" name="У який день Вам буде зручно зайти до відділення ДМС; ДМС необхідно поставити відмітку у Ваш паспорт для завершення цієї процедури" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="Оберіть день та час, коли Вам буде зручно зайти до відділення ДМС?" type="queueData" required="true"></activiti:formProperty>
         <activiti:formProperty id="marker1" name="Попереднє ПІБ" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;lastName_UA1&quot;,&quot;firstName_UA1&quot;,&quot;middleName_UA1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;PrevName1&quot;},&quot;sCondition&quot;:&quot;[sReason]=='yes'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker3" name="Військомат" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;milName&quot;,&quot;milRank&quot;,&quot;milSpec&quot;],&quot;asID_Field&quot;:{&quot;sReason2&quot;:&quot;milit_status&quot;},&quot;sCondition&quot;:&quot;[sReason2]=='true'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker4" name="Дитина1" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;lastName_UA2&quot;,&quot;firstName_UA2&quot;,&quot;middleName_UA2&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;:&quot;kids&quot;},&quot;sCondition&quot;:&quot;[sReason3]=='yes1'&quot;}}}"></activiti:formProperty>
@@ -147,17 +147,17 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                   &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;/p&gt;
 									&lt;p&gt;	
-										Спеціалісти ДМС повинні дати відповідь найближчим часом. 
+										Спеціалісти ДМС оброблять Вашу заявку протягом 1-3 днів та надішлють Вам email з підтвердженням та запрошенням відвідати ДМС у обраний час. 
 									&lt;/p&gt;
 				
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Дніпропетровськ ДМС,&lt;br /&gt;
+                                        Державна Міграційна Служба Дніпропетровської Області,&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -181,7 +181,7 @@
     <serviceTask id="mailtask4" name="Повідомлення ДМС про нове звернення" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>zhigan.roman@gmail.com</activiti:expression>
+          <activiti:expression>dms_dn_babysh@ukr.net</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -191,6 +191,9 @@
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="bcc">
+          <activiti:string><![CDATA[zhigan.roman@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -244,7 +247,7 @@
 										&lt;p&gt;
 											У Вас в черзі на обробку зареєстровано нове звернення щодо зняття з реєстрації місця проживання особи.&lt;br /&gt;
 											Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-											Опрацюйте, будь ласка, це звернення на &lt;a href="https://test.region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
+											Опрацюйте, будь ласка, це звернення на &lt;a href="https://region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
 										&lt;/p&gt;
 										&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
 										&lt;p&gt;
@@ -293,7 +296,7 @@
           <activiti:value id="yesK" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="kids" name="Ви бажаєте зняти з реєстрації за цією адресою дитину молодшу 14 років?; Діти старші 14 років подають заяву самостійно." type="enum" required="true">
+        <activiti:formProperty id="kids" name="Ви бажаєте зняти з реєстрації за цією адресою дитину молодшу 14 років?; Діти старші 14 років подають заяву самостійно." type="enum" writable="false">
           <activiti:value id="no" name="Ні"></activiti:value>
           <activiti:value id="yes1" name="одну дитину"></activiti:value>
           <activiti:value id="yes2" name="двох дітей"></activiti:value>
@@ -320,12 +323,12 @@
         <activiti:formProperty id="kidsPOB4" name="Місце народження 4-ї  дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc4" name="Свідоцтво про народження 4-ї  дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship4" name="Громадянство 4-ї  дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="visitDay" name="Бажаний день зустрічі" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="День та час зустрічі " type="queueData" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення працівника ДМС" type="enum" required="true">
           <activiti:value id="accept" name="Призначити зустріч у відділенні"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги &lt;br /&gt; АБО &lt;br /&gt; Додаткові деталі для закінчення процессу реєстрації" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги &lt;br /&gt; АБО &lt;br /&gt; Додаткові деталі для закінчення процессу зняття з реєстрації" type="textArea"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow9" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
@@ -396,22 +399,22 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-										На жаль, державний орган не може надати вам цю послугу в даний момент.
+										На жаль, Вам відмовлено у надані послуги.
 									&lt;/p&gt; 
 									&lt;p&gt;
-										Подані вами дані не відповідають вимогам або не є вірними.  
+										Коментар Державного службовця: &lt;br /&gt;
+											&lt;b&gt;&lt;i&gt;${decisionComment}&lt;/i&gt;&lt;/b&gt;
 									&lt;/p&gt;
 									&lt;p&gt;
-										Коментар Державного службовця: &lt;br /&gt;
-											&lt;i&gt;${decisionComment}&lt;/i&gt;
+										При вниникненні питань Ви можете звернутися до чергового: &lt;br /&gt;
+										тел. +38 (050) 500-93-03
 									&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+									&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Бабушкінський РВ у місті Дніпропетровську,&lt;br /&gt;
-										ГУ ДМС України в Дніпропетровській області.
+                                        Державна Міграційна Служба Дніпропетровської Області.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -499,23 +502,26 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
                                         Спеціалісти відділу ДМС успішно опрацювли Вашу заяву. &lt;br /&gt;
 										Для того щоб закінчити процедуру зняття з реєстрації необхідно: &lt;br /&gt;
-										&lt;li&gt;Прийти до відділення ДМС з необхідними документами&lt;/li&gt;
-										&lt;li&gt;Знятися з реєстрації за місцем проживання у працівника ДМС і отримати печатку у громадянський паспорт або папортний документ.&lt;/li&gt;
+										&lt;ul&gt;
+										&lt;li&gt;Прийти до відділення ДМС за адресою: пр. Ілліча, 3 з необхідними документами та звернутись до каб. №4.&lt;/li&gt;
+										&lt;li&gt;Знятися з реєстрації за місцем проживання та отримати печатку у громадянський паспорт або папортний документ.&lt;/li&gt;
+										&lt;/ul&gt;
 									&lt;/p&gt;
 									&lt;p&gt;
-										Деталі зустрічі: &lt;br /&gt;
-										День - ${visitDay}
+										&lt;b&gt;Деталі зустрічі:&lt;/b&gt; &lt;br /&gt;
+										День та час - ${date_of_visit}
 									&lt;/p&gt;
 									&lt;p&gt;
-										Необхідні документи, які треба принести до відділення ДМС при знятті з реєстраціі місця проживання:&lt;br /&gt;
+										&lt;b&gt;Необхідні документи, які треба принести до відділення ДМС при знятті з реєстраціі місця проживання:&lt;/b&gt;&lt;br /&gt;
+										&lt;ul&gt;
 										&lt;li&gt;документ, до якого вносяться відомості про місце проживання, якщо дитина не досягла 16 - річного віку, подається свідоцтво про народження або свідоцтво про належність до громадянства України;&lt;/li&gt;
 										&lt;li&gt;військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку);&lt;/li&gt;
 										&lt;li&gt;документ, на підставі якого здійснюється зняття з реєстрації місця проживання:
-										&lt;ol type="a"&gt; 
+										&lt;ul&gt; 
 											&lt;li&gt;заява про зняття особи з реєстрації місця проживання, яка подається особою або її законним представником;&lt;/li&gt; 
 											&lt;li&gt;судове рішення, яке набрало законної сили, про позбавлення права власності на житлове приміщення або права користування житловим приміщенням, про виселення, про визнання особи безвісно відсутньою або оголошення її померлою;&lt;/li&gt;
 											&lt;li&gt;свідоцтво про смерть;&lt;/li&gt;
@@ -526,16 +532,27 @@
 												 &lt;li&gt;підстав для проживання або перебування особи на обліку у закладі/установі (повідомлення про припинення підстав для проживання/перебування особи у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту);&lt;/li&gt;
 												 &lt;li&gt;підстав на право користування житловим приміщенням (закінчення строку дії договору оренди, найму, піднайму житлового приміщення, строку навчання в навчальному закладі (у разі реєстрації місця проживання в гуртожитку навчального закладу на час навчання), відчуження житла та інших визначених законодавством документів);&lt;/li&gt; 
 												 &lt;/ul&gt;
-										&lt;/ol&gt;
+										&lt;/ul&gt;
+										&lt;/ul&gt;
 										&lt;br /&gt;
-										&lt;b&gt;Зверніть увагу:&lt;/b&gt; У разі реєстрації місця проживання батьків за однією адресою при знятті з реєстрації одного з батьків разом з дитиною/дітьми до 14 років 
-										другий з батьків надає письмову згоду на зняття дитини/дітей з реєстрації місця проживання.
+										&lt;b&gt;Зверніть увагу:
+										&lt;ul&gt;
+										&lt;li&gt;У разі реєстрації місця проживання батьків за однією адресою при знятті з реєстрації одного з батьків разом з дитиною/дітьми до 14 років 
+										другий з батьків надає письмову згоду на зняття дитини/дітей з реєстрації місця проживання. Потрібна присутність обох батьків.&lt;/li&gt;
+										&lt;/ul&gt;
+										&lt;/p&gt;
+										&lt;p&gt;
+										Коментар Державного службовця: &lt;br /&gt;
+											&lt;b&gt;&lt;i&gt;${decisionComment}&lt;/i&gt;&lt;/b&gt;
+										&lt;/p&gt;
+										&lt;p&gt;
+										При вниникненні питань Ви можете звернутися до чергового: &lt;br /&gt;
+										тел. +38 (050) 500-93-03
 										&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Бабушкінський РВ у місті Дніпропетровську&lt;br /&gt;
-                                        ГУ ДМСУ в Дніпропетровській області.&lt;br /&gt;
+                                        Державна Міграційна Служба Дніпропетровської Області..&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -556,30 +573,30 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow8" sourceRef="mailtask3" targetRef="usertask2"></sequenceFlow>
-    <userTask id="usertask2" name="Візит громадянина" activiti:candidateGroups="dnepr_dms-89s_${district}">
+    <sequenceFlow id="flow8" sourceRef="mailtask3" targetRef="usertask2_red"></sequenceFlow>
+    <userTask id="usertask2_red" name="Візит громадянина" activiti:candidateGroups="dnepr_dms-89s_${district}">
       <extensionElements>
         <activiti:formProperty id="info1" name="На цьому етапі:" type="label" default="Громадянин приходить до Вас. Ви звіряєте дані з ним, при необхідності вносите зміни. Роздруковуєте прінтформи, підписуєте їх та проставляєте штамп у паспорт громадянина."></activiti:formProperty>
-        <activiti:formProperty id="visitDay" name="День зустрічі" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="День та час зустрічі " type="queueData" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="PrevName" name="Попереднє прізвище, ім’я та по батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="Date_of_birth" name="Дата народження" type="string"></activiti:formProperty>
-        <activiti:formProperty id="Areabirth" name="Місце народження; Країна, область, район і населений пункт" type="string"></activiti:formProperty>
-        <activiti:formProperty id="Nationality" name="Громадянство" type="string"></activiti:formProperty>
-        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="string"></activiti:formProperty>
+        <activiti:formProperty id="PrevName" name="Попереднє прізвище, ім’я та по батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Date_of_birth" name="Дата народження" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Areabirth" name="Місце народження; Країна, область, район і населений пункт" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Nationality" name="Громадянство" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Дніпропетровськ,якому зареєстрований громадянин" type="enum">
           <activiti:value id="bab" name="Бабушкінський"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="milName" name="Найменування військомату, в якому Ви перебували на військовому обліку" type="string"></activiti:formProperty>
-        <activiti:formProperty id="milRank" name="Військове звання" type="string"></activiti:formProperty>
-        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string"></activiti:formProperty>
-        <activiti:formProperty id="kids" name="Ви бажаєте зняти з реєстрації за цією адресою дитину молодшу 14 років?; Діти старші 14 років подають заяву самостійно." type="enum" required="true">
+        <activiti:formProperty id="milName" name="Найменування військомату, в якому Ви перебували на військовому обліку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="milRank" name="Військове звання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kids" name="Ви бажаєте зняти з реєстрації за цією адресою дитину молодшу 14 років?; Діти старші 14 років подають заяву самостійно." type="enum" writable="false">
           <activiti:value id="no" name="Ні"></activiti:value>
           <activiti:value id="yes1" name="одну дитину"></activiti:value>
           <activiti:value id="yes2" name="двох дітей"></activiti:value>
@@ -616,19 +633,19 @@
         </activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/kartka(dnepr)fr.html]" type="invisible" default="Картка реєстрації лицьова" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_2" name="[pattern/print/kartka(dnepr)bk.html]" type="invisible" default="Картка реєстрації зворотня" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="sBody_3" name="[pattern/print/talon4(dnepr).html]" type="invisible" default="Талон" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_3" name="[pattern/print/talon_4(dnepr).html]" type="invisible" default="Талон" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_4" name="[pattern/print/zajava_znfr(dnepr).html]" type="invisible" default="Заява для зняття з реєстрації лицьова" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_znbk(dnepr).html]" type="invisible" default="Заява для зняття з реєстрації зворотня" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow18" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow18" sourceRef="usertask2_red" targetRef="exclusivegateway2"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow17" name="${result=='reestr'}" sourceRef="exclusivegateway2" targetRef="endevent3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${result=='reestr'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow19" name="${result=='nazad'}" sourceRef="exclusivegateway2" targetRef="usertask2">
+    <sequenceFlow id="flow19" name="${result=='nazad'}" sourceRef="exclusivegateway2" targetRef="usertask2_red">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${result=='nazad'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow21" name="${result=='nejav'}" sourceRef="exclusivegateway2" targetRef="mailtask5">
@@ -697,17 +714,19 @@
                         &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
                             &lt;tr&gt;
                                 &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
                                         На жаль Ви не з'явились у відділення ДМС у призначений день і час. &lt;br /&gt;
-                                        Ми змушені відмовити Вам у наданні послуги.&lt;br /&gt;
-										При необхідності зняття з реєстрації місця проживання Ви можете подати ще одну заявку на порталі &lt;a href="https://igov.org.ua/"&gt;iGov.org.ua&lt;/a&gt;
+                                        При необхідності зняття з реєстрації місця проживання Ви можете подати ще одну заявку на порталі &lt;a href="https://igov.org.ua/"&gt;iGov.org.ua&lt;/a&gt;
+										&lt;/p&gt;
+										&lt;p&gt;
+										При вниникненні питань Ви можете звернутися до чергового: &lt;br /&gt;
+										тел. +38 (050) 500-93-03
 										&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Бабушкінський РВ у місті Дніпропетровську&lt;br /&gt;
-                                        ГУ ДМСУ в Дніпропетровській області.
+                                        Державна Міграційна Служба Дніпропетровської Області.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -764,7 +783,7 @@
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
         <omgdc:Bounds height="65.0" width="140.0" x="499.0" y="320.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+      <bpmndi:BPMNShape bpmnElement="usertask2_red" id="BPMNShape_usertask2_red">
         <omgdc:Bounds height="58.0" width="140.0" x="499.0" y="430.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
