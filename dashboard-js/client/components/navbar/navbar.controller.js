@@ -22,6 +22,10 @@ angular.module('dashboardJsApp').controller('NavbarCtrl', function($scope, $loca
     $location.path('/tasks');
   };
 
+  $scope.goToEscalations = function() {
+    $location.path('/escalations');
+  };
+  
   $scope.goToReports = function () {
     $location.path('/reports');
   }

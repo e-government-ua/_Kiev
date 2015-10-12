@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="dnepr_mvd_199" name="Дніпропетровськ - МВД - відстрілювання вогнепальної зброї та огляд її технічного стану" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="weapon_type" name="Тип зброї" type="enum" required="true">
+          <activiti:value id="rifle" name="нарізна"></activiti:value>
+          <activiti:value id="traumatic" name="травматична"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="weapon" name="Найменування зброї" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="weapon_number" name="Заводський номер зброї" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="weapon_caliber" name="Калібр зброї" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
+        <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="invisible" default="0"></activiti:formProperty>
+        <activiti:formProperty id="sID_Merchant" name="ИД-строковой мерчанта (магазина)" type="invisible" default="i14273228627"></activiti:formProperty>
+        <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="85.94"></activiti:formProperty>
+        <activiti:formProperty id="sID_Currency" name="ИД-строковой валюты" type="invisible" default="UAH"></activiti:formProperty>
+        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default=";04000043; 036032;1;відстрілювання вогнепальної зброї та огляд її технічного стану: нарізної і комбінованої мисливської та спортивної зброї. (у т.ч. коміссія 1.8% та ПДВ)"></activiti:formProperty>
+        <activiti:formProperty id="response" name="message" type="invisible" default="Протягом 1 робочого дня Ви отримаєте лист з бланком заяви, реквізитами для оплати і докладною інструкцією щодо подальших дій."></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="usertask1" name="обробка звернення" activiti:candidateGroups="dnepr_mvd_199">
+      <extensionElements>
+        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="weapon_type" name="Примітка" type="enum" writable="false">
+          <activiti:value id="rifle" name=" "></activiti:value>
+          <activiti:value id="traumatic" name="Про можливість руйнування пристрою внаслідок використання наданих мною патронів, попереджений."></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="weapon" name="Найменування зброї" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="weapon_number" name="Заводський номер зброї" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="weapon_caliber" name="Калібр зброї" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="PrintForm_1" name="File label;File title;pattern/print/dnepr_mvd_199.html" type="file"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_mvd_199.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <serviceTask id="servicetask3" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <sequenceFlow id="flow5" sourceRef="startevent1" targetRef="servicetask3"></sequenceFlow>
+    <serviceTask id="servicetask4" name="повідомлення громадянина" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: відстрілювання вогнепальної зброї та огляд її технічного стану]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
+
+Ви подали звернення на відстрілювання вогнепальної зброї та огляд її технічного стану.&lt;br/&gt;
+&lt;p&gt;
+&lt;b&gt;Далі Вам необхідно:&lt;/b&gt;&lt;br /&gt;
+1. Роздрукувати заяву у додатку до листа, поставити на ній свій підпис.&lt;br /&gt;
+2. Сплатити вартість послуги будь-яким зручним для Вас способом. Вартість послуги становить  84 грн 42 коп. з ПДВ.  &lt;br /&gt;
+3. Відвідати науково-дослідний експертно-криміналістичний &lt;a href="http://ndekcmvd.dp.ua/" target="_blank"&gt;центр&lt;/a&gt; при ГУМВС України. Окрім підписаної Вами заяви та квитанції про сплату при собі треба мати:&lt;br /&gt;
+ - Дозвіл (постійний або тимчасовий) на володіння зброєю.&lt;br /&gt;
+ - Зброю та 4 патрони для відстрілювання (для револьверів треба надати по 1 патрону на кожну камеру в барабані).&lt;br /&gt;
+&lt;/p&gt;
+&lt;p&gt;
+&lt;b&gt;Адреса: &lt;/b&gt;
+вул. Будівельний тупік, 1а &lt;a href="http://ndekcmvd.dp.ua/images/p004_0_01_01.jpg" target="_blank"&gt;(карта)&lt;/a&gt;.&lt;br/&gt;
+&lt;/p&gt;
+&lt;p&gt;
+&lt;b&gt;Графік роботи науково-дослідного експертно-криміналістичного центру:&lt;/b&gt;&lt;br /&gt;
+понеділок-п’ятниця с 9:30 до 17:30.&lt;br /&gt;
+Перерва с 13:00 до 14:00&lt;br /&gt;
+&lt;/p&gt;
+&lt;p&gt;
+&lt;b&gt;Реквізити для сплати:&lt;/b&gt; &lt;br/&gt;
+р/р: 31251201114278&lt;br/&gt;
+ЄДРПОУ: 25575055&lt;br/&gt;
+МФО:805012&lt;br/&gt;
+Призначення: 04000043;036032;1;відстрілюв. вогнеп. зброї та огляд її тех.стану: нарізної і комбінованої мисливської та спортивної, в т.ч. ПДВ &lt;br/&gt;
+&lt;/p&gt;
+[paymentButton_LiqPay]&lt;br/&gt;
+В разі онлайн сплати додатково утримується комісія в розмірі 1.8%&lt;br/&gt;
+
+
+[pattern/mail/_common_signature_start.html]
+ НДЕКЦ при ГУМВС України &lt;br /&gt;
+[pattern/mail/_common_signature_end.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${PrintForm_1}</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow7" sourceRef="servicetask4" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow9" sourceRef="usertask1" targetRef="servicetask4"></sequenceFlow>
+    <serviceTask id="servicetask5" name="Повідомлення відповідальної особи" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:string><![CDATA[kyrbatsky@gmail.com]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Нове звернення: Відстрілювання зброї]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow10" sourceRef="servicetask3" targetRef="servicetask5"></sequenceFlow>
+    <sequenceFlow id="flow11" sourceRef="servicetask5" targetRef="usertask1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_mvd_199">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_mvd_199" id="BPMNPlane_dnepr_mvd_199">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="110.0" y="50.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="317.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="193.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="55.0" width="105.0" x="170.0" y="40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
+        <omgdc:Bounds height="55.0" width="105.0" x="164.0" y="170.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
+        <omgdc:Bounds height="55.0" width="105.0" x="320.0" y="40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="145.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="170.0" y="67.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="216.0" y="225.0"></omgdi:waypoint>
+        <omgdi:waypoint x="210.0" y="280.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="317.0" y="197.0"></omgdi:waypoint>
+        <omgdi:waypoint x="269.0" y="197.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="275.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="320.0" y="67.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="372.0" y="95.0"></omgdi:waypoint>
+        <omgdi:waypoint x="369.0" y="170.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

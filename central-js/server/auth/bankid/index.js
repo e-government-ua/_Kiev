@@ -37,7 +37,7 @@ router.get('/callback', function (req, res, next) {
         }
 
         if (error) {
-            res.redirect(req.query.link + '?error=' + JSON.stringify(error));
+          res.redirect(req.query.link + '?error=' + JSON.stringify(error));
         } else {
           req.session.account = {
             firstName: user.customer.firstName,

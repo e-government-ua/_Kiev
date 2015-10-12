@@ -1,8 +1,11 @@
 angular.module('app').controller('ServiceBuiltInBankIDController', function(
+  $sce,
   $state,
   $stateParams,
   $scope,
   $timeout,
+  $location,
+  $rootScope,
   FormDataFactory,
   ActivitiService,
   ValidationService,
@@ -10,82 +13,39 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   oServiceData,
   BankIDAccount,
   ActivitiForm,
+  AdminService,
+  PlacesService,
   uiUploader,
   FieldAttributesService,
   MarkersFactory,
-  FieldMotionService) {
+  service,
+  FieldMotionService,
+  regions) {
 
   'use strict';
 
-  // FIXME: Удалить это после теста задачи #584
-  /*var bankIdFound = false;
-  angular.forEach(ActivitiForm.formProperties, function(prop) {
-    if (prop.id === 'bankIdsID_Country') {
-      bankIdFound = true;
-    }
-  });*/
-  /*if (!bankIdFound) {
-    ActivitiForm.formProperties.push({
-      id: 'bankIdsID_Country',
-      name: 'Громадянство',
-      type: 'invisible',
-      value: 'UKR',
-      readable: true
-    });
-  }*/
-
-  // todo: Удалить после теста задачи #584 п.3
-  /*var sID_Country_found = false;
-  angular.forEach(ActivitiForm.formProperties, function(prop) {
-    if (prop.id === 'sID_Country') {
-      sID_Country_found = true;
-    }
-  });*/
-  /*if (!sID_Country_found) {
-    ActivitiForm.formProperties.push({
-      id: 'sID_Country',
-      name: 'Country Code',
-      type: 'string',
-      value: '',
-      readable: true,
-      writable: true
-    });
-  }*/
+  var currentState = $state.$current;
 
   $scope.oServiceData = oServiceData;
-  $scope.account = BankIDAccount;
+  $scope.account = BankIDAccount; // FIXME потенційний хардкод
   $scope.ActivitiForm = ActivitiForm;
 
   $scope.data = $scope.data || {};
-  $scope.data.formData = new FormDataFactory();
-  $scope.data.formData.initialize(ActivitiForm);
-  $scope.data.formData.setBankIDAccount(BankIDAccount);
-  //TODO uncomment after testing
-  $scope.data.formData.uploadScansFromBankID(oServiceData);
-  var currentState = $state.$current;
 
   $scope.data.region = currentState.data.region;
   $scope.data.city = currentState.data.city;
+  $scope.data.id = currentState.data.id;
+  
+  if ( !$scope.data.formData ) {
+    $scope.data.formData = new FormDataFactory();
+    $scope.data.formData.initialize(ActivitiForm);
+    $scope.data.formData.setBankIDAccount(BankIDAccount);
+    //TODO uncomment after testing
+    $scope.data.formData.uploadScansFromBankID(oServiceData);
+  }
 
-  $scope.ngIfCity = function() {
-    if ($state.current.name === 'index.service.general.city.built-in') {
-      if ($scope.data.city) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-    if ($state.current.name === 'index.service.general.city.built-in.bankid') {
-      if ($scope.data.city) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-    return $scope.data.region ? true : false;
-  };
+  // console.log('data.formData.params = ', JSON.stringify($scope.data.formData.params, null, '  '));
 
-  // TODO try markers override here
   $scope.markers = ValidationService.getValidationMarkers();
   var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
 
@@ -114,19 +74,20 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
       field.type = 'tel';
       field.sFieldType = 'tel';
     }
-    if (field.type == 'markers' && $.trim(field.value)) {
+    if (field.type === 'markers' && $.trim(field.value)) {
       var sourceObj = null;
       try {
         sourceObj = JSON.parse(field.value);
       } catch (ex) {
-        alert('markers attribute ' + field.name + " contain bad formatted json\n" + ex.name + ", " + ex.message
-          + "\nfield.value: " + field.value
-        );
+        console.log('markers attribute ' + field.name + ' contain bad formatted json\n' + ex.name + ', ' + ex.message + '\nfield.value: ' + field.value);
       }
-      if (sourceObj !== null)
-        _.merge(MarkersFactory.getMarkers(), sourceObj, function (destVal, sourceVal) {
-          if (_.isArray(sourceVal)) return sourceVal;
+      if (sourceObj !== null) {
+        _.merge(MarkersFactory.getMarkers(), sourceObj, function(destVal, sourceVal) {
+          if (_.isArray(sourceVal)) {
+            return sourceVal;
+          }
         });
+      }
     }
   });
 
@@ -148,13 +109,14 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
           var submitted = $state.get(state.name + '.submitted');
           if (!result.id) {
-            console.log(result);
+            // console.log(result);
             return;
           }
           //TODO: Fix Alhoritm Luna
           var nCRC = ValidationService.getLunaValue(result.id);
 
           submitted.data.id = result.id + nCRC; //11111111
+          submitted.data.formData = $scope.data.formData;
 
           $scope.isSending = false;
 
@@ -200,7 +162,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         if (response) {
           try {
             JSON.parse(response);
-            // alert(response);
+            // console.log(response);
           } catch (e) {
             ActivitiService.updateFileField(oServiceData,
               $scope.data.formData, $scope.files[fileKey(file)], response);
@@ -223,31 +185,60 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     $scope.$apply();
   };
 
+  function getFieldProps(property) {
+    return {
+      mentionedInWritable: FieldMotionService.FieldMentioned.inWritable(property.id),
+      fieldES: FieldAttributesService.editableStatusFor(property.id),
+      ES: FieldAttributesService.EditableStatus
+    };
+  }
+
   $scope.showFormField = function(property) {
-    var fieldES = FieldAttributesService.editableStatusFor(property.id);
-    var ES = FieldAttributesService.EditableStatus;
+    var p = getFieldProps(property);
+    if (p.mentionedInWritable)
+      return FieldMotionService.isFieldWritable(property.id, $scope.data.formData.params);
+
     return (
-        !$scope.data.formData.fields[property.id]
-        && property.type!='invisible'
-        && property.type!='markers'
-        && fieldES == ES.NOT_SET
-    ) || fieldES == ES.EDITABLE
+      !$scope.data.formData.fields[property.id]
+      && property.type !== 'invisible'
+      && property.type !== 'markers'
+      && p.fieldES === p.ES.NOT_SET ) || p.fieldES === p.ES.EDITABLE;
   };
 
   $scope.renderAsLabel = function(property) {
-    var fieldES = FieldAttributesService.editableStatusFor(property.id);
-    var ES = FieldAttributesService.EditableStatus;
+    var p = getFieldProps(property);
+    if (p.mentionedInWritable)
+      return FieldMotionService.isFieldWritable(property.id, $scope.data.formData.params);
     //property.type !== 'file'
     return (
-            $scope.data.formData.fields[property.id]
-      &&  fieldES == ES.NOT_SET
-    ) || fieldES == ES.READ_ONLY;
+      $scope.data.formData.fields[property.id] && p.fieldES === p.ES.NOT_SET
+    ) || p.fieldES === p.ES.READ_ONLY;
   };
 
   $scope.isFieldVisible = function(property) {
-    return property.id != 'processName'
-    && (FieldMotionService.isFieldMentioned(property.id) ?
-        FieldMotionService.isFieldVisible(property.id, $scope.data.formData.params) : true);
+    return property.id !== 'processName' && (FieldMotionService.FieldMentioned.inShow(property.id) ?
+      FieldMotionService.isFieldVisible(property.id, $scope.data.formData.params) : true);
+  };
+
+  $scope.isFieldRequired = function(property) {
+    return FieldMotionService.FieldMentioned.inRequired(property.id) ?
+      FieldMotionService.isFieldRequired(property.id, $scope.data.formData.params) : property.required;
+  };
+
+  $scope.$watch('data.formData.params', watchToSetDefaultValues, true);
+  function watchToSetDefaultValues() {
+    var calcFields = FieldMotionService.getCalcFieldsIds();
+    var pars = $scope.data.formData.params;
+    calcFields.forEach(function(key) {
+      if (_.has(pars, key)) {
+        var data = FieldMotionService.calcFieldValue(key, pars);
+        if (data.value && data.differentTriggered) pars[key].value = data.value;
+      }
+    });
+  }
+
+  $scope.getHtml = function(html) {
+    return $sce.trustAsHtml(html);
   };
 
   // $timeout(function () {

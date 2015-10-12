@@ -129,7 +129,7 @@
      <serviceTask id="mailtask6" name="Повідомлення про нову заявку" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[zhigan.roman@gmail.com]]></activiti:expression>
+          <activiti:expression><![CDATA[edv.rda@gmail.com]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -139,6 +139,9 @@
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="bcc">
+          <activiti:string><![CDATA[zhigan.roman@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression><![CDATA[<!DOCTYPE html>
@@ -192,7 +195,7 @@
 										<p>
 											У Вас в черзі на обробку зареєстровано нове звернення щодо надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки.<br />
 											Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}<br />
-											Опрацюйте, будь ласка, це звернення на <a href="https://test.region.igov.org.ua" target="_blank">порталі</a>
+											Опрацюйте, будь ласка, це звернення на <a href="https://region.igov.org.ua" target="_blank">порталі</a>
 										</p>
 										<hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
 										<p>
@@ -243,7 +246,6 @@
         <activiti:formProperty id="DocumentDate" name="Дата оформлення документів у форматі - ДД.ММ.PPPP" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="vnnumb" name="Реєстраційний номер звернення" type="string"></activiti:formProperty>
-        <activiti:formProperty id="privateMail" name="e-mail спеціалістів Держкомзему" type="string"></activiti:formProperty>
         <activiti:formProperty id="doc" type="label" default="Якщо громадянин відправив Вам файли окрім копії паспорту, копії ІПН, та копії права власності на земельну ділянку, додайте їх опис у полях нижче"></activiti:formProperty>
         <activiti:formProperty id="doc1" name="Файл 1" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="doc2" name="Файл 2" type="string" default=" "></activiti:formProperty>
@@ -360,7 +362,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${privateMail}"</activiti:expression>
+          <activiti:expression><![CDATA[ternopil_ru_ter@dazru.gov.ua]]></activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:string>

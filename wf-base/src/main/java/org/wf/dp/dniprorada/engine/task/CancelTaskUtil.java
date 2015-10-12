@@ -1,10 +1,12 @@
 package org.wf.dp.dniprorada.engine.task;
 
+import org.activity.rest.security.AuthenticationTokenSelector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.base.dao.AccessDataDao;
+import org.wf.dp.dniprorada.exchange.AccessCover;
 import org.wf.dp.dniprorada.util.GeneralConfig;
 
 @Component
@@ -15,6 +17,9 @@ public class CancelTaskUtil {
 
     @Autowired
     private GeneralConfig generalConfig;
+    
+    @Autowired
+    AccessCover accessCover;
     
     private static final Logger log = LoggerFactory.getLogger(CancelTaskUtil.class);
     private static final String sURL_CancelTask =  "/wf/service/rest/tasks/cancelTask";
@@ -45,10 +50,14 @@ public class CancelTaskUtil {
                 .append("?nID_Protected=").append(nID_Protected)
                 .append("&sAccessContract=Request")
                 .toString();
-        String sAccessKey = accessDataDao.setAccessData(sURL_ForAccessKey);
+        //String sAccessKey = accessDataDao.setAccessData(sURL_ForAccessKey);
+        String sAccessKey = accessCover.getAccessKey(sURL_ForAccessKey);
         String sURL_CancelTaskAction = new StringBuilder(generalConfig.sHost())
                 .append(sURL_ForAccessKey)
-                .append("&sAccessKey=").append(sAccessKey)
+                //.append("&sAccessContract=Request")
+                //.append("&sAccessKey=").append(sAccessKey)
+                .append("&").append(AuthenticationTokenSelector.ACCESS_CONTRACT).append("=").append(AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST)
+                .append("&").append(AuthenticationTokenSelector.ACCESS_KEY).append("=").append(sAccessKey)
                 .toString();
         log.info("total URL for action =" + sURL_CancelTaskAction);
 

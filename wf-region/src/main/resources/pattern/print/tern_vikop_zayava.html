@@ -1,167 +1,160 @@
-<!DOCTYPE html>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head lang="ru">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	﻿<style type="text/css">
-        html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Tahoma';}
-
-.print_wrap {width: 705px; padding: 35px 25px 85px 35px; min-height: 100%; height: 100%; margin: 0 auto;}
-
-.ta-r {text-align: right !important;}
-.ta-l {text-align: left !important;}
-.ta-c {text-align: center !important;}
-
-.ti-15 {text-indent: 25px;}
-
-.p-right {float: right;}
-.p-left {float: left;}
-
-.xs-font {font-size: 16px; line-height: 18px;}
-.xs-font p {font-size: 16px;}
-.xs-font span {font-size: 16px;}
-.x-font {font-size: 14px;}
-.x-font p {font-size: 14px;}
-
-.fw {width: 100%;}
-
-.w350 {width: 350px;}
-.w225 {width: 225px;}
-.w145 {width: 145px;}
-.w185 {width: 185px;}
-.w101 {width: 101px;}
-.w130 {width: 130px;}
-.w135 {width: 135px;}
-.w265 {width: 265px;}
-.w365 {width: 365px;}
-.w500 {width: 500px;}
-
-.b-t-0 {border-top: 0 !important;}
-.b-l-0 {border-left: 0 !important;}
-.b-r-0 {border-right: 0 !important;}
-.b-b-0 {border-bottom: 0 !important;}
-
-.hint-l-220 > span {margin-left: 220px !important;}
-
-.h10 {height: 12px;}
-
-.m-t-15 {margin-top: 15px !important;}
-.m-t-25 {margin-top: 25px !important;}
-.m-t-45 {margin-top: 45px !important;}
-.m-t-85 {margin-top: 85px !important;}
-.m-t-130 {margin-top: 130px !important;}
-.m-t-150 {margin-top: 150px !important;}
-.m-r-12 {margin-right: 12px !important;}
-.m-l-65 {margin-left: 65px !important;}
-.m-l-120 {margin-left: 120px !important;}
-.m-l-180 {margin-left: 180px !important;}
-.m-l-250 {margin-left: 250px !important;}
-.m-l-300 {margin-left: 300px !important;}
-.m-l-380 {margin-left: 380px !important;}
-.m-t-unt {margin-top: -1px !important;}
-.m-clear {margin: 0 !important;}
-.p-clear {padding: 0 !important;}
-
-.gtp {top: -21px;}
-
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    .wb-fix {width: 135px;}
-}
-
-.line_col {}
-.under_field {height: 20px; margin: 0 0 20px 0; border-bottom: 1px solid black; position: relative; display: inline-block; clear: both;}
-.under_field > i {font-style: normal;}
-.under_field > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
-
-.under_field_line {height: 20px; margin: 0 0 15px 0; padding: 0 0 0 0; border-bottom: 1px solid black; position: relative; display: block;}
-.under_field_line.right_side {float: right;}
-.under_field_line > i {height: 21px; padding: 0 5px 0 0; background: white; display: inline-block; position: relative; left: 0; font-style: normal;}
-.under_field_line > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -16px; font-size: 12px;}
-
-.wub {min-height: 20px; height: auto; border: 0; margin: 5px 0 0 0;}
-
-.month-fl {width: 225px; float: right; height: 21px; padding: 0 5px 0 10px; background: white; text-align: right;}
-.month-fl.left {float: left; padding: 0 5px 0 0;}
-.month-fl > span {height: 20px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
-.month-fl > span:nth-child(1) {width: 35px;}
-.month-fl > span:nth-child(2) {width: 120px;}
-.month-fl > span:nth-child(3) {width: 40px;}
-
-table.zit_v-form {border-top: 1px solid black; border-bottom: 1px solid black; border-collapse: collapse; margin: 15px 0;}
-table.zit_v-form tr td {border-bottom: 1px solid black; padding: 3px 6px;}
-table.zit_v-form tr td:nth-child(1) {border-right: 1px solid black;}
-table.zit_v-form tr td:nth-child(2) {border-right: 1px solid black;}
-table.zit_v-form tr td:nth-child(3) {border-right: 1px solid black;}
-
-table.zit_v-form2 {width: 700px; border-collapse: collapse;}
-table.zit_v-form2 tr td {border: 1px solid black; padding: 3px 8px;}
-
-.zit_v-form2--inner {border-collapse: collapse; border: 0;}
-
-.date_subm { margin: 20px 0 25px 0;}
-.date_subm .month-fl-sm {float: left;}
-.date_subm .month-fl-sm > span {height: 20px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
-.date_subm .month-fl-sm > span:nth-child(1) {width: 45px;}
-.date_subm .month-fl-sm > span:nth-child(2) {width: 120px;}
-.date_subm .month-fl-sm > span:nth-child(3) {width: 20px;}
-.date_subm .invsm {float: right;}
-.date_subm .month-fl-sm > span {height: 20px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
-.date_subm .month-fl-sm > span:nth-child(1) {width: 45px;}
-.date_subm .month-fl-sm > span {height: 50px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
-.date_subm .signature {width: 240px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
-.date_subm .signature > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
-.date_subm .inv {width: 300px; height: 20px; float: left; border-bottom: 1px solid black; position: relative;} 
-.date_subm .inv > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
-
-p {font-size: 12px;}
-
-.clear {clear: both;}
-</style>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
-<body>
-<section class="print_wrap">
-    <div class="w365 line_col ta-l p-right xs-font">
-        <p>Начальнику управління містобудування, архітектури та кадастру</p>
+<body>﻿
 
-        <p >[clFio]</p>
+<div text="#000000">
+<table cellspacing="0" cols="12" border="0">
+	<colgroup width="35"></colgroup>
+	<colgroup width="35"></colgroup>
+	<colgroup width="32"></colgroup>
+	<colgroup width="80"></colgroup>
+	<colgroup width="80"></colgroup>
+	<colgroup width="80"></colgroup>
+	<colgroup width="46"></colgroup>
+	<colgroup width="45"></colgroup>
+	<colgroup span="4" width="65"></colgroup>
+	<tr>
+		<td colspan="6" height="20" align="CENTER" valign="BOTTOM"></td>
+		<td colspan="6" align="LEFT" valign="BOTTOM"><font face="Times New Roman" size="4" color="#000000">Начальнику управління містобудування,</font></td>
+	</tr>
+	<tr>
+		<td colspan="6" height="20" align="CENTER" valign="BOTTOM"></td>
+		<td colspan="6" align="LEFT" valign="BOTTOM"><font face="Times New Roman" size="4" color="#000000">архітектури та кадастру</font></td>
+	</tr>
+	<tr>
+		<td colspan="12" height="15" align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td colspan="6" height="20" align="CENTER" valign="BOTTOM"></td>
+		<td style="border-bottom:1px solid #000000" colspan="6" align="LEFT" valign="BOTTOM"><font face="Times New Roman" color="#000000">[clFio]</font></td>
+	</tr>
+	<tr>
+		<td colspan="6" height="20" align="CENTER" valign="BOTTOM"></td>
+		<td colspan="6" align="CENTER" valign="ТОР"><font face="Times New Roman" size="2" color="#808080">(суб’єкт звернення)<br></font></td>
+	</tr>
+	<tr>
+		<td colspan="12" height="15" align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td colspan="6" height="20" align="CENTER" valign="BOTTOM"></td>
+		<td colspan="6" align="LEFT" valign="BOTTOM"><font face="Times New Roman" size="4" color="#000000">Місце реєстрації / юридична адреса:</font></td>
+	</tr>
+	<tr>
+		<td colspan="6" height="20" align="CENTER" valign="BOTTOM"></td>
+		<td style="border-bottom:1px solid #000000" colspan="6" align="LEFT" valign="BOTTOM"><font face="Times New Roman" color="#000000">[place_of_reg]<br/></font></td>
+	</tr>
+	<tr>
+		<td colspan="6" height="20" align="CENTER" valign="BOTTOM"></td>
+		<td align="LEFT" valign="BOTTOM"><font face="Times New Roman" size="4" color="#000000">тел. </font></td>
+		<td style="border-bottom:1px solid #000000" colspan="5" align="LEFT" valign="BOTTOM"><font face="Times New Roman" color="#000000">[phone]</font></td>
+	</tr>
+	<tr>
+		<td colspan="12" height="15" align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td colspan="12" height="20" align="CENTER" valign="BOTTOM"><font face="Times New Roman" size="4" color="#000000">З А Я В А</font></td>
+	</tr>
+	<tr>
+		<td colspan="12" height="15" align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td colspan="12" height="20" align="LEFT"><font face="Times New Roman" color="#000000">Прошу виготовити викопіювання в масштабі 1:500, 1:2000</font></td>
+	</tr>
+	<tr>
+		<td height="20" colspan="4" align="LEFT" valign="BOTTOM"><font face="Times New Roman" color="#000000">для (яких потреб)<br></font></td>
+		<td style="border-bottom:1px solid #000000" colspan="8" align="LEFT" valign="BOTTOM"><font color="#000000">[goal],<br></font></td>
+	</tr>
+	<tr>
+		<td height="20" colspan="2" align="LEFT" valign="BOTTOM"><font face="Times New Roman" color="#000000">адреса<br></font></td>
+		<td style="border-bottom:1px solid #000000" colspan="10" align="LEFT" valign="BOTTOM"><font color="#000000">[landAddress]<br></font></td>
+	</tr>
+	<tr>
+		<td colspan="12" height="15" align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td colspan="12" height="20" align="LEFT" valign="BOTTOM"><font face="Times New Roman" color="#000000">Докумети, що додаються до заяви:<br></font></td>
+	</tr>
+	<tr>
+		<td colspan="12" height="20" align="LEFT" valign="BOTTOM"><font color="#000000">Схема розташування ділянки, на яку необхідно виготовити викопіювання<br></font></td>
+	</tr>
+	<tr>
+		<td colspan="12" height="15" align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td colspan="12" height="15" align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td colspan="12" height="15" align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td height="20" align="CENTER" valign="BOTTOM"></td>
+		<td style="border-bottom:1px solid #000000" colspan="5" align="CENTER" valign="BOTTOM"><font color="#000000"><br></td>
+		<td align="CENTER" valign="BOTTOM"></td>
+		<td style="border-bottom:1px solid #000000" colspan="4" align="CENTER" valign="BOTTOM"><font color="#000000"><br></td>
+		<td align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td height="15" align="CENTER" valign="BOTTOM">
+		<td colspan="5" align="CENTER" valign="ТОР"><font face="Times New Roman" size="2" color="#808080">(ПІП суб’єкта звернення  /уповноваженої особи)<br></font></td>
+		<td align="CENTER" valign="BOTTOM"></td>
+		<td colspan="4" align="CENTER" valign="ТОР"><font face="Times New Roman" size="2" color="#808080">(підпис)<br></font></td>
+		<td align="LEFT" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td colspan="12" height="15" align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td height="20" align="CENTER" valign="BOTTOM"></td>
+		<td style="border-bottom:1px solid #000000" colspan="5" align="CENTER" valign="BOTTOM"><font color="#000000"><br></td>
+		<td colspan="6" align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td height="15" align="CENTER" valign="BOTTOM">
+		<td colspan="5" align="CENTER" valign="ТОР"><font face="Times New Roman" size="2" color="#808080">(дата подання заяви)<br></font></td>
+		<td colspan="6" align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td colspan="12" height="15" align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td style="border-bottom:1px solid #000000" colspan="12" height="20" align="LEFT" valign="BOTTOM"><font face="Times New Roman" color="#000000">Заповнюється адміністратором:<br></font></td>
+	</tr>
+	<tr>
+		<td style="border-left:1px solid #000000" height="25" align="CENTER" valign="BOTTOM"></td>
+		<td style="border-bottom:1px solid #000000" colspan="3" align="CENTER" valign="BOTTOM"><font color="#000000">[DocumentDate]<br></td>
+		<td align="CENTER" valign="BOTTOM"></td>
+		<td colspan="3" align="LEFT" valign="BOTTOM"><font face="Times New Roman" color="#000000">Реєстраційний номер <br></td>
+		<td style="border-bottom:1px solid #000000" colspan="3" align="CENTER" valign="BOTTOM"><font color="#000000">[vnnumb]<br></td>
+		<td style="border-right:1px solid #000000" align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td style="border-left:1px solid #000000" height="20" align="LEFT">
+		<td colspan="3" align="CENTER" valign="ТОР"><font face="Times New Roman" size="2" color="#808080">(дата надходження заяви)<br></font></td>
+		<td align="CENTER" colspan="7" valign="BOTTOM"></td>
+		<td style="border-right:1px solid #000000" align="LEFT">
+	</tr>
+	<tr>
+		<td style="border-left:1px solid #000000" height="20" align="CENTER" valign="BOTTOM"></td>
+		<td style="border-bottom:1px solid #000000" colspan="3" align="CENTER" valign="BOTTOM"><font color="#000000"><br></td>
+		<td align="CENTER" valign="BOTTOM"></td>
+		<td style="border-bottom:1px solid #000000" colspan="6" align="CENTER" valign="BOTTOM"><font color="#000000">[CNAPName]<br></td>
+		<td style="border-right:1px solid #000000" align="CENTER" valign="BOTTOM"></td>
+	</tr>
+	<tr>
+		<td style="border-left:1px solid #000000;border-bottom:1px solid #000000" height="25" align="LEFT">
+		<td style="border-bottom:1px solid #000000"colspan="3" align="CENTER" valign="ТОР"><font face="Times New Roman" size="2" color="#808080">(підпис адміністратора)<br></font></td>
+		<td style="border-bottom:1px solid #000000"align="CENTER" valign="BOTTOM"></td>
+		<td style="border-bottom:1px solid #000000"colspan="6" align="CENTER" valign="ТОР"><font face="Times New Roman" size="2" color="#808080">(прізвище та ініціали адміністратора)<br></font></td>
+		<td style="border-right:1px solid #000000;border-bottom:1px solid #000000" align="LEFT">
+	</tr>
+	
+</table>
 
-        <p class="m-clear"><span class="m-r-12">Місце реєстрації / юридична адреса :</span><br/>
-		[place_of_reg]</p>
-        <p>тел. [phone]</p>
-    </div>
-    <div class="clear"></div>
-    <div class="line_col ta-c m-t-25 x-font">
-        ЗАЯВА<br />
-        <div class="under_field_line wub ta-l">Прошу виготовити викопіювання в масштабі 1:500, 1:2000</br>
-	для [goal],</br>
-	адреса [landAddress]
-	</div>
-    </div>
-	<div class="date_subm m-t-45 x-font">
-         <p>До заяви додається:</p>
-		 <div class="under_field_line"></div>
-		 <div class="under_field_line"></div>
-    </div>
-    <div class="date_subm m-t-45">
-		<div class="inv"><span>(ПІБ суб’єкта звернення/уповноваженої особи)</span></div>
-        <div class="signature"><span>(підпис)</span></div>
-    </div>
-    <div class="date_subm m-t-45"> 
-	<div class="month-fl-sm"><span></span><span></span>2015 	р.</div>
-	    <div class="clear"></div>
-    </div>
-	<div class="date_subm m-t-25 x-font"> 
-	<p>Заповнюється адміністратором:</p>
-	</div>
-	<div class="date_subm m-t-25">
-		<div class="month-fl-sm">дата надходження заяви__________</div>
-		<div class="invsm">реєстраційний номер_____________</div>
-		<div class="clear"></div>
-    </div>
-    <div class="date_subm m-t-45"> 
-	<div class="inv"><span>(підпис)</span></div>
-        <div class="signature"><span>(прізвище, ініціали адміністратора)</span></div>
-    </div>
-    <div class="clear"></div>
-</section>
-</body>
-</html>
+</div>
+
+
+</body></html>

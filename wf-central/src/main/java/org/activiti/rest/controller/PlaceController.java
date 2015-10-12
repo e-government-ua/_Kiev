@@ -1,21 +1,19 @@
 package org.activiti.rest.controller;
 
 import com.google.common.base.Optional;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.base.dao.EntityNotFoundException;
 import org.wf.dp.dniprorada.base.model.Entity;
-import org.wf.dp.dniprorada.base.dao.EntityDao;
 import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.dao.PlaceTypeDao;
-import org.wf.dp.dniprorada.dao.place.PlaceHierarchyRecord;
-import org.wf.dp.dniprorada.dao.place.PlaceHierarchyTree;
+import org.wf.dp.dniprorada.dao.place.PlaceHierarchy;
+import org.wf.dp.dniprorada.dao.place.PlaceHibernateHierarchyRecord;
 import org.wf.dp.dniprorada.model.Place;
 import org.wf.dp.dniprorada.model.PlaceType;
 
@@ -29,7 +27,6 @@ import static org.apache.commons.lang3.StringUtils.isNotBlank;
  */
 @Controller
 public class PlaceController {
-    private static final Logger LOG = LoggerFactory.getLogger(PlaceController.class);
     private static final String JSON_TYPE = "Accept=application/json";
 
     @Autowired
@@ -40,7 +37,7 @@ public class PlaceController {
 
     @RequestMapping(value   = "/getPlacesTree",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
-    public  @ResponseBody PlaceHierarchyTree getPlacesTree (
+    public  @ResponseBody PlaceHierarchy getPlacesTree (
             @RequestParam(value = "nID",            required = false)   Long    placeId,
             @RequestParam(value = "sID_UA",         required = false)   String  uaId,
             @RequestParam(value = "nID_PlaceType",  required = false)   Long    typeId,
@@ -48,13 +45,13 @@ public class PlaceController {
             @RequestParam(value = "bRoot",          required = false)   Boolean root,
             @RequestParam(value = "nDeep",          defaultValue = "1") Long    deep){
 
-        return placeDao.getTreeDown( new PlaceHierarchyRecord(placeId, typeId, uaId, area, root, deep) );
+        return placeDao.getTreeDown( new PlaceHibernateHierarchyRecord(placeId, typeId, uaId, area, root, deep) );
     }
 
 
     @RequestMapping(value   = "/getPlace",
                     method  = RequestMethod.GET, headers = { JSON_TYPE })
-    public  @ResponseBody PlaceHierarchyTree getPlace(
+    public  @ResponseBody PlaceHierarchy getPlace(
             @RequestParam(value = "nID",    required = false)       Long    placeId,
             @RequestParam(value = "sID_UA", required = false)       String  uaId,
             @RequestParam(value = "bTree",  defaultValue = "false") Boolean tree){

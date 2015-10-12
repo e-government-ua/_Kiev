@@ -25,7 +25,7 @@ public class AccessDataDaoImpl implements AccessDataDao {
         //String sKey=durableBytesDataStorage.saveData(sContent.getBytes());
         String sKey=durableBytesDataStorage.saveData(Util.aData(sContent));
         log.info("[setAccessData]:sKey="+sKey);
-        log.info("[setAccessData]:sData(check)="+getAccessData(sKey));
+        //log.info("[setAccessData]:sData(check)="+getAccessData(sKey));
         return sKey;
     } 
 
@@ -47,14 +47,14 @@ public class AccessDataDaoImpl implements AccessDataDao {
         //return aContent != null ? Util.contentByteToString(aContent) : contentMock;
         String sData = contentMock;
         if(aContent != null){
-            log.info("[getAccessData]:sKey="+sKey+",aContent.length()="+aContent.length);
+//            log.info("[getAccessData]:sKey="+sKey+",aContent.length()="+aContent.length);
             //sData = Util.contentByteToString(aContent);
             //sData = Arrays.toString(aContent);
             sData = Util.sData(aContent);
             //log.info("[getAccessData]:TEST:sKey="+sKey+",Arrays.toString(aContent)="+Arrays.toString(aContent));
-            if(sData!=null){
+            /*if(sData!=null){
                 log.info("[getAccessData]:sKey="+sKey+",sData.length()="+sData.length());
-            }
+            }*/
         }
         log.info("[getAccessData]:sKey="+sKey+",sData="+sData);
         return sData;

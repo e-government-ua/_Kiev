@@ -19,92 +19,84 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by diver on 6/26/15.
+ * Created by diver edited by Olga Turenko & Belyavtsev Vladimir (BW)
  */
 @Component
 public class ActivitiRestAuthProvider implements AuthenticationProvider {
 
-	private final Logger log = LoggerFactory
-			.getLogger(ActivitiRestAuthProvider.class);
+	private final Logger oLog = LoggerFactory.getLogger(ActivitiRestAuthProvider.class);
     
 	private static final String GENERAL_ROLE = "ROLE_USER";
 
 	@Value("${general.auth.login}")
-	private String generalUsername;
+	private String sGeneralUsername;
 	@Value("${general.auth.password}")
-	private String generalPassword;
+	private String sGeneralPassword;
 
-	private IdentityService identityService;
+	private IdentityService oIdentityService;
 
-	public void setGeneralPassword(String generalPassword) {
-		this.generalPassword = generalPassword;
+	public void setGeneralPassword(String sGeneralPassword) {
+		this.sGeneralPassword = sGeneralPassword;
 	}
 
-	public void setGeneralUsername(String generalUsername) {
-		this.generalUsername = generalUsername;
+	public void setGeneralUsername(String sGeneralUsername) {
+		this.sGeneralUsername = sGeneralUsername;
 	}
 
-	public void setIdentityService(IdentityService identityService) {
-		this.identityService = identityService;
+	public void setIdentityService(IdentityService oIdentityService) {
+		this.oIdentityService = oIdentityService;
 	}
 
 	private IdentityService getIdentityService() {
-		return identityService == null ? ProcessEngines.getDefaultProcessEngine().getIdentityService() : identityService;
+		return oIdentityService == null ? ProcessEngines.getDefaultProcessEngine().getIdentityService() : oIdentityService;
 	}
 
 	@Override
-	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-                log.info("generalUsername="+generalUsername+",generalPassword="+generalPassword);
-		validateAuthenticationInformation(authentication);
-		String username = authentication.getName();
-		String password = authentication.getCredentials().toString();
-                log.info("username="+username+",password="+password);
-		if (username.equals(generalUsername) && password.equals(generalPassword)) {
-                        /*log.info("generalUsername!!!1test: tech_mvd,getIdentityService="+getIdentityService().getUserInfo("tech_mvd", "tech_mvd"));
-                        Authentication oAuthentication=createBasicAuthUsernameAndPasswordToken("tech_mvd", "tech_mvd");
-                        log.info("generalUsername!!!2test: tech_mvd,oAuthentication!=mull:"+(oAuthentication!=null));
-                        if(oAuthentication!=null){
-                            log.info("generalUsername!!!3test: tech_mvd"
-                                    + ",oAuthentication.getName()="+oAuthentication.getName()
-                                    + ",oAuthentication.getDetails="+oAuthentication.getDetails()
-                            );
-                        }*/
-                        log.info("username.equals(generalUsername) && password.equals(generalPassword)");
-			return createBasicAuthUsernameAndPasswordToken(username, password);
-		} else {
-                        boolean bCheckPassword = getIdentityService().checkPassword(username, password);
-                        log.info("bCheckPassword="+bCheckPassword);
-			if (bCheckPassword) {
-                                log.info("username="+username+",getIdentityService="+getIdentityService().getUserInfo(username, password));
-				return createBasicAuthUsernameAndPasswordToken(username, password);
-			} else {
-				return null;
+	public Authentication authenticate(Authentication oAuthentication) throws AuthenticationException {
+		checkAuthByLoginAndPassword(oAuthentication);
+		String sUsername = oAuthentication.getName();
+		String sPassword = oAuthentication.getCredentials().toString();
+		if (!sUsername.equals(sGeneralUsername) || !sPassword.equals(sGeneralPassword)) {
+			if (!getIdentityService().checkPassword(sUsername, sPassword)) {
+                            oLog.warn("[authenticate](sUsername="+sUsername+"):FAIL!");
+                            return null;
 			}
 		}
+                return createTokenByUsernameAndPassword(sUsername, sPassword);
 	}
 
-	private Authentication createBasicAuthUsernameAndPasswordToken(String username, String password) {
-		List<GrantedAuthority> grantedAuths = new ArrayList<>();
-		grantedAuths.add(new SimpleGrantedAuthority(GENERAL_ROLE));
-		return new UsernamePasswordAuthenticationToken(username, password, grantedAuths);
+	private Authentication createTokenByUsernameAndPassword(String sUsername, String sPassword) {
+                oLog.info("[createTokenByUsernameAndPassword]:sUsername="+sUsername);
+		List<GrantedAuthority> aGrantedAuthority = new ArrayList<>();
+		aGrantedAuthority.add(new SimpleGrantedAuthority(GENERAL_ROLE));
+		return new UsernamePasswordAuthenticationToken(sUsername, sPassword, aGrantedAuthority);
 	}
 
-	private void validateAuthenticationInformation(Authentication authentication) throws AuthenticationException {
-		boolean isAuthInfoInvalid = authentication == null;
-                log.info("isAuthInfoInvalid0="+isAuthInfoInvalid);
-		isAuthInfoInvalid = isAuthInfoInvalid || StringUtils.isBlank(authentication.getName());
-                log.info("isAuthInfoInvalid1="+isAuthInfoInvalid);
-		isAuthInfoInvalid = isAuthInfoInvalid || authentication.getCredentials() == null;
-                log.info("isAuthInfoInvalid2="+isAuthInfoInvalid);
-		isAuthInfoInvalid = isAuthInfoInvalid || StringUtils.isBlank(authentication.getCredentials().toString());
-                log.info("isAuthInfoInvalid3="+isAuthInfoInvalid);
-		if (isAuthInfoInvalid) {
+	private void checkAuthByLoginAndPassword(Authentication oAuthentication) throws AuthenticationException {
+		boolean bNullAuth = false;
+		boolean bInvalid = (bNullAuth = oAuthentication == null);
+		boolean bBlankName = false;
+		bInvalid = bInvalid || (bBlankName = StringUtils.isBlank(oAuthentication.getName()));
+		boolean bNullCredentials = false;
+		bInvalid = bInvalid || (bNullCredentials = oAuthentication.getCredentials() == null);
+		boolean bBlankCredentials = false;
+		bInvalid = bInvalid || (bBlankCredentials = StringUtils.isBlank(oAuthentication.getCredentials().toString()));
+		if (bInvalid) {
+                        oLog.error("[checkAuthByLoginAndPassword]("
+                                + "bNullAuth="+bNullAuth + ""
+                                + ",bBlankName="+bBlankName + ""
+                                + ",bNullCredentials="+bNullCredentials + ""
+                                + ",bBlankCredentials="+bBlankCredentials + "):User or password not valid!");
 			throw new BadCredentialsException("User or password not valid");
 		}
 	}
 
 	@Override
-	public boolean supports(Class<?> aClass) {
-		return aClass.equals(UsernamePasswordAuthenticationToken.class);
+	public boolean supports(Class<?> oAuthentication) {
+                boolean bSupport = UsernamePasswordAuthenticationToken.class.equals(oAuthentication);
+                //oLog.info("[supports]:bEquals="+bSupport);
+                return bSupport;
+                
+                
 	}
 }

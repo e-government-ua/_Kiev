@@ -56,4 +56,27 @@
 
     <!-- ####################################################################################################### -->
 
+    <changeSet id="issue-806-create-table" author="brunneng">
+        <createTable tableName="AccessServiceLoginRight">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sLogin" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sService" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sHandlerBean" type="varchar(200)">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="issue-806-auto-increment-h2" author="brunneng" dbms="h2">
+        <addAutoIncrement tableName="AccessServiceLoginRight" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
+    <!-- ####################################################################################################### -->
+
 </databaseChangeLog>

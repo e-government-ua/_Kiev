@@ -1,5 +1,7 @@
 package org.wf.dp.dniprorada.model.document;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,6 +10,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public abstract class AbstractDocumentAccessHandler implements DocumentAccessHandler {
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractDocumentAccessHandler.class);
+
     protected String  accessCode;
     protected String  password;
     protected Long documentTypeId;
@@ -16,6 +20,7 @@ public abstract class AbstractDocumentAccessHandler implements DocumentAccessHan
 
 
     public DocumentAccessHandler setAccessCode(String sCode_DocumentAccess) {
+        LOG.info("sCode_DocumentAccess = {} ", sCode_DocumentAccess);
         this.accessCode = sCode_DocumentAccess;
         return this;
     }

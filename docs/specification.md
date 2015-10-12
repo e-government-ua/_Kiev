@@ -33,6 +33,11 @@
 <a href="#34_upload_content_as_attach">34. Аплоад(upload) и прикрепление текстовго файла в виде атачмента к таске Activiti</a><br/>
 <a href="#35">35. Электронная эскалация</a><br/>
 <a href="#36_getTasksByText">36. Поиск заявок по тексту (в значениях полей без учета регистра)</a><br/> 
+<a href="#37_getAccessKeyt">37. Получения ключа для аутентификации</a><br/> 
+<a href="#38_setTaskQuestions">38. Вызов сервиса уточнения полей формы</a><br/> 
+<a href="#39_setTaskAnswer">39. Вызов сервиса ответа по полям требующим уточнения</a><br/> 
+<a href="#40_AccessServiceLoginRight">40. Получеение и установка прав доступа к rest сервисам</a><br/> 
+
 ## iGov.ua APIs
 
 ##### Mandatory HTTP Headers
@@ -1040,6 +1045,7 @@ ID созданного attachment - "id":"45"
 
 * sFind - фильтр по имени сервиса (не обязательный параметр). Если задано, то производится фильтрация данных - возвращаются только сервиса в имени которых встречается значение этого параметра, без учета регистра.
 * asID_Place_UA - фильтр по ID места (мест), где надается услуга. Поддерживаемие ID: 3200000000 (КИЇВСЬКА ОБЛАСТЬ/М.КИЇВ), 8000000000 (М.КИЇВ). Если указан другой ID, фильтр не применяется.
+* bShowEmptyFolders - Возвращать или нет пустые категории и подкатегории (опциональный, по умолчанию false)
 * nID_Subject - ID авторизированого субъекта (добавляется в запрос автоматически после аутентификации пользователя)
 
 **Дополнительно:**
@@ -1522,6 +1528,66 @@ https://test.igov.org.ua/wf/service/services/setServicesTree
 ]
 ```
 
+Для добавления новой подкатегории нужно передать запрос вида:
+```
+[
+  {
+    "nID": 1,
+    "aSubcategory": [
+      {
+        "sID": "Yd",
+        "sName": "Yjdd",
+        "nOrder": "1",
+        "oCategory": {
+          "nID": 1
+        }
+      }
+    ]
+  }
+]
+```
+Обязательно нужно указывать внутри подкатегории ссылку на категорию, с помощью
+```
+"oCategory": {
+  "nID": 1
+}
+```
+
+Для добавления нового сервиса нужно передать запрос вида:
+```
+[
+  {
+    "nID": 1,
+    "aSubcategory": [
+      {
+        "nID": 3,
+        "aService": [
+          {
+            "sName": "service name",
+            "nOrder": 10,
+            "sSubjectOperatorName": "subjectOperatorName",
+            "oSubcategory": {
+              "nID": 3
+            },
+            "sInfo": "",
+            "sFAQ": "",
+            "sLaw": ""
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+Обязательно нужно указывать внутри сервиса ссылку на подкатегорию, с помощью
+```
+"oSubcategory": {
+  "nID": 3
+}
+```
+А также обязательные поля "sInfo", "sFAQ", "sLaw" - можно с пустыми значениями.
+
+
 <a name="16_getWorkflowStatistics">
 #### 16. Получение статистики по задачам в рамках бизнес процесса
 </a><a href="#0_contents">↑Up</a><br/>
@@ -1615,20 +1681,21 @@ http://test.igov.org.ua/wf/service/services/addHistoryEvent_Service?nID_Process=
 
  обновляет объект события по услуге,
 параметры:
-* nID_Protected - проверочное число-ид
-* sID_Status - строка-статус
-
-- сначала проверяется корректность числа nID_Protected -- последняя цифра должна быть "контрольной" (по
-<a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC_%D0%9B%D1%83%D0%BD%D0%B0">алгоритму Луна</a>) для всего числа без нее.
-- если не совпадает -- возвращается ошибка "CRC Error"  (код состояния HTTP 403)
-- если совпадает -- ищется запись по nID_Process = nID_Protected без последней цифры (берется последняя по дате добавления)
-- Если не найдена запись, то возвращает объект ошибки со значением "Record not found"  (код состояния HTTP 403)
-- обновление записи (если были изменения)
+ * nID_Process - ИД-номер задачи (long)
+ * sID_Status - строка-статус
+ * soData - строка-объект с данными (опционально, для поддержки дополнения заявки со стороны гражданина)
+ * sToken - строка-токена (опционально, для поддержки дополнения заявки со стороны гражданина)
+ * sHead - строка заглавия сообщения (опционально, для поддержки дополнения заявки со стороны гражданина)
+ * sBody - строка тела сообщения (опционально, для поддержки дополнения заявки со стороны гражданина)
 
 пример
-http://test.igov.org.ua/wf/service/services/updateHistoryEvent_Service?nID_Protected=11&sID_Status=finish
-
-
+http://test.igov.org.ua/wf/service/services/updateHistoryEvent_Service?nID_Process=1&sID_Status=finish
+Также при апдейте охраняется информация о действии в <a href="https://github.com/e-government-ua/i/blob/test/docs/specification.md#13_workWithHistoryEvents">Моем Журнале</a>
+1) запись "Ваша заявка №\[nID_Process\] змiнила свiй статус на \[sID_Status\]"
+2) если есть параметр soData, то еще создается запись в виде:
+ - "По заявці №\[nID_Process\] задане прохання уточнення: \[sBody\]" (если sToken не пустой) -- согласно сервису в <a href="https://github.com/e-government-ua/i/blob/test/docs/specification.md#38_setTaskQuestions">запроса на уточнение</a>
+ - "По заявці №\[nID_Process\] дана відповідь громадянином: \[sBody\]" (если sToken пустой) -- согласно сервису <a href="https://github.com/e-government-ua/i/blob/test/docs/specification.md#39_setTaskAnswer">ответа на запрос по уточнению</a>
+ - плюс перечисление полей из soData в формате таблицы Поле / Тип / Текущее значение
 <a name="18_workWithFlowSlot">
 #### 18. Электронные очереди (слоты потока, расписания и тикеты)
 </a><a href="#0_contents">↑Up</a><br/>
@@ -2022,7 +2089,7 @@ https://test.region.igov.org.ua/wf/service/rest/file/downloadTasksData?&sID_BP=d
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/getLoginBPs?sLogin=[userId]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/getLoginBPs?sLogin=[userId]**
 
 * sLogin - ID пользователя
 
@@ -2058,7 +2125,7 @@ https://test.region.igov.org.ua/wf/service/rest/getLoginBPs?sLogin=kermit
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=[flowId]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/getSheduleFlowIncludes?nID_Flow_ServiceData=[flowId]**
 
 * flowId - ID потока
 
@@ -2080,7 +2147,7 @@ https://test.region.igov.org.ua/wf/service/flow/getSheduleFlowIncludes?nID_Flow_
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/setSheduleFlowInclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/setSheduleFlowInclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]**
 
 * nID - ИД-номер //опциональный ,если задан - редактирование
 * nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
@@ -2113,7 +2180,7 @@ https://test.region.igov.org.ua/wf/service/flow/setSheduleFlowInclude?nID_Flow_S
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/removeSheduleFlowInclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/removeSheduleFlowInclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]**
 
 * nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
 * sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
@@ -2139,7 +2206,7 @@ https://test.region.igov.org.ua/wf/service/flow/removeSheduleFlowInclude?nID_Flo
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=[flowId]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/getSheduleFlowExcludes?nID_Flow_ServiceData=[flowId]***
 
 * flowId - ID потока
 
@@ -2161,7 +2228,7 @@ https://test.region.igov.org.ua/wf/service/flow/getSheduleFlowExcludes?nID_Flow_
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/setSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/setSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&sName=[sName]&sRegionTime=[sRegionTime]&sDateTimeAt=[sDateTimeAt]&sDateTimeTo=[sDateTimeTo]&saRegionWeekDay=[saRegionWeekDay]**
 
 * nID - ИД-номер //опциональный ,если задан - редактирование
 * nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
@@ -2194,7 +2261,7 @@ https://test.region.igov.org.ua/wf/service/flow/setSheduleFlowExclude?nID_Flow_S
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/removeSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/removeSheduleFlowExclude?nID_Flow_ServiceData=[nID_Flow_ServiceData]&nID=[nID]**
 
 * nID_Flow_ServiceData - номер-ИД потока (обязательный если нет sID_BP)
 * sID_BP - строка-ИД бизнес-процесса потока (обязательный если нет nID_Flow_ServiceData)
@@ -2252,7 +2319,7 @@ https://test.region.igov.org.ua/wf/service/rest/getPatternFile?sPathFile=print//
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/getFlowSlotTickets?sLogin=[sLogin]&bEmployeeUnassigned=[true|false]&sDate=[yyyy-MM-dd]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/flow/getFlowSlotTickets?sLogin=[sLogin]&bEmployeeUnassigned=[true|false]&sDate=[yyyy-MM-dd]**
 -- возвращает активные тикеты, отсортированные по startDate
 
 * sLogin - имя пользоватеял для которого необходимо вернуть тикеты
@@ -2286,7 +2353,7 @@ https://test.region.igov.org.ua/wf/service/flow/getFlowSlotTickets?sLogin=kermit
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByOrder?nID_Protected=[nID_Protected]
+**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByOrder?nID_Protected=[nID_Protected]**
 -- возвращает спискок ID пользовательских тасок по номеру заявки
 
 * nID_Protected - Номер заявки, в котором, все цифры кроме последней - ID процесса в activiti. А последняя цифра - его контрольная сумма зашифрованная по алгоритму Луна.
@@ -2323,7 +2390,7 @@ Responce status 200.
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.igov.org.ua/wf/service/services/getStatisticServiceCounts?nID_Service=[nID_Service]
+**HTTP Context: https://test.igov.org.ua/wf/service/services/getStatisticServiceCounts?nID_Service=[nID_Service]**
 
 * nID_Service - ID сервиса.
 
@@ -2475,11 +2542,12 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 ----------------------------------------------------------------------------------------------------------------------------
 
 <a name="36_getTasksByText">
-####36. Поиск заявок по тексту (в значениях полей без учета регистра)</a><br/> 
+####36. Поиск заявок по тексту (в значениях полей без учета регистра)
+</a><a href="#0_contents">↑Up</a>
 
 **HTTP Metod: GET**
 
-**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=[sFind]&sLogin=[sLogin]&bAssigned=true
+**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/tasks/getTasksByText?sFind=[sFind]&sLogin=[sLogin]&bAssigned=true**
 -- возвращает список ID тасок у которых в полях встречается указанный текст
 
 * sFind - текст для поиска в полях заявки.
@@ -2515,3 +2583,196 @@ test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshy
 ["4715238","4585243","4730773"]
 ```
 
+
+<a name="37_getAccessKeyt">
+####37. Получения ключа для аутентификации
+</a><a href="#0_contents">↑Up</a>
+
+**HTTP Metod: GET**
+
+**HTTP Context: http://server:port/wf/service/services/getAccessKey?**
+-- возвращает ключ для аутентификации
+
+* sAccessContract - контракт
+* sAccessLogin - технический логин
+* sData - контент по которому генерируется ключ
+
+Пример
+<a href="https://test.igov.org.ua/wf/service/services/getAccessKey?sAccessLogin=activiti-master&sAccessContract=Request&sData=/wf/service/setMessage">https://test.igov.org.ua/wf/service/services/getAccessKey?sAccessLogin=activiti-master&sAccessContract=Request&sData=/wf/service/setMessage</a>
+
+<a name="38_setTaskQuestions">
+####38. Вызов сервиса уточнения полей формы
+</a><a href="#0_contents">↑Up</a>
+
+**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/setTaskQuestions?nID_Protected=[nID_Protected]&saField=[saField]&sMail=[sMail]**
+сервис запроса полей, требующих уточнения у гражданина, с отсылкой уведомления
+параметры:
+ + nID_Protected - номер-ИД заявки (защищенный)
+ + saField - строка-массива полей (пример: "[{'id':'sFamily','type':'string','value':'Иванов'},{'id':'nAge','type':'long'}]")
+ + sMail - строка электронного адреса гражданина
+ + sHead - строка заголовка письма (опциональный, если не задан, то "Необхідно уточнити дані")
+ + sBody - строка тела письма (опциональный, добавляется перед таблицей, сли не задан, то пустота)
+
+при вызове сервиса:
+ - обновляется запись HistoryEvent_Service полем значениями из soData (из saField), sToken (сгенерированый случайно 20-ти символьный код), sHead, sBody (т.е. на этоп этапе могут быть ошибки, связанные с нахождением и апдейтом <a href="https://github.com/e-government-ua/i/blob/test/docs/specification.md#17_workWithHistoryEvent_Services">обьекта события по услуге</a>)
+ - отсылается письмо гражданину на указанный емейл (sMail):
+  * с заголовком sHead, 
+  * телом sBody 
+  * перечисление полей из saField в формате таблицы: Поле / Тип / Текущее значение
+  * гиперссылкой в конце типа: https://[hostCentral]/order?nID_Protected=[nID_Protected]&sToken=[sToken] 
+ - находитcя на региональном портале таска, которой устанавливается в глобальную переменные sQuestion содержимое sBody и  saFieldQuestion - содержимое saField
+ - сохраняется информация о действии в <a href="https://github.com/e-government-ua/i/blob/test/docs/specification.md#13_workWithHistoryEvents">Моем Журнале</a> в виде
+  *  "По заявці №____ задане прохання уточнення: [sBody]"
+  *  плюс перечисление полей из saField в формате таблицы Поле / Тип / Текущее значение
+
+Пример:
+https://test.region.igov.org.ua/wf/service/rest/setTaskQuestions?nID_Protected=52302969&saField=[{'id':'bankIdfirstName','type':'string','value':'3119325858'}]&sMail=test@email
+
+Ответы:
+Пустой ответ в случае успешного обновления (и приход на указанный емейл письма описанного выше формата)
+
+Возможные ошибки:
+ - не найдена заявка (```Record not found```) или ид заявки неверное (```CRC Error```)
+ - связанные с отсылкой письма, например, невалидный емейл (```Error happened when sending email```)
+ - из-за некорректных входящих данных, например неверный формат saField (пример ошибки: ```Expected a ',' or ']' at 72 [character 73 line 1]```)
+
+<a name="39_setTaskAnswer">
+####39. Вызов сервиса ответа по полям требующим уточнения</a><br/> 
+</a><a href="#0_contents">↑Up</a>
+
+**HTTP Context: https://test.region.igov.org.ua/wf/service/rest/setTaskAnswer?nID_Protected=[nID_Protected]&saField=[saField]&sToken=[sToken]&sBody=[sBody]**
+
+-- обновляет поля формы указанного процесса значениями, переданными в параметре saField
+**Важно:позволяет обновлять только те поля, для которых в форме бизнес процесса не стоит атрибут writable="false"**
+
+* nID_Protected - номер-ИД заявки (защищенный)
+* saField - строка-массива полей (например: "[{'id':'sFamily','type':'string','value':'Белявцев'},{'id':'nAge','type':'long','value':35}]")
+* sToken -  строка-токена. Данный параметр формируется и сохраняется в запись HistoryEvent_Service во время вызова метода setTaskQuestions
+* sBody -  строка тела сообщения (опциональный параметр)
+
+Во время выполнения метод выполняет такие действия
+- Находит в сущности HistoryEvent_Service нужную запись (по nID_Protected) и сверяет токен. Eсли токен в сущности указан но не совпадает с переданным, возвращается ошибка "Token wrong". Если он в сущности не указан (null) - возвращается ошибка "Token absent".
+- Находит на региональном портале таску и устанавливает в глобальную переменную sAnswer найденной таски содержимое sBody.
+- Устанавливает в каждое из полей из saField новые значения
+- Обновляет в сущности HistoryEvent_Service поле soData значением из saField и поле sToken значением null.
+- Сохраняет информацию о действии в Мой Журнал (Текст: На заявку №____ дан ответ гражданином: [sBody])
+
+Примеры:
+
+https://test.region.igov.org.ua/wf/service/rest/setTaskAnswer?nID_Protected=54352839&saField=[{%27id%27:%27bankIdinn%27,%27type%27:%27string%27,%27value%27:%271234567890%27}]&sToken=93ODp4uPBb5To4Nn3kY1
+
+Ответы:
+Пустой ответ в случае успешного обновления
+
+Токен отсутствует
+```json
+{"code":"BUSINESS_ERR","message":"Token is absent"}
+```
+
+Токен не совпадает со значением в HistoryEvent_Service
+```json
+{"code":"BUSINESS_ERR","message":"Token is absent"}
+```
+
+Попытка обновить поле с атрибутом writable="false"
+```json
+{"code":"BUSINESS_ERR","message":"form property 'bankIdinn' is not writable"}
+```
+
+<a name="40_AccessServiceLoginRight">
+####40. Получеение и установка прав доступа к rest сервисам</a><br/> 
+</a><a href="#0_contents">↑Up</a>
+
+**HTTP Metod: GET**
+
+**HTTP Context: https://test.region.igov.org.ua/wf/service/access/hasAccessServiceLoginRight?sLogin=[sLogin]&sService=[sService]&sData=[sData]**
+-- возвращает true - если у пользоватля с логином sLogin есть доступ к рест сервиу sService при вызове его с аргументами sData, или false - если доступа нет.
+
+* sLogin - имя пользователя для которого проверяется доступ
+* sService - строка сервиса
+* sData - опциональный параметр со строкой параметров к сервису (формат передачи пока не определен). Если задан бин sHandlerBean (см. ниже) то он может взять на себя проверку допуспности сервиса для данного набора параметров.
+
+Примеры:
+
+https://test.region.igov.org.ua/wf/service/access/hasAccessServiceLoginRight?sLogin=SomeLogin&sService=access/hasAccessServiceLoginRight
+
+Ответ:
+```json
+false
+```
+
+
+**HTTP Context: https://test.region.igov.org.ua/wf/service/access/getAccessServiceLoginRight?sLogin=[sLogin]**
+-- возвращает список всех сервисов доступных пользователю с именем sLogin с формате JSON.
+
+* sLogin - имя пользователя
+
+Примеры:
+
+https://test.region.igov.org.ua/wf/service/access/getAccessServiceLoginRight?sLogin=TestLogin
+
+Ответ:
+```json
+[
+    "TestService"
+]
+```
+
+
+**HTTP Metod: POST**
+
+**HTTP Context: https://test.region.igov.org.ua/wf/service/access/setAccessServiceLoginRight**
+-- Сохраняет запись в базе, что пользователь sLogin имеет доступ к сервису sService. Существование такого пользователя и сервиса не проверяется.
+
+Параметры:
+
+* sLogin - имя пользователя
+* sService - строка сервиса
+* sHandlerBean - опцинальный параметр: имя спрингового бина реализующего интерфейс AccessServiceLoginRightHandler, который будет заниматься проверкой прав доступа для данной записи. При сохранении проверяется наличие такого бина, и если его нет - то будет выброшена ошибка.
+
+Примеры:
+
+https://test.region.igov.org.ua/wf/service/access/setAccessServiceLoginRight
+
+* sLogin=SomeLogin
+* sService=access/hasAccessServiceLoginRight
+
+Ответ:
+``` Status 200 ```
+
+https://test.region.igov.org.ua/wf/service/access/setAccessServiceLoginRight?
+
+* sLogin=SomeLogin
+* sService=access/hasAccessServiceLoginRight
+* sHandlerBean=WrongBean
+
+Ответ:
+```json
+{
+    "code": "SYSTEM_ERR",
+    "message": "No bean named 'WrongBean' is defined"
+}
+```
+
+
+**HTTP Metod: DELETE**
+
+**HTTP Context: https://test.region.igov.org.ua/wf/service/access/removeAccessServiceLoginRight?sLogin=[sLogin]&sService=[sService]**
+-- Удаляет запись из базы, что пользователь sLogin имеет доступ к сервису sService. Статус код 200 означает что запись успешно удалена. Код 304 - что такая запись не найдена.
+
+Параметры:
+
+* sLogin - имя пользователя
+* sService - строка сервиса
+
+Примеры:
+
+https://test.region.igov.org.ua/wf/service/access/removeAccessServiceLoginRight?sLogin=TestLogin&sService=TestService
+
+Ответ:
+``` Status 200 ```
+
+https://test.region.igov.org.ua/wf/service/access/removeAccessServiceLoginRight?sLogin=FakeLogin&sService=TestService
+
+Ответ:
+``` Status 304 ```

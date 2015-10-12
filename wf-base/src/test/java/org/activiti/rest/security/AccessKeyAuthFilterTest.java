@@ -59,7 +59,7 @@ public class AccessKeyAuthFilterTest {
 
 		assertEquals("654321", authentication.getName());
 		assertEquals("654321", authentication.getPrincipal());
-		assertEquals("/root/servlet/path?sAccessContract=Request&nID_Subject=123456&Data",
+		assertEquals("/root/servlet/path?nID_Subject=123456&Data",
 				authentication.getCredentials());
 
 		verify(filterChain).doFilter(request, null);

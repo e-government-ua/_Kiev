@@ -2,7 +2,9 @@ package org.wf.dp.dniprorada.dao;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.NullPrecedence;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.joda.time.DateTime;
@@ -47,8 +49,10 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
 
         AlgorithmLuna.validateProtectedNumber(nID_Protected);
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
+        criteria.addOrder(Order.desc("sDate").nulls(NullPrecedence.LAST) );
         criteria.add(Restrictions.eq("nID_Task", AlgorithmLuna.getOriginalNumber(nID_Protected)));
-        HistoryEvent_Service event_service = (HistoryEvent_Service) criteria.uniqueResult();
+        List<HistoryEvent_Service> list = (List<HistoryEvent_Service>)criteria.list();
+        HistoryEvent_Service event_service = list.size() > 0 ? list.get(0) : null;
         if (event_service == null) {
             log.warn("Record not found");
             throw new EntityNotFoundException("Record not found");
@@ -76,7 +80,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
         event_service.setnID_Service(nID_Service);
         event_service.setsID_UA(sID_UA);
         event_service.setnRate(nRate == null ? 0 : nRate);
-        event_service.setSoData(soData == null || "".equals(soData) ? "{}" : soData);
+        event_service.setSoData(soData == null || "".equals(soData) ? "[]" : soData);
         event_service.setsToken(sToken);
         event_service.setsHead(sHead);
         event_service.setsBody(sBody);
@@ -101,6 +105,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
             Map<String, Long> currRes = new HashMap<>();
             currRes.put("sName", 5L);
             currRes.put("nCount", 1L);
+            currRes.put("nRate", 0L);
             resHistoryEventService.add(currRes);
         }
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
@@ -108,7 +113,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
         criteria.setProjection(Projections.projectionList()
                         .add(Projections.groupProperty("nID_Region"))
                         .add(Projections.count("nID_Service"))
-                .add(Projections.avg("nRate")) //for issue 777
+                        .add(Projections.avg("nRate")) //for issue 777
         );
         Object res = criteria.list();
         log.info("Received result in getHistoryEvent_ServiceBynID_Service:" + res);
@@ -116,35 +121,28 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
             log.warn("List of records based on nID_Service not found" + nID_Service);
             throw new EntityNotFoundException("Record not found");
         } else {
+            int i = 0;
             for (Object item : criteria.list()) {
                 Object[] currValue = (Object[]) item;
-                log.info("Curr value:" + currValue);
-                
-                //String snRate = (String) currValue[2];
-                String snRate = "0";
+                log.info(String.format("Line %s: %s, %s, %s", i, currValue[0], currValue[1], currValue[2]));
+                i++;
+                Long rate = 0L;
                 try{
-                    snRate = (String) currValue[2];
+                    Double nRate = (Double) currValue[2];
+                    log.info("nRate=" + nRate);
+                    String snRate = "" + nRate * 20;
+                    log.info("snRate=" + snRate);
+                    if (snRate.contains(".")) {
+                        rate = Long.valueOf(snRate.substring(0, snRate.indexOf(".")));
+                        log.info("total rate = " + rate);
+                    }
                 }catch(Exception oException){
-                    log.error("[Curr value(String)]:" + oException.getMessage());
+                    log.error("cannot get nRate! " + currValue[2] + " caused: " + oException.getMessage(), oException);
                 }
-                
-                try{
-                    snRate = ((Long) currValue[2])+"";
-                }catch(Exception oException){
-                    log.error("[Curr value(Long)]:" + oException.getMessage());
-                }
-                
-                log.info("(String) currValue[2])=" + snRate);
-                if(snRate==null || "null".equals(snRate)){
-                    snRate="0";
-                }
-                
                 Map<String, Long> currRes = new HashMap<>();
                 currRes.put("sName", (Long) currValue[0]);
                 currRes.put("nCount", (Long) currValue[1]);
-                currRes.put("nRate", Long.valueOf(snRate)*20);//for issue 777//*20//
-//                currRes.put("nRate", Long.valueOf(0));//for issue 777//*20
-                // currRes.put("nRate", new BigDecimal(Float.valueOf("" + currValue[2])).setScale(1).floatValue());//for issue 777
+                currRes.put("nRate", rate);
                 resHistoryEventService.add(currRes);
             }
             log.info("Found " + resHistoryEventService.size() + " records based on nID_Service " + nID_Service);

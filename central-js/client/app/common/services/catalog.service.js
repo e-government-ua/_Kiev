@@ -2,14 +2,15 @@ angular.module('app')
   .service('CatalogService', ['$http', '$q', function ($http, $q) {
 
   var servicesCache = {};
-  this.getModeSpecificServices = function (asIDPlacesUA, sFind) {
+  this.getModeSpecificServices = function (asIDPlacesUA, sFind, bShowEmptyFolders) {
     var asIDPlaceUA = asIDPlacesUA && asIDPlacesUA.length > 0 ? asIDPlacesUA.reduce(function (ids, current, index) {
       return ids + ',' + current;
     }) : null;
 
     var data = {
       asIDPlaceUA: asIDPlaceUA,
-      sFind: sFind || null
+      sFind: sFind || null,
+      bShowEmptyFolders: bShowEmptyFolders
     };
     return $http.get('./api/catalog', {
       params: data,
@@ -103,34 +104,33 @@ angular.module('app')
     return simpleHttpPromise(request, callback);
   };
 
-  var del = function(path, nID, bRecursive, nID_Subject, callback){
+  var del = function(path, nID, bRecursive, callback){
     var request = {
       method: 'DELETE',
       url: path,
       params: {
         nID: nID,
-        bRecursive: bRecursive,
-        nID_Subject: nID_Subject
+        bRecursive: bRecursive
       }
     };
 
     return simpleHttpPromise(request, callback);
   };
 
-  this.removeCategory = function(nID, bRecursive, nID_Subject, callback){
-    return del('/api/catalog/category', nID, bRecursive, nID_Subject, callback);
+  this.removeCategory = function(nID, bRecursive, callback){
+    return del('/api/catalog/category', nID, bRecursive, callback);
   };
 
-  this.removeSubcategory = function(nID, bRecursive, nID_Subject, callback){
-    return del('/api/catalog/subcategory', nID, bRecursive, nID_Subject, callback);
+  this.removeSubcategory = function(nID, bRecursive, callback){
+    return del('/api/catalog/subcategory', nID, bRecursive, callback);
   };
 
-  this.removeService = function(nID, bRecursive, nID_Subject, callback){
-    return del('/api/catalog/service', nID, bRecursive, nID_Subject, callback);
+  this.removeService = function(nID, bRecursive, callback){
+    return del('/api/catalog/service', nID, bRecursive, callback);
   };
 
-  this.removeServiceData = function(nID, bRecursive, nID_Subject, callback){
-    return del('/api/catalog/serviceData', nID, bRecursive, nID_Subject, callback);
+  this.removeServiceData = function(nID, bRecursive, callback){
+    return del('/api/catalog/serviceData', nID, bRecursive, callback);
   };
 
   this.removeServicesTree = function(nID_Subject, callback){

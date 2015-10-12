@@ -1,0 +1,216 @@
+<div class="list-group">
+
+  <place></place>
+
+  <div class="list-group-item disabled">
+    <div class="row no-margin-bottom">
+      <div class="col-md-11">Крок 2. Ви увійшли як
+        {{account.customer.firstName}} {{account.customer.middleName}} {{account.customer.lastName}}
+      </div>
+      <div class="col-md-1">
+        <div class="link-button">
+          <a ng-click="editBankId()">Змінити</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="list-group-item">
+    <div class="row">
+      <div class="col-md-12">Крок 3.
+        {{data.formData.params["processName"].name==null?"":data.formData.params["processName"].name}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="highlight">
+          <form name="form"
+                novalidate>
+            <div class="row"
+                 ng-repeat="property in ActivitiForm.formProperties track by property.id"
+                 ng-if="isFieldVisible(property)">
+
+              <div class="col-md-5"
+                   ng-if="property.type!='invisible' && property.type!='markers'">
+                <label style="color: red;"
+                       ng-if="isFieldRequired(property)==true">* </label>
+                {{property.sFieldLabel}}:
+
+                <div class="s-field-notes"
+                     ng-if="property.sFieldNotes!=null">
+                  {{property.sFieldNotes}}
+                </div>
+              </div>
+
+
+              <div class="col-md-3"
+                   ng-class="{'has-error': form.$submitted && form[property.id].$invalid}"
+                   ng-if="showFormField(property)"
+                   ng-switch
+                   on="property.type">
+                                <textarea ng-switch-when="textArea"
+                                          name="{{property.id}}"
+                                          ng-model="data.formData.params[property.id].value"
+                                          ng-required="isFieldRequired(property)"
+                                          class="form-control"></textarea>
+                <label ng-switch-when="label"
+                       name="{{property.id}}"
+                       ng-required="isFieldRequired(property)"
+                        class="form-control_"
+                        ng-bind-html="data.formData.params[property.id].value">
+                         <!--{{data.formData.params[property.id].value}}-->
+                 </label>
+
+                <dropdown-country ng-switch-when="string"
+                                  ng-if="property.id==='resident' || property.id === 'sCountry'"
+                                  ng-model="data.formData.params[property.id].value"
+                                  service-data="oServiceData"
+                                  ng-required="isFieldRequired(property)"></dropdown-country>
+
+                <input ng-switch-when="string"
+                       type="text"
+                       name="{{property.id}}"
+                       ng-hide="property.id==='resident' || property.id === 'sCountry'"
+                       ng-model="data.formData.params[property.id].value"
+                       ng-required="isFieldRequired(property)"
+                       class="form-control"
+                       value="">
+
+                <label style="display: none;"
+                       ng-switch-when="invisible"
+                       name="{{property.id}}"
+                       ng-required="isFieldRequired(property)"
+                       class="form-control_">{{data.formData.params[property.id].value}}</label>
+                <label style="display: none;"
+                       ng-switch-when="markers"
+                       name="{{property.id}}"
+                       ng-required="isFieldRequired(property)"
+                       class="form-control_">{{data.formData.params[property.id].value}}</label>
+
+                <!--type="{{!!property.sFieldType?property.sFieldType : 'text'}}"-->
+                <input ng-switch-when="long"
+                       type="{{!!property.sFieldType?property.sFieldType : 'text'}}"
+                       name="{{property.id}}"
+                       ng-model="data.formData.params[property.id].value"
+                       ng-required="isFieldRequired(property)"
+                       class="form-control"
+                       value="">
+
+                <input ng-switch-when="tel"
+                       type="text"
+                       name="{{property.id}}"
+                       ng-model="data.formData.params[property.id].value"
+                       ng-tel-field="{defaultCountry:'ua', autoFormat:true, allowExtensions:false, preferredCountries:['ua'], autoPlaceholder:true}"
+                       ng-required="isFieldRequired(property)"
+                       class="form-control"
+                       value="">
+
+                <p class="input-group"
+                   ng-switch-when="date">
+
+                  <input type="text"
+                         name="{{property.id}}"
+                         datepicker-popup="{{data.formData.params[property.id].format}}"
+                         is-open="data.formData.params[property.id].opened"
+                         datepicker-options="data.formData.params[property.id].options"
+                         ng-model="data.formData.params[property.id].value"
+                         ng-required="isFieldRequired(property)"
+                         ng-readonly="true"
+                         close-text="Close"
+                         class="form-control"
+                         value="">
+                  <span class="input-group-btn">
+                    <button type="button"
+                            class="btn btn-default"
+                            ng-click="data.formData.params[property.id].open($event)">
+                      <i class="glyphicon glyphicon-calendar"></i></button>
+                  </span>
+                </p>
+                <select ng-switch-when="enum"
+                        name="{{property.id}}"
+                        ng-model="data.formData.params[property.id].value"
+                        ng-options="oEnumValue.id as oEnumValue.name for oEnumValue in property.enumValues"
+                        ng-required="isFieldRequired(property)"
+                        class="form-control"></select>
+
+                <p class="input-group"
+                   ng-switch-when="file">
+                  <label ng-if="data.formData.params[property.id].scan && data.formData.params[property.id].isLoading"
+                         name="{{property.id}}_0"
+                         class="form-control_">
+                    Завантаження із BankID ...</label>
+                  <label ng-if="data.formData.params[property.id].scan && !data.formData.params[property.id].isLoading"
+                         name="{{property.id}}_0"
+                         class="form-control_">
+                    Завантажено із BankID</label>
+                  <file-field name="{{property.id}}"
+                              ng-model="data.formData.params[property.id].value"
+                              ng-required="isFieldRequired(property)"
+                              ng-if="data.formData.params[property.id].upload">Add File
+                  </file-field>
+                </p>
+
+                <slot-picker ng-switch-when="queueData"
+                             name="{{property.id}}"
+                             service-data="oServiceData"
+                             ng-model="data.formData.params[property.id].value"
+                             form-data="data.formData"
+                             property="property"
+                             ng-required="isFieldRequired(property)"></slot-picker>
+
+                <dropdown-organ ng-switch-when="select"
+                                ng-if="property.id==='sID_Public_SubjectOrganJoin'"
+                                ng-model="data.formData.params[property.id].value"
+                                service-data="oServiceData"
+                                ng-required="isFieldRequired(property)"></dropdown-organ>
+
+              </div>
+
+              <div class="col-md-3" ng-if="renderAsLabel(property)" ng-hide="property.type === 'file'"
+                   ng-bind="data.formData.params[property.id].value">
+                <input type="hidden"
+                       name="{{property.id}}"
+                       ng-model="data.formData.params[property.id].value"
+                       ng-required="isFieldRequired(property)"
+                       class="form-control"
+                       value="">
+              </div>
+
+              <div class="col-md-4 validation-message"
+                   ng-if="form.$submitted"``
+                   ng-messages="form[property.id].$error">
+                <div ng-message="required">Необхідно заповнити.</div>
+                <div ng-message="pattern">Значення має бути числом.</div>
+                <div ng-message="email">Помилка в email.</div>
+                <div ng-message="tel">Помилка в номері телефону.</div>
+                <div ng-message="autovin">Помилка у VIN-номері авто.</div>
+                <div ng-message="textua">Текст може містити тількі українські літери або мінус чи пробіл.</div>
+                <div ng-message="textru">Текст може містити тількі російські літери або мінус чи пробіл.</div>
+                <div ng-message="dateformat">Дата може бути тільки формату DATE_FORMAT.</div>
+                <div ng-message="dateelapsed">З/до дати з/після сьогоднішньої, має бути більше/менше ніж х-днів,
+                  х-місяців, х-років.
+                </div>
+                <div ng-message="CodeKVED">Такого КВЕД не існує - (ви не можете вписувати літери)</div>
+                <div ng-message="CodeEDRPOU">Такий код ЄДРПОУ не існує - (ви не можете вписувати літери)</div>
+                <div ng-message="CodeMFO">Такого коду банку не існує - (ви не можете вписувати літери)</div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-5"></div>
+              <div class="col-md-3">
+                <button class="btn btn-info"
+                        ng-click="submit(form)"
+                        ng-disable="cantSubmit(form)"
+                        ng-hide="bSending(form)">
+                  Замовити послугу
+                </button>
+                <br><label ng-show="bSending(form)">Зачекайте...</label>
+              </div>
+              <div class="col-md-4"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
