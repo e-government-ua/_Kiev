@@ -110,7 +110,7 @@
           <activiti:value id="attr1_ok" name="Заповнені дані вірні, запросити громадянина"></activiti:value>
           <activiti:value id="attr2_bad" name="Відсутність законних підстав та необхідних документів"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="date_visit" name="Внесіть дату та час візиту громадянки для надання довідки виданої лікувально-профілактичним закладом" type="string"></activiti:formProperty>
+        <activiti:formProperty id="date_visit" name="Внесіть дату та час візиту громадянина для отримання посвідчення" type="string"></activiti:formProperty>
         <activiti:formProperty id="decision_comment" name="Якщо ви відмовляєте замовнику, обов'язково вкажіть підставу у цьому полі" type="textArea"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
