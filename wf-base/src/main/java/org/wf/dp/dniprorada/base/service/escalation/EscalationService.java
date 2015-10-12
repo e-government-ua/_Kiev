@@ -64,7 +64,6 @@ public class EscalationService {
                 runEscalationRule(oEscalationRule);
 
             }
-            //return escalationRuleFunctionDao.saveOrUpdate(nID, sName, sBeanHandler);
         } catch (Exception oException) {
             log.error("[getTaskData]:" + oException);
             throw new ActivitiRestException("ex in controller!", oException);
@@ -94,8 +93,6 @@ public class EscalationService {
         List<Task> aTask = oTaskQuery.listPage(nRowStart, nRowsMax);
 
         for (Task oTask : aTask) {
-            //long nID_task_activiti = Long.valueOf(oTask.getId());
-            //Map<String, Object> mTaskParam = getTaskData(nID_task_activiti);//new HashMap()
             try {
             Map<String, Object> mTaskParam = getTaskData(oTask);
 
@@ -121,13 +118,11 @@ public class EscalationService {
 
         Map<String, Object> m = new HashMap();
 
-        //Date = Date
         long nDiffMS = 0;
         if (oTask.getDueDate() != null) {
             nDiffMS = oTask.getDueDate().getTime() - oTask.getCreateTime().getTime();
         }else{
             nDiffMS = DateTime.now().toDate().getTime() - oTask.getCreateTime().getTime();
-            //Date oDateTo = DateTime.now().toDate();
         }
         log.info("[getTaskData]:nDiffMS=" + nDiffMS);
         
