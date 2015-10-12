@@ -121,7 +121,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_mvd_199">
     <bpmndi:BPMNPlane bpmnElement="dnepr_mvd_199" id="BPMNPlane_dnepr_mvd_199">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="119.0" y="50.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="110.0" y="50.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="55.0" width="105.0" x="317.0" y="170.0"></omgdc:Bounds>
@@ -139,7 +139,7 @@
         <omgdc:Bounds height="55.0" width="105.0" x="320.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="154.0" y="67.0"></omgdi:waypoint>
+        <omgdi:waypoint x="145.0" y="67.0"></omgdi:waypoint>
         <omgdi:waypoint x="170.0" y="67.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
