@@ -1,0 +1,33 @@
+- var sFieldLabel = function(s){ var s = ''; if (sField !== null) {  var a = sField.split(';'); s = a[0].trim();} return s;}
+- var sEnumValue = function(aItem, sID){
+-   var s = sID;
+-   for (var i in aItem) {
+-     if (aItem[i].id == sID) {
+-     s = aItem[i].name;
+-     break;
+-   }
+-   return s;
+-   }
+- }
+
+html
+  body
+    #container.col
+      p Звернення: #{processName}
+      p джерело: igov.org.ua
+      p №: #{businessKey}
+      p від: #{creationDate}
+      p
+        each val in formData
+          if val.type != 'invisible'
+            font #{sFieldLabel(val.name)}
+          if val.type == 'enum'
+            b #{sEnumValue(val.enumValues, val.value)}
+          if val.type != 'enum' && item.type != 'invisible'
+            b #{item.value}
+      p
+        | ----------------------------------------------------------------------------------------------------------------------------
+      p
+        | Довідку№ _________________________ Отримав (ПІБ)_________________________
+      p
+        | Дата _________________________ Підпис _________________________
