@@ -61,7 +61,8 @@ module.exports.submit = function (req, res) {
     if (id === 'nID_Subject') {
       value = nID_Subject;
     }
-    if (id === 'sID_UA') {
+    //if (id === 'sID_UA') {
+    if (id === 'sID_UA_Common') {
       value = options.formData.sID_UA;
     }
     
