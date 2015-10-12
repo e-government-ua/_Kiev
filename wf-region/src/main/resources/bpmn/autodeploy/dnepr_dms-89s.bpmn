@@ -66,7 +66,7 @@
         <activiti:formProperty id="kidsPOB4" name="Місце народження 4-ї дитини; Країна, область, район і населений пункт" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsDoc4" name="Свідоцтво про народження 4-ї дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship4" name="Громадянство 4-ї дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="visitDay" name="Оберіть день та час, коли Вам буде зручно зайти до відділення ДМС?" type="queueData" required="true"></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="Оберіть день та час, коли Вам буде зручно зайти до відділення ДМС?" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="marker1" name="Попереднє ПІБ" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;lastName_UA1&quot;,&quot;firstName_UA1&quot;,&quot;middleName_UA1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;PrevName1&quot;},&quot;sCondition&quot;:&quot;[sReason]=='yes'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker3" name="Військомат" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;milName&quot;,&quot;milRank&quot;,&quot;milSpec&quot;],&quot;asID_Field&quot;:{&quot;sReason2&quot;:&quot;milit_status&quot;},&quot;sCondition&quot;:&quot;[sReason2]=='true'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker4" name="Дитина1" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;lastName_UA2&quot;,&quot;firstName_UA2&quot;,&quot;middleName_UA2&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;:&quot;kids&quot;},&quot;sCondition&quot;:&quot;[sReason3]=='yes1'&quot;}}}"></activiti:formProperty>
@@ -244,7 +244,7 @@
 										&lt;p&gt;
 											У Вас в черзі на обробку зареєстровано нове звернення щодо зняття з реєстрації місця проживання особи.&lt;br /&gt;
 											Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-											Опрацюйте, будь ласка, це звернення на &lt;a href="https://test.region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
+											Опрацюйте, будь ласка, це звернення на &lt;a href="https://region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
 										&lt;/p&gt;
 										&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
 										&lt;p&gt;
@@ -320,7 +320,7 @@
         <activiti:formProperty id="kidsPOB4" name="Місце народження 4-ї  дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc4" name="Свідоцтво про народження 4-ї  дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship4" name="Громадянство 4-ї  дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="visitDay" name="Бажаний день зустрічі" type="queueData" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="Бажаний день зустрічі" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення працівника ДМС" type="enum" required="true">
           <activiti:value id="accept" name="Призначити зустріч у відділенні"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
@@ -564,7 +564,7 @@
     <userTask id="usertask2" name="Візит громадянина" activiti:candidateGroups="dnepr_dms-89s_${district}">
       <extensionElements>
         <activiti:formProperty id="info1" name="На цьому етапі:" type="label" default="Громадянин приходить до Вас. Ви звіряєте дані з ним, при необхідності вносите зміни. Роздруковуєте прінтформи, підписуєте їх та проставляєте штамп у паспорт громадянина."></activiti:formProperty>
-        <activiti:formProperty id="visitDay" name="День зустрічі" type="queueData" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="День зустрічі" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
