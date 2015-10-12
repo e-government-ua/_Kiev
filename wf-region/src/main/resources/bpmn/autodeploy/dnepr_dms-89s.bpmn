@@ -181,7 +181,7 @@
     <serviceTask id="mailtask4" name="Повідомлення ДМС про нове звернення" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>zhigan.roman@gmail.com</activiti:expression>
+          <activiti:expression>dms_dn_babysh@ukr.net</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
