@@ -97,7 +97,8 @@ public class AuthenticationTokenSelector {
 		Enumeration<String> oaName = oRequest.getParameterNames();			
 		while (oaName.hasMoreElements()) {			
                     String sName = oaName.nextElement();
-                    if (!ACCESS_KEY.equalsIgnoreCase(sName) && !ACCESS_CONTRACT.equalsIgnoreCase(sName)) {			
+                    if (!ACCESS_KEY.equalsIgnoreCase(sName) && !ACCESS_CONTRACT.equalsIgnoreCase(sName)
+                            && !ACCESS_LOGIN.equalsIgnoreCase(sName)) {			
                             String sValue = oRequest.getParameter(sName);		
                             aParameter.add(new BasicNameValuePair(sName, sValue));		
                     }			
