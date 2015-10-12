@@ -22,7 +22,10 @@
         <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="85.94"></activiti:formProperty>
         <activiti:formProperty id="sID_Currency" name="ИД-строковой валюты" type="invisible" default="UAH"></activiti:formProperty>
         <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default=";04000043; 036032;1;відстрілювання вогнепальної зброї та огляд її технічного стану: нарізної і комбінованої мисливської та спортивної зброї. (у т.ч. коміссія 1.8%)"></activiti:formProperty>
-      </extensionElements>
+       <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
+       <activiti:formProperty id="markers12" name="маркер нарізна" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot; &quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;weapon_type&quot;},&quot;sCondition&quot;:&quot;[sReason]=='rifle'&quot;}}}"></activiti:formProperty>
+       <activiti:formProperty id="markers13" name="маркер травматична" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;Про можливість руйнування пристрою внаслідок використання наданих мною патронів, попереджений.&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;weapon_type&quot;},&quot;sCondition&quot;:&quot;[sReason]=='traumatic'&quot;}}}"></activiti:formProperty>
+       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="обробка звернення" activiti:candidateGroups="dnepr_mvd_199">
       <extensionElements>
@@ -35,10 +38,6 @@
         <activiti:formProperty id="weapon" name="Найменування зброї" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="weapon_number" name="Заводський номер зброї" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="weapon_caliber" name="Калібр зброї" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="action" name="оберіть заповнене поле якщо зброя травматична" type="enum" default="empty" required="true">
-          <activiti:value id="empty" name=" "></activiti:value>
-          <activiti:value id="traumatic" name="Про можливість руйнування пристрою внаслідок використання наданих мною патронів, попереджений."></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="PrintForm_1" name="File label;File title;pattern/print/dnepr_mvd_199.html" type="file"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_mvd_199.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
