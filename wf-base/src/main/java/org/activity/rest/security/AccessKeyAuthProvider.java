@@ -58,6 +58,9 @@ public class AccessKeyAuthProvider implements AuthenticationProvider {
             sAccessData = sAccessData.replace("&"+AuthenticationTokenSelector.ACCESS_CONTRACT+"="+AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST_AND_LOGIN, "")
                     .replace(""+AuthenticationTokenSelector.ACCESS_CONTRACT+"="+AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST_AND_LOGIN+"&", "");
         }
+        if(sAccessData.contains(AuthenticationTokenSelector.ACCESS_LOGIN)){
+            sAccessData = sAccessData.substring(0, sAccessData.indexOf("&" + AuthenticationTokenSelector.ACCESS_LOGIN)); //&sAccessLogin=activiti-master  
+        }
         
         String sAccessDataGenerated = oAuthentication.getCredentials()+"";
         String sAccessDataGeneratedDecoded = null;
