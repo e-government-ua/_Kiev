@@ -14,8 +14,10 @@ import org.wf.dp.dniprorada.base.model.EscalationRule;
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
 import org.wf.dp.dniprorada.base.service.escalation.EscalationService;
 import org.wf.dp.dniprorada.base.service.escalation.EscalationHelper;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 
 import javax.persistence.EntityNotFoundException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +39,9 @@ public class ActivitiRestEscalationController {
 
     @Autowired
     private EscalationHelper escalationHelper;
+    
+	@Autowired		
+	GeneralConfig generalConfig;
 
     @RequestMapping(value = "/runEscalationRule", method = RequestMethod.GET)
     public
@@ -45,7 +50,7 @@ public class ActivitiRestEscalationController {
         @RequestParam(value = "nID") Long nID)
             throws ActivitiRestException {
 
-        escalationService.runEscalationRule(nID);
+        escalationService.runEscalationRule(nID, generalConfig.sHost());
     }
 
     @RequestMapping(value = "/runEscalation", method = RequestMethod.GET)

@@ -29,7 +29,10 @@ import java.util.Map;
 
 @Service
 public class EscalationService {
-    private static final Logger log = Logger.getLogger(EscalationService.class);
+    private static final String SEARCH_DELAYED_TASKS_URL = "/task-activiti/";
+
+
+	private static final Logger log = Logger.getLogger(EscalationService.class);
 
 
     @Autowired
@@ -61,7 +64,7 @@ public class EscalationService {
         try {
             List<EscalationRule> aEscalationRule = escalationRuleDao.findAll();
             for (EscalationRule oEscalationRule : aEscalationRule) {
-                runEscalationRule(oEscalationRule);
+                runEscalationRule(oEscalationRule, "https://region.org.gov.ua");
 
             }
         } catch (Exception oException) {
@@ -71,11 +74,11 @@ public class EscalationService {
 
     }
 
-    public void runEscalationRule(Long nID_escalationRule){
-        runEscalationRule(escalationRuleDao.findById(nID_escalationRule).orNull());
+    public void runEscalationRule(Long nID_escalationRule, String regionalServerPath){
+        runEscalationRule(escalationRuleDao.findById(nID_escalationRule).orNull(), regionalServerPath);
     }
 
-    private void runEscalationRule(EscalationRule oEscalationRule) {
+    private void runEscalationRule(EscalationRule oEscalationRule, String regionalServerPath) {
         EscalationRuleFunction oEscalationRuleFunction = oEscalationRule.getoEscalationRuleFunction();
 
         String sID_BP = oEscalationRule.getsID_BP();
@@ -95,6 +98,7 @@ public class EscalationService {
         for (Task oTask : aTask) {
             try {
             Map<String, Object> mTaskParam = getTaskData(oTask);
+            mTaskParam.put("processLink", regionalServerPath + SEARCH_DELAYED_TASKS_URL + mTaskParam.get("nID_task_activiti"));
 
             log.info("[getTaskData]:checkTaskOnEscalation mTaskParam=" + mTaskParam);
             escalationHelper.checkTaskOnEscalation(mTaskParam
@@ -175,7 +179,7 @@ public class EscalationService {
 		
         m.put("sServiceType", processDefinition != null ? processDefinition.getName() : "");
         m.put("sTaskName", String.format("%s", oTask.getName()));
-        m.put("sTaskNumber", String.format("%s ", oTask.getId().toString()));
+        m.put("sTaskNumber", AlgorithmLuna.getProtectedNumber(Long.valueOf(oTask.getProcessInstanceId())));
         m.put("sElapsedInfo", String.format("%d", nElapsedDays));
         m.put("sResponsiblePersons", String.format("%s", osaUser.toString()));
         
