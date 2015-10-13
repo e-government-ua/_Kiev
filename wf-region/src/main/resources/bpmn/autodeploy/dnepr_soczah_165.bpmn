@@ -191,8 +191,8 @@
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 Ваше звернення щодо призначення державної допомоги у зв'язку з вагітністю та пологами прийнято в роботу.&lt;br /&gt;
 Вам призначено дату і час візиту для надання оригіналу довідки про вагітність -  ${date_visit}.&lt;br /&gt;
-Адреса: [pattern_dictonary:dnepr_soc_help.csv:${rName}:3], кабінет ${room}&lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:${rName}:5]
+Адреса: [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:3], кабінет ${room}&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]
 &lt;br /&gt;
 Після надання оригіналу документу, звернення буде передано на подальше опрацювання.&lt;/h3&gt;
 [pattern/mail/_common_signature_start.html]
@@ -221,8 +221,8 @@
 &lt;br /&gt;
 Вам призначено дату і час візиту для надання оригіналу довідки про вагітнісь -  ${date_visit}.&lt;br /&gt;
 Кабінет ${room}
-Адреса: [pattern_dictonary:dnepr_soc_help.csv:${rName}:3]&lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:${rName}:5]
+Адреса: [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]
 &lt;br /&gt;
 Після надання оригіналу документу, звернення буде передано на подальше опрацювання.&lt;/h3&gt;
 ${comment_1}&lt;br /&gt;
