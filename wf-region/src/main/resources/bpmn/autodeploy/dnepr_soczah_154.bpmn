@@ -80,7 +80,7 @@
         <activiti:formProperty id="decision" name="Обробка заяви (1-й етап)" type="enum" required="true">
           <activiti:value id="attr1_finish" name="Заповнені дані вірні, інформація направлена на розгляд, очікується рішення"></activiti:value>
           <activiti:value id="attr2_doc_bad" name="Дані заповнені невірно, відхилити звернення (обов'язково впишіть коментар нижче)"></activiti:value>
-          <activiti:value id="attr3_doc_bad" name="Дані надані не в повному обсязі - направити громаднину повідомлення (обов'язково впишіть коментар нижче)"></activiti:value>
+          <activiti:value id="attr3_doc_bad" name="Дані надані не в повному обсязі - направити громадянину повідомлення (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="sBody" name="[pattern/print/dnepr_soczah_154_zayava.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
@@ -289,7 +289,7 @@
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-&lt;p&gt;Ваше звернення щодо призначення державної соціальної допомоги малозабезпеченим сім’ям в очикуванні недостатніх документів. Протягом трьох місяців Ви повині донести іх в  [pattern_dictonary:dnepr_soc_help.csv:${rName}:2] за адресою [pattern_dictonary:dnepr_soc_help.csv:${rName}:3] або заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;, враховуючи коментар нижче.&lt;/p&gt;
+&lt;p&gt;Ваше звернення щодо призначення державної соціальної допомоги малозабезпеченим сім’ям в очикуванні недостатніх документів. Протягом трьох місяців Вам необхідно донести їх в [pattern_dictonary:dnepr_soc_help.csv:${rName}:2] за адресою [pattern_dictonary:dnepr_soc_help.csv:${rName}:3] або заповнити заявку повторно на порталі &lt;a target="_blank" href="http://igov.org.ua"&gt;iGov.org.ua&lt;/a&gt;, враховуючи коментар нижче.&lt;/p&gt;
 &lt;p&gt;Коментар спеціаліста: ${comment}&lt;/p&gt;
 &lt;br /&gt;
 [pattern_dictonary:dnepr_soc_help.csv:${rName}:5]
