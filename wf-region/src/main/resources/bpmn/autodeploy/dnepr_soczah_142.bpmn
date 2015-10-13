@@ -2,7 +2,7 @@
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="dnepr_soczah_142" name="Дніпропетровськ - Щомісячна компенсаційна виплата непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку" isExecutable="true">
     <documentation>https://github.com/e-government-ua/iBP/issues/150</documentation>
-     <startEvent id="startevent1" name="Start">
+    <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
@@ -10,14 +10,14 @@
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина; заповнювати не треба - він завантажується автоматично" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="zayavka" name="Ви подаете цю заявку вперше?" type="enum" required="true">
           <activiti:value id="yes_20" name="так"></activiti:value>
           <activiti:value id="no_20" name="заявка подається додатково до попередньої"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
           <activiti:value id="and" name="Амур-Нижньодніпровський"></activiti:value>
@@ -57,8 +57,7 @@
         <activiti:formProperty id="markers2" name="Маркери за ким доглядає" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;doc_inv&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;care&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'invalid'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    
-       <userTask id="usertask2" name="перевірка документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
+    <userTask id="usertask2" name="перевірка документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
@@ -82,7 +81,7 @@
           <activiti:value id="lenin" name="Ленінський"></activiti:value>
           <activiti:value id="samar" name="Самарський"></activiti:value>
         </activiti:formProperty>
-         <activiti:formProperty id="employment_history" name="Чи маєте Ви трудову книжку?" type="enum" writable="false">
+        <activiti:formProperty id="employment_history" name="Чи маєте Ви трудову книжку?" type="enum" writable="false">
           <activiti:value id="yes_2" name="так"></activiti:value>
           <activiti:value id="no_2" name="ні"></activiti:value>
         </activiti:formProperty>
@@ -114,9 +113,8 @@
         </activiti:taskListener>
       </extensionElements>
     </userTask>
-    
     <userTask id="usertask1" name="прийняте рішення" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
-     <extensionElements>
+      <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_2" name="повідомлення громадянина про прийняте рішення" type="enum" required="true">
           <activiti:value id="accept" name="схвалено призначення допомоги"></activiti:value>
@@ -219,7 +217,7 @@ ${comment_1}&lt;br /&gt;
     <serviceTask id="servicetask4" name="повідомлення громадянина про призначення допомоги" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
@@ -244,7 +242,7 @@ ${comment_1}&lt;br /&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask8" name="повідомлення громадянина про відмову у  призначенні допомоги" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+    <serviceTask id="servicetask8" name="повідомлення громадянина про відмову у  призначенні допомоги" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -264,6 +262,9 @@ ${comment_1}&lt;br /&gt;
 Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${rishen}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -301,8 +302,8 @@ ${comment_1}&lt;br /&gt;
     <sequenceFlow id="flow41" sourceRef="servicetask9" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow42" sourceRef="servicetask7" targetRef="usertask1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_150">
-    <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_150" id="BPMNPlane_dnepr_soc_help_150">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soczah_142">
+    <bpmndi:BPMNPlane bpmnElement="dnepr_soczah_142" id="BPMNPlane_dnepr_soczah_142">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>

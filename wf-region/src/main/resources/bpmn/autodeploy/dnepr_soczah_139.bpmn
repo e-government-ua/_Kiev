@@ -54,6 +54,15 @@
         <activiti:formProperty id="marker2" name="Аліменти не сплачуються" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;: [&quot;scsvid&quot;, &quot;reg_reb&quot;, &quot;reg_oder&quot;, &quot;rish_sudu&quot;, &quot;dov_vikon&quot;, &quot;rozmir_alim&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;choice_file_downloads&quot;, &quot;sClient_1&quot;: &quot;choice_visit&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'case_1' &amp;&amp; [sClient_1] == 'visit_1'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker3" name="Знаходиться у місцях позбавлення волі" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;: [&quot;scsvid&quot;, &quot;reg_reb&quot;, &quot;reg_oder&quot;, &quot;dov_provad&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;choice_file_downloads&quot;, &quot;sClient_1&quot;: &quot;choice_visit&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'case_2' &amp;&amp; [sClient_1] == 'visit_1'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker4" name="Місце проживання не встановлено" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;: [&quot;scsvid&quot;, &quot;reg_reb&quot;, &quot;reg_oder&quot;, &quot;dov_ovs&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;choice_file_downloads&quot;, &quot;sClient_1&quot;: &quot;choice_visit&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'case_3' &amp;&amp; [sClient_1] == 'visit_1'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="markers1" name="маркер Амур-Нижньодніпровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='and'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers2" name="маркер Бабушкінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;2&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='babush'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers3" name="маркер Жовтневий району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;3&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='zhovt'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers4" name="маркер Індустріальний району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;4&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='indust'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers5" name="маркер Кіровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;5&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='kirov'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers6" name="маркер Красногвардійський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;6&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krasn'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers7" name="маркер Ленінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_7&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;7&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='lenin'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers8" name="маркер Самарський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_8&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;8&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='samar'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -68,6 +77,25 @@
         <activiti:formProperty id="place_of_liv" name="Місце проживання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail замовника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Районний орган" type="enum" writable="false">
+          <activiti:value id="and" name="Управління праці та соціального захисту населення Амур-Нижньодніпровського району"></activiti:value>
+          <activiti:value id="babush" name="Управління праці та соціального захисту населення Бабушкінського району"></activiti:value>
+          <activiti:value id="zhovt" name="Управління праці та соціального захисту населення Жовтневого району"></activiti:value>
+          <activiti:value id="indust" name="Управління праці та соціального захисту населення Індустріального району"></activiti:value>
+          <activiti:value id="kirov" name="Управління праці та соціального захисту населення Кіровського району"></activiti:value>
+          <activiti:value id="krasn" name="Управління праці та соціального захисту населення Красногвардійського району"></activiti:value>
+          <activiti:value id="lenin" name="Управління праці та соціального захисту населення Ленінського району"></activiti:value>
+          <activiti:value id="samar" name="Управління праці та соціального захисту населення Самарського району"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="choice_visit" name="Ваше звернення до Управління праці та соціального захисту населення за даной послугой" type="enum" writable="false">
+          <activiti:value id="visit_1" name="Первинне"></activiti:value>
+          <activiti:value id="visit_2" name="Повторне"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="choice_file_downloads" name="Підстави, на яких призначається тимчасова допомога" type="enum" writable="false">
+          <activiti:value id="case_1" name="Після рішення суду - аліменти не сплачуються протягом 6-ти місяців"></activiti:value>
+          <activiti:value id="case_2" name="Один з батьків знаходиться у місцях позбавлення волі, на примусовому лікуванні або перебування на строковій військовій службі"></activiti:value>
+          <activiti:value id="case_3" name="Місце проживання (перебування) одного з батьків дитини не встановлено (виплата призначається на 6-ть місяців)"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="transfer_type" name="В разі призначення допомоги кошти перераховувати" type="enum" writable="false">
           <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
           <activiti:value id="bank" name="на рахунок у банку"></activiti:value>
@@ -84,6 +112,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="sBody" name="[pattern/print/dnepr_soczah_139_zayava.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soczah_139_zayava1.html]" type="invisible" default="Форма заяви продовження" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">

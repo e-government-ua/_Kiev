@@ -10,14 +10,14 @@
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина; заповнювати не треба - він завантажується автоматично" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="zayavka" name="Ви подаете цю заявку вперше?" type="enum" required="true">
           <activiti:value id="yes_20" name="так"></activiti:value>
           <activiti:value id="no_20" name="заявка подається додатково до попередньої"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
           <activiti:value id="and" name="Амур-Нижньодніпровський"></activiti:value>
@@ -49,7 +49,7 @@
         <activiti:formProperty id="doc_family" name="Довідка про склад сім'ї; із зазначенням прізвищ, імен та по батькові, родинних зв'язків членів сім'ї;" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="doс_income" name="Довідки про доходи всіх членів сім'ї; завантажте єдиним архівом" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="doc_psyho" name="Висновок лікарської комісії; медичного закладу щодо необхідності постійного стороннього догляду за інвалідом I чи II групи внаслідок психічного розладу" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="info_2" name="Заповніть декларацію" type="label" default="Завантажте &lt;a href=&quot;https://www.dropbox.com/s/jyrbb4d12dt9vui/blank-deklaratsiya-dopomogi.doc?dl=0&quot; target=&quot;_blank&quot;&gt;декларацію&lt;/a&gt;, роздрукукйте, заповніть, та додайте у наступному полі."></activiti:formProperty>
+        <activiti:formProperty id="info_2" name="Заповніть декларацію" type="label" default="Завантажте &lt;a href=&quot;https://www.dropbox.com/s/jyrbb4d12dt9vui/blank-deklaratsiya-dopomogi.doc?dl=0&quot; target=&quot;_blank&quot;&gt;декларацію&lt;/a&gt;, роздрукуйте, заповніть, та додайте у наступному полі."></activiti:formProperty>
         <activiti:formProperty id="declaration" name="Заповнена декларація" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="doc_area_reestr" name="Довідка про неотримання допомоги з Управління праці та соціального захисту населення за місцем Вашої реєстрації" type="file"></activiti:formProperty>
         <activiti:formProperty id="doс_zemlya" name="Довідки про наявність і розміри земельних ділянок; завантажте єдиним архівом" type="file"></activiti:formProperty>
@@ -247,7 +247,7 @@ ${comment_1}&lt;br /&gt;
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
         </activiti:field>
-<activiti:field name="text">
+        <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 Ви отримали схвалення щодо свого звернення - отримання щомісячної грошової допомоги особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу.&lt;br /&gt;
@@ -261,7 +261,7 @@ ${comment_1}&lt;br /&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask8" name="повідомлення громадянина про відмову у  призначенні допомоги" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+    <serviceTask id="servicetask8" name="повідомлення громадянина про відмову у  призначенні допомоги" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -272,7 +272,7 @@ ${comment_1}&lt;br /&gt;
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Призначення допомоги інвалідам з дитинства та дітям-інвалідам]]></activiti:string>
         </activiti:field>
-      <activiti:field name="text">
+        <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 На жаль, Вам відмовлено у призначенні щомісячної грошової допомоги особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу.&lt;br /&gt; ${comment_2}&lt;br /&gt;&lt;br /&gt;
@@ -281,6 +281,9 @@ ${comment_1}&lt;br /&gt;
 Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${rishen}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>

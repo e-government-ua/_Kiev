@@ -124,10 +124,7 @@
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 Ви подавали звернення щодо отримання довідки:&lt;br /&gt;
-enum{[section_invalid]} 
-enum{[section_children]}
-enum{[section_care]}
-enum{[section_other]}
+enum{[content]} 
 &lt;br /&gt;
 Сканкопія довідки знаходиться у додатку до листа.&lt;br /&gt;
 Ви можете отримати оригінал довідки в [pattern_dictonary:dnepr_soc_help.csv:${rName}:2] за адресою: &lt;br /&gt;[pattern_dictonary:dnepr_soc_help.csv:${rName}:3]&lt;br /&gt;
@@ -160,10 +157,7 @@ enum{[section_other]}
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
 У Вас в черзі на обробку зареєстровано нове звернення щодо видачі довідки:&lt;br /&gt;
-enum{[section_invalid]} 
-enum{[section_children]}
-enum{[section_care]}
-enum{[section_other]}
+enum{[content]} 
 &lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 Опрацюйте це звернення на &lt;a href="https://region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;

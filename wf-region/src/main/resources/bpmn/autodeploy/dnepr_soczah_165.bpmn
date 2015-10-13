@@ -14,10 +14,10 @@
           <activiti:value id="yes_20" name="так"></activiti:value>
           <activiti:value id="no_20" name="заявка подається додатково до попередньої"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина; заповнювати не треба - він завантажується автоматично" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
           <activiti:value id="and" name="Амур-Нижньодніпровський"></activiti:value>
@@ -34,8 +34,8 @@
           <activiti:value id="no_1" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="adoption" name="Чи є Ви особою, яка усиновила чи взяла під опіку дитину протягом двох місяців з дня її народження?" type="enum" required="true">
-          <activiti:value id="no_2" name="ні"></activiti:value>
           <activiti:value id="yes_2" name="так"></activiti:value>
+          <activiti:value id="no_2" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="woman" name="Пільгова категорія, до якої Ви відноситесь" type="enum" required="true">
           <activiti:value id="enlistee" name="жінка-військовослужбовець"></activiti:value>
@@ -111,8 +111,8 @@
           <activiti:value id="no_1" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="adoption" name="Чи є Ви особою, яка усиновила чи взяла під опіку дитину протягом двох місяців з дня її народження?" type="enum" writable="false">
-          <activiti:value id="no_2" name="ні"></activiti:value>
           <activiti:value id="yes_2" name="так"></activiti:value>
+          <activiti:value id="no_2" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="woman" name="Пільгова категорія, до якої Ви відноситесь" type="enum" writable="false">
           <activiti:value id="enlistee" name="жінка-військовослужбовець"></activiti:value>
@@ -262,7 +262,7 @@ ${comment_1}&lt;br /&gt;
     <serviceTask id="servicetask4" name="повідомлення громадянина про призначення допомоги" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
@@ -287,7 +287,7 @@ ${comment_1}&lt;br /&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask8" name="повідомлення громадянина про відмову у  призначенні допомоги" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+    <serviceTask id="servicetask8" name="повідомлення громадянина про відмову у  призначенні допомоги" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -307,6 +307,9 @@ ${comment_1}&lt;br /&gt;
 Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${rishen}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
