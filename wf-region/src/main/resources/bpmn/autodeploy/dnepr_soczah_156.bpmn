@@ -217,7 +217,7 @@ ${comment_1}&lt;br /&gt;
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Призначення допомоги інвалідам з дитинства та дітям-інвалідам]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: допомоги особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
@@ -236,21 +236,28 @@ ${comment_1}&lt;br /&gt;
     <serviceTask id="servicetask4" name="повідомлення громадянина про призначення допомоги" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Призначення допомоги інвалідам з дитинства та дітям-інвалідам]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Призначення допомоги особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
         </activiti:field>
-       <activiti:field name="text">
-          <activiti:expression>
-          тили-тили трали-вали
-          </activiti:expression>
+<activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+Ви отримали схвалення щодо свого звернення - отримання щомісячної грошової допомоги особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу.&lt;br /&gt;
+&lt;br /&gt;
+Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
+[pattern/mail/_common_signature_start.html]
+Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
+[pattern/mail/_common_signature_end.html]
+[pattern/mail/_common_feedback.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -265,10 +272,15 @@ ${comment_1}&lt;br /&gt;
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Призначення допомоги інвалідам з дитинства та дітям-інвалідам]]></activiti:string>
         </activiti:field>
-       <activiti:field name="text">
-          <activiti:expression>
-          тили-тили1 трали-вали1
-          </activiti:expression>
+      <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+На жаль, Вам відмовлено у призначенні щомісячної грошової допомоги особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу.&lt;br /&gt; ${comment_2}&lt;br /&gt;&lt;br /&gt;
+Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
+[pattern/mail/_common_signature_start.html]
+Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
+[pattern/mail/_common_signature_end.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
