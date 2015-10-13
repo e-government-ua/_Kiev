@@ -284,7 +284,7 @@
 &lt;p&gt;Причина: ${decision_comment}&lt;/p&gt;
 &lt;p&gt;Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;&lt;/p&gt;
 &lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:${rName}:5]
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
@@ -311,10 +311,10 @@
 &lt;p&gt;Вам необхідно принести оригінал Витягу з Державного реєстру актів цивільного стану громадян про державну реєстрацію народження дитини, або  довідка про народження, або документ про народження, виданий компетентним органом іноземної держави, в якому відсутні відомості про батька, за умови його легалізації в установленому законодавством порядку.&lt;/p&gt;&lt;br /&gt;
 &lt;p&gt;Коментар спеціаліста: ${decision_comment}&lt;/p&gt;
 &lt;p&gt;Чекаємо Вас за адресою:&lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:${rName}:3]
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:3]
 &lt;/p&gt;
 &lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:${rName}:5]
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
