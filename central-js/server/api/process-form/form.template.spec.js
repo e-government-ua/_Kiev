@@ -8,7 +8,13 @@ suite('formTemplate', function() {
   suite('#createHhtml()', function() {
     test('should create simple correct html', function() {
       var templateData = {
-        formData : {}
+        formData : [
+          {name: 'fieldEnum1', type: 'enum', enumValues : ['e1','e2'], value: 'e1'},
+          {name: 'fieldText1', type: 'text', value: 'textValue'}
+        ],
+        processName: 'Тестовый процес',
+        businessKey: '12312333333',
+        creationDate: ''+ new Date()
       };
 
       var resultHtml = formTemplate.createHtml(templateData);
