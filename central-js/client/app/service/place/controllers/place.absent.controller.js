@@ -31,6 +31,9 @@ angular.module('app').controller('PlaceAbsentController', function($state, $root
     showErrors: false
   };
 
+  // mock markers
+  $scope.markers = ValidationService.getValidationMarkers($scope);
+
   $scope.emailKeydown = function(e, absentMessageForm, absentMessage) {
     $scope.absentMessage.showErrors = false;
     // If key is Enter (has 13 keyCode), try to submit the form:
@@ -39,19 +42,4 @@ angular.module('app').controller('PlaceAbsentController', function($state, $root
     }
   };
 
-  $scope.sendAbsentMessage = function(absentMessageForm, absentMessage) {
-    // ValidationService.validateByMarkers( absentMessageForm );
-    if (false === absentMessageForm.$valid) {
-      $scope.absentMessage.showErrors = true;
-      return false;
-    }
-
-    // @todo Fix hardcoded city name, we should pass it into state
-    var data = {
-      sMail: absentMessage.email,
-      sHead: 'Закликаю владу перевести цю послугу в електронну форму!',
-      sBody: 'Україна - ' + service.sName
-    };
-    MessagesService.setMessage(data, 'Дякуємо! Ви будете поінформовані, коли ця послуга буде доступна через Інтернет');
-  };
 });
