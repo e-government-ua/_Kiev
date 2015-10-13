@@ -10,14 +10,14 @@
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина; заповнювати не треба - він завантажується автоматично" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина" type="file" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="zayavka" name="Ви подаете цю заявку вперше?" type="enum" required="true">
           <activiti:value id="yes_20" name="так"></activiti:value>
           <activiti:value id="no_20" name="заявка подається додатково до попередньої"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
           <activiti:value id="and" name="Амур-Нижньодніпровський"></activiti:value>
@@ -53,12 +53,12 @@
           <activiti:value id="not_ukraine" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="education" name="Чи перебуває дитина на повному державному утриманні за місцем навчання?" type="enum" required="true">
-          <activiti:value id="no_1" name="ні"></activiti:value>
           <activiti:value id="yes_1" name="так"></activiti:value>
+          <activiti:value id="no_1" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="attestat" name="Чи отримували Ви ці виплати раніше?" type="enum" required="true">
-          <activiti:value id="no_2" name="ні"></activiti:value>
           <activiti:value id="yes_2" name="так"></activiti:value>
+          <activiti:value id="no_2" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" required="true">
           <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
@@ -92,7 +92,7 @@
         <activiti:formProperty id="markers11" name="маркер Красногвардійський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;6&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krasn'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers12" name="маркер Ленінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;7&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='lenin'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers13" name="маркер Самарський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;8&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='samar'&quot;}}}"></activiti:formProperty>
-      </extensionElements>
+       </extensionElements>
     </startEvent>
     <userTask id="usertask2" name="перевірка документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
@@ -160,7 +160,7 @@
         <activiti:formProperty id="bank_account" name="Номер рахунку (р/р)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="Перевірка данних" type="enum" required="true">
           <activiti:value id="accept" name="Заповнені дані вірні, інформація направлена на розгляд, очікується рішення"></activiti:value>
-          <activiti:value id="accept_but" name="Дані надані не в повному обсязі - направити громаднину повідомлення (обов'язково впишіть коментар нижче)"></activiti:value>
+          <activiti:value id="accept_but" name="Дані надані не в повному обсязі - направити громадянину повідомлення (обов'язково впишіть коментар нижче)"></activiti:value>
           <activiti:value id="reject" name="Дані заповнені невірно, відхилити звернення (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
@@ -223,7 +223,7 @@
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 Ваше звернення щодо призначення допомоги інвалідам з дитинства та дітям-інвалідам передано на розгляд в управління праці та соціального захисту населення і буде опрацьовано протягом 10 робочих днів.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
-Ви отримаєте додаткове повідомлення за результатами розгляду зверення.&lt;br /&gt;
+Ви отримаєте додаткове повідомлення за результатами розгляду звернення.&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
@@ -285,7 +285,7 @@ ${comment_1}&lt;br /&gt;
     <serviceTask id="servicetask4" name="повідомлення громадянина про призначення допомоги" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
@@ -310,7 +310,7 @@ ${comment_1}&lt;br /&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask8" name="повідомлення громадянина про відмову у  призначенні допомоги" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+    <serviceTask id="servicetask8" name="повідомлення громадянина про відмову у  призначенні допомоги" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -330,6 +330,9 @@ ${comment_1}&lt;br /&gt;
 Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${rishen}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
