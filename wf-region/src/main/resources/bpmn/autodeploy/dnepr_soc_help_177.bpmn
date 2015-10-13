@@ -24,43 +24,27 @@
           <activiti:value id="lenin" name="Ленінський"></activiti:value>
           <activiti:value id="samar" name="Самарський"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="content" name="Оберіть розділ" type="enum" required="true">
-          <activiti:value id="invalid" name="допомога інвалідам"></activiti:value>
-          <activiti:value id="children" name="допомога матерям/допомога на дітей"></activiti:value>
-          <activiti:value id="care" name="допомога особам, які доглядають за іншими"></activiti:value>
-          <activiti:value id="other" name="інше"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="section_invalid" name="Оберіть тип допомоги" type="enum">
+        <activiti:formProperty id="content" name="Оберіть тип допомоги" type="enum" required="true">
           <activiti:value id="invalid_child" name="призначення допомоги інвалідам з дитинства та дітям-інвалідам"></activiti:value>
           <activiti:value id="invalid_not_pension" name="призначення допомоги особам, які не мають права на пенсію, та інвалідам"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="section_children" name="Оберіть тип допомоги" type="enum">
           <activiti:value id="children_pregnancy" name="призначення допомоги у зв’язку з вагітністю та пологами"></activiti:value>
           <activiti:value id="children_born" name="призначення допомоги при народженні дитини"></activiti:value>
           <activiti:value id="children_adoption" name="призначення допомоги при усиновленні дитини"></activiti:value>
           <activiti:value id="children_single_mother" name="призначення допомоги на дітей одиноким матерям"></activiti:value>
           <activiti:value id="children_adoption_1" name="призначення допомоги на дітей, які перебувають під опікою чи піклуванням"></activiti:value>
           <activiti:value id="children_bad_parents" name="призначення тимчасової допомоги дітям, батьки яких ухиляються від сплати аліментів"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="section_care" name="Оберіть тип допомоги" type="enum">
           <activiti:value id="care_soc" name="призначення компенсації фізичним особам, які надають соціальні послуги"></activiti:value>
           <activiti:value id="care_invalid" name="призначення надбавки на догляд за інвалідом з дитинства та за дитиною-інвалідом"></activiti:value>
           <activiti:value id="care_psycho" name="призначення допомоги малозабезпеченій особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу"></activiti:value>
           <activiti:value id="care_old_human" name="призначення компенсації по догляду за інвалідом I гр., престарілим старше 80 років"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="section_other" name="Оберіть тип допомоги" type="enum">
           <activiti:value id="children_mother_hero" name="надання допомоги «Матерям-героїням»"></activiti:value>
           <activiti:value id="other_poor" name="призначення допомоги малозабезпеченим сім'ям"></activiti:value>
           <activiti:value id="other_funeral" name="призначення допомоги на поховання"></activiti:value>
           <activiti:value id="children_orphan" name="призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування"></activiti:value>
           <activiti:value id="energy_3" name="призначення субсидії для відшкодування витрат на оплату житлово-комунальних послуг, придбання скрапленого газу, твердого пічного побутового палива"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="markers1" name="Маркеры1" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;section_invalid&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'invalid'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;section_children&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'children'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers3" name="Маркеры3" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;section_care&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'care'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers5" name="маркеры5" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;section_other&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'other'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers6" name="маркер Амур-Нижньодніпровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='and'&quot;}}}"></activiti:formProperty>
+         </activiti:formProperty>
+       <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
+       <activiti:formProperty id="markers6" name="маркер Амур-Нижньодніпровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='and'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers7" name="маркер Бабушкінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_7&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;2&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='babush'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers8" name="маркер Жовтневий району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_8&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;3&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='zhovt'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers9" name="маркер Індустріальний району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_9&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;4&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='indust'&quot;}}}"></activiti:formProperty>
@@ -68,9 +52,9 @@
         <activiti:formProperty id="markers11" name="маркер Красногвардійський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;6&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krasn'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers12" name="маркер Ленінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;7&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='lenin'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers13" name="маркер Самарський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;8&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='samar'&quot;}}}"></activiti:formProperty>
-      </extensionElements>
-    </startEvent>
-    <userTask id="usertask1" name="повідомлення громадянина про прийняте рішення" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
+       </extensionElements>
+</startEvent>
+    <userTask id="usertask1" name="опрацювання звернення" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
@@ -89,37 +73,25 @@
           <activiti:value id="lenin" name="Ленінський"></activiti:value>
           <activiti:value id="samar" name="Самарський"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="content" name="Оберіть розділ" type="enum" writable="false">
-          <activiti:value id="invalid" name="допомога інвалідам"></activiti:value>
-          <activiti:value id="children" name="допомога матерям/допомога на дітей"></activiti:value>
-          <activiti:value id="care" name="допомога особам, які доглядають за іншими"></activiti:value>
-          <activiti:value id="other" name="інше"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="section_invalid" name="Оберіть тип допомоги" type="enum" writable="false">
+      <activiti:formProperty id="content" name="Оберіть тип довідки" type="enum" writable="false">
           <activiti:value id="invalid_child" name="призначення допомоги інвалідам з дитинства та дітям-інвалідам"></activiti:value>
           <activiti:value id="invalid_not_pension" name="призначення допомоги особам, які не мають права на пенсію, та інвалідам"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="section_children" name="Оберіть тип допомоги" type="enum" writable="false">
           <activiti:value id="children_pregnancy" name="призначення допомоги у зв’язку з вагітністю та пологами"></activiti:value>
           <activiti:value id="children_born" name="призначення допомоги при народженні дитини"></activiti:value>
           <activiti:value id="children_adoption" name="призначення допомоги при усиновленні дитини"></activiti:value>
-          <activiti:value id="children_mother_hero" name="надання допомоги «Матерям-героїням»"></activiti:value>
           <activiti:value id="children_single_mother" name="призначення допомоги на дітей одиноким матерям"></activiti:value>
           <activiti:value id="children_adoption_1" name="призначення допомоги на дітей, які перебувають під опікою чи піклуванням"></activiti:value>
-          <activiti:value id="children_orphan" name="призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування"></activiti:value>
           <activiti:value id="children_bad_parents" name="призначення тимчасової допомоги дітям, батьки яких ухиляються від сплати аліментів"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="section_care" name="Оберіть тип допомоги" type="enum" writable="false">
           <activiti:value id="care_soc" name="призначення компенсації фізичним особам, які надають соціальні послуги"></activiti:value>
           <activiti:value id="care_invalid" name="призначення надбавки на догляд за інвалідом з дитинства та за дитиною-інвалідом"></activiti:value>
           <activiti:value id="care_psycho" name="призначення допомоги малозабезпеченій особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу"></activiti:value>
-          <activiti:value id="care_old_human" name="призначення компенсації по догляду за інв.1 гр., престарілим старше 80 років"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="section_other" name="Оберіть тип допомоги" type="enum" writable="false">
+          <activiti:value id="care_old_human" name="призначення компенсації по догляду за інвалідом I гр., престарілим старше 80 років"></activiti:value>
+          <activiti:value id="children_mother_hero" name="надання допомоги «Матерям-героїням»"></activiti:value>
           <activiti:value id="other_poor" name="призначення допомоги малозабезпеченим сім'ям"></activiti:value>
           <activiti:value id="other_funeral" name="призначення допомоги на поховання"></activiti:value>
+          <activiti:value id="children_orphan" name="призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування"></activiti:value>
           <activiti:value id="energy_3" name="призначення субсидії для відшкодування витрат на оплату житлово-комунальних послуг, придбання скрапленого газу, твердого пічного побутового палива"></activiti:value>
-        </activiti:formProperty>
+         </activiti:formProperty>
         <activiti:formProperty id="rishen" name="Завантажте відскановану довідку" type="file" required="true"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
@@ -129,8 +101,6 @@
         </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow12" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
@@ -155,8 +125,8 @@
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 Ви подавали звернення щодо отримання довідки:&lt;br /&gt;
 enum{[section_invalid]} 
-enum{[section_children]} 
-enum{[section_care]} 
+enum{[section_children]}
+enum{[section_care]}
 enum{[section_other]}
 &lt;br /&gt;
 Сканкопія довідки знаходиться у додатку до листа.&lt;br /&gt;
@@ -174,7 +144,6 @@ enum{[section_other]}
     <endEvent id="endevent3" name="End"></endEvent>
     <sequenceFlow id="flow26" sourceRef="servicetask4" targetRef="endevent3"></sequenceFlow>
     <sequenceFlow id="flow33" sourceRef="boundaryerror1" targetRef="endevent3"></sequenceFlow>
-    <sequenceFlow id="flow34" sourceRef="exclusivegateway1" targetRef="servicetask4"></sequenceFlow>
     <serviceTask id="servicetask5" name="Повідомлення співробітника соц.захисту" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
@@ -192,9 +161,9 @@ enum{[section_other]}
                                     &lt;p&gt;
 У Вас в черзі на обробку зареєстровано нове звернення щодо видачі довідки:&lt;br /&gt;
 enum{[section_invalid]} 
-enum{[section_children]} 
-enum{[section_care]} 
-enum{[section_other]} 
+enum{[section_children]}
+enum{[section_care]}
+enum{[section_other]}
 &lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 Опрацюйте це звернення на &lt;a href="https://region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
@@ -225,6 +194,7 @@ enum{[section_other]}
     </serviceTask>
     <sequenceFlow id="flow36" sourceRef="servicetask1" targetRef="servicetask5"></sequenceFlow>
     <sequenceFlow id="flow37" sourceRef="servicetask5" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow38" sourceRef="usertask1" targetRef="servicetask4"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_177">
     <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_177" id="BPMNPlane_dnepr_soc_help_177">
@@ -234,9 +204,6 @@ enum{[section_other]}
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="55.0" width="189.0" x="360.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
-        <omgdc:Bounds height="40.0" width="40.0" x="436.0" y="180.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="55.0" width="165.0" x="160.0" y="30.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -244,33 +211,25 @@ enum{[section_other]}
         <omgdc:Bounds height="30.0" width="30.0" x="160.0" y="58.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
-        <omgdc:Bounds height="71.0" width="191.0" x="359.0" y="241.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="165.0" x="160.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
-        <omgdc:Bounds height="35.0" width="35.0" x="156.0" y="259.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="100.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
         <omgdc:Bounds height="61.0" width="190.0" x="360.0" y="27.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="454.0" y="165.0"></omgdi:waypoint>
-        <omgdi:waypoint x="456.0" y="180.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
         <omgdi:waypoint x="135.0" y="57.0"></omgdi:waypoint>
         <omgdi:waypoint x="160.0" y="57.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
-        <omgdi:waypoint x="359.0" y="276.0"></omgdi:waypoint>
-        <omgdi:waypoint x="191.0" y="276.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="135.0" y="117.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
         <omgdi:waypoint x="175.0" y="88.0"></omgdi:waypoint>
-        <omgdi:waypoint x="173.0" y="259.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
-        <omgdi:waypoint x="456.0" y="220.0"></omgdi:waypoint>
-        <omgdi:waypoint x="454.0" y="241.0"></omgdi:waypoint>
+        <omgdi:waypoint x="117.0" y="100.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
         <omgdi:waypoint x="325.0" y="57.0"></omgdi:waypoint>
@@ -279,6 +238,10 @@ enum{[section_other]}
       <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
         <omgdi:waypoint x="455.0" y="88.0"></omgdi:waypoint>
         <omgdi:waypoint x="454.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="360.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="325.0" y="137.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
