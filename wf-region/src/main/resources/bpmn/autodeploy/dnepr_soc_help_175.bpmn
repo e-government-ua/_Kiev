@@ -29,6 +29,17 @@
           <activiti:value id="lenin" name="Ленінський"></activiti:value>
           <activiti:value id="samar" name="Самарський"></activiti:value>
         </activiti:formProperty>
+         <activiti:formProperty id="type_help" name="Оберіть тип допомоги" type="enum" required="true">
+          <activiti:value id="one" name="інвалідам з дитинства I групи"></activiti:value>
+          <activiti:value id="two" name="інвалідам з дитинства II групи"></activiti:value>
+          <activiti:value id="three" name="інвалідам з дитинства III групи"></activiti:value>
+          <activiti:value id="do_18" name="на дітей-інвалідів віком до 18 років"></activiti:value>
+          <activiti:value id="one_a" name="на догляд за інвалідом з дитинства підгрупи А I групи"></activiti:value>
+          <activiti:value id="one_b" name="на догляд за інвалідом з дитинства підгрупи Б I групи"></activiti:value>
+          <activiti:value id="one_two" name="одиноким інвалідам з дитинства II і III груп, які за висновком ЛКК закладу охорони здоров’я потребують постійного стороннього догляду"></activiti:value>
+          <activiti:value id="do_6" name="догляд за дитиною-інвалідом віком до 6 років"></activiti:value>
+          <activiti:value id="vid_6_do_18" name="догляд за дитиною-інвалідом віком від 6 до 18 років"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="together" name="Чи проживаєте Ви разом з дитиною?" type="enum" required="true">
           <activiti:value id="yes" name="так"></activiti:value>
           <activiti:value id="no" name="ні"></activiti:value>
@@ -146,6 +157,17 @@
           <activiti:value id="lenin" name="Ленінський"></activiti:value>
           <activiti:value id="samar" name="Самарський"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="type_help" name="Оберіть тип допомоги" type="enum" writable="false">
+          <activiti:value id="one" name="інвалідам з дитинства I групи"></activiti:value>
+          <activiti:value id="two" name="інвалідам з дитинства II групи"></activiti:value>
+          <activiti:value id="three" name="інвалідам з дитинства III групи"></activiti:value>
+          <activiti:value id="do_18" name="на дітей-інвалідів віком до 18 років"></activiti:value>
+          <activiti:value id="one_a" name="на догляд за інвалідом з дитинства підгрупи А I групи"></activiti:value>
+          <activiti:value id="one_b" name="на догляд за інвалідом з дитинства підгрупи Б I групи"></activiti:value>
+          <activiti:value id="one_two" name="одиноким інвалідам з дитинства II і III груп, які за висновком ЛКК закладу охорони здоров’я потребують постійного стороннього догляду"></activiti:value>
+          <activiti:value id="do_6" name="догляд за дитиною-інвалідом віком до 6 років"></activiti:value>
+          <activiti:value id="vid_6_do_18" name="догляд за дитиною-інвалідом віком від 6 до 18 років"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="together" name="Чи проживаєте Ви разом з дитиною?" type="enum" writable="false">
           <activiti:value id="yes" name="так"></activiti:value>
           <activiti:value id="no" name="ні"></activiti:value>
@@ -193,7 +215,15 @@
           <activiti:value id="reject" name="Дані заповнені невірно, відхилити звернення (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_175_print.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_2" name="[pattern/print/dnepr_soc_help_150_1_print.html]" type="invisible" default="інвалідам з дитинства I групи" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_3" name="[pattern/print/dnepr_soc_help_150_2_print.html]" type="invisible" default="інвалідам з дитинства II групи" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_4" name="[pattern/print/dnepr_soc_help_150_3_print.html]" type="invisible" default="інвалідам з дитинства III групи" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_5" name="[pattern/print/dnepr_soc_help_150_4_print.html]" type="invisible" default="на дітей-інвалідів віком до 18 років" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_6" name="[pattern/print/dnepr_soc_help_150_5_print.html]" type="invisible" default="на догляд за інвалідом з дитинства підгрупи А I групи" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_7" name="[pattern/print/dnepr_soc_help_150_6_print.html]" type="invisible" default="на догляд за інвалідом з дитинства підгрупи Б I групи" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_8" name="[pattern/print/dnepr_soc_help_150_7_print.html]" type="invisible" default="одиноким інвалідам з дитинства II і III груп" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_150_8_print.html]" type="invisible" default="догляд за дитиною-інвалідом віком до 6 років" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_150_9_print.html]" type="invisible" default="догляд за дитиною-інвалідом віком від 6 до 18 років" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
