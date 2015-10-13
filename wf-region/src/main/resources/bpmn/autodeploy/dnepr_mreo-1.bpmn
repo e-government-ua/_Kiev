@@ -341,6 +341,7 @@ id  платежу :  ${sIDPayment}</activiti:expression>
 Нажаль, Вам відмовлено в реєстраціі авто.&lt;br /&gt;
 Підтсава: &lt;br /&gt;
 ${comment}&lt;br /&gt;
+[pattern_dictonary:mreo_departments.csv:${service_center}:2]
 
 [pattern/mail/_common_signature_start.html]
  Міністерство Внутрішніх Справ України,&lt;br /&gt;
@@ -448,6 +449,9 @@ ${date_of_visit}&lt;br /&gt;
  &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
 Ваше звернення успішно зареєстровано. &lt;br /&gt;
+
+
+
 Результат обробки звернення будуть спрямовані на цей е-мейл. &lt;br /&gt;
 [pattern/mail/_common_signature.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
