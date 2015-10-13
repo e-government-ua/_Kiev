@@ -343,6 +343,7 @@ id  платежу :  ${sIDPayment}</activiti:expression>
 ${comment}&lt;br /&gt;
 [pattern_dictonary:mreo_departments.csv:${service_center}:2]
 
+
 [pattern/mail/_common_signature_start.html]
  Міністерство Внутрішніх Справ України,&lt;br /&gt;
 [pattern/mail/_common_signature_end.html] 
