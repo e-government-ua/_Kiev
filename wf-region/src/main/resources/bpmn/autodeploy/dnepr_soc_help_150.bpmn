@@ -10,7 +10,7 @@
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина; заповнювати не треба - він завантажується автоматично" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина" type="file" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="zayavka" name="Ви подаете цю заявку вперше?" type="enum" required="true">
           <activiti:value id="yes_20" name="так"></activiti:value>
           <activiti:value id="no_20" name="заявка подається додатково до попередньої"></activiti:value>
@@ -53,17 +53,26 @@
           <activiti:value id="not_ukraine" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="education" name="Чи перебуває дитина на повному державному утриманні за місцем навчання?" type="enum" required="true">
-          <activiti:value id="no_1" name="ні"></activiti:value>
           <activiti:value id="yes_1" name="так"></activiti:value>
+          <activiti:value id="no_1" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="attestat" name="Чи отримували Ви ці виплати раніше?" type="enum" required="true">
-          <activiti:value id="no_2" name="ні"></activiti:value>
           <activiti:value id="yes_2" name="так"></activiti:value>
+          <activiti:value id="no_2" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" required="true">
           <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
           <activiti:value id="bank" name="на рахунок у банку"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="pr_one" name="pr_one" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_two" name="pr_two" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_three" name="pr_three" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_do_18" name="pr_do_18" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_one_a" name="pr_one_a" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_one_b" name="pr_one_b" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_one_two" name="pr_one_two" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_do_6" name="pr_do_6" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_vid_6_do_18" name="pr_vid_6_do_18" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bank_name" name="Назва банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="mfo" name="МФО банку" type="string" default=" "></activiti:formProperty>
@@ -92,6 +101,15 @@
         <activiti:formProperty id="markers11" name="маркер Красногвардійський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;6&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krasn'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers12" name="маркер Ленінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;7&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='lenin'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers13" name="маркер Самарський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;8&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='samar'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers16" name="маркер one" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_16&quot;:{&quot;aField_ID&quot;:[&quot;one&quot;,&quot;two&quot;,&quot;three&quot;,&quot;do_18&quot;,&quot;one_a&quot;,&quot;one_b&quot;,&quot;one_two&quot;,&quot;do_6&quot;,&quot;vid_6_do_18&quot;], &quot;asID_Field_sValue&quot;:[&quot;&amp;#10004&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;type_help&quot;},&quot;sCondition&quot;:&quot;[sReason]=='one'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers17" name="маркер two" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_17&quot;:{&quot;aField_ID&quot;:[&quot;one&quot;,&quot;two&quot;,&quot;three&quot;,&quot;do_18&quot;,&quot;one_a&quot;,&quot;one_b&quot;,&quot;one_two&quot;,&quot;do_6&quot;,&quot;vid_6_do_18&quot;], &quot;asID_Field_sValue&quot;:[&quot;&amp;nbsp;&quot;,&quot;&amp;#10004&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;type_help&quot;},&quot;sCondition&quot;:&quot;[sReason]=='two'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers18" name="маркер three" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_18&quot;:{&quot;aField_ID&quot;:[&quot;one&quot;,&quot;two&quot;,&quot;three&quot;,&quot;do_18&quot;,&quot;one_a&quot;,&quot;one_b&quot;,&quot;one_two&quot;,&quot;do_6&quot;,&quot;vid_6_do_18&quot;], &quot;asID_Field_sValue&quot;:[&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;#10004&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;type_help&quot;},&quot;sCondition&quot;:&quot;[sReason]=='three'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers19" name="маркер do_18" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_19&quot;:{&quot;aField_ID&quot;:[&quot;one&quot;,&quot;two&quot;,&quot;three&quot;,&quot;do_18&quot;,&quot;one_a&quot;,&quot;one_b&quot;,&quot;one_two&quot;,&quot;do_6&quot;,&quot;vid_6_do_18&quot;], &quot;asID_Field_sValue&quot;:[&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;#10004&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;type_help&quot;},&quot;sCondition&quot;:&quot;[sReason]=='do_18'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers20" name="маркер one_a" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_20&quot;:{&quot;aField_ID&quot;:[&quot;one&quot;,&quot;two&quot;,&quot;three&quot;,&quot;do_18&quot;,&quot;one_a&quot;,&quot;one_b&quot;,&quot;one_two&quot;,&quot;do_6&quot;,&quot;vid_6_do_18&quot;], &quot;asID_Field_sValue&quot;:[&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;#10004&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;type_help&quot;},&quot;sCondition&quot;:&quot;[sReason]=='one_a'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers21" name="маркер one_b" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_21&quot;:{&quot;aField_ID&quot;:[&quot;one&quot;,&quot;two&quot;,&quot;three&quot;,&quot;do_18&quot;,&quot;one_a&quot;,&quot;one_b&quot;,&quot;one_two&quot;,&quot;do_6&quot;,&quot;vid_6_do_18&quot;], &quot;asID_Field_sValue&quot;:[&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;#10004&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;type_help&quot;},&quot;sCondition&quot;:&quot;[sReason]=='one_b'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers22" name="маркер one_two" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_22&quot;:{&quot;aField_ID&quot;:[&quot;one&quot;,&quot;two&quot;,&quot;three&quot;,&quot;do_18&quot;,&quot;one_a&quot;,&quot;one_b&quot;,&quot;one_two&quot;,&quot;do_6&quot;,&quot;vid_6_do_18&quot;], &quot;asID_Field_sValue&quot;:[&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;#10004&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;type_help&quot;},&quot;sCondition&quot;:&quot;[sReason]=='one_two'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers23" name="маркер do_6" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_23&quot;:{&quot;aField_ID&quot;:[&quot;one&quot;,&quot;two&quot;,&quot;three&quot;,&quot;do_18&quot;,&quot;one_a&quot;,&quot;one_b&quot;,&quot;one_two&quot;,&quot;do_6&quot;,&quot;vid_6_do_18&quot;], &quot;asID_Field_sValue&quot;:[&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;#10004&quot;,&quot;&amp;nbsp;&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;type_help&quot;},&quot;sCondition&quot;:&quot;[sReason]=='do_6'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers24" name="маркер vid_6_do_18" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_24&quot;:{&quot;aField_ID&quot;:[&quot;one&quot;,&quot;two&quot;,&quot;three&quot;,&quot;do_18&quot;,&quot;one_a&quot;,&quot;one_b&quot;,&quot;one_two&quot;,&quot;do_6&quot;,&quot;vid_6_do_18&quot;], &quot;asID_Field_sValue&quot;:[&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;nbsp;&quot;,&quot;&amp;#10004&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;type_help&quot;},&quot;sCondition&quot;:&quot;[sReason]=='vid_6_do_18'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask2" name="перевірка документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
@@ -160,10 +178,19 @@
         <activiti:formProperty id="bank_account" name="Номер рахунку (р/р)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="Перевірка данних" type="enum" required="true">
           <activiti:value id="accept" name="Заповнені дані вірні, інформація направлена на розгляд, очікується рішення"></activiti:value>
-          <activiti:value id="accept_but" name="Дані надані не в повному обсязі - направити громаднину повідомлення (обов'язково впишіть коментар нижче)"></activiti:value>
+          <activiti:value id="accept_but" name="Дані надані не в повному обсязі - направити громадянину повідомлення (обов'язково впишіть коментар нижче)"></activiti:value>
           <activiti:value id="reject" name="Дані заповнені невірно, відхилити звернення (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="pr_one" name="pr_one" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_two" name="pr_two" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_three" name="pr_three" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_do_18" name="pr_do_18" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_one_a" name="pr_one_a" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_one_b" name="pr_one_b" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_one_two" name="pr_one_two" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="pr_do_6" name="pr_do_6" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_150_print.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_2" name="[pattern/print/dnepr_soc_help_150_1_print.html]" type="invisible" default="інвалідам з дитинства I групи" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_3" name="[pattern/print/dnepr_soc_help_150_2_print.html]" type="invisible" default="інвалідам з дитинства II групи" writable="false"></activiti:formProperty>
         <activiti:formProperty id="sBody_4" name="[pattern/print/dnepr_soc_help_150_3_print.html]" type="invisible" default="інвалідам з дитинства III групи" writable="false"></activiti:formProperty>
@@ -223,7 +250,7 @@
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 Ваше звернення щодо призначення допомоги інвалідам з дитинства та дітям-інвалідам передано на розгляд в управління праці та соціального захисту населення і буде опрацьовано протягом 10 робочих днів.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
-Ви отримаєте додаткове повідомлення за результатами розгляду зверення.&lt;br /&gt;
+Ви отримаєте додаткове повідомлення за результатами розгляду звернення.&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
@@ -310,7 +337,7 @@ ${comment_1}&lt;br /&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask8" name="повідомлення громадянина про відмову у  призначенні допомоги" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+    <serviceTask id="servicetask8" name="повідомлення громадянина про відмову у  призначенні допомоги" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -330,6 +357,9 @@ ${comment_1}&lt;br /&gt;
 Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${rishen}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
