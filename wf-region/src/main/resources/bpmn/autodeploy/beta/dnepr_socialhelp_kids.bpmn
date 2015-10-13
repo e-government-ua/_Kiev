@@ -17,14 +17,57 @@
         <activiti:formProperty id="inn_scan" name="Завантажте копію довідки про присвоєння ІПН; індивідуальний податковий номер" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthdocument_scan" name="Завантажте скановану копію свідоцтва про народження Вашої дитини" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
-          <activiti:value id="and" name="Амур-Нижньодніпровський"></activiti:value>
-          <activiti:value id="babush" name="Бабушкінський"></activiti:value>
-          <activiti:value id="zhovt" name="Жовтневий"></activiti:value>
-          <activiti:value id="indust" name="Індустріальний"></activiti:value>
-          <activiti:value id="kirov" name="Кіровський"></activiti:value>
-          <activiti:value id="krasn" name="Красногвардійський"></activiti:value>
-          <activiti:value id="lenin" name="Ленінський"></activiti:value>
-          <activiti:value id="samar" name="Самарський"></activiti:value>
+          <activiti:value id="and" name="Амур-Нижньодніпровський, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="babush" name="Бабушкінський, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="zhovt" name="Жовтневий, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="indust" name="Індустріальний, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="kirov" name="Кіровський, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="krasn" name="Красногвардійський, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="lenin" name="Ленінський, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="samar" name="Самарський, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="bagley" name="Баглійський, м.Дніпроджержинськ"></activiti:value>
+          <activiti:value id="dnipro" name="Дніпровський, м.Дніпроджержинськ"></activiti:value>
+          <activiti:value id="zavod" name="Заводський, м.Дніпроджержинськ"></activiti:value>
+          <activiti:value id="dzer" name="Дзержинський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="zhovtkr" name="Жовтневий, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="ingul" name="Інгулецький, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="saksagan" name="Саксаганський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="tern" name="Тернівський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="centralcity" name="Центрально-Міський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="dovgin" name="Довгинцівський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="vilnogirsk" name="м.Вільногірськ"></activiti:value>
+          <activiti:value id="zhovtivodi" name="м.Жовті Води"></activiti:value>
+          <activiti:value id="margan" name="м.Марганець"></activiti:value>
+          <activiti:value id="nikopol" name="м.Нікополь"></activiti:value>
+          <activiti:value id="novik" name="м.Новомосковськ"></activiti:value>
+          <activiti:value id="pavlik" name="м.Павлоград"></activiti:value>
+          <activiti:value id="pershotrav" name="м.Першотравенськ"></activiti:value>
+          <activiti:value id="orzho" name="м.Орджонікідзе"></activiti:value>
+          <activiti:value id="sinel" name="м.Синельникове"></activiti:value>
+          <activiti:value id="ternivka" name="м.Тернівка"></activiti:value>
+          <activiti:value id="apostol" name="Апостолівський район"></activiti:value>
+          <activiti:value id="vasil" name="Васильківський район"></activiti:value>
+          <activiti:value id="verhnednepr" name="Верхньодніпровський район"></activiti:value>
+          <activiti:value id="dnipropetrovskij" name="Дніпропетровський район"></activiti:value>
+          <activiti:value id="krivojrog" name="Криворізький район"></activiti:value>
+          <activiti:value id="krinich" name="Криничанський район"></activiti:value>
+          <activiti:value id="magdalin" name="Магдалинівський район"></activiti:value>
+          <activiti:value id="mezhivskij" name="Меживський район"></activiti:value>
+          <activiti:value id="nikopolskij" name="Нікопольський район"></activiti:value>
+          <activiti:value id="novomoskovskij" name="Новомосковський район"></activiti:value>
+          <activiti:value id="pavlogradskij" name="Павлоградський район"></activiti:value>
+          <activiti:value id="petropavlivskij" name="Петропавлівський район"></activiti:value>
+          <activiti:value id="petrikivskij" name="Петриківський район"></activiti:value>
+          <activiti:value id="pokrovskij" name="Покровський район"></activiti:value>
+          <activiti:value id="5huts" name="П'ятихатський район"></activiti:value>
+          <activiti:value id="sinelnikovskij" name="Синельниковський район"></activiti:value>
+          <activiti:value id="solonyanskij" name="Солонянський район"></activiti:value>
+          <activiti:value id="sinelnikovskij" name="Синельниковський район"></activiti:value>
+          <activiti:value id="sofiivskij" name="Софіївський район"></activiti:value>
+          <activiti:value id="tomakivskij" name="Томаківський район"></activiti:value>
+          <activiti:value id="carichanskij" name="Царичанський район"></activiti:value>
+          <activiti:value id="shirokivskij" name="Широківський район"></activiti:value>
+          <activiti:value id="jurivskij" name="Юр'ївський район"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" required="true">
           <activiti:value id="attr1_post" name="через національного оператора поштового зв'язку"></activiti:value>
@@ -57,14 +100,57 @@
         <activiti:formProperty id="inn_scan" name="Завантажте копію довідки про присвоєння ІПН; індивідуальний податковий номер" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthdocument_scan" name="Завантажте скановану копію свідоцтва про народження Вашої дитини" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" writable="false">
-          <activiti:value id="and" name="Амур-Нижньодніпровський"></activiti:value>
-          <activiti:value id="babush" name="Бабушкінський"></activiti:value>
-          <activiti:value id="zhovt" name="Жовтневий"></activiti:value>
-          <activiti:value id="indust" name="Індустріальний"></activiti:value>
-          <activiti:value id="kirov" name="Кіровський"></activiti:value>
-          <activiti:value id="krasn" name="Красногвардійський"></activiti:value>
-          <activiti:value id="lenin" name="Ленінський"></activiti:value>
-          <activiti:value id="samar" name="Самарський"></activiti:value>
+          <activiti:value id="and" name="Амур-Нижньодніпровський, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="babush" name="Бабушкінський, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="zhovt" name="Жовтневий, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="indust" name="Індустріальний, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="kirov" name="Кіровський, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="krasn" name="Красногвардійський, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="lenin" name="Ленінський, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="samar" name="Самарський, м.Дніпропетровськ"></activiti:value>
+          <activiti:value id="bagley" name="Баглійський, м.Дніпроджержинськ"></activiti:value>
+          <activiti:value id="dnipro" name="Дніпровський, м.Дніпроджержинськ"></activiti:value>
+          <activiti:value id="zavod" name="Заводський, м.Дніпроджержинськ"></activiti:value>
+          <activiti:value id="dzer" name="Дзержинський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="zhovtkr" name="Жовтневий, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="ingul" name="Інгулецький, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="saksagan" name="Саксаганський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="tern" name="Тернівський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="centralcity" name="Центрально-Міський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="dovgin" name="Довгинцівський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="vilnogirsk" name="м.Вільногірськ"></activiti:value>
+          <activiti:value id="zhovtivodi" name="м.Жовті Води"></activiti:value>
+          <activiti:value id="margan" name="м.Марганець"></activiti:value>
+          <activiti:value id="nikopol" name="м.Нікополь"></activiti:value>
+          <activiti:value id="novik" name="м.Новомосковськ"></activiti:value>
+          <activiti:value id="pavlik" name="м.Павлоград"></activiti:value>
+          <activiti:value id="pershotrav" name="м.Першотравенськ"></activiti:value>
+          <activiti:value id="orzho" name="м.Орджонікідзе"></activiti:value>
+          <activiti:value id="sinel" name="м.Синельникове"></activiti:value>
+          <activiti:value id="ternivka" name="м.Тернівка"></activiti:value>
+          <activiti:value id="apostol" name="Апостолівський район"></activiti:value>
+          <activiti:value id="vasil" name="Васильківський район"></activiti:value>
+          <activiti:value id="verhnednepr" name="Верхньодніпровський район"></activiti:value>
+          <activiti:value id="dnipropetrovskij" name="Дніпропетровський район"></activiti:value>
+          <activiti:value id="krivojrog" name="Криворізький район"></activiti:value>
+          <activiti:value id="krinich" name="Криничанський район"></activiti:value>
+          <activiti:value id="magdalin" name="Магдалинівський район"></activiti:value>
+          <activiti:value id="mezhivskij" name="Меживський район"></activiti:value>
+          <activiti:value id="nikopolskij" name="Нікопольський район"></activiti:value>
+          <activiti:value id="novomoskovskij" name="Новомосковський район"></activiti:value>
+          <activiti:value id="pavlogradskij" name="Павлоградський район"></activiti:value>
+          <activiti:value id="petropavlivskij" name="Петропавлівський район"></activiti:value>
+          <activiti:value id="petrikivskij" name="Петриківський район"></activiti:value>
+          <activiti:value id="pokrovskij" name="Покровський район"></activiti:value>
+          <activiti:value id="5huts" name="П'ятихатський район"></activiti:value>
+          <activiti:value id="sinelnikovskij" name="Синельниковський район"></activiti:value>
+          <activiti:value id="solonyanskij" name="Солонянський район"></activiti:value>
+          <activiti:value id="sinelnikovskij" name="Синельниковський район"></activiti:value>
+          <activiti:value id="sofiivskij" name="Софіївський район"></activiti:value>
+          <activiti:value id="tomakivskij" name="Томаківський район"></activiti:value>
+          <activiti:value id="carichanskij" name="Царичанський район"></activiti:value>
+          <activiti:value id="shirokivskij" name="Широківський район"></activiti:value>
+          <activiti:value id="jurivskij" name="Юр'ївський район"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" writable="false">
           <activiti:value id="attr1_post" name="через національного оператора поштового зв'язку"></activiti:value>
