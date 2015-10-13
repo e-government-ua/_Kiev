@@ -69,12 +69,10 @@
           <activiti:expression>Crow79@ua.fm</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Нове звернення на порталі igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[Нове звернення на порталі igov.org.ua на тему: Видача архівних довідок, копій, витягів. Заявник ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>[pattern/mail/_clerk_header.html]
-Видача архівних довідок, копій, витягів
-[pattern/mail/_clerk_footer.html]</activiti:expression>
+          <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -168,7 +166,8 @@ ${comment1}&lt;br /&gt;
 &lt;p&gt;Документ за вашим запитом підготовлено.&lt;/p&gt; 
 &lt;p&gt;Ви можете отримати його за адресою:&lt;/p&gt;
 &lt;p&gt; 88000, м Ужгород, пл. Поштова, 3&lt;br /&gt; 
-Час роботи: пн.-пт., 10:00-17:00, обідня перерва 12:00-13:00&lt;/p&gt;
+Час прийому: Пн.-Чт., 9:00-17:00, обідня перерва 13:00-13:30&lt;br /&gt;
+Пт: 9:00-14:00, без перерви&lt;/p&gt;
 При собі мати паспорт та довіреність (в разі подання довіреною особою).&lt;br /&gt;[pattern/mail/_common_signature_start.html]
 &lt;p&gt;ЦНАП м. Ужгород&lt;/p&gt;
 [pattern/mail/_common_signature_end.html]
