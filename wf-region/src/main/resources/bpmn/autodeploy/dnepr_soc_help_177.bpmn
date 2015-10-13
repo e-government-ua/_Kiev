@@ -127,8 +127,8 @@
 enum{[content]} 
 &lt;br /&gt;
 Сканкопія довідки знаходиться у додатку до листа.&lt;br /&gt;
-Ви можете отримати оригінал довідки в [pattern_dictonary:dnepr_soc_help.csv:${rName}:2] за адресою: &lt;br /&gt;[pattern_dictonary:dnepr_soc_help.csv:${rName}:3]&lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:${rName}:5]
+Ви можете отримати оригінал довідки в [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:2] за адресою: &lt;br /&gt;[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
