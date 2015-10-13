@@ -80,7 +80,7 @@
         <activiti:formProperty id="decision" name="Обробка заяви" type="enum" required="true">
           <activiti:value id="attr4_finish" name="Заповнені дані вірні, інформація направлена на розгляд, очікується рішення"></activiti:value>
           <activiti:value id="attr2_doc_bad" name="Дані заповнені невірно, відхилити звернення (обов'язково впишіть коментар нижче)"></activiti:value>
-          <activiti:value id="attr5_doc_bad" name="Дані надані не в повному обсязі - направити громаднину повідомлення (обов'язково впишіть коментар нижче)"></activiti:value>
+          <activiti:value id="attr5_doc_bad" name="Дані надані не в повному обсязі - направити громадянину повідомлення (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="sBody" name="[pattern/print/dnepr_soczah_139_zayava.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
@@ -120,7 +120,7 @@
         <activiti:formProperty id="decision" name="Обробка заяви" type="enum" writable="false">
           <activiti:value id="attr4_finish" name="Заповнені дані вірні, інформація направлена на розгляд, очікується рішення"></activiti:value>
           <activiti:value id="attr2_doc_bad" name="Дані заповнені невірно, відхилити звернення (обов'язково впишіть коментар нижче)"></activiti:value>
-          <activiti:value id="attr5_doc_bad" name="Дані надані не в повному обсязі - направити громаднину повідомлення (обов'язково впишіть коментар нижче)"></activiti:value>
+          <activiti:value id="attr5_doc_bad" name="Дані надані не в повному обсязі - направити громадянину повідомлення (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decision2" name="Обробка заяви" type="enum" required="true">
           <activiti:value id="attr4_finish2" name="Зауважень немає, державана допомога буде надана"></activiti:value>
