@@ -3,13 +3,13 @@
   <process id="uzgorod_mvk_1" name="Ужгород МВК- Видача архівних довідок, копій, витягів" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Домашня адреса" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="docType" name="Тип документа" type="enum">
+        <activiti:formProperty id="docType" name="Тип документа" type="enum" required="true">
           <activiti:value id="Копія рішення" name="Копія рішення"></activiti:value>
           <activiti:value id="Витяг з рішення" name="Витяг з рішення"></activiti:value>
           <activiti:value id="Ксерокопії матеріалів" name="Ксерокопії матеріалів"></activiti:value>
