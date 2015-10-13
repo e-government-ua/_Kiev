@@ -3,7 +3,7 @@
   <process id="dnepr_minust_129" name="Дніпропетровськ МінЮст - Зміна додаткової інформації про зв`язок з юридичною особою (Ф-4)" isExecutable="true" activiti:candidateStarterGroups="dnepr_minust_1">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="warningMessage1" name="Увага" type="label" default="Подавати реєстраційну картку про внесення змін можуть лише керівник юридичної особи і фізична особа, яка має право вчиняти дії від імені юридичної особи без довіреності, у тому числі підписувати договори."></activiti:formProperty>
+        <activiti:formProperty id="warningMessage1" name="Увага" type="label" default="Заповніть форму, збережіть її в PDF форматі та завірте ЕЦП. Без завіряння ЕЦП документи до розгляду не приймаються!"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
@@ -125,6 +125,7 @@
           <activiti:value id="reject" name="В опрацюванні заявки відмовлено"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Оберіть причину відмови, якщо документи не прийняті" type="enum">
+          <activiti:value id="Документи не завірені ЕЦП" name="Документи не завірені ЕЦП"></activiti:value>
           <activiti:value id="Документи подані не у повному обсязі." name="Документи подані не у повному обсязі."></activiti:value>
           <activiti:value id="Документи подані не за місцем проведення державної реєстрації." name="Документи подані не за місцем проведення державної реєстрації."></activiti:value>
           <activiti:value id="Документи не  відповідають  вимогам,  встановленим  частинами 1-5 статті 8 Закону України &quot;Про державну реєстрацію юридичних осіб та фізичних осіб – підприємців&quot;." name="Документи не  відповідають  вимогам,  встановленим  частинами 1-5 статті 8 Закону України &quot;Про державну реєстрацію юридичних осіб та фізичних осіб – підприємців&quot;."></activiti:value>
