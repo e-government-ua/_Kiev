@@ -118,6 +118,7 @@
           <activiti:value id="reject" name="Дані заповнені невірно, відхилити звернення (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="date_visit" name="Внесіть дату та час візиту громадянина для надання оригіналів документів" type="string"></activiti:formProperty>
+        <activiti:formProperty id="room" name="укажіть кабінет - куди прийти громадянину" type="string"></activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_156_print.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
@@ -172,8 +173,8 @@
 Ваше звернення щодо отримання щомісячної грошової допомоги особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу прийнято в роботу.&lt;br /&gt;
 Вам призначено дату і час візиту для надання оригіналу висновку лікарської комісії медичного закладу щодо необхідності постійного стороннього догляду - ${date_visit}.&lt;br /&gt;
 Після надання оригіналу документу, звернення буде передано на подальше опрацювання.&lt;br /&gt;
-Адреса: [pattern_dictonary:dnepr_soc_help.csv:${rName}:3]&lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:${rName}:5]
+Адреса: [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:3], кабінет ${room}&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
