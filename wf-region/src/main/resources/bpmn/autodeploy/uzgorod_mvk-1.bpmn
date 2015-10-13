@@ -140,7 +140,7 @@ ${comment1}&lt;br /&gt;
         <activiti:formProperty id="clphone" name="Телефон" type="string" default="${phone}"></activiti:formProperty>
         <activiti:formProperty id="request" name="Запитуваний документ" type="string" default="${docType} №  ${docNumber} від  ${docDate}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="request_goal" name="Мета запиту" type="string" default="${goal}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="firstFind" name="Результат попередньої перевірки заяви адміністратором ЦНАП" type="enum" required="true">
+        <activiti:formProperty id="firstFind" name="Результат пошуку документа" type="enum" required="true">
           <activiti:value id="ok" name="Документ знайдено"></activiti:value>
           <activiti:value id="bad" name="Документ не знайдено"></activiti:value>
         </activiti:formProperty>
