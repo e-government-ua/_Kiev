@@ -152,7 +152,7 @@
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 На жаль, Вам відмовлено у призначенні одноразової винагороди жінкам, яким присвоєно почесне звання України "Мати-героїня".&lt;br /&gt; &lt;/p&gt;
-${comment_2}&lt;br /&gt;&lt;br /&gt;
+${comment_1}&lt;br /&gt;&lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
