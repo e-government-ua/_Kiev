@@ -82,6 +82,7 @@ public final class Util {
         }
         String fullFileName = PATTERN_FILE_PATH_BEGIN + sPathFile;
         File file = new File(fullFileName);
+        log.info("Loading pattern file:" + fullFileName);
         return Files.toByteArray(file);
     }
 
