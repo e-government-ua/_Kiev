@@ -252,11 +252,14 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                     if (matcherPrefix.find()) {
                         prefix = matcherPrefix.group();
                         LOG.info("Found double bracket tag group: " + matcherPrefix.group());
-                        Matcher matcherText = TAG_PATTERN_TEXT.matcher(prefix);
-                        if (matcherText.find()) {
-                            String form_ID = matcherText.group();
+//                        Matcher matcherText = TAG_PATTERN_TEXT.matcher(prefix);
+//                        if (matcherText.find()) {
+//                            String form_ID = matcherText.group();
+                        String form_ID = StringUtils.replace(prefix, "{[", "");
+                        form_ID = StringUtils.replace(prefix, "]}", "");
                             LOG.info("form_ID: " + form_ID);
                             FormProperty formProperty = mProperty.get(form_ID);
+                            LOG.info("Found form property : " + formProperty);
                             if (formProperty != null) {
                                 if (formProperty.getValue() != null) {
                                     replacement = formProperty.getValue();
@@ -270,10 +273,11 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                                     }
                                 }
 
-                            }
+//                            }
                         }
                     }
                 }
+                LOG.info("Replacement for pattern : " + replacement);
                 matcher.appendReplacement(outputTextBuffer, replacement);
             }
         }
