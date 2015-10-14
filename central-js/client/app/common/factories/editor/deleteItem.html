@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{title}}</h3>
+</div>
+
+<form class="form" name="deleteForm" novalidate>
+  <div class="modal-body">
+    <div class="form-group" >
+      <label class="control-label">{{message}}</label>
+    </div>
+
+    <div class="form-group" ng-if="showSimpleConfirmation">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" name="checkbox" ng-model="isRecursive" required> Так, я розумію наслідки своїх дій
+        </label>
+      </div>
+    </div>
+
+    <div class="form-group" ng-if="showComplexConfirmation">
+      <label class="control-label">Введіть слово "ВИДАЛИТИ" великими літерами</label>
+      <div>
+        <input type="text"
+               class="form-control"
+               name="inp"
+               ng-model="one"
+               ng-pattern="/^ВИДАЛИТИ$/"
+               required>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" ng-disabled="deleteForm.$invalid" ng-click="delete()">
+      Видалити
+    </button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">
+      Відмінити
+    </button>
+  </div>
+</form>
+
+

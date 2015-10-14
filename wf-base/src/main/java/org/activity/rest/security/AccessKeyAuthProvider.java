@@ -14,105 +14,99 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 /**
- * @author tasman
+ * @author tasman edited by Olga Turenko & Belyavtsev Vladimir (BW)
  */
 @Component
 public class AccessKeyAuthProvider implements AuthenticationProvider {
 
     private static final String GENERAL_ROLE = "ROLE_USER";
-    @Value("${general.auth.custom.accessKey}")
-    private String generalAccessKey;
-    @Value("${general.auth.custom.subjectId}")
-    private String generalSubjectId;
-    @Value("${general.auth.custom.persistentKey}")
-    private String persistentKey;
-    private AccessDataDao accessDataDao;
 
-    private final Logger log = LoggerFactory.getLogger(AccessKeyAuthProvider.class);
+    @Value("${general.auth.login}")
+    private String sAccessLogin; // = sGeneralUsername; // == null ? "anonymous" : sGeneralUsername;
+
+    private AccessDataDao oAccessDataDao;
+    
+    private final Logger oLog = LoggerFactory.getLogger(AccessKeyAuthProvider.class);
     
     @Autowired
-    public AccessKeyAuthProvider(AccessDataDao accessDataDao) {
-        this.accessDataDao = accessDataDao;
+    public AccessKeyAuthProvider(AccessDataDao oAccessDataDao) {
+        this.oAccessDataDao = oAccessDataDao;
     }
 
-    public void setGeneralAccessKey(String generalAccessKey) {
-        this.generalAccessKey = generalAccessKey;
+    public void setAccessLoginDefault(String sAccessLogin) {
+        this.sAccessLogin = sAccessLogin;
     }
-
-    public void setGeneralSubjectId(String generalSubjectId) {
-        this.generalSubjectId = generalSubjectId;
-    }
-
-    public void setPersistentKey(String persistentKey) {
-        this.persistentKey = persistentKey;
-    }
-
+    
     @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        if (generalCredentialsExists() &&
-                authenticatedByGeneralCredentials(authentication)) {
-            return authenticatedToken(authentication);
-        }
-        authenticateByAccessKey(authentication);
-        return authenticatedToken(authentication);
+    public Authentication authenticate(Authentication oAuthentication) throws AuthenticationException {
+        checkAuthByAccessKeyAndData(oAuthentication);
+        return createTokenByAccessKeyAndData(oAuthentication);
     }
 
-    private void authenticateByAccessKey(Authentication authentication) {
-        log.info("authentication.getName()="+authentication.getName());
-        log.info("authentication.getPrincipal()="+authentication.getPrincipal());
-        
-        String accessData = accessDataDao.getAccessData(authentication.getName());
-        log.info("accessData="+accessData);
-        log.info("authentication.getCredentials()="+authentication.getCredentials());
-        log.info("authentication.getCredentials() decode ="+URLDecoder.decode((String)authentication.getCredentials()));
-        
-        if (accessData == null) {
-            log.warn("accessData == null");
+    private void checkAuthByAccessKeyAndData(Authentication oAuthentication) {
+        String sAccessKey = oAuthentication.getName();
+        String sAccessData = oAccessDataDao.getAccessData(sAccessKey);
+        oLog.info("[checkAuthByAccessKeyAndData]:sAccessKey="+sAccessKey + ",sAccessData(Storage)="+sAccessData);
+        if (sAccessData == null) {
+            oLog.warn("[checkAuthByAccessKeyAndData]:sAccessData == null");
             throw new BadAccessKeyCredentialsException("Error custom authorization - key is absent");
         }
-        if (!accessData.equals(URLDecoder.decode((String)authentication.getCredentials()))) {
-            log.warn("!accessData.equals(authentication.getCredentials(): accessData=" + accessData + " authentication.getCredentials() decode="
-                    + URLDecoder.decode((String)authentication.getCredentials()) + "!!!!");
+        sAccessData = sAccessData.replace("&"+AuthenticationTokenSelector.ACCESS_CONTRACT+"="+AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST, "")
+                .replace(""+AuthenticationTokenSelector.ACCESS_CONTRACT+"="+AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST+"&", "");
+        boolean bContractAndLogin = sAccessData.contains(AuthenticationTokenSelector.ACCESS_CONTRACT+"="+AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST_AND_LOGIN);
+        if(bContractAndLogin){
+            sAccessData = sAccessData.replace("&"+AuthenticationTokenSelector.ACCESS_CONTRACT+"="+AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST_AND_LOGIN, "")
+                    .replace(""+AuthenticationTokenSelector.ACCESS_CONTRACT+"="+AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST_AND_LOGIN+"&", "");
+        }
+        if(sAccessData.contains(AuthenticationTokenSelector.ACCESS_LOGIN)){
+            sAccessData = sAccessData.substring(0, sAccessData.indexOf("&" + AuthenticationTokenSelector.ACCESS_LOGIN)); //&sAccessLogin=activiti-master  
+        }
+        
+        String sAccessDataGenerated = oAuthentication.getCredentials()+"";
+        String sAccessDataGeneratedDecoded = null;
+        try{
+            sAccessDataGeneratedDecoded = URLDecoder.decode(sAccessDataGenerated);
+            if(bContractAndLogin){
+                String sStartWith = AuthenticationTokenSelector.ACCESS_LOGIN+"=";
+                String[] as = sAccessDataGeneratedDecoded.split("\\&");
+                for(String s : as){
+                    if(s.startsWith(sStartWith)){
+                        String[] asWord = s.split("\\=");
+                        sAccessLogin=asWord[1];
+                        break;
+                    }
+                }
+            }
+        }catch(Exception oException){
+            oLog.error("[checkAuthByAccessKeyAndData]:sAccessDataGenerated="+sAccessDataGenerated+":on 'URLDecoder.decode' "+oException.getMessage());
+            throw oException;
+        }
+        
+        if (!sAccessData.equals(sAccessDataGeneratedDecoded)) {
+            oLog.error("[checkAuthByAccessKeyAndData]:!sAccessData.equals(sAccessDataGenerated):"
+                    + "sAccessData(FromStorage)=\n" + sAccessData
+                    //+ ", sAccessDataGenerated=\n" + sAccessDataGenerated
+                    + ", sAccessDataGeneratedDecoded=\n" + sAccessDataGeneratedDecoded
+                    + "");
             throw new BadAccessKeyCredentialsException("Error custom authorization - key data is wrong");
         }
-        log.info("persistentKey="+persistentKey);
-        if (persistentKey == null || !persistentKey.equals(authentication.getName())) {
-            log.info("remove key (persistentKey == null || !persistentKey.equals(authentication.getName()))");
-            accessDataDao.removeAccessData(authentication.getName());
-        }else{
-            log.warn("Can't remove key");
-        }
+        
+        oAccessDataDao.removeAccessData(sAccessKey);
+        oLog.info("[checkAuthByAccessKeyAndData](sAccessLogin="+sAccessLogin+",bContractAndLogin="+bContractAndLogin+",sAccessKey="+sAccessKey+"):Removed key!");
     }
 
-    private boolean authenticatedByGeneralCredentials(Authentication authentication) {
-        log.info("[authenticatedByGeneralCredentials]:generalAccessKey="+generalAccessKey+",generalSubjectId="+generalSubjectId);
-        log.info("[authenticatedByGeneralCredentials]:generalAccessKey="+generalAccessKey+",generalSubjectId="+generalSubjectId);
-        boolean bReturn = generalAccessKey.equals(authentication.getName()) &&
-                generalSubjectId.equals(authentication.getCredentials());
-        log.info("[authenticatedByGeneralCredentials]:bReturn="+bReturn);
-        return bReturn;
-    }
-
-    private boolean generalCredentialsExists() {
-        log.info("[generalCredentialsExists]:generalAccessKey="+generalAccessKey+",generalSubjectId="+generalSubjectId);
-        boolean bReturn = StringUtils.isNotBlank(generalAccessKey) &&
-                StringUtils.isNotBlank(generalSubjectId);
-        log.info("[generalCredentialsExists]:bReturn="+bReturn);
-        return bReturn;
-    }
-
-    private Authentication authenticatedToken(Authentication authentication) {
-        log.info("[generalCredentialsExists]:authentication.getName()="+authentication.getName()
-                +",authentication.getCredentials().toString()="+authentication.getCredentials().toString());
-        return new AccessKeyAuthenticationToken(authentication.getName(),
-                authentication.getCredentials().toString(),
-                Arrays.asList(new SimpleGrantedAuthority(GENERAL_ROLE)));
+    private Authentication createTokenByAccessKeyAndData(Authentication oAuthentication) {
+        oLog.info("[createTokenByAccessKey]:sAccessLogin="+sAccessLogin);//+",oAuthentication.getName()="+oAuthentication.getName()//+",authentication.getCredentials().toString()="+oAuthentication.getCredentials().toString());
+        List<GrantedAuthority> aGrantedAuthority = new ArrayList<>(); //Arrays.asList(new SimpleGrantedAuthority(GENERAL_ROLE))
+        aGrantedAuthority.add(new SimpleGrantedAuthority(GENERAL_ROLE));
+        return new AccessKeyAuthenticationToken(sAccessLogin, //sAccessLogin == null ? oAuthentication.getName() : sAccessLogin
+                oAuthentication.getCredentials().toString(), aGrantedAuthority);
     }
 
     @Override
-    public boolean supports(Class<?> authentication) {
-        boolean bReturn = AccessKeyAuthenticationToken.class.equals(authentication);
-        log.info("[supports]:bReturn="+bReturn);
-        return bReturn;
+    public boolean supports(Class<?> oAuthentication) {
+        boolean bSupport = AccessKeyAuthenticationToken.class.equals(oAuthentication);
+        //oLog.info("[supports]:bEquals="+bSupport);
+        return bSupport;
     }
 }

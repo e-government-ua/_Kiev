@@ -7,7 +7,6 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Копія паспорту" type="file"></activiti:formProperty>
         <activiti:formProperty id="bankIdaddress" name="Адреса Вашої реєстрації; зазначена в громадянському паспорті" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Індивідуальний податковий номер" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="vin" name="VIN-номер авто;можна знайти у свідоцтві про реєстрацію чи в технічному паспорті транспортного засобу. Приклад: 1HGEG644387712345" type="string" required="true"></activiti:formProperty>
@@ -151,9 +150,9 @@
           <activiti:value id="accept" name="Обтяження відсутні. Надіслати громадянину дату / час візиту для огляду авто"></activiti:value>
           <activiti:value id="warning" name="Авто підлягає арешту. Надіслати громадянину повідомлення про час / дату візиту"></activiti:value>
           <activiti:value id="reject" name="Знайдені обтяження. Відмовити громадянину в наданні послуги."></activiti:value>
-          <activiti:value id="reject2" name="Відмовити громадянину в наданні послуги; звернення містить невірні дані "></activiti:value>
+          <activiti:value id="reject2" name="Відмовити громадянину в наданні послуги. Звернення містить невірні дані "></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="sSum" name="Розмір держ.збору за надання послуги (для генерації рахунку для сплати через LIQPAY)" type="enum" default=" ">
+        <activiti:formProperty id="sSum" name="Розмір держ.збору за надання послуги (для генерації рахунку для сплати через LIQPAY)" type="enum">
           <activiti:value id="506.92" name="497.95 грн - Реєстрація іноземного авто з видачею свідоцтва про реєстрацію(або дубліката) та номерного знака "></activiti:value>
           <activiti:value id="468.72" name="460.43 грн - Реєстрація відчизняного авто та країн СНД з видачею свідоцтва про реєстрацію(або дубліката) та номерного знака "></activiti:value>
           <activiti:value id="398.19" name="391.15 грн - Реєстрація іноземного авто з видачею свідоцтва про реєстрацію(або його дубліката) без номерного знака"></activiti:value>
@@ -469,7 +468,7 @@
 4. Копія квитанції про сплату за послуги МРЕВ.&lt;br /&gt;
 &lt;/p&gt;
 Дані талону на візит: &lt;br /&gt;
-${date_of_visit}&lt;br /&gt;
+${visitDate}&lt;br /&gt;
 &lt;p&gt;
 Графік прийому громадян:&lt;br /&gt;
 Пн - Птн з 9:00 до 18:00 (перерва з  13:00 до 14:00) &lt;br /&gt;

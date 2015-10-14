@@ -34,26 +34,19 @@ public class PlaceDaoImpl extends GenericEntityDao<Place> implements PlaceDao {
 
 
     @SuppressWarnings("unchecked")
-    public PlaceHierarchyTree getTreeDown(PlaceHierarchyRecord root) {
+    public PlaceHierarchy getTreeDown(PlaceHibernateHierarchyRecord root) {
         notNull(root, "Root element can't be a null");
 
         if (!valid(root.getPlaceId()) && isBlank(root.getUaID()))
             throw new IllegalArgumentException("PlaceId and UA id are empty");
 
+        //  Hierarchy SQL are stored in external files, but, result sql query depends on input parameters.
         QueryBuilder sql = new QueryBuilder(getSession(), placeQueryResolver.getTreeDown(root))
             .append(root.isNotEmpty(), " where ");
 
-        if (valid(root.getTypeId())) {
-            sql.append(" (type_id = :TYPE_ID", root.getTypeId());
-
-            if (valid(root.getPlaceId()))
-                sql.append(" or id = :PLACE_ID)");
-
-            else if (isNotBlank(root.getUaID()))
-                sql.append(" or id = :UA_ID)");
-        }
-
-        sql .append( valid(root.isArea()) && valid(root.getTypeId()), " and ")
+        //  Adding additional conditionals/restrictions/constraints/etc
+        sql .append( valid(root.getTypeId()), "type_id = :TYPE_ID", root.getTypeId())
+            .append( valid(root.isArea()) && valid(root.getTypeId()), " and ")
             .append( valid(root.isArea()), " area = :AREA", root.isArea() )
             .append( valid(root.isRoot()) && (valid(root.getTypeId()) ||valid(root.isArea()))," and ")
             .append( valid(root.isRoot()), " root = :ROOT", root.isRoot())
@@ -70,7 +63,7 @@ public class PlaceDaoImpl extends GenericEntityDao<Place> implements PlaceDao {
         Query query = sql.toSQLQuery()
             .setResultTransformer(new PlaceHibernateResultTransformer());
 
-        return valid(root.getTypeId())? toList(query.list()) : toTree(query.list());
+        return valid( root.getTypeId() )? toList(query.list()) : toTree(query.list());
     }
 
 
@@ -81,7 +74,7 @@ public class PlaceDaoImpl extends GenericEntityDao<Place> implements PlaceDao {
             isTrue ( isBlank(uaId), "UA id can't empty.");
         }
 
-        Query query = new QueryBuilder(getSession())
+        Query query = new QueryBuilder( getSession() )
             .append  ( placeQueryResolver.getTreeUp(placeId, uaId, tree) )
             .setParam( valid(placeId), "PLACE_ID", placeId )
             .setParam( isNotBlank(uaId) && !valid(placeId), "UA_ID", uaId )

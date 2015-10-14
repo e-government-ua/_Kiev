@@ -20,19 +20,23 @@ angular.module('app').service('ActivitiService', function($http, ErrorsFactory) 
 
     var nID_Region;
     var sID_UA;
+    var sID_UA_Common;
 
     if(oServiceData.nID_Region){
       nID_Region = oServiceData.nID_Region.nID;
-      sID_UA = oServiceData.nID_Region.sID_UA
+      sID_UA = oServiceData.nID_Region.sID_UA;
+      sID_UA_Common = oServiceData.nID_Region.sID_UA;
     } else if (oServiceData.nID_City){
       nID_Region = oServiceData.nID_City.nID_Region.nID;
-      sID_UA = oServiceData.nID_City.nID_Region.sID_UA
+      sID_UA = oServiceData.nID_City.nID_Region.sID_UA;
+      sID_UA_Common = oServiceData.nID_City.sID_UA;
     }
 
     var params = {
       nID_Service : oService.nID,
       nID_Region : nID_Region,
-      sID_UA : sID_UA
+      sID_UA : sID_UA,
+      sID_UA_Common : sID_UA_Common
     };
 
     var data = angular.extend(data, formData.getRequestObject());

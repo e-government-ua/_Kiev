@@ -47,8 +47,8 @@ angular.module('dashboardJsApp')
           deferred.resolve(processesDefinitions);
         } else {
           console.log("processesDefinitions(=== null)="+processesDefinitions);
-            
-            
+
+
           var req = {
             method: 'GET',
             url: '/api/processes',
@@ -63,7 +63,7 @@ angular.module('dashboardJsApp')
 //              processesDefinitions = idToProcessMap(JSON.parse(result).data);
               processesDefinitions = idToProcessMap(result.data);
               console.log("processesDefinitions(reloaded)="+processesDefinitions);
-              
+
               deferred.resolve(processesDefinitions);
               return cb();
             }).
@@ -78,7 +78,7 @@ angular.module('dashboardJsApp')
       },
 
       getProcessName: function (processDefinitionId) {
-          
+
         /*var deferred = $q.defer();
         if (processesDefinitions === null) {
           var req = {
@@ -92,7 +92,7 @@ angular.module('dashboardJsApp')
               console.log("1JSON.parse(result)="+JSON.parse(result));
               processesDefinitions = idToProcessMap(JSON.parse(result).data);
               console.log("processesDefinitions(reloaded)="+processesDefinitions);
-              
+
               deferred.resolve(processesDefinitions);
               return cb();
             }).
@@ -101,15 +101,14 @@ angular.module('dashboardJsApp')
               return cb(err);
             }.bind(this));
         }*/
-        
-        
+
+
 //        processes.list().then(function (processesDefinitions) {
           //$scope.applyTaskFilter($scope.$storage.menuType);
             var sID=processDefinitionId;
 //            console.log("[getProcessDescription]sID(before)="+sID);
 //            console.log("[getProcessDescription]processesDefinitions="+processesDefinitions);
             if(sID === null || sID === undefined){
-                console.log("[getProcessDescription]sID is "+ sID);
                 return sID;
             }
             //if(sID!==null){//"_test_dependence_form:2:87617"
@@ -128,18 +127,18 @@ angular.module('dashboardJsApp')
               return processesDefinitions[sID].name;
             } else {
               return sID;//+"("+processesDefinitions.length+")";
-            }            
-            
+            }
+
 //        }).catch(function (err) {
           //err = JSON.parse(err);
           //$scope.error = err;
 //        });
-          
+
 
       },
 
       getProcessDescription: function (processDefinitionId) {
-          
+
         /*var deferred = $q.defer();
         if (processesDefinitions === null) {
           var req = {
@@ -153,7 +152,7 @@ angular.module('dashboardJsApp')
               console.log("1JSON.parse(result)="+JSON.parse(result));
               processesDefinitions = idToProcessMap(JSON.parse(result).data);
               console.log("processesDefinitions(reloaded)="+processesDefinitions);
-              
+
               deferred.resolve(processesDefinitions);
               return cb();
             }).
@@ -162,10 +161,10 @@ angular.module('dashboardJsApp')
               return cb(err);
             }.bind(this));
         }*/
-        
+
 //        processes.list().then(function (processesDefinitions) {
           //$scope.applyTaskFilter($scope.$storage.menuType);
-        
+
             var sID=processDefinitionId;
 //            console.log("[getProcessDescription]sID(before)="+sID);
 //            console.log("[getProcessDescription]processesDefinitions="+processesDefinitions);
@@ -190,12 +189,12 @@ angular.module('dashboardJsApp')
             } else {
               return sID;//+"("+processesDefinitions.length+")";
             }
-        
+
 //        }).catch(function (err) {
           //err = JSON.parse(err);
           //$scope.error = err;
 //        });
-        
+
       }
     };
   });

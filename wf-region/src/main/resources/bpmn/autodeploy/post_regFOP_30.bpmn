@@ -11,9 +11,10 @@
         <activiti:formProperty id="adress" name="Ваша адреса" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Оберіть реєстраційну службу міськрайонного управління юстиції" type="enum" required="true">
           <activiti:value id="fond1" name="51400, Дніпропетровська обл., м.Павлоград, вул. Дніпровська, 338"></activiti:value>
+          <activiti:value id="fond2" name="49000.м.Дніпропетровськ"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="scan_inn" name="Копія документа, що засвідчує реєстрацію у Державному реєстрі фізичних осіб - платників податків (ІПН)" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="sID_Payment" name="ИД транзакции платежа" type="invisible" default=" "></activiti:formProperty>
         <activiti:formProperty id="nID_Subject" name="ИД-номер субъекта" type="invisible" default="0"></activiti:formProperty>
@@ -37,10 +38,11 @@
         <activiti:formProperty id="adress" name="Ваша адреса" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="area" name="Оберіть реєстраційну службу міськрайонного управління юстиції" type="enum" writable="false">
           <activiti:value id="fond1" name="51400, Дніпропетровська обл., м.Павлоград, вул. Дніпровська, 338"></activiti:value>
+          <activiti:value id="fond2" name="49000.м.Дніпропетровськ"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="country" name="Країна громадянства" type="string" default="Україна"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="country" name="Країна громадянства" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="typeRoom" name="Тип приміщення (квартира, кімната, кабінет або офіс тощо)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="scan_inn" name="Копія документа, що засвідчує реєстрацію у Державному реєстрі фізичних осіб - платників податків (ІПН)" type="file" writable="false"></activiti:formProperty>
         <activiti:formProperty id="scan_receipt" name="Копія квитанції, виданої банком, або копія платіжного доручення з відміткою банку" type="file" writable="false"></activiti:formProperty>
@@ -146,7 +148,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="servicetask4" name="Відповідь у разі нехватки документів" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask4" name="Відповідь у разі нехватки документів" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -205,6 +207,8 @@
 &lt;p&gt;Причина в наступному: 
                                     &lt;/p&gt;
 &lt;p&gt;${comment}&lt;/p&gt;
+
+&lt;p&gt;Test enum:  enum{[area]}.&lt;/p&gt;
                             
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -227,9 +231,6 @@
     &lt;/tr&gt;
     &lt;/tbody&gt;
 &lt;/table&gt;</activiti:expression>
-        </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${scan_inn}, ${scan_receipt}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -409,7 +410,6 @@
     <endEvent id="endevent1" name="End"></endEvent>
     <endEvent id="endevent3" name="End"></endEvent>
     <endEvent id="endevent4" name="End"></endEvent>
-    <sequenceFlow id="flow3" sourceRef="servicetask2" targetRef="usertask1"></sequenceFlow>
     <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow5" sourceRef="exclusivegateway1" targetRef="servicetask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision=='attr1_doc_ok'}]]></conditionExpression>
@@ -428,14 +428,15 @@
     <sequenceFlow id="flow13" sourceRef="mailtask1" targetRef="endevent3"></sequenceFlow>
     <sequenceFlow id="flow14" sourceRef="mailtask2" targetRef="endevent4"></sequenceFlow>
     <sequenceFlow id="flow15" sourceRef="startevent1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow16" sourceRef="servicetask2" targetRef="usertask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_post_regFOP_30">
     <bpmndi:BPMNPlane bpmnElement="post_regFOP_30" id="BPMNPlane_post_regFOP_30">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="60.0" y="138.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="138.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="71.0" width="105.0" x="200.0" y="120.0"></omgdc:Bounds>
+        <omgdc:Bounds height="71.0" width="105.0" x="80.0" y="120.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="71.0" width="105.0" x="332.0" y="120.0"></omgdc:Bounds>
@@ -464,10 +465,6 @@
       <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
         <omgdc:Bounds height="35.0" width="35.0" x="710.0" y="308.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
-        <omgdi:waypoint x="305.0" y="155.0"></omgdi:waypoint>
-        <omgdi:waypoint x="332.0" y="155.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
         <omgdi:waypoint x="437.0" y="155.0"></omgdi:waypoint>
         <omgdi:waypoint x="470.0" y="155.0"></omgdi:waypoint>
@@ -511,8 +508,12 @@
         <omgdi:waypoint x="710.0" y="325.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
-        <omgdi:waypoint x="95.0" y="155.0"></omgdi:waypoint>
-        <omgdi:waypoint x="200.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="45.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="80.0" y="155.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="185.0" y="155.0"></omgdi:waypoint>
+        <omgdi:waypoint x="332.0" y="155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

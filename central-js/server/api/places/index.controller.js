@@ -82,7 +82,7 @@ function findCities(region, search) {
 
 	var oRegion = findRegion(region);
 	if(oRegion == null) {
-		return null;
+		return [];
 	}
 
 	return (search == null) ?

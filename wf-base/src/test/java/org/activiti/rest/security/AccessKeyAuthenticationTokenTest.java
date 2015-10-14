@@ -16,21 +16,21 @@ public class AccessKeyAuthenticationTokenTest {
 	public void shouldReturnFalseOnHasCorrectAccessKeyAndSubjectIdMethodIfAccessKeyNotSpecified() {
 		AccessKeyAuthenticationToken token = new AccessKeyAuthenticationToken(null, "subject_id");
 
-		assertFalse(token.hasCorrectAccessKeyAndSubjectId());
+		assertFalse(token.isNotEmpty());
 	}
 
 	@Test
 	public void shouldReturnFalseOnHasCorrectAccessKeyAndSubjectIdMethodIfSubjectIdNotSpecified() {
 		AccessKeyAuthenticationToken token = new AccessKeyAuthenticationToken("access_key", null);
 
-		assertFalse(token.hasCorrectAccessKeyAndSubjectId());
+		assertFalse(token.isNotEmpty());
 	}
 
 	@Test
 	public void shouldReturnFalseOnIsEmptyMethodIfSubjectIdAndAccessKeySpecified() {
 		AccessKeyAuthenticationToken token = new AccessKeyAuthenticationToken("access_key", "subject_id");
 
-		assertTrue(token.hasCorrectAccessKeyAndSubjectId());
+		assertTrue(token.isNotEmpty());
 		assertEquals("subject_id", token.getCredentials());
 		assertEquals("access_key", token.getPrincipal());
 	}

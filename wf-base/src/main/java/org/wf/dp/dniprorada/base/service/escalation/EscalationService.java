@@ -21,6 +21,7 @@ import org.wf.dp.dniprorada.base.dao.EscalationRuleFunctionDao;
 import org.wf.dp.dniprorada.base.model.EscalationRule;
 import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
 import org.wf.dp.dniprorada.base.util.BPMNUtil;
+import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,10 @@ import java.util.Map;
 
 @Service
 public class EscalationService {
-    private static final Logger log = Logger.getLogger(EscalationService.class);
+    private static final String SEARCH_DELAYED_TASKS_URL = "/task-activiti/";
+
+
+	private static final Logger log = Logger.getLogger(EscalationService.class);
 
 
     @Autowired
@@ -60,10 +64,9 @@ public class EscalationService {
         try {
             List<EscalationRule> aEscalationRule = escalationRuleDao.findAll();
             for (EscalationRule oEscalationRule : aEscalationRule) {
-                runEscalationRule(oEscalationRule);
+                runEscalationRule(oEscalationRule, "https://region.org.gov.ua");
 
             }
-            //return escalationRuleFunctionDao.saveOrUpdate(nID, sName, sBeanHandler);
         } catch (Exception oException) {
             log.error("[getTaskData]:" + oException);
             throw new ActivitiRestException("ex in controller!", oException);
@@ -71,11 +74,11 @@ public class EscalationService {
 
     }
 
-    public void runEscalationRule(Long nID_escalationRule){
-        runEscalationRule(escalationRuleDao.findById(nID_escalationRule).orNull());
+    public void runEscalationRule(Long nID_escalationRule, String regionalServerPath){
+        runEscalationRule(escalationRuleDao.findById(nID_escalationRule).orNull(), regionalServerPath);
     }
 
-    private void runEscalationRule(EscalationRule oEscalationRule) {
+    private void runEscalationRule(EscalationRule oEscalationRule, String regionalServerPath) {
         EscalationRuleFunction oEscalationRuleFunction = oEscalationRule.getoEscalationRuleFunction();
 
         String sID_BP = oEscalationRule.getsID_BP();
@@ -93,10 +96,9 @@ public class EscalationService {
         List<Task> aTask = oTaskQuery.listPage(nRowStart, nRowsMax);
 
         for (Task oTask : aTask) {
-            //long nID_task_activiti = Long.valueOf(oTask.getId());
-            //Map<String, Object> mTaskParam = getTaskData(nID_task_activiti);//new HashMap()
             try {
             Map<String, Object> mTaskParam = getTaskData(oTask);
+            mTaskParam.put("processLink", regionalServerPath + SEARCH_DELAYED_TASKS_URL + mTaskParam.get("nID_task_activiti"));
 
             log.info("[getTaskData]:checkTaskOnEscalation mTaskParam=" + mTaskParam);
             escalationHelper.checkTaskOnEscalation(mTaskParam
@@ -120,13 +122,11 @@ public class EscalationService {
 
         Map<String, Object> m = new HashMap();
 
-        //Date = Date
         long nDiffMS = 0;
         if (oTask.getDueDate() != null) {
             nDiffMS = oTask.getDueDate().getTime() - oTask.getCreateTime().getTime();
         }else{
             nDiffMS = DateTime.now().toDate().getTime() - oTask.getCreateTime().getTime();
-            //Date oDateTo = DateTime.now().toDate();
         }
         log.info("[getTaskData]:nDiffMS=" + nDiffMS);
         
@@ -152,7 +152,7 @@ public class EscalationService {
         }
         
         m.put("sID_BP", StringUtils.substringBefore(oTask.getProcessDefinitionId(), ":"));
-        m.put("nID_task_activiti", oTask.getId());
+        m.put("nID_task_activiti", AlgorithmLuna.getProtectedNumber(Long.valueOf(oTask.getProcessInstanceId())));
         m.put("sTaskName", oTask.getName());
         m.put("sTaskDescription", oTask.getDescription());
         m.put("sProcessInstanceId", oTask.getProcessInstanceId());
@@ -179,7 +179,7 @@ public class EscalationService {
 		
         m.put("sServiceType", processDefinition != null ? processDefinition.getName() : "");
         m.put("sTaskName", String.format("%s", oTask.getName()));
-        m.put("sTaskNumber", String.format("%s ", oTask.getId().toString()));
+        m.put("sTaskNumber", AlgorithmLuna.getProtectedNumber(Long.valueOf(oTask.getProcessInstanceId())));
         m.put("sElapsedInfo", String.format("%d", nElapsedDays));
         m.put("sResponsiblePersons", String.format("%s", osaUser.toString()));
         

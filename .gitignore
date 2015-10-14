@@ -1,5 +1,9 @@
 *.class
 
+# NetBeans
+nbactions.xml
+nb-configuration.xml
+
 # eclipse 
 **/target 
 **/target/*

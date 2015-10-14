@@ -1,12 +1,23 @@
 <div ng-init="fillData()">
   <table class="table">
     <tbody>
-      <tr ng-repeat="rule in get()">
-        <td>
-          <!--replace with dynamic values properly-->
-          Якщо чиновник не відповідає 10 днів, то відправити e-mail. Послуга: {{rule.sID_BP}}
+       <tr ng-hide="processesLoaded()"><td><h4>Завантаження списку правил...</h4></td></tr>
+       <tr>
+         <td>
+          <button class="btn btn-primary" ng-click="add()" ng-show="processesLoaded()">Додати правило</button>
         </td>
-        <td>
+        <td></td>
+        
+      </tr>
+      <tr ng-repeat="rule in get() | orderBy:'-nID'">
+        <td class="col-md-8">
+           <b>ID: </b> {{rule.nID}},
+          <b>Якщо</b> {{rule.sCondition}}, 
+          <b>то</b> {{translate(rule.nID_EscalationRuleFunction.sName)}}.<br/> 
+          <b>Параметри:</b> {{rule.soData}}. <br/>
+          <b>Послуга:</b> {{rule.bpName}}
+        </td>
+        <td class="col-md-4 rulebuttons">
           <div class="btn-group">
             <button type="button" class="btn btn-default" ng-click="edit(rule)">
               Редагувати
@@ -16,18 +27,13 @@
               <i class="fa fa-copy"></i>
             </button>
             <button type="button" class="btn btn-danger" ng-click="delete(rule)" tooltip="Видалити" tooltip-trigger="mouseenter" tooltip-placement="top"
-            tooltip-append-to-body="true" disabled=true>
+            tooltip-append-to-body="true">
               <i class="fa fa-trash-o"></i>
             </button>
           </div>
         </td>
       </tr>
-      <tr>
-        <td></td>
-        <td>
-          <button class="btn btn-primary" ng-click="add()">Додати</button>
-        </td>
-      </tr>
+     
     </tbody>
   </table>
 </div>

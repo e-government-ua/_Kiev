@@ -1,4 +1,4 @@
-angular.module('app').factory('LocalityListFactory', function($http, TypeaheadFactory, DropdownFactory) {
+angular.module('app').factory('LocalityListFactory', function($http, PlacesService, TypeaheadFactory, DropdownFactory) {
   var localityList = function() {
     this.typeahead = new TypeaheadFactory();
     this.dropdown = new DropdownFactory();
@@ -20,21 +20,10 @@ angular.module('app').factory('LocalityListFactory', function($http, TypeaheadFa
       sFind: search
     };
     return this.typeahead.load('./api/places/region/' + region + '/cities', search, data).then(function(cities) {
-      if (service === null) return cities;
-      var aServiceData = service.aServiceData;
-      angular.forEach(cities, function(oCity) {
-        var color = 'red';
-        angular.forEach(aServiceData, function(oServiceData) {
-          if (oServiceData.hasOwnProperty('nID_City') == false) {
-            return;
-          }
-          if (oServiceData.nID_City.nID == oCity.nID) {
-            color = 'green';
-          }
-        });
-        oCity.color = color;
-      });
-      return cities;
+      if (service === null) {
+        return cities;
+      }
+      return PlacesService.colorizeCitiesForService(cities, service);
     }).then(function(cities) {
       self.typeahead.list = cities;
       self.dropdown.list = cities;
