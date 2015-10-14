@@ -256,7 +256,7 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
 //                        if (matcherText.find()) {
 //                            String form_ID = matcherText.group();
                         String form_ID = StringUtils.replace(prefix, "{[", "");
-                        form_ID = StringUtils.replace(prefix, "]}", "");
+                        form_ID = StringUtils.replace(form_ID, "]}", "");
                             LOG.info("form_ID: " + form_ID);
                             FormProperty formProperty = mProperty.get(form_ID);
                             LOG.info("Found form property : " + formProperty);
