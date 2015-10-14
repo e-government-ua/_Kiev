@@ -86,7 +86,7 @@
         <activiti:formProperty id="garbage_notice" name="Примітки; наприклад, наявність лічильника" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="notice2" name="Примітки" type="label" default="Я та особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку, даємо згоду на обробку персональних даних про сім’ю, доходи, майно, що необхідні для призначення житлової субсидії, та оприлюднення відомостей щодо її призначення. "></activiti:formProperty>
         <activiti:formProperty id="declaration" name="Дані для декларації" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="place_type" name="Тип будинку" type="enum" required="true">
+        <activiti:formProperty id="place_type" name="Тип дома" type="enum" required="true">
           <activiti:value id="1" name="окремий будинок"></activiti:value>
           <activiti:value id="2" name="багатоквартирний будинок"></activiti:value>
         </activiti:formProperty>
@@ -107,7 +107,7 @@
           <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="org0" name="Назва організації, де Ви працюєте" type="string" default="Назва організації" required="true"></activiti:formProperty>
-        <activiti:formProperty id="other_people" name="Разом з Вами мешкають інші особи?" type="enum" required="true">
+        <activiti:formProperty id="other_people" name="Разом з Вами мешкають повнолітні особи?" type="enum" required="true">
           <activiti:value id="attr1" name="Так, 1 особа"></activiti:value>
           <activiti:value id="attr2" name="Так, 2 особи"></activiti:value>
           <activiti:value id="attr3" name="Так, 3 особи"></activiti:value>
@@ -117,8 +117,8 @@
         </activiti:formProperty>
         <activiti:formProperty id="fio1" name="Прізвище, ім'я, по-батькові особи1; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="date1" name="Дата народження особи1; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="passport1" name="Серія та номер паспорту особи1; Наприклад: АА 111111. Якщо Ви заповнюєте дані дитини, можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="card1" name="Реєстраційний номер облікової картки платника податків особи1; Якщо Ви заповнюєте дані дитини, можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="passport1" name="Серія та номер паспорту особи1; Наприклад: АА 111111" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="card1" name="Реєстраційний номер облікової картки платника податків особи1" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="income1" name="Вид доходу особи1" type="enum" default="attr0">
           <activiti:value id="attr0" name=" "></activiti:value>
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
@@ -134,8 +134,8 @@
         <activiti:formProperty id="org1" name="Найменування організації, де отримує дохід особа1; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="fio2" name="Прізвище, ім'я, по-батькові особи2; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="date2" name="Дата народження особи2; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="passport2" name="Серія та номер паспорту особи2; Наприклад: АА 111111. Якщо Ви заповнюєте дані дитини, можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="card2" name="Реєстраційний номер облікової картки платника податків особи2; Якщо Ви заповнюєте дані дитини, можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="passport2" name="Серія та номер паспорту особи2; Наприклад: АА 111111" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="card2" name="Реєстраційний номер облікової картки платника податків особи2" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="income2" name="Вид доходу особи2" type="enum" default=" attr0">
           <activiti:value id="attr0" name=" "></activiti:value>
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
@@ -151,8 +151,8 @@
         <activiti:formProperty id="org2" name="Найменування організації, де отримує дохід особа2; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="fio3" name="Прізвище, ім'я, по-батькові особи3; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="date3" name="Дата народження особи3; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="passport3" name="Серія та номер паспорту особи3; Наприклад: АА 111111. Якщо Ви заповнюєте дані дитини, можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="card3" name="Реєстраційний номер облікової картки платника податків особи3; Якщо Ви заповнюєте дані дитини, можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="passport3" name="Серія та номер паспорту особи3; Наприклад: АА 111111" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="card3" name="Реєстраційний номер облікової картки платника податків особи3" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="income3" name="Вид доходу особи3" type="enum" default="attr0">
           <activiti:value id="attr0" name=" "></activiti:value>
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
@@ -168,8 +168,8 @@
         <activiti:formProperty id="org3" name="Найменування організації, де отримує дохід особи3; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="fio4" name="Прізвище, ім'я, по-батькові особи4; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="date4" name="Дата народження особи4; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="passport4" name="Серія та номер паспорту особи4; Наприклад: АА 111111. Якщо Ви заповнюєте дані дитини, можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="card4" name="Реєстраційний номер облікової картки платника податків особи4; Якщо Ви заповнюєте дані дитини, можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="passport4" name="Серія та номер паспорту особи4; Наприклад: АА 111111" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="card4" name="Реєстраційний номер облікової картки платника податків особи4" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="income4" name="Вид доходу особи4" type="enum" default="attr0">
           <activiti:value id="attr0" name=" "></activiti:value>
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
@@ -185,8 +185,8 @@
         <activiti:formProperty id="org4" name="Найменування організації, де отримує дохід особа4; для фізичних осіб-підприємців - група платника єдиного податку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="fio5" name="Прізвище, ім'я, по-батькові особи5; Наприклад: Остапчук Остап Остапович" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="date5" name="Дата народження особи5; наприклад: 01.01.1960" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="passport5" name="Серія та номер паспорту особи5; Наприклад: АА 111111. Якщо Ви заповнюєте дані дитини, можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="card5" name="Реєстраційний номер облікової картки платника податків особи5; Якщо Ви заповнюєте дані дитини, можете пропустити цей пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="passport5" name="Серія та номер паспорту особи5; Наприклад: АА 111111" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="card5" name="Реєстраційний номер облікової картки платника податків особи5" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="income5" name="Вид доходу особи5" type="enum" default="attr0">
           <activiti:value id="attr0" name=" "></activiti:value>
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>

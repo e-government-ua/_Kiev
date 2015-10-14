@@ -80,7 +80,7 @@
         <activiti:formProperty id="garbage_notice" name="Примітки; наприклад, наявність лічильника" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="notice2" name="Примітки" type="label" default="Я та особи, які зареєстровані (фактично проживають) у житловому приміщенні/будинку, даємо згоду на обробку персональних даних про сім’ю, доходи, майно, що необхідні для призначення житлової субсидії, та оприлюднення відомостей щодо її призначення. "></activiti:formProperty>
         <activiti:formProperty id="declaration" name="Дані для декларації" type="label" default="--------------------"></activiti:formProperty>
-        <activiti:formProperty id="place_type" name="Тип будинку" type="enum" required="true">
+        <activiti:formProperty id="place_type" name="Тип дома" type="enum" required="true">
           <activiti:value id="1" name="окремий будинок"></activiti:value>
           <activiti:value id="2" name="багатоквартирний будинок"></activiti:value>
         </activiti:formProperty>
