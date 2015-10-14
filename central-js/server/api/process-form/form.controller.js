@@ -138,7 +138,7 @@ module.exports.scanUpload = function (req, res) {
 };
 
 module.exports.signForm = function (req, res) {
-  var formID = req.query.formID;
+  var formID =  req.session.formID;
   var oServiceDataNID = req.query.oServiceDataNID;
   var sURL = req.query.sURL;
 
@@ -153,12 +153,11 @@ module.exports.signForm = function (req, res) {
 
   var callbackURL = url.resolve(originalURL(req, {}), '/api/process-form/sign/callback');
   if(oServiceDataNID){
+    req.session.oServiceDataNID = oServiceDataNID;
     //TODO use oServiceDataNID in callback
-    callbackURL +='?oServiceDataNID=' + oServiceDataNID + '&formID=' + formID;
     //TODO fill sURL from oServiceData to use it below
-    sURL = '';
   } else if (sURL) {
-    callbackURL +='?sURL=' + sURL + '&formID=' + formID;
+    req.session.sURL = sURL;
   }
 
   var createHtml = function(data){
@@ -218,10 +217,10 @@ module.exports.signForm = function (req, res) {
 };
 
 module.exports.signFormCallback = function (req, res) {
+  var sURL =  req.session.sURL;
+  var formID =  req.session.formID;
+  var oServiceDataNID = req.session.oServiceDataNID;
   var codeValue = req.query.code;
-  var formID = req.query.formID;
-  var oServiceDataNID = req.query.oServiceDataNID;
-  var sURL = req.query.sURL;
 
   if(oServiceDataNID){
     //TODO fill sURL from oServiceData to use it below
@@ -231,9 +230,9 @@ module.exports.signFormCallback = function (req, res) {
 //  Для выполнения финального п. 5, необходимо сформировать запрос метода GET, передав в нем код авторизационного ключа code
 //  https://{PI:port}/ResourceService/checked/claim/code_value/clientPdfClaim
   //  Authorization = "Bearer access_token, Id client_id" - (последовательность не важна)
-
+//https://bankid.privatbank.uaundefined/checked/claim/89e6c1a6-5174-4169-91b2-bbc9afab0520/clientPdfClaim
   var bankIDOptions = getBankIDOptions(req.session.access.accessToken);
-  var signedFormForUpload = accountService.prepareScanContentRequest(bankIDOptions, codeValue);
+  var signedFormForUpload = accountService.prepareSignedContentRequest(bankIDOptions, codeValue);
 
   async.waterfall([
     function(callback){
@@ -300,6 +299,12 @@ module.exports.saveForm = function (req, res) {
   };
 
   pipeFormDataToRequest(form, requestOptionsForUploadContent, function (result) {
+    req.session.formID = result.data;
+    if(oServiceDataNID){
+      req.session.oServiceDataNID = oServiceDataNID;
+    } else {
+      req.session.sURL = sURL;
+    }
     res.send({formID: result.data});
   });
 };

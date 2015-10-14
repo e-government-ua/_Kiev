@@ -208,13 +208,13 @@ module.exports.signHtmlForm = function (options, callback) {
 /**
  * После отработки п.3 (подписание), BankID делает редирект на https://{PI:port}/URL_callback?code=code_value с передачей
  * параметра авторизационного ключа code, тем самым заканчивая фазу п.4.
- *
+ * https://{PI:port}/ResourceService/checked/claim/code_value/clientPdfClaim
  * @param req
  * @param res
  */
 module.exports.prepareSignedContentRequest = function (bankIDOptions, codeValue) {
-  var url = bankIDOptions.protocol + '://' + bankIDOptions.hostname
-    + bankIDOptions.path + '/checked/claim/' + codeValue + '/clientPdfClaim';
+  var url = bankIDOptions.protocol + '://' + bankIDOptions.hostname +
+    '/ResourceService/checked/claim/' + codeValue + '/clientPdfClaim';
   var options = _.merge(bankIDOptions, {
     url: url
   });
