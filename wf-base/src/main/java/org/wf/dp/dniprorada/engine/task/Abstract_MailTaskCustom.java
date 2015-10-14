@@ -53,7 +53,6 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
     private static final Pattern TAG_sPATTERN_CONTENT_CATALOG = Pattern.compile("[a-zA-Z]+\\{\\[(.*?)\\]\\}");
     private static final Pattern TAG_PATTERN_PREFIX = Pattern.compile("_[0-9]+");
     private static final Pattern TAG_PATTERN_DOUBLE_BRACKET = Pattern.compile("\\{\\[(.*?)\\]\\}");
-    private static final Pattern TAG_PATTERN_TEXT = Pattern.compile("[a-zA-Z]+");
     private static final String TAG_CANCEL_TASK = "[cancelTask]";
     private static final String TAG_nID_Protected = "[nID_Protected]";
     private static final String TAG_nID_SUBJECT = "[nID_Subject]";
@@ -252,9 +251,6 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                     if (matcherPrefix.find()) {
                         prefix = matcherPrefix.group();
                         LOG.info("Found double bracket tag group: " + matcherPrefix.group());
-//                        Matcher matcherText = TAG_PATTERN_TEXT.matcher(prefix);
-//                        if (matcherText.find()) {
-//                            String form_ID = matcherText.group();
                         String form_ID = StringUtils.replace(prefix, "{[", "");
                         form_ID = StringUtils.replace(form_ID, "]}", "");
                             LOG.info("form_ID: " + form_ID);
@@ -273,7 +269,6 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
                                     }
                                 }
 
-//                            }
                         }
                     }
                 }
