@@ -6,6 +6,7 @@ var accountService = require('../bankid/account.service.js');
 var _ = require('lodash');
 var StringDecoder = require('string_decoder').StringDecoder;
 var async = require('async');
+var formTemplate = require('./form.template');
 
 module.exports.index = function (req, res) {
 
@@ -160,8 +161,24 @@ module.exports.signForm = function (req, res) {
     callbackURL +='?sURL=' + sURL + '&formID=' + formID;
   }
 
-  var createHtml = function(formData){
-    return  '<html><body><p>test</p></body></html>';
+  var createHtml = function(data){
+    var formData = data.formData;
+
+    var templateData = {
+      formProperties : data.activitiForm.formProperties,
+      processName: data.processName,
+      businessKey: data.businessKey,
+      creationDate: '' + new Date()
+    };
+
+    templateData.formProperties.forEach(function(item){
+      var value = formData.params[item.id];
+      if(value) {
+        item.value = value;
+      }
+    });
+
+    return  formTemplate.createHtml(templateData);
   };
 
   async.waterfall([
@@ -210,6 +227,10 @@ module.exports.signFormCallback = function (req, res) {
     //TODO fill sURL from oServiceData to use it below
     sURL = '';
   }
+
+//  Для выполнения финального п. 5, необходимо сформировать запрос метода GET, передав в нем код авторизационного ключа code
+//  https://{PI:port}/ResourceService/checked/claim/code_value/clientPdfClaim
+  //  Authorization = "Bearer access_token, Id client_id" - (последовательность не важна)
 
   var bankIDOptions = getBankIDOptions(req.session.access.accessToken);
   var signedFormForUpload = accountService.prepareScanContentRequest(bankIDOptions, codeValue);
@@ -265,7 +286,6 @@ module.exports.saveForm = function (req, res) {
     sURL = '';
   }
 
-  var formData = data.formData;
   var uploadURL = sURL + 'service/rest/file/upload_file_to_redis';
 
   var form = new FormData();

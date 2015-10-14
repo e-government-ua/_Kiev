@@ -29,14 +29,14 @@ html
       p джерело: igov.org.ua
       p №: #{businessKey}
       p від: #{sDateShort(creationDate)}
-        - formData.forEach(function(item) {
+        - formProperties.forEach(function(item) {
           p
             if item.type != 'invisible'
-              b #{sFieldLabel(item.name)}
+              b #{sFieldLabel(item.name)} :
             if item.type == 'enum'
-              #{sEnumValue(item.enumValues, item.value)}
+              b #{sEnumValue(item.enumValues, item.value)}
             if item.type != 'enum' && item.type != 'invisible'
-              #{item.value}
+              b #{item.value}
         - })
       p
         | ----------------------------------------------------------------------------------------------------------------------------

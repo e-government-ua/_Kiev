@@ -70,9 +70,15 @@ angular.module('app').service('ActivitiService', function ($http, ErrorsFactory)
     });
   };
 
-  this.saveForm = function (oService, oServiceData, formData) {
+  this.saveForm = function (oService, oServiceData, businessKey, processName, activitiForm, formData) {
     var url = oServiceData.sURL + oServiceData.oData.sPath;
-    var data = prepareFormData(oService, oServiceData, formData, url);
+    var data = {
+      formData : prepareFormData(oService, oServiceData, formData, url),
+      activitiForm: activitiForm,
+      processName : processName,
+      businessKey : businessKey
+    };
+
     var restoreFormUrl = 'http://localhost:9000/service/720/general/place/built-in/region/1/city/1';
 
     var params = {
