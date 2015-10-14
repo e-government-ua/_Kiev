@@ -245,11 +245,13 @@ public abstract class Abstract_MailTaskCustom implements JavaDelegate {
             loadPropertiesFromTasks(execution, aPreviousUserTask_ID, mProperty);
             while (matcher.find()) {
                 String tag_Payment_CONTENT_CATALOG = matcher.group();
+                LOG.info("Found tag catalog group:" + matcher.group());
                 if (!tag_Payment_CONTENT_CATALOG.startsWith(TAG_Function_AtEnum)) {
                     String prefix;
                     Matcher matcherPrefix = TAG_PATTERN_DOUBLE_BRACKET.matcher(tag_Payment_CONTENT_CATALOG);
                     if (matcherPrefix.find()) {
                         prefix = matcherPrefix.group();
+                        LOG.info("Found double bracket tag group: " + matcherPrefix.group());
                         Matcher matcherText = TAG_PATTERN_TEXT.matcher(prefix);
                         if (matcherText.find()) {
                             String form_ID = matcherText.group();
