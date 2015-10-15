@@ -83,9 +83,9 @@
 Телефон для довідок (3636)2-23-73&lt;br /&gt;&lt;br /&gt;
 Графік роботи (крім святкових днів):&lt;br /&gt;
 Понеділок, середа 8.00-17.15&lt;br /&gt;
-Вівторок, четвер &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;8.00-20.00&lt;br /&gt;
-П'ятниця, субота &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;8.00-16.00&lt;br /&gt;&lt;br /&gt;
-обідня перерва &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;13:00-14:00&lt;br /&gt;
+Вівторок, четвер 8.00-20.00&lt;br /&gt;
+П'ятниця, субота 8.00-16.00&lt;br /&gt;&lt;br /&gt;
+обідня перерва 13:00-14:00&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 Виконавчий комітет Кузнецовської міської ради&lt;/p&gt;
 [pattern/mail/_common_signature_end.html]
@@ -149,6 +149,14 @@
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 На жаль, Вам відмовлено у наданні довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося.&lt;br /&gt;
 ${comment_1}&lt;br /&gt;
+Копія документу знаходиться у додатку до листа.&lt;br /&gt;
+&lt;br /&gt;
+Ви або уповноважена Вами особа (при наявності довіреності) можете отримати рішення собисто під підпис у центрі надання адміністративних послуг
+за адресою:&lt;br /&gt;
+м.Кузнецовськ, майдан Незалежності 2, каб.№105-1&lt;br /&gt;&lt;br /&gt;
+Телефон для довідок (3636)2-23-73&lt;br /&gt;&lt;br /&gt;
+Графік роботи (крім святкових днів):&lt;br /&gt;
+Понеділок, середа 8.00-17.15&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 Виконавчий комітет Кузнецовської міської ради&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]

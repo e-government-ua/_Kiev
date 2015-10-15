@@ -169,8 +169,6 @@ ${comment_2}&lt;br /&gt;&lt;br /&gt;
 Реєстраційний номер заяви ${ID_zayava}
 [pattern/mail/_common_signature_start.html]
 ЦНАП м.Ужгород&lt;br /&gt;
-[pattern/mail/_common_signature_start.html]
-ЦНАП м.Ужгород&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
