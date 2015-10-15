@@ -270,9 +270,10 @@ public class ActivitiRestHistoryEventController {
 	}
 
 	private List<Map<String, Object>> getListOfHistoryEvents(Long nID_Service){
+		Service service = null;
 		try {
 		log.info("Looking for the Service:" + baseEntityDao);
-		Service service = baseEntityDao.findById(Service.class, nID_Service);
+		service = baseEntityDao.findById(Service.class, nID_Service);
 		if (service != null){
 			log.info("Found Service. Size of ServiceData list: " + service.getServiceDataList().size());
 		}
@@ -290,9 +291,11 @@ public class ActivitiRestHistoryEventController {
 			currMapWithName = new HashMap<>();
 
 			region = regionDao.findByIdExpected(currMap.get("sName"));
-			
-			String bpName = findNameOfBPForRegion(region.getsID_UA(), service.getServiceDataList());
-			String averageDuration = averageDurationOfBusinessProcess(bpName);
+			String averageDuration = null;
+			if (service != null){
+				String bpName = findNameOfBPForRegion(region.getsID_UA(), service.getServiceDataList());
+				averageDuration = averageDurationOfBusinessProcess(bpName);
+			}
 			
 			log.info("[getListOfHistoryEvents]sName=" + region.getName());
 			currMapWithName.put("sName", region.getName());
