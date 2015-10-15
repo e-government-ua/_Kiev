@@ -36,7 +36,7 @@
       <errorEventDefinition></errorEventDefinition>
     </boundaryEvent>
     <sequenceFlow id="flow2" sourceRef="boundaryerror1" targetRef="endevent2"></sequenceFlow>
-    <userTask id="usertask2_red" name="Перевірка даних службою" activiti:candidateGroups="dnepr_cnap59_${vibor}">
+    <userTask id="usertask2" name="Перевірка даних службою" activiti:candidateGroups="dnepr_cnap59_${vibor}">
       <extensionElements>
         <activiti:formProperty id="per2" name="На цьому етапі натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете сповістити заявника чи оброблено його заяву. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
@@ -106,8 +106,7 @@
 										Дніпропетровської міської ради,&lt;br/&gt;
 									[pattern/mail/_common_signature_end.html]   
 									[pattern/mail/_common_feedback.html]
-									[pattern/mail/_common_footer.html]
-		  </activiti:expression>
+									[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>${result}</activiti:expression>
@@ -144,8 +143,7 @@
 										Дніпропетровської міської ради,&lt;br/&gt;
 									[pattern/mail/_common_signature_end.html]   
 									[pattern/mail/_common_feedback.html]
-									[pattern/mail/_common_footer.html]
-		  </activiti:expression>
+									[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>${result}</activiti:expression>
@@ -240,7 +238,7 @@
       </extensionElements>
     </serviceTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow18" sourceRef="usertask2_red" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow18" sourceRef="usertask2" targetRef="exclusivegateway1"></sequenceFlow>
     <sequenceFlow id="flow19" sourceRef="servicetask7" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow20" name="Заяву відхилено" sourceRef="exclusivegateway1" targetRef="servicetask7">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='no'&&vibor=='lev'}]]></conditionExpression>
@@ -252,7 +250,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'&&vibor=='lev'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow24" sourceRef="servicetask1" targetRef="mailtask2"></sequenceFlow>
-    <userTask id="usertask3_green" name="Формування опису або відмова при неправильних документах" activiti:candidateGroups="dnepr_cnap59_${vibor}">
+    <userTask id="usertask1" name="Формування опису або відмова при неправильних документах" activiti:candidateGroups="dnepr_cnap59_${vibor}">
       <extensionElements>
         <activiti:formProperty id="per1" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете ознайомитись з поданими документами, прийняти попереднє рішення про те, чи достатньо їх для виконання запиту, роздрукувати заяву і всі додатки. Якщо перевірку пройдено, додайте файл з описом прийнятих документів, номером і датою прийняття. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
@@ -372,9 +370,9 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow27" sourceRef="servicetask5" targetRef="usertask2_red"></sequenceFlow>
+    <sequenceFlow id="flow27" sourceRef="servicetask5" targetRef="usertask2"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow28" sourceRef="usertask3_green" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow28" sourceRef="usertask1" targetRef="exclusivegateway2"></sequenceFlow>
     <sequenceFlow id="flow29" sourceRef="exclusivegateway2" targetRef="servicetask5">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${perevirka1=='ok'}]]></conditionExpression>
     </sequenceFlow>
@@ -496,8 +494,7 @@ ${comment} &lt;br&gt;
 										Центр надання адміністративних послуг&lt;br/&gt; 
 										Дніпропетровської міської ради,&lt;br/&gt;
 									[pattern/mail/_common_signature_end.html]   
-									[pattern/mail/_common_footer.html]
-		 </activiti:expression>
+									[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>${result}</activiti:expression>
@@ -535,8 +532,7 @@ ${comment} &lt;br&gt;
 										Центр надання адміністративних послуг&lt;br/&gt; 
 										Дніпропетровської міської ради,&lt;br/&gt;
 									[pattern/mail/_common_signature_end.html]   
-									[pattern/mail/_common_footer.html]
-		 </activiti:expression>
+									[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>${result}</activiti:expression>
@@ -628,7 +624,7 @@ ${comment} &lt;br&gt;
     </serviceTask>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow35" sourceRef="mailtask2" targetRef="exclusivegateway3"></sequenceFlow>
-    <sequenceFlow id="flow36" sourceRef="mailtask5" targetRef="usertask3_green"></sequenceFlow>
+    <sequenceFlow id="flow36" sourceRef="mailtask5" targetRef="usertask1"></sequenceFlow>
     <sequenceFlow id="flow38" sourceRef="exclusivegateway3" targetRef="mailtask5">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vibor=='prav'}]]></conditionExpression>
     </sequenceFlow>
@@ -718,7 +714,7 @@ ${comment} &lt;br&gt;
     <sequenceFlow id="flow39" sourceRef="exclusivegateway3" targetRef="mailtask6">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vibor=='lev'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow40" sourceRef="mailtask6" targetRef="usertask3_green"></sequenceFlow>
+    <sequenceFlow id="flow40" sourceRef="mailtask6" targetRef="usertask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_59">
     <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_59" id="BPMNPlane_dnepr_cnap_59">
@@ -731,7 +727,7 @@ ${comment} &lt;br&gt;
       <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
         <omgdc:Bounds height="30.0" width="30.0" x="47.0" y="90.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask2_red" id="BPMNShape_usertask2_red">
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
         <omgdc:Bounds height="90.0" width="105.0" x="343.0" y="110.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
@@ -749,8 +745,8 @@ ${comment} &lt;br&gt;
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="455.0" y="152.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask3_green" id="BPMNShape_usertask3_green">
-        <omgdc:Bounds height="55.0" width="105.0" x="101.0" y="232.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="100.0" y="232.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
         <omgdc:Bounds height="90.0" width="105.0" x="226.0" y="110.0"></omgdc:Bounds>
@@ -830,7 +826,7 @@ ${comment} &lt;br&gt;
         <omgdi:waypoint x="343.0" y="155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
-        <omgdi:waypoint x="206.0" y="259.0"></omgdi:waypoint>
+        <omgdi:waypoint x="205.0" y="259.0"></omgdi:waypoint>
         <omgdi:waypoint x="258.0" y="259.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
@@ -865,7 +861,7 @@ ${comment} &lt;br&gt;
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
         <omgdi:waypoint x="153.0" y="202.0"></omgdi:waypoint>
-        <omgdi:waypoint x="153.0" y="232.0"></omgdi:waypoint>
+        <omgdi:waypoint x="152.0" y="232.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
         <omgdi:waypoint x="24.0" y="247.0"></omgdi:waypoint>
@@ -877,7 +873,7 @@ ${comment} &lt;br&gt;
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
         <omgdi:waypoint x="153.0" y="320.0"></omgdi:waypoint>
-        <omgdi:waypoint x="153.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="152.0" y="287.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
