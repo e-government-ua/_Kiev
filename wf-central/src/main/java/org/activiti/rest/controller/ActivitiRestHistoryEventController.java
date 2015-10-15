@@ -271,14 +271,10 @@ public class ActivitiRestHistoryEventController {
 
 	private List<Map<String, Object>> getListOfHistoryEvents(Long nID_Service){
 		Service service = null;
-		try {
 		log.info("Looking for the Service:" + baseEntityDao);
 		service = baseEntityDao.findById(Service.class, nID_Service);
 		if (service != null){
 			log.info("Found Service. Size of ServiceData list: " + service.getServiceDataList().size());
-		}
-		} catch (Exception e){
-			e.printStackTrace();
 		}
 		
 		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String, Object>>();
@@ -372,6 +368,10 @@ public class ActivitiRestHistoryEventController {
 		params.put("sDateTo", sdfDate.format(currDate.getTime()));
 		currDate.add(Calendar.MONTH, -3);
 		params.put("sDateAt", sdfDate.format(currDate.getTime()));
+		String host = generalConfig.sHost();
+		if (host.indexOf("region") == -1){
+			host = StringUtils.replace(host, "igov", "region.igov");
+		}
 		log.info("Getting URL with parameters: " + generalConfig.sHost() + URI
 				+ params + ":" + generalConfig.sHostCentral());
 		String soJSON_Duration;
