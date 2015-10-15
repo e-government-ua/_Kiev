@@ -732,6 +732,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             @RequestParam(value = "sDateAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateAt,
             @RequestParam(value = "sDateTo", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException{
+    	log.info("Calculation average duration of a process");
     	
     	if (sID_BP_Name == null || sID_BP_Name.isEmpty()) {
             log.error(String.format("Statistics for the business process '{%s}' not found.", sID_BP_Name));
