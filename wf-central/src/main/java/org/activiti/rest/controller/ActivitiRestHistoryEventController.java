@@ -337,7 +337,7 @@ public class ActivitiRestHistoryEventController {
 				log.info("Skipping service data :" + serviceData.getId() + ":" + serviceData.getRegion());
 			}
 			log.info("Comparing region with service data for region:" + serviceData.getCity().getsID_UA() + ":" + serviceData.getRegion() + ":" + 
-					(serviceData.getCity() != null ? serviceData.getCity().getRegion() : ""));
+					(serviceData.getCity() != null ? serviceData.getCity().getRegion().getsID_UA() : ""));
 			if (serviceData.getRegion() != null){
 				log.info("Region data:" + serviceData.getRegion().getName() + ":" + serviceData.getRegion().getsID_UA());
 			}
@@ -373,11 +373,11 @@ public class ActivitiRestHistoryEventController {
 		if (host.indexOf("region") == -1){
 			host = StringUtils.replace(host, "igov", "region.igov");
 		}
-		log.info("Getting URL with parameters: " + generalConfig.sHost() + URI
+		log.info("Getting URL with parameters: " + host + URI
 				+ params + ":" + generalConfig.sHostCentral());
 		String soJSON_Duration;
 		try {
-			soJSON_Duration = httpRequester.get(generalConfig.sHost() + URI, params);
+			soJSON_Duration = httpRequester.get(host + URI, params);
 			log.info("soJSON_Duration=" + soJSON_Duration);
 			JSONObject jsonMap = new JSONObject(soJSON_Duration);
 			if (jsonMap.has(sBPName)) {
