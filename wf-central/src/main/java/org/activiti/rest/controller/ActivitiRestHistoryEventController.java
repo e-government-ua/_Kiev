@@ -270,9 +270,14 @@ public class ActivitiRestHistoryEventController {
 	}
 
 	private List<Map<String, Object>> getListOfHistoryEvents(Long nID_Service){
+		try {
+		log.info("Looking for the Service:" + baseEntityDao);
 		Service service = baseEntityDao.findById(Service.class, nID_Service);
 		if (service != null){
 			log.info("Found Service. Size of ServiceData list: " + service.getServiceDataList().size());
+		}
+		} catch (Exception e){
+			e.printStackTrace();
 		}
 		
 		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String, Object>>();
