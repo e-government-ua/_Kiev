@@ -294,7 +294,9 @@ public class ActivitiRestHistoryEventController {
 			String averageDuration = null;
 			if (service != null){
 				String bpName = findNameOfBPForRegion(region.getsID_UA(), service.getServiceDataList());
-				averageDuration = averageDurationOfBusinessProcess(bpName);
+				if (bpName != null){
+					averageDuration = averageDurationOfBusinessProcess(bpName);
+				}
 			}
 			
 			log.info("[getListOfHistoryEvents]sName=" + region.getName());
@@ -334,6 +336,9 @@ public class ActivitiRestHistoryEventController {
 		String res = null;
 		log.info("Comparing region " + regionID_UA);
 		for (ServiceData serviceData : serviceDataList){
+			if (serviceData.getCity() == null){
+				log.info("Skipping service data :" + serviceData.getId() + ":" + serviceData.getRegion());
+			}
 			log.info("Comparing region with service data for region:" + serviceData.getCity().getsID_UA());
 			if (serviceData.getCity().getsID_UA().equals(regionID_UA)){
 				String dataJson = serviceData.getData();
@@ -360,9 +365,9 @@ public class ActivitiRestHistoryEventController {
 		params.put("sID_BP_Name", sBPName);
 		Calendar currDate = Calendar.getInstance();
 		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-		params.put("sDateAt", sdfDate.format(currDate.getTime()));
-		currDate.add(Calendar.MONTH, -3);
 		params.put("sDateTo", sdfDate.format(currDate.getTime()));
+		currDate.add(Calendar.MONTH, -3);
+		params.put("sDateAt", sdfDate.format(currDate.getTime()));
 		log.info("Getting URL with parameters: " + generalConfig.sHost() + URI
 				+ params);
 		String soJSON_Duration;
