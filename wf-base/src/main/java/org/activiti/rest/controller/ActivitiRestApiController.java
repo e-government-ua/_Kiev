@@ -1,11 +1,45 @@
 package org.activiti.rest.controller;
 
-import com.google.common.base.Charsets;
+import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getByteArrayMultipartFileFromRedis;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
+
+import javax.activation.DataSource;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import liquibase.util.csv.CSVWriter;
+
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
-import org.activiti.engine.*;
+import org.activiti.engine.ActivitiException;
+import org.activiti.engine.ActivitiObjectNotFoundException;
+import org.activiti.engine.FormService;
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.TaskFormData;
@@ -16,15 +50,23 @@ import org.activiti.engine.impl.util.json.JSONArray;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.task.*;
+import org.activiti.engine.task.Attachment;
+import org.activiti.engine.task.DelegationState;
+import org.activiti.engine.task.IdentityLink;
+import org.activiti.engine.task.IdentityLinkType;
+import org.activiti.engine.task.Task;
+import org.activiti.engine.task.TaskQuery;
 import org.activiti.redis.exception.RedisException;
 import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
 import org.activiti.rest.controller.adapter.AttachmentEntityAdapter;
 import org.activiti.rest.controller.adapter.ProcDefinitionAdapter;
 import org.activiti.rest.controller.adapter.TaskAssigneeAdapter;
-import org.activiti.rest.controller.entity.*;
+import org.activiti.rest.controller.entity.AttachmentEntityI;
+import org.activiti.rest.controller.entity.ProcDefinitionI;
 import org.activiti.rest.controller.entity.Process;
+import org.activiti.rest.controller.entity.ProcessI;
+import org.activiti.rest.controller.entity.TaskAssigneeI;
 import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.ByteArrayDataSource;
@@ -38,7 +80,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
@@ -54,16 +101,7 @@ import org.wf.dp.dniprorada.util.Util;
 import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
 import org.wf.dp.dniprorada.util.luna.CRCInvalidException;
 
-import javax.activation.DataSource;
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getByteArrayMultipartFileFromRedis;
+import com.google.common.base.Charsets;
 
 /**
  * ...wf/service/... Example:
@@ -688,6 +726,42 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         csvWriter.close();
     }
 
+    @RequestMapping(value = "/process-duration", method = RequestMethod.GET)
+    @Transactional
+    public String getTimingForBusinessProcessNew(@RequestParam(value = "sID_BP_Name") String sID_BP_Name,
+            @RequestParam(value = "sDateAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateAt,
+            @RequestParam(value = "sDateTo", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo,
+            HttpServletRequest request, HttpServletResponse httpResponse) throws IOException{
+    	
+    	if (sID_BP_Name == null || sID_BP_Name.isEmpty()) {
+            log.error(String.format("Statistics for the business process '{%s}' not found.", sID_BP_Name));
+            throw new ActivitiObjectNotFoundException(
+                    "Statistics for the business process '" + sID_BP_Name + "' not found.",
+                    Process.class);
+        }
+
+    	Map<String, String> res = new HashMap<String, String>();
+    	
+        List<HistoricTaskInstance> foundResults = historyService.createHistoricTaskInstanceQuery()
+                .taskCompletedAfter(dateAt)
+                .taskCompletedBefore(dateTo)
+                .processDefinitionKey(sID_BP_Name).list();
+        
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
+        if (foundResults != null && foundResults.size() > 0) {
+            log.debug(String.format("Found {%s} completed tasks for business process {%s} for date period {%s} - {%s}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt),
+                    sdfDate.format(dateTo)));
+
+            long totalDuration = 0;
+            for (HistoricTaskInstance currTask : foundResults) {
+            	totalDuration = totalDuration + currTask.getDurationInMillis() / (1000 * 60 * 60);
+            }
+            log.info("total duration in hours:" + totalDuration + " for " + foundResults.size());
+            res.put(sID_BP_Name, Double.valueOf(totalDuration / foundResults.size()).toString());
+        }
+        return JSONValue.toJSONString(res);
+    }
+    
     /**
      * Download information about the tasks in csv format
      *
