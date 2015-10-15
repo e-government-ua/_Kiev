@@ -336,7 +336,8 @@ public class ActivitiRestHistoryEventController {
 			if (serviceData.getCity() == null){
 				log.info("Skipping service data :" + serviceData.getId() + ":" + serviceData.getRegion());
 			}
-			log.info("Comparing region with service data for region:" + serviceData.getCity().getsID_UA() + ":" + serviceData.getRegion());
+			log.info("Comparing region with service data for region:" + serviceData.getCity().getsID_UA() + ":" + serviceData.getRegion() + ":" + 
+					(serviceData.getCity() != null ? serviceData.getCity().getRegion() : ""));
 			if (serviceData.getRegion() != null){
 				log.info("Region data:" + serviceData.getRegion().getName() + ":" + serviceData.getRegion().getsID_UA());
 			}
