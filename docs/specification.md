@@ -2397,11 +2397,11 @@ Responce status 200.
 
 Примеры:
 
-https://test.igov.org.ua/wf/service/services/getStatisticServiceCounts?nID_Service=1
+https://test.igov.org.ua/wf/service/services/getStatisticServiceCounts?nID_Service=26
 
 Результат
 ```json
-[{"nCount":1,"sName":"Івано-Франківська"},{"nCount":3,"sName":"Дніпропетровська"},{"nCount":1,"sName":"Львівська"}]
+[{"nCount":5,"nRate":0,"nTimeHours":"0","sName":"Київ"},{"nCount":15,"nRate":0,"nTimeHours":"2","sName":"Дніпропетровська"}]
 ```
 --------------------------------------------------------------------------------------------------------------------------
 
