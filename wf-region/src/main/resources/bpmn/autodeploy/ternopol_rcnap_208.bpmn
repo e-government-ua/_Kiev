@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="smila_rda-1" name="Сміла РДА - Видача довідки з  державної статистичної звітності про наявність земель та розподіл їх за власниками земель, землекористувачами, угіддями" isExecutable="true">
+  <process id="ternopol_rcnap_208" name="Тернопіль РДА - Видача довідки з  державної статистичної звітності про наявність земель та розподіл їх за власниками земель, землекористувачами, угіддями" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -19,12 +19,12 @@
         <activiti:formProperty id="dovidka" name="Довідка з селищной ради, якщо ділянка в населенному пункті(сканкопія)" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="rai" name="Оберіть район в якому розташовано земельну ділянку" type="enum" required="true">
-          <activiti:value id="smil" name="Смілянський район"></activiti:value>
+          <activiti:value id="tern" name="Тернопільський район"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask1" name="Перевірка даних" activiti:candidateGroups="cherkcnap_rai_${rai}_1">
+    <userTask id="usertask1" name="Перевірка даних" activiti:candidateGroups="terncnap_rai_${rai}_1">
       <extensionElements>
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clAddress" name="Адреса заявника" type="string" default="${bankIdAddress}" writable="false"></activiti:formProperty>
@@ -84,7 +84,7 @@
 вихідний субота, неділя&lt;/p&gt;  
 &lt;p&gt;телефон (04733) 4-30-82&lt;/p&gt;
 [pattern/mail/_common_signature_start.html]
-&lt;p&gt;ЦНАП м. Сміла,&lt;/p&gt;
+&lt;p&gt;ЦНАП Тернопільського району,&lt;/p&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
@@ -114,7 +114,7 @@
 &lt;p&gt;На жаль, для виконання вашого запиту недостатньо інформації. &lt;/p&gt;
 &lt;p&gt;${comment}&lt;/p&gt;
 Ви можете подати ще одну заяву на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;igov.org.ua&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;ЦНАП м. Сміла,&lt;/p&gt;
+&lt;p&gt;ЦНАП Тернопільського району,&lt;/p&gt;
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
@@ -136,7 +136,7 @@
 Видача довідки з  державної статистичної звітності про наявність земель та розподіл їх за власниками земель, землекористувачами, угіддями.&lt;br /&gt;
 Ви отримаєте відповідь протягом десяти робочих днів.&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-&lt;p&gt;ЦНАП м. Сміла&lt;/p&gt;
+&lt;p&gt;ЦНАП Тернопільського району&lt;/p&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -162,8 +162,8 @@
     <sequenceFlow id="flow16" sourceRef="servicetask5" targetRef="servicetask6"></sequenceFlow>
     <sequenceFlow id="flow17" sourceRef="servicetask6" targetRef="usertask1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_smila_rda-1">
-    <bpmndi:BPMNPlane bpmnElement="smila_rda-1" id="BPMNPlane_smila_rda-1">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_ternopol_rcnap_208">
+    <bpmndi:BPMNPlane bpmnElement="ternopol_rcnap_208" id="BPMNPlane_ternopol_rcnap_208">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="150.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
