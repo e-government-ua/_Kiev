@@ -726,9 +726,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         csvWriter.close();
     }
 
-    @RequestMapping(value = "/process-duration", method = RequestMethod.GET)
+    @RequestMapping(value = "/process-duration", method = RequestMethod.GET, produces = "application/json")
     @Transactional
-    public String getTimingForBusinessProcessNew(@RequestParam(value = "sID_BP_Name") String sID_BP_Name,
+    public @ResponseBody String getTimingForBusinessProcessNew(@RequestParam(value = "sID_BP_Name") String sID_BP_Name,
             @RequestParam(value = "sDateAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateAt,
             @RequestParam(value = "sDateTo", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo,
             HttpServletRequest request, HttpServletResponse httpResponse) throws IOException{
