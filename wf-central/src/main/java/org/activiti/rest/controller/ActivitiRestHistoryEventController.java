@@ -293,6 +293,7 @@ public class ActivitiRestHistoryEventController {
 			region = regionDao.findByIdExpected(currMap.get("sName"));
 			String averageDuration = null;
 			if (service != null){
+				log.info("comparing region:" + region.getName() + ":" + region.getsID_UA() + ":" + region.getId());
 				String bpName = findNameOfBPForRegion(region.getsID_UA(), service.getServiceDataList());
 				if (bpName != null){
 					averageDuration = averageDurationOfBusinessProcess(bpName);
@@ -372,7 +373,7 @@ public class ActivitiRestHistoryEventController {
 		currDate.add(Calendar.MONTH, -3);
 		params.put("sDateAt", sdfDate.format(currDate.getTime()));
 		log.info("Getting URL with parameters: " + generalConfig.sHost() + URI
-				+ params);
+				+ params + ":" + generalConfig.sHostCentral());
 		String soJSON_Duration;
 		try {
 			soJSON_Duration = httpRequester.get(generalConfig.sHost() + URI, params);
