@@ -63,7 +63,7 @@
     <serviceTask id="servicetask3" name="повідомлення громадянина про успішне подання звернення, про орієнтовний термін виконання" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -88,7 +88,7 @@
     <serviceTask id="servicetask4" name="повідомлення громадянина про відхилення звернення" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -113,7 +113,7 @@ ${comment_1}&lt;br /&gt;
     <serviceTask id="servicetask6" name="повідомлення громадянина про надання аварійного дозволу на проведення земляних робіт" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -145,7 +145,7 @@ ${comment_1}&lt;br /&gt;
     <serviceTask id="servicetask5" name="повідомлення громадянина про відмову у наданні дозволу на проведення земляних робіт" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -167,8 +167,6 @@ ${comment_2}&lt;br /&gt;&lt;br /&gt;
 п'ятниця з 9.00-14.00;&lt;br /&gt;
 обідня перерва з 13.00-13.30&lt;br /&gt;
 Реєстраційний номер заяви ${ID_zayava}
-[pattern/mail/_common_signature_start.html]
-ЦНАП м.Ужгород&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 ЦНАП м.Ужгород&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]

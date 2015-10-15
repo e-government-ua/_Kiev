@@ -44,10 +44,10 @@
         <activiti:formProperty id="comment_2" name="У разі відмови у наданні послуги внесіть, будь ласка, причину" type="textArea"></activiti:formProperty>
       </extensionElements>
     </userTask>
-     <serviceTask id="servicetask2" name="Повідомлення співробітника держоргану" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
-       <extensionElements>
+    <serviceTask id="servicetask2" name="Повідомлення співробітника держоргану" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
+          <activiti:string><![CDATA[ruli@mail.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -59,11 +59,11 @@
           <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
-      </serviceTask>
-<serviceTask id="servicetask3" name="повідомлення громадянина про успішне подання звернення, про орієнтовний термін виконання" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+    </serviceTask>
+    <serviceTask id="servicetask3" name="повідомлення громадянина про успішне подання звернення, про орієнтовний термін виконання" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -85,10 +85,10 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-<serviceTask id="servicetask4" name="повідомлення громадянина про відхилення звернення" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
-     <extensionElements>
+    <serviceTask id="servicetask4" name="повідомлення громадянина про відхилення звернення" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -97,7 +97,7 @@
           <activiti:string><![CDATA[Звернення на тему: аварійний дозвіл на проведення земляних робіт]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-           <activiti:expression>[pattern/mail/_common_header.html]
+          <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 На жаль, Ваше звернення щодо надання аварійного дозволу на проведення земляних робіт відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
 &lt;br /&gt;
@@ -110,10 +110,10 @@ ${comment_1}&lt;br /&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-<serviceTask id="servicetask6" name="повідомлення громадянина про надання аварійного дозволу на проведення земляних робіт" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
-     <extensionElements>
+    <serviceTask id="servicetask6" name="повідомлення громадянина про надання аварійного дозволу на проведення земляних робіт" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -122,7 +122,7 @@ ${comment_1}&lt;br /&gt;
           <activiti:string><![CDATA[Звернення на тему: аварійний дозвіл на проведення земляних робіт]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-         <activiti:expression>[pattern/mail/_common_header.html]
+          <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 Ви отримали схвалення щодо свого звернення - надання аварійного дозволу на проведення земляних робіт.&lt;br /&gt;
 Отримайте оригінал документу у адміністатора ЦНАПу за адресою:&lt;br /&gt;
@@ -142,10 +142,10 @@ ${comment_1}&lt;br /&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-<serviceTask id="servicetask5" name="повідомлення громадянина про відмову у наданні дозволу на проведення земляних робіт" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
-     <extensionElements>
+    <serviceTask id="servicetask5" name="повідомлення громадянина про відмову у наданні дозволу на проведення земляних робіт" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -154,7 +154,7 @@ ${comment_1}&lt;br /&gt;
           <activiti:string><![CDATA[Звернення на тему: аварійний дозвіл на проведення земляних робіт]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-         <activiti:expression>[pattern/mail/_common_header.html]
+          <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 На жаль, Вам відмовлено у наданні аварійного дозволу на проведення земляних робіт.&lt;br /&gt;
 ${comment_2}&lt;br /&gt;&lt;br /&gt;
@@ -167,8 +167,6 @@ ${comment_2}&lt;br /&gt;&lt;br /&gt;
 п'ятниця з 9.00-14.00;&lt;br /&gt;
 обідня перерва з 13.00-13.30&lt;br /&gt;
 Реєстраційний номер заяви ${ID_zayava}
-[pattern/mail/_common_signature_start.html]
-ЦНАП м.Ужгород&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 ЦНАП м.Ужгород&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
@@ -217,6 +215,21 @@ ${comment_2}&lt;br /&gt;&lt;br /&gt;
       <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
         <omgdc:Bounds height="55.0" width="186.0" x="498.0" y="269.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="184.0" x="285.0" y="15.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="55.0" width="184.0" x="499.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
+        <omgdc:Bounds height="55.0" width="184.0" x="285.0" y="95.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
+        <omgdc:Bounds height="55.0" width="149.0" x="52.0" y="269.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
+        <omgdc:Bounds height="55.0" width="184.0" x="285.0" y="180.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="570.0" y="102.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -228,21 +241,6 @@ ${comment_2}&lt;br /&gt;&lt;br /&gt;
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
         <omgdc:Bounds height="30.0" width="30.0" x="50.0" y="42.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="55.0" width="184.0" x="285.0" y="15.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
-        <omgdc:Bounds height="55.0" width="184.0" x="499.0" y="180.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
-        <omgdc:Bounds height="55.0" width="184.0" x="285.0" y="95.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
-        <omgdc:Bounds height="55.0" width="184.0" x="285.0" y="180.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
-        <omgdc:Bounds height="55.0" width="149.0" x="52.0" y="269.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="109.0" y="190.0"></omgdc:Bounds>
@@ -288,7 +286,7 @@ ${comment_2}&lt;br /&gt;&lt;br /&gt;
         <omgdi:waypoint x="570.0" y="122.0"></omgdi:waypoint>
         <omgdi:waypoint x="469.0" y="122.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="480.0" y="102.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="57.0" x="480.0" y="102.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
