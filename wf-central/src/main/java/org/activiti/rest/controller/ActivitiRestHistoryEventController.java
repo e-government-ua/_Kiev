@@ -315,7 +315,7 @@ public class ActivitiRestHistoryEventController {
 			log.info("[getListOfHistoryEvents]nCount=" + nCount);
 			currMapWithName.put("nCount", nCount);
 			currMapWithName.put("nRate", nRate);
-			currMapWithName.put("averageDuration", averageDuration != null ? averageDuration : "-1");
+			currMapWithName.put("nTimeHours", averageDuration != null ? averageDuration : "-1");
 			listOfHistoryEventsWithMeaningfulNames.add(currMapWithName);
 		}
 		return listOfHistoryEventsWithMeaningfulNames;
