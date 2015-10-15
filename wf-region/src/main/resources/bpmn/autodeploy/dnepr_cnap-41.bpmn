@@ -42,7 +42,7 @@
     </boundaryEvent>
     <endEvent id="endevent1" name="End"></endEvent>
     <sequenceFlow id="flow2" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
-    <userTask id="usertask2_red" name="Перевірка даних службою" activiti:candidateGroups="dnepr_cnap41_${vibor}">
+    <userTask id="usertask2_red" name="Перевірка даних службою" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="per2" name="На цьому етапі натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете сповістити заявника чи оброблено його заяву. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
@@ -271,7 +271,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'&&vibor=='lev'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow24" sourceRef="servicetask1" targetRef="mailtask2"></sequenceFlow>
-    <userTask id="usertask3_green" name="Формування опису або відмова при неправильних документах" activiti:candidateGroups="dnepr_cnap41_${vibor}">
+    <userTask id="usertask3_green" name="Формування опису або відмова при неправильних документах" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="per1" name="На цьому етапі натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете ознайомитись з поданими документами, прийняти попереднє рішення про те, чи достатньо їх для виконання запиту, роздрукувати заяву і всі додатки. Якщо перевірку пройдено, додайте файл з описом прийнятих документів, номером і датою прийняття. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
@@ -495,7 +495,7 @@ ${comPer1} &lt;br&gt;
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[Crow79@ua.fm]]></activiti:string>
+          <activiti:expression>${postprav}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Видача листа-довідки на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
@@ -655,7 +655,7 @@ ${comment} &lt;br&gt;
     <serviceTask id="mailtask6" name="Лист посадовцю про нове звернення" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[Crow79@ua.fm]]></activiti:string>
+          <activiti:expression>${postlev}</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -744,17 +744,6 @@ ${comment} &lt;br&gt;
 В старттаске добавить в "vibor" вариант почты и переменную dostAddress (адрес доставки почтой)
 </text>
     </textAnnotation>
-    <textAnnotation id="textannotation2">
-      <text>${postprav}</text>
-    </textAnnotation>
-    <textAnnotation id="textannotation3">
-      <text>${postlev}</text>
-    </textAnnotation>
-    <textAnnotation id="textannotation4">
-      <text>Поменять в мєйнконфиге юзертасок 2 и 3 
-dnepr_cnap41_${vibor} на 
-dnepr_cnap_${vibor}</text>
-    </textAnnotation>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_41">
     <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_41" id="BPMNPlane_dnepr_cnap_41">
@@ -817,15 +806,6 @@ dnepr_cnap_${vibor}</text>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="103.0" width="178.0" x="180.0" y="-2.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
-        <omgdc:Bounds height="50.0" width="100.0" x="100.0" y="104.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
-        <omgdc:Bounds height="50.0" width="100.0" x="34.0" y="330.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation4" id="BPMNShape_textannotation4">
-        <omgdc:Bounds height="50.0" width="100.0" x="382.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="24.0" y="27.0"></omgdi:waypoint>
