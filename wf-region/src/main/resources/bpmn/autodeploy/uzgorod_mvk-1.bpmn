@@ -69,7 +69,7 @@
           <activiti:expression>Crow79@ua.fm</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Нове звернення на порталі igov.org.ua на тему: Видача архівних довідок, копій, витягів. Заявник ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}]]></activiti:string>
+          <activiti:expression>Нове звернення на порталі igov.org.ua на тему: Видача архівних довідок, копій, витягів. Заявник ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>

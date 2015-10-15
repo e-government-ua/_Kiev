@@ -323,7 +323,7 @@ ${comPer1} &lt;br&gt;
           <activiti:expression>${postprav}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Нове звернення на порталі igov.org.ua на тему: Видача листа-довідки на перевезення (перезахоронення) загиблого в зоні АТО. Заявник ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}]]></activiti:string>
+          <activiti:expression>Нове звернення на порталі igov.org.ua на тему: Видача листа-довідки на перевезення (перезахоронення) загиблого в зоні АТО. Заявник ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
@@ -417,7 +417,7 @@ ${comment} &lt;br&gt;
           <activiti:expression>${postlev}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Нове звернення на порталі igov.org.ua на тему: Видача листа-довідки на перевезення (перезахоронення) загиблого в зоні АТО. Заявник ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}]]></activiti:string>
+          <activiti:expression>Нове звернення на порталі igov.org.ua на тему: Видача листа-довідки на перевезення (перезахоронення) загиблого в зоні АТО. Заявник ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
