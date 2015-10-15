@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="dndz_cnap_190" name="Дніпродзержинськ - ЦНАП - Розірвання договору оренди земельної ділянки або припинення права постійного користування земельною ділянкою " isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Електронна пошта для зворотнього звя'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="select" name="Суб’єкт звернення" type="enum" required="true">
+          <activiti:value id="attr1_self" name="Фізична особа - підприємець або громадянин України"></activiti:value>
+          <activiti:value id="attr2_company" name="Юридична особа"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="nameCompany" name="Назва юридичної особи" type="string"  default=" "></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Юридична адреса або місце реєстрації фізичної особи" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="based" name="На підставі;(вказати документ, що посвідчує перехід права власності)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="square" name="Площа земельної ділянки (га)" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Адреса земельної ділянки" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="newOwner" name="Новий власник нерухомого майна" type="string" default=" "></activiti:formProperty>
+        
+        <activiti:formProperty id="date_today" name="Вкажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Графічні матеріали із зазначенням бажаного місця розташування тимчасової споруди, виконані замовником у довільній формі на топографо-геодезичній основі М1:500, кресленнями контурів тимчасової споруди з прив'язкою до місцевості." type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <serviceTask id="servicetask1" name="Завантаження файлів"></serviceTask>
+    <serviceTask id="servicetask2" name="Повідомленя адміністратора ЦНАПу"></serviceTask>
+    <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="servicetask2"></sequenceFlow>
+    <serviceTask id="servicetask3" name="Повідомлення про доставку замовлення до ЦНАПу"></serviceTask>
+    <sequenceFlow id="flow3" sourceRef="servicetask2" targetRef="servicetask3"></sequenceFlow>
+    <userTask id="usertask1" name="Обробка Дніпродзержинським ЦНАП (1-й крок)" activiti:candidateGroups="dndz_cnap_1"></userTask>
+    <sequenceFlow id="flow4" sourceRef="servicetask3" targetRef="usertask1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow5" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <serviceTask id="servicetask4" name="Відправка e-mail в разі неповного пакету документів"></serviceTask>
+    <serviceTask id="servicetask5" name="лист про успішне замовлення послуги"></serviceTask>
+    <sequenceFlow id="flow6" sourceRef="exclusivegateway1" targetRef="servicetask4"></sequenceFlow>
+    <sequenceFlow id="flow7" sourceRef="exclusivegateway1" targetRef="servicetask5"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <sequenceFlow id="flow8" sourceRef="servicetask4" targetRef="endevent1"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow9" sourceRef="boundaryerror1" targetRef="endevent2"></sequenceFlow>
+    <userTask id="usertask2" name="Підготовка відповіді після рішення департаменту комунальної власності та земельних відносин міської ради (2-й крок)" activiti:candidateGroups="dndz_cnap_1"></userTask>
+    <sequenceFlow id="flow10" sourceRef="servicetask5" targetRef="usertask2"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow11" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
+    <serviceTask id="servicetask6" name="Інформування заявника про необхідність отримання позитивного результату"></serviceTask>
+    <sequenceFlow id="flow12" sourceRef="exclusivegateway2" targetRef="servicetask6"></sequenceFlow>
+    <serviceTask id="servicetask7" name="Інформування заявника про відмову департаменту"></serviceTask>
+    <sequenceFlow id="flow13" sourceRef="exclusivegateway2" targetRef="servicetask7"></sequenceFlow>
+    <endEvent id="endevent3" name="End"></endEvent>
+    <sequenceFlow id="flow14" sourceRef="servicetask7" targetRef="endevent3"></sequenceFlow>
+    <sequenceFlow id="flow15" sourceRef="servicetask6" targetRef="endevent1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dndz_cnap_190">
+    <bpmndi:BPMNPlane bpmnElement="dndz_cnap_190" id="BPMNPlane_dndz_cnap_190">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="50.0" y="188.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="91.0" width="105.0" x="120.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="190.0" y="220.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="91.0" width="105.0" x="270.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="91.0" width="105.0" x="400.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="91.0" width="105.0" x="540.0" y="160.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="680.0" y="185.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
+        <omgdc:Bounds height="90.0" width="105.0" x="810.0" y="161.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
+        <omgdc:Bounds height="91.0" width="105.0" x="648.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="845.0" y="355.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="187.0" y="280.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="121.0" width="105.0" x="648.0" y="400.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="680.0" y="549.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
+        <omgdc:Bounds height="121.0" width="105.0" x="810.0" y="509.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask7" id="BPMNShape_servicetask7">
+        <omgdc:Bounds height="121.0" width="105.0" x="490.0" y="509.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="410.0" y="552.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="85.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="120.0" y="205.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="225.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="270.0" y="205.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="375.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="400.0" y="205.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="505.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="540.0" y="205.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
+        <omgdi:waypoint x="645.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="680.0" y="205.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="720.0" y="205.0"></omgdi:waypoint>
+        <omgdi:waypoint x="810.0" y="206.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
+        <omgdi:waypoint x="700.0" y="225.0"></omgdi:waypoint>
+        <omgdi:waypoint x="700.0" y="280.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
+        <omgdi:waypoint x="862.0" y="251.0"></omgdi:waypoint>
+        <omgdi:waypoint x="862.0" y="355.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
+        <omgdi:waypoint x="205.0" y="250.0"></omgdi:waypoint>
+        <omgdi:waypoint x="204.0" y="280.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="700.0" y="371.0"></omgdi:waypoint>
+        <omgdi:waypoint x="700.0" y="400.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
+        <omgdi:waypoint x="700.0" y="521.0"></omgdi:waypoint>
+        <omgdi:waypoint x="700.0" y="549.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="720.0" y="569.0"></omgdi:waypoint>
+        <omgdi:waypoint x="810.0" y="569.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow13" id="BPMNEdge_flow13">
+        <omgdi:waypoint x="680.0" y="569.0"></omgdi:waypoint>
+        <omgdi:waypoint x="595.0" y="569.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="490.0" y="569.0"></omgdi:waypoint>
+        <omgdi:waypoint x="445.0" y="569.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="862.0" y="509.0"></omgdi:waypoint>
+        <omgdi:waypoint x="862.0" y="390.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

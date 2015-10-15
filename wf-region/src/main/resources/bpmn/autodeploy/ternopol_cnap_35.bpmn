@@ -41,7 +41,7 @@
         <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_registrastion" name="Вкажіть дату реєстрації (у форматі ДД/ММ/РРРР)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="email_spec" name="Електронна пошта спеціаліста УМАК" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email_spec" name="Електронна пошта спеціаліста УМАК" type="string"></activiti:formProperty>
         <activiti:formProperty id="sBody" name="[pattern/print/ternopol_cnap_35_print.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
