@@ -333,15 +333,12 @@ public class ActivitiRestHistoryEventController {
 		String res = null;
 		log.info("Comparing region " + regionID_UA);
 		for (ServiceData serviceData : serviceDataList){
-			if (serviceData.getCity() == null){
-				log.info("Skipping service data :" + serviceData.getId() + ":" + serviceData.getRegion());
+			if (serviceData.getCity() == null || serviceData.getCity().getRegion() == null || serviceData.getCity().getRegion().getsID_UA() == null){
+				log.info("Skipping service data:" + serviceData.getId());
 			}
 			log.info("Comparing region with service data for region:" + serviceData.getCity().getsID_UA() + ":" + serviceData.getRegion() + ":" + 
 					(serviceData.getCity() != null ? serviceData.getCity().getRegion().getsID_UA() : ""));
-			if (serviceData.getRegion() != null){
-				log.info("Region data:" + serviceData.getRegion().getName() + ":" + serviceData.getRegion().getsID_UA());
-			}
-			if (serviceData.getCity().getsID_UA().equals(regionID_UA)){
+			if (regionID_UA.equals(serviceData.getCity().getRegion().getsID_UA())){
 				String dataJson = serviceData.getData();
         		log.info("Found data for the service data:" + dataJson);
 
