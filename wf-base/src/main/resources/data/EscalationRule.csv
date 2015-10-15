@@ -575,3 +575,35 @@ nID;sID_BP;sID_UserTask;sCondition;soData;sPatternFile;nID_EscalationRuleFunctio
 511;dnepr_soczah_139;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
 512;dnepr_soczah_139;"usertask2_red";"nElapsedDays >= nDaysLimit";"{nDaysLimit:60, asRecipientMail:['dmitrij.zabrudskij@privatbank.ua', 'msvidran@gmail.com', 'yakul1986@gmail.com']}";"escalation/escalation_template.html";1
 513;dnepr_soczah_139;"usertask2_red";"nElapsedDays > nDaysLimit";"{nDaysLimit:60, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+514;dnepr_dms-89;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:3, asRecipientMail:['zhigan.roman@gmail.com', 'yakul1986@gmail.com']}";"escalation/escalation_template.html";1
+515;dnepr_dms-89;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+516;dnepr_dms-89s;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:3, asRecipientMail:['zhigan.roman@gmail.com', 'yakul1986@gmail.com']}";"escalation/escalation_template.html";1
+517;dnepr_dms-89s;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+518;dnepr_cnap_36;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:3, asRecipientMail:['zhigan.roman@gmail.com', 'yakul1986@gmail.com']}";"escalation/escalation_template.html";1
+519;dnepr_cnap_36;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+520;dnepr_cnap_36;"usertask2";"nElapsedDays >= nDaysLimit";"{nDaysLimit:14, asRecipientMail:['zhigan.roman@gmail.com', 'yakul1986@gmail.com']}";"escalation/escalation_template.html";1
+521;dnepr_cnap_36;"usertask2";"nElapsedDays > nDaysLimit";"{nDaysLimit:14, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+522;dnepr_cnap_39;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:3, asRecipientMail:['zhigan.roman@gmail.com', 'yakul1986@gmail.com']}";"escalation/escalation_template.html";1
+523;dnepr_cnap_39;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+524;dnepr_cnap_39;"usertask2";"nElapsedDays >= nDaysLimit";"{nDaysLimit:14, asRecipientMail:['zhigan.roman@gmail.com', 'yakul1986@gmail.com']}";"escalation/escalation_template.html";1
+525;dnepr_cnap_39;"usertask2";"nElapsedDays > nDaysLimit";"{nDaysLimit:14, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+526;dnepr_cnap-44;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:3, asRecipientMail:['zhigan.roman@gmail.com', 'yakul1986@gmail.com']}";"escalation/escalation_template.html";1
+527;dnepr_cnap-44;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+528;dnepr_cnap-44;"usertask2";"nElapsedDays >= nDaysLimit";"{nDaysLimit:14, asRecipientMail:['zhigan.roman@gmail.com', 'yakul1986@gmail.com']}";"escalation/escalation_template.html";1
+529;dnepr_cnap-44;"usertask2";"nElapsedDays > nDaysLimit";"{nDaysLimit:14, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+530;dnepr_cnap-44;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:3, asRecipientMail:['zhigan.roman@gmail.com', 'yakul1986@gmail.com']}";"escalation/escalation_template.html";1
+531;dnepr_cnap-44;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+532;dnepr_cnap-44;"usertask2";"nElapsedDays >= nDaysLimit";"{nDaysLimit:14, asRecipientMail:['zhigan.roman@gmail.com', 'yakul1986@gmail.com']}";"escalation/escalation_template.html";1
+533;dnepr_cnap-44;"usertask2";"nElapsedDays > nDaysLimit";"{nDaysLimit:14, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+534;ternopol_2_long2;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:3, asRecipientMail:['zhigan.roman@gmail.com']}";"escalation/escalation_template.html";1
+535;ternopol_2_long2;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+536;kuznetsovsk_mvk_4;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:3, asRecipientMail:['zhigan.roman@gmail.com']}";"escalation/escalation_template.html";1
+537;kuznetsovsk_mvk_4;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
