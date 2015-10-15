@@ -1,4 +1,4 @@
-angular.module('app').service('ActivitiService', function ($http, ErrorsFactory) {
+angular.module('app').service('ActivitiService', function ($http, $location, ErrorsFactory) {
 
   var prepareFormData = function (oService, oServiceData, formData, url) {
     var data = {
@@ -79,7 +79,7 @@ angular.module('app').service('ActivitiService', function ($http, ErrorsFactory)
       businessKey : businessKey
     };
 
-    var restoreFormUrl = 'http://localhost:9000/service/720/general/place/built-in/region/1/city/1';
+    var restoreFormUrl = $location.absUrl();
 
     var params = {
       sURL : oServiceData.sURL

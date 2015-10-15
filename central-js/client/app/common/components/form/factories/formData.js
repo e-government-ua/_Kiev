@@ -144,7 +144,7 @@ angular.module('app').factory('FormDataFactory', function (ParameterFactory, Dat
     var paramsForUpload = [];
     for (var key in this.params) {
       var param = this.params[key];
-      if (param instanceof ScanFactory) {
+      if (param instanceof ScanFactory && !param.value) {
         paramsForUpload.push({key: key, scan: param.getScan()});
       }
     }

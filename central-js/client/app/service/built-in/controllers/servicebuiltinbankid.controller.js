@@ -13,7 +13,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   oService,
   oServiceData,
   BankIDAccount,
-  ActivitiForm,
+  activitiForm,
   AdminService,
   PlacesService,
   uiUploader,
@@ -29,7 +29,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount; // FIXME потенційний хардкод
-  $scope.ActivitiForm = ActivitiForm;
+  $scope.activitiForm = activitiForm;
 
   $scope.data = $scope.data || {};
 
@@ -39,9 +39,8 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
   if ( !$scope.data.formData ) {
     $scope.data.formData = new FormDataFactory();
-    $scope.data.formData.initialize(ActivitiForm);
+    $scope.data.formData.initialize($scope.activitiForm);
     $scope.data.formData.setBankIDAccount(BankIDAccount);
-    //TODO uncomment after testing
     $scope.data.formData.uploadScansFromBankID(oServiceData);
   }
 
@@ -50,7 +49,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.markers = ValidationService.getValidationMarkers();
   var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
 
-  angular.forEach($scope.ActivitiForm.formProperties, function(field) {
+  angular.forEach($scope.activitiForm.formProperties, function(field) {
 
     var sFieldName = field.name || '';
 
@@ -92,11 +91,17 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     }
   });
 
-  $scope.signForm = function (form) {
-    ActivitiService.saveForm(oService, oServiceData, 'some business key 111', 'process name here', $scope.ActivitiForm, $scope.data.formData).then(function(result){
-      var signPath = ActivitiService.getSignFormPath(oServiceData, result.formID);
-      $window.location.href = $location.protocol() + '://' + $location.host() + ':' + $location.port() + signPath;
-    });
+  $scope.signForm = function () {
+    ActivitiService.saveForm(oService, oServiceData,
+      'some business key 111',
+      'process name here', $scope.activitiForm, $scope.data.formData)
+      .then(function (result) {
+        var signPath = ActivitiService.getSignFormPath(oServiceData, result.formID);
+        $window.location.href = $location.protocol() + '://' + $location.host() + ':' + $location.port() + signPath;
+        //$window.location.href = $location.absUrl()
+        //  + '?formID=' + result.formID
+        //  + '&signedFileID=' + 1122333;
+      })
   };
 
   $scope.submit = function(form) {

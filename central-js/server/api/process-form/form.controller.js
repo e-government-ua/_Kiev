@@ -227,10 +227,6 @@ module.exports.signFormCallback = function (req, res) {
     sURL = '';
   }
 
-//  Для выполнения финального п. 5, необходимо сформировать запрос метода GET, передав в нем код авторизационного ключа code
-//  https://{PI:port}/ResourceService/checked/claim/code_value/clientPdfClaim
-  //  Authorization = "Bearer access_token, Id client_id" - (последовательность не важна)
-//https://bankid.privatbank.uaundefined/checked/claim/89e6c1a6-5174-4169-91b2-bbc9afab0520/clientPdfClaim
   var bankIDOptions = getBankIDOptions(req.session.access.accessToken);
   var signedFormForUpload = accountService.prepareSignedContentRequest(bankIDOptions, codeValue);
 
@@ -269,7 +265,7 @@ module.exports.signFormCallback = function (req, res) {
     } else {
       res.redirect(result.formData.restoreFormUrl
         + '?formID=' + formID
-        + '?signedFileID=' + result.signedFormID);
+        + '&signedFileID=' + result.signedFormID);
     }
   });
 

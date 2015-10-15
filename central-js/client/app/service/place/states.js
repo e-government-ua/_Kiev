@@ -44,7 +44,7 @@ angular.module('app').config(function($stateProvider) {
       }
     })
     .state('index.service.general.place.built-in.bankid', {
-      url: '/built-in/region/{region:int}/city/{city:int}/?code',
+      url: '/built-in/region/{region:int}/city/{city:int}?formID&signedFileID',
       parent: 'index.service.general.place',
       data: {
         region: null,
@@ -133,8 +133,20 @@ angular.module('app').config(function($stateProvider) {
             sProcessDefinitionName: sProcessDefinitionName
           };
         },
-        ActivitiForm: function(ActivitiService, oServiceData, processDefinitionId) {
-          return ActivitiService.getForm(oServiceData, processDefinitionId);
+        activitiForm: function($stateParams, ActivitiService, oServiceData, processDefinitionId) {
+          if($stateParams.formID){
+            return ActivitiService.loadForm(oServiceData, $stateParams.formID).then(function(savedForm){
+              if(savedForm.formData.params['form_signed'] && $stateParams.signedFileID){
+                var formSignedProperty = savedForm.activitiForm.fromProperties.filter(function(item){
+                  return item.id = 'form_signed';
+                })[0];
+                formSignedProperty.value = $stateParams.signedFileID;
+              }
+              return savedForm.activitiForm;
+            });
+          } else {
+            return ActivitiService.getForm(oServiceData, processDefinitionId);
+          }
         }
       }
     })
