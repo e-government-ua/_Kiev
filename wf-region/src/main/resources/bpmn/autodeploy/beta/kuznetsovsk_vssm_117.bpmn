@@ -89,6 +89,7 @@
 [pattern/mail/_common_signature_start.html]
 Виконавчий комітет Кузнецовської міської ради&lt;/p&gt;
 [pattern/mail/_common_signature_end.html]
+[pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
