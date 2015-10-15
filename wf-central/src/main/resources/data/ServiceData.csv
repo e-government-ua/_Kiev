@@ -330,4 +330,5 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 419;1384;NULL;NULL;1;{};http://map.land.gov.ua/;false;1;false;Ви можете отримати послугу через публічну кадастрову карту. Обов’язковою умовою отримання доступу до інформації є  електронна ідентифікація заявника з використанням електронного цифрового підпису або BankID;BankID,EDS
 420;1385;NULL;NULL;1;{};http://map.land.gov.ua/;false;1;false;Ви можете отримати послугу через публічну кадастрову карту. Обов’язковою умовою отримання доступу до інформації є  електронна ідентифікація заявника з використанням електронного цифрового підпису або BankID;BankID,EDS
 421;1386;NULL;NULL;1;{};https://rrp.minjust.gov.ua/en-extract;false;1;false;Ви можете отримати послугу через пошукову форму на сайті онлайн-сервісів Міністерства юстиції;BankID,EDS
-422;1387;NULL;NULL;1;{};https://rrp.minjust.gov.ua/en-extract;false;1;false;Ви можете отримати послугу через пошукову форму на сайті онлайн-сервісів Міністерства юстиції;BankID,ED
+422;1387;NULL;NULL;1;{};https://rrp.minjust.gov.ua/en-extract;false;1;false;Ви можете отримати послугу через пошукову форму на сайті онлайн-сервісів Міністерства юстиції;BankID,EDS
+423;1388;NULL;9;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"ternopol_oda_207:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
