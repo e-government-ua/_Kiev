@@ -25,6 +25,9 @@
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="region" name="Регион" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="marker23" name="Правобережний ЦНАП" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_23&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;23&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'prav'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker24" name="Лівобережний ЦНАП" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_24&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;24&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'lev'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="postlev" name="адреси e-mail ЦНАП Лівобережний" type="string" default="Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net" readable="false"></activiti:formProperty>
         <activiti:formProperty id="postprav" name="адреси e-mail ЦНАП Правобережний" type="string" default="woobraja@mail.ru, 7751138@rambler.ru" readable="false"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу, Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
@@ -241,13 +244,16 @@
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;&lt;br /&gt;
-&lt;p&gt;Ваше звернення опрацьоване адміністратором ЦНАП.&lt;br/&gt;
+&lt;p&gt;Ваше звернення опрацьоване адміністратором ЦНАП, за декілька днів Ви отримаєте результат розгляду Вашого звернення.&lt;br/&gt;
 Ви можете ознайомитись з копією заяви і описом прийнятих документів, що приєднані до цього листа.&lt;/p&gt;
+&lt;p&gt;Якщо у Вас з`явились питання, Ви можете звернутись до [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
 [pattern/mail/_common_signature_start.html]
 &lt;p&gt;ЦНАП м. Дніпропетровськ&lt;/p&gt;
 [pattern/mail/_common_signature_end.html]
-[pattern/mail/_common_footer.html]
-                                       </activiti:expression>
+[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>${opis}</activiti:expression>
@@ -278,6 +284,10 @@
 На жаль, вашу заяву відхилено.&lt;br&gt;
 ${comPer1} &lt;br&gt;
 Ви можете подати ще одну заяву на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;igov.org.ua&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Якщо у Вас з`явились питання, Ви можете звернутись до [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
 [pattern/mail/_common_signature_start.html]
 &lt;p&gt;ЦНАП м. Дніпропетровськ&lt;/p&gt;
 [pattern/mail/_common_signature_end.html]
