@@ -249,7 +249,7 @@ nID;sID_BP;sID_UserTask;sCondition;soData;sPatternFile;nID_EscalationRuleFunctio
 243;post_regFOP_30;"*";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
 
 244;post_spravka_o_doxodax_pens;"*";"nElapsedDays >= nDaysLimit";"{nDaysLimit:3, asRecipientMail:['dmitrij.zabrudskij@privatbank.ua', 'yakul1986@gmail.com', 'pavel.kurbatskij@privatbank.ua']}";"escalation/escalation_template.html";1
-245;post_spravka_o_doxodax_pens;"*";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+245;post_spravka_o_doxodax_pens;"*";"nElapsedDays > nDaysLimit";"{nDaysLimit:4, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
 
 246;slavuta_mvk-1;"*";"nElapsedDays >= nDaysLimit";"{nDaysLimit:3, asRecipientMail:['dmitrij.zabrudskij@privatbank.ua', 'yakul1986@gmail.com', 'pavel.kurbatskij@privatbank.ua']}";"escalation/escalation_template.html";1
 247;slavuta_mvk-1;"*";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
@@ -607,3 +607,24 @@ nID;sID_BP;sID_UserTask;sCondition;soData;sPatternFile;nID_EscalationRuleFunctio
 
 536;kuznetsovsk_mvk_4;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:3, asRecipientMail:['zhigan.roman@gmail.com']}";"escalation/escalation_template.html";1
 537;kuznetsovsk_mvk_4;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+538;post_spravka_o_doxodax_pens;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:3, asRecipientMail:['dmitrij.zabrudskij@privatbank.ua', 'yakul1986@gmail.com', 'pavel.kurbatskij@privatbank.ua']}";"escalation/escalation_template.html";1
+539;post_spravka_o_doxodax_pens;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+540;dnepr_socialhelp_kids;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:3, asRecipientMail:['dmitrij.zabrudskij@privatbank.ua', 'yakul1986@gmail.com', 'pavel.kurbatskij@privatbank.ua']}";"escalation/escalation_template.html";1
+541;dnepr_socialhelp_kids;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:3, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+542;dnepr_socialhelp_kids;"usertask2_red";"nElapsedDays >= nDaysLimit";"{nDaysLimit:15, asRecipientMail:['dmitrij.zabrudskij@privatbank.ua', 'yakul1986@gmail.com', 'pavel.kurbatskij@privatbank.ua']}";"escalation/escalation_template.html";1
+543;dnepr_socialhelp_kids;"usertask2_red";"nElapsedDays > nDaysLimit";"{nDaysLimit:15, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+544;dnepr_subsidies;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:25, asRecipientMail:['dmitrij.zabrudskij@privatbank.ua', 'yakul1986@gmail.com', 'pavel.kurbatskij@privatbank.ua']}";"escalation/escalation_template.html";1
+545;dnepr_subsidies;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:25, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+546;kiev_subsidies;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:25, asRecipientMail:['dmitrij.zabrudskij@privatbank.ua', 'yakul1986@gmail.com', 'pavel.kurbatskij@privatbank.ua']}";"escalation/escalation_template.html";1
+547;kiev_subsidies;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:25, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+548;kiev_mda_subsidies;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:25, asRecipientMail:['dmitrij.zabrudskij@privatbank.ua', 'yakul1986@gmail.com', 'pavel.kurbatskij@privatbank.ua']}";"escalation/escalation_template.html";1
+549;kiev_mda_subsidies;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:25, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
+
+550;cherkassi_subsidies;"usertask1";"nElapsedDays >= nDaysLimit";"{nDaysLimit:25, asRecipientMail:['dmitrij.zabrudskij@privatbank.ua', 'yakul1986@gmail.com', 'pavel.kurbatskij@privatbank.ua']}";"escalation/escalation_template.html";1
+551;cherkassi_subsidies;"usertask1";"nElapsedDays > nDaysLimit";"{nDaysLimit:25, asRecipientMail:['d.dubilet@privatbank.ua']}";"escalation/escalation_template.html";1
