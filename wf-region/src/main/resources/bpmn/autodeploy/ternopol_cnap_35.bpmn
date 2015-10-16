@@ -42,6 +42,7 @@
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_registrastion" name="Вкажіть дату реєстрації (у форматі ДД/ММ/РРРР)" type="string"></activiti:formProperty>
         <activiti:formProperty id="email_spec" name="Електронна пошта спеціаліста УМАК" type="string"></activiti:formProperty>
+        <activiti:formProperty id="PrintForm_1" name="File label;File title;pattern/print/ternopol_cnap_35_print.html" type="file"></activiti:formProperty>
         <activiti:formProperty id="sBody" name="[pattern/print/ternopol_cnap_35_print.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
@@ -101,19 +102,19 @@
           <activiti:string><![CDATA[Розгляд відповідності намірів щодо місця розташування тимчасової споруди.]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановні працівники Управління містобудування, архітектури та кадастру.
+          <activiti:expression>Шановні працівники Управління містобудування, архітектури та кадастру.&lt;br /&gt;
                     
-                    Направляємо Вам документи на розгляд відповідності намірів щодо місця розташування тимчасової споруди.&lt;/p&gt;
+                    Направляємо Вам документи на розгляд відповідності намірів щодо місця розташування тимчасової споруди.&lt;br /&gt;
 									
-					Заявник: ${clFio};
-                    Реєстраційний номер ЦНАП: ${number_cnap}.
+					Заявник: ${clFio};&lt;br /&gt;
+                    Реєстраційний номер ЦНАП: ${number_cnap}.&lt;br /&gt;
                             		
-                    З повагою,
-                    ЦНАП м.Тернопіль
+                    З повагою,&lt;br /&gt;
+                    ЦНАП м.Тернопіль&lt;br /&gt;
 			Тел. 40-41-93</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${file1}"</activiti:expression>
+          <activiti:expression>"${file1}", ${PrintForm_1}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -264,11 +265,8 @@
 Без перерви на обід&lt;br /&gt;
 Телефон: (0352) 40-41-93 &lt;br /&gt; 
 &lt;br /&gt;
-&lt;p&gt;Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;&lt;/p&gt;
-&lt;br /&gt;
-&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-ЦНАП м.Тенопіль,
+ЦНАП м.Тенопіль,&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
