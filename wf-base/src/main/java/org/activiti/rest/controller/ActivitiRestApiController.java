@@ -760,6 +760,9 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
             log.info("total duration in hours:" + totalDuration + " for " + foundResults.size());
             res.put(sID_BP_Name, Integer.valueOf(Math.round((float)totalDuration / foundResults.size())).toString());
         }
+        if (res.isEmpty()){
+        	res.put(sID_BP_Name, "0");
+        }
         return JSONValue.toJSONString(res);
     }
     
