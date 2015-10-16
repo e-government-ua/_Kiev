@@ -179,7 +179,7 @@
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 &lt;p&gt;Ваше звернення щодо розгляду відповідності намірів щодо місця розташування тимчасової споруди було зареєстровано у системі.&lt;br/&gt;&lt;/p&gt;
 Повідомлення про результат послуги буде спрямоване на Ваш e-mail.&lt;br/&gt;
-&lt;p&gt;Спеціалісти з органу місцевого самоврядування повинні дати відповідь протягом 10 робочих днів з дня реєстрації заяви.&lt;br /&gt;&lt;/p&gt;
+&lt;br /&gt;
 &lt;p&gt;Адреса: &lt;br /&gt;
 м.Тернопіль, вул.Князя Острозького 6, 1 поверх. &lt;br /&gt;
 &lt;br /&gt;
@@ -192,7 +192,7 @@
 &lt;/p&gt;
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
- З повагою ЦНАП м.Тернопіль,&lt;br /&gt;
+ЦНАП м.Тернопіль,&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -230,7 +230,7 @@
 &lt;br /&gt;
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
- З повагою,&lt;br /&gt;ЦНАП м.Тенопіль,
+ЦНАП м.Тенопіль,
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -268,7 +268,7 @@
 &lt;br /&gt;
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
- З повагою,&lt;br /&gt;ЦНАП м.Тенопіль,
+ЦНАП м.Тенопіль,
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -299,7 +299,7 @@
 Телефон: (0352) 40-41-93 &lt;br /&gt;  
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-З повагою,&lt;br /&gt;ЦНАП м.Тенопіль&lt;br /&gt;
+ЦНАП м.Тенопіль&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
