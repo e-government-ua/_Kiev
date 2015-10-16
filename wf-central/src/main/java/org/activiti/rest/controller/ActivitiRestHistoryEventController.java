@@ -71,6 +71,10 @@ public class ActivitiRestHistoryEventController {
     @Autowired
     private HttpRequester httpRequester;
 	
+    @Autowired
+	@Qualifier("serviceDataDao")
+	private GenericEntityDao<ServiceData> serviceDataDao;
+    
 	/**
 	 * check the correctness of nID_Protected (by algorithm Luna) and return
 	 * the object of HistoryEvent_Service
@@ -275,6 +279,16 @@ public class ActivitiRestHistoryEventController {
 		service = baseEntityDao.findById(Service.class, nID_Service);
 		if (service != null){
 			log.info("Found Service. Size of ServiceData list: " + service.getServiceDataList().size());
+		}
+		
+		try {
+			List<ServiceData> serviceDataList = serviceDataDao.findAllBy("service.id", nID_Service);
+			log.info("serviceDataList:" + serviceDataList.size());
+			for (ServiceData data : serviceDataList){
+				log.info(data.getId() + ":" + data.getCity() + ":" + data.getRegion() + ":" + data.getData());
+			}
+		} catch (Exception e){
+			e.printStackTrace();
 		}
 		
 		List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String, Object>>();
