@@ -150,6 +150,7 @@
 &lt;p&gt; Ваше звернення щодо можливості розміщення тимчасової споруди для провадження підприємницької діяльності було зареєстровано у системі.&lt;br/&gt;
 Повідомлення про результат послуги буде спрямоване на Ваш e-mail.&lt;/p&gt;
 &lt;br /&gt;
+Телефон для довідок: (05692) 2-61-50 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 ЦНАП м.Дніпродзержинськ.&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
@@ -176,8 +177,9 @@
 &lt;p&gt;Номер Вашого замовлення: ${number_cnap}&lt;/p&gt; .
 &lt;/p&gt;
 &lt;br /&gt;
+Телефон для довідок: (05692) 2-61-50 &lt;br /&gt; 
 [pattern/mail/_common_signature_start.html]
- З повагою, ЦНАП м.Дніпродзержинськ.&lt;br /&gt;
+ЦНАП м.Дніпродзержинськ.&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -204,7 +206,7 @@
 &lt;p&gt;Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;&lt;/p&gt;
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
+ЦНАП м.Дніпродзержинськ&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
