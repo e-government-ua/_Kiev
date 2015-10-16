@@ -89,7 +89,9 @@ angular.module('app').config(function($stateProvider) {
               // if city isn't, but region is available for this service
               if (value.nID_Region && value.nID_Region.nID === $stateParams.region) {
                 oServiceData = value;
-              } else if (value.nID_ServiceType && (value.nID_ServiceType.nID === 4 || value.nID_ServiceType.nID === 1 ) ) {
+              // country level: service is defined, but no region and no city is
+              } else if (value.nID_ServiceType && !value.hasOwnProperty('nID_City') && !value.hasOwnProperty('nID_Region') && (value.nID_ServiceType.nID === 4 || value.nID_ServiceType.nID === 1 ) ) {
+              //} else if (value.nID_ServiceType && (value.nID_ServiceType.nID === 4 || value.nID_ServiceType.nID === 1 ) ) {
                 oServiceData = value;
               }
             });
