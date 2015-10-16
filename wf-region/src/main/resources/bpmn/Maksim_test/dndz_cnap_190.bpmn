@@ -19,9 +19,11 @@
         <activiti:formProperty id="square" name="Площа земельної ділянки (га)" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса земельної ділянки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="newOwner" name="Новий власник нерухомого майна" type="string" default=" "></activiti:formProperty>
-        
+        <activiti:formProperty id="contractNumber" name="Номер Договору оренди земельної ділянки" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="contractDate" name="Дата договору оренди земельної ділянки;у форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>  
         <activiti:formProperty id="date_today" name="Вкажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file1" name="Графічні матеріали із зазначенням бажаного місця розташування тимчасової споруди, виконані замовником у довільній формі на топографо-геодезичній основі М1:500, кресленнями контурів тимчасової споруди з прив'язкою до місцевості." type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Копія паспорта" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file1" name="Копія документу, що посвідчує перехід права власності" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
