@@ -274,18 +274,16 @@ public class ActivitiRestHistoryEventController {
 	}
 
 	private List<Map<String, Object>> getListOfHistoryEvents(Long nID_Service){
-		Service service = null;
-		log.info("Looking for the Service:" + baseEntityDao);
-		service = baseEntityDao.findById(Service.class, nID_Service);
-		if (service != null){
-			log.info("Found Service. Size of ServiceData list: " + service.getServiceDataList().size());
-		}
 		
+		List<ServiceData> serviceDataList = null;
 		try {
-			List<ServiceData> serviceDataList = serviceDataDao.findAllBy("service.id", nID_Service);
+			serviceDataList = serviceDataDao.findAllBy("service.id", nID_Service);
 			log.info("serviceDataList:" + serviceDataList.size());
 			for (ServiceData data : serviceDataList){
-				log.info(data.getId() + ":" + data.getCity() + ":" + data.getRegion() + ":" + data.getData());
+				String sIDUA = null;
+				if (data.getCity() != null && data.getCity().getRegion() != null) 
+					sIDUA = data.getCity().getRegion().getsID_UA();
+				log.info(data.getId() + ":" + sIDUA + ":" + data.getRegion() + ":" + data.getData());
 			}
 		} catch (Exception e){
 			e.printStackTrace();
@@ -302,9 +300,9 @@ public class ActivitiRestHistoryEventController {
 
 			region = regionDao.findByIdExpected(currMap.get("sName"));
 			String averageDuration = null;
-			if (service != null){
+			if (serviceDataList != null){
 				log.info("comparing region:" + region.getName() + ":" + region.getsID_UA() + ":" + region.getId());
-				String bpName = findNameOfBPForRegion(region.getsID_UA(), service.getServiceDataList());
+				String bpName = findNameOfBPForRegion(region.getsID_UA(), serviceDataList);
 				if (bpName != null){
 					averageDuration = averageDurationOfBusinessProcess(bpName);
 				}
