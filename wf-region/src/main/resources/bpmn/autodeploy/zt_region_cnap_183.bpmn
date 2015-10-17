@@ -31,7 +31,7 @@
         <activiti:formProperty id="marker27" name="м. Малин" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_27&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;27&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'malinT'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="zt_${area}_1">
+    <userTask id="usertask1" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="zt_${area}_1">
       <extensionElements>
         <activiti:formProperty id="Attension1" name="Ви можете ознайомитись з даними заявника" type="label" default="Далі, візьміть запит в опрацювання. Оберіть, виконано запит, або відхилено. Якщо відхилено - вкажіть причину."></activiti:formProperty>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
@@ -49,7 +49,7 @@
     </userTask>
     <sequenceFlow id="flow35" sourceRef="servicetask2" targetRef="endevent6"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow38" sourceRef="usertask4" targetRef="exclusivegateway3"></sequenceFlow>
+    <sequenceFlow id="flow38" sourceRef="usertask1" targetRef="exclusivegateway3"></sequenceFlow>
     <sequenceFlow id="flow40" name="decide == 'accept'" sourceRef="exclusivegateway3" targetRef="servicetask1">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
     </sequenceFlow>
@@ -369,7 +369,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow54" sourceRef="servicetask3" targetRef="servicetask4"></sequenceFlow>
-    <sequenceFlow id="flow55" sourceRef="servicetask4" targetRef="usertask4"></sequenceFlow>
+    <sequenceFlow id="flow55" sourceRef="servicetask4" targetRef="usertask1"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ</text>
     </textAnnotation>
@@ -383,7 +383,7 @@
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="239.0" y="55.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="71.0" width="111.0" x="97.0" y="189.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">

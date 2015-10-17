@@ -68,6 +68,7 @@ public class ActivitiRestSubjectMessageController {
     String setMessageFeedback(
             @RequestParam(value = "sHead") String sHead,
             @RequestParam(value = "sBody", required = false) String sBody,
+            @RequestParam(value = "warnSignal", required = false) String sWarnSignal,
             @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
             @RequestParam(value = "sMail", required = false) String sMail,
             @RequestParam(value = "sContacts", required = false) String sContacts,
@@ -77,7 +78,7 @@ public class ActivitiRestSubjectMessageController {
             @RequestParam(value = "sID_Rate", required = false) String sID_Rate) throws ActivitiRestException {
 
         SubjectMessage message =
-                createSubjectMessage(sHead, sBody, nID_Subject, sMail, sContacts, sData, nID_SubjectMessageType);
+                createSubjectMessage(sHead + (sID_Rate!=null? " (sID_Rate="+sID_Rate+")":"") + ("on".equals(sWarnSignal)? " (anonymous)":""), sBody, nID_Subject, sMail, sContacts, sData, nID_SubjectMessageType);
         subjectMessagesDao.setMessage(message);
         message = subjectMessagesDao.getMessage(message.getId());
         checkRate(nID_Protected, sID_Rate);

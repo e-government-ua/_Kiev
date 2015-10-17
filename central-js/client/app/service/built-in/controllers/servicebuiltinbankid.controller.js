@@ -208,7 +208,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.renderAsLabel = function(property) {
     var p = getFieldProps(property);
     if (p.mentionedInWritable)
-      return FieldMotionService.isFieldWritable(property.id, $scope.data.formData.params);
+      return !FieldMotionService.isFieldWritable(property.id, $scope.data.formData.params);
     //property.type !== 'file'
     return (
       $scope.data.formData.fields[property.id] && p.fieldES === p.ES.NOT_SET
