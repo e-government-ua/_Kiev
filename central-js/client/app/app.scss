@@ -912,11 +912,11 @@ input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
 * Validation Styles End
 */
 
-.region-header-container .container {
+.kyiv-header-container .container {
   height: 175px;
   position: relative;
 
-  .navbar-region {
+  .navbar-kyiv {
     position: absolute;
     right: 50px;
     bottom: 65px;
@@ -945,6 +945,49 @@ input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
 
         h4 {
           line-height: 1;
+        }
+      }
+    }
+  }
+}
+
+.ternopil-header-container .container {
+  height: 175px;
+  position: relative;
+
+  .navbar-ternopil {
+    position: absolute;
+    right: 45px;
+    bottom: 8px;
+    background-color: #FFFFFF;
+
+    .navbar-right
+    {
+      margin-right: 0;
+
+      .menu-item {
+        &:first-child {
+          border-bottom-left-radius: 5px;
+          border-top-left-radius: 5px;
+        }
+
+        &.selected {
+          text-decoration: underline;
+          background-color: transparent;
+        }
+
+
+
+        a {
+          color: #2A4789 !important;
+          margin-top: 0;
+          padding: 3px 10px;
+        }
+
+        h4 {
+          line-height: 1;
+          font-size: 15px;
+          font-weight: bold !important;
         }
       }
     }
