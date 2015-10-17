@@ -12,4 +12,6 @@ import org.wf.dp.dniprorada.model.Place;
 public interface PlaceDao extends EntityDao<Place> {
     PlaceHierarchy getTreeDown(PlaceHibernateHierarchyRecord rootRecord);
     PlaceHierarchy getTreeUp  (Long placeId, String uaId, Boolean tree);
+
+    Place getRoot(Place place);
 }

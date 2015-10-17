@@ -58,7 +58,7 @@ public class PlaceDaoImpl extends GenericEntityDao<Place> implements PlaceDao {
             .setParam( valid(root.getPlaceId()), "PLACE_ID", root.getPlaceId())
             .setParam( !valid(root.getPlaceId()) && isNotBlank(root.getUaID()), "UA_ID", root.getUaID());
 
-        LOG.warn("Query for execution: {}", sql);
+        LOG.debug("Query for execution: {}", sql);
 
         Query query = sql.toSQLQuery()
             .setResultTransformer(new PlaceHibernateResultTransformer());
@@ -82,6 +82,20 @@ public class PlaceDaoImpl extends GenericEntityDao<Place> implements PlaceDao {
             .setResultTransformer( new PlaceHibernateResultTransformer() );
 
         return toTree( query.list() );
+    }
+
+    @Override
+    public Place getRoot(Place place) {
+        notNull(place, "Place can't be a null");
+        return (Place) new QueryBuilder( getSession() )
+            .append(
+                "select  root " +
+                "from    Place root, PlaceTree tree " +
+                "where   tree.placeId  = :PLACE_ID " +
+                "        and root.id   = tree.rootId ")
+            .setParam("PLACE_ID", place.getId())
+            .toQuery()
+            .uniqueResult();
     }
 
     static boolean valid(Long value) {

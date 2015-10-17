@@ -16,6 +16,7 @@ import org.wf.dp.dniprorada.base.util.caching.CachedInvocationBean;
 import org.wf.dp.dniprorada.base.util.caching.MethodCacheInterceptor;
 import org.wf.dp.dniprorada.base.viewobject.ResultMessage;
 import org.wf.dp.dniprorada.constant.KOATUU;
+import org.wf.dp.dniprorada.dao.PlaceDao;
 import org.wf.dp.dniprorada.model.*;
 import org.wf.dp.dniprorada.service.EntityService;
 import org.wf.dp.dniprorada.service.TableDataService;
@@ -32,8 +33,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/services")
 public class ActivitiRestServicesController {
-
-   private static final String GET_SERVICES_TREE = "getServicesTree";
+    private static final String GET_SERVICES_TREE = "getServicesTree";
 
 
    @Autowired
@@ -53,6 +53,9 @@ public class ActivitiRestServicesController {
 
    @Autowired
    GeneralConfig generalConfig;
+
+    @Autowired
+    private PlaceDao placeDao;
 
    @RequestMapping(value = "/getService", method = RequestMethod.GET)
    public
@@ -186,25 +189,31 @@ public class ActivitiRestServicesController {
               new ResultMessage("success", entityClass + " id: " + nID + " removed"));
    }
 
-   private ResponseEntity regionsToJsonResponse(Service oService) {
-      oService.setSubcategory(null);
-      //for (ServiceData oServiceData : oService.getServiceDataList()) {
-      List<ServiceData> aServiceData = oService.getServiceDataFiltered(generalConfig.bTest());
-      for (ServiceData oServiceData : aServiceData) {
-         oServiceData.setService(null);
-         if (oServiceData.getCity() != null) {
-            //oServiceData.setRegion(oServiceData.getCity().getRegion());
-            //oServiceData.getCity().setRegion(null);
-            //oServiceData.getRegion().setCities(null);
-            oServiceData.getCity().getRegion().setCities(null);
-         }else if (oServiceData.getRegion() != null) {
-            oServiceData.getRegion().setCities(null);
-         }
-      }
+    private ResponseEntity regionsToJsonResponse(Service oService) {
+        long regionPlaceType = 1;   // its to small for a constant as class member
+        oService.setSubcategory(null);
 
-    oService.setServiceDataList(aServiceData);
-      return JsonRestUtils.toJsonResponse(oService);
-   }
+        List<ServiceData> aServiceData = oService.getServiceDataFiltered(generalConfig.bTest());
+        for (ServiceData oServiceData : aServiceData) {
+            oServiceData.setService(null);
+
+            Place root = placeDao.getRoot( oServiceData.getoPlace() );
+            oServiceData.setoPlaceRoot(root);
+            if (regionPlaceType == oServiceData.getoPlace().getPlaceTypeId()) {
+                oServiceData.setoPlace(null);   // region can't has a place
+            }
+
+            // TODO remove if below after migration to new approach (via Place)
+            if (oServiceData.getCity() != null) {
+                oServiceData.getCity().getRegion().setCities(null);
+            } else if (oServiceData.getRegion() != null) {
+                oServiceData.getRegion().setCities(null);
+            }
+        }
+
+        oService.setServiceDataList(aServiceData);
+        return JsonRestUtils.toJsonResponse(oService);
+    }
 
    @RequestMapping(value = "/getPlaces", method = RequestMethod.GET)
    public
@@ -385,11 +394,10 @@ public class ActivitiRestServicesController {
 
    @RequestMapping(value = "/setServicesAndPlacesTables", method = RequestMethod.POST)
    public @ResponseBody ResponseEntity setServicesAndPlacesTables(@RequestBody String jsonData) {
-      List<TableData> tableDataList = Arrays.asList(JsonRestUtils.readObject(jsonData, TableData[].class));
-
-      tableDataService.importData(TableDataService.TablesSet.ServicesAndPlaces, tableDataList);
-      return JsonRestUtils.toJsonResponse(HttpStatus.OK,
-              new ResultMessage("success", "Data successfully imported."));
+       List<TableData> tableDataList = Arrays.asList(JsonRestUtils.readObject(jsonData, TableData[].class));
+       tableDataService.importData(TableDataService.TablesSet.ServicesAndPlaces, tableDataList);
+       return JsonRestUtils.toJsonResponse(HttpStatus.OK,
+               new ResultMessage("success", "Data successfully imported."));
    }
 
    @RequestMapping(value = "/downloadServicesAndPlacesTables", method = RequestMethod.GET)

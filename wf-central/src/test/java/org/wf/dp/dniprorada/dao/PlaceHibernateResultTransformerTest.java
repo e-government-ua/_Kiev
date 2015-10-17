@@ -1,11 +1,10 @@
 package org.wf.dp.dniprorada.dao;
 
 import org.junit.Test;
-import org.wf.dp.dniprorada.dao.place.PlaceHibernateResultTransformer;
 import org.wf.dp.dniprorada.dao.place.PlaceHibernateHierarchyRecord;
+import org.wf.dp.dniprorada.dao.place.PlaceHibernateResultTransformer;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * @author dgroup
