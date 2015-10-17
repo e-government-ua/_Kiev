@@ -13,7 +13,7 @@ import static org.wf.dp.dniprorada.dao.place.PlaceDaoImpl.valid;
 
 /**
  * @author dgroup
- * @since  17.08.15
+ * @since 17.08.15
  */
 @Component
 public class PlaceQueryResolver {
@@ -24,11 +24,10 @@ public class PlaceQueryResolver {
 
     @EnableCaching
     public String getTreeDown(PlaceHibernateHierarchyRecord root) {
-        return load( valid(root.getPlaceId())
-            ? "get_PlaceTree_down_by_id.sql"
-            : "get_PlaceTree_down_by_UA-id.sql");
+        return load(valid(root.getPlaceId())
+                ? "get_PlaceTree_down_by_id.sql"
+                : "get_PlaceTree_down_by_UA-id.sql");
     }
-
 
     @EnableCaching
     public String getTreeUp(Long placeId, String uaId, boolean tree) {
@@ -47,7 +46,7 @@ public class PlaceQueryResolver {
             return load("get_PlaceTree_by_UA-id.sql");
 
         throw new IllegalArgumentException(format(
-            "Unexpected set of parameters: %s, %s, %s.", placeId, uaId, tree));
+                "Unexpected set of parameters: %s, %s, %s.", placeId, uaId, tree));
     }
 
     private String load(String sqlFile) {

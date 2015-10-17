@@ -11,27 +11,27 @@ import javax.persistence.Column;
 @javax.persistence.Entity
 public class ServiceType extends Entity {
 
-	@JsonProperty(value = "sName")
-	@Column(name = "sName", nullable = false)
-	private String name;
+    @JsonProperty(value = "sName")
+    @Column(name = "sName", nullable = false)
+    private String name;
 
-	@JsonProperty(value = "sNote")
-	@Column(name = "sNote", nullable = false)
-	private String note;
+    @JsonProperty(value = "sNote")
+    @Column(name = "sNote", nullable = false)
+    private String note;
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getNote() {
-		return note;
-	}
+    public String getNote() {
+        return note;
+    }
 
-	public void setNote(String note) {
-		this.note = note;
-	}
+    public void setNote(String note) {
+        this.note = note;
+    }
 }

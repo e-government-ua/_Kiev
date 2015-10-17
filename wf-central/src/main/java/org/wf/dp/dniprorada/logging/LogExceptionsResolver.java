@@ -13,19 +13,19 @@ import javax.servlet.http.HttpServletResponse;
  * Time: 20:11
  */
 public class LogExceptionsResolver extends AbstractHandlerMethodExceptionResolver {
-   @Override
-   protected ModelAndView doResolveHandlerMethodException(HttpServletRequest request, HttpServletResponse response,
-                                                          HandlerMethod handlerMethod, Exception ex) {
-      String requestInfo = "Undefined";
-      if (request != null) {
-         requestInfo = "" + request.getMethod() + " " + request.getContextPath() + request.getPathInfo();
-         if (request.getQueryString() != null) {
-            requestInfo += "?" + request.getQueryString();
-         }
-      }
+    @Override
+    protected ModelAndView doResolveHandlerMethodException(HttpServletRequest request, HttpServletResponse response,
+            HandlerMethod handlerMethod, Exception ex) {
+        String requestInfo = "Undefined";
+        if (request != null) {
+            requestInfo = "" + request.getMethod() + " " + request.getContextPath() + request.getPathInfo();
+            if (request.getQueryString() != null) {
+                requestInfo += "?" + request.getQueryString();
+            }
+        }
 
-      logger.error("Exception while execution request " + requestInfo, ex);
+        logger.error("Exception while execution request " + requestInfo, ex);
 
-      return null;
-   }
+        return null;
+    }
 }

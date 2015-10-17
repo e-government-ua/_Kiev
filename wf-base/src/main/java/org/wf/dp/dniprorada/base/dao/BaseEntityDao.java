@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * Убрать полностью не получилось
- *
+ * <p/>
  * use {@link GenericEntityDao} instead if possible
  */
 @Repository

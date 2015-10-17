@@ -37,21 +37,22 @@ public class ActivitiRestServicesControllerScenario {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
-   @Test
-   public void shouldSuccessfullyGetAndSetServicesAndPlacesTables() throws Exception {
-      String jsonData = mockMvc.perform(get("/services/getServicesAndPlacesTables")).
-              andExpect(status().isOk()).
-              andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
-              andExpect(jsonPath("$", not(empty()))).
-              andReturn().getResponse().getContentAsString();
-      TableData[] tableDataList = JsonRestUtils.readObject(jsonData, TableData[].class);
-      Assert.assertEquals(TableDataService.TablesSet.ServicesAndPlaces.getEntityClasses().length, tableDataList.length);
+    @Test
+    public void shouldSuccessfullyGetAndSetServicesAndPlacesTables() throws Exception {
+        String jsonData = mockMvc.perform(get("/services/getServicesAndPlacesTables")).
+                andExpect(status().isOk()).
+                andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
+                andExpect(jsonPath("$", not(empty()))).
+                andReturn().getResponse().getContentAsString();
+        TableData[] tableDataList = JsonRestUtils.readObject(jsonData, TableData[].class);
+        Assert.assertEquals(TableDataService.TablesSet.ServicesAndPlaces.getEntityClasses().length,
+                tableDataList.length);
 
-      mockMvc.perform(post("/services/setServicesAndPlacesTables").content(jsonData).
-              contentType(APPLICATION_JSON_CHARSET_UTF_8)).
-              andExpect(status().isOk()).
-              andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8));
-   }
+        mockMvc.perform(post("/services/setServicesAndPlacesTables").content(jsonData).
+                contentType(APPLICATION_JSON_CHARSET_UTF_8)).
+                andExpect(status().isOk()).
+                andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8));
+    }
 
     @Test
     public void shouldSuccessfullyGetAndSetServicesTree() throws Exception {
@@ -170,14 +171,18 @@ public class ActivitiRestServicesControllerScenario {
 
     @Test
     public void getServiceShouldResolveConcreteFileForFieldsWithSmartPaths() throws Exception {
-        testGetSetServiceField("{\"nID\":1, \"sInfo\":\"[/test.html]\"}", "$.sInfo", "<html><body><span>info</span></body></html>");
-        testGetSetServiceField("{\"nID\":1, \"sFAQ\":\"[/test.html]\"}", "$.sFAQ", "<html><body><span>faq</span></body></html>");
-        testGetSetServiceField("{\"nID\":1, \"sLaw\":\"[/test.html]\"}", "$.sLaw", "<html><body><span>law</span></body></html>");
+        testGetSetServiceField("{\"nID\":1, \"sInfo\":\"[/test.html]\"}", "$.sInfo",
+                "<html><body><span>info</span></body></html>");
+        testGetSetServiceField("{\"nID\":1, \"sFAQ\":\"[/test.html]\"}", "$.sFAQ",
+                "<html><body><span>faq</span></body></html>");
+        testGetSetServiceField("{\"nID\":1, \"sLaw\":\"[/test.html]\"}", "$.sLaw",
+                "<html><body><span>law</span></body></html>");
     }
 
     @Test
     public void getServiceShouldResolveFileByIdForFieldsWithSmartPaths() throws Exception {
-        testGetSetServiceField("{\"nID\":1, \"sInfo\":\"[*]\"}", "$.sInfo", "<html><body><span>info</span></body></html>");
+        testGetSetServiceField("{\"nID\":1, \"sInfo\":\"[*]\"}", "$.sInfo",
+                "<html><body><span>info</span></body></html>");
         testGetSetServiceField("{\"nID\":1, \"sFAQ\":\"[*]\"}", "$.sFAQ", "<html><body><span>faq</span></body></html>");
         testGetSetServiceField("{\"nID\":1, \"sLaw\":\"[*]\"}", "$.sLaw", "<html><body><span>law</span></body></html>");
     }
@@ -241,7 +246,7 @@ public class ActivitiRestServicesControllerScenario {
 
         int serviceId = 4;
         String jsonData = mockMvc.perform(get("/services/getService").
-                param("nID", ""+serviceId)).
+                param("nID", "" + serviceId)).
                 andExpect(status().isOk()).
                 andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
                 andExpect(jsonPath("$.nID", is(serviceId))).
@@ -306,21 +311,21 @@ public class ActivitiRestServicesControllerScenario {
 
     @Test
     public void deletedSubcategoryById() throws Exception {
-       String jsonData = mockMvc.perform(delete("/services/removeSubcategory").
+        String jsonData = mockMvc.perform(delete("/services/removeSubcategory").
                 param("nID", "6")).
                 andExpect(status().isNotModified()).
                 andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
                 andReturn().getResponse().getContentAsString();
-       Assert.assertTrue(jsonData.contains("error"));
+        Assert.assertTrue(jsonData.contains("error"));
 
-       // currently no subcategory without services
+        // currently no subcategory without services
 
-//       jsonData = mockMvc.perform(delete("/services/removeSubcategory").
-//               param("nID", "6").param("bRecursive", "true")).
-//               andExpect(status().isOk()).
-//               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
-//               andReturn().getResponse().getContentAsString();
-//       Assert.assertTrue(jsonData.contains("success"));
+        //       jsonData = mockMvc.perform(delete("/services/removeSubcategory").
+        //               param("nID", "6").param("bRecursive", "true")).
+        //               andExpect(status().isOk()).
+        //               andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8)).
+        //               andReturn().getResponse().getContentAsString();
+        //       Assert.assertTrue(jsonData.contains("success"));
     }
 
     @Test
@@ -354,7 +359,6 @@ public class ActivitiRestServicesControllerScenario {
                 andReturn().getResponse().getContentAsString();
         Assert.assertTrue(jsonData.contains("success"));
     }
-
 
     // region Helpers
 

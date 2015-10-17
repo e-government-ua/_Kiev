@@ -18,7 +18,8 @@ public class DocumentTypeNotSupportedException extends RuntimeException {
         super(cause);
     }
 
-    public DocumentTypeNotSupportedException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public DocumentTypeNotSupportedException(String message, Throwable cause, boolean enableSuppression,
+            boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

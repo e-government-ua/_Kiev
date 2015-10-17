@@ -20,34 +20,32 @@ public class AccessDataDaoImpl implements AccessDataDao {
 
     @Override
     public String setAccessData(String sContent) {
-        log.info("[setAccessData]:sContent="+sContent);
+        log.info("[setAccessData]:sContent=" + sContent);
         //String sKey=durableBytesDataStorage.saveData(Util.contentStringToByte(sContent));
         //String sKey=durableBytesDataStorage.saveData(sContent.getBytes());
-        String sKey=durableBytesDataStorage.saveData(Util.aData(sContent));
-        log.info("[setAccessData]:sKey="+sKey);
+        String sKey = durableBytesDataStorage.saveData(Util.aData(sContent));
+        log.info("[setAccessData]:sKey=" + sKey);
         //log.info("[setAccessData]:sData(check)="+getAccessData(sKey));
         return sKey;
-    } 
+    }
 
     @Override
     public String setAccessData(byte[] aContent) {
         //log.info("[setAccessData]:sContent="+(aContent==null?"null":Util.contentByteToString(aContent)));
-        log.info("[setAccessData]:sContent="+(aContent==null?"null":Arrays.toString(aContent))+",sByte(aContent)="+Util.sData(aContent));
-        String sKey=durableBytesDataStorage.saveData(aContent);
-        log.info("[setAccessData]:sKey="+sKey);
+        log.info("[setAccessData]:sContent=" + (aContent == null ? "null" : Arrays.toString(aContent))
+                + ",sByte(aContent)=" + Util.sData(aContent));
+        String sKey = durableBytesDataStorage.saveData(aContent);
+        log.info("[setAccessData]:sKey=" + sKey);
         return sKey;
     }
-    
-
-    
 
     @Override
     public String getAccessData(String sKey) {
         byte[] aContent = durableBytesDataStorage.getData(sKey);
         //return aContent != null ? Util.contentByteToString(aContent) : contentMock;
         String sData = contentMock;
-        if(aContent != null){
-//            log.info("[getAccessData]:sKey="+sKey+",aContent.length()="+aContent.length);
+        if (aContent != null) {
+            //            log.info("[getAccessData]:sKey="+sKey+",aContent.length()="+aContent.length);
             //sData = Util.contentByteToString(aContent);
             //sData = Arrays.toString(aContent);
             sData = Util.sData(aContent);
@@ -56,13 +54,13 @@ public class AccessDataDaoImpl implements AccessDataDao {
                 log.info("[getAccessData]:sKey="+sKey+",sData.length()="+sData.length());
             }*/
         }
-        log.info("[getAccessData]:sKey="+sKey+",sData="+sData);
+        log.info("[getAccessData]:sKey=" + sKey + ",sData=" + sData);
         return sData;
     }
 
     @Override
     public boolean removeAccessData(String sKey) {
-        log.info("[removeAccessData]:sKey="+sKey);
+        log.info("[removeAccessData]:sKey=" + sKey);
         return durableBytesDataStorage.remove(sKey);
     }
 

@@ -7,13 +7,15 @@ import javax.persistence.Column;
 @javax.persistence.Entity
 public class EscalationRuleFunction extends NamedEntity {
 
-    /**строка бина-обработчика     */
-    @JsonProperty(value="sBeanHandler")
+    /**
+     * строка бина-обработчика
+     */
+    @JsonProperty(value = "sBeanHandler")
     @Column
     private String sBeanHandler;
 
-//    @OneToMany(mappedBy = "nID_EscalationRuleFunction")
-//    private List<EscalationRule> aEscalationRule = new ArrayList<>();
+    //    @OneToMany(mappedBy = "nID_EscalationRuleFunction")
+    //    private List<EscalationRule> aEscalationRule = new ArrayList<>();
 
     public String getsBeanHandler() {
         return sBeanHandler;

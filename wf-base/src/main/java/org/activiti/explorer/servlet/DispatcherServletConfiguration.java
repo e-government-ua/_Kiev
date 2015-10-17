@@ -1,7 +1,6 @@
 package org.activiti.explorer.servlet;
 
-import java.util.List;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.activiti.rest.service.api.PutAwareCommonsMultipartResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,72 +20,72 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 
 @Configuration
 @ComponentScan({ "org.activiti.rest.editor", "org.activiti.rest.diagram",
-		"org.activiti.rest.controller", "org.activiti.rest.conf",
-		"org.activiti.rest.service.api","org.egov.web.controller" })
+        "org.activiti.rest.controller", "org.activiti.rest.conf",
+        "org.activiti.rest.service.api", "org.egov.web.controller" })
 @EnableAsync
 public class DispatcherServletConfiguration extends WebMvcConfigurationSupport {
 
-	private final Logger log = LoggerFactory
-			.getLogger(DispatcherServletConfiguration.class);
+    private final Logger log = LoggerFactory
+            .getLogger(DispatcherServletConfiguration.class);
 
-	@Autowired
-	private ObjectMapper objectMapper;
+    @Autowired
+    private ObjectMapper objectMapper;
 
-	@Autowired
-	private Environment environment;
+    @Autowired
+    private Environment environment;
 
-	@Bean
-	public SessionLocaleResolver localeResolver() {
-		return new SessionLocaleResolver();
-	}
+    @Bean
+    public SessionLocaleResolver localeResolver() {
+        return new SessionLocaleResolver();
+    }
 
-	@Bean
-	public LocaleChangeInterceptor localeChangeInterceptor() {
-		log.debug("Configuring localeChangeInterceptor");
-		LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-		localeChangeInterceptor.setParamName("language");
-		return localeChangeInterceptor;
-	}
+    @Bean
+    public LocaleChangeInterceptor localeChangeInterceptor() {
+        log.debug("Configuring localeChangeInterceptor");
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        localeChangeInterceptor.setParamName("language");
+        return localeChangeInterceptor;
+    }
 
-	@Bean
-	public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-		log.debug("Creating requestMappingHandlerMapping");
-		RequestMappingHandlerMapping requestMappingHandlerMapping = new RequestMappingHandlerMapping();
-		requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
-		Object[] interceptors = { localeChangeInterceptor() };
-		requestMappingHandlerMapping.setInterceptors(interceptors);
-		return requestMappingHandlerMapping;
-	}
+    @Bean
+    public RequestMappingHandlerMapping requestMappingHandlerMapping() {
+        log.debug("Creating requestMappingHandlerMapping");
+        RequestMappingHandlerMapping requestMappingHandlerMapping = new RequestMappingHandlerMapping();
+        requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
+        Object[] interceptors = { localeChangeInterceptor() };
+        requestMappingHandlerMapping.setInterceptors(interceptors);
+        return requestMappingHandlerMapping;
+    }
 
-	@Override
-	public void configureMessageConverters(
-			List<HttpMessageConverter<?>> converters) {
-		addDefaultHttpMessageConverters(converters);
-		for (HttpMessageConverter<?> converter : converters) {
-			if (converter instanceof MappingJackson2HttpMessageConverter) {
-				MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = (MappingJackson2HttpMessageConverter) converter;
-				jackson2HttpMessageConverter.setObjectMapper(objectMapper);
-				break;
-			}
-		}
-	}
+    @Override
+    public void configureMessageConverters(
+            List<HttpMessageConverter<?>> converters) {
+        addDefaultHttpMessageConverters(converters);
+        for (HttpMessageConverter<?> converter : converters) {
+            if (converter instanceof MappingJackson2HttpMessageConverter) {
+                MappingJackson2HttpMessageConverter jackson2HttpMessageConverter = (MappingJackson2HttpMessageConverter) converter;
+                jackson2HttpMessageConverter.setObjectMapper(objectMapper);
+                break;
+            }
+        }
+    }
 
-	@Override
-	protected void configureContentNegotiation(
-			ContentNegotiationConfigurer configurer) {
-		configurer.favorPathExtension(false);
-	}
+    @Override
+    protected void configureContentNegotiation(
+            ContentNegotiationConfigurer configurer) {
+        configurer.favorPathExtension(false);
+    }
 
-	/* REST API */
-	@Bean
-	public InternalResourceViewResolver configureInternalResourceViewResolver() {
-		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+    /* REST API */
+    @Bean
+    public InternalResourceViewResolver configureInternalResourceViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
                 /*
-		resolver.setPrefix("/WEB-INF/jsp/");
+        resolver.setPrefix("/WEB-INF/jsp/");
 		resolver.setSuffix(".jsp");
                 */
                 /*if(resolver.getApplicationContext()!=null){
@@ -94,14 +93,14 @@ public class DispatcherServletConfiguration extends WebMvcConfigurationSupport {
                 }else{
                     log.info("!!!!!!!!!!!!!!!resolver.getApplicationContext()=null");
                 }*/
-		return resolver;
-	}
+        return resolver;
+    }
 
-	@Bean
-	public MultipartResolver multipartResolver() {
-		PutAwareCommonsMultipartResolver multipartResolver = new PutAwareCommonsMultipartResolver();
-		multipartResolver.setDefaultEncoding("utf-8");
-		return multipartResolver;
-	}
+    @Bean
+    public MultipartResolver multipartResolver() {
+        PutAwareCommonsMultipartResolver multipartResolver = new PutAwareCommonsMultipartResolver();
+        multipartResolver.setDefaultEncoding("utf-8");
+        return multipartResolver;
+    }
 
 }

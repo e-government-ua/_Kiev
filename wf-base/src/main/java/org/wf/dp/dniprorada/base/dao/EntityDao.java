@@ -45,8 +45,8 @@ public interface EntityDao<T extends Entity> {
      * @param attribute
      * @param value
      * @return Optional
-     * @see EntityDao#findAllBy(String, Object)
      * @throws EntityNotFoundException
+     * @see EntityDao#findAllBy(String, Object)
      */
     T findByExpected(String attribute, Object value);
 
@@ -55,7 +55,7 @@ public interface EntityDao<T extends Entity> {
      * Note! nested properties are supported, e.g. foo.bar.pro
      *
      * @param field e.g. "nID", "foo.bar.pro"
-     * @param value     e.g. "nid123"
+     * @param value e.g. "nid123"
      * @return found entities or empty List if nothing found
      */
     List<T> findAllBy(String field, Object value);

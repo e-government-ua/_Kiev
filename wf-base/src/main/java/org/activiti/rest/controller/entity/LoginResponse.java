@@ -7,7 +7,8 @@ public class LoginResponse implements LoginResponseI {
 
     private String session;
 
-    public LoginResponse() {}
+    public LoginResponse() {
+    }
 
     public LoginResponse(String session) {
         this.session = session;
@@ -24,12 +25,15 @@ public class LoginResponse implements LoginResponseI {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         LoginResponse that = (LoginResponse) o;
 
-        if (session != null ? !session.equals(that.session) : that.session != null) return false;
+        if (session != null ? !session.equals(that.session) : that.session != null)
+            return false;
 
         return true;
     }

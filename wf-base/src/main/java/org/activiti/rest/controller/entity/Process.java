@@ -7,7 +7,8 @@ public class Process implements ProcessI {
 
     private String id;
 
-    public Process() {}
+    public Process() {
+    }
 
     public Process(String id) {
         this.id = id;
@@ -24,12 +25,15 @@ public class Process implements ProcessI {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         Process process = (Process) o;
 
-        if (id != null ? !id.equals(process.id) : process.id != null) return false;
+        if (id != null ? !id.equals(process.id) : process.id != null)
+            return false;
 
         return true;
     }

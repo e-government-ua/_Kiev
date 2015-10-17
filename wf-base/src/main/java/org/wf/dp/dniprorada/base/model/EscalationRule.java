@@ -12,32 +12,42 @@ public class EscalationRule extends Entity {
     /**
      * ИД-строка бизнеспроцесса
      */
-    @JsonProperty(value="sID_BP")
+    @JsonProperty(value = "sID_BP")
     @Column
     private String sID_BP;
 
-    /** ИД-строка юзертаски бизнеспроцесса     */
+    /**
+     * ИД-строка юзертаски бизнеспроцесса
+     */
     @JsonProperty(value = "sID_UserTask")
     @Column
     private String sID_UserTask;
 
-    /**строка, до 200 символов ()     */
-    @JsonProperty(value="sCondition")
+    /**
+     * строка, до 200 символов ()
+     */
+    @JsonProperty(value = "sCondition")
     @Column(length = 200)
     private String sCondition;
 
-    /**строка-обьект, с данніми (JSON-обьект), до 500 символов     */
-    @JsonProperty(value="soData")
+    /**
+     * строка-обьект, с данніми (JSON-обьект), до 500 символов
+     */
+    @JsonProperty(value = "soData")
     @Column(length = 500)
     private String soData;
 
-    /**строка файла-шаблона     */
-    @JsonProperty(value="sPatternFile")
+    /**
+     * строка файла-шаблона
+     */
+    @JsonProperty(value = "sPatternFile")
     @Column
     private String sPatternFile;
 
-    /**ИД-номер функции ,при эскалации     */
-    @JsonProperty(value="nID_EscalationRuleFunction")
+    /**
+     * ИД-номер функции ,при эскалации
+     */
+    @JsonProperty(value = "nID_EscalationRuleFunction")
     @ManyToOne(targetEntity = EscalationRuleFunction.class)//??, fetch = FetchType.EAGER)
     @JoinColumn(name = "nID_EscalationRuleFunction")
     private EscalationRuleFunction oEscalationRuleFunction;

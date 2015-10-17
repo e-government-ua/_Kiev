@@ -10,12 +10,10 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.wf.dp.dniprorada.base.model.Entity;
 
 import java.util.List;
-import org.hibernate.criterion.Order;
 
 import static org.hibernate.criterion.Restrictions.eq;
 import static org.hibernate.criterion.Restrictions.in;
@@ -32,12 +30,11 @@ public class GenericEntityDao<T extends Entity> implements EntityDao<T> {
     private final static int DEFAULT_DELETE_BATCH_SIZE = 1000;
 
     private Class<T> entityClass;
+    private SessionFactory sessionFactory;
 
     protected GenericEntityDao(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
-
-    private SessionFactory sessionFactory;
 
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -202,7 +199,8 @@ public class GenericEntityDao<T extends Entity> implements EntityDao<T> {
         for (T entity : entities) {
             if (!exists(entity.getId())) {
                 LOG.debug(String.format("Entity %s with id=%s does not exist.", entityClass.getName(), entity.getId()));
-                LOG.debug(String.format("Add entity %s with id=%s to not deleted.", entityClass.getName(), entity.getId()));
+                LOG.debug(String.format("Add entity %s with id=%s to not deleted.", entityClass.getName(),
+                        entity.getId()));
                 notDeletedEntities.add(entity);
             } else {
                 LOG.debug(String.format("Delete entity %s with id=%s", entityClass.getName(), entity.getId()));

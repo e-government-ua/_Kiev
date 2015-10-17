@@ -19,77 +19,76 @@ import java.util.Map;
  */
 public class DefaultFlowSlotGeneratorTest {
 
-   private static final String DEFAULT_DURATION = "PT15M";
+    private static final String DEFAULT_DURATION = "PT15M";
 
-   public DefaultFlowSlotGenerator generator;
+    public DefaultFlowSlotGenerator generator;
 
-   private DateTime startDate;
-   private DateTime endDate;
-   private int maxGeneratedSlotsCount;
-   private String defaultSlotName;
+    private DateTime startDate;
+    private DateTime endDate;
+    private int maxGeneratedSlotsCount;
+    private String defaultSlotName;
 
-   @Before
-   public void setUp() {
-      generator = new DefaultFlowSlotGenerator();
-      maxGeneratedSlotsCount = 3333;
-      defaultSlotName = DEFAULT_DURATION;
+    @Before
+    public void setUp() {
+        generator = new DefaultFlowSlotGenerator();
+        maxGeneratedSlotsCount = 3333;
+        defaultSlotName = DEFAULT_DURATION;
 
-      startDate = new DateTime(2015, 6, 29, 0, 0);
-      endDate = new DateTime(2015, 6, 30, 0, 0);
-   }
+        startDate = new DateTime(2015, 6, 29, 0, 0);
+        endDate = new DateTime(2015, 6, 30, 0, 0);
+    }
 
-   @Test
-   public void testGenerateEmptyConfiguration() throws JsonProcessingException {
-      Map<String, String> configuration = new HashMap<>();
-      String sData = JsonRestUtils.toJson(configuration);
-      List<FlowSlot> slot = generator.generateObjects(configuration, startDate, endDate, maxGeneratedSlotsCount,
-              defaultSlotName);
+    @Test
+    public void testGenerateEmptyConfiguration() throws JsonProcessingException {
+        Map<String, String> configuration = new HashMap<>();
+        String sData = JsonRestUtils.toJson(configuration);
+        List<FlowSlot> slot = generator.generateObjects(configuration, startDate, endDate, maxGeneratedSlotsCount,
+                defaultSlotName);
 
-      Assert.assertTrue(slot.isEmpty());
-   }
+        Assert.assertTrue(slot.isEmpty());
+    }
 
-   private void validateGeneration(String cronExpression, int slotsCount) throws JsonProcessingException {
-      Map<String, String> configuration = new HashMap<>();
-      configuration.put(cronExpression, DEFAULT_DURATION);
+    private void validateGeneration(String cronExpression, int slotsCount) throws JsonProcessingException {
+        Map<String, String> configuration = new HashMap<>();
+        configuration.put(cronExpression, DEFAULT_DURATION);
 
-      List<FlowSlot> slot = generator.generateObjects(configuration, startDate, endDate, maxGeneratedSlotsCount,
-              defaultSlotName);
+        List<FlowSlot> slot = generator.generateObjects(configuration, startDate, endDate, maxGeneratedSlotsCount,
+                defaultSlotName);
 
-      Assert.assertEquals(slotsCount, slot.size());
-   }
+        Assert.assertEquals(slotsCount, slot.size());
+    }
 
+    @Test
+    public void testGenerate() throws JsonProcessingException {
 
-   @Test
-   public void testGenerate() throws JsonProcessingException {
+        for (int i = 1; i <= 4; ++i) {
+            endDate = startDate.plusDays(i);
 
-      for (int i = 1; i <= 4; ++i) {
-         endDate = startDate.plusDays(i);
+            // Fire at 10:15am every day
+            validateGeneration("0 15 10 ? * *", i);
 
-         // Fire at 10:15am every day
-         validateGeneration("0 15 10 ? * *", i);
+            // Fire every minute starting at 2pm and ending at 2:59pm, every day
+            validateGeneration("0 * 14 * * ?", 60 * i);
 
-         // Fire every minute starting at 2pm and ending at 2:59pm, every day
-         validateGeneration("0 * 14 * * ?", 60*i);
+            // Fire every minute starting at 2pm and ending at 2:59pm, every day
+            validateGeneration("0 0/5 14,18 * * ?", 24 * i);
+        }
 
-         // Fire every minute starting at 2pm and ending at 2:59pm, every day
-         validateGeneration("0 0/5 14,18 * * ?", 24*i);
-      }
+        //Fire at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday
+        endDate = startDate.plusDays(7);
+        validateGeneration("0 15 10 ? * MON-FRI", 5);
+    }
 
-      //Fire at 10:15am every Monday, Tuesday, Wednesday, Thursday and Friday
-      endDate = startDate.plusDays(7);
-      validateGeneration("0 15 10 ? * MON-FRI", 5);
-   }
+    @Test
+    public void testGenerateNearToRealData1() throws JsonProcessingException {
+        startDate = new DateTime(2015, 7, 1, 0, 0);
+        endDate = new DateTime(2015, 7, 2, 0, 0);
+        validateGeneration("0 0/15 8-15 ? * MON-FRI *", 32);
+    }
 
-   @Test
-   public void testGenerateNearToRealData1() throws JsonProcessingException {
-      startDate = new DateTime(2015, 7, 1, 0, 0);
-      endDate = new DateTime(2015, 7, 2, 0, 0);
-      validateGeneration("0 0/15 8-15 ? * MON-FRI *", 32);
-   }
-
-   @Test(expected = IllegalStateException.class)
-   public void testTooManyValues() throws JsonProcessingException {
-      maxGeneratedSlotsCount = 59;
-      validateGeneration("0 * 14 * * ?", 60);
-   }
+    @Test(expected = IllegalStateException.class)
+    public void testTooManyValues() throws JsonProcessingException {
+        maxGeneratedSlotsCount = 59;
+        validateGeneration("0 * 14 * * ?", 60);
+    }
 }

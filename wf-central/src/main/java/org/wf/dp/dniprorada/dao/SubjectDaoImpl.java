@@ -11,23 +11,23 @@ public class SubjectDaoImpl extends GenericEntityDao<Subject> implements Subject
 
     private static final Logger LOG = LoggerFactory.getLogger(SubjectDaoImpl.class);
 
-	protected SubjectDaoImpl() {
-		super(Subject.class);
-	}
+    protected SubjectDaoImpl() {
+        super(Subject.class);
+    }
 
-	@Override
-	public Subject getSubject(Long nID) {
-		return findById(nID).orNull();
-	}
-	
-	@Override
-	public Subject getSubject(String sID) {
-		return findBy("sID", sID).orNull();
-	}
+    @Override
+    public Subject getSubject(Long nID) {
+        return findById(nID).orNull();
+    }
 
-	@Override
-	public Subject saveOrUpdateSubject(Subject subject) {
-		return saveOrUpdate(subject);
-	}
+    @Override
+    public Subject getSubject(String sID) {
+        return findBy("sID", sID).orNull();
+    }
+
+    @Override
+    public Subject saveOrUpdateSubject(Subject subject) {
+        return saveOrUpdate(subject);
+    }
 
 }

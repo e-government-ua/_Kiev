@@ -7,11 +7,11 @@ package org.wf.dp.dniprorada.util.luna;
  */
 public class CRCInvalidException extends Exception {
 
-   public CRCInvalidException() {
-      super("CRC Error");
-   }
+    public CRCInvalidException() {
+        super("CRC Error");
+    }
 
-   public CRCInvalidException(String message) {
-      super(message);
-   }
+    public CRCInvalidException(String message) {
+        super(message);
+    }
 }

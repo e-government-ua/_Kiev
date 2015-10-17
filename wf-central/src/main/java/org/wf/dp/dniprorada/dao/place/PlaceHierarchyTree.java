@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author dgroup
- * @since  22.07.2015
+ * @since 22.07.2015
  */
 public class PlaceHierarchyTree implements PlaceHierarchy {
     @JsonProperty("nLevelArea")
@@ -23,10 +23,10 @@ public class PlaceHierarchyTree implements PlaceHierarchy {
     @JsonProperty("a")
     private List<PlaceHierarchyTree> children = new ArrayList<>();
 
-
     public Long getLevelOfArea() {
         return levelOfArea;
     }
+
     public void setLevelOfArea(Long levelOfArea) {
         this.levelOfArea = levelOfArea;
     }
@@ -34,6 +34,7 @@ public class PlaceHierarchyTree implements PlaceHierarchy {
     public Long getLevel() {
         return level;
     }
+
     public void setLevel(Long level) {
         this.level = level;
     }
@@ -41,6 +42,7 @@ public class PlaceHierarchyTree implements PlaceHierarchy {
     public Place getPlace() {
         return place;
     }
+
     public void setPlace(Place place) {
         this.place = place;
     }
@@ -48,6 +50,7 @@ public class PlaceHierarchyTree implements PlaceHierarchy {
     public List<PlaceHierarchyTree> getChildren() {
         return children;
     }
+
     public void setChildren(List<PlaceHierarchyTree> children) {
         this.children = children;
     }

@@ -5,6 +5,6 @@ import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
 
 public interface EscalationRuleDao extends EntityDao<EscalationRule> {
     EscalationRule saveOrUpdate(Long nID, String sID_BP, String sID_userTask,
-                                String sCondition, String soData, String sPatternFile,
-                                EscalationRuleFunction ruleFunction);
+            String sCondition, String soData, String sPatternFile,
+            EscalationRuleFunction ruleFunction);
 }
