@@ -196,6 +196,16 @@
             <div class="row">
               <div class="col-md-5"></div>
               <div class="col-md-3">
+
+                <label>Накласти ЕЦП :
+                  <input type="checkbox"
+                         ng-if="isSignNeeded"
+                         ng-model="signning"
+                         ng-true-value="true"
+                         ng-false-value="false"
+                         name="{{data.formData.getSignFieldID()}}">
+                </label>
+                <br/>
                 <button class="btn btn-info"
                         ng-click="submit(form)"
                         ng-disable="cantSubmit(form)"
