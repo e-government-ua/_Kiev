@@ -544,5 +544,15 @@
 
     <!-- ####################################################################################################### -->
 
+    <changeSet id="issue-573_Link_ServiceData_and_Place" author="dgroup">
+        <addColumn tableName="ServiceData">
+            <column name="nID_Place" type="bigint">
+                <constraints foreignKeyName         = "FK_ServiceData_Place"
+                             referencedTableName    = "Place"
+                             referencedColumnNames  = "nID"
+                             deleteCascade          = "true" />
+            </column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>
