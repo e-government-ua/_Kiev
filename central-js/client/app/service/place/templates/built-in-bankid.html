@@ -154,6 +154,8 @@
                              name="{{property.id}}"
                              service-data="oServiceData"
                              ng-model="data.formData.params[property.id].value"
+                             form-data="data.formData"
+                             property="property"
                              ng-required="isFieldRequired(property)"></slot-picker>
 
                 <dropdown-organ ng-switch-when="select"

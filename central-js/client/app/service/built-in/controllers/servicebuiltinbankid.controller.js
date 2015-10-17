@@ -44,7 +44,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     $scope.data.formData.uploadScansFromBankID(oServiceData);
   }
 
-  console.log('data.formData.params = ', JSON.stringify($scope.data.formData.params, null, '  '));
+  // console.log('data.formData.params = ', JSON.stringify($scope.data.formData.params, null, '  '));
 
   $scope.markers = ValidationService.getValidationMarkers();
   var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
@@ -222,19 +222,34 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     $scope.$apply();
   };
 
+  function getFieldProps(property) {
+    return {
+      mentionedInWritable: FieldMotionService.FieldMentioned.inWritable(property.id),
+      fieldES: FieldAttributesService.editableStatusFor(property.id),
+      ES: FieldAttributesService.EditableStatus
+    };
+  }
+
   $scope.showFormField = function(property) {
-    var fieldES = FieldAttributesService.editableStatusFor(property.id);
-    var ES = FieldAttributesService.EditableStatus;
-    return (!$scope.data.formData.fields[property.id] && property.type !== 'invisible' && property.type !== 'markers' && fieldES === ES.NOT_SET) || fieldES === ES.EDITABLE;
+    var p = getFieldProps(property);
+    if (p.mentionedInWritable)
+      return FieldMotionService.isFieldWritable(property.id, $scope.data.formData.params);
+
+    return (
+      !$scope.data.formData.fields[property.id]
+      && property.type !== 'invisible'
+      && property.type !== 'markers'
+      && p.fieldES === p.ES.NOT_SET ) || p.fieldES === p.ES.EDITABLE;
   };
 
   $scope.renderAsLabel = function(property) {
-    var fieldES = FieldAttributesService.editableStatusFor(property.id);
-    var ES = FieldAttributesService.EditableStatus;
+    var p = getFieldProps(property);
+    if (p.mentionedInWritable)
+      return !FieldMotionService.isFieldWritable(property.id, $scope.data.formData.params);
     //property.type !== 'file'
     return (
-      $scope.data.formData.fields[property.id] && fieldES === ES.NOT_SET
-    ) || fieldES === ES.READ_ONLY;
+      $scope.data.formData.fields[property.id] && p.fieldES === p.ES.NOT_SET
+    ) || p.fieldES === p.ES.READ_ONLY;
   };
 
   $scope.isFieldVisible = function(property) {

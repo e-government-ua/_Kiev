@@ -60,7 +60,42 @@ public class ActivitiRestSubjectMessageController {
         checkRate(nID_Protected, sID_Rate);
         return JsonRestUtils.toJsonResponse(message);
     }
+    
+    
+    @RequestMapping(value = "/setMessageFeedback", method = RequestMethod.POST)//Feedback
+    public
+    @ResponseBody
+    String setMessageFeedback(
+            @RequestParam(value = "sHead") String sHead,
+            @RequestParam(value = "sBody", required = false) String sBody,
+            @RequestParam(value = "warnSignal", required = false) String sWarnSignal,
+            @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
+            @RequestParam(value = "sMail", required = false) String sMail,
+            @RequestParam(value = "sContacts", required = false) String sContacts,
+            @RequestParam(value = "sData", required = false) String sData,
+            @RequestParam(value = "nID_SubjectMessageType", required = false) Long nID_SubjectMessageType,
+            @RequestParam(value = "nID_Protected", required = false) Long nID_Protected,
+            @RequestParam(value = "sID_Rate", required = false) String sID_Rate) throws ActivitiRestException {
 
+        SubjectMessage message =
+                createSubjectMessage(sHead + (sID_Rate!=null? " (sID_Rate="+sID_Rate+")":"") + ("on".equals(sWarnSignal)? " (anonymous)":""), sBody, nID_Subject, sMail, sContacts, sData, nID_SubjectMessageType);
+        subjectMessagesDao.setMessage(message);
+        message = subjectMessagesDao.getMessage(message.getId());
+        checkRate(nID_Protected, sID_Rate);
+        //return "Спасибо! Вы успешно отправили отзыв!";
+        return "Ok!";
+    }
+
+    
+    @RequestMapping(value = "/getMessageTest", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    String getMessageTest() {
+        return "Test Проверка";
+    }
+    
+    
+    
     @RequestMapping(value = "/getMessages", method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE, headers = {"Accept=application/json"})
     public

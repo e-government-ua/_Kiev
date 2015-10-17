@@ -30,7 +30,11 @@ public class FlowSlotDaoImpl extends GenericEntityDao<FlowSlot> implements FlowS
       criteria.add(Restrictions.lt("sDate", stopDate));
 
       if(nID_ServiceData!=null){
-        criteria.createCriteria("flow").add(Restrictions.eq("nID_ServiceData", nID_ServiceData));
+            Criteria flowCriteria = criteria.createCriteria("flow");
+            flowCriteria.add(Restrictions.eq("nID_ServiceData", nID_ServiceData));
+            if(nID_SubjectOrganDepartment!=null){
+                flowCriteria.add(Restrictions.eq("nID_SubjectOrganDepartment", nID_SubjectOrganDepartment));
+            }
       }else if(sID_BP!=null){
          Criteria flowCriteria = criteria.createCriteria("flow");
          flowCriteria.add(Restrictions.eq("sID_BP", sID_BP));

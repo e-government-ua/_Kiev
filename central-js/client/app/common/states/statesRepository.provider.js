@@ -4,6 +4,26 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
   var selfProvider = this;
   var findModeRegexp = /(\w*).(\w*).(\w*)(\w*|.*)*/;
 
+  var modeModel = {
+    "ternopil": {
+      "header" :"ternopil.header.html",
+      "footer" :"ternopil.footer.html",
+      "placesID" : ['6110100000','6100000000']
+    },
+    "kyiv" : {
+      "header" : "kyiv.header.html",
+      "footer" : "kyiv.footer.html",
+      "placesID" : ['3200000000','8000000000']
+    }
+  };
+
+  var modes = {
+    "ternopil" : modeModel.ternopil,
+    "ternopol" : modeModel.ternopil,
+    "kyiv" : modeModel.kyiv,
+    "kiev" : modeModel.kyiv
+
+  };
   this.init = function (domen) {
     //test.kiev.igov.org.ua
 
@@ -13,7 +33,8 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
     if (domen.split(':')[0] !== 'localhost') {
       if (domen.indexOf('kievcity')>=0) {
         //https://es.kievcity.gov.ua
-        this.mode = 'kyiv';
+        //this.mode = 'kyiv'
+        this.mode = modes.kyiv;
       }else{
         var matches = findModeRegexp.exec(domen);
         if (matches[1] === 'test' ) {// || matches[1] === 'test-version'
@@ -38,19 +59,19 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
   };
 
   var getHeader = function (mode) {
-    var header;
-    if (mode === 'kyiv' || mode === 'kiev') {
-      header = 'kyiv.header.html';
+    var hdr;
+    if (!!modes[mode]) {
+      hdr = modes[mode].header;
     } else {
-      header = 'header.html';
+      hdr = 'header.html';
     }
-    return 'app/header/' + header;
+    return 'app/header/' + hdr;
   };
 
   var getFooter = function (mode) {
     var footer;
-    if (mode === 'kyiv' || mode === 'kiev') {
-      footer = 'kyiv.footer.html';
+    if (!!modes[mode]) {
+      footer = modes[mode].footer;
     } else {
       footer = 'footer.html';
     }
@@ -84,8 +105,8 @@ angular.module('appBoilerPlate').provider('statesRepository', function StatesRep
   };
 
   StatesRepository.prototype.getIDPlaces = function(){
-    if(this.mode === 'kyiv' || this.mode === 'kiev'){
-      return ['3200000000','8000000000'];
+    if(!!modes[this.mode]){
+      return modes[this.mode].placesID;
       //return ['123','456'];
     }
     return [];

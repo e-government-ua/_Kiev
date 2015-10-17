@@ -5,10 +5,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.wf.dp.dniprorada.base.model.Entity;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * User: goodg_000 Date: 04.05.2015 Time: 23:52
@@ -20,7 +17,17 @@ public class ServiceData extends Entity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "nID_Service", nullable = false, insertable = false, updatable = false)
 	private Service service;
-	
+
+	@JsonProperty(value = "oPlace")
+	@ManyToOne
+	@JoinColumn(name = "nID_Place", nullable = false, insertable = false, updatable = false)
+	private Place oPlace;
+
+	/** Can be calculated via {@link org.wf.dp.dniprorada.dao.PlaceDao#getRoot(Place)} */
+	@Transient
+	@JsonProperty(value = "oPlaceRoot")
+	private Place oPlaceRoot;
+
 	@JsonProperty(value = "nID_City")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "nID_City")
@@ -140,5 +147,19 @@ public class ServiceData extends Entity {
 	}
 	public void setAsAuth(String asAuth) {
 		this.asAuth = asAuth;
+	}
+
+	public Place getoPlace() {
+		return oPlace;
+	}
+	public void setoPlace(Place oPlace) {
+		this.oPlace = oPlace;
+	}
+
+	public Place getoPlaceRoot() {
+		return oPlaceRoot;
+	}
+	public void setoPlaceRoot(Place oPlaceRoot) {
+		this.oPlaceRoot = oPlaceRoot;
 	}
 }

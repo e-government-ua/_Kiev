@@ -36,11 +36,11 @@ public class HistoryEventMessage {
     }
 
     public static String createTable(String soData) {
-        if (soData == null || "[]".equals(soData)){
+        if (soData == null || "[]".equals(soData) || "".equals(soData)) {
             return "";
         }
         StringBuilder tableStr = new StringBuilder("Поле \t/ Тип \t/ Поточне значення\n");
-        JSONObject jsnobject = new JSONObject("{ soData:" + soData + "}");
+        JSONObject jsnobject = new JSONObject("{ \"soData\":" + soData + "}");
         JSONArray jsonArray = jsnobject.getJSONArray("soData");
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject record = jsonArray.getJSONObject(i);
@@ -55,6 +55,6 @@ public class HistoryEventMessage {
     }
 
     public static void main(String[] args) {
-        System.out.println(createTable("[{'id':'sFamily','type':'string','value':'Белявский'},{'id':'nAge','type':'long'}]"));
+        System.out.println(createTable("[{'id':'bankIdfirstName','type':'string','value':'3119325858'}]"));
     }
 }

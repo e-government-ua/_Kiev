@@ -3,7 +3,7 @@
   <process id="dnepr_minust_131" name="Дніпропетровськ МінЮст - Зміна видів економічної діяльності видами економічної діяльності з переліку, зазначеного в статуті юридичної особи або юридичної особи, яка діє на підставі модельного статуту (Ф-4)" isExecutable="true" activiti:candidateStarterGroups="dnepr_minust_1">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="warningMessage1" name="Увага" type="label" default="Подавати реєстраційну картку про внесення змін можуть лише керівник юридичної особи і фізична особа, яка має право вчиняти дії від імені юридичної особи без довіреності, у тому числі підписувати договори."></activiti:formProperty>
+        <activiti:formProperty id="warningMessage1" name="Увага" type="label" default="Заповніть форму, збережіть її в PDF форматі та завірте ЕЦП. Без завіряння ЕЦП документи до розгляду не приймаються!"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
@@ -110,7 +110,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1_green" name="Прийняття рішення про надання послуги" activiti:candidateGroups="dnepr_minust_1">
+    <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="dnepr_minust_1">
       <extensionElements>
         <activiti:formProperty id="Task1" name="На цьому етапі потрібно натиснути взяти в роботу" type="label" default="далі можна ознайомитись з поданими даними і документами та провести їх попередню експертизу, після цього натиснути опрацювати"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -125,6 +125,7 @@
           <activiti:value id="reject" name="В опрацюванні заявки відмовлено"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Оберіть причину відмови, якщо документи не прийняті" type="enum">
+          <activiti:value id="Документи не завірені ЕЦП" name="Документи не завірені ЕЦП"></activiti:value>
           <activiti:value id="Документи подані не у повному обсязі." name="Документи подані не у повному обсязі."></activiti:value>
           <activiti:value id="Документи подані не за місцем проведення державної реєстрації." name="Документи подані не за місцем проведення державної реєстрації."></activiti:value>
           <activiti:value id="Документи не  відповідають  вимогам,  встановленим  частинами 1-5 статті 8 Закону України &quot;Про державну реєстрацію юридичних осіб та фізичних осіб – підприємців&quot;." name="Документи не  відповідають  вимогам,  встановленим  частинами 1-5 статті 8 Закону України &quot;Про державну реєстрацію юридичних осіб та фізичних осіб – підприємців&quot;."></activiti:value>
@@ -143,9 +144,9 @@
         </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow3" sourceRef="mailtask4" targetRef="usertask1_green"></sequenceFlow>
+    <sequenceFlow id="flow3" sourceRef="mailtask4" targetRef="usertask1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="usertask3_red" name="Внесення до ЄДР запису про зміну відомостей" activiti:candidateGroups="dnepr_minust_1">
+    <userTask id="usertask3" name="Внесення до ЄДР запису про зміну відомостей" activiti:candidateGroups="dnepr_minust_1">
       <extensionElements>
         <activiti:formProperty id="Task2" name="На цьому етапі потрібно натиснути взяти в роботу" type="label" default="далі додайте скановану відповідь реєстратора та оберіть внесені зміни чи ні, далі натисніть опрацювати "></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -356,10 +357,10 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow24" sourceRef="usertask1_green" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow24" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <endEvent id="endevent6" name="End"></endEvent>
     <sequenceFlow id="flow28" sourceRef="mailtask2" targetRef="endevent6"></sequenceFlow>
-    <sequenceFlow id="flow29" sourceRef="usertask3_red" targetRef="servicetask3"></sequenceFlow>
+    <sequenceFlow id="flow29" sourceRef="usertask3" targetRef="servicetask3"></sequenceFlow>
     <sequenceFlow id="flow30" sourceRef="servicetask3" targetRef="endevent6"></sequenceFlow>
     <serviceTask id="mailtask4" name="Лист посадовцю про нове звернення" activiti:type="mail">
       <extensionElements>
@@ -367,7 +368,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:string><![CDATA[Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net]]></activiti:string>
+          <activiti:string><![CDATA[Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net, kamni@i.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Зміна видів економічної діяльності]]></activiti:string>
@@ -529,7 +530,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow32" sourceRef="mailtask5" targetRef="usertask3_red"></sequenceFlow>
+    <sequenceFlow id="flow32" sourceRef="mailtask5" targetRef="usertask3"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_minust_131">
     <bpmndi:BPMNPlane bpmnElement="dnepr_minust_131" id="BPMNPlane_dnepr_minust_131">
@@ -545,13 +546,13 @@
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
         <omgdc:Bounds height="55.0" width="191.0" x="420.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask1_green" id="BPMNShape_usertask1_green">
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="60.0" width="191.0" x="420.0" y="250.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="495.0" y="327.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask3_red" id="BPMNShape_usertask3_red">
+      <bpmndi:BPMNShape bpmnElement="usertask3" id="BPMNShape_usertask3">
         <omgdc:Bounds height="55.0" width="191.0" x="420.0" y="480.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">

@@ -1,8 +1,8 @@
 /*
-  Сервіс для вибору регіона та міста.
+  PlacesService - cервіс для вибору регіона та міста.
 
-  Метод getPlaceData надає контроллерам інформацію про вибраний користувачем регіон та / або місто
-  Метод setPlaceData дозволяє контроллерам змінювати цю інформацию в сервісі. 
+  Метод getPlaceData надає інформацію про вибраний користувачем регіон та / або місто
+  Метод setPlaceData дозволяє контроллерам зберігати цю інформацию в сервісі.
   Може зберігати вибране міце у localStorage і читати його звідти ж.
   Сервіс ініціюється з даних URL, якщо там вказано область / місто (TODO: перевірити це). 
   Користувачами сервіса є директиви і контроллери (див. place.js) для вибору місця.
@@ -15,22 +15,8 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
 
   self.rememberMyData = false;
 
-  // Зберігаємо savedPlaceData у localStorage і потім відновлюємо, приклад формату даних:
+  // Зберігаємо savedPlaceData у сервісі (і localStorage)
   var savedPlaceData = {};
-
-  self.getClassByState = function($state) {
-    // TODO
-    // var statesMap = {
-    //   'index.service.general.place.built-in': {
-    //     viewClass: 'state-disabled'
-    //   },
-    //   'index.service.general.place.built-in.bankid.submitted': {
-    //     viewClass: 'state-collapsed'
-    //   }
-    // };
-    // return statesMap[$state.current.name] && statesMap[$state.current.name].viewClass || '';
-    return '';
-  };
 
   self.saveLocal = function(oSavedPlaceData) {
     if (self.rememberMyData) {
@@ -77,6 +63,23 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
       region.color = color;
     });
     return regions;
+  };
+
+  self.colorizeCitiesForService = function(cities, service) {
+    var aServiceData = service.aServiceData;
+    angular.forEach(cities, function(oCity) {
+      var color = 'red';
+      angular.forEach(aServiceData, function(oServiceData) {
+        if (oServiceData.hasOwnProperty('nID_City') === false) {
+          return;
+        }
+        if (oServiceData.nID_City.nID === oCity.nID) {
+          color = 'green';
+        }
+      });
+      oCity.color = color;
+    });
+    return cities;
   };
 
   self.getRegionsForService = function(service) {
@@ -161,6 +164,7 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
    * Визначає доступність сервісу взагалі та у вибраному місці
    * Повертає об'єкт типу:
    * {
+   *   thisCountry: false,    // сервіс доступний у країні
    *   someRegion: false,    // сервіс доступний у якомусь із регіонів
    *   someCity: false,      // сервіс доступний у якомусь із міст
    *   thisRegion: false,  // доступний у вибраному регіоні
@@ -169,6 +173,7 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
    */
   self.serviceAvailableIn = function() {
     var result = {
+      thisCountry: false,
       someRegion: false,
       someCity: false,
       thisRegion: false,
@@ -180,6 +185,10 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     var oPlace = self.getPlaceData();
 
     angular.forEach(oService.aServiceData, function(srv) {
+      // сервіс доступний у країні
+      if (self.findServiceDataByCountry() !== null ) {
+        result.thisCountry = true;
+      }
       // сервіс доступний у якомусь із регіонів
       if (srv.hasOwnProperty('nID_Region') && srv.nID_Region.nID !== null) {
         result.someRegion = true;
@@ -218,9 +227,11 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     serviceType = self.findServiceDataByCountry() || serviceType;
 
     if (self.regionIsChosen() && self.findServiceDataByRegion() !== null) {
+      // serviceType = self.findServiceDataByRegion() || serviceType;
       serviceType = self.findServiceDataByRegion();
     }
     if (self.cityIsChosen() && self.findServiceDataByCity() !== null) {
+      // serviceType = self.findServiceDataByCity() || serviceType;
       serviceType = self.findServiceDataByCity();
     }
 
@@ -234,6 +245,21 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     };
 
     return stateByServiceType[serviceType.nID_ServiceType.nID];
+  };
+
+  // TODO
+  self.getClassByState = function($state) {
+    // var curState = statesMap[$state.current.name];
+    // var statesMap = {
+    //   'index.service.general.place.built-in': {
+    //     viewClass: 'state-disabled'
+    //   },
+    //   'index.service.general.place.built-in.bankid.submitted': {
+    //     viewClass: 'state-collapsed'
+    //   }
+    // };
+    // return curState && curState.viewClass || '';
+    return '';
   };
 
   self.getPlaceData();

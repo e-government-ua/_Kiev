@@ -1,35 +1,72 @@
 package org.activiti.rest.controller;
 
-import com.google.common.base.Charsets;
+import static org.wf.dp.dniprorada.base.model.AbstractModelTask.getByteArrayMultipartFileFromRedis;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
+
+import javax.activation.DataSource;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import liquibase.util.csv.CSVWriter;
 
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowElement;
 import org.activiti.bpmn.model.UserTask;
-import org.activiti.engine.*;
+import org.activiti.engine.ActivitiException;
+import org.activiti.engine.ActivitiObjectNotFoundException;
+import org.activiti.engine.FormService;
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.IdentityService;
+import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.form.FormData;
 import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.form.StartFormData;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.identity.User;
-import org.activiti.engine.impl.context.Context;
-import org.activiti.engine.impl.form.FormPropertyImpl;
-import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.impl.util.json.JSONArray;
 import org.activiti.engine.impl.util.json.JSONObject;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
-import org.activiti.engine.task.*;
+import org.activiti.engine.task.Attachment;
+import org.activiti.engine.task.DelegationState;
+import org.activiti.engine.task.IdentityLink;
+import org.activiti.engine.task.IdentityLinkType;
+import org.activiti.engine.task.Task;
+import org.activiti.engine.task.TaskQuery;
 import org.activiti.redis.exception.RedisException;
+import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
 import org.activiti.rest.controller.adapter.AttachmentEntityAdapter;
 import org.activiti.rest.controller.adapter.ProcDefinitionAdapter;
 import org.activiti.rest.controller.adapter.TaskAssigneeAdapter;
-import org.activiti.rest.controller.entity.*;
+import org.activiti.rest.controller.entity.AttachmentEntityI;
+import org.activiti.rest.controller.entity.ProcDefinitionI;
 import org.activiti.rest.controller.entity.Process;
+import org.activiti.rest.controller.entity.ProcessI;
+import org.activiti.rest.controller.entity.TaskAssigneeI;
 import org.activiti.rest.service.api.runtime.process.ExecutionBaseResource;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.mail.ByteArrayDataSource;
@@ -43,7 +80,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
@@ -59,15 +101,7 @@ import org.wf.dp.dniprorada.util.Util;
 import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
 import org.wf.dp.dniprorada.util.luna.CRCInvalidException;
 
-import javax.activation.DataSource;
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.io.*;
-import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import com.google.common.base.Charsets;
 
 /**
  * ...wf/service/... Example:
@@ -195,6 +229,76 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         return upload;
     }
 
+    @RequestMapping(value = "/file/download_file_from_redis_bytes", method = RequestMethod.GET)
+    @Transactional
+    public @ResponseBody
+    byte[] getAttachmentsFromRedisBytes(@RequestParam("key") String key) throws ActivitiIOException {
+        byte[] upload = null;
+        try {
+//            upload = redisService.getAttachments(key);
+            
+            
+            
+            
+                        //byte[] aByteFile = getRedisService().getAttachments(sKeyRedis);
+                        byte[] aByteFile = redisService.getAttachments(key);
+                        ByteArrayMultipartFile oByteArrayMultipartFile = null;
+                        try {
+                            oByteArrayMultipartFile = getByteArrayMultipartFileFromRedis(aByteFile);
+                        } catch (ClassNotFoundException | IOException e1) {
+                            throw new ActivitiException(e1.getMessage(), e1);
+                        }
+                        if (oByteArrayMultipartFile != null) {
+                            
+                            upload = oByteArrayMultipartFile.getBytes();
+                            /*
+                            String sFileName = null;
+                            try {
+                                sFileName = new String(oByteArrayMultipartFile.getOriginalFilename().getBytes(), "UTF-8");
+                            } catch (java.io.UnsupportedEncodingException e) {
+                                log.error("on getting sFileName", e);
+                                throw new ActivitiException(e.getMessage(), e);
+                            }
+                            log.info("sFileName=" + sFileName);
+
+                            //===
+                            InputStream oInputStream = null;
+                            try {
+                                oInputStream = oByteArrayMultipartFile.getInputStream();
+                            } catch (Exception e) {
+                                throw new ActivitiException(e.getMessage(), e);
+                            }
+                            Attachment oAttachment = oExecution.getEngineServices().getTaskService().createAttachment(
+                                    oByteArrayMultipartFile.getContentType() + ";" + oByteArrayMultipartFile.getExp(), oTask.getId(), oExecution.getProcessInstanceId(), sFileName, sDescription, oInputStream);
+
+                            if (oAttachment != null) {
+                                String nID_Attachment = oAttachment.getId();
+                                //LOG.info("nID_Attachment=" + nID_Attachment);
+                                log.info("Try set variable(sID_Field) '" + sID_Field + "' with the value(nID_Attachment) '" + nID_Attachment + "', for new attachment...");
+                                oExecution.getEngineServices().getRuntimeService().setVariable(oExecution.getProcessInstanceId(), sID_Field, nID_Attachment);
+                                log.info("Finished setting new value for variable with attachment(sID_Field) '" + sID_Field + "'");
+                            } else {
+                                log.error("Can't add attachment to oTask.getId()=" + oTask.getId());
+                            }
+                            //===
+                            */
+                        } else {
+                            log.error("[getAttachmentsFromRedisBytes]oByteArrayMultipartFile==null! aByteFile=" + aByteFile.toString());
+                        }            
+            
+            
+            
+            
+            
+            
+            
+            
+        } catch (RedisException e) {
+            throw new ActivitiIOException(ActivitiIOException.Error.REDIS_ERROR, e.getMessage());
+        }
+        return upload;
+    }
+    
     /**
      * Получение Attachment средствами активити из
      * таблицы ACT_HI_ATTACHMENT
@@ -622,6 +726,46 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         csvWriter.close();
     }
 
+    @RequestMapping(value = "/process-duration", method = RequestMethod.GET, produces = "application/json")
+    @Transactional
+    public @ResponseBody String getTimingForBusinessProcessNew(@RequestParam(value = "sID_BP_Name") String sID_BP_Name,
+            @RequestParam(value = "sDateAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateAt,
+            @RequestParam(value = "sDateTo", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo,
+            HttpServletRequest request, HttpServletResponse httpResponse) throws IOException{
+    	log.info("Calculation average duration of a process");
+    	
+    	if (sID_BP_Name == null || sID_BP_Name.isEmpty()) {
+            log.error(String.format("Statistics for the business process '{%s}' not found.", sID_BP_Name));
+            throw new ActivitiObjectNotFoundException(
+                    "Statistics for the business process '" + sID_BP_Name + "' not found.",
+                    Process.class);
+        }
+
+    	Map<String, String> res = new HashMap<String, String>();
+    	
+        List<HistoricTaskInstance> foundResults = historyService.createHistoricTaskInstanceQuery()
+                .taskCompletedAfter(dateAt)
+                .taskCompletedBefore(dateTo)
+                .processDefinitionKey(sID_BP_Name).list();
+        
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
+        if (foundResults != null && foundResults.size() > 0) {
+            log.debug(String.format("Found {%s} completed tasks for business process {%s} for date period {%s} - {%s}", foundResults.size(), sID_BP_Name, sdfDate.format(dateAt),
+                    sdfDate.format(dateTo)));
+
+            long totalDuration = 0;
+            for (HistoricTaskInstance currTask : foundResults) {
+            	totalDuration = totalDuration + currTask.getDurationInMillis() / (1000 * 60 * 60);
+            }
+            log.info("total duration in hours:" + totalDuration + " for " + foundResults.size());
+            res.put(sID_BP_Name, Integer.valueOf(Math.round((float)totalDuration / foundResults.size())).toString());
+        }
+        if (res.isEmpty()){
+        	res.put(sID_BP_Name, "0");
+        }
+        return JSONValue.toJSONString(res);
+    }
+    
     /**
      * Download information about the tasks in csv format
      *
@@ -1213,7 +1357,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
 
     /**
      * issue 808. сервис ЗАПРОСА полей, требующих уточнения, c отсылкой уведомления гражданину
-     * @param nID_Protected - номер-ИД заявки (защищенный)
+     * @param nID_Protected - номер-�?Д заявки (защищенный)
      * @param saField -- строка-массива полей (например: "[{'id':'sFamily','type':'string','value':'Белявский'},{'id':'nAge','type':'long'}]")
      * @param sMail -- строка электронного адреса гражданина
      * @param sHead -- строка заголовка письма //опциональный (если не задан, то "Необходимо уточнить данные")
@@ -1225,15 +1369,11 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     public @ResponseBody
     void setTaskQuestions(@RequestParam(value = "nID_Protected") Long nID_Protected,
                     @RequestParam(value = "saField") String saField,
-                    @RequestParam(value = "sMail") String sMail,
+                     String sMail,
                     @RequestParam(value = "sHead", required = false) String sHead,
                     @RequestParam(value = "sBody", required = false) String sBody) throws ActivitiRestException, CRCInvalidException {
 
-        try {
-            sHead = sHead == null ? new String("Необхідно уточнити дані".getBytes("UTF-8"), "UTF-8") : sHead;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        sHead = sHead == null ? "Необхідно уточнити дані" : sHead;
         sBody = sBody == null ? "" : sBody;
         String sToken = generateToken();
         String processInstanceID = String.valueOf(AlgorithmLuna.getOriginalNumber(nID_Protected));
@@ -1247,7 +1387,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         } catch (Exception e) {
             throw new ActivitiRestException(
                     ActivitiExceptionController.BUSINESS_ERROR_CODE,
-                   "error during updating historyEvent_service: " + e.getMessage(),e,
+                   "error during setTaskQuestions: " + e.getMessage(),e,
                     HttpStatus.FORBIDDEN);
         }
     }
@@ -1277,7 +1417,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     }
 
     private String createTable(String soData) throws UnsupportedEncodingException {
-        if (soData == null || "[]".equals(soData)){
+        if (soData == null || "[]".equals(soData) || "".equals(soData)) {
             return "";
         }
         StringBuilder tableStr = new StringBuilder("<table><tr><th>Поле</th><th>Тип </th><th> Поточне значення</th></tr>");
@@ -1332,7 +1472,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         params.put("sHead", sHead);
         params.put("sBody", sBody);
         params.put("sToken", sToken);
-        params.put("sID_Status", "setTaskQuestions");
+        params.put("sID_Status", "Запит на уточнення даних");
         params.put("sAccessContract", "Request");
         String sAccessKey_HistoryEvent = accessDataDao.setAccessData(httpRequester.getFullURL(URI, params));
         params.put("sAccessKey", sAccessKey_HistoryEvent);
@@ -1423,7 +1563,7 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         params.put("nID_Process", sID_Process);
         params.put("soData", saField);
         params.put("sToken", sToken);
-        params.put("sID_Status", "setTaskAnswer");
+        params.put("sID_Status", "Відповідь на запит по уточненню даних");
         String sAccessKey_HistoryEvent = accessDataDao.setAccessData(httpRequester.getFullURL(URI, params));
         params.put("sAccessKey", sAccessKey_HistoryEvent);
         log.info("sAccessKey=" + sAccessKey_HistoryEvent);
@@ -1433,9 +1573,13 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
     }
 
     private void setInfo_ToActiviti(String snID_Process, String saField, String sBody) {
-        log.info("try to set saField=%s and sBody=%s to snID_Process=%s", saField, sBody, snID_Process);
-        runtimeService.setVariable(snID_Process, "saFieldQuestion", saField);
-        runtimeService.setVariable(snID_Process, "sQuestion", sBody);
-        log.info("completed set saField=%s and sBody=%s to snID_Process=%s", saField, sBody, snID_Process);
+        try {
+            log.info(String.format("try to set saField=%s and sBody=%s to snID_Process=%s", saField, sBody, snID_Process));
+            runtimeService.setVariable(snID_Process, "saFieldQuestion", saField);
+            runtimeService.setVariable(snID_Process, "sQuestion", sBody);
+            log.info(String.format("completed set saField=%s and sBody=%s to snID_Process=%s", saField, sBody, snID_Process));
+        } catch (Exception ex){
+            log.error("error during set variables to Activiti!", ex);
+        }
     }
 }

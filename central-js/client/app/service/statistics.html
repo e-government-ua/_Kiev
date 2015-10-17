@@ -8,15 +8,16 @@
   <tr>
     <th><!--a ng-click="changeSort()">Ім'я області &nbsp;{{ arrow }}</a--></th>
     <th><center style="font-weight: normal;">Кількість наданих послуг</center></th>
-    <th><center style="font-weight: normal;">Рейтинг (%)</center></th>
+<th ng-if="nRate>0"><center style="font-weight: normal;">Середня оцінка (%)</center></th>
+    <th><center style="font-weight: normal;">Таймінг (годин)</center></th>
   </tr>
   </thead>
   <tbody >
     <tr ng-repeat="region in stats | orderBy:'sName':reverse">
       <td>{{region.sName}}</td>
       <td style="text-align: center">{{region.nCount}}</td>
-      <td style="text-align: center">{{region.nRate}}</td>
-      
+      <td ng-if="nRate>0" style="text-align: center">{{region.nRate}}</td>
+      <td style="text-align: center">{{region.nTimeHours}}</td>
     </tr>
   </tbody>
 </table>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_dms-89s" name="Дніпропетровськ ДМС -Зняття з реєстрації місця проживання/перебування особи" isExecutable="true">
+  <process id="dnepr_dms-89s" name="Дніпропетровськ ДМС -Зняття з реєстрації місця проживання особи" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -16,7 +16,7 @@
         <activiti:formProperty id="lastName_UA1" name="Попереднє прізвище" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="firstName_UA1" name="Попереднє ім'я" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="middleName_UA1" name="Попереднє ім'я по батькові" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="date_of_birth" name="Дата народження; Формат - ДД.ММ.PPPP" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="Date_of_birth" name="Дата народження; Формат - ДД.ММ.PPPP" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="Areabirth" name="Місце народження; Країна, область, район і населений пункт" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="Nationality" name="Громадянство" type="string" default="Україна" required="true"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Дніпропетровськ, в якому ви зареєстровані" type="enum" required="true">
@@ -31,22 +31,48 @@
         <activiti:formProperty id="milName" name="Найменування військомату, в якому Ви перебували на військовому обліку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kids" name="Чи є у вас дитина (молодша 14 років) яку Ви бажаєте зняти з реєстрації за цією адресою; Діти старші 14 років подають заяву самостійно." type="enum" required="true">
-          <activiti:value id="yesK" name="Так"></activiti:value>
+        <activiti:formProperty id="kids" name="Ви бажаєте зняти з реєстрації за цією адресою дитину молодшу 14 років?; Діти старші 14 років подають заяву самостійно." type="enum" required="true">
           <activiti:value id="no" name="Ні"></activiti:value>
+          <activiti:value id="yes1" name="одну дитину"></activiti:value>
+          <activiti:value id="yes2" name="двох дітей"></activiti:value>
+          <activiti:value id="yes3" name="трьох дітей"></activiti:value>
+          <activiti:value id="yes4" name="чотирьох дітей"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="lastName_UA2" name="Прізвище дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="firstName_UA2" name="Ім'я дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="middleName_UA2" name="По Батькові дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kidsBirth" name="Дата народження дитини; Формат - ДД.ММ.PPPP" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kidsPOB" name="Місце народження дитини; Країна, область, район і населений пункт" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="visitDay" name="У який день Вам буде зручно зайти до відділення ДМС; ДМС необхідно поставити відмітку у Ваш паспорт для завершення цієї процедури" type="date" required="true"></activiti:formProperty>
-        <activiti:formProperty id="visitTime" name="У який проміжок часу Вам буде зручно зустрітися; Будь ласка, вкажіть проміжок як мінімум у 2 години" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="lastName_UA2" name="Прізвище 1-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA2" name="Ім'я 1-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA2" name="По Батькові 1-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth" name="Дата народження 1-ї дитини; Формат - ДД.ММ.PPPP" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB" name="Місце народження 1-ї дитини; Країна, область, район і населений пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження 1-ї дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsCitizenship" name="Громадянство 1-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="lastName_UA3" name="Прізвище 2-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA3" name="Ім'я 2-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA3" name="По Батькові 2-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth2" name="Дата народження 2-ї дитини; Формат - ДД.ММ.PPPP" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB2" name="Місце народження 2-ї дитини; Країна, область, район і населений пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc2" name="Свідоцтво про народження 2-ї дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsCitizenship2" name="Громадянство 2-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="lastName_UA4" name="Прізвище 3-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA4" name="Ім'я 3-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA4" name="По Батькові 3-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth3" name="Дата народження 3-ї дитини; Формат - ДД.ММ.PPPP" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB3" name="Місце народження 3-ї дитини; Країна, область, район і населений пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc3" name="Свідоцтво про народження 3-ї дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsCitizenship3" name="Громадянство 3-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="lastName_UA5" name="Прізвище 4-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="firstName_UA5" name="Ім'я 4-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="middleName_UA5" name="По Батькові 4-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth4" name="Дата народження 4-ї дитини; Формат - ДД.ММ.PPPP" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB4" name="Місце народження 4-ї дитини; Країна, область, район і населений пункт" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc4" name="Свідоцтво про народження 4-ї дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="kidsCitizenship4" name="Громадянство 4-ї дитини" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="Оберіть день та час, коли Вам буде зручно зайти до відділення ДМС?" type="queueData" required="true"></activiti:formProperty>
         <activiti:formProperty id="marker1" name="Попереднє ПІБ" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;lastName_UA1&quot;,&quot;firstName_UA1&quot;,&quot;middleName_UA1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;PrevName1&quot;},&quot;sCondition&quot;:&quot;[sReason]=='yes'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker3" name="Військомат" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;milName&quot;,&quot;milRank&quot;,&quot;milSpec&quot;],&quot;asID_Field&quot;:{&quot;sReason2&quot;:&quot;milit_status&quot;},&quot;sCondition&quot;:&quot;[sReason2]=='true'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="marker4" name="Дитина" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;lastName_UA2&quot;,&quot;firstName_UA2&quot;,&quot;middleName_UA2&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;:&quot;kids&quot;},&quot;sCondition&quot;:&quot;[sReason3]=='yesK'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker4" name="Дитина1" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;lastName_UA2&quot;,&quot;firstName_UA2&quot;,&quot;middleName_UA2&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;:&quot;kids&quot;},&quot;sCondition&quot;:&quot;[sReason3]=='yes1'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker5" name="Дитина2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;lastName_UA2&quot;,&quot;firstName_UA2&quot;,&quot;middleName_UA2&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;,&quot;lastName_UA3&quot;,&quot;firstName_UA3&quot;,&quot;middleName_UA3&quot;,&quot;kidsBirth2&quot;,&quot;kidsPOB2&quot;,&quot;kidsDoc2&quot;,&quot;kidsCitizenship2&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;:&quot;kids&quot;},&quot;sCondition&quot;:&quot;[sReason3]=='yes2'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker6" name="Дитина3" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;lastName_UA2&quot;,&quot;firstName_UA2&quot;,&quot;middleName_UA2&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;,&quot;lastName_UA3&quot;,&quot;firstName_UA3&quot;,&quot;middleName_UA3&quot;,&quot;kidsBirth2&quot;,&quot;kidsPOB2&quot;,&quot;kidsDoc2&quot;,&quot;kidsCitizenship2&quot;,&quot;lastName_UA4&quot;,&quot;firstName_UA4&quot;,&quot;middleName_UA4&quot;,&quot;kidsBirth3&quot;,&quot;kidsPOB3&quot;,&quot;kidsDoc3&quot;,&quot;kidsCitizenship3&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;:&quot;kids&quot;},&quot;sCondition&quot;:&quot;[sReason3]=='yes3'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker7" name="Дитина4" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_7&quot;:{&quot;aField_ID&quot;:[&quot;lastName_UA2&quot;,&quot;firstName_UA2&quot;,&quot;middleName_UA2&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;,&quot;lastName_UA3&quot;,&quot;firstName_UA3&quot;,&quot;middleName_UA3&quot;,&quot;kidsBirth2&quot;,&quot;kidsPOB2&quot;,&quot;kidsDoc2&quot;,&quot;kidsCitizenship2&quot;,&quot;lastName_UA4&quot;,&quot;firstName_UA4&quot;,&quot;middleName_UA4&quot;,&quot;kidsBirth3&quot;,&quot;kidsPOB3&quot;,&quot;kidsDoc3&quot;,&quot;kidsCitizenship3&quot;,&quot;lastName_UA5&quot;,&quot;firstName_UA5&quot;,&quot;middleName_UA5&quot;,&quot;kidsBirth4&quot;,&quot;kidsPOB4&quot;,&quot;kidsDoc4&quot;,&quot;kidsCitizenship4&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;:&quot;kids&quot;},&quot;sCondition&quot;:&quot;[sReason3]=='yes4'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="warning" name="Зверніть увагу" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -61,23 +87,23 @@
     <serviceTask id="mailtask1" name="E-Mail підтвердження отримання запиту ДержОрганом" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
+          <activiti:expression><![CDATA[${email}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head lang="ru"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;style type="text/css"&gt;
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -93,7 +119,7 @@
         #mailer-body a {color: #2F70AF; text-decoration: none;}
         #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
         #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body p > label {width: 40px;}
         #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
         #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
         #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
@@ -101,53 +127,53 @@
         #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
         #mailer-body textarea:focus {outline: 0;}
         #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;
-										Ваш запит був успішно зареєстрований у нашій системі.&lt;/p&gt;
-									&lt;p&gt;	
-										Спеціалісти ДМС повинні дати відповідь найближчим часом. 
-									&lt;/p&gt;
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.<span>org.<span>ua</span></span></b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <form action="[sURL_ServiceMessage]" method="post">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                   <h3>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.</h3>
+                                    <p>
+										Ваш запит був успішно зареєстрований у нашій системі.</p>
+									<p>	
+										Спеціалісти ДМС оброблять Вашу заявку протягом 1-3 днів та надішлють Вам email з підтвердженням та запрошенням відвідати ДМС у обраний час. 
+									</p>
 				
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        Дніпропетровськ ДМС,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                            &lt;/table&gt;
-                        &lt;/form&gt;
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                        З повагою,<br />
+                                        Державна Міграційна Служба Дніпропетровської Області,<br />
+                                        Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
+                                    </p>
+                                </td>
+                            </tr>
+                            </table>
+                        </form>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -155,23 +181,26 @@
     <serviceTask id="mailtask4" name="Повідомлення ДМС про нове звернення" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>zhigan.roman@gmail.com</activiti:expression>
+          <activiti:expression><![CDATA[dms_dn_babysh@ukr.net]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Нове звернення на тему: Реєстрація місця проживання/перебування особи]]></activiti:string>
+          <activiti:string><![CDATA[Нове звернення на тему: Реєстрація місця проживання особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
+        <activiti:field name="bcc">
+          <activiti:string><![CDATA[zhigan.roman@gmail.com]]></activiti:string>
+        </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head lang="ru"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;style type="text/css"&gt;
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -187,7 +216,7 @@
         #mailer-body a {color: #2F70AF; text-decoration: none;}
         #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
         #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body p > label {width: 40px;}
         #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
         #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
         #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
@@ -195,49 +224,49 @@
         #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
         #mailer-body textarea:focus {outline: 0;}
         #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.org.ua&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-&lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
-										&lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
-										&lt;p&gt;
-											У Вас в черзі на обробку зареєстровано нове звернення щодо зняття з реєстрації місця проживання/перебування особи.&lt;br /&gt;
-											Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-											Опрацюйте, будь ласка, це звернення на &lt;a href="https://test.region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
-										&lt;/p&gt;
-										&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-										&lt;p&gt;
-										З повагою,&lt;br /&gt;
-										Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
-								&lt;/td&gt;
-                            &lt;/tr&gt;
-                           &lt;/table&gt;
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.org.ua</b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+<tr>
+                    <td align="center">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+										<h3>Шановний(-а) колего!</h3>
+										<p>
+											У Вас в черзі на обробку зареєстровано нове звернення щодо зняття з реєстрації місця проживання особи.<br />
+											Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}<br />
+											Опрацюйте, будь ласка, це звернення на <a href="https://region.igov.org.ua" target="_blank">порталі</a>
+										</p>
+										<hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+										<p>
+										З повагою,<br />
+										Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
+								</td>
+                            </tr>
+                           </table>
                      
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -252,7 +281,7 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє ПІБ громадянина" type="string" default="${lastName_UA1} ${firstName_UA1} ${middleName_UA1}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="date_of_birth" name="Дата народження" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Date_of_birth" name="Дата народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Areabirth" name="Місце народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Nationality" name="Громадянство" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Дніпропетровськ,якому зареєстрований громадянин" type="enum" writable="false">
@@ -267,20 +296,39 @@
           <activiti:value id="yesK" name="Так"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я, по батькові дитини" type="string" default="${lastName_UA2} ${firstName_UA2} ${middleName_UA2}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="visitDay" name="Бажаний день зустрічі" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="visitTime" name="Бажаний час зустрічі" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kids" name="Ви бажаєте зняти з реєстрації за цією адресою дитину молодшу 14 років?; Діти старші 14 років подають заяву самостійно." type="enum" writable="false">
+          <activiti:value id="no" name="Ні"></activiti:value>
+          <activiti:value id="yes1" name="одну дитину"></activiti:value>
+          <activiti:value id="yes2" name="двох дітей"></activiti:value>
+          <activiti:value id="yes3" name="трьох дітей"></activiti:value>
+          <activiti:value id="yes4" name="чотирьох дітей"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я, по батькові 1-ї дитини" type="string" default="${lastName_UA2} ${firstName_UA2} ${middleName_UA2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth" name="Дата народження 1-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB" name="Місце народження 1-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження 1-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsCitizenship" name="Громадянство 1-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ChildName2" name="Прізвище, ім'я, по батькові 2-ї дитини" type="string" default="${lastName_UA3} ${firstName_UA3} ${middleName_UA3}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth2" name="Дата народження 2-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB2" name="Місце народження 2-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc2" name="Свідоцтво про народження 2-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsCitizenship2" name="Громадянство 2-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ChildName3" name="Прізвище, ім'я, по батькові 3-ї дитини" type="string" default="${lastName_UA4} ${firstName_UA4} ${middleName_UA4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth3" name="Дата народження 3-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB3" name="Місце народження 3-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc3" name="Свідоцтво про народження 3-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsCitizenship3" name="Громадянство 3-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ChildName4" name="Прізвище, ім'я, по батькові 4-ї дитини" type="string" default="${lastName_UA5} ${firstName_UA5} ${middleName_UA5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth4" name="Дата народження 4-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB4" name="Місце народження 4-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc4" name="Свідоцтво про народження 4-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsCitizenship4" name="Громадянство 4-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="День та час зустрічі " type="queueData" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення працівника ДМС" type="enum" required="true">
           <activiti:value id="accept" name="Призначити зустріч у відділенні"></activiti:value>
           <activiti:value id="decline" name="Відмовити в наданні послуги"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги &lt;br /&gt; АБО &lt;br /&gt; Додаткові деталі для закінчення процессу реєстрації" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="meetDay" name="Призначити день зустрічі" type="string"></activiti:formProperty>
-        <activiti:formProperty id="meetTime" name="Призначити час зустрічі" type="string"></activiti:formProperty>
+        <activiti:formProperty id="decisionComment" name="Коментар до рішення; Наприклад, пояснення чому громадянину було відмовлено в наданні цієї послуги &lt;br /&gt; АБО &lt;br /&gt; Додаткові деталі для закінчення процессу зняття з реєстрації" type="textArea"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow9" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
@@ -291,23 +339,23 @@
     <serviceTask id="mailtask2" name="E-Mail відмова в наданні послуги" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
+          <activiti:expression><![CDATA[${email}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head lang="ru"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;style type="text/css"&gt;
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -323,7 +371,7 @@
         #mailer-body a {color: #2F70AF; text-decoration: none;}
         #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
         #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body p > label {width: 40px;}
         #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
         #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
         #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
@@ -331,54 +379,58 @@
         #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
         #mailer-body textarea:focus {outline: 0;}
         #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-              &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;
-										На жаль, змушені відмовити Вам у наданні послуги: "Зняття з реєстрації місця проживання/перебування особи".&lt;/p&gt; 
-									&lt;p&gt;
-										Коментар Державного службовця: &lt;br /&gt;
-											&lt;i&gt;${decisionComment}&lt;/i&gt;	
-                                    &lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        Бабушкінський РВ у місті Дніпропетровську,&lt;br /&gt;
-										ГУ ДМС України в Дніпропетровській області.
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+              <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.<span>org.<span>ua</span></span></b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <form action="[sURL_ServiceMessage]" method="post">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                     <h3>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.</h3>
+                                    <p>
+										На жаль, Вам відмовлено у надані послуги.
+									</p> 
+									<p>
+										Коментар Державного службовця: <br />
+											<b><i>${decisionComment}</i></b>
+									</p>
+									<p>
+										При вниникненні питань Ви можете звернутися до чергового: <br />
+										тел. +38 (050) 500-93-03
+									</p>
+									<hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                        З повагою,<br />
+                                        Державна Міграційна Служба Дніпропетровської Області.
+                                    </p>
+                                </td>
+                            </tr>
                            
-                        &lt;/table&gt;
-                        &lt;/form&gt;
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
+                        </table>
+                        </form>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -390,23 +442,23 @@
     <serviceTask id="mailtask3" name="E-Mail про візит до ДМС" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
+          <activiti:expression><![CDATA[${email}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання/перебування особи]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання особи]]></activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string><![CDATA[UTF-8]]></activiti:string>
         </activiti:field>
         <activiti:field name="html">
-          <activiti:expression>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;head lang="ru"&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
-    &lt;style type="text/css"&gt;
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
         #mailer-body div,
@@ -422,7 +474,7 @@
         #mailer-body a {color: #2F70AF; text-decoration: none;}
         #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
         #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
+        #mailer-body p > label {width: 40px;}
         #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
         #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
         #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
@@ -430,137 +482,301 @@
         #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
         #mailer-body textarea:focus {outline: 0;}
         #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-               &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;form action="[sURL_ServiceMessage]" method="post"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
-                                    &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;
-                                        Спеціалісти відділу ДМС успішно опрацювли Вашу заяву. &lt;br /&gt;
-										Для того щоб закінчити процедуру зняття з реєстрації необхідно: &lt;br /&gt;
-										&lt;li&gt;Прийти до відділення ДМС з необхідними документами&lt;/li&gt;
-										&lt;li&gt;Знятися з реєстрації за місцем проживання у працівника ДМС і отримати печатку у громадянський паспорт або папортний документ.&lt;/li&gt;
-									&lt;/p&gt;
-									&lt;p&gt;
-										Деталі зустрічі: &lt;br /&gt;
-										День - ${meetDay} &lt;br /&gt;
-										Проміжок часу - ${meetTime} &lt;br /&gt;
-									&lt;/p&gt;
-									&lt;p&gt;
-										Необхідні документи, які треба принести до відділення ДМС при реєстраціі місця проживання:&lt;br /&gt;
-										&lt;li&gt;документ, до якого вносяться відомості про місце проживання, якщо дитина не досягла 16 - річного віку, подається свідоцтво про народження або свідоцтво про належність до громадянства України;&lt;/li&gt;
-										&lt;li&gt;військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку);&lt;/li&gt;
-										&lt;li&gt;документ, на підставі якого здійснюється зняття з реєстрації місця проживання:
-										&lt;ol type="a"&gt; 
-											&lt;li&gt;заява про зняття особи з реєстрації місця проживання, яка подається особою або її законним представником;&lt;/li&gt; 
-											&lt;li&gt;судове рішення, яке набрало законної сили, про позбавлення права власності на житлове приміщення або права користування житловим приміщенням, про виселення, про визнання особи безвісно відсутньою або оголошення її померлою;&lt;/li&gt;
-											&lt;li&gt;свідоцтво про смерть;&lt;/li&gt;
-											&lt;li&gt;паспорт або паспортний документ, що надійшов з органу державної реєстрації актів цивільного стану, або документ про смерть, виданий компетентним органом іноземної держави, легалізований в установленому порядку;&lt;/li&gt;
-											&lt;li&gt;інші документи, які свідчать про припинення:&lt;/li&gt;
-												 &lt;ul&gt;
-												 &lt;li&gt;підстав для перебування на території України іноземців та осіб без громадянства. Інформація територіального органу ДМС України або територіального підрозділу ДМС України, на території обслуговування якого зареєстровано місце проживання особи, про закінчення строку дії посвідки на тимчасове проживання або копія рішення про скасування посвідки на тимчасове проживання чи посвідки на постійне проживання в Україні;&lt;/li&gt;
-												 &lt;li&gt;підстав для проживання або перебування особи на обліку у закладі/установі (повідомлення про припинення підстав для проживання/перебування особи у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту);&lt;/li&gt;
-												 &lt;li&gt;підстав на право користування житловим приміщенням (закінчення строку дії договору оренди, найму, піднайму житлового приміщення, строку навчання в навчальному закладі (у разі реєстрації місця проживання в гуртожитку навчального закладу на час навчання), відчуження житла та інших визначених законодавством документів);&lt;/li&gt; 
-												 &lt;/ul&gt;
-										&lt;/ol&gt;
-										&lt;br /&gt;
-										&lt;b&gt;Зверніть увагу:&lt;/b&gt; У разі реєстрації місця проживання батьків за однією адресою при знятті з реєстрації одного з батьків разом з дитиною/дітьми до 14 років 
-										другий з батьків надає письмову згоду на зняття дитини/дітей з реєстрації місця проживання.
-										&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        Бабушкінський РВ у місті Дніпропетровську&lt;br /&gt;
-                                        ГУ ДМСУ в Дніпропетровській області.&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+               <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.<span>org.<span>ua</span></span></b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <form action="[sURL_ServiceMessage]" method="post">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.</h3>
+                                    <p>
+                                        Спеціалісти відділу ДМС успішно опрацювли Вашу заяву. <br />
+										Для того щоб закінчити процедуру зняття з реєстрації необхідно: <br />
+										<ul>
+										<li>Прийти до відділення ДМС за адресою: пр. Ілліча, 3 з необхідними документами та звернутись до каб. №4.</li>
+										<li>Знятися з реєстрації за місцем проживання та отримати печатку у громадянський паспорт або папортний документ.</li>
+										</ul>
+									</p>
+									<p>
+										<b>Деталі зустрічі:</b> <br />
+										День та час - ${date_of_visit}
+									</p>
+									<p>
+										<b>Необхідні документи, які треба принести до відділення ДМС при знятті з реєстраціі місця проживання:</b><br />
+										<ul>
+										<li>документ, до якого вносяться відомості про місце проживання, якщо дитина не досягла 16 - річного віку, подається свідоцтво про народження або свідоцтво про належність до громадянства України;</li>
+										<li>військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку);</li>
+										<li>документ, на підставі якого здійснюється зняття з реєстрації місця проживання:
+										<ul> 
+											<li>заява про зняття особи з реєстрації місця проживання, яка подається особою або її законним представником;</li> 
+											<li>судове рішення, яке набрало законної сили, про позбавлення права власності на житлове приміщення або права користування житловим приміщенням, про виселення, про визнання особи безвісно відсутньою або оголошення її померлою;</li>
+											<li>свідоцтво про смерть;</li>
+											<li>паспорт або паспортний документ, що надійшов з органу державної реєстрації актів цивільного стану, або документ про смерть, виданий компетентним органом іноземної держави, легалізований в установленому порядку;</li>
+											<li>інші документи, які свідчать про припинення:</li>
+												 <ul>
+												 <li>підстав для перебування на території України іноземців та осіб без громадянства. Інформація територіального органу ДМС України або територіального підрозділу ДМС України, на території обслуговування якого зареєстровано місце проживання особи, про закінчення строку дії посвідки на тимчасове проживання або копія рішення про скасування посвідки на тимчасове проживання чи посвідки на постійне проживання в Україні;</li>
+												 <li>підстав для проживання або перебування особи на обліку у закладі/установі (повідомлення про припинення підстав для проживання/перебування особи у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту);</li>
+												 <li>підстав на право користування житловим приміщенням (закінчення строку дії договору оренди, найму, піднайму житлового приміщення, строку навчання в навчальному закладі (у разі реєстрації місця проживання в гуртожитку навчального закладу на час навчання), відчуження житла та інших визначених законодавством документів);</li> 
+												 </ul>
+										</ul>
+										</ul>
+										<br />
+										<b>Зверніть увагу:
+										<ul>
+										<li>У разі реєстрації місця проживання батьків за однією адресою при знятті з реєстрації одного з батьків разом з дитиною/дітьми до 14 років 
+										другий з батьків надає письмову згоду на зняття дитини/дітей з реєстрації місця проживання. Потрібна присутність обох батьків.</li>
+										</ul>
+										</p>
+										<p>
+										Коментар Державного службовця: <br />
+											<b><i>${decisionComment}</i></b>
+										</p>
+										<p>
+										При вниникненні питань Ви можете звернутися до чергового: <br />
+										тел. +38 (050) 500-93-03
+										</p>
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                        З повагою,<br />
+                                        Державна Міграційна Служба Дніпропетровської Області..<br />
+                                        Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
+                                    </p>
+                                </td>
+                            </tr>
                             
-                        &lt;/table&gt;
-                        &lt;/form&gt;
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
+                        </table>
+                        </form>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow8" sourceRef="mailtask3" targetRef="usertask2"></sequenceFlow>
-    <userTask id="usertask2" name="Візит громадянина" activiti:candidateGroups="dnepr_dms-89s_${district}">
+    <sequenceFlow id="flow8" sourceRef="mailtask3" targetRef="usertask2_red"></sequenceFlow>
+    <userTask id="usertask2_red" name="Візит громадянина" activiti:candidateGroups="dnepr_dms-89s_${district}">
       <extensionElements>
         <activiti:formProperty id="info1" name="На цьому етапі:" type="label" default="Громадянин приходить до Вас. Ви звіряєте дані з ним, при необхідності вносите зміни. Роздруковуєте прінтформи, підписуєте їх та проставляєте штамп у паспорт громадянина."></activiti:formProperty>
-        <activiti:formProperty id="meetDay" name="Призначений день зустрічі" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="meetTime" name="Призначений час зустрічі" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="visitDay" name="День та час зустрічі " type="queueData" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="PrevName" name="Попереднє прізвище, ім’я та по батькові" type="string"></activiti:formProperty>
-        <activiti:formProperty id="date_of_birth" name="Дата народження" type="string"></activiti:formProperty>
-        <activiti:formProperty id="Areabirth" name="Місце народження; Країна, область, район і населений пункт" type="string"></activiti:formProperty>
-        <activiti:formProperty id="Nationality" name="Громадянство" type="string"></activiti:formProperty>
-        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації" type="string"></activiti:formProperty>
-        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="string"></activiti:formProperty>
+        <activiti:formProperty id="PrevName" name="Попереднє прізвище, ім’я та по батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Date_of_birth" name="Дата народження" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Areabirth" name="Місце народження; Країна, область, район і населений пункт" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Nationality" name="Громадянство" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Поточна адреса реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Дніпропетровськ,якому зареєстрований громадянин" type="enum">
           <activiti:value id="bab" name="Бабушкінський"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="milName" name="Найменування військомату, в якому Ви перебували на військовому обліку" type="string"></activiti:formProperty>
-        <activiti:formProperty id="milRank" name="Військове звання" type="string"></activiti:formProperty>
-        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string"></activiti:formProperty>
-        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зняти з реєстрації" type="enum">
-          <activiti:value id="yesK" name="Так"></activiti:value>
+        <activiti:formProperty id="milName" name="Найменування військомату, в якому Ви перебували на військовому обліку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="milRank" name="Військове звання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kids" name="Ви бажаєте зняти з реєстрації за цією адресою дитину молодшу 14 років?; Діти старші 14 років подають заяву самостійно." type="enum" writable="false">
           <activiti:value id="no" name="Ні"></activiti:value>
+          <activiti:value id="yes1" name="одну дитину"></activiti:value>
+          <activiti:value id="yes2" name="двох дітей"></activiti:value>
+          <activiti:value id="yes3" name="трьох дітей"></activiti:value>
+          <activiti:value id="yes4" name="чотирьох дітей"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я, по батькові дитини" type="string" default="${lastName_UA2} ${firstName_UA2} ${middleName_UA2}"></activiti:formProperty>
-        <activiti:formProperty id="kidsBirth" name="Дата народження дитини" type="string"></activiti:formProperty>
-        <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="string"></activiti:formProperty>
-        <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини" type="string"></activiti:formProperty>
-        <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string"></activiti:formProperty>
+        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я, по батькові 1-ї дитини" type="string" default="${lastName_UA2} ${firstName_UA2} ${middleName_UA2}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth" name="Дата народження 1-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB" name="Місце народження 1-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження 1-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsCitizenship" name="Громадянство 1-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ChildName2" name="Прізвище, ім'я, по батькові 2-ї дитини" type="string" default="${lastName_UA3} ${firstName_UA3} ${middleName_UA3}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth2" name="Дата народження 2-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB2" name="Місце народження 2-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc2" name="Свідоцтво про народження 2-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsCitizenship2" name="Громадянство 2-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ChildName3" name="Прізвище, ім'я, по батькові 3-ї дитини" type="string" default="${lastName_UA4} ${firstName_UA4} ${middleName_UA4}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth3" name="Дата народження 3-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB3" name="Місце народження 3-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc3" name="Свідоцтво про народження 3-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsCitizenship3" name="Громадянство 3-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ChildName4" name="Прізвище, ім'я, по батькові 4-ї дитини" type="string" default="${lastName_UA5} ${firstName_UA5} ${middleName_UA5}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsBirth4" name="Дата народження 4-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsPOB4" name="Місце народження 4-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsDoc4" name="Свідоцтво про народження 4-ї  дитини" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="kidsCitizenship4" name="Громадянство 4-ї  дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Registrationservice" name="Орган, що оформлює реєстрацію" type="enum" required="true">
           <activiti:value id="Бабушкінський" name="Бабушкінський РВ у місті Дніпропетровську ГУ ДМСУ в Дніпропетровській області"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="result" name="Результат зустрічі" type="enum">
           <activiti:value id="reestr" name="Громадянин знятий з реєстрації"></activiti:value>
-          <activiti:value id="nejav" name="Повернути у необроблені"></activiti:value>
+          <activiti:value id="nejav" name="Громадянин не з'явився"></activiti:value>
+          <activiti:value id="nazad" name="Повернути у необроблені"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_zn(dnepr).html]" type="invisible" default="Заява для зняття з реєстрації" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/kartka(dnepr)fr.html]" type="invisible" default="Картка реєстрації лицьова" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_2" name="[pattern/print/kartka(dnepr)bk.html]" type="invisible" default="Картка реєстрації зворотня" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_3" name="[pattern/print/talon_4(dnepr).html]" type="invisible" default="Талон" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_4" name="[pattern/print/zajava_znfr(dnepr).html]" type="invisible" default="Заява для зняття з реєстрації лицьова" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_5" name="[pattern/print/zajava_znbk(dnepr).html]" type="invisible" default="Заява для зняття з реєстрації зворотня" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
     </userTask>
-    <sequenceFlow id="flow18" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow18" sourceRef="usertask2_red" targetRef="exclusivegateway2"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow17" name="${result=='reestr'}" sourceRef="exclusivegateway2" targetRef="endevent3">
+    <sequenceFlow id="flow17" name="${result=='reestr'}" sourceRef="exclusivegateway2" targetRef="servicetask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${result=='reestr'}]]></conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="flow19" sourceRef="exclusivegateway2" targetRef="usertask2">
+    <sequenceFlow id="flow19" name="${result=='nazad'}" sourceRef="exclusivegateway2" targetRef="usertask2_red">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${result=='nazad'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="servicetask2" name="Фідбек" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання особи]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+								  &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;
+                              		Ви отримали послугу "Зняття з реєстрації місця проживання особи".&lt;br /&gt;
+                              		Будь ласка, оцініть якість надання цієї послуги за допомогою форми нижче.&lt;br /&gt;
+                              		Дякуємо.
+									&lt;/p&gt;
+                                    [pattern/mail/_common_signature_start.html]
+									Державна Міграційна Служба Дніпропетровської Області,&lt;br /&gt;
+									[pattern/mail/_common_signature_end.html]   
+									[pattern/mail/_common_feedback.html]
+									[pattern/mail/_common_footer.html]
+		  </activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask> 
+    <sequenceFlow id="flow23" sourceRef="servicetask2" targetRef="endevent4"></sequenceFlow>
+    <endEvent id="endevent4" name="End"></endEvent>
+    <sequenceFlow id="flow21" name="${result=='nejav'}" sourceRef="exclusivegateway2" targetRef="mailtask5">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${result=='nejav'}]]></conditionExpression>
     </sequenceFlow>
+    <serviceTask id="mailtask5" name="Е-мейл відмови у наданні послуги" activiti:type="mail">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression><![CDATA[${email}]]></activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: Зняття з реєстрації місця проживання особи]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="charset">
+          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="html">
+          <activiti:expression><![CDATA[<!DOCTYPE html>
+<html>
+<head lang="ru">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+        body {margin: 0; padding: 0;}
+        #mailer-body {font: 400 18px/20px 'Calibri';}
+        #mailer-body div,
+        #mailer-body p,
+        #mailer-body span,
+        #mailer-body strong,
+        #mailer-body b,
+        #mailer-body em,
+        #mailer-body i,
+        #mailer-body a,
+        #mailer-body li,
+        #mailer-body td {-webkit-text-size-adjust: none;}
+        #mailer-body a {color: #2F70AF; text-decoration: none;}
+        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
+        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
+        #mailer-body p > label {width: 40px;}
+        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
+        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
+        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
+        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
+        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
+        #mailer-body textarea:focus {outline: 0;}
+        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
+    </style>
+</head>
+<body>
+<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
+    <tbody>
+    <tr>
+        <td align="center">
+            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                <!--header line statrs-->
+                <tr>
+                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.<span>org.<span>ua</span></span></b><br />портал державних послуг</td>
+                </tr>
+                <!--header line end-->
+                <!--content statrs-->
+                <tr>
+                    <td align="center">
+                        <form action="[sURL_ServiceMessage]" method="post">
+                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                            <tr>
+                                <td style="padding: 35px 120px;">
+                                    <h3>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.</h3>
+                                    <p>
+                                        На жаль Ви не з'явились у відділення ДМС у призначений день і час. <br />
+                                        При необхідності зняття з реєстрації місця проживання Ви можете подати ще одну заявку на порталі <a href="https://igov.org.ua/">iGov.org.ua</a>
+										</p>
+										<p>
+										При вниникненні питань Ви можете звернутися до чергового: <br />
+										тел. +38 (050) 500-93-03
+										</p>
+                                    <hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
+                                    <p>
+                                        З повагою,<br />
+                                        Державна Міграційна Служба Дніпропетровської Області.
+                                    </p>
+                                </td>
+                            </tr>
+                            
+                        </table>
+                        </form>
+                    </td>
+                </tr>
+                <!--content end-->
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>]]></activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow22" sourceRef="mailtask5" targetRef="endevent4"></sequenceFlow> 
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_dms-89s">
     <bpmndi:BPMNPlane bpmnElement="dnepr_dms-89s" id="BPMNPlane_dnepr_dms-89s">
@@ -589,19 +805,28 @@
         <omgdc:Bounds height="40.0" width="40.0" x="548.0" y="230.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="71.0" width="135.0" x="760.0" y="215.0"></omgdc:Bounds>
+        <omgdc:Bounds height="71.0" width="135.0" x="789.0" y="215.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
-        <omgdc:Bounds height="35.0" width="35.0" x="810.0" y="350.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="839.0" y="350.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="81.0" width="155.0" x="491.0" y="320.0"></omgdc:Bounds>
+        <omgdc:Bounds height="65.0" width="140.0" x="499.0" y="320.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
-        <omgdc:Bounds height="75.0" width="155.0" x="491.0" y="430.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="usertask2_red" id="BPMNShape_usertask2_red">
+        <omgdc:Bounds height="58.0" width="140.0" x="499.0" y="430.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
-        <omgdc:Bounds height="40.0" width="40.0" x="697.0" y="447.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="697.0" y="438.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
+        <omgdc:Bounds height="61.0" width="105.0" x="665.0" y="500.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="105.0" x="804.0" y="431.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
+        <omgdc:Bounds height="35.0" width="35.0" x="839.0" y="513.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
         <omgdi:waypoint x="75.0" y="147.0"></omgdi:waypoint>
@@ -631,44 +856,60 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
         <omgdi:waypoint x="588.0" y="250.0"></omgdi:waypoint>
-        <omgdi:waypoint x="760.0" y="250.0"></omgdi:waypoint>
+        <omgdi:waypoint x="789.0" y="250.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42.0" width="100.0" x="597.0" y="207.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
-        <omgdi:waypoint x="827.0" y="286.0"></omgdi:waypoint>
-        <omgdi:waypoint x="827.0" y="350.0"></omgdi:waypoint>
+        <omgdi:waypoint x="856.0" y="286.0"></omgdi:waypoint>
+        <omgdi:waypoint x="856.0" y="350.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
         <omgdi:waypoint x="568.0" y="270.0"></omgdi:waypoint>
-        <omgdi:waypoint x="568.0" y="320.0"></omgdi:waypoint>
+        <omgdi:waypoint x="569.0" y="320.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42.0" width="100.0" x="460.0" y="266.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="568.0" y="401.0"></omgdi:waypoint>
-        <omgdi:waypoint x="568.0" y="430.0"></omgdi:waypoint>
+        <omgdi:waypoint x="569.0" y="385.0"></omgdi:waypoint>
+        <omgdi:waypoint x="569.0" y="430.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
-        <omgdi:waypoint x="646.0" y="467.0"></omgdi:waypoint>
-        <omgdi:waypoint x="674.0" y="468.0"></omgdi:waypoint>
-        <omgdi:waypoint x="697.0" y="467.0"></omgdi:waypoint>
+        <omgdi:waypoint x="639.0" y="459.0"></omgdi:waypoint>
+        <omgdi:waypoint x="697.0" y="458.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
-        <omgdi:waypoint x="737.0" y="467.0"></omgdi:waypoint>
-        <omgdi:waypoint x="827.0" y="466.0"></omgdi:waypoint>
-        <omgdi:waypoint x="827.0" y="385.0"></omgdi:waypoint>
+        <omgdi:waypoint x="737.0" y="458.0"></omgdi:waypoint>
+        <omgdi:waypoint x="804.0" y="458.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="86.0" x="747.0" y="467.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="86.0" x="718.0" y="425.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
-        <omgdi:waypoint x="717.0" y="487.0"></omgdi:waypoint>
-        <omgdi:waypoint x="718.0" y="535.0"></omgdi:waypoint>
-        <omgdi:waypoint x="566.0" y="535.0"></omgdi:waypoint>
-        <omgdi:waypoint x="568.0" y="505.0"></omgdi:waypoint>
+        <omgdi:waypoint x="717.0" y="438.0"></omgdi:waypoint>
+        <omgdi:waypoint x="717.0" y="419.0"></omgdi:waypoint>
+        <omgdi:waypoint x="569.0" y="419.0"></omgdi:waypoint>
+        <omgdi:waypoint x="569.0" y="430.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="87.0" x="610.0" y="401.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="717.0" y="478.0"></omgdi:waypoint>
+        <omgdi:waypoint x="717.0" y="500.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="83.0" x="727.0" y="478.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="770.0" y="530.0"></omgdi:waypoint>
+        <omgdi:waypoint x="839.0" y="530.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="856.0" y="486.0"></omgdi:waypoint>
+        <omgdi:waypoint x="856.0" y="513.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

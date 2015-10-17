@@ -1,27 +1,30 @@
 angular.module('app').controller('ServiceFormController', function($scope, service, regions, AdminService, ServiceService) {
   $scope.service = service;
   $scope.regions = regions;
-  // console.log('ServiceFormController,  ServiceService.oService =', ServiceService.oService, ', regions =', regions.length );
   $scope.bAdmin = AdminService.isAdmin();
 });
 
-angular.module('app').controller('ServiceGeneralController', function($state, $scope, ServiceService, PlacesService ) {
-  return $state.go('index.service.general.place', {id: ServiceService.oService.nID}, {location: false});
+angular.module('app').controller('ServiceGeneralController', function($state, $scope, ServiceService, PlacesService) {
+  return $state.go('index.service.general.place', {
+    id: ServiceService.oService.nID
+  }, {
+    location: false
+  });
 });
 
-angular.module('app').controller('ServiceInstructionController', function($state, $rootScope, $scope) {
-});
+angular.module('app').controller('ServiceInstructionController', function($state, $rootScope, $scope) {});
 
-angular.module('app').controller('ServiceLegislationController', function($state, $rootScope, $scope) {
-});
+angular.module('app').controller('ServiceLegislationController', function($state, $rootScope, $scope) {});
 
-angular.module('app').controller('ServiceQuestionsController', function($state, $rootScope, $scope) {
-});
+angular.module('app').controller('ServiceQuestionsController', function($state, $rootScope, $scope) {});
 
 angular.module('app').controller('ServiceDiscussionController', function($state, $rootScope, $scope) {
   var HC_LOAD_INIT = false;
   window._hcwp = window._hcwp || [];
-  window._hcwp.push({widget: 'Stream', widget_id: 60115});
+  window._hcwp.push({
+    widget: 'Stream',
+    widget_id: 60115
+  });
   if ('HC_LOAD_INIT' in window) {
     return;
   }
@@ -46,6 +49,20 @@ angular.module('app').controller('ServiceStatisticsController', function($scope,
 
   ServiceService.getStatisticsForService(ServiceService.oService.nID).then(function(response) {
     $scope.stats = response.data;
-  }, function(response) { console.log(response.status + ' ' + response.statusText + '\n' + response.data); })
-    .finally(function() {$scope.loaded = true;});
+    $scope.nRate = 0;
+    var nRate=0;
+    angular.forEach(response.data, function (oStatistic) {
+      if (oStatistic.nRate !== null && oStatistic.nRate > 0) {
+          nRate=nRate+oStatistic.nRate;
+      }
+    });
+    $scope.nRate = nRate;
+      
+      
+    }, function(response) {
+      console.log(response.status + ' ' + response.statusText + '\n' + response.data);
+    })
+    .finally(function() {
+      $scope.loaded = true;
+    });
 });

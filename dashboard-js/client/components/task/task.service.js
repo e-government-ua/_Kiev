@@ -216,9 +216,9 @@ angular.module('dashboardJsApp')
           return prop.type == 'file' && /^PrintForm_/.test(prop.id);
         });
         // удалить после теста. пока что нет БП с таким полем и используем все поля с типом "файл".
-        if (filesFields.length == 0)
-          filesFields = $filter('filter')(formProperties, {type:'file'});
-
+        //if (filesFields.length == 0)
+        //  filesFields = $filter('filter')(formProperties, {type:'file'});
+        //
         var self = this;
         var deferred = $q.defer();
         var filesDefers = [];
@@ -246,12 +246,10 @@ angular.module('dashboardJsApp')
           var uploadPromises = [];
           angular.forEach(results, function(templateResult){
             var scope = $rootScope.$new();
-            scope.printTemplate = {
-              form : formProperties,
-              task: task,
-              getPrintTemplate: function(){return PrintTemplateProcessor.getPrintTemplate(formProperties, templateResult.template);},
-              containsPrintTemplate: function(){return templateResult.template!='';}
-            };
+            scope.selectedTask = task;
+            scope.taskForm = formProperties;
+            scope.getPrintTemplate = function(){return PrintTemplateProcessor.getPrintTemplate(task, formProperties, templateResult.template);},
+            scope.containsPrintTemplate = function(){return templateResult.template!='';}
             scope.getProcessName = processes.getProcessName;
             scope.sDateShort = function(sDateLong){
               if (sDateLong !== null) {

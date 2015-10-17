@@ -13,20 +13,28 @@ import org.slf4j.LoggerFactory;
 public class MVSDepartmentsTagUtil {
 
 	private static final Logger LOG = LoggerFactory.getLogger(MVSDepartmentsTagUtil.class);
-	private static final Map<String,String> VALUES = new HashMap<String,String>();
+	public static final Map<String, Map<String,String>> VALUES = new HashMap<String,Map<String,String>>();
+	private static final String DEFAULT_ROOT_PATH = "patterns/dictionary/"; 
 	
-	static {
+	protected static void loadDictionary(String path) {
+		Map<String, String> values = new HashMap<String, String>();
 		BufferedReader br = null;
 		try {
-			String line = null;
 			br = new BufferedReader(new InputStreamReader(Thread
 					.currentThread().getContextClassLoader()
-					.getResourceAsStream("patterns/dictionary/MVD_Department.csv"), "UTF-8"));
-			while ((line = br.readLine()) != null) {
-				String[] valuesArr = line.split(";");
-				if (valuesArr.length == 3)
-					VALUES.put(valuesArr[0], valuesArr[1] + ";" + valuesArr[2]);
+					.getResourceAsStream(DEFAULT_ROOT_PATH + path), "UTF-8"));
+			LOG.info("Reading dictionary from stream:" + DEFAULT_ROOT_PATH + path);
+			String line;
+
+			while ((line = br.readLine()) != null)   {
+				String key = StringUtils.substringBefore(line, ";");
+		        
+		        values.put(key, line);
 			}
+
+			VALUES.put(path, values);
+			//Close the input stream
+			br.close();
 		} catch (IOException e) {
 			LOG.error("Error during loading csv file" + e.getMessage());
 		} finally {
@@ -34,33 +42,43 @@ public class MVSDepartmentsTagUtil {
 				try {
 					br.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					LOG.error("Erro occured while closing disctionary reader" + e.getMessage());
 				}
 			}
 		}
 	}
 	
 	public String replaceMVSTagWithValue(String text){
-		if (VALUES.isEmpty()){
-			LOG.info("MVD_Department dictionary is empty. Returning initial text");
-			return text;
-		}
 		String res = text;
-		if (text.indexOf("[pattern_dictonary:") != -1){
+                int n=0;
+		while (text.indexOf("[pattern_dictonary:") != -1 && n<20){
+                    n++;
 			String pattern = StringUtils.substringBetween(text, "[pattern_dictonary:", "]");
 			LOG.info("Found pattern in the text: " + pattern);
 			String[] params = pattern.split(":");
-			if (params.length > 1){
-				LOG.info("Have to replace pattern with ID:" + params[0] + " and column:" + params[1]);
-				String patternValue = VALUES.get(params[0]);
-				LOG.info("Pattern value for the specified ID: " + patternValue);
-				if (patternValue != null){
+			if (params.length > 2){
+				LOG.info("Have to replace pattern with ID:" + params[1] + " and column:" + params[2]);
+				Map<String, String> patternValues = VALUES.get(params[0]);
+				if (patternValues == null){
+					synchronized (VALUES) {
+						loadDictionary(params[0]);		
+						patternValues = VALUES.get(params[0]);
+					}
+				}
+				if (patternValues == null){
+					LOG.error("Unable to find dictionary value from the path: " + params[0]);
+					return res;
+				}
+				LOG.info("Pattern value for the specified ID: " + patternValues);
+				if (!patternValues.isEmpty()){
+					String patternValue = patternValues.get(params[1]);
 					String[] patternColumns = patternValue.split(";");
-					String valueToReplace = patternColumns[Integer.valueOf(params[1]) - 2];// value in the map starts from second column in csv file
-					LOG.info("Repplacing pattern with the value " + valueToReplace);
+					String valueToReplace = patternColumns[Integer.valueOf(params[2]) - 1];// value in the map starts from second column in csv file
+					LOG.info("Replacing pattern with the value " + valueToReplace);
 					res = StringUtils.replace(text, "[pattern_dictonary:" + pattern + "]", valueToReplace);
 				}
 			}
+                        text = res;
 		}
 		return res;
 	}

@@ -1,10 +1,11 @@
 ﻿<div ng-include="'components/navbar/navbar.html'" class="navbar-fixed-top"></div>
-<div class="container" ng-style="showPrintModal && {'overflow-y':'hidden'}" ng-init="init()">
+
+<div class="container" ng-style="printModalState.show && {'overflow-y':'hidden'}" ng-init="init()">
+
   <div class="container__in">
     <div class="row">
       <div class="col-xs-5 sidebar">
         <div class="tasks">
-
           <div ng-if="sSelectedTask=='tickets'" class="tasks-tickets-list-header">
             <div class="tickets-assign">
               <input type="checkbox" ng-model="ticketsFilter.bEmployeeUnassigned" id="ticketsFilter_bEmployeeUnassigned" ng-change="applyTicketsFilter()"
@@ -20,7 +21,7 @@
             <div class="clearfix"></div>
           </div>
 
-          <div class="sort-select" ng-if="sSelectedTask!='tickets'">
+          <div class="sort-select" ng-if="sSelectedTask!='tickets' && sSelectedTask!='tickets'">
             <div class="task-list-header">
               <div class="task-list-header-row">
                 <div class="task-list-header-cell">
@@ -45,19 +46,22 @@
                   </select>-->
                 </div>
               </div>
+              <div ng-show="$storage.menuType == 'selfAssigned' || $storage.menuType == 'unassigned'">Фільтр за статусом
+                <select ng-options="option.name for option in taskDefinitions track by option.id" ng-model="model.taskDefinition" ng-change="taskDefinitionsFilterChange(option)">
+                </select><small ng-hide="!tasks">{{ filteredTasks.length }} з {{ tasks.length }}</small>
+              </div>
             </div>
           </div>
-
           <div class="list-group">
-            <div ng-if="tasks===null">
+            <div ng-if="filteredTasks===null">
               <h3>Завантаження списку...</h3>
             </div>
 
-            <div ng-if="tasks!==null && tasks.length==0">
+            <div ng-if="filteredTasks!==null && filteredTasks.length==0">
               <h3>Задач не знайдено</h3>
             </div>
 
-            <div ng-if="tasks!==null  && tasks.length>0">
+            <div ng-if="filteredTasks!==null  && filteredTasks.length>0">
 
               <div ng-if="sSelectedTask=='tickets'">
                 <a class="list-group-item task {{sSelectedTask}}_{{task.id}}" href="" tooltip="Слот №{{task.nID_FlowSlot}} (Задача №{{task.nID_Task_Activiti}}, Процесс №{{task.nID_Instance}})"
@@ -70,7 +74,7 @@
 
               <div ng-if="sSelectedTask!='tickets'">
                 <a class="list-group-item task {{sSelectedTask}}_{{task.processInstanceId}} {{ sTaskClass(task.taskDefinitionKey) }}" href=""
-                    ng-repeat="task in tasks | orderBy:predicate:reverse"
+                    ng-repeat="task in filteredTasks | orderBy:predicate:reverse"
                     tooltip="{{task.description}} (Задача №{{task.id}}, Процесс №{{task.processDefinitionId}})"
                     ng-click="selectTask(task)"
                     ng-class="{'active': isTaskSelected(task)}">
@@ -149,15 +153,8 @@
               <button ng-hide="!taskFormLoaded || !selectedTask" ng-click="print()" class="btn btn-success">Роздрукувати
               </button>
             </div>
-          
-            <!--select class="aPatternPrint form-control_" ng-hide="aPatternPrintNew1(taskForm)===null || aPatternPrintNew1(taskForm).length===0 || selectedTask.assignee == null || sSelectedTask == 'finished'">
-              <option ng-repeat="oPatternPrint in aPatternPrintNew1(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.displayTemplate}}</option>
-            </select-->
-
-            <select class="aPatternPrint form-control_" ng-hide="aPatternPrintNew1(taskForm)===null || aPatternPrintNew1(taskForm).length===0 || selectedTask.assignee === null || sSelectedTask === 'finished'">
-              <option ng-repeat="oPatternPrint in aPatternPrintNew1(taskForm)" value="{{oPatternPrint.id}}">{{oPatternPrint.displayTemplate}}</option>
+            <select class="aPatternPrint form-control" ng-options="option.displayTemplate for option in printTemplateList track by option.id" ng-required ng-model="model.printTemplate" ng-hide="printTemplateList.length == 0 || selectedTask.assignee === null || sSelectedTask === 'finished'" >
             </select>
-            
           </p>
         </div>
       </div>
@@ -166,3 +163,4 @@
 </div>
 
 <print-dialog></print-dialog>
+

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="gni_69" name="ДФС - Надання витягу з реєстру платників єдиного податку" isExecutable="true">
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Виберіть відділення фіскальної служби; в якому вам буде зручно отримати довідку" type="enum" required="true">
+          <activiti:value id="dnepr_and" name="Дніпропетровськ - АНД (пров. Універсальний, 12)|0461"></activiti:value>
+          <activiti:value id="dnepr_babush" name="Дніпропетровськ - Бабушкінський (вул. Героїв Сталінграду, 25)|0462"></activiti:value>
+          <activiti:value id="dnepr_october" name="Дніпропетровськ - Жовтневий (вул. Високовольтна, 24)|0463"></activiti:value>
+          <activiti:value id="dnepr_left" name="Дніпропетровськ - Лівобережний (пр-т Газети Правда, 95-А)|0464"></activiti:value>
+          <activiti:value id="dnepr_kirov" name="Дніпропетровськ - Кіровський (вул. Горького, 22)|0465"></activiti:value>
+          <activiti:value id="dnepr_red_guard" name="Дніпропетровськ - Красногвардійський (вул. Театральна, 1-А)|0466"></activiti:value>
+          <activiti:value id="dnepr_lenin" name="Дніпропетровськ - Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="subekt" name="Ви хочете замовити витяг по собі або по іншому підприємству?" type="enum" default="fiz">
+          <activiti:value id="fiz" name="по собі"></activiti:value>
+          <activiti:value id="ur" name="по іншому підприємству"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;nomer&quot;,&quot;naimenov&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;subekt&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'ur'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="nomer" name="Вкажіть код ЄДРПОУ або ІНН; тільки цифрові позначення" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="naimenov" name="Найменування підприємства" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="organ" name="Навіщо Вам потрібна ця довідка?" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="info_1" type="label" default="&lt;a href=&quot;https://docs.google.com/document/d/17kd6pC_2PwfDgk1zJpZ6D1BkTRMJqDQLIAYq_9Pvri0/edit&quot; target=&quot;_blank&quot;&gt;примітка&lt;/a&gt;"></activiti:formProperty>
+        <activiti:formProperty id="info_2" name="Заповніть бланк" type="label" default="Завантажте &lt;a href=&quot;https://docs.google.com/document/d/1op393ACpXsaPwewbuvn4yir-8oskEXy83RcSXOuUnco/edit&quot; target=&quot;_blank&quot;&gt;бланк&lt;/a&gt;, заповніть, накладіть на нього електронно-цифровий підпис та додайте у наступному полі."></activiti:formProperty>
+        <activiti:formProperty id="zapit" name="Заповнений бланк" type="file" required="true"></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="dfs_dnepr_vutyag_nalog_${area}_${subekt}">
+      <extensionElements>
+        <activiti:formProperty id="fio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name=" ІПН" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Виберіть відділення фіскальної служби; в якому вам буде зручно отримати довідку" type="enum" writable="false">
+          <activiti:value id="dnepr_and" name="Дніпропетровськ - АНД (пров. Універсальний, 12)|0461"></activiti:value>
+          <activiti:value id="dnepr_babush" name="Дніпропетровськ - Бабушкінський (вул. Героїв Сталінграду, 25)|0462"></activiti:value>
+          <activiti:value id="dnepr_october" name="Дніпропетровськ - Жовтневий (вул. Високовольтна, 24)|0463"></activiti:value>
+          <activiti:value id="dnepr_left" name="Дніпропетровськ - Лівобережний (пр-т Газети Правда, 95-А)|0464"></activiti:value>
+          <activiti:value id="dnepr_kirov" name="Дніпропетровськ - Кіровський (вул. Горького, 22)|0465"></activiti:value>
+          <activiti:value id="dnepr_red_guard" name="Дніпропетровськ - Красногвардійський (вул. Театральна, 1-А)|0466"></activiti:value>
+          <activiti:value id="dnepr_lenin" name="Дніпропетровськ - Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="subekt" name="Тип суб'єкта правових відносин" type="enum" writable="false">
+          <activiti:value id="fiz" name="Фізична особа"></activiti:value>
+          <activiti:value id="ur" name="Юридична особа"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="organ" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, інше" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="nomer" name="Вкажіть код ЄДРПОУ або ІНН; тільки цифрові позначення" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="naimenov" name="Найменування або ПІБ платника податку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="zapit" name="Заповнений бланк" type="file" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="decision_1" name="Прийняття рішення про отримання витягу" type="enum" required="true">
+          <activiti:value id="accept" name="Надати витяг з реєстру платників єдиного податку"></activiti:value>
+          <activiti:value id="reject" name="Відмовити у наданні витягу"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="decision_reject" name="У разі відмови у наданні витягу оберіть причину" type="enum">
+          <activiti:value id="not_subekt" name="не значиться зареєстрованим суб’єктом господарювання (фізичною особою–підприємцем або юридичною особою)"></activiti:value>
+          <activiti:value id="not_payer" name="не платник єдиного податку"></activiti:value>
+          <activiti:value id="yet" name="платником єдиного податку вже отримано Витяг з реєстру платників єдиного податку, заява щодо внесення нових змін до Реєстру не надходила"></activiti:value>
+          <activiti:value id="other_reason" name="інша причина"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="comment_1" name="Якщо обрали варіант &quot;інша причина&quot; внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${zapit}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <serviceTask id="servicetask4" name="Повідомлення співробітника держоргану" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:string><![CDATA[yfnf_rexth@ukr.net]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Запит про отримання витягу з реєстру платників єдиного податку]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask2" name="повідомлення громадянина про отримання витягу" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Запит про отримання витягу з реєстру платників єдиного податку]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+Ваша заява на отримання витягу з реєстру платників єдиного податку опрацьована. &lt;br /&gt;&lt;br /&gt;
+Забрати витяг Ви зможете  в тому відділенні податкової служби, яке Ви вказували при замовленні послуги.&lt;br/&gt;
+Перелік відділень Ви можете переглянути &lt;a href="https://docs.google.com/spreadsheets/d/1b4697fd3ESupi6XrO4JqHv2GZ0Va98QXGD6hVvK1q70/edit#gid=2095016794" target="_blank"&gt;тут&lt;/a&gt;
+&lt;br /&gt;
+Для отримання витягу при при візиті до відділення фіскальної служби Вам необхідно мати наступні документи:&lt;br&gt;
+1. № запиту (Ви його отримали листом після подачі заяви)&lt;br&gt;
+2. Оригінал паспорта громадянина України&lt;br /&gt;&lt;br /&gt;
+[pattern/mail/_common_signature_start.html]
+Державна фіскальна служба,&lt;br /&gt;
+[pattern/mail/_common_signature_end.html]
+[pattern/mail/_common_feedback.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask3" name="повідомлення громадянина про відмову у наданні витягу" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Запит про отримання витягу з реєстру платників єдиного податку]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+На жаль, Вам відмовлено у наданні витягу з реєстру платників єдиного податку.&lt;br/&gt;
+Підстава: enum{[decision_reject]}&lt;br/&gt;
+${comment_1}&lt;br/&gt;
+[pattern/mail/_common_signature_start.html]
+Державна фіскальна служба,&lt;br /&gt;
+[pattern/mail/_common_signature_end.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <endEvent id="endevent1" name="End"></endEvent>
+    <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <sequenceFlow id="flow10" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="flow19" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow20" sourceRef="exclusivegateway1" targetRef="servicetask2">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='accept'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow21" sourceRef="exclusivegateway1" targetRef="servicetask3">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='reject'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow22" sourceRef="servicetask3" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow24" sourceRef="servicetask2" targetRef="endevent1"></sequenceFlow>
+    <sequenceFlow id="flow26" sourceRef="servicetask1" targetRef="servicetask4"></sequenceFlow>
+    <sequenceFlow id="flow27" sourceRef="servicetask4" targetRef="usertask1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_gni_69">
+    <bpmndi:BPMNPlane bpmnElement="gni_69" id="BPMNPlane_gni_69">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="61.0" y="40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="162.0" x="360.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
+        <omgdc:Bounds height="55.0" width="162.0" x="360.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="55.0" width="162.0" x="360.0" y="260.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="75.0" width="151.0" x="180.0" y="181.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="420.0" y="200.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="127.0" y="270.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="170.0" x="131.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="130.0" y="57.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="441.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="440.0" y="200.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
+        <omgdi:waypoint x="96.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="131.0" y="57.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="145.0" y="87.0"></omgdi:waypoint>
+        <omgdi:waypoint x="144.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="440.0" y="240.0"></omgdi:waypoint>
+        <omgdi:waypoint x="441.0" y="260.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
+        <omgdi:waypoint x="420.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="331.0" y="218.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="255.0" y="256.0"></omgdi:waypoint>
+        <omgdi:waypoint x="144.0" y="270.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
+        <omgdi:waypoint x="360.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="162.0" y="287.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="301.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="57.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
+        <omgdi:waypoint x="441.0" y="85.0"></omgdi:waypoint>
+        <omgdi:waypoint x="441.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

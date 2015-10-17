@@ -34,7 +34,7 @@ public class AccessController {
         if(AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST_AND_LOGIN.equals(sAccessContract)){
             //if(sData!=null && !"".equals(sData.trim()) && !sData.trim().endsWith("?")){
             if(sData!=null && !"".equals(sData.trim())){
-                sData=sData+"&"+(sData.contains("?")?"&":"?")+AuthenticationTokenSelector.ACCESS_LOGIN+"="+sAccessLogin;
+                sData=sData+(sData.contains("?")?"&":"?")+AuthenticationTokenSelector.ACCESS_LOGIN+"="+sAccessLogin;
             }
         //}else if(ACCESS_CONTRACT_REQUEST.equals(sAccessContract)){
         //}else{

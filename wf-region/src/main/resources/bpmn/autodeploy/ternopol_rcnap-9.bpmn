@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="ternopol_rcnap-9" name="ЦНАП Тернопільського району - Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки" isExecutable="true">
+  <process id="ternopol_rcnap-9" name="ЦНАПи Тернопільської області - Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -10,8 +10,25 @@
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації; вкажіть область, населенний пункт, вулицю, дім, квартиру" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="rai" name="Оберіть район, в якому розташована земельна ділянка" type="enum" required="true">
+        <activiti:formProperty id="rai" name="Оберіть район або населений пункт, в якому розташована земельна ділянка" type="enum" required="true" default="berezh">
+          <activiti:value id="berezh" name="Бережанський район"></activiti:value>
+          <activiti:value id="borsch" name="Борщівський район"></activiti:value>
+          <activiti:value id="buch" name="Бучацький район"></activiti:value>
+          <activiti:value id="gus" name="Гусятинський район"></activiti:value>
+          <activiti:value id="zalisch" name="Заліщицький район"></activiti:value>
+          <activiti:value id="zbraz" name="Збаразький район"></activiti:value>
+          <activiti:value id="zbor" name="Зборівський район"></activiti:value>
+          <activiti:value id="koziv" name="Козівський район"></activiti:value>
+          <activiti:value id="krem" name="Кременецький район"></activiti:value>
+          <activiti:value id="lanov" name="Лановецький район"></activiti:value>
+          <activiti:value id="monas" name="Монастирський район"></activiti:value>
+          <activiti:value id="pidvol" name="Підволочиський район"></activiti:value>
+          <activiti:value id="pidgai" name="Підгаєцький район"></activiti:value>
+          <activiti:value id="tereb" name="Теребовлянський район"></activiti:value>
           <activiti:value id="tern" name="Тернопільський район"></activiti:value>
+          <activiti:value id="chortR" name="Чортківський район"></activiti:value>
+          <activiti:value id="shum" name="Шумський район"></activiti:value>
+          <activiti:value id="chortM" name="м. Чортків"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета звернення" type="enum" required="true">
@@ -28,6 +45,14 @@
         <activiti:formProperty id="file5" name="Копія свідоцтва про смерть попереднього власника; потрібно лише в разі оформлення спадщини" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу, Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:formProperty id="marker1" name="маркер динамічної форми" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;file4&quot;,&quot;file5&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;goal&quot;},&quot;sCondition&quot;:&quot;[sReason]=='item2'&quot;}}}"></activiti:formProperty>
+        
+        <activiti:formProperty id="rName" name="родовий відмінок району" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="cnName" name="назва ЦНАП" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="post" name="електронна пошта ЦНАП" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="Address" name="Адреса ЦНАП" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="rozklad" name="Розклад ЦНАП" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="markerBerezh" name="маркер Бережанського району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;,&quot;cnName&quot;,&quot;post&quot;,&quot;Address&quot;,&quot;rozklad&quot;], &quot;asID_Field_sValue&quot;:[&quot;Бережанського району&quot;,&quot;ЦНАП Бережанської районної державної адміністрації&quot;,&quot;koffeek1@yandex.ua&quot;,&quot;Тернопільська обл., м. Бережани, вул. Шевченка, 15&quot;,&quot;понеділок, середа: 09.00-17.15,&lt;br /&gt; вівторок, четвер: 09.00-20.00,&lt;br /&gt; п'ятниця: 09.00-16.00,&lt;br /&gt; субота: 08.00-15.00&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;rai&quot;},&quot;sCondition&quot;:&quot;[sReason]=='berezh'&quot;}}}"></activiti:formProperty>
+         
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
@@ -37,8 +62,8 @@
     </boundaryEvent>
     <sequenceFlow id="flow2" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow3" sourceRef="servicetask1" targetRef="mailtask3"></sequenceFlow>
-    <serviceTask id="mailtask3" name="Повідомлення про успішне замовлення" activiti:type="mail">
+    <sequenceFlow id="flow3" sourceRef="servicetask1" targetRef="servicetask3"></sequenceFlow>
+    <serviceTask id="servicetask3" name="Повідомлення про успішне замовлення" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -49,10 +74,7 @@
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Надання витягу з технічної документації про нормативну грошову оцінку земельної ділянки]]></activiti:string>
         </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="html">
+        <activiti:field name="text">
           <activiti:expression>&lt;style type="text/css"&gt;
         body {margin: 0; padding: 0;}
         #mailer-body {font: 400 18px/20px 'Calibri';}
@@ -104,13 +126,10 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        ЦНАП Тернопільського району,&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                           
-                          
 
                         &lt;/table&gt;
                      
@@ -125,11 +144,11 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow10" sourceRef="mailtask3" targetRef="mailtask6"></sequenceFlow>
+    <sequenceFlow id="flow10" sourceRef="servicetask3" targetRef="mailtask6"></sequenceFlow>
      <serviceTask id="mailtask6" name="Повідомлення про нову заявку" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[zhigan.roman@gmail.com]]></activiti:expression>
+          <activiti:expression><![CDATA[${post}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -224,8 +243,25 @@
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="e-mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="rai" name="Район, в якому розташована земельна ділянка" type="enum" writable="false">
+         <activiti:formProperty id="rai" name="Район або населений пункт, в якому розташована земельна ділянка" type="enum" required="true">
+          <activiti:value id="berezh" name="Бережанський район"></activiti:value>
+          <activiti:value id="borsch" name="Борщівський район"></activiti:value>
+          <activiti:value id="buch" name="Бучацький район"></activiti:value>
+          <activiti:value id="gus" name="Гусятинський район"></activiti:value>
+          <activiti:value id="zalisch" name="Заліщицький район"></activiti:value>
+          <activiti:value id="zbraz" name="Збаразький район"></activiti:value>
+          <activiti:value id="zbor" name="Зборівський район"></activiti:value>
+          <activiti:value id="koziv" name="Козівський район"></activiti:value>
+          <activiti:value id="krem" name="Кременецький район"></activiti:value>
+          <activiti:value id="lanov" name="Лановецький район"></activiti:value>
+          <activiti:value id="monas" name="Монастирський район"></activiti:value>
+          <activiti:value id="pidvol" name="Підволочиський район"></activiti:value>
+          <activiti:value id="pidgai" name="Підгаєцький район"></activiti:value>
+          <activiti:value id="tereb" name="Теребовлянський район"></activiti:value>
           <activiti:value id="tern" name="Тернопільський район"></activiti:value>
+          <activiti:value id="chortR" name="Чортківський район"></activiti:value>
+          <activiti:value id="shum" name="Шумський район"></activiti:value>
+          <activiti:value id="chortM" name="м. Чортків"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета звернення" type="enum" writable="false">
@@ -329,7 +365,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        ЦНАП Тернопільського району.&lt;br /&gt;
+                                        ${cnName}.&lt;br /&gt;
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -379,7 +415,7 @@
           </activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>"${bankId_scan_passport},${file2},${file3},${file4},${file5}"</activiti:expression>
+          <activiti:expression>"${bankId_scan_passport},${bankId_scan_inn},${file3},${file4},${file5}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -409,7 +445,7 @@
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${file1},${file2},${file3},${file4},${file5}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${bankId_scan_inn},${file3},${file4},${file5}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -485,7 +521,7 @@
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        ЦНАП Тернопільського району.&lt;br /&gt;
+                                        ${cnName}&lt;br /&gt;
                                         &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
@@ -570,17 +606,16 @@
                                     &lt;p&gt;
                                         Ваше звернення оброблено.&lt;/p&gt;
                                     &lt;p&gt; 
-                                    Ви можете отримати витяг за адресою: м.Тернопіль, вул. Кривоноса 10.&lt;/p&gt;
+                                    Ви можете отримати витяг за адресою: ${Address}.&lt;/p&gt;
                                     &lt;p&gt; 
                                     телефон для довідок: (0352) 43-24-62.&lt;/p&gt;
                                     &lt;p&gt; 
-                                    графік роботи: &lt;br/&gt; 
-                                    пн-чт 8-17;&lt;br/&gt; 
-                                    пт 8-16&lt;/p&gt;
+                                    графік роботи: ${rozklad}
+                                    &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        ЦНАП Тернопільського району,&lt;br /&gt;
+                                        ${cnName},&lt;br /&gt;
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -601,8 +636,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent5"></sequenceFlow>
-   
+    <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent5"></sequenceFlow> 
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_ternopol_rcnap-9">
     <bpmndi:BPMNPlane bpmnElement="ternopol_rcnap-9" id="BPMNPlane_ternopol_rcnap-9">
@@ -618,7 +652,7 @@
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="90.0" y="154.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
         <omgdc:Bounds height="65.0" width="115.0" x="171.0" y="206.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">

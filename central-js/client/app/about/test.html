@@ -86,6 +86,65 @@
                     <div ng-message="dateelapsed">{{testForm.dateOrder.lastErrorMessage}}</div>
                 </div>
             </div>
+
+            <!-- Number Between -->
+            <div class="form-group">
+                <label for="numberBetween" class="col-sm-2 control-label">Number Between:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="numberBetween" ng-model="formData.numberBetween" class="form-control" required>
+                    <p class="help-block">Уведіть число, максимум 3 цифри</p>
+                </div>
+                <div class="col-sm-4" ng-messages="testForm.numberBetween.$error" role="alert">
+                    <div ng-message="required">Будь ласка, заповніть це поле</div>
+                    <div ng-message="numberbetween">{{testForm.numberBetween.lastErrorMessage}}</div>
+                </div>
+            </div>
+            <!-- End Number Between -->
+
+            <!-- Number Fractional Between -->
+            <div class="form-group">
+                <label for="total_place" class="col-sm-2 control-label">Number Fractional Between:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="total_place" ng-model="formData.total_place" class="form-control" required>
+                    <p class="help-block">Уведіть число, максимум 8 цифр</p>
+                </div>
+                <div class="col-sm-4" ng-messages="testForm.total_place.$error" role="alert">
+                    <div ng-message="required">Будь ласка, заповніть це поле</div>
+                    <div ng-message="numberfractionalbetween">{{testForm.total_place.lastErrorMessage}}</div>
+                </div>
+            </div>
+            <!-- End Number Between -->
+
+            <!-- Numbers Accounts -->
+            <div class="form-group">
+                <label for="house_number" class="col-sm-2 control-label">Numbers Accounts:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="house_number" ng-model="formData.house_number" class="form-control" required>
+                    <p class="help-block">Уведіть число, допускається знак дефісу, літери - ні</p>
+                </div>
+                <div class="col-sm-4" ng-messages="testForm.house_number.$error" role="alert">
+                    <div ng-message="required">Будь ласка, заповніть це поле</div>
+                    <div ng-message="numbersaccounts">{{testForm.house_number.lastErrorMessage}}</div>
+                </div>
+            </div>
+            <!-- End Number Between -->
+
+            <!-- Date Of Birth -->
+            <div class="form-group">
+                <label for="date_of_birth" class="col-sm-2 control-label">Date Of Birth:</label>
+                <div class="col-sm-6">
+                    <input type="text" name="date_of_birth" ng-model="formData.date_of_birth" class="form-control" required>
+                    <p class="help-block">Уведіть дату вашого народження</p>
+                </div>
+                <div class="col-sm-4" ng-messages="testForm.date_of_birth.$error" role="alert">
+                    <div ng-message="required">Будь ласка, заповніть це поле</div>
+                    <div ng-message="dateelapsed">{{testForm.date_of_birth.lastErrorMessage}}</div>
+                </div>
+            </div>
+
+            <!-- End Date Of Birth -->
+
+
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="submit" class="btn btn-default" ng-click="formSubmit(formData)" value="ОК" ng-disabled="testForm.$invalid">
@@ -100,7 +159,7 @@
             <pre>testForm.dateOrder = {{testForm.dateOrder | json}}</pre>
         </div>
         <div class="col-sm-6">
-            <pre>testForm.dateFormat = {{testForm.dateFormat | json}}</pre>
+            <pre>testForm.dateFormat = {{testForm.date_of_birth | json}}</pre>
         </div>
     </div>
 </div>

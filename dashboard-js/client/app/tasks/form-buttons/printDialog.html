@@ -1,29 +1,26 @@
-<print-modal show='printTemplate.showPrintModal' info='printTemplate.showPrintModal'>
+<print-modal>
   <div class="print-modal-content">
-    <div ng-if="!printTemplate.containsPrintTemplate()">
-      <p>Звернення: {{getProcessName(printTemplate.task.processDefinitionId)}}</p>
+    <div ng-if="!processedPrintTemplate">
+      <p>Звернення: {{getProcessName(selectedTask.processDefinitionId)}}</p>
 
       <p>джерело: igov.org.ua</p>
 
-      <p>№: {{printTemplate.task.id}}</p>
+      <p>№: {{selectedTask.id}}</p>
 
-      <p>від: {{ sDateShort(printTemplate.task.createTime) }}</p>
+      <p>від: {{ sDateShort(selectedTask.createTime) }}</p>
 
-      <p ng-repeat='item in printTemplate.form'>
+      <p ng-repeat='item in taskForm'>
         <font ng-if="item.type != 'invisible'">{{sFieldLabel(item.name)}}</font>
         <b ng-if="item.type == 'enum'">{{sEnumValue(item.enumValues,item.value)}}</b>
-        <b ng-if="item.type != 'enum' && item.type != 'invisible'">{{item.value}}</b>
+        <b ng-if="item.type == 'queueData'">{{sDate_FieldQueueData(item.value)}}</b>
+        <b ng-if="item.type != 'enum' && item.type != 'invisible' && item.type != 'queueData'">{{item.value}}</b>
       </p>
 
-      <p>
-        ----------------------------------------------------------------------------------------------------------------------------</p>
-
+      <hr/>
       <p>Довідку№ _________________________ Отримав (ПІБ)_________________________</p>
 
       <p>Дата _________________________ Підпис _________________________</p>
     </div>
-    <div ng-if="printTemplate.containsPrintTemplate()">
-      <div ng-bind-html="printTemplate.getPrintTemplate()"></div>
-    </div>
+    <div ng-if="processedPrintTemplate" ng-bind-html="processedPrintTemplate"></div>
   </div>
 </print-modal>

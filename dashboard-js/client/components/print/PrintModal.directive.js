@@ -2,9 +2,6 @@
 
 angular.module('dashboardJsApp').directive('printModal', ['$window', function ($window) {
   return {
-    scope: {
-      show: '=info'
-    },
     restrict: 'E',
     link: function (scope, element, attrs, ngModel) {
       scope.dialogStyle = {};
@@ -14,7 +11,7 @@ angular.module('dashboardJsApp').directive('printModal', ['$window', function ($
         scope.dialogStyle.height = attrs.height;
 
       scope.hideModal = function () {
-        scope.show = false;
+        scope.printModalState.show = false;
       };
       scope.printContent = function () {
         var elementToPrint = element[0].getElementsByClassName('ng-modal-dialog-content')[0];
