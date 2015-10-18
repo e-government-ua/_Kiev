@@ -225,12 +225,16 @@
             <column name="nID_Subject" type="NUMERIC"/>
             <column name="sStatus" type="STRING"/>
             <column name="sID_Status" type="STRING"/>
-            <column name="nRate" type="NUMERIC"/>
+            <column name="nID_Service" type="NUMERIC"/>
+            <column name="nID_Region" type="NUMERIC"/>
+            <column name="sID_UA" type="STRING"/>
             <column name="soData" type="STRING"/>
             <column name="sToken" type="STRING"/>
             <column name="sHead" type="STRING"/>
             <column name="sBody" type="STRING"/>
             <column name="nTimeHours" type="NUMERIC"/>
+            <column name="sID_Order" type="STRING"/>
+            <column name="nID_Server" type="NUMERIC"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/SubjectMessageType.csv" tableName="SubjectMessageType" separator=";">

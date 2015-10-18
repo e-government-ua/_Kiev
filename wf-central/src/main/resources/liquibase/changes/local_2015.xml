@@ -563,4 +563,17 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="issue-889" author="LamronNu">
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="sID_Order" type="varchar">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="nID_Server" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

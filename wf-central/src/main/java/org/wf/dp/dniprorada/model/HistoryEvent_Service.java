@@ -81,6 +81,14 @@ public class HistoryEvent_Service extends Entity {
     @Column(name = "nTimeHours", nullable = true)
     private Integer nTimeHours;
 
+    @JsonProperty(value = "sID_Order")
+    @Column(name = "sID_Order", nullable = true)//, nullable = false, unique = true)
+    private String sID_Order;
+
+    @JsonProperty(value = "nID_Server")
+    @Column(name = "nID_Server", nullable = true)
+    private Integer nID_Server;
+
     public String getsID() {
         return sID;
     }
@@ -208,5 +216,20 @@ public class HistoryEvent_Service extends Entity {
 	public void setnTimeHours(Integer nTimeHours) {
 		this.nTimeHours = nTimeHours;
 	}
-    
+
+    public String getsID_Order() {
+        return sID_Order;
+    }
+
+    public void setsID_Order(String sID_Order) {
+        this.sID_Order = sID_Order;
+    }
+
+    public Integer getnID_Server() {
+        return nID_Server;
+    }
+
+    public void setnID_Server(Integer nID_Server) {
+        this.nID_Server = nID_Server;
+    }
 }

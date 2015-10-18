@@ -36,6 +36,8 @@ public class GeneralConfig {
     private String SID_login;
     @Value("${general.SID_password}")
     private String SID_password;
+    @Value("${general.nID_Server}")
+    private String nID_Server;
 
     public String sHost() {
         //general.sHost=https://test-version.region.igov.org.ua    
@@ -120,4 +122,11 @@ public class GeneralConfig {
         return oProperty.getProperty(sName);
     }*/
 
+    public int nID_Server() {
+        try {
+            return Integer.parseInt(nID_Server);
+        } catch (Exception ignored) {
+        }
+        return 0;
+    }
 }
