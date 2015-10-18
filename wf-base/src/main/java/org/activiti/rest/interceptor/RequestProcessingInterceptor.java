@@ -28,8 +28,10 @@ import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -239,9 +241,29 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         } else {
             taskName = tasks.get(0).getName();
         }
+        params.put("nTimeHours", getTotalTimeOfExecution(sID_Process));
         callRestController(sID_Process, serviceName, taskName, params);
     }
 
+    protected String getTotalTimeOfExecution(String sID_Process){
+    	List<HistoricTaskInstance> foundResults = historyService.createHistoricTaskInstanceQuery()
+                .processInstanceId(sID_Process).list();
+
+    	String res = "-1";
+    	long totalDuration = 0;
+        if (foundResults != null && foundResults.size() > 0) {
+        	logger.debug(String.format("Found {%s} completed tasks for process with instance ID {%s} ",
+                    foundResults.size(), sID_Process));
+
+            for (HistoricTaskInstance currTask : foundResults) {
+                totalDuration = totalDuration + currTask.getDurationInMillis() / (1000 * 60 * 60);
+            }
+            
+            res = Integer.valueOf(Math.round((float) totalDuration / foundResults.size())).toString();
+        }
+        return res;
+    }
+    
     private void saveUpdatedTaskInfo(String sResponseBody) throws Exception {
         Map<String, String> params = new HashMap<>();
         JSONObject jsonObjectResponse = (JSONObject) parser.parse(sResponseBody);

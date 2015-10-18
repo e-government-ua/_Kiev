@@ -76,6 +76,10 @@ public class HistoryEvent_Service extends Entity {
     @JsonProperty(value = "sBody")
     @Column(name = "sBody", nullable = true)
     private String sBody;
+    
+    @JsonProperty(value = "nTimeHours")
+    @Column(name = "nTimeHours", nullable = true)
+    private Integer nTimeHours;
 
     public String getsID() {
         return sID;
@@ -196,4 +200,13 @@ public class HistoryEvent_Service extends Entity {
     public void setsBody(String sBody) {
         this.sBody = sBody;
     }
+
+	public Integer getnTimeHours() {
+		return nTimeHours;
+	}
+
+	public void setnTimeHours(Integer nTimeHours) {
+		this.nTimeHours = nTimeHours;
+	}
+    
 }
