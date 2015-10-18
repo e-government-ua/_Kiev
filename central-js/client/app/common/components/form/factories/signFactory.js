@@ -1,12 +1,20 @@
 angular.module('app').factory('SignFactory', function () {
 
-  var sign = function Scan() {
+  var Sign = function Sign() {
     this.value = null;
   };
 
-  sign.prototype.isFit = function (property) {
+  Sign.prototype.isFit = function (property) {
     return property.type === 'file' && property.id === 'form_signed';
   };
 
-  return sign;
+  Sign.prototype.get = function() {
+    return this.value;
+  };
+
+  Sign.prototype.createFactory = function(){
+    return new Sign();
+  };
+
+  return Sign;
 });
