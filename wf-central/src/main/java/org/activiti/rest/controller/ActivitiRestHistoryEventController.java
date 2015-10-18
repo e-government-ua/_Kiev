@@ -162,7 +162,8 @@ public class ActivitiRestHistoryEventController {
             @RequestParam(value = "soData", required = false) String soData,
             @RequestParam(value = "sToken", required = false) String sToken,
             @RequestParam(value = "sHead", required = false) String sHead,
-            @RequestParam(value = "sBody", required = false) String sBody) {
+            @RequestParam(value = "sBody", required = false) String sBody,
+            @RequestParam(value = "nTimeHours", required = false) String nTimeHours) {
         Long nID_Protected = AlgorithmLuna.getProtectedNumber(nID_Process);
         Long nID_Subject = historyEventServiceDao.getHistoryEvent_ServiceBynID_Task(nID_Process).getnID_Subject();
         HistoryEvent_Service event_service = historyEventServiceDao
@@ -195,6 +196,9 @@ public class ActivitiRestHistoryEventController {
             if (sToken == null || !sToken.equals(event_service.getsToken())) {
                 event_service.setsToken(sToken);
                 isChanged = true;
+            }
+            if (nTimeHours != null && !nTimeHours.isEmpty()){
+            	event_service.setnTimeHours(Integer.valueOf(nTimeHours));
             }
             if (isChanged) {
                 historyEventServiceDao.updateHistoryEvent_Service(event_service);
@@ -281,20 +285,6 @@ public class ActivitiRestHistoryEventController {
 
     private List<Map<String, Object>> getListOfHistoryEvents(Long nID_Service) {
 
-        List<ServiceData> serviceDataList = null;
-        try {
-            serviceDataList = serviceDataDao.findAllBy("service.id", nID_Service);
-            log.info("serviceDataList:" + serviceDataList.size());
-            for (ServiceData data : serviceDataList) {
-                String sIDUA = null;
-                if (data.getCity() != null && data.getCity().getRegion() != null)
-                    sIDUA = data.getCity().getRegion().getsID_UA();
-                log.info(data.getId() + ":" + sIDUA + ":" + data.getRegion() + ":" + data.getData());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         List<Map<String, Object>> listOfHistoryEventsWithMeaningfulNames = new LinkedList<Map<String, Object>>();
         List<Map<String, Long>> listOfHistoryEvents = historyEventServiceDao
                 .getHistoryEvent_ServiceBynID_Service(nID_Service);
@@ -306,14 +296,7 @@ public class ActivitiRestHistoryEventController {
             currMapWithName = new HashMap<>();
 
             region = regionDao.findByIdExpected(currMap.get("sName"));
-            String averageDuration = null;
-            if (serviceDataList != null) {
-                log.info("comparing region:" + region.getName() + ":" + region.getsID_UA() + ":" + region.getId());
-                String bpName = findNameOfBPForRegion(region.getsID_UA(), serviceDataList);
-                if (bpName != null) {
-                    averageDuration = averageDurationOfBusinessProcess(bpName);
-                }
-            }
+            Long averageDuration = currMap.get("nTimeHours");
 
             log.info("[getListOfHistoryEvents]sName=" + region.getName());
             currMapWithName.put("sName", region.getName());
@@ -345,68 +328,6 @@ public class ActivitiRestHistoryEventController {
             listOfHistoryEventsWithMeaningfulNames.add(currMapWithName);
         }
         return listOfHistoryEventsWithMeaningfulNames;
-    }
-
-    private String findNameOfBPForRegion(String regionID_UA,
-            List<ServiceData> serviceDataList) {
-        String res = null;
-        log.info("Comparing region " + regionID_UA);
-        for (ServiceData serviceData : serviceDataList) {
-            if (serviceData.getCity() == null || serviceData.getCity().getRegion() == null
-                    || serviceData.getCity().getRegion().getsID_UA() == null) {
-                log.info("Skipping service data:" + serviceData.getId());
-                continue;
-            }
-            log.info("Comparing region with service data for region:" + serviceData.getCity().getsID_UA() + ":"
-                    + serviceData.getRegion() + ":" +
-                    (serviceData.getCity() != null ? serviceData.getCity().getRegion().getsID_UA() : ""));
-            if (regionID_UA.equals(serviceData.getCity().getRegion().getsID_UA())) {
-                String dataJson = serviceData.getData();
-                log.info("Found data for the service data:" + dataJson);
-
-                JSONObject jsonMap = new JSONObject(dataJson);
-                if (jsonMap.has("oParams")) {
-                    JSONObject jsonProcessDefinitionIdMap = jsonMap.getJSONObject("oParams");
-                    log.info("Value of oParams:" + jsonProcessDefinitionIdMap);
-                    if (jsonProcessDefinitionIdMap.has("processDefinitionId")) {
-                        String processDefinitionId = (String) jsonProcessDefinitionIdMap.get("processDefinitionId");
-                        log.info(
-                                "Found process definiton ID " + processDefinitionId + " for the region " + regionID_UA);
-                        return StringUtils.substringBefore(processDefinitionId, ":");
-                    }
-                }
-            }
-        }
-        return res;
-    }
-
-    private String averageDurationOfBusinessProcess(String sBPName) {
-        String URI = "/wf/service/rest/process-duration";
-        Map<String, String> params = new HashMap<>();
-        params.put("sID_BP_Name", sBPName);
-        Calendar currDate = Calendar.getInstance();
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-        params.put("sDateTo", sdfDate.format(currDate.getTime()));
-        currDate.add(Calendar.MONTH, -3);
-        params.put("sDateAt", sdfDate.format(currDate.getTime()));
-        String host = generalConfig.sHost();
-        if (host.indexOf("region") == -1) {
-            host = StringUtils.replace(host, "igov", "region.igov");
-        }
-        log.info("Getting URL with parameters: " + host + URI
-                + params + ":" + generalConfig.sHostCentral());
-        String soJSON_Duration;
-        try {
-            soJSON_Duration = httpRequester.get(host + URI, params);
-            log.info("soJSON_Duration=" + soJSON_Duration);
-            JSONObject jsonMap = new JSONObject(soJSON_Duration);
-            if (jsonMap.has(sBPName)) {
-                return jsonMap.getString(sBPName);
-            }
-        } catch (Exception e) {
-            log.error("Exception occured while getting aberage duration for business process:" + e.getMessage());
-        }
-        return null;
     }
 
     private Long addSomeServicesCount(Long nCount, Long nID_Service, Region region) {

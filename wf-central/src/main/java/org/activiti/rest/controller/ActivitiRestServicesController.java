@@ -61,29 +61,29 @@ public class ActivitiRestServicesController {
     public
     @ResponseBody
     ResponseEntity getService(@RequestParam(value = "nID") Long nID) {
-        Service service = baseEntityDao.findById(Service.class, nID);
-        return regionsToJsonResponse(service);
+        Service oService = baseEntityDao.findById(Service.class, nID);
+        return regionsToJsonResponse(oService);
     }
 
     @RequestMapping(value = "/setService", method = RequestMethod.POST)
     public
     @ResponseBody
-    ResponseEntity setService(@RequestBody String jsonData) throws IOException {
+    ResponseEntity setService(@RequestBody String soData_JSON) throws IOException {
 
-        Service service = JsonRestUtils.readObject(jsonData, Service.class);
+        Service oService = JsonRestUtils.readObject(soData_JSON, Service.class);
 
-        Service updatedService = entityService.update(service);
+        Service oServiceUpdated = entityService.update(oService);
 
-        return tryClearGetServicesCache(regionsToJsonResponse(updatedService));
+        return tryClearGetServicesCache(regionsToJsonResponse(oServiceUpdated));
     }
 
-    private ResponseEntity tryClearGetServicesCache(ResponseEntity responseEntity) {
-        if (methodCacheInterceptor != null && HttpStatus.OK.equals(responseEntity.getStatusCode())) {
+    private ResponseEntity tryClearGetServicesCache(ResponseEntity oResponseEntity) {
+        if (methodCacheInterceptor != null && HttpStatus.OK.equals(oResponseEntity.getStatusCode())) {
             methodCacheInterceptor
                     .clearCacheForMethod(CachedInvocationBean.class, "invokeUsingCache", GET_SERVICES_TREE);
         }
 
-        return responseEntity;
+        return oResponseEntity;
     }
 
     @RequestMapping(value = "/removeService", method = RequestMethod.DELETE)
@@ -232,120 +232,123 @@ public class ActivitiRestServicesController {
     @ResponseBody
     ResponseEntity setPlaces(@RequestBody String jsonData) {
 
-        List<Region> regions = Arrays.asList(JsonRestUtils.readObject(jsonData, Region[].class));
-        List<Region> updatedRegions = entityService.update(regions);
-        return regionsToJsonResponse(updatedRegions);
+        List<Region> aRegion = Arrays.asList(JsonRestUtils.readObject(jsonData, Region[].class));
+        List<Region> aRegionUpdated = entityService.update(aRegion);
+        return regionsToJsonResponse(aRegionUpdated);
     }
 
-    private ResponseEntity regionsToJsonResponse(List<Region> regions) {
-        for (Region r : regions) {
-            for (City c : r.getCities()) {
-                c.setRegion(null);
+    private ResponseEntity regionsToJsonResponse(List<Region> aRegion) {
+        for (Region oRegion : aRegion) {
+            for (City oCity : oRegion.getCities()) {
+                oCity.setRegion(null);
             }
         }
 
-        return JsonRestUtils.toJsonResponse(regions);
+        return JsonRestUtils.toJsonResponse(aRegion);
     }
 
     @RequestMapping(value = "/getServicesTree", method = RequestMethod.GET)
     public
     @ResponseBody
     ResponseEntity<String> getServicesTree(
-            @RequestParam(value = "sFind", required = false) final String partOfName,
-            @RequestParam(value = "asID_Place_UA", required = false) final List<String> placeUaIds,
+            @RequestParam(value = "sFind", required = false) final String sFind,
+            @RequestParam(value = "asID_Place_UA", required = false) final List<String> asID_Place_UA,
             @RequestParam(value = "bShowEmptyFolders", required = false, defaultValue = "false") final boolean bShowEmptyFolders) {
+        
         final boolean bTest = generalConfig.bTest();
+        
         SerializableResponseEntity<String> entity = cachedInvocationBean
                 .invokeUsingCache(new CachedInvocationBean.Callback<SerializableResponseEntity<String>>(
-                        GET_SERVICES_TREE, partOfName, placeUaIds, bTest) {
+                        GET_SERVICES_TREE, sFind, asID_Place_UA, bTest) {
                     @Override
                     public SerializableResponseEntity<String> execute() {
-                        List<Category> categories = new ArrayList<>(baseEntityDao.findAll(Category.class));
+                        List<Category> aCategory = new ArrayList<>(baseEntityDao.findAll(Category.class));
 
                         if (!bTest) {
-                            filterOutServicesByServiceNamePrefix(categories, SERVICE_NAME_TEST_PREFIX);
+                            filterOutServicesByServiceNamePrefix(aCategory, SERVICE_NAME_TEST_PREFIX);
                         }
 
-                        if (partOfName != null) {
-                            filterServicesByServiceName(categories, partOfName);
+                        if (sFind != null) {
+                            filterServicesByServiceName(aCategory, sFind);
                         }
 
-                        if (placeUaIds != null) {
-                            //TODO: Зачем это было добавлено?                    placeUaIds.retainAll(SUPPORTED_PLACE_IDS);
-                            if (!placeUaIds.isEmpty()) {
-                                filterServicesByPlaceIds(categories, placeUaIds);
+                        if (asID_Place_UA != null) {
+                            //TODO: Зачем это было добавлено?                    asID_Place_UA.retainAll(SUPPORTED_PLACE_IDS);
+                            if (!asID_Place_UA.isEmpty()) {
+                                filterServicesByPlaceIds(aCategory, asID_Place_UA);
                             }
                         }
 
                         if (!bShowEmptyFolders) {
-                            hideEmptyFolders(categories);
+                            hideEmptyFolders(aCategory);
                         }
 
-                        return categoriesToJsonResponse(categories);
+                        return categoriesToJsonResponse(aCategory);
                     }
                 });
 
         return entity.toResponseEntity();
     }
 
-    private void filterOutServicesByServiceNamePrefix(List<Category> categories, String prefix) {
-        for (Category category : categories) {
-            for (Subcategory subcategory : category.getSubcategories()) {
-                for (Iterator<Service> serviceIterator = subcategory.getServices().iterator(); serviceIterator
+    private void filterOutServicesByServiceNamePrefix(List<Category> aCategory, String sPrefix) {
+        for (Category oCategory : aCategory) {
+            for (Subcategory oSubcategory : oCategory.getSubcategories()) {
+                for (Iterator<Service> oServiceIterator = oSubcategory.getServices().iterator(); oServiceIterator
                         .hasNext(); ) {
-                    Service service = serviceIterator.next();
-                    if (service.getName().startsWith(prefix)) {
-                        serviceIterator.remove();
+                    Service oService = oServiceIterator.next();
+                    if (oService.getName().startsWith(sPrefix)) {
+                        oServiceIterator.remove();
                     }
                 }
             }
         }
     }
 
-    private void filterServicesByServiceName(List<Category> categories, String sFind) {
-        for (Category category : categories) {
-            for (Subcategory subcategory : category.getSubcategories()) {
-                for (Iterator<Service> serviceIterator = subcategory.getServices().iterator(); serviceIterator
+    private void filterServicesByServiceName(List<Category> aCategory, String sFind) {
+        for (Category oCategory : aCategory) {
+            for (Subcategory oSubcategory : oCategory.getSubcategories()) {
+                for (Iterator<Service> oServiceIterator = oSubcategory.getServices().iterator(); oServiceIterator
                         .hasNext(); ) {
-                    Service service = serviceIterator.next();
-                    if (!isTextMatched(service.getName(), sFind)) {
-                        serviceIterator.remove();
+                    Service oService = oServiceIterator.next();
+                    if (!isTextMatched(oService.getName(), sFind)) {
+                        oServiceIterator.remove();
                     }
                 }
             }
         }
     }
 
-    private void filterServicesByPlaceIds(List<Category> categories, List<String> placeIds) {
-        for (Category category : categories) {
-            for (Subcategory subcategory : category.getSubcategories()) {
-                for (Iterator<Service> serviceIterator = subcategory.getServices().iterator(); serviceIterator
+    private void filterServicesByPlaceIds(List<Category> aCategory, List<String> asID_Place_UA) {
+        for (Category oCategory : aCategory) {
+            for (Subcategory oSubcategory : oCategory.getSubcategories()) {
+                for (Iterator<Service> oServiceIterator = oSubcategory.getServices().iterator(); oServiceIterator
                         .hasNext(); ) {
-                    Service service = serviceIterator.next();
-                    boolean isPlaceMatched = false;
+                    Service oService = oServiceIterator.next();
+                    boolean bFound = false;
                     //List<ServiceData> serviceDatas = service.getServiceDataFiltered(generalConfig.bTest());
-                    List<ServiceData> serviceDatas = service.getServiceDataFiltered(true);
-                    if (serviceDatas != null) {
-                        //for (ServiceData serviceData : serviceDatas) {
-                        for (Iterator<ServiceData> oServiceDataIterator = serviceDatas.iterator(); oServiceDataIterator
+                    List<ServiceData> aServiceData = oService.getServiceDataFiltered(true);
+                    if (aServiceData != null) {
+                        for (Iterator<ServiceData> oServiceDataIterator = aServiceData.iterator(); oServiceDataIterator
                                 .hasNext(); ) {
                             ServiceData serviceData = oServiceDataIterator.next();
 
-                            City city = serviceData.getCity();
-                            if (city != null && placeIds.contains(city.getsID_UA())) {
-                                isPlaceMatched = true;
+                            City oCity = serviceData.getCity();
+                            if (oCity != null && asID_Place_UA.contains(oCity.getsID_UA())) {
+                                bFound = true;
                                 break;
                             }
-                            Region region = serviceData.getRegion();
-                            if (region != null && placeIds.contains(region.getsID_UA())) {
-                                isPlaceMatched = true;
+                            Region oRegion = serviceData.getRegion();
+                            if (oRegion != null && asID_Place_UA.contains(oRegion.getsID_UA())) {
+                                bFound = true;
                                 break;
                             }
-                            oServiceDataIterator.remove();
+                            if(oCity != null || oRegion != null){
+                                oServiceDataIterator.remove();
+                            }
                         }
                     }
-                    if (!isPlaceMatched) {
-                        serviceIterator.remove();
+                    if (!bFound) {
+                        oServiceIterator.remove();
                     }
                 }
             }
@@ -355,22 +358,22 @@ public class ActivitiRestServicesController {
     /**
      * Filter out empty categories and subcategories
      *
-     * @param categories
+     * @param aCategory
      */
-    private void hideEmptyFolders(List<Category> categories) {
-        for (Iterator<Category> categoryIterator = categories.iterator(); categoryIterator.hasNext(); ) {
-            Category category = categoryIterator.next();
+    private void hideEmptyFolders(List<Category> aCategory) {
+        for (Iterator<Category> oCategoryIterator = aCategory.iterator(); oCategoryIterator.hasNext(); ) {
+            Category oCategory = oCategoryIterator.next();
 
-            for (Iterator<Subcategory> subcategoryIterator = category.getSubcategories().iterator(); subcategoryIterator
+            for (Iterator<Subcategory> oSubcategoryIterator = oCategory.getSubcategories().iterator(); oSubcategoryIterator
                     .hasNext(); ) {
-                Subcategory subcategory = subcategoryIterator.next();
-                if (subcategory.getServices().isEmpty()) {
-                    subcategoryIterator.remove();
+                Subcategory oSubcategory = oSubcategoryIterator.next();
+                if (oSubcategory.getServices().isEmpty()) {
+                    oSubcategoryIterator.remove();
                 }
             }
 
-            if (category.getSubcategories().isEmpty()) {
-                categoryIterator.remove();
+            if (oCategory.getSubcategories().isEmpty()) {
+                oCategoryIterator.remove();
             }
         }
     }
@@ -380,26 +383,26 @@ public class ActivitiRestServicesController {
     @ResponseBody
     ResponseEntity setServicesTree(@RequestBody String jsonData) {
 
-        List<Category> categories = Arrays.asList(JsonRestUtils.readObject(jsonData, Category[].class));
-        List<Category> updatedCategories = entityService.update(categories);
+        List<Category> aCategory = Arrays.asList(JsonRestUtils.readObject(jsonData, Category[].class));
+        List<Category> aCategoryUpdated = entityService.update(aCategory);
 
-        return tryClearGetServicesCache(categoriesToJsonResponse(updatedCategories).toResponseEntity());
+        return tryClearGetServicesCache(categoriesToJsonResponse(aCategoryUpdated).toResponseEntity());
     }
 
     @RequestMapping(value = "/getServicesAndPlacesTables", method = RequestMethod.GET)
     public
     @ResponseBody
     ResponseEntity getServicesAndPlacesTables() {
-        List<TableData> tableDataList = tableDataService.exportData(TableDataService.TablesSet.ServicesAndPlaces);
-        return JsonRestUtils.toJsonResponse(tableDataList);
+        List<TableData> aTableData = tableDataService.exportData(TableDataService.TablesSet.ServicesAndPlaces);
+        return JsonRestUtils.toJsonResponse(aTableData);
     }
 
     @RequestMapping(value = "/setServicesAndPlacesTables", method = RequestMethod.POST)
     public
     @ResponseBody
     ResponseEntity setServicesAndPlacesTables(@RequestBody String jsonData) {
-        List<TableData> tableDataList = Arrays.asList(JsonRestUtils.readObject(jsonData, TableData[].class));
-        tableDataService.importData(TableDataService.TablesSet.ServicesAndPlaces, tableDataList);
+        List<TableData> aTableData = Arrays.asList(JsonRestUtils.readObject(jsonData, TableData[].class));
+        tableDataService.importData(TableDataService.TablesSet.ServicesAndPlaces, aTableData);
         return JsonRestUtils.toJsonResponse(HttpStatus.OK,
                 new ResultMessage("success", "Data successfully imported."));
     }
@@ -408,13 +411,13 @@ public class ActivitiRestServicesController {
     public
     @ResponseBody
     void downloadServicesAndPlacesTables(HttpServletResponse response) throws IOException {
-        List<TableData> tableDataList = tableDataService.exportData(TableDataService.TablesSet.ServicesAndPlaces);
+        List<TableData> aTableData = tableDataService.exportData(TableDataService.TablesSet.ServicesAndPlaces);
 
         String dateTimeString = DateTimeFormat.forPattern("yyyy-MM-dd_HH-mm-ss").print(new DateTime());
 
         String fileName = "igov.ua.catalog_" + dateTimeString + ".json";
         response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-        JsonRestUtils.writeJsonToOutputStream(tableDataList, response.getOutputStream());
+        JsonRestUtils.writeJsonToOutputStream(aTableData, response.getOutputStream());
     }
 
     @RequestMapping(value = "/uploadServicesAndPlacesTables", method = RequestMethod.POST)
