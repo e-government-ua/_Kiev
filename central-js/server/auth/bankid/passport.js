@@ -54,7 +54,7 @@ exports.setup = function (config, url, accountService) {
 
     BankIDAuth.prototype.userProfile = function(accessToken, done){
         var options = {
-            access: {accessToken : accessToken},
+            params: {accessToken : accessToken},
             bankid: config.bankid,
             activiti: config.activiti
         };
@@ -62,7 +62,7 @@ exports.setup = function (config, url, accountService) {
         return accountService.syncWithSubject(options, function (err, profile) {
             done(err, profile);
         });
-    }
+    };
 
     passport.use(new BankIDAuth());
 };

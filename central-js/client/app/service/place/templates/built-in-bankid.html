@@ -24,10 +24,9 @@
     <div class="row">
       <div class="col-md-12">
         <div class="highlight">
-          <form name="form"
-                novalidate>
+          <form name="form" novalidate>
             <div class="row"
-                 ng-repeat="property in ActivitiForm.formProperties track by property.id"
+                 ng-repeat="property in activitiForm.formProperties track by property.id"
                  ng-if="isFieldVisible(property)">
 
               <div class="col-md-5"
@@ -198,12 +197,25 @@
             <div class="row">
               <div class="col-md-5"></div>
               <div class="col-md-3">
+
+                <label  ng-if="isSignNeeded">Накласти ЕЦП :
+                  <input type="checkbox"
+                         ng-model="sign.checked"
+                         name="{{data.formData.getSignFieldID()}}">
+                </label>
+                <br/>
                 <button class="btn btn-info"
-                        ng-click="submit(form)"
+                        ng-click="processForm(form)"
                         ng-disable="cantSubmit(form)"
                         ng-hide="bSending(form)">
                   Замовити послугу
                 </button>
+                <!--<button class="btn btn-info"-->
+                        <!--ng-click="signForm(form)"-->
+                        <!--ng-disable="cantSubmit(form)"-->
+                        <!--ng-hide="bSending(form)">-->
+                  <!--Підписати-->
+                <!--</button>-->
                 <br><label ng-show="bSending(form)">Зачекайте...</label>
               </div>
               <div class="col-md-4"></div>

@@ -743,48 +743,6 @@ public class ActivitiRestApiController extends ExecutionBaseResource {
         csvWriter.close();
     }
 
-    @RequestMapping(value = "/process-duration", method = RequestMethod.GET, produces = "application/json")
-    @Transactional
-    public
-    @ResponseBody
-    String getTimingForBusinessProcessNew(@RequestParam(value = "sID_BP_Name") String sID_BP_Name,
-            @RequestParam(value = "sDateAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateAt,
-            @RequestParam(value = "sDateTo", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo,
-            HttpServletRequest request, HttpServletResponse httpResponse) throws IOException {
-        log.info("Calculation average duration of a process");
-
-        if (sID_BP_Name == null || sID_BP_Name.isEmpty()) {
-            log.error(String.format("Statistics for the business process '{%s}' not found.", sID_BP_Name));
-            throw new ActivitiObjectNotFoundException(
-                    "Statistics for the business process '" + sID_BP_Name + "' not found.",
-                    Process.class);
-        }
-
-        Map<String, String> res = new HashMap<String, String>();
-
-        List<HistoricTaskInstance> foundResults = historyService.createHistoricTaskInstanceQuery()
-                .taskCompletedAfter(dateAt)
-                .taskCompletedBefore(dateTo)
-                .processDefinitionKey(sID_BP_Name).list();
-
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd:HH-mm-ss");
-        if (foundResults != null && foundResults.size() > 0) {
-            log.debug(String.format("Found {%s} completed tasks for business process {%s} for date period {%s} - {%s}",
-                    foundResults.size(), sID_BP_Name, sdfDate.format(dateAt),
-                    sdfDate.format(dateTo)));
-
-            long totalDuration = 0;
-            for (HistoricTaskInstance currTask : foundResults) {
-                totalDuration = totalDuration + currTask.getDurationInMillis() / (1000 * 60 * 60);
-            }
-            log.info("total duration in hours:" + totalDuration + " for " + foundResults.size());
-            res.put(sID_BP_Name, Integer.valueOf(Math.round((float) totalDuration / foundResults.size())).toString());
-        }
-        if (res.isEmpty()) {
-            res.put(sID_BP_Name, "0");
-        }
-        return JSONValue.toJSONString(res);
-    }
 
     /**
      * Download information about the tasks in csv format
