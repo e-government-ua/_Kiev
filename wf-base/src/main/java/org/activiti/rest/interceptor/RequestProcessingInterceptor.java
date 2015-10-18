@@ -261,7 +261,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             
             res = Integer.valueOf(Math.round((float) totalDuration / foundResults.size())).toString();
         }
-        logger.info("Calculated time of execution of process " + sID_Process + ":" + totalDuration);
+        logger.info(String.format("Calculated time of execution of process {%s}:{%s}", sID_Process, totalDuration));
 
         return res;
     }
