@@ -134,12 +134,14 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                 try {
                     Double nRate = (Double) currValue[2];
                     log.info("nRate=" + nRate);
-                    String snRate = "" + nRate * 20;
-                    log.info("snRate=" + snRate);
-                    if (snRate.contains(".")) {
-                        rate = Long.valueOf(snRate.substring(0, snRate.indexOf(".")));
-                        log.info("total rate = " + rate);
-                    }
+                    if (nRate != null) {
+                    	String snRate = "" + nRate * 20;
+                    	log.info("snRate=" + snRate);
+                    	if (snRate.contains(".")) {
+	                        rate = Long.valueOf(snRate.substring(0, snRate.indexOf(".")));
+	                        log.info("total rate = " + rate);
+	                    }
+                	}
                 } catch (Exception oException) {
                     log.error("cannot get nRate! " + currValue[2] + " caused: " + oException.getMessage(), oException);
                 }
@@ -147,8 +149,10 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                 try {
                     Double nTimeHours = (Double) currValue[3];
                     log.info("nTimeHours=" + nTimeHours);
-                    timeHours = BigDecimal.valueOf(nTimeHours);
-                    timeHours = timeHours.abs();
+                    if (nTimeHours != null){
+                    	timeHours = BigDecimal.valueOf(nTimeHours);
+                    	timeHours = timeHours.abs();
+                    }
                 } catch (Exception oException) {
                     log.error("cannot get nTimeHours! " + currValue[3] + " caused: " + oException.getMessage(), oException);
                 }

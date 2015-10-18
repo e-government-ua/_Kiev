@@ -249,6 +249,8 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
     	List<HistoricTaskInstance> foundResults = historyService.createHistoricTaskInstanceQuery()
                 .processInstanceId(sID_Process).list();
 
+        logger.info("Calculating time of execution of process " + sID_Process);
+    	
     	String res = "-1";
     	long totalDuration = 0;
         if (foundResults != null && foundResults.size() > 0) {
@@ -261,6 +263,8 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             
             res = Integer.valueOf(Math.round((float) totalDuration / foundResults.size())).toString();
         }
+        logger.info("Calculated time of execution of process " + sID_Process + ":" + totalDuration);
+
         return res;
     }
     
