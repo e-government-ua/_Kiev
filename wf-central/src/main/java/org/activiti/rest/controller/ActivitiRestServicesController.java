@@ -198,11 +198,14 @@ public class ActivitiRestServicesController {
         for (ServiceData oServiceData : aServiceData) {
             oServiceData.setService(null);
 
-            Place root = placeDao.getRoot(oServiceData.getoPlace());
-            oServiceData.setoPlaceRoot(root);
-            if (regionPlaceType == oServiceData.getoPlace().getPlaceTypeId()) {
-                oServiceData.setoPlace(null);   // region can't has a place
+            if (oServiceData.getoPlace() != null ){
+                Place root = placeDao.getRoot(oServiceData.getoPlace());
+                oServiceData.setoPlaceRoot(root);
+                if (regionPlaceType == oServiceData.getoPlace().getPlaceTypeId()) {
+                    oServiceData.setoPlace(null);   // region can't has a place
+                }
             }
+
 
             // TODO remove if below after migration to new approach (via Place)
             if (oServiceData.getCity() != null) {

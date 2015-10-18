@@ -20,7 +20,7 @@ public class ServiceData extends Entity {
 
     @JsonProperty(value = "oPlace")
     @ManyToOne
-    @JoinColumn(name = "nID_Place", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "nID_Place", insertable = false, updatable = false)
     private Place oPlace;
 
     /**
