@@ -230,6 +230,7 @@
             <column name="sToken" type="STRING"/>
             <column name="sHead" type="STRING"/>
             <column name="sBody" type="STRING"/>
+            <column name="nTimeHours" type="NUMERIC"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/SubjectMessageType.csv" tableName="SubjectMessageType" separator=";">

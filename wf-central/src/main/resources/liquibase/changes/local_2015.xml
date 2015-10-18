@@ -554,5 +554,13 @@
             </column>
         </addColumn>
     </changeSet>
+    
+    <changeSet id="issue-871" author="askosyr">
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="nTimeHours" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>
