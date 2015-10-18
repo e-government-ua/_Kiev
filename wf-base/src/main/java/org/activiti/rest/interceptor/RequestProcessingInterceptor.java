@@ -238,30 +238,26 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         List<Task> tasks = taskService.createTaskQuery().processInstanceId(sID_Process).list();
         if (tasks == null || tasks.size() == 0) {
             taskName = "Заявка виконана";
+            params.put("nTimeHours", getTotalTimeOfExecution(sID_Process));
         } else {
             taskName = tasks.get(0).getName();
         }
-        params.put("nTimeHours", getTotalTimeOfExecution(sID_Process));
         callRestController(sID_Process, serviceName, taskName, params);
     }
 
     protected String getTotalTimeOfExecution(String sID_Process){
-    	List<HistoricTaskInstance> foundResults = historyService.createHistoricTaskInstanceQuery()
-                .processInstanceId(sID_Process).list();
+    	HistoricProcessInstance foundResult = historyService.createHistoricProcessInstanceQuery()
+                .processInstanceId(sID_Process).singleResult();
 
     	String res = "-1";
     	long totalDuration = 0;
-    	logger.info(String.format("Found {%s} completed tasks for process with instance ID {%s} ",
-                foundResults.size(), sID_Process));
-        if (foundResults != null && foundResults.size() > 0) {
-
-            for (HistoricTaskInstance currTask : foundResults) {
-                totalDuration = totalDuration + currTask.getDurationInMillis() / (1000 * 60 * 60);
-            }
+    	logger.info(String.format("Found completed process with ID %s ", sID_Process));
+        if (foundResult != null) {
+            totalDuration = totalDuration + foundResult.getDurationInMillis() / (1000 * 60 * 60);
             
-            res = Integer.valueOf(Math.round((float) totalDuration / foundResults.size())).toString();
+            res = Long.valueOf(totalDuration).toString();
         }
-        logger.info(String.format("Calculated time of execution of process {%s}:{%s}", sID_Process, totalDuration));
+        logger.info(String.format("Calculated time of execution of process %s:%s", sID_Process, totalDuration));
 
         return res;
     }
