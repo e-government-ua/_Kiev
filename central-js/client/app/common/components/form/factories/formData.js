@@ -188,19 +188,21 @@ angular.module('app').factory('FormDataFactory', function (ParameterFactory, Dat
       self.params[key].loaded(fileID);
     };
 
-    prepareForLoading(paramsForUpload);
-    ActivitiService.autoUploadScans(oServiceData, paramsForUpload)
-      .then(function (uploadResults) {
-        uploadResults.forEach(function (uploadResult) {
-          if (!uploadResult.error) {
-            populateWithValue(uploadResult.scanField.key, uploadResult.fileID);
-          } else {
-            backToFile(uploadResult.scanField.key);
-          }
+    if (paramsForUpload.length > 0) {
+      prepareForLoading(paramsForUpload);
+      ActivitiService.autoUploadScans(oServiceData, paramsForUpload)
+        .then(function (uploadResults) {
+          uploadResults.forEach(function (uploadResult) {
+            if (!uploadResult.error) {
+              populateWithValue(uploadResult.scanField.key, uploadResult.fileID);
+            } else {
+              backToFile(uploadResult.scanField.key);
+            }
+          });
+        }).catch(function () {
+          backToFileAll(paramsForUpload);
         });
-      }).catch(function () {
-        backToFileAll(paramsForUpload);
-      });
+    }
   };
 
   FormDataFactory.prototype.setFile = function (name, file) {
