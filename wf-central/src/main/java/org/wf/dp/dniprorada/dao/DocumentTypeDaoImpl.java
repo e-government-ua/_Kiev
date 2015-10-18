@@ -12,7 +12,6 @@ import org.wf.dp.dniprorada.model.DocumentType;
 import java.util.List;
 
 /**
- *
  * @author olya
  */
 @Repository
@@ -31,7 +30,7 @@ public class DocumentTypeDaoImpl extends GenericEntityDao<DocumentType> implemen
     @Override
     public DocumentType setDocumentType(Long nID, String sName, Boolean bHidden) {
         DocumentType documentType = getDocumentType(nID);
-        if (documentType == null){
+        if (documentType == null) {
             documentType = new DocumentType();
         }
         documentType.setName(sName);
@@ -42,7 +41,7 @@ public class DocumentTypeDaoImpl extends GenericEntityDao<DocumentType> implemen
 
     @Override
     public void removeDocumentType(Long nID) {
-       delete(nID);
+        delete(nID);
     }
 
     @Override

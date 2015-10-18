@@ -13,44 +13,44 @@ import java.io.Serializable;
  */
 public class SerializableResponseEntity<T extends Serializable> implements Serializable {
 
-   private T body;
-   private MultiValueMap<String, String> headers;
-   private HttpStatus statusCode;
+    private T body;
+    private MultiValueMap<String, String> headers;
+    private HttpStatus statusCode;
 
-   public SerializableResponseEntity() {
-   }
+    public SerializableResponseEntity() {
+    }
 
-   public SerializableResponseEntity(ResponseEntity<T> responseEntity) {
-      this.body = responseEntity.getBody();
-      this.headers = responseEntity.getHeaders();
-      this.statusCode = responseEntity.getStatusCode();
-   }
+    public SerializableResponseEntity(ResponseEntity<T> responseEntity) {
+        this.body = responseEntity.getBody();
+        this.headers = responseEntity.getHeaders();
+        this.statusCode = responseEntity.getStatusCode();
+    }
 
-   public ResponseEntity<T> toResponseEntity() {
-      return new ResponseEntity<T>(body, headers, statusCode);
-   }
+    public ResponseEntity<T> toResponseEntity() {
+        return new ResponseEntity<T>(body, headers, statusCode);
+    }
 
-   public T getBody() {
-      return body;
-   }
+    public T getBody() {
+        return body;
+    }
 
-   public void setBody(T body) {
-      this.body = body;
-   }
+    public void setBody(T body) {
+        this.body = body;
+    }
 
-   public MultiValueMap<String, String> getHeaders() {
-      return headers;
-   }
+    public MultiValueMap<String, String> getHeaders() {
+        return headers;
+    }
 
-   public void setHeaders(MultiValueMap<String, String> headers) {
-      this.headers = headers;
-   }
+    public void setHeaders(MultiValueMap<String, String> headers) {
+        this.headers = headers;
+    }
 
-   public HttpStatus getStatusCode() {
-      return statusCode;
-   }
+    public HttpStatus getStatusCode() {
+        return statusCode;
+    }
 
-   public void setStatusCode(HttpStatus statusCode) {
-      this.statusCode = statusCode;
-   }
+    public void setStatusCode(HttpStatus statusCode) {
+        this.statusCode = statusCode;
+    }
 }

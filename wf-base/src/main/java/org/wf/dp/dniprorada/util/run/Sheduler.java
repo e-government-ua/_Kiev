@@ -11,13 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
  * @author Belyavtsev Vladimir Vladimirovich (BW)
  */
 public class Sheduler {
 
     private final static Logger oLog = LoggerFactory.getLogger(Sheduler.class);
-    
+
     public void init() throws SchedulerException {
         // ��������� Schedule Factory
         oLog.info("[init]:Schedule Factory...");
@@ -25,16 +24,18 @@ public class Sheduler {
         // ��������� ����������� �� schedule factory
         oLog.info("[init]:getScheduler...");
         Scheduler oScheduler = oSchedulerFactory.getScheduler();
-        
+
         // ������� �����
-        long nNowMS = System.currentTimeMillis(); 
-        oLog.info("[init]:nNowMS="+nNowMS);
-        
+        long nNowMS = System.currentTimeMillis();
+        oLog.info("[init]:nNowMS=" + nNowMS);
+
         // ��������� JobDetail � ������ �������,
         // ������� ������� � ������� ������������ �������
-        JobDetail oJobDetail_Escalation_Standart = new JobDetail("oJobDetail_Escalation_Standart", "oJobDetail_Escalation_Group", Escalation.class);
+        JobDetail oJobDetail_Escalation_Standart = new JobDetail("oJobDetail_Escalation_Standart",
+                "oJobDetail_Escalation_Group", Escalation.class);
         // ��������� CronTrigger � ��� ������ � ������ ������
-        CronTrigger oCronTrigger_EveryNight_Deep = new CronTrigger("oCronTrigger_EveryNight_Deep", "oCronTrigger_EveryNight_Group");
+        CronTrigger oCronTrigger_EveryNight_Deep = new CronTrigger("oCronTrigger_EveryNight_Deep",
+                "oCronTrigger_EveryNight_Group");
         try {
             // ������������� CronExpression
             oLog.info("[init]:oCronExpression__EveryNight_Deep...");
@@ -61,25 +62,26 @@ public class Sheduler {
                 <li>���� ��������� (*) �������� �������������� ������ � ����������, ��� ����� ��������� �������� ����� ���� ������� ��� ������� ���������� ����. </li>
             </ul>
             */
-            CronExpression oCronExpression__EveryNight_Deep = new CronExpression("0 0 2 1/1 * ?");//� 2 ���� ���� ������ ����
+            CronExpression oCronExpression__EveryNight_Deep = new CronExpression(
+                    "0 0 2 1/1 * ?");//� 2 ���� ���� ������ ����
             // ����������� CronExpression CronTrigger'�
             oLog.info("[init]:oCronExpression__EveryNight_Deep.setCronExpression...");
             oCronTrigger_EveryNight_Deep.setCronExpression(oCronExpression__EveryNight_Deep);
         } catch (Exception oException) {
-            oLog.error("[init]:",oException);
+            oLog.error("[init]:", oException);
             //oException.printStackTrace();
         }
         // ��������� ������� � ������� JobDetail � Trigger
         oLog.info("[init]:scheduleJob...");
         oScheduler.scheduleJob(oJobDetail_Escalation_Standart, oCronTrigger_EveryNight_Deep);
-        
+
         // ��������� �����������
         oLog.info("[init]:start...");
         oScheduler.start();
         oLog.info("[init]:Ok!!");
-        
-    }    
-        
+
+    }
+
 }
 
 

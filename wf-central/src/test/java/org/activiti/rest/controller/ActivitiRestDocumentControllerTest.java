@@ -31,7 +31,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.wf.dp.dniprorada.model.DocumentOperatorTest.DUMMY_OPERATOR_ID;
 
-
 /**
  * @author dgroup
  * @since 28.06.15
@@ -52,48 +51,48 @@ public class ActivitiRestDocumentControllerTest {
     @Before
     public void setUp() {
         mockMvc = MockMvcBuilders
-            .webAppContextSetup(webApplicationContext)
-            .build();
+                .webAppContextSetup(webApplicationContext)
+                .build();
     }
 
     @Test
     public void getAvailableOperators() throws Exception {
         String jsonData = mockMvc
-            .perform    (get("/services/getDocumentOperators"))
-            .andExpect  (status().isOk())
-            .andExpect  (content().contentType(MediaType.APPLICATION_JSON))
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
+                .perform(get("/services/getDocumentOperators"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
 
-        List<DocumentOperator_SubjectOrgan> operators = asList(JsonRestUtils.readObject(jsonData, DocumentOperator_SubjectOrgan[].class));
+        List<DocumentOperator_SubjectOrgan> operators = asList(
+                JsonRestUtils.readObject(jsonData, DocumentOperator_SubjectOrgan[].class));
 
         assertFalse(operators.isEmpty());
 
         DocumentOperator_SubjectOrgan iGov = (DocumentOperator_SubjectOrgan)
-            find(operators, new Predicate() {
-                public boolean evaluate(Object object) {
-                    DocumentOperator_SubjectOrgan opr = (DocumentOperator_SubjectOrgan) object;
-                    return DUMMY_OPERATOR_ID.equals(opr.getnID_SubjectOrgan());
-                }
-            });
+                find(operators, new Predicate() {
+                    public boolean evaluate(Object object) {
+                        DocumentOperator_SubjectOrgan opr = (DocumentOperator_SubjectOrgan) object;
+                        return DUMMY_OPERATOR_ID.equals(opr.getnID_SubjectOrgan());
+                    }
+                });
 
         assertEquals("ID aren't match", 1L, iGov.getId().longValue()); // Long vs Object = compiler error
     }
 
-
     @Test
     public void getDocumentByCodeAndOrgan() throws Exception {
         String jsonData = mockMvc
-            .perform(get("/services/getDocumentAccessByHandler")
-                    .param("sCode_DocumentAccess", "1")
-                    .param("nID_DocumentOperator_SubjectOrgan", "2")
-                    .param("nID_Subject", "1"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
+                .perform(get("/services/getDocumentAccessByHandler")
+                        .param("sCode_DocumentAccess", "1")
+                        .param("nID_DocumentOperator_SubjectOrgan", "2")
+                        .param("nID_Subject", "1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
 
         Document doc = JsonRestUtils.readObject(jsonData, Document.class);
 
@@ -108,15 +107,15 @@ public class ActivitiRestDocumentControllerTest {
     public void getDocumentByCodeAndWrongOrgan() throws Exception {
         String organID = "100500";
         String jsonData = mockMvc
-            .perform(get("/services/getDocumentAccessByHandler")
-                    .param("sCode_DocumentAccess", "1")
-                    .param("nID_DocumentOperator_SubjectOrgan", organID)
-                    .param("nID_Subject", "1"))
-            .andExpect(status().is5xxServerError())
-            .andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8))
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
+                .perform(get("/services/getDocumentAccessByHandler")
+                        .param("sCode_DocumentAccess", "1")
+                        .param("nID_DocumentOperator_SubjectOrgan", organID)
+                        .param("nID_Subject", "1"))
+                .andExpect(status().is5xxServerError())
+                .andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
 
         ErrMessage msg = JsonRestUtils.readObject(jsonData, ErrMessage.class);
         assertNotNull("Expected error message not found", msg);
@@ -126,15 +125,15 @@ public class ActivitiRestDocumentControllerTest {
     @Test
     public void getDocumentByWrongCode() throws Exception {
         String jsonData = mockMvc
-            .perform(get("/services/getDocumentAccessByHandler")
-                    .param("sCode_DocumentAccess", "100500")
-                    .param("nID_DocumentOperator_SubjectOrgan", "2")
-                    .param("nID_Subject", "1"))
-            .andExpect(status().is5xxServerError())
-            .andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8))
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
+                .perform(get("/services/getDocumentAccessByHandler")
+                        .param("sCode_DocumentAccess", "100500")
+                        .param("nID_DocumentOperator_SubjectOrgan", "2")
+                        .param("nID_Subject", "1"))
+                .andExpect(status().is5xxServerError())
+                .andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
 
         ErrMessage msg = JsonRestUtils.readObject(jsonData, ErrMessage.class);
         assertNotNull("Expected error message not found", msg);
@@ -142,18 +141,18 @@ public class ActivitiRestDocumentControllerTest {
     }
 
     @Test
-    public void getDocumentByCodeAndOrganAndPassword() throws Exception{
+    public void getDocumentByCodeAndOrganAndPassword() throws Exception {
         String jsonData = mockMvc
-            .perform(get("/services/getDocumentAccessByHandler")
-                    .param("sCode_DocumentAccess", "2")
-                    .param("nID_DocumentOperator_SubjectOrgan", "2")
-                    .param("sPass", "123")
-                    .param("nID_Subject", "1"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
+                .perform(get("/services/getDocumentAccessByHandler")
+                        .param("sCode_DocumentAccess", "2")
+                        .param("nID_DocumentOperator_SubjectOrgan", "2")
+                        .param("sPass", "123")
+                        .param("nID_Subject", "1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
 
         Document doc = JsonRestUtils.readObject(jsonData, Document.class);
 
@@ -164,42 +163,40 @@ public class ActivitiRestDocumentControllerTest {
         assertEquals("Subjects aren't match, ", 2, doc.getSubject().getId().longValue());
     }
 
-
-
-    @Test @Ignore
-    public void getDocumentByCodeAndOrganAndWrongPassword() throws Exception{
+    @Test
+    @Ignore
+    public void getDocumentByCodeAndOrganAndWrongPassword() throws Exception {
         String jsonData = mockMvc
-            .perform(get("/services/getDocumentAccessByHandler")
-                    .param("sCode_DocumentAccess", "2")
-                    .param("nID_DocumentOperator_SubjectOrgan", "2")
-                    .param("sPass", "100500")
-                    .param("nID_Subject", "1"))
-            .andExpect(status().is5xxServerError())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
+                .perform(get("/services/getDocumentAccessByHandler")
+                        .param("sCode_DocumentAccess", "2")
+                        .param("nID_DocumentOperator_SubjectOrgan", "2")
+                        .param("sPass", "100500")
+                        .param("nID_Subject", "1"))
+                .andExpect(status().is5xxServerError())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
 
         ErrMessage msg = JsonRestUtils.readObject(jsonData, ErrMessage.class);
         assertNotNull("Expected error message not found", msg);
         assertEquals("Document Access wrong password", msg.getMessage());
     }
 
-
     @Test
     public void getDocumentByCodeAndDocumentTypeAndOrganAndPassword() throws Exception {
         String jsonData = mockMvc
-            .perform(get("/services/getDocumentAccessByHandler")
-                    .param("sCode_DocumentAccess", "2")
-                    .param("nID_DocumentOperator_SubjectOrgan", "2")
-                    .param("nID_DocumentType", "1")
-                    .param("sPass", "123")
-                    .param("nID_Subject", "1"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
+                .perform(get("/services/getDocumentAccessByHandler")
+                        .param("sCode_DocumentAccess", "2")
+                        .param("nID_DocumentOperator_SubjectOrgan", "2")
+                        .param("nID_DocumentType", "1")
+                        .param("sPass", "123")
+                        .param("nID_Subject", "1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
 
         Document doc = JsonRestUtils.readObject(jsonData, Document.class);
 
@@ -213,40 +210,40 @@ public class ActivitiRestDocumentControllerTest {
     @Test
     public void getDocumentByCodeAndWrongDocumentTypeAndOrganAndPassword() throws Exception {
         String jsonData = mockMvc
-            .perform(get("/services/getDocumentAccessByHandler")
-                            .param("sCode_DocumentAccess", "2")
-                    .param("nID_DocumentOperator_SubjectOrgan", "2")
-                    .param("nID_DocumentType", "2")
-                    .param("sPass", "123")
-                            .param("nID_Subject", "1")
-            )
-            .andExpect(status().is5xxServerError())
-            .andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8))
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
+                .perform(get("/services/getDocumentAccessByHandler")
+                                .param("sCode_DocumentAccess", "2")
+                                .param("nID_DocumentOperator_SubjectOrgan", "2")
+                                .param("nID_DocumentType", "2")
+                                .param("sPass", "123")
+                                .param("nID_Subject", "1")
+                )
+                .andExpect(status().is5xxServerError())
+                .andExpect(content().contentType(APPLICATION_JSON_CHARSET_UTF_8))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
 
         ErrMessage msg = JsonRestUtils.readObject(jsonData, ErrMessage.class);
         assertNotNull("Expected error message not found", msg);
         assertEquals("Document Access not found", msg.getMessage());
     }
 
-
-    @Test @Ignore
+    @Test
+    @Ignore
     public void getSubjectOrganJoinByOrganID() throws Exception {
         final Long region = 11L;
-        final Long city   = 33L;
+        final Long city = 33L;
 
         String jsonData = mockMvc
-            .perform(get("/services/getSubjectOrganJoins")
-                    .param("nID_SubjectOrgan", "1")
-                    .param("nID_Region", "11")
-                    .param("nID_City", "33"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
+                .perform(get("/services/getSubjectOrganJoins")
+                        .param("nID_SubjectOrgan", "1")
+                        .param("nID_Region", "11")
+                        .param("nID_City", "33"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
 
         List<SubjectOrganJoin> operators = asList(
                 JsonRestUtils.readObject(jsonData, SubjectOrganJoin[].class));
@@ -254,24 +251,24 @@ public class ActivitiRestDocumentControllerTest {
         assertFalse("Two or three test operators must be here", operators.isEmpty());
 
         SubjectOrganJoin mvsGovUa = (SubjectOrganJoin)
-            find(operators, new Predicate() {
-                public boolean evaluate(Object object) {
-                    SubjectOrganJoin mvs = (SubjectOrganJoin) object;
-                    return region.equals(mvs.getRegionId()) &&
-                            city.equals(mvs.getCityId());
-                }
-            });
+                find(operators, new Predicate() {
+                    public boolean evaluate(Object object) {
+                        SubjectOrganJoin mvs = (SubjectOrganJoin) object;
+                        return region.equals(mvs.getRegionId()) &&
+                                city.equals(mvs.getCityId());
+                    }
+                });
 
         assertEquals("ID aren't match", 356L, mvsGovUa.getId().longValue()); // compile error: Long vs Object
 
         jsonData = mockMvc
-            .perform(get("/services/getSubjectOrganJoins")
-                    .param("nID_SubjectOrgan", "2"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
+                .perform(get("/services/getSubjectOrganJoins")
+                        .param("nID_SubjectOrgan", "2"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
 
         operators = asList(JsonRestUtils.readObject(jsonData, SubjectOrganJoin[].class));
         assertFalse("Only one row expected, test data error", operators.size() > 1);
@@ -280,7 +277,8 @@ public class ActivitiRestDocumentControllerTest {
         assertEquals("ID[2] aren't match", 358L, mvsGovUa.getId().longValue()); // compile error: Long vs Object
     }
 
-    @Test @Ignore
+    @Test
+    @Ignore
     public void setSubjectOrganJoins() throws Exception {
         SubjectOrganJoin soj = new SubjectOrganJoin();
         soj.setId(400L);
@@ -294,23 +292,22 @@ public class ActivitiRestDocumentControllerTest {
 
         String jsonSoj = JsonRestUtils.toJson(soj);
 
-
         mockMvc.perform(post("/services/setSubjectOrganJoins")
-                        .content(jsonSoj)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON_VALUE))
+                .content(jsonSoj)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
 
         jsonSoj = mockMvc.
-            perform(get("/services/getSubjectOrganJoins")
-                    .param("nID_SubjectOrgan", "5"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
+                perform(get("/services/getSubjectOrganJoins")
+                        .param("nID_SubjectOrgan", "5"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
 
-        List<SubjectOrganJoin> sojs =asList(JsonRestUtils.readObject(jsonSoj, SubjectOrganJoin[].class));
+        List<SubjectOrganJoin> sojs = asList(JsonRestUtils.readObject(jsonSoj, SubjectOrganJoin[].class));
         assertTrue("Only one element should be available", sojs.size() == 1);
 
         SubjectOrganJoin persistedSoj = sojs.iterator().next();

@@ -1,19 +1,17 @@
 package org.wf.dp.dniprorada.base.util;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import org.jboss.serial.io.JBossObjectInputStream;
 import org.jboss.serial.io.JBossObjectOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.*;
+
 /**
  * Utility class to serialize and deserialize document.
  * JBossObjectOutputStream and JBossObjectInputStream used because they are 10 faster then default java serialization
  * and doesn't require from classes to implement serializable interface.
+ *
  * @see <a href="http://serialization.jboss.org">serialization.jboss.org</a>
  */
 public final class SerializationUtil {
@@ -32,8 +30,8 @@ public final class SerializationUtil {
     public static byte[] getByteArrayFromObject(Object obj) {
         byte[] result = null;
 
-        try(final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            final ObjectOutputStream oos     = new JBossObjectOutputStream(baos)){
+        try (final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                final ObjectOutputStream oos = new JBossObjectOutputStream(baos)) {
             oos.writeObject(obj);
             oos.flush();
             result = baos.toByteArray();
@@ -53,8 +51,8 @@ public final class SerializationUtil {
     public static Object getObjectFromByteArray(byte[] bytes) {
         Object result = null;
 
-        try(final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-            final ObjectInputStream ois     = new JBossObjectInputStream(bais)){
+        try (final ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+                final ObjectInputStream ois = new JBossObjectInputStream(bais)) {
             result = ois.readObject();
         } catch (IOException ioEx) {
             LOG.error("Unable to deserialize object from byte array.", ioEx);

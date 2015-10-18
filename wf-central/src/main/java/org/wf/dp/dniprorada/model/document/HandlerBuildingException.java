@@ -18,7 +18,8 @@ public class HandlerBuildingException extends RuntimeException {
         super(cause);
     }
 
-    public HandlerBuildingException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public HandlerBuildingException(String message, Throwable cause, boolean enableSuppression,
+            boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

@@ -7,7 +7,7 @@ import static org.wf.dp.dniprorada.dao.place.PlaceDaoImpl.valid;
 
 /**
  * @author dgroup
- * @since  12.08.2015
+ * @since 12.08.2015
  */
 public class PlaceHibernateHierarchyRecord {
 
@@ -22,12 +22,12 @@ public class PlaceHibernateHierarchyRecord {
     private Long deep;
     private Boolean alreadyIncluded = false;
 
-    public PlaceHibernateHierarchyRecord(){
+    public PlaceHibernateHierarchyRecord() {
         // no actions required
     }
 
     public PlaceHibernateHierarchyRecord(Long placeId, Long typeId, String uaId,
-                                         Boolean area, Boolean root, Long deep) {
+            Boolean area, Boolean root, Long deep) {
         setPlaceId(placeId);
         setTypeId(typeId);
         setUaID(uaId);
@@ -39,6 +39,7 @@ public class PlaceHibernateHierarchyRecord {
     public Long getPlaceId() {
         return placeId;
     }
+
     public void setPlaceId(Long placeId) {
         this.placeId = placeId;
     }
@@ -46,6 +47,7 @@ public class PlaceHibernateHierarchyRecord {
     public Long getTypeId() {
         return typeId;
     }
+
     public void setTypeId(Long typeId) {
         this.typeId = typeId;
     }
@@ -53,6 +55,7 @@ public class PlaceHibernateHierarchyRecord {
     public String getUaID() {
         return uaID;
     }
+
     public void setUaID(String uaID) {
         this.uaID = uaID;
     }
@@ -60,6 +63,7 @@ public class PlaceHibernateHierarchyRecord {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -67,6 +71,7 @@ public class PlaceHibernateHierarchyRecord {
     public String getOriginalName() {
         return originalName;
     }
+
     public void setOriginalName(String originalName) {
         this.originalName = originalName;
     }
@@ -74,6 +79,7 @@ public class PlaceHibernateHierarchyRecord {
     public Long getParentId() {
         return parentId;
     }
+
     public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
@@ -81,6 +87,7 @@ public class PlaceHibernateHierarchyRecord {
     public Long getDeep() {
         return deep;
     }
+
     public void setDeep(Long deep) {
         this.deep = deep;
     }
@@ -88,6 +95,7 @@ public class PlaceHibernateHierarchyRecord {
     public Boolean isAlreadyIncluded() {
         return alreadyIncluded;
     }
+
     public void setAlreadyIncluded(Boolean alreadyIncluded) {
         this.alreadyIncluded = alreadyIncluded;
     }
@@ -95,6 +103,7 @@ public class PlaceHibernateHierarchyRecord {
     public Boolean isArea() {
         return area;
     }
+
     public void setArea(Boolean area) {
         this.area = area;
     }
@@ -102,6 +111,7 @@ public class PlaceHibernateHierarchyRecord {
     public Boolean isRoot() {
         return root;
     }
+
     public void setRoot(Boolean root) {
         this.root = root;
     }
@@ -116,7 +126,6 @@ public class PlaceHibernateHierarchyRecord {
         return place;
     }
 
-
     public PlaceHierarchyTree toTreeElement() {
         PlaceHierarchyTree node = new PlaceHierarchyTree();
         node.setPlace(toPlace());
@@ -124,8 +133,8 @@ public class PlaceHibernateHierarchyRecord {
         return node;
     }
 
-    public Boolean isNotEmpty(){
-        return  valid(getTypeId()) ||
+    public Boolean isNotEmpty() {
+        return valid(getTypeId()) ||
                 valid(isArea()) ||
                 valid(isRoot()) ||
                 valid(getDeep());
@@ -149,7 +158,8 @@ public class PlaceHibernateHierarchyRecord {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
+        if (this == obj)
+            return true;
         if (!(obj instanceof PlaceHibernateHierarchyRecord))
             return false;
 

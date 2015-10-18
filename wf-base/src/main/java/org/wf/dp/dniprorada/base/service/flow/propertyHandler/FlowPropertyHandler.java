@@ -9,7 +9,8 @@ import java.util.List;
  */
 public interface FlowPropertyHandler<T> {
 
-   Class<T> getTargetObjectClass();
-   List<T> generateObjects(String sData);
+    Class<T> getTargetObjectClass();
+
+    List<T> generateObjects(String sData);
 
 }

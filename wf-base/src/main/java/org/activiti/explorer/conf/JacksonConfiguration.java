@@ -1,11 +1,10 @@
 package org.activiti.explorer.conf;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author Joram Barrez
@@ -22,7 +21,7 @@ public class JacksonConfiguration {
         mapper.disable(DeserializationFeature.UNWRAP_ROOT_VALUE);
         mapper.disable(SerializationFeature.WRAP_ROOT_VALUE);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,
-				false);
+                false);
         return mapper;
     }
 

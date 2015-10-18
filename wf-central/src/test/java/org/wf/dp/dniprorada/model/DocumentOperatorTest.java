@@ -14,14 +14,13 @@ import org.wf.dp.dniprorada.model.document.HandlerNotFoundException;
 
 import static org.junit.Assert.*;
 
-
 /**
  * @author dgroup
- * @since  28.06.15
+ * @since 28.06.15
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("default")
-@ContextConfiguration(locations = {"classpath:context.xml"})
+@ContextConfiguration(locations = { "classpath:context.xml" })
 public class DocumentOperatorTest {
     public static final Long DUMMY_OPERATOR_ID = 2L;
 
@@ -32,14 +31,14 @@ public class DocumentOperatorTest {
     private HandlerFactory handlerFactory;
 
     @Test
-    public void notNull(){
+    public void notNull() {
         assertNotNull(documentDao); // just test that Spring DI is working :)
     }
 
     @Test
     public void buildHandlerForDummyOperator() {
         DocumentOperator_SubjectOrgan operator =
-            documentDao.getOperator(DUMMY_OPERATOR_ID);
+                documentDao.getOperator(DUMMY_OPERATOR_ID);
 
         assertNotNull("Operator not found", operator);
 
@@ -50,13 +49,13 @@ public class DocumentOperatorTest {
         DocumentAccess access = handler.setAccessCode("1").getAccess();
         assertNotNull("DocumentAccess not found", access);
 
-        Document doc = documentDao.getDocument( access.getId() );
+        Document doc = documentDao.getDocument(access.getId());
         assertNotNull("Document not found", doc);
         assertNotNull("Document name is empty", doc.getName());
     }
 
     @Test(expected = HandlerNotFoundException.class)
-    public void tryToBuildNonExistentHandler(){
+    public void tryToBuildNonExistentHandler() {
         DocumentOperator_SubjectOrgan operator = documentDao.getOperator(DUMMY_OPERATOR_ID);
         operator.setsHandlerClass("non existent class name");
         handlerFactory.buildHandlerFor(operator);
@@ -64,7 +63,7 @@ public class DocumentOperatorTest {
     }
 
     @Test
-    public void oneOperatorShouldBePresent(){
+    public void oneOperatorShouldBePresent() {
         assertTrue(1 <= documentDao.getAllOperators().size());
     }
 }

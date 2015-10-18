@@ -7,7 +7,7 @@ import java.util.Random;
 public class AlgorithmLuna {
     private static final Logger log = Logger.getLogger(AlgorithmLuna.class);
 
-    private static int getLastDigit(Long inputNumber){
+    private static int getLastDigit(Long inputNumber) {
         return (int) (inputNumber % 10);
     }
 
@@ -20,7 +20,7 @@ public class AlgorithmLuna {
         int factor = 1;
         int sum = 0;
         int addend;
-        while (inputNumber != 0){
+        while (inputNumber != 0) {
             addend = (int) (factor * (inputNumber % 10));
             factor = (factor == 2) ? 1 : 2;
             addend = addend > 9 ? addend - 9 : addend;
@@ -45,21 +45,21 @@ public class AlgorithmLuna {
         return result;
     }
 
-    public static Long getProtectedNumber(Long inputNumber){
-        return getCheckSumLastDigit(inputNumber) + inputNumber * 10  ;
+    public static Long getProtectedNumber(Long inputNumber) {
+        return getCheckSumLastDigit(inputNumber) + inputNumber * 10;
     }
 
     public static long getOriginalNumber(long protectedNumber) {
         return protectedNumber / 10;
     }
 
-    public static boolean checkProtectedNumber(Long inputNumber){
+    public static boolean checkProtectedNumber(Long inputNumber) {
         long originalNumber = getOriginalNumber(inputNumber);
 
         log.info("inputNumber / 10=" + originalNumber);
-        log.info("inputNumber="+inputNumber);
-        log.info("getLastDigit(inputNumber)="+getLastDigit(inputNumber));
-        log.info("getCheckSumLastDigit(inputNumber / 10)="+getCheckSumLastDigit(originalNumber));
+        log.info("inputNumber=" + inputNumber);
+        log.info("getLastDigit(inputNumber)=" + getLastDigit(inputNumber));
+        log.info("getCheckSumLastDigit(inputNumber / 10)=" + getCheckSumLastDigit(originalNumber));
         return getCheckSumLastDigit(originalNumber) == getLastDigit(inputNumber);
     }
 
@@ -82,9 +82,9 @@ public class AlgorithmLuna {
         long[] testProtectedArray = new long[arrSize];
         long currValue;
         System.out.println("Long.MAX_VALUE=" + Long.MAX_VALUE);
-        for (int i = 0; i < arrSize; i++){
+        for (int i = 0; i < arrSize; i++) {
             currValue = random.nextLong();
-            while (currValue < 0 || currValue > Long.MAX_VALUE/10 )
+            while (currValue < 0 || currValue > Long.MAX_VALUE / 10)
                 currValue = random.nextLong();
             testArray[i] = currValue;
             testProtectedArray[i] = getProtectedNumber(testArray[i]);

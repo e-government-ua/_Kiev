@@ -19,11 +19,12 @@ import org.wf.dp.dniprorada.dao.place.PlaceHierarchyTree;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * @author dgroup
- * @since  09.08.2015
+ * @since 09.08.2015
  */
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,8 +39,8 @@ public class PlaceControllerTest {
     @Before
     public void setUp() {
         mockMvc = MockMvcBuilders
-            .webAppContextSetup(webApplicationContext)
-            .build();
+                .webAppContextSetup(webApplicationContext)
+                .build();
     }
 
     @Test
@@ -57,8 +58,8 @@ public class PlaceControllerTest {
             PlaceHierarchyTree tree = JsonRestUtils.readObject(jsonData, PlaceHierarchyTree.class);
             assertNotNull(tree);
 
-        } catch (Exception e){
-            fail( ExceptionUtils.getStackTrace(e) );
+        } catch (Exception e) {
+            fail(ExceptionUtils.getStackTrace(e));
         }
     }
 
@@ -68,18 +69,18 @@ public class PlaceControllerTest {
         try {
 
             String jsonData = mockMvc
-                .perform(get("/getPlace").param("nID", "459"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+                    .perform(get("/getPlace").param("nID", "459"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andReturn()
+                    .getResponse()
+                    .getContentAsString();
             PlaceHierarchyTree tree = JsonRestUtils.readObject(jsonData, PlaceHierarchyTree.class);
             assertNotNull(tree);
             assertEquals("IDs aren't match", 459L, tree.getPlace().getId().longValue());
 
-        } catch (Exception e){
-            fail( ExceptionUtils.getStackTrace(e) );
+        } catch (Exception e) {
+            fail(ExceptionUtils.getStackTrace(e));
         }
     }
 }

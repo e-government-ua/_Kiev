@@ -18,7 +18,8 @@ public class HandlerNotFoundException extends RuntimeException {
         super(cause);
     }
 
-    public HandlerNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public HandlerNotFoundException(String message, Throwable cause, boolean enableSuppression,
+            boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

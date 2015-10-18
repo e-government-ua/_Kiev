@@ -34,6 +34,7 @@ public class ActivitiRestException extends Exception {
         this(errorCode, message, throwable);
         setHttpStatus(httpStatus);
     }
+
     public String getErrorCode() {
         return errorCode;
     }

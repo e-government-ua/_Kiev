@@ -10,9 +10,9 @@ import org.joda.time.format.DateTimeFormatter;
  */
 public class JsonDateSerializer extends AbstractJsonDateTimeSerializer {
 
-   public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd");
+    public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd");
 
-   protected JsonDateSerializer() {
-      super(DATE_FORMATTER);
-   }
+    protected JsonDateSerializer() {
+        super(DATE_FORMATTER);
+    }
 }

@@ -31,15 +31,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ActivitiRestCountryControllerTest {
 
     public static final String GET_COUNTRIES = "/services/getCountries";
-    private static final String SET_COUNTRY = "/services/setCountry";
-    private static final String REMOVE_COUNTRY = "/services/removeCountry";
-    private static final String GET_COUNTRY = "/services/getCountry";
     public static final int HTTP_OK = 200;
     public static final int HTTP_FORBIDDEN = 403;
     public static final String DASH = "-";
-    private static final String DOUBLE_DASH = "--";
     public static final String RECORD_NOT_FOUND = "Record not found!";
     public static final String REQUIRED_PARAMETERS = "required at least one of parameters (nID, nID_UA, sID_Two, sID_Three)!";
+    private static final String SET_COUNTRY = "/services/setCountry";
+    private static final String REMOVE_COUNTRY = "/services/removeCountry";
+    private static final String GET_COUNTRY = "/services/getCountry";
+    private static final String DOUBLE_DASH = "--";
     @Autowired
     private WebApplicationContext webApplicationContext;
     private MockMvc mockMvc;
@@ -88,8 +88,6 @@ public class ActivitiRestCountryControllerTest {
         expCountryParams2.put("sReference_LocalISO", DOUBLE_DASH);
     }
 
-
-
     private Country getCountryFromResponse(MockHttpServletResponse response) throws UnsupportedEncodingException {
         String jsonData = response.getContentAsString();
         return JsonRestUtils.readObject(jsonData, Country.class);
@@ -97,8 +95,8 @@ public class ActivitiRestCountryControllerTest {
 
     private MockHttpServletResponse getResponse(String url, Map<String, String> params) throws Exception {
         MockHttpServletRequestBuilder request = get(url);
-        if (params.size() > 0){
-            for (String key : params.keySet()){
+        if (params.size() > 0) {
+            for (String key : params.keySet()) {
                 request.param(key, params.get(key));
             }
         }
@@ -199,12 +197,11 @@ public class ActivitiRestCountryControllerTest {
         //httpStatus = HTTP_FORBIDDEN;
         response = getResponse(GET_COUNTRY, params);
         Country country = getCountryFromResponse(response);
-//        reason = response.getHeader("Reason");
+        //        reason = response.getHeader("Reason");
         assertNull(country);
-//        assertEquals(RECORD_NOT_FOUND, reason);
+        //        assertEquals(RECORD_NOT_FOUND, reason);
 
-
-//remove by nID
+        //remove by nID
         params.put("nID", "1");
         httpStatus = HTTP_FORBIDDEN;
         response = getResponse(REMOVE_COUNTRY, params);
@@ -227,24 +224,24 @@ public class ActivitiRestCountryControllerTest {
         assertNotNull(reason);
         assertEquals(REQUIRED_PARAMETERS, reason);
 
-//get by nID_UA
-        params.put("nID_UA","");
+        //get by nID_UA
+        params.put("nID_UA", "");
         httpStatus = HTTP_FORBIDDEN;
         response = getResponse(GET_COUNTRY, params);
         reason = response.getHeader("Reason");
         assertNotNull(reason);
         assertEquals(REQUIRED_PARAMETERS, reason);
 
-//get by sID_Two
-        params.put("sID_Two",null);
+        //get by sID_Two
+        params.put("sID_Two", null);
         httpStatus = HTTP_FORBIDDEN;
         response = getResponse(GET_COUNTRY, params);
         reason = response.getHeader("Reason");
         assertNotNull(reason);
         assertEquals(REQUIRED_PARAMETERS, reason);
 
-//get by sID_Three
-        params.put("sID_Three",null);
+        //get by sID_Three
+        params.put("sID_Three", null);
         httpStatus = HTTP_FORBIDDEN;
         response = getResponse(GET_COUNTRY, params);
         reason = response.getHeader("Reason");
@@ -252,12 +249,13 @@ public class ActivitiRestCountryControllerTest {
         assertEquals(REQUIRED_PARAMETERS, reason);
 
     }
+
     @Test
     public void getCountryByMultiplyKeys() throws Exception {
         MockHttpServletResponse response;
         Map<String, String> params = new HashMap<>();
 
-//set country 1
+        //set country 1
         response = getResponse(SET_COUNTRY, expCountryParams);
         Country actCountry = getCountryFromResponse(response);
 
@@ -266,7 +264,7 @@ public class ActivitiRestCountryControllerTest {
         expCountry.setId(nID_1);
         assertEquals("objects aren't match", expCountry, actCountry);
 
-//set country 2
+        //set country 2
         response = getResponse(SET_COUNTRY, expCountryParams2);
         actCountry = getCountryFromResponse(response);
 
@@ -283,7 +281,7 @@ public class ActivitiRestCountryControllerTest {
         assertNotNull("response country can't be a null", actCountry);
         assertEquals("objects aren't match", expCountry, actCountry);
 
-//get by nID_1 and nID_UA_1 -- must be 1
+        //get by nID_1 and nID_UA_1 -- must be 1
         params.clear();
         params.put("nID", "" + nID_1);
         params.put("nID_UA", "0");
@@ -293,7 +291,7 @@ public class ActivitiRestCountryControllerTest {
         assertNotNull("response country can't be a null", actCountry);
         assertEquals("objects aren't match", expCountry, actCountry);
 
-//get by nID_1 and nID_UA_2 -- must be 1
+        //get by nID_1 and nID_UA_2 -- must be 1
         params.clear();
         params.put("nID", "" + nID_1);
         params.put("nID_UA", "1");
@@ -303,8 +301,7 @@ public class ActivitiRestCountryControllerTest {
         assertNotNull("response country can't be a null", actCountry);
         assertEquals("objects aren't match", expCountry, actCountry);
 
-
-//get by nID_UA_1 and sID_Two_2 -- must be 1
+        //get by nID_UA_1 and sID_Two_2 -- must be 1
         params.clear();
         params.put("sID_Two", DOUBLE_DASH);
         params.put("nID_UA", "0");
@@ -314,7 +311,7 @@ public class ActivitiRestCountryControllerTest {
         assertNotNull("response country can't be a null", actCountry);
         assertEquals("objects aren't match", expCountry, actCountry);
 
-//get by nID_UA_2 and sID_Two_1 -- must be 2
+        //get by nID_UA_2 and sID_Two_1 -- must be 2
         params.clear();
         params.put("sID_Two", DASH);
         params.put("nID_UA", "1");
@@ -324,14 +321,14 @@ public class ActivitiRestCountryControllerTest {
         assertNotNull("response country can't be a null", actCountry);
         assertEquals("objects aren't match", expCountry2, actCountry);
 
-//remove country 1 and 2
+        //remove country 1 and 2
         getResponse(REMOVE_COUNTRY, expCountryParams);
         getResponse(REMOVE_COUNTRY, expCountryParams2);
     }
 
     @Test
     public void removeCountry() {
-//algorithm the same as get-method + test in get method
+        //algorithm the same as get-method + test in get method
     }
 
     //exceptions on unique
@@ -392,7 +389,6 @@ public class ActivitiRestCountryControllerTest {
         //expCountry.setId(actCountry.getId());
         assertEquals("nID_UA aren't match", expCountryParams2.get("nID_UA"), "" + actCountry.getnID_UA());
         assertEquals("sID_Two aren't match", expCountryParams2.get("sID_Two"), actCountry.getsID_Two());
-
 
     }
 }
