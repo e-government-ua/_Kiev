@@ -172,7 +172,9 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   };
 
   $scope.cantSubmit = function(form) {
-    return $scope.isSending || ($scope.isUploading && !form.$valid);
+    return $scope.isSending
+      || ($scope.isUploading && !form.$valid)
+      || ($scope.isSignNeeded && !$scope.sign.checked);
   };
 
   $scope.bSending = function(form) {
