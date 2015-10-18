@@ -249,13 +249,11 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
     	List<HistoricTaskInstance> foundResults = historyService.createHistoricTaskInstanceQuery()
                 .processInstanceId(sID_Process).list();
 
-        logger.info("Calculating time of execution of process " + sID_Process);
-    	
     	String res = "-1";
     	long totalDuration = 0;
+    	logger.info(String.format("Found {%s} completed tasks for process with instance ID {%s} ",
+                foundResults.size(), sID_Process));
         if (foundResults != null && foundResults.size() > 0) {
-        	logger.debug(String.format("Found {%s} completed tasks for process with instance ID {%s} ",
-                    foundResults.size(), sID_Process));
 
             for (HistoricTaskInstance currTask : foundResults) {
                 totalDuration = totalDuration + currTask.getDurationInMillis() / (1000 * 60 * 60);
