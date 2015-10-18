@@ -238,10 +238,10 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         List<Task> tasks = taskService.createTaskQuery().processInstanceId(sID_Process).list();
         if (tasks == null || tasks.size() == 0) {
             taskName = "Заявка виконана";
-            params.put("nTimeHours", getTotalTimeOfExecution(sID_Process));
         } else {
             taskName = tasks.get(0).getName();
         }
+        params.put("nTimeHours", getTotalTimeOfExecution(sID_Process));
         callRestController(sID_Process, serviceName, taskName, params);
     }
 
