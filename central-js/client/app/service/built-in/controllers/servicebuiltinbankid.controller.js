@@ -37,6 +37,10 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.data.city = currentState.data.city;
   $scope.data.id = currentState.data.id;
 
+  $scope.setFormScope = function(scope){
+    this.formScope = scope;
+  };
+
   if ( !$scope.data.formData ) {
     $scope.data.formData = new FormDataFactory();
     $scope.data.formData.initialize($scope.activitiForm);
@@ -94,12 +98,9 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.getSignFieldID = function(){
     return data.formData.getSignField().id;
   };
-  $scope.isSignNeeded = $scope.data.formData.isSignNeeded();
-  $scope.signning = false;
 
-  if($scope.data.formData.isAlreadySigned()){
-    $scope.submit($scope.form)
-  }
+  $scope.isSignNeeded = $scope.data.formData.isSignNeeded();
+  $scope.sign = {checked : false };
 
   $scope.signForm = function () {
     if($scope.data.formData.isSignNeeded){
@@ -107,68 +108,67 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
         'some business key 111',
         'process name here', $scope.activitiForm, $scope.data.formData)
         .then(function (result) {
-          //var signPath = ActivitiService.getSignFormPath(oServiceData, result.formID);
-          //$window.location.href = $location.protocol() + '://' + $location.host() + ':' + $location.port() + signPath;
-          $window.location.href = $location.absUrl()
-            + '?formID=' + result.formID
-            + '&signedFileID=' + 1122333;
+          var signPath = ActivitiService.getSignFormPath(oServiceData, result.formID);
+          $window.location.href = $location.protocol() + '://' + $location.host() + ':' + $location.port() + signPath;
+          //$window.location.href = $location.absUrl()
+          //  + '?formID=' + result.formID
+          //  + '&signedFileID=' + 1122333;
         })
     } else {
       $window.alert('No sign is needed');
     }
   };
 
-  $scope.submit = function(form) {
+  $scope.processForm = function (form) {
     $scope.isSending = true;
-    form.$setSubmitted();
-    var bValid = true;
 
-    ValidationService.validateByMarkers(form, null, true);
-
-    if (form.$valid && bValid) {
-      if($scope.signning){
-        ActivitiService.saveForm(oService, oServiceData,
-          'some business key 111',
-          'process name here', $scope.activitiForm, $scope.data.formData)
-          .then(function (result) {
-            var signPath = ActivitiService.getSignFormPath(oServiceData, result.formID);
-            $window.location.href =
-                $location.protocol() + '://' + $location.host() + ':' + $location.port() + signPath;
-          })
-      } else {
-        ActivitiService
-          .submitForm(oService, oServiceData, $scope.data.formData)
-          .then(function(result) {
-
-            $scope.isSending = false;
-
-            var state = $state.$current;
-
-            var submitted = $state.get(state.name + '.submitted');
-            if (!result.id) {
-              // console.log(result);
-              return;
-            }
-            //TODO: Fix Alhoritm Luna
-            var nCRC = ValidationService.getLunaValue(result.id);
-
-            submitted.data.id = result.id + nCRC; //11111111
-            submitted.data.formData = $scope.data.formData;
-
-            $scope.isSending = false;
-
-            $scope.$root.data = $scope.data;
-
-            return $state.go(submitted, $stateParams);
-          });
-      }
-    } else {
-
+    if (!$scope.validateForm(form)) {
       $scope.isSending = false;
-
       return false;
-
     }
+
+    if ($scope.sign.checked) {
+      $scope.signForm();
+    } else {
+      $scope.submitForm(form);
+    }
+  };
+
+  $scope.validateForm = function(form) {
+    var bValid = true;
+    ValidationService.validateByMarkers(form, null, true);
+    return form.$valid && bValid;
+  };
+
+  $scope.submitForm = function(form) {
+    if(form){
+      form.$setSubmitted();
+    }
+
+    ActivitiService
+      .submitForm(oService, oServiceData, $scope.data.formData)
+      .then(function(result) {
+        $scope.isSending = false;
+
+        var state = $state.$current;
+
+        var submitted = $state.get(state.name + '.submitted');
+        if (!result.id) {
+          // console.log(result);
+          return;
+        }
+        //TODO: Fix Alhoritm Luna
+        var nCRC = ValidationService.getLunaValue(result.id);
+
+        submitted.data.id = result.id + nCRC; //11111111
+        submitted.data.formData = $scope.data.formData;
+
+        $scope.isSending = false;
+
+        $scope.$root.data = $scope.data;
+
+        return $state.go(submitted, angular.extend($stateParams, {formID: null, signedFileID : null}));
+      });
   };
 
   $scope.cantSubmit = function(form) {
@@ -277,5 +277,13 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.getHtml = function(html) {
     return $sce.trustAsHtml(html);
   };
+
+  if($scope.data.formData.isAlreadySigned() && $stateParams.signedFileID){
+    var state = $state.$current;
+    //TODO remove ugly hack for not calling submit after submit
+    if(!state.name.endsWith('submitted')){
+      $scope.submitForm();
+    }
+  }
 
 });

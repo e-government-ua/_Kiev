@@ -139,12 +139,15 @@ angular.module('app').config(function($stateProvider) {
         activitiForm: function($stateParams, ActivitiService, oServiceData, processDefinitionId) {
           if($stateParams.formID){
             return ActivitiService.loadForm(oServiceData, $stateParams.formID).then(function(savedForm){
-              if(savedForm.formData.params['form_signed'] && $stateParams.signedFileID){
-                var formSignedProperty = savedForm.activitiForm.fromProperties.filter(function(item){
-                  return item.id = 'form_signed';
-                })[0];
-                formSignedProperty.value = $stateParams.signedFileID;
-              }
+
+              savedForm.activitiForm.formProperties.forEach(function(item){
+                if(item.id === 'form_signed'){
+                  item.value = $stateParams.signedFileID;
+                } else {
+                  item.value = savedForm.formData.params[item.id];
+                }
+              });
+
               return savedForm.activitiForm;
             });
           } else {
