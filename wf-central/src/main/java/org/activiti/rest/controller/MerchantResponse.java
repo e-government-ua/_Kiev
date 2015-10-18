@@ -3,27 +3,27 @@ package org.activiti.rest.controller;
 import org.springframework.http.HttpStatus;
 
 public class MerchantResponse {
-	private String message;
-	private HttpStatus httpStatus;
-	
-	public MerchantResponse(String message, HttpStatus httpStatus) {
-			this.setHttpStatus(httpStatus);
-			this.setMessage(message);
-	}
+    private String message;
+    private HttpStatus httpStatus;
 
-	public String getMessage() {
-		return message;
-	}
+    public MerchantResponse(String message, HttpStatus httpStatus) {
+        this.setHttpStatus(httpStatus);
+        this.setMessage(message);
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public HttpStatus getHttpStatus() {
-		return httpStatus;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public void setHttpStatus(HttpStatus httpStatus) {
-		this.httpStatus = httpStatus;
-	}
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
+    }
 }

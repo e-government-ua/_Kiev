@@ -4,21 +4,13 @@
  */
 package org.activiti.rest.interceptor;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.task.Task;
 import org.activiti.rest.controller.adapter.MultiReaderHttpServletResponse;
 import org.activiti.rest.interceptor.utils.JsonRequestDataResolver;
 import org.json.simple.JSONObject;
@@ -32,12 +24,18 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.wf.dp.dniprorada.base.service.notification.NotificationService;
 import org.wf.dp.dniprorada.rest.HttpRequester;
 import org.wf.dp.dniprorada.util.GeneralConfig;
-import java.util.List;
-import org.activiti.engine.task.Task;
 import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
- *
  * @author olya
  */
 public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
@@ -47,22 +45,16 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     GeneralConfig generalConfig;
-
-    @Autowired
-    private HistoryService historyService;
-    
-    @Autowired
-    private RepositoryService repositoryService;
-    
-    @Autowired
-    private TaskService taskService;
-
     @Autowired
     HttpRequester httpRequester;
-
     @Autowired
     NotificationService notificationService;
-
+    @Autowired
+    private HistoryService historyService;
+    @Autowired
+    private RepositoryService repositoryService;
+    @Autowired
+    private TaskService taskService;
     private JSONParser parser = new JSONParser();
 
     @Override
@@ -94,9 +86,10 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         saveHistory(request, response, true);
     }
 
-    private void saveHistory(HttpServletRequest request, HttpServletResponse response, boolean saveHistory) throws IOException {
-        
-        Map<String,String> mParamRequest = new HashMap();
+    private void saveHistory(HttpServletRequest request, HttpServletResponse response, boolean saveHistory)
+            throws IOException {
+
+        Map<String, String> mParamRequest = new HashMap();
         Enumeration paramsName = request.getParameterNames();
         while (paramsName.hasMoreElements()) {
             String sKey = (String) paramsName.nextElement();
@@ -126,10 +119,14 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 logger.info("sResponseBody: null");
             }*/
             //logger.info("sResponseBody: " + sResponseBody);
-            logger.info("sResponseBody: " + (sResponseBody != null ? (sResponseBody.length()>1000?sResponseBody.substring(0, 1000):sResponseBody ) : "null"));
+            logger.info("sResponseBody: " + (sResponseBody != null ?
+                    (sResponseBody.length() > 1000 ? sResponseBody.substring(0, 1000) : sResponseBody) :
+                    "null"));
         } else {
             //logger.info("sResponseBody: " + (sResponseBody != null ? sResponseBody.length() : "null"));
-            logger.info("sResponseBody: " + (sResponseBody != null ? (sResponseBody.length()>1000?sResponseBody.substring(0, 2000):sResponseBody ) : "null"));
+            logger.info("sResponseBody: " + (sResponseBody != null ?
+                    (sResponseBody.length() > 1000 ? sResponseBody.substring(0, 2000) : sResponseBody) :
+                    "null"));
         }
 
         if (!saveHistory || !(response.getStatus() >= HttpStatus.OK.value()
@@ -139,13 +136,17 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
 
         try {
             //logger.info("sRequestBody: " + sRequestBody);
-            
+
             //logger.info("sRequestBody: " + (sRequestBody != null ? (sRequestBody.length()>2000?sRequestBody.substring(0, 2000):sRequestBody ) : "null"));
             if (sRequestBody != null) {
-                if(sRequestBody.indexOf("Content-Disposition:")>=0){
-                    logger.info("sRequestBody: " + (sRequestBody.length() > 200 ? sRequestBody.substring(0, 2000) : sRequestBody));
-                }else{
-                    logger.info("sRequestBody: " + (sRequestBody.length() > 2000 ? sRequestBody.substring(0, 2000) : sRequestBody));
+                if (sRequestBody.indexOf("Content-Disposition:") >= 0) {
+                    logger.info("sRequestBody: " + (sRequestBody.length() > 200 ?
+                            sRequestBody.substring(0, 2000) :
+                            sRequestBody));
+                } else {
+                    logger.info("sRequestBody: " + (sRequestBody.length() > 2000 ?
+                            sRequestBody.substring(0, 2000) :
+                            sRequestBody));
                 }
             } else {
                 logger.info("sRequestBody: null");
@@ -153,11 +154,9 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
 
             if (isSaveTask(request, sResponseBody)) {
                 saveNewTaskInfo(sRequestBody, sResponseBody, mParamRequest);
-            }
-            else if (isCloseTask(request, sResponseBody)) {
+            } else if (isCloseTask(request, sResponseBody)) {
                 saveClosedTaskInfo(sRequestBody);
-            }
-            else if (isUpdateTask(request)) {
+            } else if (isUpdateTask(request)) {
                 saveUpdatedTaskInfo(sResponseBody);
             }
         } catch (Exception ex) {
@@ -180,7 +179,8 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
                 && "POST".equalsIgnoreCase(request.getMethod().trim());
     }
 
-    private void saveNewTaskInfo(String sRequestBody, String sResponseBody, Map<String,String> mParamRequest) throws Exception {
+    private void saveNewTaskInfo(String sRequestBody, String sResponseBody, Map<String, String> mParamRequest)
+            throws Exception {
         Map<String, String> params = new HashMap<String, String>();
         JSONObject jsonObjectRequest = (JSONObject) parser.parse(sRequestBody);
         JSONObject jsonObjectResponse = (JSONObject) parser.parse(sResponseBody);
@@ -198,20 +198,19 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
         params.put("nID_Subject", String.valueOf(jsonObjectRequest.get("nID_Subject")));
         //nID_Service, Long nID_Region, String sID_UA
         String snID_Region = mParamRequest.get("nID_Region");
-        if(snID_Region!=null){
+        if (snID_Region != null) {
             params.put("nID_Region", snID_Region);
         }
-        
+
         String snID_Service = mParamRequest.get("nID_Service");
-        if(snID_Service!=null){
+        if (snID_Service != null) {
             params.put("nID_Service", snID_Service);
         }
-            
+
         String sID_UA = mParamRequest.get("sID_UA");
-        if(sID_UA!=null){
+        if (sID_UA != null) {
             params.put("sID_UA", sID_UA);
         }
-        
 
         callRestController(sID_Process, serviceName, taskName, params);
 
@@ -235,10 +234,10 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
 
         String sID_Process = historicTaskInstance.getProcessInstanceId();
         List<Task> tasks = taskService.createTaskQuery().processInstanceId(sID_Process).list();
-        if(tasks == null || tasks.size() == 0){
-           taskName = "Заявка виконана";
-        } else{
-           taskName = tasks.get(0).getName();
+        if (tasks == null || tasks.size() == 0) {
+            taskName = "Заявка виконана";
+        } else {
+            taskName = tasks.get(0).getName();
         }
         callRestController(sID_Process, serviceName, taskName, params);
     }
@@ -256,8 +255,7 @@ public class RequestProcessingInterceptor extends HandlerInterceptorAdapter {
             throws Exception {
         if (sID_Process == null) {
             logger.warn("For service operation '%s' nID_Process is null. Operation will not be called!", serviceName);
-        }
-        else {
+        } else {
             String URL = generalConfig.sHostCentral() + "/wf/service/services/" + serviceName;
             params.put("nID_Process", sID_Process);
             params.put("sID_Status", taskName);

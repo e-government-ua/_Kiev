@@ -41,7 +41,7 @@ public class Service extends org.wf.dp.dniprorada.base.model.NamedEntity {
     @JsonProperty(value = "sInfo")
     @Column(name = "sInfo", nullable = false)
     private String info;
-   
+
     /*@JsonProperty(value = "bTest")
     @Column(name = "bTest", nullable = false)
     private boolean bTest;

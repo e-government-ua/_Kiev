@@ -2,7 +2,7 @@ package org.wf.dp.dniprorada.base.util.queryloader;
 
 /**
  * @author dgroup
- * @since  02.08.2015
+ * @since 02.08.2015
  */
 public class QueryLoadingException extends RuntimeException {
 
@@ -18,7 +18,8 @@ public class QueryLoadingException extends RuntimeException {
         super(cause);
     }
 
-    public QueryLoadingException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    public QueryLoadingException(String message, Throwable cause, boolean enableSuppression,
+            boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

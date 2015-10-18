@@ -29,7 +29,7 @@ public enum HistoryEventType {
                     + " іншій людині: " + HistoryEventMessage.FIO
                     + " (телефон: " + HistoryEventMessage.TELEPHONE
                     + ", e-mail: " + HistoryEventMessage.EMAIL
-                    +  ", термiн дії: " + HistoryEventMessage.DAYS + " днів)"),
+                    + ", термiн дії: " + HistoryEventMessage.DAYS + " днів)"),
     SET_DOCUMENT_ACCESS(5L,
             "setDocumentAccess",
             "Кто-то воспользовался доступом к документу через OTP, который ему предоставил пользователь",
@@ -43,7 +43,8 @@ public enum HistoryEventType {
     GET_DOCUMENT_ACCESS_BY_HANDLER(7L,
             "getDocumentAccessByHandler",
             "Кто-то воспользовался доступом к документу, который ему предоставил пользователь",
-            "Організація " + HistoryEventMessage.ORGANIZATION_NAME + " скористалась доступом, який Ви надали, та переглянула документ "
+            "Організація " + HistoryEventMessage.ORGANIZATION_NAME
+                    + " скористалась доступом, який Ви надали, та переглянула документ "
                     + HistoryEventMessage.DOCUMENT_TYPE + " " + HistoryEventMessage.DOCUMENT_NAME + ""),
     FINISH_SERVICE(8L,
             "ActivitiFinish",
@@ -67,6 +68,24 @@ public enum HistoryEventType {
     private String sName;
     private String sTemplate;
 
+    private HistoryEventType(Long nID, String sID, String sName, String sTemplate) {
+        this.nID = nID;
+        this.sID = sID;
+        this.sName = sName;
+        this.sTemplate = sTemplate;
+    }
+
+    public static HistoryEventType getById(Long id) {
+        if (id != null) {
+            for (HistoryEventType eventType : values()) {
+                if (eventType.nID.equals(id)) {
+                    return eventType;
+                }
+            }
+        }
+        return null;
+    }
+
     public Long getnID() {
         return nID;
     }
@@ -81,25 +100,6 @@ public enum HistoryEventType {
 
     public String getsTemplate() {
         return sTemplate;
-    }
-
-
-    public static HistoryEventType getById(Long id) {
-        if (id != null) {
-            for (HistoryEventType eventType : values()) {
-                if (eventType.nID.equals(id)) {
-                    return eventType;
-                }
-            }
-        }
-        return null;
-    }
-
-    private HistoryEventType(Long nID, String sID, String sName, String sTemplate) {
-        this.nID = nID;
-        this.sID = sID;
-        this.sName = sName;
-        this.sTemplate = sTemplate;
     }
 
 }

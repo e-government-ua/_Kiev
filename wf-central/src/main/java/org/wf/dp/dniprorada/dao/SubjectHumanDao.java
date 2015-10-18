@@ -5,10 +5,10 @@ import org.wf.dp.dniprorada.model.SubjectHuman;
 
 public interface SubjectHumanDao extends EntityDao<SubjectHuman> {
 
-	SubjectHuman getSubjectHuman(String sINN);
+    SubjectHuman getSubjectHuman(String sINN);
 
-	SubjectHuman setSubjectHuman(String sINN);
+    SubjectHuman setSubjectHuman(String sINN);
 
-	SubjectHuman saveOrUpdateHuman(SubjectHuman subject);
+    SubjectHuman saveOrUpdateHuman(SubjectHuman subject);
 
 }

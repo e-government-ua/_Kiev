@@ -21,7 +21,8 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_Service> implements HistoryEvent_ServiceDao {
+public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_Service>
+        implements HistoryEvent_ServiceDao {
 
     private static final Logger log = Logger.getLogger(HistoryEvent_ServiceDaoImpl.class);
 
@@ -49,9 +50,9 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
 
         AlgorithmLuna.validateProtectedNumber(nID_Protected);
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
-        criteria.addOrder(Order.desc("sDate").nulls(NullPrecedence.LAST) );
+        criteria.addOrder(Order.desc("sDate").nulls(NullPrecedence.LAST));
         criteria.add(Restrictions.eq("nID_Task", AlgorithmLuna.getOriginalNumber(nID_Protected)));
-        List<HistoryEvent_Service> list = (List<HistoryEvent_Service>)criteria.list();
+        List<HistoryEvent_Service> list = (List<HistoryEvent_Service>) criteria.list();
         HistoryEvent_Service event_service = list.size() > 0 ? list.get(0) : null;
         if (event_service == null) {
             log.warn("Record not found");
@@ -63,13 +64,11 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
         return event_service;
     }
 
-
-
     @Override
     public HistoryEvent_Service addHistoryEvent_Service(Long nID_Task, String sStatus, Long nID_Subject,
-                                                        String sID_Status, Long nID_Service,
-                                                        Long nID_Region, String sID_UA, Integer nRate,
-                                                        String soData, String sToken, String sHead, String sBody) {
+            String sID_Status, Long nID_Service,
+            Long nID_Region, String sID_UA, Integer nRate,
+            String soData, String sToken, String sHead, String sBody) {
         HistoryEvent_Service event_service = new HistoryEvent_Service();
         event_service.setnID_Task(nID_Task);
         event_service.setsStatus(sStatus);
@@ -97,8 +96,8 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
         return saveOrUpdate(event_service);
     }
 
-	@Override
-	public List<Map<String, Long>> getHistoryEvent_ServiceBynID_Service(Long nID_Service) {
+    @Override
+    public List<Map<String, Long>> getHistoryEvent_ServiceBynID_Service(Long nID_Service) {
 
         List<Map<String, Long>> resHistoryEventService = new LinkedList<>();
         if (nID_Service == 159) {
@@ -111,9 +110,9 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
         Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
         criteria.add(Restrictions.eq("nID_Service", nID_Service));
         criteria.setProjection(Projections.projectionList()
-                        .add(Projections.groupProperty("nID_Region"))
-                        .add(Projections.count("nID_Service"))
-                        .add(Projections.avg("nRate")) //for issue 777
+                .add(Projections.groupProperty("nID_Region"))
+                .add(Projections.count("nID_Service"))
+                .add(Projections.avg("nRate")) //for issue 777
         );
         Object res = criteria.list();
         log.info("Received result in getHistoryEvent_ServiceBynID_Service:" + res);
@@ -127,7 +126,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                 log.info(String.format("Line %s: %s, %s, %s", i, currValue[0], currValue[1], currValue[2]));
                 i++;
                 Long rate = 0L;
-                try{
+                try {
                     Double nRate = (Double) currValue[2];
                     log.info("nRate=" + nRate);
                     String snRate = "" + nRate * 20;
@@ -136,7 +135,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                         rate = Long.valueOf(snRate.substring(0, snRate.indexOf(".")));
                         log.info("total rate = " + rate);
                     }
-                }catch(Exception oException){
+                } catch (Exception oException) {
                     log.error("cannot get nRate! " + currValue[2] + " caused: " + oException.getMessage(), oException);
                 }
                 Map<String, Long> currRes = new HashMap<>();
@@ -149,5 +148,5 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
         }
 
         return resHistoryEventService;
-	}
+    }
 }

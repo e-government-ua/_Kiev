@@ -13,9 +13,9 @@ import java.util.Collection;
  */
 public class AccessKeyAuthenticationToken extends AbstractAuthenticationToken {
 
+    private final Logger oLog = LoggerFactory.getLogger(AccessKeyAuthenticationToken.class);
     private String sID;
     private String sSecret;
-    private final Logger oLog = LoggerFactory.getLogger(AccessKeyAuthenticationToken.class);
 
     public AccessKeyAuthenticationToken(String sID, String sSecret) {
         super(null);
@@ -25,7 +25,8 @@ public class AccessKeyAuthenticationToken extends AbstractAuthenticationToken {
         setAuthenticated(false);
     }
 
-    public AccessKeyAuthenticationToken(String sID, String sSecret, Collection<? extends GrantedAuthority> aGrantedAuthority) {
+    public AccessKeyAuthenticationToken(String sID, String sSecret,
+            Collection<? extends GrantedAuthority> aGrantedAuthority) {
         super(aGrantedAuthority);
         this.sID = sID;
         this.sSecret = sSecret;

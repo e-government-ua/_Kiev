@@ -4,15 +4,15 @@ import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
-import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.base.dao.EntityNotFoundException;
+import org.wf.dp.dniprorada.base.dao.GenericEntityDao;
 import org.wf.dp.dniprorada.model.Country;
 
 import java.util.List;
 
 @Repository
 public class CountryDaoImpl extends GenericEntityDao<Country>
-        implements CountryDao{
+        implements CountryDao {
 
     private static final Logger log = Logger.getLogger(CountryDaoImpl.class);
 
@@ -28,7 +28,7 @@ public class CountryDaoImpl extends GenericEntityDao<Country>
         boolean allAreNull = true;
         for (int i = 0; i < values.length; i++) {
             Object value = values[i];
-            if (value != null){
+            if (value != null) {
                 criteria.add(Restrictions.eq(columns[i], value));
                 allAreNull = false;
             }
@@ -40,12 +40,12 @@ public class CountryDaoImpl extends GenericEntityDao<Country>
     @Override //отдает массив объектов сущности, подпадающих под критерии
     // later edit or delete this method
     public List<Country> getAll(Long nID_ua, String sID_two, String sID_three,
-                                String sNameShort_ua, String sNameShort_en) {
+            String sNameShort_ua, String sNameShort_en) {
 
         Criteria criteria = getSession().createCriteria(Country.class);
         boolean setRestrictions = setRestrictions(criteria,
-                new String[]{"nID_UA", "sID_Two", "sID_Three", "sNameShort_UA", "sNameShort_EN"},
-                new Object[]{nID_ua, sID_two, sID_three, sNameShort_ua, sNameShort_en});
+                new String[] { "nID_UA", "sID_Two", "sID_Three", "sNameShort_UA", "sNameShort_EN" },
+                new Object[] { nID_ua, sID_two, sID_three, sNameShort_ua, sNameShort_en });
 
         if (!setRestrictions)
             throw new IllegalArgumentException("all args are null!");
@@ -54,13 +54,13 @@ public class CountryDaoImpl extends GenericEntityDao<Country>
     }
 
     @Override   //апдейтит элемент(если задан один из уникальных-ключей)
-                //или вставляет (если не задан nID), и отдает экземпляр нового объекта
+    //или вставляет (если не задан nID), и отдает экземпляр нового объекта
     public Country setCountry(Long nID, Long nID_ua, String sID_two, String sID_three,
-                              String sNameShort_ua, String sNameShort_en, String sReference_localISO) {
+            String sNameShort_ua, String sNameShort_en, String sReference_localISO) {
 
         Country country = getByKey(nID, nID_ua, sID_two, sID_three);
 
-        if (country == null){
+        if (country == null) {
             if (nID == null) {
                 country = new Country();
             } else {
@@ -90,7 +90,7 @@ public class CountryDaoImpl extends GenericEntityDao<Country>
     private boolean areAllArgsNull(Object... args) {
         boolean result = true;
         for (Object o : args) {
-            if (o != null){
+            if (o != null) {
                 result = false;
                 break;
             }
@@ -100,8 +100,8 @@ public class CountryDaoImpl extends GenericEntityDao<Country>
 
     @Override //удаляет элемент(по одному из уникальных-ключей)
     public void removeByKey(Long nID, Long nID_ua, String sID_two, String sID_three) {
-         Country country = getByKey(nID, nID_ua, sID_two, sID_three);
-        if (country == null){
+        Country country = getByKey(nID, nID_ua, sID_two, sID_three);
+        if (country == null) {
             throw new EntityNotFoundException("Record not found!");
         } else {
             delete(country);
@@ -111,16 +111,13 @@ public class CountryDaoImpl extends GenericEntityDao<Country>
 
     @Override
     public Country getByKey(Long nID, Long nID_ua, String sID_two, String sID_three) {
-        if (nID != null){
+        if (nID != null) {
             return findById(nID).orNull();
-        } else
-        if (nID_ua != null){
+        } else if (nID_ua != null) {
             return findBy("nID_UA", nID_ua).orNull();
-        } else
-        if (sID_two != null){
+        } else if (sID_two != null) {
             return findBy("sID_Two", sID_two).orNull();
-        } else
-        if (sID_three != null){
+        } else if (sID_three != null) {
             return findBy("sID_Three", sID_three).orNull();
         } else
             throw new IllegalArgumentException("All args are null!");

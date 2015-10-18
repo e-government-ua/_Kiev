@@ -19,11 +19,11 @@ import static org.wf.dp.dniprorada.base.dao.util.QueryBuilder.extractParameter;
 
 /**
  * @author dgroup
- * @since  02.09.2015
+ * @since 02.09.2015
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("default")
-@ContextConfiguration(locations = {"classpath:context.xml"})
+@ContextConfiguration(locations = { "classpath:context.xml" })
 public class QueryBuilderTest {
     private static final Logger LOG = LoggerFactory.getLogger(QueryBuilderTest.class);
 
@@ -39,13 +39,13 @@ public class QueryBuilderTest {
     }
 
     @Test
-    public void smoke(){
+    public void smoke() {
         String sql = sqlStorage.get("get_PlaceTree_down_by_id.sql");
 
         Session session = sessionFactory.openSession();
         QueryBuilder query = new QueryBuilder(session, sql)
-            .setParam("placeId", 100)
-            .append(" where type_id = :type_id", 5);
+                .setParam("placeId", 100)
+                .append(" where type_id = :type_id", 5);
 
         assertThat(query.toString(), containsString("where type_id"));
 

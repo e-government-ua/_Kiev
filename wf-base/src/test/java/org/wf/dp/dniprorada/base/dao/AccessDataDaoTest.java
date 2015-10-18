@@ -6,18 +6,15 @@ package org.wf.dp.dniprorada.base.dao;
 
 import org.activiti.rest.controller.IntegrationTestsApplicationConfiguration;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.wf.dp.dniprorada.base.dao.AccessDataDao;
 import org.wf.dp.dniprorada.util.Util;
+
 /**
- *
  * @author olya
  */
 //@Ignore
@@ -31,7 +28,7 @@ public class AccessDataDaoTest {
 
     @Test //@Ignore
     public void workWithAccessData() {
-        byte[] content = new byte[] {1, 2, 3};
+        byte[] content = new byte[] { 1, 2, 3 };
         String contentString = Util.contentByteToString(content);
         String key = accessDataDao.setAccessData(contentString);
         Assert.assertNotNull(key);

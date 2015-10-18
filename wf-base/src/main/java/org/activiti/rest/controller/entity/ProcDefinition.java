@@ -22,9 +22,17 @@ public class ProcDefinition implements ProcDefinitionI {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public String getCategory() {
         return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @Override
@@ -32,9 +40,17 @@ public class ProcDefinition implements ProcDefinitionI {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String getKey() {
         return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     @Override
@@ -42,9 +58,17 @@ public class ProcDefinition implements ProcDefinitionI {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public int getVersion() {
         return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     @Override
@@ -52,9 +76,17 @@ public class ProcDefinition implements ProcDefinitionI {
         return resourceName;
     }
 
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
+    }
+
     @Override
     public String getDeploymentId() {
         return deploymentId;
+    }
+
+    public void setDeploymentId(String deploymentId) {
+        this.deploymentId = deploymentId;
     }
 
     @Override
@@ -62,54 +94,22 @@ public class ProcDefinition implements ProcDefinitionI {
         return diagramResourceName;
     }
 
+    public void setDiagramResourceName(String diagramResourceName) {
+        this.diagramResourceName = diagramResourceName;
+    }
+
     @Override
     public boolean isSuspended() {
         return isSuspended;
     }
 
+    public void setSuspended(boolean isSuspended) {
+        this.isSuspended = isSuspended;
+    }
+
     @Override
     public String getTenantId() {
         return tenantId;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
-
-    public void setResourceName(String resourceName) {
-        this.resourceName = resourceName;
-    }
-
-    public void setDeploymentId(String deploymentId) {
-        this.deploymentId = deploymentId;
-    }
-
-    public void setDiagramResourceName(String diagramResourceName) {
-        this.diagramResourceName = diagramResourceName;
-    }
-
-    public void setSuspended(boolean isSuspended) {
-        this.isSuspended = isSuspended;
     }
 
     public void setTenantId(String tenantId) {
@@ -118,23 +118,37 @@ public class ProcDefinition implements ProcDefinitionI {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         ProcDefinition that = (ProcDefinition) o;
 
-        if (isSuspended != that.isSuspended) return false;
-        if (version != that.version) return false;
-        if (category != null ? !category.equals(that.category) : that.category != null) return false;
-        if (deploymentId != null ? !deploymentId.equals(that.deploymentId) : that.deploymentId != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (diagramResourceName != null ? !diagramResourceName.equals(that.diagramResourceName) : that.diagramResourceName != null)
+        if (isSuspended != that.isSuspended)
             return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (key != null ? !key.equals(that.key) : that.key != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (resourceName != null ? !resourceName.equals(that.resourceName) : that.resourceName != null) return false;
-        if (tenantId != null ? !tenantId.equals(that.tenantId) : that.tenantId != null) return false;
+        if (version != that.version)
+            return false;
+        if (category != null ? !category.equals(that.category) : that.category != null)
+            return false;
+        if (deploymentId != null ? !deploymentId.equals(that.deploymentId) : that.deploymentId != null)
+            return false;
+        if (description != null ? !description.equals(that.description) : that.description != null)
+            return false;
+        if (diagramResourceName != null ?
+                !diagramResourceName.equals(that.diagramResourceName) :
+                that.diagramResourceName != null)
+            return false;
+        if (id != null ? !id.equals(that.id) : that.id != null)
+            return false;
+        if (key != null ? !key.equals(that.key) : that.key != null)
+            return false;
+        if (name != null ? !name.equals(that.name) : that.name != null)
+            return false;
+        if (resourceName != null ? !resourceName.equals(that.resourceName) : that.resourceName != null)
+            return false;
+        if (tenantId != null ? !tenantId.equals(that.tenantId) : that.tenantId != null)
+            return false;
 
         return true;
     }

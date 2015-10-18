@@ -7,7 +7,7 @@ package org.wf.dp.dniprorada.base.util;
  */
 public class JsonDateDeserializer extends AbstractJsonDateTimeDeserializer {
 
-   public JsonDateDeserializer() {
-      super(JsonDateSerializer.DATE_FORMATTER);
-   }
+    public JsonDateDeserializer() {
+        super(JsonDateSerializer.DATE_FORMATTER);
+    }
 }

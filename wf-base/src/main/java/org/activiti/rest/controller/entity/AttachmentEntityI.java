@@ -13,7 +13,6 @@ import java.util.Date;
 @JsonDeserialize(as = AttachmentEntity.class)
 public interface AttachmentEntityI {
 
-
     /**
      * returns attachment ID
      */

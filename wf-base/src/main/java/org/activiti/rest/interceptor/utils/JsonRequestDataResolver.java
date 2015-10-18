@@ -14,21 +14,21 @@ import java.util.Map;
  */
 public final class JsonRequestDataResolver {
 
-   public static Map<String, String> getProperties(JSONObject requestJson) throws ParseException {
+    public static Map<String, String> getProperties(JSONObject requestJson) throws ParseException {
 
-      Map<String, String> res = new HashMap<>();
+        Map<String, String> res = new HashMap<>();
 
-      JSONArray jsonArray = (JSONArray) requestJson.get("properties");
-      for (int i = 0; i < jsonArray.size(); ++i) {
-         JSONObject property = (JSONObject) jsonArray.get(i);
-         res.put((String) property.get("id"), (String) property.get("value"));
+        JSONArray jsonArray = (JSONArray) requestJson.get("properties");
+        for (int i = 0; i < jsonArray.size(); ++i) {
+            JSONObject property = (JSONObject) jsonArray.get(i);
+            res.put((String) property.get("id"), (String) property.get("value"));
 
-      }
+        }
 
-      return res;
-   }
+        return res;
+    }
 
-   public static String getEmail(JSONObject requestJson) throws ParseException {
-      return getProperties(requestJson).get("email");
-   }
+    public static String getEmail(JSONObject requestJson) throws ParseException {
+        return getProperties(requestJson).get("email");
+    }
 }

@@ -9,29 +9,29 @@ import java.lang.reflect.Method;
 
 public class MethodCacheAdvisor extends AbstractPointcutAdvisor {
 
-   private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-   private final StaticMethodMatcherPointcut pointcut = new
-           StaticMethodMatcherPointcut() {
-              @Override
-              public boolean matches(Method method, Class<?> targetClass) {
-                 return method.isAnnotationPresent(EnableCaching.class);
-              }
-           };
+    private final StaticMethodMatcherPointcut pointcut = new
+            StaticMethodMatcherPointcut() {
+                @Override
+                public boolean matches(Method method, Class<?> targetClass) {
+                    return method.isAnnotationPresent(EnableCaching.class);
+                }
+            };
 
-   private MethodCacheInterceptor interceptor;
+    private MethodCacheInterceptor interceptor;
 
-   public void setInterceptor(MethodCacheInterceptor interceptor) {
-      this.interceptor = interceptor;
-   }
+    public void setInterceptor(MethodCacheInterceptor interceptor) {
+        this.interceptor = interceptor;
+    }
 
-   @Override
-   public Pointcut getPointcut() {
-      return this.pointcut;
-   }
+    @Override
+    public Pointcut getPointcut() {
+        return this.pointcut;
+    }
 
-   @Override
-   public Advice getAdvice() {
-      return this.interceptor;
-   }
+    @Override
+    public Advice getAdvice() {
+        return this.interceptor;
+    }
 }  

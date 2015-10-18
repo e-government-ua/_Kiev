@@ -10,10 +10,10 @@ import java.util.List;
 
 /**
  * @author dgroup
- * @since  28.08.2015
+ * @since 28.08.2015
  */
 @Repository
-public class PlaceTypeDao extends GenericEntityDao<PlaceType>  {
+public class PlaceTypeDao extends GenericEntityDao<PlaceType> {
 
     protected PlaceTypeDao() {
         super(PlaceType.class);

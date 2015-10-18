@@ -1,9 +1,7 @@
 package org.activiti.rest.controller;
 
-import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -15,18 +13,14 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.wf.dp.dniprorada.model.SubjectMessage;
 import org.wf.dp.dniprorada.base.util.JsonRestUtils;
-import org.wf.dp.dniprorada.model.SubjectMessageType;
+import org.wf.dp.dniprorada.model.SubjectMessage;
 
-import java.util.List;
-
-import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -46,8 +40,8 @@ public class ActivitiRestSubjectMessageControllerScenario {
 
     @Test
     public void firstShouldSuccessfullySetAndGetMassage() throws Exception {
-       String messageBody = "XXX";
-       String jsonAfterSave = mockMvc.perform(post("/messages/setMessage").
+        String messageBody = "XXX";
+        String jsonAfterSave = mockMvc.perform(post("/messages/setMessage").
                 contentType(MediaType.APPLICATION_JSON).
                 param("sHead", "expect").
                 param("sBody", messageBody).
@@ -55,17 +49,17 @@ public class ActivitiRestSubjectMessageControllerScenario {
                 param("sData", "some data").
                 param("sMail", "ukr.net").
                 param("nID_SubjectMessageType", "1")).
-               andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-       SubjectMessage savedMessage = JsonRestUtils.readObject(jsonAfterSave, SubjectMessage.class);
-       assertNotNull(savedMessage.getId());
-       assertNotNull(savedMessage.getSubjectMessageType());
-       assertEquals(1L, savedMessage.getSubjectMessageType().getId().longValue());
-       assertEquals(messageBody, savedMessage.getBody());
-       assertEquals(0L, savedMessage.getId_subject().longValue());
+                andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        SubjectMessage savedMessage = JsonRestUtils.readObject(jsonAfterSave, SubjectMessage.class);
+        assertNotNull(savedMessage.getId());
+        assertNotNull(savedMessage.getSubjectMessageType());
+        assertEquals(1L, savedMessage.getSubjectMessageType().getId().longValue());
+        assertEquals(messageBody, savedMessage.getBody());
+        assertEquals(0L, savedMessage.getId_subject().longValue());
 
-       String jsonAfterGet = mockMvc.perform(get("/messages/getMessage").param("nID", "" + savedMessage.getId())).
-               andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-       assertEquals(jsonAfterSave, jsonAfterGet);
+        String jsonAfterGet = mockMvc.perform(get("/messages/getMessage").param("nID", "" + savedMessage.getId())).
+                andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        assertEquals(jsonAfterSave, jsonAfterGet);
     }
 
     @Test
