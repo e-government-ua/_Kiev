@@ -5,6 +5,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope,
   $timeout,
   $location,
+  $window,
   $rootScope,
   FormDataFactory,
   ActivitiService,
@@ -12,7 +13,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   oService,
   oServiceData,
   BankIDAccount,
-  ActivitiForm,
+  activitiForm,
   AdminService,
   PlacesService,
   uiUploader,
@@ -28,19 +29,18 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
   $scope.oServiceData = oServiceData;
   $scope.account = BankIDAccount; // FIXME потенційний хардкод
-  $scope.ActivitiForm = ActivitiForm;
+  $scope.activitiForm = activitiForm;
 
   $scope.data = $scope.data || {};
 
   $scope.data.region = currentState.data.region;
   $scope.data.city = currentState.data.city;
   $scope.data.id = currentState.data.id;
-  
+
   if ( !$scope.data.formData ) {
     $scope.data.formData = new FormDataFactory();
-    $scope.data.formData.initialize(ActivitiForm);
+    $scope.data.formData.initialize($scope.activitiForm);
     $scope.data.formData.setBankIDAccount(BankIDAccount);
-    //TODO uncomment after testing
     $scope.data.formData.uploadScansFromBankID(oServiceData);
   }
 
@@ -49,7 +49,7 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.markers = ValidationService.getValidationMarkers();
   var aID_FieldPhoneUA = $scope.markers.validate.PhoneUA.aField_ID;
 
-  angular.forEach($scope.ActivitiForm.formProperties, function(field) {
+  angular.forEach($scope.activitiForm.formProperties, function(field) {
 
     var sFieldName = field.name || '';
 
@@ -91,6 +91,33 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
     }
   });
 
+  $scope.getSignFieldID = function(){
+    return data.formData.getSignField().id;
+  };
+  $scope.isSignNeeded = $scope.data.formData.isSignNeeded();
+  $scope.signning = false;
+
+  if($scope.data.formData.isAlreadySigned()){
+    $scope.submit($scope.form)
+  }
+
+  $scope.signForm = function () {
+    if($scope.data.formData.isSignNeeded){
+      ActivitiService.saveForm(oService, oServiceData,
+        'some business key 111',
+        'process name here', $scope.activitiForm, $scope.data.formData)
+        .then(function (result) {
+          //var signPath = ActivitiService.getSignFormPath(oServiceData, result.formID);
+          //$window.location.href = $location.protocol() + '://' + $location.host() + ':' + $location.port() + signPath;
+          $window.location.href = $location.absUrl()
+            + '?formID=' + result.formID
+            + '&signedFileID=' + 1122333;
+        })
+    } else {
+      $window.alert('No sign is needed');
+    }
+  };
+
   $scope.submit = function(form) {
     $scope.isSending = true;
     form.$setSubmitted();
@@ -98,33 +125,43 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
 
     ValidationService.validateByMarkers(form, null, true);
 
-    if (form.$valid && bValid) { //
-      ActivitiService
-        .submitForm(oService, oServiceData, $scope.data.formData)
-        .then(function(result) {
+    if (form.$valid && bValid) {
+      if($scope.signning){
+        ActivitiService.saveForm(oService, oServiceData,
+          'some business key 111',
+          'process name here', $scope.activitiForm, $scope.data.formData)
+          .then(function (result) {
+            var signPath = ActivitiService.getSignFormPath(oServiceData, result.formID);
+            $window.location.href =
+                $location.protocol() + '://' + $location.host() + ':' + $location.port() + signPath;
+          })
+      } else {
+        ActivitiService
+          .submitForm(oService, oServiceData, $scope.data.formData)
+          .then(function(result) {
 
-          $scope.isSending = false;
+            $scope.isSending = false;
 
-          var state = $state.$current;
+            var state = $state.$current;
 
-          var submitted = $state.get(state.name + '.submitted');
-          if (!result.id) {
-            // console.log(result);
-            return;
-          }
-          //TODO: Fix Alhoritm Luna
-          var nCRC = ValidationService.getLunaValue(result.id);
+            var submitted = $state.get(state.name + '.submitted');
+            if (!result.id) {
+              // console.log(result);
+              return;
+            }
+            //TODO: Fix Alhoritm Luna
+            var nCRC = ValidationService.getLunaValue(result.id);
 
-          submitted.data.id = result.id + nCRC; //11111111
-          submitted.data.formData = $scope.data.formData;
+            submitted.data.id = result.id + nCRC; //11111111
+            submitted.data.formData = $scope.data.formData;
 
-          $scope.isSending = false;
+            $scope.isSending = false;
 
-          $scope.$root.data = $scope.data;
+            $scope.$root.data = $scope.data;
 
-          return $state.go(submitted, $stateParams);
-        });
-
+            return $state.go(submitted, $stateParams);
+          });
+      }
     } else {
 
       $scope.isSending = false;
@@ -240,21 +277,5 @@ angular.module('app').controller('ServiceBuiltInBankIDController', function(
   $scope.getHtml = function(html) {
     return $sce.trustAsHtml(html);
   };
-
-  // $timeout(function () {
-  //     $('input[type=tel]').intlTelInput({
-  //         defaultCountry: 'auto',
-  //         autoFormat: true,
-  //         allowExtensions: true,
-  //         preferredCountries: ['ua'],
-  //         autoPlaceholder: false,
-  //         geoIpLookup: function(callback) {
-  //             $.get('http://ipinfo.io', function() {}, 'jsonp').always(function(resp) {
-  //                 var countryCode = (resp && resp.country) ? resp.country : '';
-  //                 callback(countryCode);
-  //             });
-  //         }
-  //     });
-  // });
 
 });
