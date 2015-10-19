@@ -30,7 +30,7 @@
         <activiti:formProperty id="markers" name="markersForValidations" type="markers" default="{}"></activiti:formProperty>
         <activiti:formProperty id="mail_employee" name="Відповідальна особа" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="service_center" name="Адреса/графік МРЕВ" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="marker1" name="Назначение емейлов/ адресов и графиков МРЭО/ департаментов Днепропетровска" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;,&quot;service_center&quot;,&quot;nID_Department_visitDate&quot;],&quot;asID_Field_sValue&quot;:[&quot;kyrbatsky@gmail.com.ua&quot;,&quot;1&quot;,&quot;10&quot;],&quot;asID_Field&quot;:{&quot;sMreo&quot;:&quot;mreo&quot;},&quot;sCondition&quot;:&quot;[sMreo] == 'dnepr_mreo'&quot;},&quot;ValuesFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;,&quot;service_center&quot;,&quot;nID_Department_visitDate&quot;],&quot;asID_Field_sValue&quot;:[&quot;kurbpa@gmail.com.ua&quot;,&quot;2&quot;,&quot;12&quot;],&quot;asID_Field&quot;:{&quot;sMreo&quot;:&quot;mreo&quot;},&quot;sCondition&quot;:&quot;[sMreo] == 'dnepr_mreo2'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker1" name="Назначение емейлов/ адресов и графиков МРЭО/ департаментов Днепропетровска" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;,&quot;service_center&quot;,&quot;nID_Department_visitDate&quot;],&quot;asID_Field_sValue&quot;:[&quot;kyrbatsky@gmail.com&quot;,&quot;1&quot;,&quot;10&quot;],&quot;asID_Field&quot;:{&quot;sMreo&quot;:&quot;mreo&quot;},&quot;sCondition&quot;:&quot;[sMreo] == 'dnepr_mreo'&quot;},&quot;ValuesFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;,&quot;service_center&quot;,&quot;nID_Department_visitDate&quot;],&quot;asID_Field_sValue&quot;:[&quot;kurbpa@gmail.com&quot;,&quot;2&quot;,&quot;12&quot;],&quot;asID_Field&quot;:{&quot;sMreo&quot;:&quot;mreo&quot;},&quot;sCondition&quot;:&quot;[sMreo] == 'dnepr_mreo2'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -266,7 +266,7 @@ ${date_of_visit}&lt;br /&gt;
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"pavel.kurbatskij@privatbank.ua,vladimir.zimenko@privatbank.ua,Lilija,Verchenko.01@privatbank.ua"</activiti:expression>
+          <activiti:string><![CDATA[pavel.kurbatskij@privatbank.ua,vladimir.zimenko@privatbank.ua,Lilija,Verchenko.01@privatbank.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Реєстрація авто: рахунок на оплату]]></activiti:string>
@@ -294,7 +294,7 @@ id  платежу :  ${sIDPayment}</activiti:expression>
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"pavel.kurbatskij@privatbank.ua,vladimir.zimenko@privatbank.ua,Lilija,Verchenko.01@privatbank.ua"</activiti:expression>
+          <activiti:string><![CDATA[pavel.kurbatskij@privatbank.ua,vladimir.zimenko@privatbank.ua,Lilija,Verchenko.01@privatbank.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Реєстрація авто с пробігом в МРЄВ. Повернення коштів]]></activiti:string>
@@ -419,7 +419,7 @@ ${date_of_visit}&lt;br /&gt;
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${mail_employee}"</activiti:expression>
+          <activiti:expression>${mail_employee}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Нове звернення. (Заявник:  ${bankIdfirstName} ${bankIdmiddleName} ${bankIdlastName})</activiti:expression>
