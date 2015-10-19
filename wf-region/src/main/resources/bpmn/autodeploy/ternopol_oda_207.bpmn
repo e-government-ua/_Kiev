@@ -95,7 +95,7 @@
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 	
-										Спеціалісти із державного органу повинні дати відповідь найближчим часом.
+										Спеціалісти ОДА повинні дати відповідь найближчим часом.
 										&lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
@@ -218,8 +218,8 @@
     <userTask id="usertask1" name="Перевірка документів операціоністом" activiti:candidateGroups="ternopil_oda_4">
       <extensionElements>
         <activiti:formProperty id="clFio" name="ПІБ заявника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+38" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="email" name="E-Mail для зворотнього зв'язку " type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="whoIs" name="Суб'єкт звернення" type="enum" writable="false">
           <activiti:value id="fop" name="фізична особа-підприємець"></activiti:value>
           <activiti:value id="ur" name="юридична особа"></activiti:value>
@@ -443,7 +443,7 @@
     <userTask id="usertask2" name="Результати розгляду" activiti:candidateGroups="ternopil_oda_4">
       <extensionElements>
         <activiti:formProperty id="docID" name="Реєстраційний номер" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+38" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail для зворотнього зв'язку " type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clFio" name="ПІБ заявника, oдержувача допомоги АБО його законного представника" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="whoIs" name="Суб'єкт звернення" type="enum" writable="false">
