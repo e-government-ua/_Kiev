@@ -14,19 +14,19 @@ import org.wf.dp.dniprorada.base.model.Flow_ServiceData;
 @Repository
 public class FlowServiceDataDaoImpl extends GenericEntityDao<Flow_ServiceData> implements FlowServiceDataDao {
 
-   public FlowServiceDataDaoImpl() {
-      super(Flow_ServiceData.class);
-   }
+    public FlowServiceDataDaoImpl() {
+        super(Flow_ServiceData.class);
+    }
 
-   @Override
-   public Long findFlowId(String sID_BP, Long nID_SubjectOrganDepartment) {
+    @Override
+    public Long findFlowId(String sID_BP, Long nID_SubjectOrganDepartment) {
 
-      Criteria criteria = createCriteria();
+        Criteria criteria = createCriteria();
 
-      criteria.add(Restrictions.eq("sID_BP", sID_BP));
-      criteria.add(Restrictions.eq("nID_SubjectOrganDepartment", nID_SubjectOrganDepartment));
-      criteria.setProjection(Projections.id());
+        criteria.add(Restrictions.eq("sID_BP", sID_BP));
+        criteria.add(Restrictions.eq("nID_SubjectOrganDepartment", nID_SubjectOrganDepartment));
+        criteria.setProjection(Projections.id());
 
-      return (Long) criteria.uniqueResult();
-   }
+        return (Long) criteria.uniqueResult();
+    }
 }

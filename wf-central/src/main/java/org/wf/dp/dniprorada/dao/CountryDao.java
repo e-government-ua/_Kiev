@@ -8,12 +8,12 @@ import java.util.List;
 public interface CountryDao extends EntityDao<Country> {
 
     public List<Country> getAll(Long nID_ua, String sID_two, String sID_three,
-                                String sNameShort_ua, String sNameShort_en) ;
+            String sNameShort_ua, String sNameShort_en);
 
     public Country setCountry(Long nID, Long nID_ua, String sID_two, String sID_three,
-                              String sNameShort_ua, String sNameShort_en, String sReference_localISO) ;
+            String sNameShort_ua, String sNameShort_en, String sReference_localISO);
 
-    public void removeByKey(Long nID, Long nID_ua, String sID_two, String sID_three) ;
+    public void removeByKey(Long nID, Long nID_ua, String sID_two, String sID_three);
 
     public Country getByKey(Long nID, Long nID_ua, String sID_two, String sID_three);
 }

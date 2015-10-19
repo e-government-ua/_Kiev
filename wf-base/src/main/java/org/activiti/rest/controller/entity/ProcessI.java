@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 public interface ProcessI {
 
     /**
-     *
      * @return Идентификатор процесса
      */
     String getId();

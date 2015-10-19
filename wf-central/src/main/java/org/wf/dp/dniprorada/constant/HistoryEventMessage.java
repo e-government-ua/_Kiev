@@ -46,9 +46,9 @@ public class HistoryEventMessage {
             JSONObject record = jsonArray.getJSONObject(i);
             tableStr.append(record.opt("id") != null ? record.get("id") : "?")
                     .append(" \t ")
-                    .append(record.opt("type")!= null ? record.get("type").toString() : "??")
+                    .append(record.opt("type") != null ? record.get("type").toString() : "??")
                     .append(" \t ")
-                    .append(record.opt("value")!= null ? record.get("value").toString() : "")
+                    .append(record.opt("value") != null ? record.get("value").toString() : "")
                     .append(" \n");
         }
         return tableStr.toString();

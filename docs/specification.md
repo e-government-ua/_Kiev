@@ -1696,6 +1696,7 @@ http://test.igov.org.ua/wf/service/services/updateHistoryEvent_Service?nID_Proce
  - "По заявці №\[nID_Process\] задане прохання уточнення: \[sBody\]" (если sToken не пустой) -- согласно сервису в <a href="https://github.com/e-government-ua/i/blob/test/docs/specification.md#38_setTaskQuestions">запроса на уточнение</a>
  - "По заявці №\[nID_Process\] дана відповідь громадянином: \[sBody\]" (если sToken пустой) -- согласно сервису <a href="https://github.com/e-government-ua/i/blob/test/docs/specification.md#39_setTaskAnswer">ответа на запрос по уточнению</a>
  - плюс перечисление полей из soData в формате таблицы Поле / Тип / Текущее значение
+ 
 <a name="18_workWithFlowSlot">
 #### 18. Электронные очереди (слоты потока, расписания и тикеты)
 </a><a href="#0_contents">↑Up</a><br/>
@@ -2396,11 +2397,11 @@ Responce status 200.
 
 Примеры:
 
-https://test.igov.org.ua/wf/service/services/getStatisticServiceCounts?nID_Service=1
+https://test.igov.org.ua/wf/service/services/getStatisticServiceCounts?nID_Service=26
 
 Результат
 ```json
-[{"nCount":1,"sName":"Івано-Франківська"},{"nCount":3,"sName":"Дніпропетровська"},{"nCount":1,"sName":"Львівська"}]
+[{"nCount":5,"nRate":0,"nTimeHours":"0","sName":"Київ"},{"nCount":15,"nRate":0,"nTimeHours":"2","sName":"Дніпропетровська"}]
 ```
 --------------------------------------------------------------------------------------------------------------------------
 
@@ -2504,7 +2505,7 @@ ID созданного attachment - "id":"25"
 
 
 ПРИМЕР:
-test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshye_mvk-1a&sID_UserTask=*&sCondition=nElapsedDays==nDaysLimit&soData={nDaysLimit:3,asRecipientMail:[test@email.com]}&sPatternFile=escalation/escalation_template.html&nID_EscalationRuleFunction=1
+test.region.igov.org.ua/wf/service/escalation/setEscalationRule?sID_BP=zaporoshye_mvk-1a&sID_UserTask=*&sCondition=nElapsedDays==nDaysLimit&soData={nDaysLimit:3,asRecipientMail:['test@email.com']}&sPatternFile=escalation/escalation_template.html&nID_EscalationRuleFunction=1
 
 ОТВЕТ:
 ```json

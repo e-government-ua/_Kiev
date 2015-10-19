@@ -1,10 +1,11 @@
 package org.activiti.rest.security;
 
-import org.activity.rest.security.*;
-import org.springframework.security.core.*;
-import org.springframework.security.core.authority.*;
+import org.activity.rest.security.AccessKeyAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-import java.util.*;
+import java.util.Collections;
 
 /**
  * @author tasman

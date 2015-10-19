@@ -7,7 +7,7 @@ package org.wf.dp.dniprorada.base.service.access;
  */
 public class HandlerBeanValidationException extends Exception {
 
-   public HandlerBeanValidationException(String message) {
-      super(message);
-   }
+    public HandlerBeanValidationException(String message) {
+        super(message);
+    }
 }

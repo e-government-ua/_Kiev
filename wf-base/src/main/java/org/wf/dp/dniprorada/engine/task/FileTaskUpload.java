@@ -1,60 +1,42 @@
 package org.wf.dp.dniprorada.engine.task;
 
-import org.activiti.engine.ActivitiException;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
-import org.activiti.engine.form.FormData;
-import org.activiti.engine.form.FormProperty;
 import org.activiti.engine.form.StartFormData;
-import org.activiti.redis.model.ByteArrayMultipartFile;
 import org.activiti.redis.service.RedisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.wf.dp.dniprorada.base.dao.FlowSlotDao;
-import org.wf.dp.dniprorada.base.dao.FlowSlotTicketDao;
 import org.wf.dp.dniprorada.base.model.AbstractModelTask;
-import org.wf.dp.dniprorada.base.model.FlowSlotTicket;
-import org.wf.dp.dniprorada.base.util.JsonRestUtils;
-import org.wf.dp.dniprorada.base.viewobject.flow.SaveFlowSlotTicketResponse;
-import org.wf.dp.dniprorada.form.QueueDataFormType;
-import org.wf.dp.dniprorada.model.BuilderAtachModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
- * 
  * @author inna & BW
- * 
  */
 @Component("fileTaskUpload")
 public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
-	static final transient Logger LOG = LoggerFactory
-			.getLogger(FileTaskUpload.class);
-
-	public static final String BUILDER_ATACH_MODEL_LIST = "builderAtachModel";
-
+    public static final String BUILDER_ATACH_MODEL_LIST = "builderAtachModel";
+    static final transient Logger LOG = LoggerFactory
+            .getLogger(FileTaskUpload.class);
     @Autowired
     RedisService redisService;
 
-        //@Autowired
-        //private BaseEntityDao baseEntityDao;
+    //@Autowired
+    //private BaseEntityDao baseEntityDao;
 
-   //@Autowired
-   //private FlowSlotDao flowSlotDao;
+    //@Autowired
+    //private FlowSlotDao flowSlotDao;
 
-   //@Autowired
-   //private FlowSlotTicketDao oFlowSlotTicketDao;
+    //@Autowired
+    //private FlowSlotTicketDao oFlowSlotTicketDao;
 
-        
-	/**
-	 * Получить ид поля с кастомным типом file
-	 * @param oFormData
-	 * @return
-	 */
-	/*public static List<String> getListField_QueueDataFormType(FormData oFormData) {
+    /**
+     * Получить ид поля с кастомным типом file
+     *
+     * @param oFormData
+     * @return
+     */
+    /*public static List<String> getListField_QueueDataFormType(FormData oFormData) {
 		List<String>asFieldID = new ArrayList<String>();
 		List<FormProperty> aFormProperty = oFormData.getFormProperties();
 		if(!aFormProperty.isEmpty()){
@@ -66,16 +48,14 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 		}
 		return asFieldID;
 	}*/
-        
-        
-	@Override
-	public void execute(DelegateExecution oExecution) throws Exception {
+    @Override
+    public void execute(DelegateExecution oExecution) throws Exception {
                 /*if(1==1){
                     return;
                 }*/
-		StartFormData oStartformData = oExecution.getEngineServices()
-				.getFormService()
-				.getStartFormData(oExecution.getProcessDefinitionId());
+        StartFormData oStartformData = oExecution.getEngineServices()
+                .getFormService()
+                .getStartFormData(oExecution.getProcessDefinitionId());
                 
                 /*
                 LOG.info("SCAN:file");
@@ -125,12 +105,12 @@ public class FileTaskUpload extends AbstractModelTask implements JavaDelegate {
 			oExecution.setVariable(BUILDER_ATACH_MODEL_LIST, aBuilderAtachModel);
 		}
                 */
-                
-                scanExecutionOnQueueTickets(oExecution, oStartformData); //oTask);//startformData
-	}
 
-	public RedisService getRedisService() {
-		return redisService;
-	}
+        scanExecutionOnQueueTickets(oExecution, oStartformData); //oTask);//startformData
+    }
+
+    public RedisService getRedisService() {
+        return redisService;
+    }
 
 }

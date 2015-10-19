@@ -5,7 +5,8 @@ import org.wf.dp.dniprorada.model.Merchant;
 
 public interface MerchantDao extends EntityDao<Merchant> {
 
-   Merchant getMerchant(String sID);
-   boolean deleteMerchant(String sID);
+    Merchant getMerchant(String sID);
+
+    boolean deleteMerchant(String sID);
 
 }

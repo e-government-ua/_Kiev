@@ -3,9 +3,7 @@ package org.wf.dp.dniprorada.ui.form;
 import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalSplitPanel;
 import org.activiti.engine.form.FormProperty;
-import org.activiti.engine.form.FormType;
 import org.activiti.explorer.ui.form.AbstractFormPropertyRenderer;
 import org.wf.dp.dniprorada.form.MarkersFormType;
 

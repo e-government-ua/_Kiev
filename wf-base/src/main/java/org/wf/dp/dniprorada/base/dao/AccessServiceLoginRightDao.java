@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface AccessServiceLoginRightDao extends EntityDao<AccessServiceLoginRight> {
 
-   AccessServiceLoginRight getAccessServiceLoginRight(String sLogin, String sService);
+    AccessServiceLoginRight getAccessServiceLoginRight(String sLogin, String sService);
 
-   List<String> getAccessibleServices(String sLogin);
+    List<String> getAccessibleServices(String sLogin);
 }

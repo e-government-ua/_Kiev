@@ -1,12 +1,6 @@
 package org.wf.dp.dniprorada.base.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import org.wf.dp.dniprorada.base.model.Entity;
-
 import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 /**
  * User: goodg_000
@@ -16,34 +10,36 @@ import javax.persistence.ManyToOne;
 @javax.persistence.Entity
 public class SubjectOrganDepartment extends Entity {
 
-   @Column
-   private String sName;
+    @Column
+    private String sName;
 
-   @Column
-   private Long nID_SubjectOrgan;
+    @Column
+    private Long nID_SubjectOrgan;
 
-   @Column
-   private String sGroup_Activiti;
+    @Column
+    private String sGroup_Activiti;
 
-   public String getsName() {
-      return sName;
-   }
-   public void setsName(String sName) {
-      this.sName = sName;
-   }
+    public String getsName() {
+        return sName;
+    }
 
-   public Long getnID_SubjectOrgan() {
-      return nID_SubjectOrgan;
-   }
+    public void setsName(String sName) {
+        this.sName = sName;
+    }
 
-   public void setnID_SubjectOrgan(Long nID_SubjectOrgan) {
-      this.nID_SubjectOrgan = nID_SubjectOrgan;
-   }
+    public Long getnID_SubjectOrgan() {
+        return nID_SubjectOrgan;
+    }
 
-   public String getsGroup_Activiti() {
-      return sGroup_Activiti;
-   }
-   public void setsGroup_Activiti(String sGroup_Activiti) {
-      this.sGroup_Activiti = sGroup_Activiti;
-   }
+    public void setnID_SubjectOrgan(Long nID_SubjectOrgan) {
+        this.nID_SubjectOrgan = nID_SubjectOrgan;
+    }
+
+    public String getsGroup_Activiti() {
+        return sGroup_Activiti;
+    }
+
+    public void setsGroup_Activiti(String sGroup_Activiti) {
+        this.sGroup_Activiti = sGroup_Activiti;
+    }
 }

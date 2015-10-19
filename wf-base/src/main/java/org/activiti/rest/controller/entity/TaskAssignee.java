@@ -1,8 +1,8 @@
 package org.activiti.rest.controller.entity;
 
 /**
-* Created by diver on 4/8/15.
-*/
+ * Created by diver on 4/8/15.
+ */
 public class TaskAssignee implements TaskAssigneeI {
 
     private String delegationState;
@@ -29,9 +29,17 @@ public class TaskAssignee implements TaskAssigneeI {
         return delegationState;
     }
 
+    public void setDelegationState(String delegationState) {
+        this.delegationState = delegationState;
+    }
+
     @Override
     public boolean isSuspended() {
         return isSuspended;
+    }
+
+    public void setSuspended(boolean isSuspended) {
+        this.isSuspended = isSuspended;
     }
 
     @Override
@@ -39,9 +47,17 @@ public class TaskAssignee implements TaskAssigneeI {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     @Override
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -49,9 +65,17 @@ public class TaskAssignee implements TaskAssigneeI {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public int getPriority() {
         return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     @Override
@@ -59,9 +83,17 @@ public class TaskAssignee implements TaskAssigneeI {
         return owner;
     }
 
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
     @Override
     public String getAssignee() {
         return assignee;
+    }
+
+    public void setAssignee(String assignee) {
+        this.assignee = assignee;
     }
 
     @Override
@@ -69,9 +101,17 @@ public class TaskAssignee implements TaskAssigneeI {
         return processInstanceId;
     }
 
+    public void setProcessInstanceId(String processInstanceId) {
+        this.processInstanceId = processInstanceId;
+    }
+
     @Override
     public String getExecutionId() {
         return executionId;
+    }
+
+    public void setExecutionId(String executionId) {
+        this.executionId = executionId;
     }
 
     @Override
@@ -84,9 +124,17 @@ public class TaskAssignee implements TaskAssigneeI {
         return createTime;
     }
 
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public String getTaskDefinitionKey() {
         return taskDefinitionKey;
+    }
+
+    public void setTaskDefinitionKey(String taskDefinitionKey) {
+        this.taskDefinitionKey = taskDefinitionKey;
     }
 
     @Override
@@ -94,9 +142,17 @@ public class TaskAssignee implements TaskAssigneeI {
         return dueDate;
     }
 
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
     @Override
     public String getCategory() {
         return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @Override
@@ -104,9 +160,17 @@ public class TaskAssignee implements TaskAssigneeI {
         return parentTaskId;
     }
 
+    public void setParentTaskId(String parentTaskId) {
+        this.parentTaskId = parentTaskId;
+    }
+
     @Override
     public String getTenantId() {
         return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
     @Override
@@ -114,107 +178,65 @@ public class TaskAssignee implements TaskAssigneeI {
         return formKey;
     }
 
-    public void setDelegationState(String delegationState) {
-        this.delegationState = delegationState;
-    }
-
-    public void setSuspended(boolean isSuspended) {
-        this.isSuspended = isSuspended;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
-    public void setAssignee(String assignee) {
-        this.assignee = assignee;
-    }
-
-    public void setProcessInstanceId(String processInstanceId) {
-        this.processInstanceId = processInstanceId;
+    public void setFormKey(String formKey) {
+        this.formKey = formKey;
     }
 
     public void setProcessDifinitionId(String processDifinitionId) {
         this.processDifinitionId = processDifinitionId;
     }
 
-    public void setExecutionId(String executionId) {
-        this.executionId = executionId;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public void setTaskDefinitionKey(String taskDefinitionKey) {
-        this.taskDefinitionKey = taskDefinitionKey;
-    }
-
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public void setParentTaskId(String parentTaskId) {
-        this.parentTaskId = parentTaskId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setFormKey(String formKey) {
-        this.formKey = formKey;
-    }
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         TaskAssignee that = (TaskAssignee) o;
 
-        if (isSuspended != that.isSuspended) return false;
-        if (priority != that.priority) return false;
-        if (assignee != null ? !assignee.equals(that.assignee) : that.assignee != null) return false;
-        if (category != null ? !category.equals(that.category) : that.category != null) return false;
-        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
+        if (isSuspended != that.isSuspended)
+            return false;
+        if (priority != that.priority)
+            return false;
+        if (assignee != null ? !assignee.equals(that.assignee) : that.assignee != null)
+            return false;
+        if (category != null ? !category.equals(that.category) : that.category != null)
+            return false;
+        if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null)
+            return false;
         if (delegationState != null ? !delegationState.equals(that.delegationState) : that.delegationState != null)
             return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (dueDate != null ? !dueDate.equals(that.dueDate) : that.dueDate != null) return false;
-        if (executionId != null ? !executionId.equals(that.executionId) : that.executionId != null) return false;
-        if (formKey != null ? !formKey.equals(that.formKey) : that.formKey != null) return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (owner != null ? !owner.equals(that.owner) : that.owner != null) return false;
-        if (parentTaskId != null ? !parentTaskId.equals(that.parentTaskId) : that.parentTaskId != null) return false;
-        if (processDifinitionId != null ? !processDifinitionId.equals(that.processDifinitionId) : that.processDifinitionId != null)
+        if (description != null ? !description.equals(that.description) : that.description != null)
             return false;
-        if (processInstanceId != null ? !processInstanceId.equals(that.processInstanceId) : that.processInstanceId != null)
+        if (dueDate != null ? !dueDate.equals(that.dueDate) : that.dueDate != null)
             return false;
-        if (taskDefinitionKey != null ? !taskDefinitionKey.equals(that.taskDefinitionKey) : that.taskDefinitionKey != null)
+        if (executionId != null ? !executionId.equals(that.executionId) : that.executionId != null)
             return false;
-        if (tenantId != null ? !tenantId.equals(that.tenantId) : that.tenantId != null) return false;
+        if (formKey != null ? !formKey.equals(that.formKey) : that.formKey != null)
+            return false;
+        if (id != null ? !id.equals(that.id) : that.id != null)
+            return false;
+        if (name != null ? !name.equals(that.name) : that.name != null)
+            return false;
+        if (owner != null ? !owner.equals(that.owner) : that.owner != null)
+            return false;
+        if (parentTaskId != null ? !parentTaskId.equals(that.parentTaskId) : that.parentTaskId != null)
+            return false;
+        if (processDifinitionId != null ?
+                !processDifinitionId.equals(that.processDifinitionId) :
+                that.processDifinitionId != null)
+            return false;
+        if (processInstanceId != null ?
+                !processInstanceId.equals(that.processInstanceId) :
+                that.processInstanceId != null)
+            return false;
+        if (taskDefinitionKey != null ?
+                !taskDefinitionKey.equals(that.taskDefinitionKey) :
+                that.taskDefinitionKey != null)
+            return false;
+        if (tenantId != null ? !tenantId.equals(that.tenantId) : that.tenantId != null)
+            return false;
 
         return true;
     }

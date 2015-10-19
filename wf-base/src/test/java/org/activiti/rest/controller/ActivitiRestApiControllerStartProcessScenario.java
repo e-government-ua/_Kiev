@@ -1,22 +1,23 @@
 package org.activiti.rest.controller;
 
-import org.activiti.engine.*;
-import org.activiti.engine.runtime.*;
-import org.junit.*;
-import org.junit.runner.*;
-import org.mockito.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.http.*;
-import org.springframework.test.context.*;
-import org.springframework.test.context.junit4.*;
-import org.springframework.test.context.web.*;
-import org.springframework.test.web.servlet.*;
-import org.springframework.test.web.servlet.setup.*;
-import org.springframework.web.context.*;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
@@ -46,7 +47,7 @@ public class ActivitiRestApiControllerStartProcessScenario {
         Mockito.when(processInstance.getProcessInstanceId()).thenReturn("38");
         Mockito.when(processInstance.getId()).thenReturn("12");
         Mockito.when(runtimeService.startProcessInstanceByKey(Mockito.eq("kermit"))).
-            thenReturn(processInstance);
+                thenReturn(processInstance);
     }
 
     @Test

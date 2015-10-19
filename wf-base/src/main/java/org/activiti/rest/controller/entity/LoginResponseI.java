@@ -11,7 +11,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 public interface LoginResponseI {
 
     /**
-     *
      * @return Сессиф клиента
      */
     String getSession();

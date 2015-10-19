@@ -1,14 +1,5 @@
 package org.wf.dp.dniprorada.util;
 
-import javax.activation.DataSource;
-import javax.mail.BodyPart;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMultipart;
-import org.activiti.engine.TaskService;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.MultiPartEmail;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
@@ -20,13 +11,10 @@ import org.springframework.beans.factory.annotation.Value;
  */
 
 /**
- *
  * @author Belyavtsev Vladimir Vladimirovich (BW)
  */
 public abstract class Abstract_Mail {
 
-    public Abstract_Mail(){}
-    
     @Value("${mailServerDefaultFrom}")
     private String sFrom; //"noreplay@gmail.com";
     @Value("${mailAddressNoreply}")
@@ -45,7 +33,9 @@ public abstract class Abstract_Mail {
     private boolean bSSL;
     @Value("${mailServerUseTLS}")
     private boolean bTLS;
-    
+    public Abstract_Mail() {
+    }
+
     public String getFrom() {
         return sFrom;
     }
@@ -135,11 +125,9 @@ public abstract class Abstract_Mail {
         this.bTLS = bTLS;
         return this;
     }
-    
 
-            
     //abstract public void init() throws Exception;
-    
+
     abstract public void send() throws Exception;
-    
+
 }

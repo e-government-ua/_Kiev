@@ -22,85 +22,87 @@ import java.util.List;
 @RequestMapping(value = "/merchant")
 public class ActivitiRestMerchantController {
 
-	@Autowired
-	private MerchantDao merchantDao;
+    @Autowired
+    private MerchantDao merchantDao;
 
-	@Autowired
-	private SubjectOrganDao subjectOrganDao;
-	
-	@RequestMapping(value = "/getMerchants", method = RequestMethod.GET)
-	public @ResponseBody
-	ResponseEntity getMerchants(){
-		return JsonRestUtils.toJsonResponse(toVO(merchantDao.findAll()));
-	}
+    @Autowired
+    private SubjectOrganDao subjectOrganDao;
 
-	@RequestMapping(value = "/getMerchant", method = RequestMethod.GET)
-	public @ResponseBody
-	ResponseEntity getMerchant(@RequestParam(value = "sID") String sID){
-		Merchant merchant = merchantDao.getMerchant(sID);
-		if (merchant == null) {
-			return new ResponseEntity("Merchant with sID=" + sID + " is not found!", HttpStatus.NOT_FOUND);
-		}
+    @RequestMapping(value = "/getMerchants", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    ResponseEntity getMerchants() {
+        return JsonRestUtils.toJsonResponse(toVO(merchantDao.findAll()));
+    }
 
-		return JsonRestUtils.toJsonResponse(new MerchantVO(merchant));
-	}
+    @RequestMapping(value = "/getMerchant", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    ResponseEntity getMerchant(@RequestParam(value = "sID") String sID) {
+        Merchant merchant = merchantDao.getMerchant(sID);
+        if (merchant == null) {
+            return new ResponseEntity("Merchant with sID=" + sID + " is not found!", HttpStatus.NOT_FOUND);
+        }
 
-	@RequestMapping(value = "/removeMerchant", method = RequestMethod.DELETE)
-	public ResponseEntity deleteMerchant(@RequestParam(value = "sID") String id){
-      return new ResponseEntity(merchantDao.deleteMerchant(id) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
-	}
-	
-	@RequestMapping(value = "/setMerchant", method = RequestMethod.POST)
-	public ResponseEntity setMerchant(
-			  @RequestParam(value = "nID", required = false) Long nID,
-			  @RequestParam(value = "sID", required = false) String sID,
-			  @RequestParam(value = "sName", required = false) String sName,
-			  @RequestParam(value = "sPrivateKey", required = false) String sPrivateKey,
-			  @RequestParam(value = "nID_SubjectOrgan", required = false) Long nID_SubjectOrgan,
-			  @RequestParam(value = "sURL_CallbackStatusNew", required = false) String sURL_CallbackStatusNew,
-			  @RequestParam(value = "sURL_CallbackPaySuccess", required = false) String sURL_CallbackPaySuccess) {
+        return JsonRestUtils.toJsonResponse(new MerchantVO(merchant));
+    }
 
-		Merchant merchant = nID != null ? merchantDao.findById(nID).orNull() : new Merchant();
+    @RequestMapping(value = "/removeMerchant", method = RequestMethod.DELETE)
+    public ResponseEntity deleteMerchant(@RequestParam(value = "sID") String id) {
+        return new ResponseEntity(merchantDao.deleteMerchant(id) ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+    }
 
-		if (merchant == null) {
-			merchant = new Merchant();
-		}
+    @RequestMapping(value = "/setMerchant", method = RequestMethod.POST)
+    public ResponseEntity setMerchant(
+            @RequestParam(value = "nID", required = false) Long nID,
+            @RequestParam(value = "sID", required = false) String sID,
+            @RequestParam(value = "sName", required = false) String sName,
+            @RequestParam(value = "sPrivateKey", required = false) String sPrivateKey,
+            @RequestParam(value = "nID_SubjectOrgan", required = false) Long nID_SubjectOrgan,
+            @RequestParam(value = "sURL_CallbackStatusNew", required = false) String sURL_CallbackStatusNew,
+            @RequestParam(value = "sURL_CallbackPaySuccess", required = false) String sURL_CallbackPaySuccess) {
 
-		if (sID != null) {
-			merchant.setsID(sID);
-		}
+        Merchant merchant = nID != null ? merchantDao.findById(nID).orNull() : new Merchant();
 
-		if (sName != null) {
-			merchant.setName(sName);
-		}
+        if (merchant == null) {
+            merchant = new Merchant();
+        }
 
-      if (sPrivateKey != null) {
-         merchant.setsPrivateKey(sPrivateKey);
-      }
+        if (sID != null) {
+            merchant.setsID(sID);
+        }
 
-		if (nID_SubjectOrgan != null) {
-			SubjectOrgan subjectOrgan = subjectOrganDao.findByIdExpected(nID_SubjectOrgan);
-			merchant.setOwner(subjectOrgan);
-		}
+        if (sName != null) {
+            merchant.setName(sName);
+        }
 
-		if (sURL_CallbackStatusNew != null) {
-			merchant.setsURL_CallbackStatusNew(sURL_CallbackStatusNew);
-		}
+        if (sPrivateKey != null) {
+            merchant.setsPrivateKey(sPrivateKey);
+        }
 
-		if (sURL_CallbackPaySuccess != null) {
-			merchant.setsURL_CallbackPaySuccess(sURL_CallbackPaySuccess);
-		}
+        if (nID_SubjectOrgan != null) {
+            SubjectOrgan subjectOrgan = subjectOrganDao.findByIdExpected(nID_SubjectOrgan);
+            merchant.setOwner(subjectOrgan);
+        }
 
-		merchant = merchantDao.saveOrUpdate(merchant);
-		return JsonRestUtils.toJsonResponse(new MerchantVO(merchant));
-	}
+        if (sURL_CallbackStatusNew != null) {
+            merchant.setsURL_CallbackStatusNew(sURL_CallbackStatusNew);
+        }
 
-	private List<MerchantVO> toVO(List<Merchant> merchants) {
-		List<MerchantVO> res = new ArrayList<>();
-		for (Merchant merchant : merchants) {
-			res.add(new MerchantVO(merchant));
-		}
+        if (sURL_CallbackPaySuccess != null) {
+            merchant.setsURL_CallbackPaySuccess(sURL_CallbackPaySuccess);
+        }
 
-		return res;
-	}
+        merchant = merchantDao.saveOrUpdate(merchant);
+        return JsonRestUtils.toJsonResponse(new MerchantVO(merchant));
+    }
+
+    private List<MerchantVO> toVO(List<Merchant> merchants) {
+        List<MerchantVO> res = new ArrayList<>();
+        for (Merchant merchant : merchants) {
+            res.add(new MerchantVO(merchant));
+        }
+
+        return res;
+    }
 }

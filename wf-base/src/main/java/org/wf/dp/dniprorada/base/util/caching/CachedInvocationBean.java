@@ -2,8 +2,6 @@ package org.wf.dp.dniprorada.base.util.caching;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Arrays;
-
 /**
  * User: goodg_000
  * Date: 16.06.2015
@@ -11,23 +9,23 @@ import java.util.Arrays;
  */
 public class CachedInvocationBean {
 
-   public static abstract class Callback<T> {
-      private Object[] cacheKeyParts;
+    @EnableCaching
+    public <T> T invokeUsingCache(Callback<T> callback) {
+        return callback.execute();
+    }
 
-      public Callback(Object... cacheKeyParts) {
-         this.cacheKeyParts = cacheKeyParts;
-      }
+    public static abstract class Callback<T> {
+        private Object[] cacheKeyParts;
 
-      public abstract T execute();
+        public Callback(Object... cacheKeyParts) {
+            this.cacheKeyParts = cacheKeyParts;
+        }
 
-      @Override
-      public String toString() {
-         return StringUtils.join(cacheKeyParts, ",");
-      }
-   }
+        public abstract T execute();
 
-   @EnableCaching
-   public <T> T invokeUsingCache(Callback<T> callback) {
-      return callback.execute();
-   }
+        @Override
+        public String toString() {
+            return StringUtils.join(cacheKeyParts, ",");
+        }
+    }
 }

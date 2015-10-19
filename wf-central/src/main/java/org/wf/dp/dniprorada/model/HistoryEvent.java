@@ -28,7 +28,7 @@ public class HistoryEvent extends Entity {
     @Column(name = "sMessage", nullable = false)
     private String sMessage;
 
-    @JsonProperty(value="sDate")
+    @JsonProperty(value = "sDate")
     @Transient
     private String sDate;
 

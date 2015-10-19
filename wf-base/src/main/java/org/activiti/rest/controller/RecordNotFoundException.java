@@ -7,11 +7,11 @@ package org.activiti.rest.controller;
  */
 public class RecordNotFoundException extends Exception {
 
-   public RecordNotFoundException() {
-      super("Record not found");
-   }
+    public RecordNotFoundException() {
+        super("Record not found");
+    }
 
-   public RecordNotFoundException(String message) {
-      super(message);
-   }
+    public RecordNotFoundException(String message) {
+        super(message);
+    }
 }

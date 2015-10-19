@@ -15,300 +15,296 @@ import java.util.Map;
  */
 public class QueryBuilder {
 
-   private final int MAX_IN_VALUES_COUNT = 1000;
+    private final int MAX_IN_VALUES_COUNT = 1000;
 
-   private final Session session;
-   private final StringBuilder hqlQuery;
-   private final Map<String, Couple> parameters = new HashMap<String, Couple>();
+    private final Session session;
+    private final StringBuilder hqlQuery;
+    private final Map<String, Couple> parameters = new HashMap<String, Couple>();
 
-   /**
-    * Instantiates a new Query builder.
-    *
-    * @param session the session
-    */
-   public QueryBuilder(Session session) {
-      this(session, "");
-   }
+    /**
+     * Instantiates a new Query builder.
+     *
+     * @param session the session
+     */
+    public QueryBuilder(Session session) {
+        this(session, "");
+    }
 
-   /**
-    * Instantiates a new Query builder.
-    *
-    * @param session the session
-    * @param hql     the hql
-    */
-   public QueryBuilder(Session session, String hql) {
-      Assert.notNull(session, "Session is undefined");
+    /**
+     * Instantiates a new Query builder.
+     *
+     * @param session the session
+     * @param hql     the hql
+     */
+    public QueryBuilder(Session session, String hql) {
+        Assert.notNull(session, "Session is undefined");
 
-      this.session = session;
-      this.hqlQuery = new StringBuilder(hql);
-   }
+        this.session = session;
+        this.hqlQuery = new StringBuilder(hql);
+    }
 
-   /**
-    * Append hql to query builder.
-    *
-    * @param hql the hql
-    * @return the query builder
-    */
-   public QueryBuilder append(String hql) {
-      this.hqlQuery.append(hql);
+    /**
+     * Extracts parameter.
+     *
+     * @param hql the hql
+     * @return the string
+     */
+    protected static String extractParameter(String hql) {
+        final int i = hql.indexOf(':');
 
-      return this;
-   }
+        Assert.isTrue(i != -1, "There is no value in the given HQL query part: " + hql);
 
-   public QueryBuilder append(Boolean exp, String hql) {
-      return exp? append(hql) : this;
-   }
+        char ch;
+        int j = i + 1;
 
-   /**
-    * Append hql and parameter value to query builder.
-    *
-    * @param hql   the hql
-    * @param value the value
-    * @return the query builder
-    */
-   public QueryBuilder append(String hql, Object value) {
-      this.hqlQuery.append(hql);
+        while (j < hql.length() && ((ch = hql.charAt(j)) == '_' || Character.isLetter(ch) || Character.isDigit(ch))) {
+            j++;
+        }
 
-      return setParam(extractParameter(hql).toUpperCase(), value);
-   }
+        Assert.isTrue(j != i + 1, "Empty parameter name is not allowed: " + hql);
 
-   public QueryBuilder append(Boolean exp, String hql, Object value) {
-      return exp? append(hql, value) : this;
-   }
+        return hql.substring(i + 1, j);
+    }
 
+    /**
+     * Append hql to query builder.
+     *
+     * @param hql the hql
+     * @return the query builder
+     */
+    public QueryBuilder append(String hql) {
+        this.hqlQuery.append(hql);
 
-   private void assertValue(Object value, String key, Couple old) {
-      Assert.isTrue(old.value.equals(value),
-              String.format("More than one value for the same value: %s old: %s; new: %s", key, old.value, value));
-   }
+        return this;
+    }
 
-   /**
-    * Append different hqls to query builder depends on value(null or not null).
-    *
-    * @param hqlNotNull the hql not null
-    * @param hqlNull    the hql null
-    * @param value      the value
-    * @return the query builder
-    */
-   public QueryBuilder append(String hqlNotNull, String hqlNull, Object value) {
-      if (value == null) {
-         append(hqlNull);
-      } else {
-         append(hqlNotNull, value);
-      }
+    public QueryBuilder append(Boolean exp, String hql) {
+        return exp ? append(hql) : this;
+    }
 
-      return this;
-   }
+    /**
+     * Append hql and parameter value to query builder.
+     *
+     * @param hql   the hql
+     * @param value the value
+     * @return the query builder
+     */
+    public QueryBuilder append(String hql, Object value) {
+        this.hqlQuery.append(hql);
 
-   /**
-    * Append different hqls to query builder depends on value(null or not null) nad it's type.
-    *
-    * @param hqlNotNull the hql not null
-    * @param hqlNull    the hql null
-    * @param value      the value
-    * @param type       the type
-    * @return the query builder
-    */
-   public QueryBuilder append(String hqlNotNull, String hqlNull, Object value, Type type) {
-      if (value == null) {
-         append(hqlNull);
-      } else {
-         append(hqlNotNull, value, type);
-      }
+        return setParam(extractParameter(hql).toUpperCase(), value);
+    }
 
-      return this;
-   }
+    public QueryBuilder append(Boolean exp, String hql, Object value) {
+        return exp ? append(hql, value) : this;
+    }
 
-   /**
-    * Append hql to query builder, parameter value and it's type.
-    *
-    * @param hql   the hql
-    * @param value the value
-    * @param type  the type
-    * @return the query builder
-    */
-   public QueryBuilder append(String hql, Object value, Type type) {
-      Assert.notNull(type, "Parameter type is undefined");
+    private void assertValue(Object value, String key, Couple old) {
+        Assert.isTrue(old.value.equals(value),
+                String.format("More than one value for the same value: %s old: %s; new: %s", key, old.value, value));
+    }
 
-      this.hqlQuery.append(hql);
+    /**
+     * Append different hqls to query builder depends on value(null or not null).
+     *
+     * @param hqlNotNull the hql not null
+     * @param hqlNull    the hql null
+     * @param value      the value
+     * @return the query builder
+     */
+    public QueryBuilder append(String hqlNotNull, String hqlNull, Object value) {
+        if (value == null) {
+            append(hqlNull);
+        } else {
+            append(hqlNotNull, value);
+        }
 
-      final String key = extractParameter(hql).toUpperCase();
-      final Couple old = parameters.put(key, new Couple(type, value));
+        return this;
+    }
 
-      if (old != null) {
-         Assert.isTrue(old.type.equals(type), "More than one type for the same value: " + key + " old: " +
-                 old.type + "; new: " + type);
-         assertValue(value, key, old);
-      }
+    /**
+     * Append different hqls to query builder depends on value(null or not null) nad it's type.
+     *
+     * @param hqlNotNull the hql not null
+     * @param hqlNull    the hql null
+     * @param value      the value
+     * @param type       the type
+     * @return the query builder
+     */
+    public QueryBuilder append(String hqlNotNull, String hqlNull, Object value, Type type) {
+        if (value == null) {
+            append(hqlNull);
+        } else {
+            append(hqlNotNull, value, type);
+        }
 
-      return this;
-   }
+        return this;
+    }
 
-   /**
-    * Append not null value and corresponding hql.
-    *
-    * @param hql   the hql
-    * @param value the value
-    * @return the query builder
-    */
-   public QueryBuilder appendNotNull(String hql, Object value) {
-      if (value != null) {
-         append(hql, value);
-      }
+    /**
+     * Append hql to query builder, parameter value and it's type.
+     *
+     * @param hql   the hql
+     * @param value the value
+     * @param type  the type
+     * @return the query builder
+     */
+    public QueryBuilder append(String hql, Object value, Type type) {
+        Assert.notNull(type, "Parameter type is undefined");
 
-      return this;
-   }
+        this.hqlQuery.append(hql);
 
-   /**
-    * Appends in criteria with protection that max values count is 1000 records. In case of more it splits in criteria
-    * on parts connected via OR.
-    */
-   public QueryBuilder appendInSafe(String alias, String fieldName, List values) {
+        final String key = extractParameter(hql).toUpperCase();
+        final Couple old = parameters.put(key, new Couple(type, value));
 
-      if (values == null || values.isEmpty()) {
-         return this;
-      }
-
-      if (values.size() <= MAX_IN_VALUES_COUNT) {
-         append(String.format("%s in (:%s)", alias, fieldName), values);
-         return this;
-      }
-
-      int currRecord = 0;
-      int i = 1;
-      append("(");
-      while (currRecord < values.size()) {
-         int nextCurrRecord = Math.min(currRecord + MAX_IN_VALUES_COUNT, values.size());
-         List subList = values.subList(currRecord, nextCurrRecord);
-         append(String.format("(%s in (:%s))", alias, fieldName + i), subList);
-
-         if (currRecord < values.size()) {
-            append(" or ");
-         }
-      }
-      append(")");
-
-
-      return this;
-   }
-
-   /**
-    * Append like hql in case of value is not null.
-    *
-    * @param hql   the hql
-    * @param value the value
-    * @return the query builder
-    */
-   public QueryBuilder appendLikeNotNull(String hql, Object value) {
-      if (value != null) {
-         this.hqlQuery.append(hql);
-
-         final String delimiter = "%";
-         final String key = extractParameter(hql).toUpperCase();
-         final Couple old = parameters.put(key, new Couple(null, delimiter + value + delimiter));
-
-         if (old != null) {
+        if (old != null) {
+            Assert.isTrue(old.type.equals(type), "More than one type for the same value: " + key + " old: " +
+                    old.type + "; new: " + type);
             assertValue(value, key, old);
-         }
-      }
+        }
 
-      return this;
-   }
+        return this;
+    }
 
-   /**
-    * Builds query object.
-    *
-    * @return the query
-    */
-   public Query toQuery() {
-      Query query = session.createQuery(hqlQuery.toString());
-      setParameters(query, parameters);
-      return query;
-   }
+    /**
+     * Append not null value and corresponding hql.
+     *
+     * @param hql   the hql
+     * @param value the value
+     * @return the query builder
+     */
+    public QueryBuilder appendNotNull(String hql, Object value) {
+        if (value != null) {
+            append(hql, value);
+        }
 
+        return this;
+    }
 
-   public Query toSQLQuery(){
-      Query query = session.createSQLQuery(hqlQuery.toString());
-      setParameters(query, parameters);
-      return query;
-   }
+    /**
+     * Appends in criteria with protection that max values count is 1000 records. In case of more it splits in criteria
+     * on parts connected via OR.
+     */
+    public QueryBuilder appendInSafe(String alias, String fieldName, List values) {
 
-   private void setParameters(Query query, Map<String, Couple> parameters) {
-      for (Map.Entry<String, Couple> entry : parameters.entrySet()) {
-         if (entry.getValue().type != null) {
-            if (entry.getValue().value instanceof Collection) {
-               final Collection<?> values = (Collection<?>) entry.getValue().value;
-               query.setParameterList(entry.getKey(), values, entry.getValue().type);
-            } else {
-               query.setParameter(entry.getKey(), entry.getValue().value, entry.getValue().type);
+        if (values == null || values.isEmpty()) {
+            return this;
+        }
+
+        if (values.size() <= MAX_IN_VALUES_COUNT) {
+            append(String.format("%s in (:%s)", alias, fieldName), values);
+            return this;
+        }
+
+        int currRecord = 0;
+        int i = 1;
+        append("(");
+        while (currRecord < values.size()) {
+            int nextCurrRecord = Math.min(currRecord + MAX_IN_VALUES_COUNT, values.size());
+            List subList = values.subList(currRecord, nextCurrRecord);
+            append(String.format("(%s in (:%s))", alias, fieldName + i), subList);
+
+            if (currRecord < values.size()) {
+                append(" or ");
             }
-         } else {
-            if (entry.getValue().value instanceof Collection) {
-               final Collection<?> values = (Collection<?>) entry.getValue().value;
-               query.setParameterList(entry.getKey(), values);
-            } else {
-               query.setParameter(entry.getKey(), entry.getValue().value);
+        }
+        append(")");
+
+        return this;
+    }
+
+    /**
+     * Append like hql in case of value is not null.
+     *
+     * @param hql   the hql
+     * @param value the value
+     * @return the query builder
+     */
+    public QueryBuilder appendLikeNotNull(String hql, Object value) {
+        if (value != null) {
+            this.hqlQuery.append(hql);
+
+            final String delimiter = "%";
+            final String key = extractParameter(hql).toUpperCase();
+            final Couple old = parameters.put(key, new Couple(null, delimiter + value + delimiter));
+
+            if (old != null) {
+                assertValue(value, key, old);
             }
-         }
-      }
-   }
+        }
 
-   public String toString(){
-      return "Query={"+hqlQuery + "}, parameters {"+parameters+"}";
-   }
+        return this;
+    }
 
-   /**
-    * Extracts parameter.
-    *
-    * @param hql the hql
-    * @return the string
-    */
-   protected static String extractParameter(String hql) {
-      final int i = hql.indexOf(':');
+    /**
+     * Builds query object.
+     *
+     * @return the query
+     */
+    public Query toQuery() {
+        Query query = session.createQuery(hqlQuery.toString());
+        setParameters(query, parameters);
+        return query;
+    }
 
-      Assert.isTrue(i != -1, "There is no value in the given HQL query part: " + hql);
+    public Query toSQLQuery() {
+        Query query = session.createSQLQuery(hqlQuery.toString());
+        setParameters(query, parameters);
+        return query;
+    }
 
-      char ch;
-      int j = i + 1;
+    private void setParameters(Query query, Map<String, Couple> parameters) {
+        for (Map.Entry<String, Couple> entry : parameters.entrySet()) {
+            if (entry.getValue().type != null) {
+                if (entry.getValue().value instanceof Collection) {
+                    final Collection<?> values = (Collection<?>) entry.getValue().value;
+                    query.setParameterList(entry.getKey(), values, entry.getValue().type);
+                } else {
+                    query.setParameter(entry.getKey(), entry.getValue().value, entry.getValue().type);
+                }
+            } else {
+                if (entry.getValue().value instanceof Collection) {
+                    final Collection<?> values = (Collection<?>) entry.getValue().value;
+                    query.setParameterList(entry.getKey(), values);
+                } else {
+                    query.setParameter(entry.getKey(), entry.getValue().value);
+                }
+            }
+        }
+    }
 
-      while (j < hql.length() && ((ch = hql.charAt(j)) == '_' || Character.isLetter(ch) || Character.isDigit(ch))) {
-         j++;
-      }
+    public String toString() {
+        return "Query={" + hqlQuery + "}, parameters {" + parameters + "}";
+    }
 
-      Assert.isTrue(j != i + 1, "Empty parameter name is not allowed: " + hql);
+    public QueryBuilder setParam(String key, Object value) {
+        final Couple old = parameters.put(key, new Couple(null, value));
 
-      return hql.substring(i + 1, j);
-   }
+        if (old != null) {
+            assertValue(value, key, old);
+        }
 
+        return this;
+    }
 
-   public QueryBuilder setParam(String key, Object value) {
-      final Couple old = parameters.put(key, new Couple(null, value));
+    public QueryBuilder setParam(boolean exp, String key, Object value) {
+        return exp ? setParam(key, value) : this;
+    }
 
-      if (old != null) {
-         assertValue(value, key, old);
-      }
+    /**
+     * Class for pair of hibernate type and value of parameter.
+     */
+    private static final class Couple {
+        private final Type type;
+        private final Object value;
 
-      return this;
-   }
+        private Couple(Type type, Object value) {
+            this.type = type;
+            this.value = value;
+        }
 
-   public QueryBuilder setParam(boolean exp, String key, Object value) {
-      return exp? setParam(key, value) : this;
-   }
-
-
-   /**
-    * Class for pair of hibernate type and value of parameter.
-    */
-   private static final class Couple {
-      private final Type type;
-      private final Object value;
-
-      private Couple(Type type, Object value) {
-         this.type = type;
-         this.value = value;
-      }
-      public String toString() {
-         return "Couple{type="+ type +", value=" + value +'}';
-      }
-   }
+        public String toString() {
+            return "Couple{type=" + type + ", value=" + value + '}';
+        }
+    }
 }

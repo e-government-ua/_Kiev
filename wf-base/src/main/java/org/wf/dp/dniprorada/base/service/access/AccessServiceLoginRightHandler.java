@@ -7,5 +7,5 @@ package org.wf.dp.dniprorada.base.service.access;
  */
 public interface AccessServiceLoginRightHandler {
 
-   boolean hasAccessToService(String sData);
+    boolean hasAccessToService(String sData);
 }

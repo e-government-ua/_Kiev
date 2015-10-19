@@ -14,46 +14,46 @@ import javax.persistence.Column;
 @javax.persistence.Entity
 public class HistoryEvent_Service extends Entity {
 
-    @JsonProperty(value="sID")
+    @JsonProperty(value = "sID")
     @Column
     private String sID;
 
-//    @JsonProperty(value="nID_Protected")
-//    @Column
+    //    @JsonProperty(value="nID_Protected")
+    //    @Column
     private transient Long nID_Protected;
 
-    @JsonProperty(value="nID_Task")
+    @JsonProperty(value = "nID_Task")
     @Column
     private Long nID_Task;
 
-    @JsonProperty(value="nID_Subject")
+    @JsonProperty(value = "nID_Subject")
     @Column
     private Long nID_Subject;
 
-    @JsonProperty(value="sStatus")
+    @JsonProperty(value = "sStatus")
     @Column
     private String sStatus;
 
-    @JsonProperty(value="sID_Status")
+    @JsonProperty(value = "sID_Status")
     @Column
     private String sID_Status;
-    
-    @JsonProperty(value="sDate")
-	@JsonSerialize(using= JsonDateTimeSerializer.class)
-	@JsonDeserialize(using= JsonDateTimeDeserializer.class)
+
+    @JsonProperty(value = "sDate")
+    @JsonSerialize(using = JsonDateTimeSerializer.class)
+    @JsonDeserialize(using = JsonDateTimeDeserializer.class)
     @Type(type = DATETIME_TYPE)
-	@Column(name = "sDate", nullable = true) 
-	private DateTime sDate;
-    
-    @JsonProperty(value="nID_Service")
+    @Column(name = "sDate", nullable = true)
+    private DateTime sDate;
+
+    @JsonProperty(value = "nID_Service")
     @Column(name = "nID_Service", nullable = true)
     private Long nID_Service;
-    
-    @JsonProperty(value="nID_Region")
+
+    @JsonProperty(value = "nID_Region")
     @Column(name = "nID_Region", nullable = true)
     private Long nID_Region;
-    
-    @JsonProperty(value="sID_UA")
+
+    @JsonProperty(value = "sID_UA")
     @Column(name = "sID_UA", nullable = true)
     private String sID_UA;
 
@@ -76,6 +76,18 @@ public class HistoryEvent_Service extends Entity {
     @JsonProperty(value = "sBody")
     @Column(name = "sBody", nullable = true)
     private String sBody;
+    
+    @JsonProperty(value = "nTimeHours")
+    @Column(name = "nTimeHours", nullable = true)
+    private Integer nTimeHours;
+
+    @JsonProperty(value = "sID_Order")
+    @Column(name = "sID_Order", nullable = true)//, nullable = false, unique = true)
+    private String sID_Order;
+
+    @JsonProperty(value = "nID_Server")
+    @Column(name = "nID_Server", nullable = true)
+    private Integer nID_Server;
 
     public String getsID() {
         return sID;
@@ -125,37 +137,37 @@ public class HistoryEvent_Service extends Entity {
         this.sID_Status = sID_Status;
     }
 
-	public DateTime getsDate() {
-		return sDate;
-	}
+    public DateTime getsDate() {
+        return sDate;
+    }
 
-	public void setsDate(DateTime sDate) {
-		this.sDate = sDate;
-	}
+    public void setsDate(DateTime sDate) {
+        this.sDate = sDate;
+    }
 
-	public Long getnID_Service() {
-		return nID_Service;
-	}
+    public Long getnID_Service() {
+        return nID_Service;
+    }
 
-	public void setnID_Service(Long nID_Service) {
-		this.nID_Service = nID_Service;
-	}
+    public void setnID_Service(Long nID_Service) {
+        this.nID_Service = nID_Service;
+    }
 
-	public Long getnID_Region() {
-		return nID_Region;
-	}
+    public Long getnID_Region() {
+        return nID_Region;
+    }
 
-	public void setnID_Region(Long nID_Region) {
-		this.nID_Region = nID_Region;
-	}
+    public void setnID_Region(Long nID_Region) {
+        this.nID_Region = nID_Region;
+    }
 
-	public String getsID_UA() {
-		return sID_UA;
-	}
+    public String getsID_UA() {
+        return sID_UA;
+    }
 
-	public void setsID_UA(String sID_UA) {
-		this.sID_UA = sID_UA;
-	}
+    public void setsID_UA(String sID_UA) {
+        this.sID_UA = sID_UA;
+    }
 
     public Integer getnRate() {
         return nRate;
@@ -195,5 +207,29 @@ public class HistoryEvent_Service extends Entity {
 
     public void setsBody(String sBody) {
         this.sBody = sBody;
+    }
+
+	public Integer getnTimeHours() {
+		return nTimeHours;
+	}
+
+	public void setnTimeHours(Integer nTimeHours) {
+		this.nTimeHours = nTimeHours;
+	}
+
+    public String getsID_Order() {
+        return sID_Order;
+    }
+
+    public void setsID_Order(String sID_Order) {
+        this.sID_Order = sID_Order;
+    }
+
+    public Integer getnID_Server() {
+        return nID_Server;
+    }
+
+    public void setnID_Server(Integer nID_Server) {
+        this.nID_Server = nID_Server;
     }
 }

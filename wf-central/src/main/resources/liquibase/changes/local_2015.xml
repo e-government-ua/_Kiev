@@ -544,5 +544,36 @@
 
     <!-- ####################################################################################################### -->
 
+    <changeSet id="issue-573_Link_ServiceData_and_Place" author="dgroup">
+        <addColumn tableName="ServiceData">
+            <column name="nID_Place" type="bigint">
+                <constraints foreignKeyName         = "FK_ServiceData_Place"
+                             referencedTableName    = "Place"
+                             referencedColumnNames  = "nID"
+                             deleteCascade          = "true" />
+            </column>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="issue-871" author="askosyr">
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="nTimeHours" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="issue-889" author="LamronNu">
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="sID_Order" type="varchar">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="nID_Server" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
 
 </databaseChangeLog>

@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @author dgroup
- * @since  26.09.2015
+ * @since 26.09.2015
  */
 public class PlaceHierarchyList implements PlaceHierarchy {
 

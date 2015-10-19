@@ -17,9 +17,10 @@ import java.io.IOException;
 public class AccessKeyAuthFilter extends GenericFilterBean {
 
     private final Logger oLog = LoggerFactory.getLogger(AccessKeyAuthFilter.class);
-    
+
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
         AuthenticationTokenSelector oAuthenticationTokenSelector = new AuthenticationTokenSelector(servletRequest);
         AccessKeyAuthenticationToken oAccessKeyAuthenticationToken = oAuthenticationTokenSelector.createToken();
         if (oAccessKeyAuthenticationToken != null && oAccessKeyAuthenticationToken.isNotEmpty()) {

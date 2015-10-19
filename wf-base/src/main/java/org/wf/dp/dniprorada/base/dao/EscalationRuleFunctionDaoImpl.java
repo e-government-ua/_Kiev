@@ -14,12 +14,12 @@ public class EscalationRuleFunctionDaoImpl extends GenericEntityDao<EscalationRu
     @Override
     public EscalationRuleFunction saveOrUpdate(Long nID, String sName, String sBeanHandler) {
         EscalationRuleFunction ruleFunction = nID != null ? findByIdExpected(nID) : new EscalationRuleFunction();
-        if (nID != null && ruleFunction == null){//??
+        if (nID != null && ruleFunction == null) {//??
             ruleFunction = new EscalationRuleFunction();
             ruleFunction.setId(nID);
         }
         ruleFunction.setName(sName);
-        if (sBeanHandler != null){
+        if (sBeanHandler != null) {
             ruleFunction.setsBeanHandler(sBeanHandler);
         }
         saveOrUpdate(ruleFunction);

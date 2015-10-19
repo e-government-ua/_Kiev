@@ -5,7 +5,7 @@ import org.activiti.engine.form.AbstractFormType;
 /**
  * Created by Dmytro Tsapko on 5/17/2015.
  */
-public class LabelFormType extends AbstractFormType{
+public class LabelFormType extends AbstractFormType {
 
     public static final String TYPE_NAME = "label";
 

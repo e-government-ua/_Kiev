@@ -4,25 +4,40 @@ import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.wf.dp.dniprorada.util.GeneralConfig;
 import org.wf.dp.dniprorada.util.Mail;
 import org.wf.dp.dniprorada.util.Util;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import org.wf.dp.dniprorada.util.GeneralConfig;
 
 @Component("EscalationHandler_SendMailAlert")
 public class EscalationHandler_SendMailAlert
         implements EscalationHandler {
 
     private static final Logger log = Logger.getLogger(EscalationHandler_SendMailAlert.class);
-
+    @Autowired
+    GeneralConfig oGeneralConfig;
     @Autowired
     private Mail oMail;
 
-	@Autowired
-	GeneralConfig oGeneralConfig;
+    public static void main(String[] args) {
+        Map<String, Object> param = new HashMap<>();
+        //[Surname],[Name],[Middlename]
+        param.put("[Surname]", "Petrenko");
+        param.put("[Name]", "Petro");
+        param.put("[Middlename]", "Petrovych");
+
+        String[] recipients = new String[2];
+        recipients[0] = "olga2012olga@gmail.com";
+        recipients[1] = "olga.prylypko@gmail.com";
+
+        String file = "print/kiev_dms_print1.html";
+
+        new EscalationHandler_SendMailAlert().execute(param, recipients, file);
+
+    }
 
     @Override
     public void execute(Map<String, Object> mParam, String[] asRecipientMail, String sPatternFile) {
@@ -37,8 +52,10 @@ public class EscalationHandler_SendMailAlert
         if (sBody == null) {
             sBody = "test body";
         }
-        String sHead = String.format((oGeneralConfig.bTest()?"(TEST)":"")+"Зависла заявка № %s:%s ! Прийміть міри!", mParam.get("sID_BP"), 
-        		mParam.get("nID_task_activiti").toString());
+        String sHead = String
+                .format((oGeneralConfig.bTest() ? "(TEST)" : "") + "Зависла заявка № %s:%s ! Прийміть міри!",
+                        mParam.get("sID_BP"),
+                        mParam.get("nID_task_activiti").toString());
 
         for (String key : mParam.keySet()) {
             if (sBody.contains(key)) {
@@ -46,9 +63,9 @@ public class EscalationHandler_SendMailAlert
                 sBody = sBody.replace("[" + key + "]", mParam.get(key).toString());
             }
         }
-        log.info ("@Autowired oMail=" + oMail );
-        oMail = oMail == null ? new Mail(): oMail;
-        log.info ("oMail=" + oMail );
+        log.info("@Autowired oMail=" + oMail);
+        oMail = oMail == null ? new Mail() : oMail;
+        log.info("oMail=" + oMail);
         for (String recipient : asRecipientMail) {
             try {
                 sendEmail(sHead, sBody, recipient);
@@ -67,22 +84,5 @@ public class EscalationHandler_SendMailAlert
                 ._Head(sHead)
                 ._Body(sBody);
         oMail.send();
-    }
-
-    public static void main(String[] args) {
-        Map<String, Object> param = new HashMap<>();
-        //[Surname],[Name],[Middlename]
-        param.put("[Surname]", "Petrenko");
-        param.put("[Name]", "Petro");
-        param.put("[Middlename]", "Petrovych");
-
-        String[] recipients = new String[2];
-        recipients[0] = "olga2012olga@gmail.com";
-        recipients[1] = "olga.prylypko@gmail.com";
-
-        String file = "print/kiev_dms_print1.html";
-
-        new EscalationHandler_SendMailAlert().execute(param, recipients, file);
-
     }
 }

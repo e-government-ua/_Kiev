@@ -10,20 +10,22 @@ import java.util.List;
  */
 public class ClearSlotsResult {
 
-   private List<FlowSlotVO> aDeletedSlot = new ArrayList<>();
-   private List<FlowSlotVO> aSlotWithTickets = new ArrayList<>();
+    private List<FlowSlotVO> aDeletedSlot = new ArrayList<>();
+    private List<FlowSlotVO> aSlotWithTickets = new ArrayList<>();
 
-   public List<FlowSlotVO> getaDeletedSlot() {
-      return aDeletedSlot;
-   }
-   public void setaDeletedSlot(List<FlowSlotVO> aDeletedSlot) {
-      this.aDeletedSlot = aDeletedSlot;
-   }
+    public List<FlowSlotVO> getaDeletedSlot() {
+        return aDeletedSlot;
+    }
 
-   public List<FlowSlotVO> getaSlotWithTickets() {
-      return aSlotWithTickets;
-   }
-   public void setaSlotWithTickets(List<FlowSlotVO> aSlotWithTickets) {
-      this.aSlotWithTickets = aSlotWithTickets;
-   }
+    public void setaDeletedSlot(List<FlowSlotVO> aDeletedSlot) {
+        this.aDeletedSlot = aDeletedSlot;
+    }
+
+    public List<FlowSlotVO> getaSlotWithTickets() {
+        return aSlotWithTickets;
+    }
+
+    public void setaSlotWithTickets(List<FlowSlotVO> aSlotWithTickets) {
+        this.aSlotWithTickets = aSlotWithTickets;
+    }
 }
