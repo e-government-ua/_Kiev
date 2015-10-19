@@ -65,7 +65,7 @@
           <activiti:value id="attr5_bad" name="Дані надані не в повному обсязі - направити громадянину повідомлення (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decision_comment1" name="Якщо ви відмовляєте замовнику, обов'язково вкажіть підставу у цьому полі" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/kiev_soc_help_147_print.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_soc_help_147_print.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -146,7 +146,7 @@
 &lt;p&gt;Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;/p&gt;
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-[pattern_dictonary:kiev_rai_cos_help.csv:value{[rName]}:2],&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2],&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
@@ -174,7 +174,7 @@
 &lt;p&gt;Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;/p&gt;
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-[pattern_dictonary:kiev_rai_cos_help.csv:value{[rName]}:2],&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2],&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -209,10 +209,10 @@
 &lt;p&gt;Ваше звернення щодо призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування та грошового забезпечення прийомним батькам в очикуванні недостатніх документів. Протягом трьох місяців Ви повині донести іх в  [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:2] за адресою [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:3] або заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;, враховуючи коментар нижче.&lt;/p&gt;
 &lt;p&gt;Коментар спеціаліста: ${decision_comment1}&lt;/p&gt;
 &lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-[pattern_dictonary:kiev_rai_cos_help.csv:value{[rName]}:2],&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2],&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -278,10 +278,10 @@
 &lt;p&gt;Причина: ${decision_comment1}&lt;/p&gt;
 &lt;p&gt;Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;&lt;/p&gt;
 &lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-[pattern_dictonary:kiev_rai_cos_help.csv:value{[rName]}:2],&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2],&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>

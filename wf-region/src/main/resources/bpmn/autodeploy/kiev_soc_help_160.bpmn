@@ -75,7 +75,7 @@
           <activiti:value id="attr5_doc_bad" name="Дані надані не в повному обсязі - направити громадянину повідомлення (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="comment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/kiev_soc_help_160_zayava.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_soc_help_160_zayava.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -111,7 +111,7 @@
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-[pattern_dictonary:kiev_rai_cos_help.csv:value{[rName]}:2],&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2],&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
@@ -174,7 +174,7 @@
 ${comment1}&lt;br /&gt;&lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-[pattern_dictonary:kiev_rai_cos_help.csv:value{[rName]}:2],&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2],&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -259,10 +259,10 @@ ${comment1}&lt;br /&gt;&lt;br /&gt;
 &lt;p&gt;Причина: ${comment}&lt;/p&gt;
 &lt;p&gt;Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;&lt;/p&gt;
 &lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-[pattern_dictonary:kiev_rai_cos_help.csv:value{[rName]}:2],&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2],&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -287,10 +287,10 @@ ${comment1}&lt;br /&gt;&lt;br /&gt;
 &lt;p&gt;Ваше звернення щодо надання державної соціальної допомоги особам, які не мають права на пенсію, та інвалідам в очикуванні недостатніх документів. Протягом трьох місяців Ви повині донести іх в  [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:2] за адресою [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:3] або заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;, враховуючи коментар нижче.&lt;/p&gt;
 &lt;p&gt;Коментар спеціаліста: ${comment}&lt;/p&gt;
 &lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-[pattern_dictonary:kiev_rai_cos_help.csv:value{[rName]}:2],&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2],&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
