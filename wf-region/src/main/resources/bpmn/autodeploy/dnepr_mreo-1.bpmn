@@ -228,7 +228,7 @@
 Також Ви можете провести оплату через систему онлайн платежів.&lt;br /&gt;
 [paymentButton_LiqPay]
 &lt;/p&gt;&lt;p&gt;
-Після сплати державного збору Ви матимете можливість пройти тех.огляд Вашого авто  в зазначений Вами час за адресою [pattern_dictonary:mreo_departments.csv:${service_center}:2]
+Після сплати державного збору Ви матимете можливість пройти тех.огляд Вашого авто  в зазначений Вами час за адресою [pattern_dictonary:mreo_departments.csv:value{[service_center]}:2]
 &lt;/p&gt;
 &lt;p&gt;
 Просимо Вас мати із собою:&lt;br /&gt;
@@ -242,7 +242,7 @@ ${date_of_visit}&lt;br /&gt;
 &lt;p&gt;
 Графік прийому громадян:&lt;br /&gt;
  &lt;br /&gt;
-[pattern_dictonary:mreo_departments.csv:${service_center}:3]
+[pattern_dictonary:mreo_departments.csv:value{[service_center]}:3]
 					 &lt;/p&gt;
 
                                     
@@ -367,7 +367,7 @@ ${comment}&lt;br /&gt;
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
 
-Ви матимете можливість пройти тех.огляд Вашого авто  в зазначений Вами час за адресою [pattern_dictonary:mreo_departments.csv:${service_center}:2]
+Ви матимете можливість пройти тех.огляд Вашого авто  в зазначений Вами час за адресою [pattern_dictonary:mreo_departments.csv:value{[service_center]}:2]
 &lt;/p&gt;
 &lt;p&gt;
 Просимо Вас мати із собою:&lt;br /&gt;
@@ -380,7 +380,7 @@ ${date_of_visit}&lt;br /&gt;
 &lt;p&gt;
 Графік прийому громадян:&lt;br /&gt;
  &lt;br /&gt;
-[pattern_dictonary:mreo_departments.csv:${service_center}:3]
+[pattern_dictonary:mreo_departments.csv:value{[service_center]}:3]
 
 [pattern/mail/_common_signature_start.html]
  Міністерство Внутрішніх Справ України,&lt;br /&gt;
@@ -448,8 +448,6 @@ ${date_of_visit}&lt;br /&gt;
  &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
 Ваше звернення успішно зареєстровано. &lt;br /&gt;
-
-
 
 Результат обробки звернення будуть спрямовані на цей е-мейл. &lt;br /&gt;
 [pattern/mail/_common_signature.html]
