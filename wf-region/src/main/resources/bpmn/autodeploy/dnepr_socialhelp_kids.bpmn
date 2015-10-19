@@ -62,7 +62,6 @@
           <activiti:value id="5huts" name="П'ятихатський район"></activiti:value>
           <activiti:value id="sinelnikovskij" name="Синельниковський район"></activiti:value>
           <activiti:value id="solonyanskij" name="Солонянський район"></activiti:value>
-          <activiti:value id="sinelnikovskij" name="Синельниковський район"></activiti:value>
           <activiti:value id="sofiivskij" name="Софіївський район"></activiti:value>
           <activiti:value id="tomakivskij" name="Томаківський район"></activiti:value>
           <activiti:value id="carichanskij" name="Царичанський район"></activiti:value>
@@ -145,7 +144,6 @@
           <activiti:value id="5huts" name="П'ятихатський район"></activiti:value>
           <activiti:value id="sinelnikovskij" name="Синельниковський район"></activiti:value>
           <activiti:value id="solonyanskij" name="Солонянський район"></activiti:value>
-          <activiti:value id="sinelnikovskij" name="Синельниковський район"></activiti:value>
           <activiti:value id="sofiivskij" name="Софіївський район"></activiti:value>
           <activiti:value id="tomakivskij" name="Томаківський район"></activiti:value>
           <activiti:value id="carichanskij" name="Царичанський район"></activiti:value>
