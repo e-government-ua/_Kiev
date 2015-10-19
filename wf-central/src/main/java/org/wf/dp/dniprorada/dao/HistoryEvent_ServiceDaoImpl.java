@@ -16,17 +16,23 @@ import org.wf.dp.dniprorada.util.luna.AlgorithmLuna;
 import org.wf.dp.dniprorada.util.luna.CRCInvalidException;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.wf.dp.dniprorada.util.GeneralConfig;
 
 @Repository
 public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_Service>
         implements HistoryEvent_ServiceDao {
 
     private static final Logger log = Logger.getLogger(HistoryEvent_ServiceDaoImpl.class);
+    private static final String DASH = "-";
+
+    //    @Autowired
+    //    private GeneralConfig generalConfig;
 
     protected HistoryEvent_ServiceDaoImpl() {
         super(HistoryEvent_Service.class);
@@ -85,10 +91,13 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
         event_service.setsToken(sToken);
         event_service.setsHead(sHead);
         event_service.setsBody(sBody);
+        Long nID_Protected = AlgorithmLuna.getProtectedNumber(nID_Task);
+        event_service.setnID_Protected(nID_Protected);
+        int nID_Server = 0;////???? generalConfig.nID_Server();
+        event_service.setnID_Server(nID_Server);
+        event_service.setsID_Order(nID_Server + DASH + nID_Protected);
         Session session = getSession();
         session.saveOrUpdate(event_service);
-        long nID_Reference = nID_Task;
-        event_service.setnID_Protected(AlgorithmLuna.getProtectedNumber(nID_Reference));
         return event_service;
     }
 
@@ -168,4 +177,52 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
 
         return resHistoryEventService;
     }
+
+    @Override
+    public HistoryEvent_Service getOrgerByID(String sID_Order) throws CRCInvalidException {
+        Integer nID_Server;
+        Long nID_Protected;
+        try {
+            int dash_position = sID_Order.indexOf(DASH);
+            nID_Server = Integer.parseInt(sID_Order.substring(0, dash_position));
+            nID_Protected = Long.valueOf(sID_Order.substring(dash_position + 1));
+        } catch (Exception e) {
+            throw new IllegalArgumentException(
+                    String.format("sID_Order has incorrect format! expected format:[XXX%sXXXXXX], actual value: %s",
+                            DASH, sID_Order), e);
+        }
+        return getOrgerByProtectedID(nID_Protected, nID_Server);
+    }
+
+    @Override
+    public HistoryEvent_Service getOrgerByProcessID(Long nID_Process, Integer nID_Server) throws CRCInvalidException {
+        HistoryEvent_Service event_service = getHistoryEvent_service(nID_Server, nID_Process);
+        event_service.setnID_Protected(AlgorithmLuna.getProtectedNumber(nID_Process));
+        return event_service;
+    }
+
+    @Override
+    public HistoryEvent_Service getOrgerByProtectedID(Long nID_Protected, Integer nID_Server)
+            throws CRCInvalidException {
+        AlgorithmLuna.validateProtectedNumber(nID_Protected);
+        Long nID_Process = AlgorithmLuna.getOriginalNumber(nID_Protected);
+        HistoryEvent_Service event_service = getHistoryEvent_service(nID_Server, nID_Process);
+        event_service.setnID_Protected(nID_Protected);
+        return event_service;
+    }
+
+    private HistoryEvent_Service getHistoryEvent_service(Integer nID_Server, Long nID_Process) {
+        Criteria criteria = getSession().createCriteria(HistoryEvent_Service.class);
+        criteria.addOrder(Order.desc("sDate").nulls(NullPrecedence.LAST));
+        criteria.add(Restrictions.eq("nID_Task", nID_Process));
+        criteria.add(Restrictions.eq("nID_Server", nID_Server));
+        List<HistoryEvent_Service> list = (List<HistoryEvent_Service>) criteria.list();
+        HistoryEvent_Service event_service = list.size() > 0 ? list.get(0) : null;
+        if (event_service == null) {
+            throw new EntityNotFoundException(
+                    String.format("Record with nID_Server=%s and nID_Process=%s not found!", nID_Server, nID_Process));
+        }
+        return event_service;
+    }
+
 }

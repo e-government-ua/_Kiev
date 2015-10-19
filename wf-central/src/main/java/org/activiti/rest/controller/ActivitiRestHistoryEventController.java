@@ -1,7 +1,5 @@
 package org.activiti.rest.controller;
 
-import org.activiti.engine.impl.util.json.JSONObject;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +32,10 @@ import org.wf.dp.dniprorada.util.luna.CRCInvalidException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/services")
@@ -69,6 +69,43 @@ public class ActivitiRestHistoryEventController {
     @Qualifier("serviceDataDao")
     private GenericEntityDao<ServiceData> serviceDataDao;
 
+    @RequestMapping(value = "/getHistoryEvent_ServiceByOrderID", method = RequestMethod.GET)
+    public
+    @ResponseBody
+    ResponseEntity<String> getHistoryEvent_ServiceByOrderID(
+            @RequestParam(value = "sID_Order", required = false) String sID_Order,
+            @RequestParam(value = "nID_Protected", required = false) Long nID_Protected,
+            @RequestParam(value = "nID_Process", required = false) Long nID_Process,
+            @RequestParam(value = "nID_Server", required = false) Integer nID_Server
+    ) throws ActivitiRestException {
+
+        HistoryEvent_Service event_service = null;
+        ResponseEntity<String> result;
+        try {
+            if (sID_Order != null) {
+                event_service = historyEventServiceDao.getOrgerByID(sID_Order);
+            } else if (nID_Protected != null && nID_Server != null) {
+                event_service = historyEventServiceDao.getOrgerByProtectedID(nID_Protected, nID_Server);
+            } else if (nID_Process != null && nID_Server != null) {
+                event_service = historyEventServiceDao.getOrgerByProcessID(nID_Process, nID_Server);
+            } else {
+                throw new ActivitiRestException(
+                        ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                        "incorrect input data!! must be: sID_Order OR nID_Protected + nID_Server OR nID_Process + nID_Server",
+                        HttpStatus.FORBIDDEN);
+            }
+            result = JsonRestUtils.toJsonResponse(event_service);
+        } catch (CRCInvalidException | EntityNotFoundException e) {
+            throw new ActivitiRestException(
+                    ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                    e.getMessage(), e,
+                    HttpStatus.FORBIDDEN);
+        } catch (Exception e) {
+            throw new ActivitiRestException(e.getMessage(), e);
+        }
+        return result;
+    }
+
     /**
      * check the correctness of nID_Protected (by algorithm Luna) and return
      * the object of HistoryEvent_Service
@@ -90,16 +127,11 @@ public class ActivitiRestHistoryEventController {
             event_service = historyEventServiceDao
                     .getHistoryEvent_ServiceByID_Protected(nID_Protected);
             result = JsonRestUtils.toJsonResponse(event_service);
-        } catch (EntityNotFoundException e) {
-            ActivitiRestException newErr = new ActivitiRestException(
-                    "BUSINESS_ERR", "Record not found", e);
-            newErr.setHttpStatus(HttpStatus.FORBIDDEN);
-            throw newErr;
-        } catch (CRCInvalidException e) {
-            ActivitiRestException newErr = new ActivitiRestException(
-                    "BUSINESS_ERR", e.getMessage(), e);
-            newErr.setHttpStatus(HttpStatus.FORBIDDEN);
-            throw newErr;
+        } catch (EntityNotFoundException | CRCInvalidException e) {
+            throw new ActivitiRestException(
+                    ActivitiExceptionController.BUSINESS_ERROR_CODE,
+                    e.getMessage(), e,
+                    HttpStatus.FORBIDDEN);
         } catch (RuntimeException e) {
             throw new ActivitiRestException(e.getMessage(), e);
         }
@@ -210,11 +242,7 @@ public class ActivitiRestHistoryEventController {
         mParamMessage.put(HistoryEventMessage.TASK_NUMBER, String.valueOf(nID_Protected));
         setHistoryEvent(HistoryEventType.ACTIVITY_STATUS_NEW, nID_Subject, mParamMessage);
         //My journal. setTaskQuestions (issue 808, 809)
-        log.info(">>>> 1 try create history event for SET_TASK_QUESTIONS.");
-
         if (soData != null) {
-            log.info(">>>> 2 try create history event for SET_TASK_QUESTIONS.");
-
             createHistoryEventForTaskQuestions(
                     sToken != null ? HistoryEventType.SET_TASK_QUESTIONS : HistoryEventType.SET_TASK_ANSWERS,
                     soData, sBody, nID_Protected, nID_Subject);
@@ -273,6 +301,8 @@ public class ActivitiRestHistoryEventController {
             @RequestParam(value = "nID_Subject") long nID_Subject) {
         return historyEventDao.getHistoryEvents(nID_Subject);
     }
+
+    ////-------------Statistics--------
 
     @RequestMapping(value = "/getStatisticServiceCounts", method = RequestMethod.GET, produces = "application/json;charset=UTF-8")
     public
