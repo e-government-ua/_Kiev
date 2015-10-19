@@ -633,15 +633,15 @@
         <activiti:formProperty id="email" name="E-Mail громадянина" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="PrevName" name="Попереднє ПІБ громадянина" type="string" default="${lastName_UA1} ${firstName_UA1} ${middleName_UA1}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Date_of_birth" name="Дата народження" type="string"></activiti:formProperty>
-        <activiti:formProperty id="Areabirth" name="Місце народження" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="Areabirth" name="Місце народження" type="string"></activiti:formProperty>
         <activiti:formProperty id="Nationality" name="Громадянство" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="RegistrationAddress" name="Звідки прибув" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="WhenCome" name="Коли прибув" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Звідки прибув" type="string"></activiti:formProperty>
+        <activiti:formProperty id="WhenCome" name="Коли прибув" type="string"></activiti:formProperty>
+        <activiti:formProperty id="newAddress" name="Нова адреса реєстрації" type="string"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Дніпропетровськ, до якого належить нове місце проживання громадянина" type="enum" writable="false">
           <activiti:value id="bab" name="Бабушкінський"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="RegistrationDocument" name="Підставою для реєстрації нового місця проживання є" type="enum" required="true">
+        <activiti:formProperty id="RegistrationDocument" name="Підставою для реєстрації нового місця проживання є" type="enum" writable="false">
           <activiti:value id="order" name="Ордер"></activiti:value>
           <activiti:value id="ownDoc" name="Свідоцтво про право власності"></activiti:value>
           <activiti:value id="rentDoc" name="Договір найму / піднайму / оренди "></activiti:value>
