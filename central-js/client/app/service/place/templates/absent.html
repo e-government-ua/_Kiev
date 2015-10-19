@@ -2,44 +2,46 @@
 
     <place></place>
     
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <strong>На жаль, поки що у Вашому регіоні неможливе надання цієї послуги в електронному вигляді.</strong>
-            <a class="ctrls-admin ctrls-srvc-add" href="" ng-if="bAdmin" title="Додати послугу в цьому місті"><span class="glyphicon glyphicon-plus"></span> Додати послугу</a>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <center style="margin-bottom:10px;"><b><span class="text-center">Ви можете допомогти пришвидшити процес переведeння послуги в електронний вигляд:</span></b>
-            </center>
-
-            <div class="row">
-              <div class="col-md-6 col-sm-6">
-                Поділіться посиланням на цю сторінку в соціальних мережах із закликом підтримати ініціативу по переводу послуги в електронний вигляд.
-                <br>
-                <center>
-                    <div class="pluso" style="margin-top:10px;" data-background="transparent" data-options="big,round,line,horizontal,counter,theme=04" data-title="Закликаю владу перевести цю послугу в електронну форму! {{data.city.sName}} – {{service.sName}}" data-description="{{data.city.sName}} – {{service.sName}}" data-services="facebook,vkontakte,twitter">
-                    </div>
-                </center>
-              </div>
-              <div class="col-md-6 col-sm-6">
-                Залиште свій email. Ми Вас поінформуємо, як тільки ця послуга буде доступна в електронному вигляді.
-                <div class="email-absent-form col-md-12 text-center">
-                    <form name="absentMessageForm" class="form-inline" novalidate>
-                        <input type="email" data-ng-model="absentMessage.email" name="email" placeholder="Ваш email:" required ng-keyup="emailKeydown($event, absentMessageForm, absentMessage)"  ng-model-options="{ updateOn: 'blur' }" class="form-control" />
-                        <input type="button" data-ng-click="sendAbsentMessage(absentMessageForm, absentMessage)" value="Зберегти" class="btn btn-default" />
-                        <div role="alert" ng-if="absentMessage.showErrors">
-                            <span class="error" ng-if="absentMessageForm.email.$error.required">Введіть Вашу email-адресу</span>
-                            <span class="error" ng-if="absentMessageForm.email.$error.email">Введіть коректну email адресу</span>
-                        </div>
-                    </form>
-                </div>
-              </div>
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <strong>На жаль, поки що у Вашому регіоні неможливе надання цієї послуги в електронному вигляді.</strong>
+                <a class="ctrls-admin ctrls-srvc-add" href="" ng-if="bAdmin" title="Додати послугу в цьому місті"><span class="glyphicon glyphicon-plus"></span> Додати послугу</a>
             </div>
         </div>
-    </div>
-    <div class="row">
+
+        <div class="row">
+            <div class="col-md-12">
+                <center style="margin-bottom:10px;"><b><span class="text-center">Ви можете допомогти пришвидшити процес переведeння послуги в електронний вигляд:</span></b>
+                </center>
+
+                <div class="row">
+                  <div class="col-md-6 col-sm-6">
+                    Поділіться посиланням на цю сторінку в соціальних мережах із закликом підтримати ініціативу по переводу послуги в електронний вигляд.
+                    <br>
+                    <center>
+                        <div class="pluso" style="margin-top:10px;" data-background="transparent" data-options="big,round,line,horizontal,counter,theme=04" data-title="Закликаю владу перевести цю послугу в електронну форму! {{data.city.sName}} – {{service.sName}}" data-description="{{data.city.sName}} – {{service.sName}}" data-services="facebook,vkontakte,twitter">
+                        </div>
+                    </center>
+                  </div>
+                  <div class="col-md-6 col-sm-6">
+                    Залиште свій email. Ми Вас поінформуємо, як тільки ця послуга буде доступна в електронному вигляді.
+                    <div class="email-absent-form col-md-12 text-center">
+                        <form name="absentMessageForm" class="form-inline" novalidate>
+                            <input type="email" data-ng-model="absentMessage.email" name="email" placeholder="Ваш email:" required ng-keyup="emailKeydown($event, absentMessageForm, absentMessage)"  ng-model-options="{ updateOn: 'blur' }" class="form-control" />
+                            <input type="button" data-ng-click="sendAbsentMessage(absentMessageForm, absentMessage)" value="Зберегти" class="btn btn-default" />
+                            <div role="alert" ng-if="absentMessage.showErrors">
+                                <span class="error" ng-if="absentMessageForm.email.$error.required">Введіть Вашу email-адресу</span>
+                                <span class="error" ng-if="absentMessageForm.email.$error.email">Введіть коректну email адресу</span>
+                            </div>
+                        </form>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        </div>
     </div>
 
 </div>
