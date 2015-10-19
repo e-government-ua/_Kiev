@@ -74,7 +74,7 @@
           <activiti:value id="attr2_bad" name="Дані заповнені неправильно, повідомити громадянина"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decision_comment" name="Якщо ви відмовляєте замовнику, обов'язково вкажіть підставу у цьому полі" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/kiev_soc_help_157_print.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/dnepr_soc_help_157_print.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -283,7 +283,7 @@
 &lt;p&gt;Вам необхідно принести оригінал Витягу з Державного реєстру актів цивільного стану громадян про державну реєстрацію народження дитини, або  довідка про народження, або документ про народження, виданий компетентним органом іноземної держави, в якому відсутні відомості про батька, за умови його легалізації в установленому законодавством порядку.&lt;/p&gt;&lt;br /&gt;
 &lt;p&gt;Коментар спеціаліста: ${decision_comment}&lt;/p&gt;
 &lt;p&gt;Чекаємо Вас за адресою:&lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:3]
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]
 &lt;/p&gt;
 &lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]
