@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="kiev_soc_help_142" name="Київ - Щомісячна компенсаційна виплата непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку" isExecutable="true">
-    <documentation>https://github.com/e-government-ua/iBP/issues/142</documentation>
+  <process id="kiev_soc_help_165" name="Київ - Призначення державної допомоги у зв'язку з вагітністю та пологами" isExecutable="true">
+    <documentation>https://github.com/e-government-ua/iBP/issues/150</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
@@ -10,11 +10,11 @@
         <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long"></activiti:formProperty>
-        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="zayavka" name="Ви подаете цю заявку вперше?" type="enum" required="true">
           <activiti:value id="yes_20" name="так"></activiti:value>
           <activiti:value id="no_20" name="заявка подається додатково до попередньої"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
@@ -22,14 +22,23 @@
         <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
           <activiti:value id="desn" name="Деснянський"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="employment_history" name="Чи маєте Ви трудову книжку?" type="enum" required="true">
+        <activiti:formProperty id="area_reestr" name="Чи зареєстровані Ви в обраному районі?" type="enum" required="true">
+          <activiti:value id="yes_1" name="так"></activiti:value>
+          <activiti:value id="no_1" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="adoption" name="Чи є Ви особою, яка усиновила чи взяла під опіку дитину протягом двох місяців з дня її народження?" type="enum" required="true">
           <activiti:value id="yes_2" name="так"></activiti:value>
           <activiti:value id="no_2" name="ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="care" name="За ким Ви доглядаєте?" type="enum" required="true">
-          <activiti:value id="old_human" name="за особою, яка досягла 80-річного віку"></activiti:value>
-          <activiti:value id="invalid" name="за інвалідом 1 групи"></activiti:value>
+        <activiti:formProperty id="woman" name="Пільгова категорія, до якої Ви відноситесь" type="enum" required="true">
+          <activiti:value id="enlistee" name="жінка-військовослужбовець"></activiti:value>
+          <activiti:value id="student" name="студентка (аспірантка, докторантка,ординаторка)"></activiti:value>
+          <activiti:value id="liquidation" name="звільнена з роботи у зв'язку з ліквідацією підприємства"></activiti:value>
+          <activiti:value id="fop" name="приватний підприємець, але не сплачую страхові внески у зв'язку з тимчасовою втратою працездатності"></activiti:value>
+          <activiti:value id="unemployed" name="зареєстрована в центрі зайнятості як безробітна"></activiti:value>
+          <activiti:value id="out_of_work" name="не працюю"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="info" name="Зверніть увагу" type="label" default=" &lt;font size='2'&gt;Якщо Ви не належите ні до одної з зазначених вище категорій - Ви не маєте права на отримання &lt;b&gt;державної допомоги &lt;/b&gt;у зв'язку з вагітністю та пологами&quot;&lt;/font&gt;"></activiti:formProperty>
         <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" required="true">
           <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
           <activiti:value id="bank" name="на рахунок у банку"></activiti:value>
@@ -39,16 +48,23 @@
         <activiti:formProperty id="mfo" name="МФО банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="edrpou" name="ЄДРПОУ банку" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bank_account" name="Номер рахунку (р/р)" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="passport_old_human" name="Документ, що посвідчує особу, за якою здійснюється догляд" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="doc_oblic" name="Довідка про перебування на обліку особи,за якою здійснюється догляд; в органах Пенсійного фонду або органах праці та соціального захисту населення" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="doc_fop" name="Довідка органів державної податкової служби довільної форми; про те, що Ви не перебуваєте на обліку у податковій, як фізична особа-підприємець" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="doc_employment_history" name="Копія трудової книжки" type="file"></activiti:formProperty>
-        <activiti:formProperty id="doc_employment_history_no" name="заява довільної форми із за значенням: 1-причини відсутності трудової книжки, 2- нформації про останнє місце роботи чи отримання доходів" type="file"></activiti:formProperty>
-        <activiti:formProperty id="doc_inv" name="Витяг з акту огляду медико-соціальної експертної комісії про групу інвалідності" type="file"></activiti:formProperty>
-        <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="doс_med" name="Довідка про вагітність; зверніть увагу: необхідно буде надати оригінал документу" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="doc_area_reestr" name="Довідка про неотримання допомоги з Управління праці та соціального захисту населення за місцем Вашої реєстрації" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_adoption" name="Рішення про усиновлення чи встановлення опіки" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_enlistee" name="Довідка з основного місця служби" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_student" name="Довідка з основного місця навчання" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_liquidation" name="Довідка ліквідаційної комісії про те,  що Ви звільнені з роботи у зв'язку з ліквідацією підприємства" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_fop" name="Довідка перебування на обліку в органах Пенсійного фонду України; про те, що не берете участь у загальнообов'язковому державному соціальному страхуванні у зв'язку з тимчасовою втратою працездатності" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_unemployed" name="Довідка про реєстрацію в центрі зайнятості як безробітної" type="file"></activiti:formProperty>
         <activiti:formProperty id="markers45" name="Маркери способу перерахування коштів" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers13" name="Маркери про трудову книжку" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;doc_employment_history&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;employment_history&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_2'&quot;},&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;doc_employment_history_no&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;employment_history&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'no_2'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers2" name="Маркери за ким доглядає" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;doc_inv&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;care&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'invalid'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers1" name="Маркери якщо живе не за місцем реєстрації" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;doc_area_reestr&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;area_reestr&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'no_1'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers2" name="Маркери якщо всиновлювали дитину" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;doc_adoption&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;adoption&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_2'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers3" name="Маркери якщо жінка-військовослужбовець" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;doc_enlistee&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;woman&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'enlistee'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers6" name="Маркери якщо жінка навчається" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;doc_student&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;woman&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'student'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers7" name="Маркери якщо ліквідували підприємство" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_7&quot;:{&quot;aField_ID&quot;:[&quot;doc_liquidation&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;woman&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'liquidation'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers8" name="Маркери якщо жінка є фопом" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_8&quot;:{&quot;aField_ID&quot;:[&quot;doc_fop&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;woman&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'fop'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers9" name="Маркери якщо жінка зареєстрована у центрі зайнятості" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_9&quot;:{&quot;aField_ID&quot;:[&quot;doc_unemployed&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;woman&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'unemployed'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="markers30" name="маркер Деснянський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_30&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='desn'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -69,13 +85,21 @@
         <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" writable="false">
           <activiti:value id="desn" name="Деснянський"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="employment_history" name="Чи маєте Ви трудову книжку?" type="enum" writable="false">
+        <activiti:formProperty id="area_reestr" name="Чи зареєстровані Ви в обраному районі?" type="enum" writable="false">
+          <activiti:value id="yes_1" name="так"></activiti:value>
+          <activiti:value id="no_1" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="adoption" name="Чи є Ви особою, яка усиновила чи взяла під опіку дитину протягом двох місяців з дня її народження?" type="enum" writable="false">
           <activiti:value id="yes_2" name="так"></activiti:value>
           <activiti:value id="no_2" name="ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="care" name="За ким Ви доглядаєте?" type="enum" writable="false">
-          <activiti:value id="old_human" name="за особою, яка досягла 80-річного віку"></activiti:value>
-          <activiti:value id="invalid" name="за інвалідом 1 групи"></activiti:value>
+        <activiti:formProperty id="woman" name="Пільгова категорія, до якої Ви відноситесь" type="enum" writable="false">
+          <activiti:value id="enlistee" name="жінка-військовослужбовець"></activiti:value>
+          <activiti:value id="student" name="студентка (аспірантка, докторантка,ординаторка)"></activiti:value>
+          <activiti:value id="liquidation" name="звільнена з роботи у зв'язку з ліквідацією підприємства"></activiti:value>
+          <activiti:value id="fop" name="приватний підприємець, але не сплачую страхові внески у зв'язку з тимчасовою втратою працездатності"></activiti:value>
+          <activiti:value id="unemployed" name="зареєстрована в центрі зайнятості як безробітна"></activiti:value>
+          <activiti:value id="out_of_work" name="не працюю"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="transfer_type" name="спосіб перерахування коштів" type="enum" writable="false">
           <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
@@ -91,12 +115,14 @@
           <activiti:value id="accept_but" name="Дані надані не в повному обсязі - направити громаднину повідомлення (обов'язково впишіть коментар нижче)"></activiti:value>
           <activiti:value id="reject" name="Дані заповнені невірно, відхилити звернення (обов'язково впишіть коментар нижче)"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="date_visit" name="Внесіть дату та час візиту громадянки для надання довідки про вагітність" type="string"></activiti:formProperty>
+        <activiti:formProperty id="room" name="укажіть кабінет - куди прийти громадянці" type="string"></activiti:formProperty>
         <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_142_print.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_165_print.html]" type="invisible" default="заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${bankId_scan_passport},${passport_old_human},${doc_oblic},${doc_fop},${doc_employment_history},${doc_employment_history_no},${doc_inv}</activiti:expression>
+            <activiti:expression>${bankId_scan_passport},${doc_area_reestr},${doc_adoption},${doc_enlistee},${doc_student},${doc_liquidation},${doc_fop},${doc_unemployed},${doс_med}</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -121,7 +147,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Нове  звернення. Щомісячна компенсаційна виплата непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку]]></activiti:string>
+          <activiti:string><![CDATA[Нове  звернення. Призначення державної допомоги у зв'язку з вагітністю та пологами]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
@@ -143,13 +169,15 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Щомісячна компенсаційна виплата непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Призначення державної допомоги у зв'язку з вагітністю та пологами]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-Ваше звернення щодо компенсаційної виплати непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку передано на розгляд в управління праці та соціального захисту населення і буде опрацьовано протягом 10 робочих днів.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
-Ви отримаєте додаткове повідомлення за результатами розгляду зверення.&lt;br /&gt;
+Ваше звернення щодо призначення державної допомоги у зв'язку з вагітністю та пологами прийнято в роботу.&lt;br /&gt;
+Вам призначено дату і час візиту для надання оригіналу довідки про вагітність -  ${date_visit}.&lt;br /&gt;
+Адреса: [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3], кабінет ${room}&lt;br /&gt;
+Після надання оригіналу документу, звернення буде передано на подальше опрацювання.&lt;/h3&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
@@ -168,15 +196,20 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Щомісячна компенсаційна виплата непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Призначення державної допомоги у зв'язку з вагітністю та пологами]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-Ваше звернення щодо компенсаційної виплати непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку направлено на доопрацювання.&lt;br /&gt;
+Ваше звернення щодо Призначення державної допомоги у зв'язку з вагітністю та пологами направлено на доопрацювання.&lt;br /&gt;
 &lt;br /&gt;
+Вам призначено дату і час візиту для надання оригіналу довідки про вагітнісь -  ${date_visit}.&lt;br /&gt;
+Кабінет ${room}
+Адреса: [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]
+&lt;br /&gt;
+Після надання оригіналу документу, звернення буде передано на подальше опрацювання.&lt;/h3&gt;
 ${comment_1}&lt;br /&gt;
-[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 Якщо Вам треба додати документи, яких бракує у Вашому першому зверненні - заповніть заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
@@ -194,12 +227,12 @@ ${comment_1}&lt;br /&gt;
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Щомісячна компенсаційна виплата непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Призначення державної допомоги у зв'язку з вагітністю та пологами]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-На жаль, Ваше звернення щодо компенсаційної виплати непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
+На жаль, Ваше звернення щодо призначення державної допомоги у зв'язку з вагітністю та пологами відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
 &lt;br /&gt;
 ${comment_1}&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
@@ -220,7 +253,7 @@ ${comment_1}&lt;br /&gt;
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Щомісячна компенсаційна виплата непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Призначення державної допомоги у зв'язку з вагітністю та пологами]]></activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
@@ -228,7 +261,7 @@ ${comment_1}&lt;br /&gt;
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-Ви отримали схвалення щодо свого звернення - щомісячна компенсаційна виплата непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку.&lt;br /&gt;
+Ви отримали схвалення щодо свого звернення - Призначення державної допомоги у зв'язку з вагітністю та пологами.&lt;br /&gt;
 &lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
@@ -249,13 +282,14 @@ ${comment_1}&lt;br /&gt;
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Щомісячна компенсаційна виплата непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку]]></activiti:string>
+          <activiti:string><![CDATA[Звернення на тему: Призначення державної допомоги у зв'язку з вагітністю та пологами]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-На жаль, Вам відмовлено у призначенні компенсаційної виплати непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку.&lt;br /&gt; ${comment_2}&lt;br /&gt;&lt;br /&gt;
+На жаль, Вам відмовлено у призначенні державної допомоги у зв'язку з вагітністю та пологами.&lt;br /&gt; ${comment_2}&lt;br /&gt;&lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
+${comment_2}&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
@@ -301,8 +335,8 @@ ${comment_1}&lt;br /&gt;
     <sequenceFlow id="flow41" sourceRef="servicetask9" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow42" sourceRef="servicetask7" targetRef="usertask1"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_soc_help_142">
-    <bpmndi:BPMNPlane bpmnElement="kiev_soc_help_142" id="BPMNPlane_kiev_soc_help_142">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_soc_help_165">
+    <bpmndi:BPMNPlane bpmnElement="kiev_soc_help_165" id="BPMNPlane_kiev_soc_help_165">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
