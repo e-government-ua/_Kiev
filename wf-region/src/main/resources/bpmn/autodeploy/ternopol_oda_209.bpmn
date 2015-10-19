@@ -7,14 +7,14 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Поштова адреса" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Телефон" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Телефон" type="string" default="+38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; на цей e-mail Ви отримаєте результат обробки Вашего звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="requestData" name="Вкажіть загальний опис запитуваної інформації або вид, назву, реквізити чи зміст документа" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="resultWay" name="Спосіб отримання відповіді" type="enum" required="true">
           <activiti:value id="На електронну адресу" name="На електронну адресу"></activiti:value>
           <activiti:value id="На поштову адресу" name="На поштову адресу"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow46" sourceRef="startevent1" targetRef="mailtask3"></sequenceFlow>
@@ -175,18 +175,11 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-
-Будь ласка, опрацюйте звернення громадянина ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Поштова адреса: ${bankIdAddress}&lt;br /&gt;
-Контактний телефон: ${bankIdPhone}&lt;br /&gt;
-Адреса електронної пошти: ${email}&lt;br /&gt;
-Спосіб отримання відповіді: ${resultWay}&lt;br /&gt;
-Загальний опис запитуваної інформації або вид, назва,реквізити чи зміст документа: ${requestData}  &lt;br /&gt;                                                                              
+									Будь ласка, опрацюйте звернення громадянина ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}                                         
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
                                         З повагою,&lt;br /&gt;
-                                        Запорізька ОДА,
                                         Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
                                     &lt;/p&gt;
                                 &lt;/td&gt;
@@ -311,7 +304,7 @@
           <activiti:value id="decline1" name="Неможливо надати відповідь"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment1" name="Якщо неможливо надати відповідь на запит громадянина, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="docFile" name="Додати скан-копію офіційної відповіді" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="docFile" name="Додати скан-копію офіційної відповіді" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow61" sourceRef="usertask2" targetRef="exclusivegateway1"></sequenceFlow>
