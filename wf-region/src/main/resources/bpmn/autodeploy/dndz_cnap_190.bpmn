@@ -137,7 +137,9 @@
         <activiti:formProperty id="number_cnap" name="Реєстраційний номер у відповідності до внутрішньої програми ЦНАП" type="string"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_registrastion" name="Вкажіть дату реєстрації (у форматі ДД/ММ/РРРР)" type="string"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/dndz_cnap_192_print.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody1" name="[pattern/print/dndz_cnap_190_print1.html]" type="invisible" default="Заява - фізична особа" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody2" name="[pattern/print/dndz_cnap_190_print2.html]" type="invisible" default="Клопотання - юридична особа" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody3" name="[pattern/print/dndz_cnap_190_print3.html]" type="invisible" default="Заява - багатоповерховий будинок" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
