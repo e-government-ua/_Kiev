@@ -143,7 +143,7 @@
 &lt;p&gt;Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;/p&gt;
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-[pattern_dictonary:kiev_rai_cos_help.csv:value{[rName]}:2],&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2],&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -170,7 +170,7 @@
 &lt;p&gt;Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;/p&gt;
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-[pattern_dictonary:kiev_rai_cos_help.csv:value{[rName]}:2],&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2],&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
@@ -256,10 +256,10 @@
 &lt;p&gt;Причина: ${decision_comment}&lt;/p&gt;
 &lt;p&gt;Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;&lt;/p&gt;
 &lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-[pattern_dictonary:kiev_rai_cos_help.csv:value{[rName]}:2],&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2],&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -286,10 +286,10 @@
 [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:3]
 &lt;/p&gt;
 &lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]
 &lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-[pattern_dictonary:kiev_rai_cos_help.csv:value{[rName]}:2],&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2],&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
