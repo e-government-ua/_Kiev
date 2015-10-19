@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('PlaceAbsentController', function($state, $rootScope, $scope, service, MessagesService, AdminService, ValidationService, PlacesService) {
+angular.module('app').controller('PlaceAbsentController', function($state, $rootScope, $scope, service, MessagesService, AdminService, ValidationService, PlacesService, ErrorsFactory) {
 
   $scope.bAdmin = AdminService.isAdmin();
 
@@ -60,7 +60,12 @@ angular.module('app').controller('PlaceAbsentController', function($state, $root
       sHead: 'Закликаю владу перевести цю послугу в електронну форму!',
       sBody: selectedRegion + selectedCity + service.sName
     };
-    MessagesService.setMessage(data, 'Дякуємо! Ви будете поінформовані, коли ця послуга буде доступна через Інтернет');
+
+    var messageText = 'Дякуємо! Ви будете поінформовані, коли ця послуга буде доступна через Інтернет.';
+    
+    MessagesService.setMessage(data, messageText);
+
+    ErrorsFactory.push({type: 'success', text: messageText});
   };
 
 });
