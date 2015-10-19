@@ -6,11 +6,11 @@
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім`я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" default="+38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddress" name="Домашня адреса" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="rai" name="Оберіть район, в якому розташована земельна ділянка" type="enum" required="true">
-          <activiti:value id="smil" name="Смілянський район"></activiti:value>
+          <activiti:value id="tern" name="Тернопільський район"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="place" name="Місце знаходження земельної ділянки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Загальна площа ділянки у га" type="string" required="true"></activiti:formProperty>
@@ -125,11 +125,11 @@
             [pattern/mail/_common_header.html]
 			&lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
 			&lt;p&gt;Замовлена Вами довідка з державної статистичної звітності про наявність земель та розподіл їх за власниками земель, землекористувачами, угіддями готова.&lt;br /&gt;
-			Ви можете завантажити її з додатку до цього листа, та отримати оригінал у регіональному ЦНАП за адресою:&lt;br /&gt;
-			20700, м.Сміла, вул. Леніна,37
+			Ви можете завантажити її з додатку до цього листа, та отримати оригінал у ЦНАП за адресою:&lt;br /&gt;
+			46010, м. Тернопіль, вул. Кривоноса, 10
 			&lt;/p&gt; 
 			&lt;p&gt;Режим роботи центру:&lt;br&gt;
-			
+			понеділок-п'ятниця: 08.00-17.15
 			&lt;/p&gt;  
 			&lt;p&gt;телефон для довідок: (0352) 43-24-62
 			&lt;/p&gt;
