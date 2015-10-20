@@ -137,7 +137,7 @@
         <activiti:formProperty id="warming_place" name="Опалювальна площа; кв.м." type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_from" name="Період, за який Ви заповнюєте декларацію, з" type="date" default="01/01/2014" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_to" name="Період, за який Ви заповнюєте декларацію, по " type="date" default="31/12/2014" required="true"></activiti:formProperty>
-        <activiti:formProperty id="income0" name="Ваш вид доходу" type="enum" required="true">
+        <activiti:formProperty id="income0" name="Ваш вид доходу; наприклад: заробітна плата, стипендія, пенсія, соціальна допомога, доходи від підприємницької діяльності, сдача майна в оренду, продаж майна та немайнових прав, грошове забезпечення, інше або безробітний(а). Якщо Ви маєте декілька видів доходу, перерахуйте їх через кому." type="string" required="true">
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
           <activiti:value id="attr3" name="пенсія"></activiti:value>
@@ -148,7 +148,7 @@
           <activiti:value id="attr8" name="продаж майна та немайнових прав"></activiti:value>
           <activiti:value id="attr9" name="грошове забезпечення чи інше"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="org0" name="Назва організації, де Ви працюєте" type="string" default="Назва організації" required="true"></activiti:formProperty>
+        <activiti:formProperty id="org0" name="Назва організації, де Ви отримуєте дохід (або назва органу, який його виплачує); якщо Ви отримуєте дохід в декількох місцях, перерахуйте їх через кому відповідно до видів доходу, які Ви зазначили вище. " type="string" default="Назва організації" required="true"></activiti:formProperty>
         <activiti:formProperty id="other_people" name="Разом з Вами мешкають інші особи?" type="enum" required="true">
           <activiti:value id="attr1" name="Так, 1 особа"></activiti:value>
           <activiti:value id="attr2" name="Так, 2 особи"></activiti:value>
@@ -359,7 +359,7 @@
         <activiti:formProperty id="warming_place" name="Опалювальна площа; кв.м." type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_from" name="Період, за який Ви заповнюєте деклацію, з" type="date" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_to" name="Період, за який Ви заповнюєте декларацію, по" type="date" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="income0" name="Ваш вид доходу" type="enum" writable="false">
+        <activiti:formProperty id="income0" name="Ваш вид доходу" type="string" writable="false">
           <activiti:value id="attr1" name="заробітна плата"></activiti:value>
           <activiti:value id="attr2" name="стипендія"></activiti:value>
           <activiti:value id="attr3" name="пенсія"></activiti:value>
@@ -728,7 +728,37 @@
                                     &lt;/p&gt;
                                 &lt;/td&gt;
                             &lt;/tr&gt;
-                           
+
+                            &lt;tr&gt;
+                                &lt;td style="padding: 35px 120px 0 120px;"&gt;
+                                    &lt;b&gt;Оцініть, будь ласка, наскільки Ви задоволені якістю надання даної послуги, за шкалою від 2 до 5:&lt;/b&gt;
+
+                                    &lt;p style="text-align: center;"&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="2"&gt;&lt;span&gt;2&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="3"&gt;&lt;span&gt;3&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="4"&gt;&lt;span&gt;4&lt;/span&gt;&lt;/label&gt;
+                                        &lt;label&gt;&lt;input type="radio" name="sID_Rate" value="5"&gt;&lt;span&gt;5&lt;/span&gt;&lt;/label&gt;
+                                    &lt;/p&gt;
+
+                                    &lt;p style="font-size: 13px;"&gt;
+                                        Якщо ви не задоволені якістю, прокоментируйте, будь ласка.&lt;br /&gt;
+                                        Ви також &lt;b style="color: #cc3333;"&gt;можете анонімно&lt;/b&gt; подати сигнал про будь-які правопорушення державних працівників.
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 35px 120px;"&gt;
+                                    &lt;label&gt;&lt;input type="checkbox" name="warnSignal"&gt; Подати сигнал анонімно&lt;/label&gt;
+                                    &lt;label style="height: 110px; display: block;"&gt;&lt;textarea name="sBody"&gt;&lt;/textarea&gt;&lt;/label&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                            &lt;tr&gt;
+                                &lt;td style="padding: 0 120px 55px 120px; text-align: center;"&gt;
+                                    &lt;button type="submit"&gt;Відправити&lt;/button&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+
+                       
                           
 
                         &lt;/table&gt;
