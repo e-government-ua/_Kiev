@@ -60,7 +60,7 @@
     <serviceTask id="servicetask2" name="повідомлення громадянина о наданні довідки" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
@@ -73,22 +73,27 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
-&lt;b&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-Ваше звернення щодо надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося - опрацьовано.&lt;br /&gt;&lt;br /&gt;
-Копія документу знаходиться у додатку до листа.&lt;br /&gt;
-&lt;br /&gt;
+&lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/h3&gt;
+&lt;p&gt;
+Ваше звернення щодо надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося - опрацьовано.&lt;br /&gt;
+Копія документу знаходиться у додатку до листа.
+&lt;/p&gt;
+&lt;p&gt;
 Ви або уповноважена Вами особа (при наявності довіреності) можете отримати довідку собисто під підпис у центрі надання адміністративних послуг
 за адресою:&lt;br /&gt;
-м.Кузнецовськ, майдан Незалежності 2, каб.№105-1&lt;br /&gt;&lt;br /&gt;
-Телефон для довідок (3636)2-23-73&lt;br /&gt;&lt;br /&gt;
-Графік роботи (крім святкових днів):&lt;br /&gt;
-Понеділок, середа 8.00-17.15&lt;br /&gt;
-Вівторок, четвер 8.00-20.00&lt;br /&gt;
-П'ятниця, субота 8.00-16.00&lt;br /&gt;&lt;br /&gt;
-обідня перерва 13:00-14:00&lt;br /&gt;
-[pattern/mail/_common_signature_start.html]
-Виконавчий комітет Кузнецовської міської ради&lt;/p&gt;
+м.Кузнецовськ, майдан Незалежності 2, каб.№105-1&lt;br /&gt;
+&lt;p&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+										Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+										Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+										П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+										Без перерви на обід&lt;br /&gt;
+										Телефон: (03636) 2-23-73
+										&lt;/p&gt;
+[pattern/mail/_common_signature_start.html
+Виконавчий комітет Кузнецовської міської ради&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
+[pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
@@ -106,12 +111,13 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
-&lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!&lt;/h3&gt;
+&lt;p&gt;
 Ваше звернення щодо видачі надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося отримано та буде опрацьовано протягом 10 робочих днів.&lt;br /&gt;
-Ви отримаєте додаткове повідомлення за результатами розгляду запиту.&lt;br /&gt;
-    &lt;/p&gt;
+Ви отримаєте додаткове повідомлення за результатами розгляду запиту.
+&lt;/p&gt;
 [pattern/mail/_common_signature_start.html]
-Виконавчий комітет Кузнецовської міської ради&lt;/p&gt;
+Виконавчий комітет Кузнецовської міської ради&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -120,13 +126,16 @@
     <serviceTask id="servicetask4" name="Повідомлення співробітника держоргану" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[lyuda-sholom@yandex.ua, natakuzn@i.ua, rulyashka@ukr.net]]></activiti:string>
+         <activiti:expression><![CDATA[cnap@kuznetsovsk-rada.gov.ua]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Нове  звернення. Надання довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="bcc">
+          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
@@ -146,17 +155,25 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
-&lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+&lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!&lt;/h3&gt;
+&lt;p&gt;
 На жаль, Вам відмовлено у наданні довідки про те, що посвідчення батьків та дитини з багатодітної сім'ї не видавалося.&lt;br /&gt;
+Причина відмови:&lt;br /&gt;
 ${comment_1}&lt;br /&gt;
 Копія документу знаходиться у додатку до листа.&lt;br /&gt;
-&lt;br /&gt;
-Ви або уповноважена Вами особа (при наявності довіреності) можете отримати рішення собисто під підпис у центрі надання адміністративних послуг
+&lt;/p&gt;
+&lt;p&gt;
+Ви або уповноважена Вами особа (при наявності довіреності) можете отримати довідку собисто під підпис у центрі надання адміністративних послуг
 за адресою:&lt;br /&gt;
-м.Кузнецовськ, майдан Незалежності 2, каб.№105-1&lt;br /&gt;&lt;br /&gt;
-Телефон для довідок (3636)2-23-73&lt;br /&gt;&lt;br /&gt;
-Графік роботи (крім святкових днів):&lt;br /&gt;
-Понеділок, середа 8.00-17.15&lt;br /&gt;
+м.Кузнецовськ, майдан Незалежності 2, каб.№105-1&lt;br /&gt;
+&lt;p&gt;
+Графік роботи ЦНАП-у:&lt;br /&gt;
+										Понеділок, середа з 8.00 до 17.15&lt;br /&gt;
+										Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
+										П'ятниця, субота з 8.00 до 16.00&lt;br /&gt;
+										Без перерви на обід&lt;br /&gt;
+										Телефон: (03636) 2-23-73
+										&lt;/p&gt;
 [pattern/mail/_common_signature_start.html]
 Виконавчий комітет Кузнецовської міської ради&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
