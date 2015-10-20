@@ -325,7 +325,7 @@ nID;nID_Service;nID_Place;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden
 414;1382;1;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"_test_enum_usertask:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
 415;23;50013;NULL;13;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"zt_region_cnap_183:1:1"}};https://test.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
 416;15;28;28;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dndz_cnap_188:1:1"}};https://test.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-417;1383;1;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_soc_help_176:1:1"}};https://test.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+417;1383;1;NULL;1;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_soc_help_176:1:1"}};https://test.region.igov.org.ua/wf/;false;1;false;;BankID,EDS
 418;376;1;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_dfs_dovidka_nodebts:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
 419;1384;NULL;NULL;NULL;1;{};http://map.land.gov.ua/;false;1;false;Ви можете отримати послугу через публічну кадастрову карту. Обов’язковою умовою отримання доступу до інформації є  електронна ідентифікація заявника з використанням електронного цифрового підпису або BankID;BankID,EDS
 420;1385;NULL;NULL;NULL;1;{};http://map.land.gov.ua/;false;1;false;Ви можете отримати послугу через публічну кадастрову карту. Обов’язковою умовою отримання доступу до інформації є  електронна ідентифікація заявника з використанням електронного цифрового підпису або BankID;BankID,EDS
@@ -356,3 +356,4 @@ nID;nID_Service;nID_Place;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden
 445;777;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_156:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
 446;787;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_175:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
 447;786;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_177:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS
+448;28;1;1;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"dnepr_dms-205:1:1"}};https://test.region.igov.org.ua/wf/;false;1;true;;BankID,EDS

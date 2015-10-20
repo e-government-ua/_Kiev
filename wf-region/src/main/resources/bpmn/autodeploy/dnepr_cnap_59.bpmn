@@ -26,8 +26,9 @@
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="region" name="Регион" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="marker23" name="Правобережний ЦНАП" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_23&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;23&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;vibor&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'prav'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="marker24" name="Лівобережний ЦНАП" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_24&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;24&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;vibor&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'lev'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="clerkPost" name="Регион" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="marker23" name="Правобережний ЦНАП" type="markers" default="{&quot;motion&quot;: {&quot;ValuesFieldsOnCondition_23&quot;: {&quot;aField_ID&quot;:[&quot;region&quot;,&quot;clerkPost&quot;],&quot;asID_Field_sValue&quot;:[&quot;23&quot;, &quot;woobraja@mail.ru, 7751138@rambler.ru&quot;], &quot;asID_Field&quot;: {&quot;sReason&quot;:&quot;vibor&quot;}, &quot;sCondition&quot;:&quot;[sReason] == 'prav'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker24" name="Лівобережний ЦНАП" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_24&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;,&quot;clerkPost&quot;],&quot;asID_Field_sValue&quot;:[&quot;24&quot;,&quot;Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;vibor&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'lev'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="postlev" name="адреси e-mail ЦНАП Лівобережний" type="string" default="Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net" readable="false"></activiti:formProperty>
         <activiti:formProperty id="postprav" name="адреси e-mail ЦНАП Правобережний" type="string" default="woobraja@mail.ru, 7751138@rambler.ru" readable="false"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу, Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
@@ -97,8 +98,8 @@
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
 &lt;p&gt;Для отримання зареєстрованої Декларації потрібно особисто звернутися до адміністратора ЦНАП з документом, що посвідчує особу (паспорт).&lt;br/&gt;
 Звертаємо увагу на те, що Ви власноруч підписуєте зареєстровану Декларацію та проставляєте на ній печатку (у разі наявності) в присутності адміністратора в приміщенні ЦНАП &lt;/p&gt;
- [pattern/mail/_common_signature_start.html]
-[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2],&lt;br/&gt;
+ [pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]   
 [pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
@@ -126,8 +127,8 @@
 &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;&lt;br /&gt;
 &lt;p&gt;Ваше звернення щодо "Декларації відповідності матеріально-технічної бази суб’єкта господарювання вимогам законодавства" успішно зареєстроване.&lt;/p&gt;
 &lt;p&gt;Ви отримаєте відповідь протягом п'яти робочих днів. &lt;/p&gt;
-[pattern/mail/_common_signature_start.html]
-&lt;p&gt;ЦНАП м. Дніпропетровськ&lt;/p&gt;
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -197,8 +198,8 @@
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
-[pattern/mail/_common_signature_start.html]
-&lt;p&gt;ЦНАП м. Дніпропетровськ&lt;/p&gt;
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -235,8 +236,8 @@ ${comPer1} &lt;br&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
-[pattern/mail/_common_signature_start.html]
-&lt;p&gt;ЦНАП м. Дніпропетровськ&lt;/p&gt;
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -273,8 +274,8 @@ ${comment} &lt;br&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
 &lt;p&gt;Документ видається за наявності паспорта&lt;/p&gt;
-[pattern/mail/_common_signature_start.html]
-[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]   
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -283,35 +284,14 @@ ${comment} &lt;br&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <serviceTask id="mailtask5" name="Лист посадовцю про нове звернення" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
-      <extensionElements>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="to">
-          <activiti:expression>crow79@ua.fm</activiti:expression>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:expression>Нове звернення на порталі igov.org.ua на тему: Декларація відповідності матеріально-технічної бази суб’єкта господарювання вимогам законодавства. Заявник ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
-    <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow35" sourceRef="mailtask2" targetRef="exclusivegateway3"></sequenceFlow>
-    <sequenceFlow id="flow36" sourceRef="mailtask5" targetRef="usertask3_green"></sequenceFlow>
-    <sequenceFlow id="flow38" sourceRef="exclusivegateway3" targetRef="mailtask5">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vibor=='prav'}]]></conditionExpression>
-    </sequenceFlow>
+    <sequenceFlow id="flow35" sourceRef="mailtask2" targetRef="mailtask6"></sequenceFlow>
     <serviceTask id="mailtask6" name="Лист посадовцю про нове звернення" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>crow79@ua.fm</activiti:expression>
+          <activiti:expression>email@email.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Нове звернення на порталі igov.org.ua на тему: Декларація відповідності матеріально-технічної бази суб’єкта господарювання вимогам законодавства. Заявник ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}</activiti:expression>
@@ -321,13 +301,7 @@ ${comment} &lt;br&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow39" sourceRef="exclusivegateway3" targetRef="mailtask6">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vibor=='lev'}]]></conditionExpression>
-    </sequenceFlow>
     <sequenceFlow id="flow40" sourceRef="mailtask6" targetRef="usertask3_green"></sequenceFlow>
-    <textAnnotation id="textannotation1">
-      <text>${postprav}</text>
-    </textAnnotation>
     <textAnnotation id="textannotation2">
       <text>${postlev}</text>
     </textAnnotation>
@@ -353,7 +327,7 @@ ${comment} &lt;br&gt;
         <omgdc:Bounds height="35.0" width="35.0" x="670.0" y="155.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="55.0" width="105.0" x="-28.0" y="177.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="-28.0" y="161.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="455.0" y="152.0"></omgdc:Bounds>
@@ -373,17 +347,8 @@ ${comment} &lt;br&gt;
       <bpmndi:BPMNShape bpmnElement="servicetask8" id="BPMNShape_servicetask8">
         <omgdc:Bounds height="55.0" width="105.0" x="531.0" y="121.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
-        <omgdc:Bounds height="68.0" width="105.0" x="101.0" y="134.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
-        <omgdc:Bounds height="40.0" width="40.0" x="4.0" y="247.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
-        <omgdc:Bounds height="71.0" width="105.0" x="101.0" y="320.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
-        <omgdc:Bounds height="50.0" width="100.0" x="150.0" y="80.0"></omgdc:Bounds>
+        <omgdc:Bounds height="71.0" width="105.0" x="-28.0" y="224.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
         <omgdc:Bounds height="50.0" width="100.0" x="230.0" y="340.0"></omgdc:Bounds>
@@ -412,7 +377,7 @@ ${comment} &lt;br&gt;
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
         <omgdi:waypoint x="24.0" y="147.0"></omgdi:waypoint>
-        <omgdi:waypoint x="24.0" y="177.0"></omgdi:waypoint>
+        <omgdi:waypoint x="24.0" y="161.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow27" id="BPMNEdge_flow27">
         <omgdi:waypoint x="331.0" y="155.0"></omgdi:waypoint>
@@ -447,24 +412,12 @@ ${comment} &lt;br&gt;
         <omgdi:waypoint x="670.0" y="172.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
-        <omgdi:waypoint x="24.0" y="232.0"></omgdi:waypoint>
-        <omgdi:waypoint x="24.0" y="247.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
-        <omgdi:waypoint x="153.0" y="202.0"></omgdi:waypoint>
-        <omgdi:waypoint x="153.0" y="232.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
-        <omgdi:waypoint x="24.0" y="247.0"></omgdi:waypoint>
-        <omgdi:waypoint x="153.0" y="202.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
-        <omgdi:waypoint x="24.0" y="287.0"></omgdi:waypoint>
-        <omgdi:waypoint x="153.0" y="320.0"></omgdi:waypoint>
+        <omgdi:waypoint x="77.0" y="188.0"></omgdi:waypoint>
+        <omgdi:waypoint x="24.0" y="224.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
-        <omgdi:waypoint x="153.0" y="320.0"></omgdi:waypoint>
-        <omgdi:waypoint x="153.0" y="287.0"></omgdi:waypoint>
+        <omgdi:waypoint x="77.0" y="259.0"></omgdi:waypoint>
+        <omgdi:waypoint x="101.0" y="259.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

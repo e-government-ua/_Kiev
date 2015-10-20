@@ -66,6 +66,7 @@
         <activiti:formProperty id="markers9" name="Маркери якщо жінка зареєстрована у центрі зайнятості" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_9&quot;:{&quot;aField_ID&quot;:[&quot;doc_unemployed&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;woman&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'unemployed'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="markers30" name="маркер Деснянський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_30&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='desn'&quot;}}}"></activiti:formProperty>
+      <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask2" name="перевірка документів" activiti:candidateGroups="kiev_upzsn_socialhelp_${area}">
@@ -201,11 +202,10 @@
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-Ваше звернення щодо Призначення державної допомоги у зв'язку з вагітністю та пологами направлено на доопрацювання.&lt;br /&gt;
+Ваше звернення щодо призначення державної допомоги у зв'язку з вагітністю та пологами направлено на доопрацювання.&lt;br /&gt;
 Вам призначено дату і час візиту для надання оригіналу довідки про вагітнісь - ${date_visit}.&lt;br /&gt;
-Кабінет ${room}
-Адреса: [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
+Адреса: [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3], кабінет ${room}&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 Після надання оригіналу документу, звернення буде передано на подальше опрацювання.&lt;br /&gt;
 ${comment_1}&lt;br /&gt;
 Якщо Вам треба додати документи, яких бракує у Вашому першому зверненні - заповніть заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
@@ -236,6 +236,7 @@ ${comment_1}&lt;br /&gt;
 Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -264,6 +265,7 @@ ${comment_1}&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
@@ -290,6 +292,7 @@ ${comment_2}&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>

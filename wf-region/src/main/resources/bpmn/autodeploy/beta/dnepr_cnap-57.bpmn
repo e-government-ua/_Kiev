@@ -46,9 +46,10 @@
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="region" name="Регион" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="marker23" name="Правобережний ЦНАП" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_23&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;23&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'prav'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="marker24" name="Лівобережний ЦНАП" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_24&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;24&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'lev'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers2" name="Маркеры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnNotEmpty_1&quot;:{&quot;sField_ID_s&quot;: &quot;client&quot;},&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;: [&quot;name&quot;, &quot;Reestr&quot;, &quot;edrpou&quot;, &quot;kved&quot;, &quot;PIB&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;client&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr1'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="clerkPost" name="Регион" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="marker23" name="Правобережний ЦНАП" type="markers" default="{&quot;motion&quot;: {&quot;ValuesFieldsOnCondition_23&quot;: {&quot;aField_ID&quot;:[&quot;region&quot;,&quot;clerkPost&quot;],&quot;asID_Field_sValue&quot;:[&quot;23&quot;, &quot;woobraja@mail.ru, 7751138@rambler.ru&quot;], &quot;asID_Field&quot;: {&quot;sReason&quot;:&quot;vibor&quot;}, &quot;sCondition&quot;:&quot;[sReason] == 'prav'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker24" name="Лівобережний ЦНАП" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_24&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;,&quot;clerkPost&quot;],&quot;asID_Field_sValue&quot;:[&quot;24&quot;,&quot;Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;vibor&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'lev'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers200" name="Маркеры200" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnNotEmpty_1&quot;:{&quot;sField_ID_s&quot;: &quot;client&quot;},&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;: [&quot;name&quot;, &quot;Reestr&quot;, &quot;edrpou&quot;, &quot;kved&quot;, &quot;PIB&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;client&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr1'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:value xmlns:activiti="http://activiti.org/bpmn" id="attr1" name="юридична особа"></activiti:value>
         <activiti:value xmlns:activiti="http://activiti.org/bpmn" id="attr2" name="фізична особа-підприємець"></activiti:value>
@@ -70,7 +71,7 @@
 &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;&lt;br /&gt;
  &lt;p&gt;Ваше звернення щодо "Декларації відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" успішно зареєстроване.&lt;/p&gt;
 &lt;p&gt;Ви отримаєте відповідь протягом 3 робочих днів. &lt;/p&gt;
-[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
@@ -78,7 +79,7 @@
       </extensionElements>
     </serviceTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="usertask4" name="Перевірка даних службою ФОП" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+    <userTask id="usertask4" name="Перевірка даних службою ФОП" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="Per2" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете сповістити заявника чи зареєстровано його декларацію. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -125,11 +126,11 @@
           <activiti:value id="декларацію зареєстровано" name="декларацію зареєстровано"></activiti:value>
           <activiti:value id="декларацію не зареєстровано" name="декларацію не зареєстровано"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="vidpovid" name="Додайте скановану відповідь реєстратора" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="vidpovid" name="Додайте скановану відповідь реєстратора" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57f_print.html]" type="invisible" default="Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <userTask id="usertask1" name="Формування опису або відмова при неправильних документах Юр особа" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+    <userTask id="usertask1" name="Формування опису або відмова при неправильних документах Юр особа" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="per1" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете ознайомитись з поданими документами, прийняти попереднє рішення про те, чи достатньо їх для виконання запиту, роздрукувати заяву і всі додатки. Якщо перевірку пройдено, додайте файл з описом прийнятих документів, номером і датою прийняття. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -207,8 +208,8 @@ ${otkaz1} &lt;br&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
-[pattern/mail/_common_signature_start.html]
-[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -237,8 +238,8 @@ ${otkaz1} &lt;br&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
-[pattern/mail/_common_signature_start.html]
-[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -251,25 +252,8 @@ ${otkaz1} &lt;br&gt;
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'&&client=='attr2'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow29" sourceRef="startevent1" targetRef="mailtask1"></sequenceFlow>
-    <serviceTask id="mailtask5" name="Сповіщення держслужбовця" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
-      <extensionElements>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="to">
-          <activiti:expression>crow79@ua.fm</activiti:expression>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:expression>Нове звернення на порталі igov.org.ua на тему: Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки. Заявник ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}</activiti:expression>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow31" sourceRef="mailtask5" targetRef="exclusivegateway3"></sequenceFlow>
-    <userTask id="usertask2" name="Формування опису або відмова при неправильних документах ФОП" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+    <userTask id="usertask2" name="Формування опису або відмова при неправильних документах ФОП" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="per1" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете ознайомитись з поданими документами, прийняти попереднє рішення про те, чи достатньо їх для виконання запиту, роздрукувати заяву і всі додатки. Якщо перевірку пройдено, додайте файл з описом прийнятих документів, номером і датою прийняття. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -347,8 +331,8 @@ ${otkaz1} &lt;br&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
-[pattern/mail/_common_signature_start.html]
-[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -360,7 +344,7 @@ ${otkaz1} &lt;br&gt;
     <sequenceFlow id="flow35" sourceRef="exclusivegateway1" targetRef="servicetask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'&&client=='attr1'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask3" name="Перевірка даних службою юр. особа" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+    <userTask id="usertask3" name="Перевірка даних службою юр. особа" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="Per2" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете сповістити заявника чи оброблено його заяву. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -407,7 +391,7 @@ ${otkaz1} &lt;br&gt;
           <activiti:value id="декларацію зареєстровано" name="декларацію зареєстровано"></activiti:value>
           <activiti:value id="декларацію не зареєстровано" name="декларацію не зареєстровано"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="vidpovid" name="Додайте файл скановану відповідь реєстратора" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="vidpovid" name="Додайте файл скановану відповідь реєстратора" type="file" default=" " required="true"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57u_print.html]" type="invisible" default="Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
@@ -436,8 +420,8 @@ ${otkaz1} &lt;br&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
 &lt;p&gt;Для отримання зареєстрованої Декларації потрібно особисто звернутися до адміністратора ЦНАП з документом, що посвідчує особу (паспорт).&lt;br/&gt;
 Звертаємо увагу на те, що Ви власноруч підписуєте зареєстровану Декларацію та проставляєте на ній печатку (у разі наявності) в присутності адміністратора в приміщенні ЦНАП&lt;/p&gt;
-[pattern/mail/_common_signature_start.html]
-[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]   
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -448,18 +432,14 @@ ${otkaz1} &lt;br&gt;
     </serviceTask>
     <sequenceFlow id="flow43" sourceRef="servicetask7" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow45" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <exclusiveGateway id="exclusivegateway4" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow46" sourceRef="mailtask1" targetRef="exclusivegateway4"></sequenceFlow>
-    <sequenceFlow id="flow47" sourceRef="exclusivegateway4" targetRef="mailtask5">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vibor=='prav'}]]></conditionExpression>
-    </sequenceFlow>
+    <sequenceFlow id="flow46" sourceRef="mailtask1" targetRef="mailtask6"></sequenceFlow>
     <serviceTask id="mailtask6" name="Сповіщення держслужбовця" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>crow79@ua.fm</activiti:expression>
+          <activiti:expression>email@email.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>Нове звернення на порталі igov.org.ua на тему: Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки. Заявник ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}</activiti:expression>
@@ -469,9 +449,6 @@ ${otkaz1} &lt;br&gt;
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow48" sourceRef="exclusivegateway4" targetRef="mailtask6">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${vibor=='lev'}]]></conditionExpression>
-    </sequenceFlow>
     <sequenceFlow id="flow49" sourceRef="mailtask6" targetRef="exclusivegateway3"></sequenceFlow>
     <sequenceFlow id="flow50" sourceRef="usertask3" targetRef="servicetask7"></sequenceFlow>
     <sequenceFlow id="flow51" sourceRef="usertask4" targetRef="servicetask7"></sequenceFlow>
@@ -486,12 +463,6 @@ ${otkaz1} &lt;br&gt;
     </textAnnotation>
     <textAnnotation id="textannotation4">
       <text>Гілка ФОП</text>
-    </textAnnotation>
-    <textAnnotation id="textannotation5">
-      <text>В юзертасках 1,3,4,5
-поменять в мейнконфиге
-dnepr_cnap57_${vibor}
-на dnepr_cnap_${vibor}</text>
     </textAnnotation>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap-57">
@@ -517,9 +488,6 @@ dnepr_cnap57_${vibor}
       <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
         <omgdc:Bounds height="55.0" width="105.0" x="320.0" y="228.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
-        <omgdc:Bounds height="55.0" width="105.0" x="80.0" y="230.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
         <omgdc:Bounds height="40.0" width="40.0" x="228.0" y="164.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -538,11 +506,8 @@ dnepr_cnap57_${vibor}
       <bpmndi:BPMNShape bpmnElement="servicetask7" id="BPMNShape_servicetask7">
         <omgdc:Bounds height="55.0" width="105.0" x="510.0" y="157.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
-        <omgdc:Bounds height="40.0" width="40.0" x="112.0" y="169.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
-        <omgdc:Bounds height="55.0" width="105.0" x="80.0" y="86.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="105.0" x="106.0" y="160.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="50.0" width="100.0" x="139.0" y="30.0"></omgdc:Bounds>
@@ -555,9 +520,6 @@ dnepr_cnap57_${vibor}
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation4" id="BPMNShape_textannotation4">
         <omgdc:Bounds height="50.0" width="100.0" x="3.0" y="233.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation5" id="BPMNShape_textannotation5">
-        <omgdc:Bounds height="71.0" width="125.0" x="310.0" y="19.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
         <omgdi:waypoint x="248.0" y="164.0"></omgdi:waypoint>
@@ -581,10 +543,6 @@ dnepr_cnap57_${vibor}
       <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
         <omgdi:waypoint x="42.0" y="145.0"></omgdi:waypoint>
         <omgdi:waypoint x="42.0" y="162.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
-        <omgdi:waypoint x="132.0" y="230.0"></omgdi:waypoint>
-        <omgdi:waypoint x="248.0" y="204.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
         <omgdi:waypoint x="248.0" y="204.0"></omgdi:waypoint>
@@ -619,19 +577,11 @@ dnepr_cnap57_${vibor}
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow46" id="BPMNEdge_flow46">
         <omgdi:waypoint x="95.0" y="189.0"></omgdi:waypoint>
-        <omgdi:waypoint x="112.0" y="189.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow47" id="BPMNEdge_flow47">
-        <omgdi:waypoint x="132.0" y="209.0"></omgdi:waypoint>
-        <omgdi:waypoint x="132.0" y="230.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow48" id="BPMNEdge_flow48">
-        <omgdi:waypoint x="132.0" y="169.0"></omgdi:waypoint>
-        <omgdi:waypoint x="132.0" y="141.0"></omgdi:waypoint>
+        <omgdi:waypoint x="106.0" y="187.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
-        <omgdi:waypoint x="132.0" y="141.0"></omgdi:waypoint>
-        <omgdi:waypoint x="248.0" y="164.0"></omgdi:waypoint>
+        <omgdi:waypoint x="211.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="228.0" y="184.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
         <omgdi:waypoint x="507.0" y="141.0"></omgdi:waypoint>
