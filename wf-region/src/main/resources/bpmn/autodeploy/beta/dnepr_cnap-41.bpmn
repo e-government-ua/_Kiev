@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_cnap_41" name="Дніпропетровськ_ЦНАП_Видача листа-довідки на перевезення (перезахоронення) загиблого в зоні АТО" isExecutable="true">
+  <process id="dnepr_cnap_41" name="Дніпропетровська_обл._ЦНАП_Видача листа-довідки на перевезення (перезахоронення) загиблого в зоні АТО" isExecutable="true">
     <documentation>https://github.com/e-government-ua/iBP/issues/41</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -25,10 +25,13 @@
         <activiti:formProperty id="scan5" name="Копія листа КЗ &quot;Дніпропетровське обласне бюро судово-медичної експертизи&quot; про підтвердження факту смерті та дати поховання загиблого" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="scan6" name="Копія дозволу або довідки виконавчого органу відповідної сільської, селищної, міської ради на перепоховання загиблого на іншому кладовищі (за місцем, куди вивозиться загибла особа для поховання)" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dover" name="Завантажте довіреність;якщо документи подаються довіреною особою" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="vibor" name="Як би ви бажали отримати оригінал довідки?" type="enum" required="true">
+        <activiti:formProperty id="vibor" name="Де ви бажаєте отримати оригінал довідки?" type="enum" required="true">
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="region" name="Регион" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="marker23" name="Правобережний ЦНАП" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_23&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;23&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;vibor&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'prav'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker24" name="Лівобережний ЦНАП" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_24&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;],&quot;sValue&quot;:&quot;24&quot;,&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;vibor&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'lev'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="postlev" name="адреси e-mail ЦНАП Лівобережний" type="string" default="Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net" readable="false"></activiti:formProperty>
         <activiti:formProperty id="postprav" name="адреси e-mail ЦНАП Правобережний" type="string" default="woobraja@mail.ru, 7751138@rambler.ru" readable="false"></activiti:formProperty>
         <activiti:formProperty id="Date" name="Оберіть дату подання звернення" type="date" required="true"></activiti:formProperty>
@@ -80,52 +83,7 @@
         </activiti:taskListener>
       </extensionElements>
     </userTask>
-    <serviceTask id="servicetask2" name="Лист з результатом Правобережний ЦНАП" activiti:delegateExpression="#{MailTaskWithAttachments}">
-      <extensionElements>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:string><![CDATA[Лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>[pattern/mail/_common_header.html]
-								  &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                  &lt;p&gt;
-                                     Замовлений Вами лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО підготовлений. Ви можете забрати оригінал у Правобережному ЦНАП за адресою:&lt;/p&gt;
-&lt;p&gt;49051, м.Дніпропетровськ, пр. К. Маркса, 75, каб. 105&lt;/p&gt;
-&lt;p&gt;Режим роботи центру:&lt;/p&gt;
-&lt;p&gt;понеділок, середа з 09.00 до 18.00, вівторок, четвер з 09.00 до 20.00;&lt;br&gt; 
-п’ятниця з 09.00 до 16.45, субота з 09.00 до 16.00;&lt;br&gt;
- &lt;br&gt;
-Крім святкових днів&lt;/p&gt;  
-&lt;p&gt;телефон (056) 742-84-08&lt;/p&gt;
-&lt;p&gt;&lt;p&gt;Лист-довідка видається за наявності таких документів:&lt;/p&gt;
-&lt;p&gt;
-1. Копія паспорту заявника.&lt;/br&gt;
-2. Копія свідоцтва про смерть, виданого відділом державної реєстрації смерті реєстраційної служби Дніпропетровського міського управління юстиції.&lt;/br&gt;
-3. Копія лікарського свідоцтва про смерть або довідки про причину смерті, виданих КЗ «Дніпропетровське обласне бюро судово-медичної експертизи» ДОР.&lt;/br&gt;
-4. Копія протоколу (постанови) слідчих органів про визнання померлої особи.&lt;/br&gt;
-5. Копія листа КЗ «Дніпропетровське обласне бюро судово-медичної експертизи» про підтвердження факту смерті та дати поховання загиблого.&lt;/br&gt;
-6. Копія дозволу або довідки виконавчого органу відповідної сільської, селищної, міської  ради на перепоховання загиблого на іншому кладовищі (за місцем, куди вивозяться загибла особа для поховання).&lt;/br&gt;
-7. Заповнена заява (бланк заяви можна завантажити за посиланням  - &lt;a a href="https://dl.dropboxusercontent.com/u/91233927/%D0%A6%D0%9D%D0%90%D0%9F/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D1%87%D0%BA%D0%B8%20%D0%B8%20%D0%B1%D0%BB%D0%B0%D0%BD%D0%BA%D0%B8%20%D0%B7%D0%B0%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B9%20%D1%87.1/439/%D0%97%D0%B0%D1%8F%D0%B2%D0%B0%20%281%29.doc"&gt;ЗАЯВА&lt;/a&gt;)                           
-&lt;/p&gt;
-                                    [pattern/mail/_common_signature_start.html]
-										Центр надання адміністративних послуг&lt;br/&gt; 
-										Дніпропетровської міської ради,&lt;br/&gt;
-									[pattern/mail/_common_signature_end.html]   
-									[pattern/mail/_common_feedback.html]
-									[pattern/mail/_common_footer.html]</activiti:expression>
-        </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>${result}</activiti:expression>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
-    <serviceTask id="servicetask4" name="Лист з результатом Лівобережний ЦНАП" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask4" name="Лист з результатом" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -140,13 +98,10 @@
           <activiti:expression>[pattern/mail/_common_header.html]
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                     Замовлений Вами лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО підготовлений. Ви можете забрати оригінал у Лівобережному ЦНАП за адресою:&lt;/p&gt;
-&lt;p&gt;49051, м.Дніпропетровськ, пр. ім. Газети "Правда", 42, 5 поверх&lt;/p&gt;
-&lt;p&gt;Режим роботи центру:&lt;/p&gt;
-&lt;p&gt;понеділок, вівторок, середа, четвер з 09.00 до 18.00, субота з 09.00 до 16.00;&lt;br&gt; 
- &lt;/br&gt;
-Крім святкових днів&lt;/p&gt;  
-&lt;p&gt;телефон (056) 726-30-69&lt;/p&gt;
+                                     Замовлений Вами лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО підготовлений. Ви можете забрати оригінал у [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;/p&gt;
+&lt;p&gt;[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
 &lt;p&gt;Лист-довідка видається за наявності таких документів:&lt;/p&gt;
 &lt;p&gt;
 1. Копія паспорту заявника.&lt;/br&gt;
@@ -157,9 +112,8 @@
 6. Копія дозволу або довідки виконавчого органу відповідної сільської, селищної, міської  ради на перепоховання загиблого на іншому кладовищі (за місцем, куди вивозяться загибла особа для поховання).&lt;/br&gt;
 7. Заповнена заява (бланк заяви можна завантажити за посиланням  - &lt;a a href="https://dl.dropboxusercontent.com/u/91233927/%D0%A6%D0%9D%D0%90%D0%9F/%D0%98%D0%BD%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%BA%D0%B0%D1%80%D1%82%D0%BE%D1%87%D0%BA%D0%B8%20%D0%B8%20%D0%B1%D0%BB%D0%B0%D0%BD%D0%BA%D0%B8%20%D0%B7%D0%B0%D1%8F%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B9%20%D1%87.1/439/%D0%97%D0%B0%D1%8F%D0%B2%D0%B0%20%281%29.doc"&gt;ЗАЯВА&lt;/a&gt;)
                                    &lt;/p&gt;
-                                    [pattern/mail/_common_signature_start.html]
-										Центр надання адміністративних послуг&lt;br/&gt; 
-										Дніпропетровської міської ради,&lt;br/&gt;
+                                    [pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 									[pattern/mail/_common_signature_end.html]   
 									[pattern/mail/_common_feedback.html]
 									[pattern/mail/_common_footer.html]</activiti:expression>
@@ -170,7 +124,6 @@
       </extensionElements>
     </serviceTask>
     <endEvent id="endevent2" name="End"></endEvent>
-    <sequenceFlow id="flow14" sourceRef="servicetask2" targetRef="endevent2"></sequenceFlow>
     <sequenceFlow id="flow15" sourceRef="servicetask4" targetRef="endevent2"></sequenceFlow>
     <serviceTask id="mailtask2" name="Лист про отримання заявки" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
@@ -188,8 +141,8 @@
 &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;&lt;br /&gt;
 Звернення на тему: Видача листа-довідки на перевезення (перезахоронення) загиблого в зоні АТО.&lt;br /&gt;
 Ви отримаєте відповідь протягом трьох робочих днів.&lt;br /&gt;
-[pattern/mail/_common_signature_start.html]
-&lt;p&gt;ЦНАП м. Дніпропетровськ&lt;/p&gt;
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -197,15 +150,8 @@
     </serviceTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow18" sourceRef="usertask2_red" targetRef="exclusivegateway1"></sequenceFlow>
-    <sequenceFlow id="flow19" sourceRef="servicetask7" targetRef="endevent2"></sequenceFlow>
-    <sequenceFlow id="flow20" name="Заяву відхилено" sourceRef="exclusivegateway1" targetRef="servicetask7">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='no'&&vibor=='lev'}]]></conditionExpression>
-    </sequenceFlow>
-    <sequenceFlow id="flow22" sourceRef="exclusivegateway1" targetRef="servicetask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'&&vibor=='prav'}]]></conditionExpression>
-    </sequenceFlow>
     <sequenceFlow id="flow23" sourceRef="exclusivegateway1" targetRef="servicetask4">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'&&vibor=='lev'}]]></conditionExpression>
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow24" sourceRef="servicetask1" targetRef="mailtask2"></sequenceFlow>
     <userTask id="usertask3_green" name="Формування опису або відмова при неправильних документах" activiti:candidateGroups="dnepr_cnap_${vibor}">
@@ -266,12 +212,12 @@
 &lt;p&gt;Ваше звернення опрацьоване адміністратором ЦНАП.&lt;br/&gt;
 Ви можете ознайомитись з копією заяви і описом прийнятих документів, що приєднані до цього листа.&lt;/p&gt;
 &lt;p&gt;За кілька днів на цю ж адресу надійде результат розгляду Вашого звернення.&lt;/p&gt;
-&lt;p&gt;Якщо у Вас з`явились питання, Ви можете звернутись до [pattern_dictonary:dnepr_reg_cnap.csv:26:2]&lt;br /&gt;
-[pattern_dictonary:dnepr_reg_cnap.csv:26:3]&lt;br /&gt;
-[pattern_dictonary:dnepr_reg_cnap.csv:26:4]&lt;br /&gt;
-[pattern_dictonary:dnepr_reg_cnap.csv:26:5]&lt;/p&gt;
-[pattern/mail/_common_signature_start.html]
-&lt;p&gt;ЦНАП м. Дніпропетровськ&lt;/p&gt;
+&lt;p&gt;Якщо у Вас з`явились питання, Ви можете звернутись до [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -304,12 +250,12 @@
 На жаль, вашу заяву відхилено.&lt;br&gt;
 ${comPer1} &lt;br&gt;
 Ви можете подати ще одну заяву на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;igov.org.ua&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Якщо у Вас з`явились питання, Ви можете звернутись до [pattern_dictonary:dnepr_reg_cnap.csv:26:2]&lt;br /&gt;
-[pattern_dictonary:dnepr_reg_cnap.csv:26:3]&lt;br /&gt;
-[pattern_dictonary:dnepr_reg_cnap.csv:26:4]&lt;br /&gt;
-[pattern_dictonary:dnepr_reg_cnap.csv:26:5]&lt;/p&gt;
-[pattern/mail/_common_signature_start.html]
-&lt;p&gt;ЦНАП м. Дніпропетровськ&lt;/p&gt;
+&lt;p&gt;Якщо у Вас з`явились питання, Ви можете звернутись до [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -340,44 +286,7 @@ ${comPer1} &lt;br&gt;
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow34" sourceRef="mailtask5" targetRef="usertask3_green"></sequenceFlow>
-    <serviceTask id="servicetask7" name="Заяву відхилено Лівобережний ЦНАП" activiti:delegateExpression="#{MailTaskWithAttachments}">
-      <extensionElements>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:string><![CDATA[Лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>[pattern/mail/_common_header.html]
-                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-&lt;p&gt;Щодо Вашого запиту на отримання листа-довідки на перевезення (перезахоронення)загиблого в зоні АТО.
-На жаль, вашу заяву відхилено.&lt;br&gt;
-${comment} &lt;br&gt;
-&lt;p&gt;Ви можете забрати оригінал документа про відмову у Лівобережному ЦНАП за адресою:&lt;/p&gt;
-&lt;p&gt;49051, м.Дніпропетровськ, пр. ім. Газети "Правда", 42,  5 поверх&lt;/p&gt;
-&lt;p&gt;Режим роботи центру:&lt;/p&gt;
-&lt;p&gt;понеділок, вівторок, середа, четвер з 09.00 до 18.00, субота з 09.00 до 16.00;&lt;br&gt; 
- &lt;br&gt;
-Крім святкових днів&lt;/p&gt;  
-&lt;p&gt;телефон (056) 726-30-69&lt;/p&gt;
-&lt;p&gt;Документ видається за наявності паспорта
-                                    &lt;/p&gt;
-                                    [pattern/mail/_common_signature_start.html]
-										Центр надання адміністративних послуг&lt;br/&gt; 
-										Дніпропетровської міської ради,&lt;br/&gt;
-									[pattern/mail/_common_signature_end.html]   
-									[pattern/mail/_common_footer.html]</activiti:expression>
-        </activiti:field>
-        <activiti:field name="saAttachmentsForSend">
-          <activiti:expression>${result}</activiti:expression>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
-    <serviceTask id="servicetask8" name="Заяву відхилено Правобережний ЦНАП" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask8" name="Заяву відхилено" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -391,22 +300,17 @@ ${comment} &lt;br&gt;
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
                                    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-&lt;p&gt;Щодо Вашого запиту на отримання листа-довідки на перевезення (перезахоронення)загиблого в зоні АТО.
-На жаль, вашу заяву відхилено.&lt;br&gt;
+&lt;p&gt;Щодо Вашого запиту на отримання листа-довідки на перевезення (перезахоронення)загиблого в зоні АТО. На жаль, вашу заяву відхилено.&lt;br&gt;
 ${comment} &lt;br&gt;
-&lt;p&gt;Ви можете забрати оригінал документа про відмову у Правобережному ЦНАП за адресою:&lt;/p&gt;
-&lt;p&gt;49051, м.Дніпропетровськ, пр. К. Маркса, 75, каб. 105&lt;/p&gt;
-&lt;p&gt;Режим роботи центру:&lt;/p&gt;
-&lt;p&gt;понеділок, середа з 09.00 до 18.00, вівторок, четвер з 09.00 до 20.00;&lt;br&gt; 
-п’ятниця з 09.00 до 16.45, субота з 09.00 до 16.00;&lt;br&gt;
- &lt;br&gt;
-Крім святкових днів&lt;/p&gt;  
-&lt;p&gt;телефон (056) 742-84-08&lt;/p&gt;
+Ви можете забрати оригінал документа про відмову у 
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;/p&gt;
+&lt;p&gt;[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
 &lt;p&gt;Документ видається за наявності паспорта
                                     &lt;/p&gt;
-                                    [pattern/mail/_common_signature_start.html]
-										Центр надання адміністративних послуг&lt;br/&gt; 
-										Дніпропетровської міської ради,&lt;br/&gt;
+                                    [pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 									[pattern/mail/_common_signature_end.html]   
 									[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -460,14 +364,11 @@ ${comment} &lt;br&gt;
       <bpmndi:BPMNShape bpmnElement="usertask2_red" id="BPMNShape_usertask2_red">
         <omgdc:Bounds height="55.0" width="105.0" x="379.0" y="145.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="55.0" width="105.0" x="590.0" y="158.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
-        <omgdc:Bounds height="56.0" width="105.0" x="590.0" y="214.0"></omgdc:Bounds>
+        <omgdc:Bounds height="56.0" width="105.0" x="581.0" y="179.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="700.0" y="168.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="695.0" y="145.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
         <omgdc:Bounds height="55.0" width="105.0" x="-28.0" y="175.0"></omgdc:Bounds>
@@ -490,11 +391,8 @@ ${comment} &lt;br&gt;
       <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
         <omgdc:Bounds height="55.0" width="105.0" x="110.0" y="147.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask7" id="BPMNShape_servicetask7">
-        <omgdc:Bounds height="56.0" width="105.0" x="590.0" y="103.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask8" id="BPMNShape_servicetask8">
-        <omgdc:Bounds height="56.0" width="105.0" x="590.0" y="46.0"></omgdc:Bounds>
+        <omgdc:Bounds height="56.0" width="105.0" x="580.0" y="100.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
         <omgdc:Bounds height="40.0" width="40.0" x="4.0" y="250.0"></omgdc:Bounds>
@@ -513,39 +411,17 @@ ${comment} &lt;br&gt;
         <omgdi:waypoint x="47.0" y="105.0"></omgdi:waypoint>
         <omgdi:waypoint x="56.0" y="81.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
-        <omgdi:waypoint x="695.0" y="185.0"></omgdi:waypoint>
-        <omgdi:waypoint x="700.0" y="185.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
-        <omgdi:waypoint x="695.0" y="242.0"></omgdi:waypoint>
-        <omgdi:waypoint x="717.0" y="241.0"></omgdi:waypoint>
-        <omgdi:waypoint x="717.0" y="203.0"></omgdi:waypoint>
+        <omgdi:waypoint x="686.0" y="207.0"></omgdi:waypoint>
+        <omgdi:waypoint x="712.0" y="180.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
         <omgdi:waypoint x="484.0" y="172.0"></omgdi:waypoint>
         <omgdi:waypoint x="514.0" y="172.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
-        <omgdi:waypoint x="695.0" y="131.0"></omgdi:waypoint>
-        <omgdi:waypoint x="717.0" y="127.0"></omgdi:waypoint>
-        <omgdi:waypoint x="717.0" y="168.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
-        <omgdi:waypoint x="554.0" y="172.0"></omgdi:waypoint>
-        <omgdi:waypoint x="642.0" y="159.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="86.0" x="494.0" y="130.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
-        <omgdi:waypoint x="554.0" y="172.0"></omgdi:waypoint>
-        <omgdi:waypoint x="590.0" y="185.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
-        <omgdi:waypoint x="534.0" y="192.0"></omgdi:waypoint>
-        <omgdi:waypoint x="534.0" y="240.0"></omgdi:waypoint>
-        <omgdi:waypoint x="590.0" y="242.0"></omgdi:waypoint>
+        <omgdi:waypoint x="554.0" y="172.0"></omgdi:waypoint>
+        <omgdi:waypoint x="581.0" y="207.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
         <omgdi:waypoint x="24.0" y="147.0"></omgdi:waypoint>
@@ -573,19 +449,17 @@ ${comment} &lt;br&gt;
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
         <omgdi:waypoint x="475.0" y="251.0"></omgdi:waypoint>
-        <omgdi:waypoint x="598.0" y="277.0"></omgdi:waypoint>
-        <omgdi:waypoint x="717.0" y="277.0"></omgdi:waypoint>
-        <omgdi:waypoint x="717.0" y="203.0"></omgdi:waypoint>
+        <omgdi:waypoint x="656.0" y="254.0"></omgdi:waypoint>
+        <omgdi:waypoint x="713.0" y="254.0"></omgdi:waypoint>
+        <omgdi:waypoint x="712.0" y="180.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
-        <omgdi:waypoint x="534.0" y="152.0"></omgdi:waypoint>
-        <omgdi:waypoint x="534.0" y="73.0"></omgdi:waypoint>
-        <omgdi:waypoint x="590.0" y="74.0"></omgdi:waypoint>
+        <omgdi:waypoint x="554.0" y="172.0"></omgdi:waypoint>
+        <omgdi:waypoint x="632.0" y="156.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
-        <omgdi:waypoint x="695.0" y="74.0"></omgdi:waypoint>
-        <omgdi:waypoint x="717.0" y="73.0"></omgdi:waypoint>
-        <omgdi:waypoint x="717.0" y="168.0"></omgdi:waypoint>
+        <omgdi:waypoint x="685.0" y="128.0"></omgdi:waypoint>
+        <omgdi:waypoint x="712.0" y="145.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
         <omgdi:waypoint x="162.0" y="202.0"></omgdi:waypoint>
