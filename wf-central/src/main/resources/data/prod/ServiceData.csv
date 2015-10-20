@@ -317,18 +317,18 @@ nID;nID_Service;nID_City;nID_Region;nID_ServiceType;oData;sURL;bHidden;nID_Subje
 427;739;3;NULL;1;{};https://egov.city-adm.lviv.ua/SitePages/NewService.aspx;false;1;false;Ви можете замовити послугу через особистий кабінет мешканця міста Львів. Для цього необхідно буде зареєструватися або пройти електронну ідентифікацію з використанням BankID, MobileID або електронного цифрового підпису;BankID,EDS
 428;98;3;NULL;1;{};https://egov.city-adm.lviv.ua/SitePages/NewService.aspx;false;1;false;Ви можете замовити послугу через особистий кабінет мешканця міста Львів. Для цього необхідно буде зареєструватися або пройти електронну ідентифікацію з використанням BankID, MobileID або електронного цифрового підпису;BankID,EDS
 429;1392;3;NULL;1;{};https://egov.city-adm.lviv.ua/SitePages/NewService.aspx;false;1;false;Ви можете замовити послугу через особистий кабінет мешканця міста Львів. Для цього необхідно буде зареєструватися або пройти електронну ідентифікацію з використанням BankID, MobileID або електронного цифрового підпису;BankID,EDS
-433;759;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_142:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-434;1383;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_176:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-435;775;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_154:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-436;780;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_157:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-437;774;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_144:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-438;776;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_147:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-439;778;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_160:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-440;762;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_139:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-441;765;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_148:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-442;767;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_150:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-443;781;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_163:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-444;779;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_165:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-445;777;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_156:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-446;787;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_175:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
-447;786;6;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_177:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+433;759;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_142:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+434;1383;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_176:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+435;775;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_154:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+436;780;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_157:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+437;774;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_144:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+438;776;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_147:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+439;778;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_160:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+440;762;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_139:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+441;765;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_148:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+442;767;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_150:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+443;781;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_163:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+444;779;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_165:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+445;777;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_156:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+446;787;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_175:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
+447;786;6;NULL;4;{"sPath":"service/form/form-data","oParams":{"processDefinitionId":"kiev_soc_help_177:1:1"}};https://region.igov.org.ua/wf/;false;1;false;;BankID,EDS
