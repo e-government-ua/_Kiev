@@ -249,7 +249,7 @@
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" writable="false">
+        <activiti:formProperty id="area" name="Районний орган соціального захисту населення" type="enum" writable="false">
           <activiti:value id="and" name="АНД, вул. Радістів, 8"></activiti:value>
           <activiti:value id="babush" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
           <activiti:value id="zhovt" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
