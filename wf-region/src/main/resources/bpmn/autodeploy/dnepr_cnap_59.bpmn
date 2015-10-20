@@ -97,8 +97,8 @@
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
 &lt;p&gt;Для отримання зареєстрованої Декларації потрібно особисто звернутися до адміністратора ЦНАП з документом, що посвідчує особу (паспорт).&lt;br/&gt;
 Звертаємо увагу на те, що Ви власноруч підписуєте зареєстровану Декларацію та проставляєте на ній печатку (у разі наявності) в присутності адміністратора в приміщенні ЦНАП &lt;/p&gt;
- [pattern/mail/_common_signature_start.html]
-[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2],&lt;br/&gt;
+ [pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]   
 [pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
@@ -126,8 +126,8 @@
 &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;&lt;br /&gt;
 &lt;p&gt;Ваше звернення щодо "Декларації відповідності матеріально-технічної бази суб’єкта господарювання вимогам законодавства" успішно зареєстроване.&lt;/p&gt;
 &lt;p&gt;Ви отримаєте відповідь протягом п'яти робочих днів. &lt;/p&gt;
-[pattern/mail/_common_signature_start.html]
-&lt;p&gt;ЦНАП м. Дніпропетровськ&lt;/p&gt;
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -197,8 +197,8 @@
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
-[pattern/mail/_common_signature_start.html]
-&lt;p&gt;ЦНАП м. Дніпропетровськ&lt;/p&gt;
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -235,8 +235,8 @@ ${comPer1} &lt;br&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:3]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
-[pattern/mail/_common_signature_start.html]
-&lt;p&gt;ЦНАП м. Дніпропетровськ&lt;/p&gt;
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -273,8 +273,8 @@ ${comment} &lt;br&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:4]&lt;br /&gt;
 [pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:5]&lt;/p&gt;
 &lt;p&gt;Документ видається за наявності паспорта&lt;/p&gt;
-[pattern/mail/_common_signature_start.html]
-[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]
+[pattern/mail/_common_signature_start.html]&lt;br /&gt;
+[pattern_dictonary:dnepr_reg_cnap.csv:value{[region]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]   
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
