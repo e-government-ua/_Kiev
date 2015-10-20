@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_dms-205" name="Дніпропетровськ ДМС - Видача паспорта громадянина України по досягненні 16-річного віку" isExecutable="true">
+  <process id="dnepr_dms-205" name="Дніпропетровськ ДМС - Оформлення паспорта громадянина України по досягненні 16-річного віку" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
@@ -232,7 +232,7 @@
     <userTask id="usertask1" name="Перевірка вхідних даних" activiti:candidateGroups="dnepr_dms-89_${district}">
       <extensionElements>
         <activiti:formProperty id="info" name="На цьому етапі:" type="label" default="Ви перевіряєте дані громадянина і вирішуєте чи всі вони вірні. Якщо все добре, призначаєте дату та час, коли громадянин має прийти до вас та принести документи для реєстрації заяви"></activiti:formProperty>
-        <activiti:formProperty id="district" name="Район м. Дніпропетровськ, до якого належить нове місце проживання громадянина" type="enum" writable="false">
+        <activiti:formProperty id="district" name="Район м. Дніпропетровськ, до якого належить місце реєстрації громадянина" type="enum" writable="false">
           <activiti:value id="bab" name="Бабушкінський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="clFio1" name="ПІБ заявника" type="string"  default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
@@ -248,7 +248,7 @@
         <activiti:formProperty id="kids_liv" name="Місце проживання; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="lable2" type="label" default="Дані батьків дитини, яка буде отримувати паспорт"></activiti:formProperty>
         <activiti:formProperty id="parent1" name="ПІБ1" type="string" default="${lastName_UA2} ${firstName_UA2} ${middleName_UA2}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="parent1" name="ПІБ1" type="string" default="${lastName_UA3} ${firstName_UA3} ${middleName_UA3}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="parent2" name="ПІБ2" type="string" default="${lastName_UA3} ${firstName_UA3} ${middleName_UA3}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="visitDay" name="День та час зустрічі" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення працівника ДМС" type="enum" required="true">
           <activiti:value id="accept" name="Призначити зустріч у відділенні"></activiti:value>
@@ -442,7 +442,7 @@
 										<ul>
 										<li>У будь-якому банку сплатити Державне мито у розмірі 0.85 грн і отримати квитанцію про сплату. </li>
 										<li>Прийти до відділення ДМС за адресою: пр. Ілліча, 3 з необхідними документами та звернутись до каб. №4.</li>
-										<li>Підписати необхідні документи та отримати печатку у громадянський паспорт або папортний документ.</li>
+										<li>Підписати необхідні документи для видачі паспорту.</li>
 										</ul>
 									</p>
 									<p>
@@ -454,26 +454,11 @@
 										День та час - ${visitDay}
 									</p>
 									<p>
-										<b>Необхідні документи, які треба принести до відділення ДМС при реєстраціі місця проживання:</b><br />
+										<b>Необхідні документи, які треба принести до відділення ДМС при оформленні паспорта громадянина України по досягненні 16-річного віку:</b><br />
 										<ul>
-										<li>Документ, до якого вносяться відомості про місце проживання</li>
-										<li>Квитанцію про сплату державного мита або документ про звільнення від його сплати</li>
-										<li>талон зняття з реєстрації (не подається в разі одночасного зняття з реєстрації місця проживання)</li>
-										<li>одного з трьох документів, який підтверджує право на проживання за новим місцем реєстрації:
-										<ul"> 
-											<li>право на проживання в житлі (ордер, свідоцтво про право власності, договір найму (піднайму, оренди) або інші документи. У разі відсутності зазначених документів реєстрація здійснюється за згодою власника/співвласників житла, наймача та членів його сім’ї на реєстрацію місця проживання),</li> 
-											<li>перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту (довідка про прийняття на обслуговування в спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту особи, копія посвідчення про взяття на облік бездомної особи),</li>
-											<li>проходження служби у військовій частині (довідка про проходження служби у військовій частині, видана командиром військової частини),</li> 
-										</ul>
-										<li>військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку);</li>
-										<li>свідоцтво про народження або свідоцтво про належність до громадянства України, якщо реєструється місце проживання дитини, яка не досягла 16-річного віку;</li>
-										</ul><br />
-										<b>Зверніть увагу:</b> 
-										<ul>
-										<li>при проживанні батьків за різними адресами для реєстрації місця проживання дитини, яка не досягла 14 років, разом з одним з батьків надається письмова згода другого з батьків 
-													та довідка територіального підрозділу або адресно-довідкового підрозділу територіального органу ДМС України за місцем його проживання про те, 
-													що дитина не зареєстрована разом з ним. Також потрібна присутність обох батьків.</li>
-										<li>У разі здійснення реєстрації за згодою власника/співвласників житла, наймача та членів його сім’ї, власник або власники житла повинні прийти до відділення ДМС разом із Вами, та принести з собою паспорт та оригінали документів, які підтверджують право властності.</li>
+										<li>свідоцтво про народження;</li>
+										<li>Квитанцію про сплату державного мита або документ про звільнення від його сплати;</li>
+										<li>дві фотокартки розміром 3,5 х 4,5 см (фотокартки, що подаються для оформлення паспорта, мають бути виконані з одного негатива, із зображенням обличчя виключно анфас, без головного убору, виготовленими на тонкому білому або кольоровому фотопапері без кутика; для громадян, які постійно носять окуляри, обов'язкове фотографування в окулярах);</li>
 										</ul>
 										</p>
 										<p>
@@ -511,9 +496,8 @@
     <sequenceFlow id="flow27" sourceRef="mailtask3" targetRef="usertask2_red"></sequenceFlow>
     <userTask id="usertask2_red" name="Візит громадянина" activiti:candidateGroups="dnepr_dms-89_${district}">
       <extensionElements>
-        <activiti:formProperty id="info1" name="На цьому етапі:" type="label" default="Громадянин приходить до Вас. Ви звіряєте дані з ним, при необхідності вносите зміни. Роздруковуєте прінтформи, підписуєте їх та проставляєте штамп у паспорт громадянина."></activiti:formProperty>
+        <activiti:formProperty id="info1" name="На цьому етапі:" type="label" default="Громадянин приходить до Вас. Ви роздруковуєте заяву, підписуєте її та віддаєте начальнику підрозділу."></activiti:formProperty>
         <activiti:formProperty id="visitDay" name="День та час зустрічі" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="info" name="На цьому етапі:" type="label" default="Ви перевіряєте дані громадянина і вирішуєте чи всі вони вірні. Якщо все добре, призначаєте дату та час, коли громадянин має прийти до вас та принести документи для реєстрації заяви"></activiti:formProperty>
         <activiti:formProperty id="clFio1" name="ПІБ заявника" type="string"  default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон заявника" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail заявника" type="string" writable="false"></activiti:formProperty>
@@ -527,8 +511,8 @@
         <activiti:formProperty id="kids_liv" name="Місце проживання; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="lable2" type="label" default="Дані батьків дитини, яка буде отримувати паспорт"></activiti:formProperty>
         <activiti:formProperty id="parent1" name="ПІБ1" type="string" default="${lastName_UA2} ${firstName_UA2} ${middleName_UA2}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="parent1" name="ПІБ1" type="string" default="${lastName_UA3} ${firstName_UA3} ${middleName_UA3}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="district" name="Район м. Дніпропетровськ, до якого належить нове місце проживання громадянина" type="enum" writable="false">
+        <activiti:formProperty id="parent2" name="ПІБ2" type="string" default="${lastName_UA3} ${firstName_UA3} ${middleName_UA3}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="district" name="Район м. Дніпропетровськ, до якого належить місце реєстрації громадянина" type="enum" writable="false">
           <activiti:value id="bab" name="Бабушкінський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="result" name="Результат зустрічі" type="enum">

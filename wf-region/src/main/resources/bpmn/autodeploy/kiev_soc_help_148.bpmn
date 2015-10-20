@@ -30,6 +30,7 @@
         <activiti:formProperty id="bank_account" name="Номер рахунку (р/р)" type="string" default="  "></activiti:formProperty>
         <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="markers30" name="маркер Деснянський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_30&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='desn'&quot;}}}"></activiti:formProperty>
+      <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask2" name="перевірка документів" activiti:candidateGroups="kiev_upzsn_socialhelp_${area}">
@@ -94,6 +95,7 @@
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
@@ -149,6 +151,7 @@ ${comment_1}&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>

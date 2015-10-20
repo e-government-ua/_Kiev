@@ -153,6 +153,7 @@
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -179,6 +180,7 @@ ${comment_1}&lt;br /&gt;
 Якщо Вам треба додати документи, яких бракує у Вашому першому зверненні - заповніть заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -204,6 +206,7 @@ ${comment_1}&lt;br /&gt;
 Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -232,6 +235,7 @@ ${comment_1}&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
@@ -258,6 +262,7 @@ ${comment_2}&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>

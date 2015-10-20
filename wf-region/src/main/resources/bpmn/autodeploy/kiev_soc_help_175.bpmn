@@ -117,6 +117,7 @@
         <activiti:formProperty id="markers23" name="маркер other" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_22&quot;:{&quot;aField_ID&quot;:[&quot;section_children&quot;,&quot;section_care&quot;,&quot;section_invalid&quot;], &quot;asID_Field_sValue&quot;:[&quot;children_empty&quot;,&quot;care_empty&quot;,&quot;invalid_empty&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sReason]=='other'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers24" name="маркер care" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_23&quot;:{&quot;aField_ID&quot;:[&quot;section_children&quot;,&quot;section_invalid&quot;,&quot;section_other&quot;], &quot;asID_Field_sValue&quot;:[&quot;children_empty&quot;,&quot;invalid_empty&quot;,&quot;other_empty&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sReason]=='care'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers25" name="маркер children" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_24&quot;:{&quot;aField_ID&quot;:[&quot;section_other&quot;,&quot;section_care&quot;,&quot;section_invalid&quot;], &quot;asID_Field_sValue&quot;:[&quot;other_empty&quot;,&quot;care_empty&quot;,&quot;invalid_empty&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sReason]=='children'&quot;}}}"></activiti:formProperty>
+      <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask2" name="перевірка документів" activiti:candidateGroups="kiev_upzsn_socialhelp_${area}">
@@ -263,6 +264,7 @@
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -317,6 +319,7 @@ ${comment_1}&lt;br /&gt;
 Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -345,6 +348,7 @@ ${comment_1}&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
@@ -372,6 +376,7 @@ ${comment_2}&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
