@@ -202,11 +202,10 @@
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-Ваше звернення щодо Призначення державної допомоги у зв'язку з вагітністю та пологами направлено на доопрацювання.&lt;br /&gt;
+Ваше звернення щодо призначення державної допомоги у зв'язку з вагітністю та пологами направлено на доопрацювання.&lt;br /&gt;
 Вам призначено дату і час візиту для надання оригіналу довідки про вагітнісь - ${date_visit}.&lt;br /&gt;
-Кабінет ${room}
-Адреса: [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
+Адреса: [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3], кабінет ${room}&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 Після надання оригіналу документу, звернення буде передано на подальше опрацювання.&lt;br /&gt;
 ${comment_1}&lt;br /&gt;
 Якщо Вам треба додати документи, яких бракує у Вашому першому зверненні - заповніть заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
@@ -264,9 +263,9 @@ ${comment_1}&lt;br /&gt;
 &lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
-[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
@@ -291,9 +290,9 @@ ${comment_1}&lt;br /&gt;
 ${comment_2}&lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
-[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
