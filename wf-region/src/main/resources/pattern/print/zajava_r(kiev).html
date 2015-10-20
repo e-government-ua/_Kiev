@@ -6,20 +6,20 @@
 
     <style>
 
-        body { 
-            font-family: 'Times New Roman', Times, serif; 
-            padding: 0px; 
-            margin: 0px; 
-        }
-
-        table {
-            border-collapse: collapse; 
-            font-size: 3.8mm !important;
-        }
-
-        table td {
+        table td { 
             width: 100%; 
         }
+
+        .abbito { 
+            font-family: 'Times New Roman', Times, serif; 
+            font-size: 4.8mm !important; 
+            margin: 0px; 
+            padding: 0px; 
+        } 
+
+        .abbito table { 
+            border-collapse: collapse; 
+        } 
 
         .page {
             width: 206mm; 
@@ -38,10 +38,23 @@
             font-weight: bold; 
         } 
 
+        .text-bigger {
+            font-size: 4.8mm !important; 
+        } 
+
+        .text-smaller {
+            font-size: 3.2mm !important;
+        } 
+
+        .shift-w32 { 
+            padding-left: 48mm; 
+        } 
+
         .top-zajava { 
-            left: 80mm; 
+            left: 102mm; 
             position: relative; 
             font-size: 3.2mm!important;
+            width: 80mm; 
         } 
 
         .abbito { 
@@ -49,26 +62,25 @@
         } 
 
         .boss { 
-            width: 120mm; 
-            font-size: 3.6mm !important; 
+            width: 70mm; 
         } 
 
         .boss .title { 
-            width: 60mm; 
+            width: 48mm; 
         } 
 
         .boss .registration-service {
             display: inline-block;
-            width: 102mm; 
+            width: 82mm; 
         }
 
         .registration-address {
-            width: 20mm; 
+            width: 28mm; 
             display: inline-block; 
         }
 
         .passport-id {
-            width: 30mm;
+            width: 48mm;
             display: inline-block; 
         }
 
@@ -91,15 +103,15 @@
         }
 
         .young-people-document { 
-            width: 200mm; 
+            width: 206mm; 
         }
 
         .young-people-document .title { 
-            width: 90mm; 
+            width: 180mm; 
         }
 
         .young-people-document .underline { 
-            width: 130mm; 
+            width: 28mm; 
         } 
 
         .sign-place {
@@ -116,25 +128,25 @@
         }
 
         .assessor-name {
-            width: 200mm; 
+            width: 206mm; 
         }
 
         .assessor-name .title {
-            width: 32mm;
+            width: 102mm;
         }
 
         .assessor-name .underline {
-            width: 132mm; 
+            width: 126mm; 
             float: right;
         } 
 
         .notes {
-            width: 200mm; 
+            width: 206mm; 
         } 
 
         .notes .line-uno {
             float: right; 
-            width: 162mm; 
+            width: 158mm; 
         } 
 
     </style>
@@ -142,8 +154,8 @@
 </head>
 <body>
 
-    <table style="width: 210mm; height: 297mm; position: absolute; border: 1px solid #00FF00;"><tr><td>&nbsp;</td></tr></table>
-    <table style="top: 304.2mm; width: 210mm; height: 297mm; position: absolute; border: 1px solid #FF0000;"><tr><td>&nbsp;</td></tr></table>
+    <table style="width: 210mm; height: 297mm; position: absolute;"><tr><td>&nbsp;</td></tr></table>
+    <table style="top: 322mm; width: 210mm; height: 297mm; position: absolute;"><tr><td>&nbsp;</td></tr></table>
 
     <div class="abbito">
 
@@ -152,11 +164,11 @@
             <tr>
                 <td>
 
-                    <table class="top-zajava">
+                    <table class="top-zajava text-smaller">
 
                         <tr><td>Додаток 5</td></tr>
-                        <tr><td>до порядку реєстрації місця проживання та місця перебування фізичних осіб в </td></tr><tr><td> Україні та зразків необхідних для цього документів</td></tr><tr><td>&nbsp;</td></tr>
-                        <tr><td><table class="boss"><tr><td class="title">Начальникові</td><td class="underline registration-service">&nbsp;[Registrationservice]</td></tr><tr><td>&nbsp;</td><td class="text-center">(найменування</td></tr></table></td></tr>
+                        <tr><td>до порядку реєстрації місця проживання та місця перебування </td></tr><tr><td> фізичних осіб в Україні та зразків необхідних для цього документів</td></tr><tr><td>&nbsp;</td></tr>
+                        <tr><td><table class="boss text-smaller"><tr><td class="title">Начальникові</td><td class="underline registration-service">&nbsp;[Registrationservice]</td></tr><tr><td>&nbsp;</td><td class="text-center">(найменування</td></tr></table></td></tr>
 
                         <tr><td class="underline">&nbsp;</td></tr>
                         <tr><td class="text-center">територіального підрозділу ДМС України)</td></tr>
@@ -175,83 +187,79 @@
             <tr><td class="text-center text-bold">ЗАЯВА</td></tr>
             <tr><td class="text-center text-bold">про реєстрацію місця проживання</td></tr>
 
-            <tr><td class="underline">Я, [bankIdLastName] [bankIdfirstName] [bankIdmiddleName]</td></tr>
-            <tr><td class="text-center">(прізвище, ім'я та по батькові)</td></tr>
+            <tr><td class="underline">Я, [bankIdlastName] [bankIdfirstName] [bankIdmiddleName]</td></tr>
+            <tr><td class="text-center text-smaller">(прізвище, ім'я та по батькові)</td></tr>
 
             <tr><td class="underline">[Dateofbirth], [Areabirth]</td></tr>
-            <tr><td class="text-center">(дата і місце народження)</td></tr>
+            <tr><td class="text-center text-smaller">(дата і місце народження)</td></tr>
 
             <tr><td class="underline">[Nationality]</td></tr>
-            <tr><td class="text-center">(громадянство/підданство)</td></tr>
+            <tr><td class="text-center text-smaller">(громадянство/підданство)</td></tr>
 
-            <tr><td>прошу зареєструвати мое місце проживання/місце проживання моєї дитини</td></tr>
-            <tr><td>(зайве закреслити)</td></tr>
+            <tr><td>прошу зареєструвати мое місце проживання/місце проживання моєї дитини (зайве закреслити)</td></tr>
 
             <tr><td class="underline">[ChildName1], [kidsPOB]</td></tr>
-            <tr><td class="text-center">(прізвище, ім'я по батькові дитини)</td></tr>
+            <tr><td class="text-center text-smaller">(прізвище, ім'я по батькові дитини)</td></tr>
 
-            <tr><td class="underline">[kidsCitizenship]</td></tr>
-            <tr><td class="text-center">(громадянство/підданство)</td></tr>
+            <tr><td class="underline text-bigger">[kidsCitizenship]</td></tr>
+            <tr><td class="text-center text-smaller">(громадянство/підданство)</td></tr>
 
-            <tr><td><table><tr><td class="registration-address">за адресою:</td><td class="underline">[newAddress]</td></tr></table></td></tr>
-            <tr><td class="text-center">(найменування адміністративно-територіальної одиниці)</td></tr>
+            <tr><td><table><tr><td class="registration-address">за адресою:</td><td class="underline text-bigger">[newAddress]</td></tr></table></td></tr>
+            <tr><td class="text-center text-smaller">(найменування адміністративно-територіальної одиниці)</td></tr>
 
-            <tr><td><table><tr><td class="passport-id">Паспортний документ</td><td class="underline">[bankIdPassport]</td></tr></table></td></tr>
-            <tr><td class="text-center">(серія, номер, дата видачі, найменування органу влади, який його видав)</td></tr>
+            <tr><td><table><tr><td class="passport-id">Паспортний документ</td><td class="underline text-bigger">[bankIdPassport]</td></tr></table></td></tr>
+            <tr><td class="text-center text-smaller shift-w32">(серія, номер, дата видачі, найменування органу влади, який його видав)</td></tr>
 
             <tr><td class="underline">&nbsp;</td></tr>
             <tr><td>
                 <table class="place-to-sign">
-                    <tr><td><table class="document-date"><td class="underline">[DocumentDate]</td><td class="year">року</td></table></td><td class="shift">&nbsp;</td><td class="underline zajava_sign">&nbsp;</td></tr>
-                    <tr><td>&nbsp;</td><td class="shift">&nbsp;</td><td class="text-center zajava_sign">(ініціали та прізвище, підпис)</td></tr>
+                    <tr><td><table class="document-date"><tr><td class="underline">[DocumentDate]</td><td class="year">року</td></tr></table></td><td class="shift">&nbsp;</td><td class="underline zajava_sign">&nbsp;</td></tr>
+                    <tr><td>&nbsp;</td><td class="shift">&nbsp;</td><td class="text-center zajava_sign text-smaller">(ініціали та прізвище, підпис)</td></tr>
                 </table></td></tr>
 
             <tr><td >Примітка. Особи, що досягли 14-річного віку, подають заяву особисто.</td></tr>
 
         </table>
-
-        Друга сторінка
+        <br /><br />
+        
 
         <table class="zajava_r2 page">
 
-            <tr><td>Підставою для реєстрації місця проживання заявника/його</td></tr>
-            <tr><td><table class="young-people-document"><tr><td class="title">неповнолітньої дитини за зазначеною адресою є</td><td class="underline">&nbsp;</td></tr></table></td></tr>
+            <tr><td><table class="young-people-document"><tr><td class="title">Підставою для реєстрації місця проживання заявника/його неповнолітньої дитини за зазначеною адресою є</td><td class="underline">&nbsp;</td></tr><tr><td class="underline" colspan="2">&nbsp;</td></tr></table></td></tr>
 
             <tr><td class="underline">[RegistrationDocument]</td></tr>
-            <tr><td class="text-center">(ордер, свідоцтво про право власності, договір найому/піднайому/оренди або інші документи)</td></tr>
+            <tr><td class="text-center text-smaller">(ордер, свідоцтво про право власності, договір найому/піднайому/оренди або інші документи)</td></tr>
 
-            <tr><td class="underline">[bringDocOrder]</td></tr>
+            <tr><td class="underline">[bringDocOther]</td></tr>
             <tr><td class="underline">&nbsp;</td></tr>
 
             <tr><td>&nbsp;</td></tr>
 
-            <tr><td>Згода власника/співвласника житла або їх уповноваженних органів, наймача та членів його сім'ї на реєстрацію місця проживання заявника у разі відсутності документів,</td></tr>
-            <tr><td>зазначених як підстава для реєстрації*</td></tr>
+            <tr><td>Згода власника/співвласника житла або їх уповноваженних органів, наймача та членів його сім'ї на реєстрацію місця проживання заявника у разі відсутності документів, зазначених як підстава для реєстрації*</td></tr>
 
             <tr><td class="underline">[vlasn]</td></tr>
-            <tr><td class="text-center">(згоден/не згоден)</td></tr>
+            <tr><td class="text-center text-smaller">(згоден/не згоден)</td></tr>
 
             <tr><td><table class="sign-place" >
                         <tr><td class="underline sign">&nbsp;</td><td class="shift">&nbsp;</td><td><table class="document-date"><tr><td class="underline date">[DocumentDate]</td><td class="year">року</td></tr></table></td></tr>
-                        <tr><td class="text-center sign">(ініціали та прізвище, підпис)</td><td>&nbsp;</td><td >&nbsp;</td></tr></table></td></tr>
+                        <tr><td class="text-center sign text-smaller">(ініціали та прізвище, підпис)</td><td>&nbsp;</td><td >&nbsp;</td></tr></table></td></tr>
 
             <tr><td>
                 <table class="assessor-name">
                     <tr><td class="title">Заяву прийняв, документи перевірив </td><td class="text-center underline">Адміністратор</td></tr>
-                    <tr><td>&nbsp;</td><td class="text-center">(посада та найменування територіального підрозділу ДМС України)</td></tr>
+                    <tr><td>&nbsp;</td><td class="text-center text-smaller">(посада та найменування територіального підрозділу ДМС України)</td></tr>
                 </table></td></tr>
 
             <tr><td class="underline">[CNAPName]</td></tr>
-            <tr><td class="text-center">(ініціали та прізвище, підпис)</td></tr>
+            <tr><td class="text-center text-smaller">(ініціали та прізвище, підпис)</td></tr>
 
             <tr><td>М.П.</td></tr>
             <tr><td><table class="document-date"><tr><td class="underline date">[DocumentDate]</td><td class="year">року</td></tr></table></td></tr>
 
-            <tr><td>Місце проживання заявника/його неповнолітньої дитини (зайве закреслити)</td></tr>
-            <tr><td>зареєстровано</td></tr>
+            <tr><td>Місце проживання заявника/його неповнолітньої дитини зареєстровано (зайве закреслити)</td></tr>
 
             <tr><td class="underline">&nbsp;</td></tr>
-            <tr><td class="text-center">(найменування територіального підрозділу ДМС України, що здійснив реєстрацію)</td></tr>
+            <tr><td class="text-center text-smaller">(найменування територіального підрозділу ДМС України, що здійснив реєстрацію)</td></tr>
 
             <tr><td class="underline">&nbsp;</td></tr>
             <tr><td class="underline">&nbsp;</td></tr>
