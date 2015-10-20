@@ -402,7 +402,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_trostyanec_mvk_dereva">
     <bpmndi:BPMNPlane bpmnElement="trostyanec_mvk_dereva" id="BPMNPlane_trostyanec_mvk_dereva">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="70.0" y="128.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="60.0" y="160.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="71.0" width="105.0" x="150.0" y="110.0"></omgdc:Bounds>
@@ -432,7 +432,7 @@
         <omgdc:Bounds height="71.0" width="105.0" x="418.0" y="10.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="105.0" y="145.0"></omgdi:waypoint>
+        <omgdi:waypoint x="95.0" y="177.0"></omgdi:waypoint>
         <omgdi:waypoint x="150.0" y="145.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
