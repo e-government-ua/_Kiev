@@ -71,7 +71,7 @@
           <activiti:value id="shirokivskij" name="Широківський район"></activiti:value>
           <activiti:value id="jurivskij" name="Юр'ївський район"></activiti:value>
         </activiti:formProperty>
-         <activiti:formProperty id="type_help" name="Оберіть тип допомоги" type="enum" required="true">
+        <activiti:formProperty id="type_help" name="Оберіть тип допомоги" type="enum" required="true">
           <activiti:value id="one" name="інвалідам з дитинства I групи"></activiti:value>
           <activiti:value id="two" name="інвалідам з дитинства II групи"></activiti:value>
           <activiti:value id="three" name="інвалідам з дитинства III групи"></activiti:value>
@@ -92,7 +92,7 @@
           <activiti:value id="invalid_child" name="Дитина-інвалід"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="single_person" name="Чи маєте Ви статус одинокої особи?" type="enum" required="true">
-         <activiti:value id="yes_1" name="так"></activiti:value>
+          <activiti:value id="yes_1" name="так"></activiti:value>
           <activiti:value id="no_1" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="type_parenthood" name="Ким Ви доводитесь дитині?" type="enum" required="true">
@@ -160,7 +160,7 @@
         <activiti:formProperty id="markers11" name="Якщо особа працює, але у відпустці" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;vacation&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;employment&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_3'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers12" name="Якщо отримували виплати раніше" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;doc_attestat&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;attestat&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_5'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers13" name="Якщо дитина перебуває на повному державному утриманні" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;doc_education&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;education&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_6'&quot;}}}"></activiti:formProperty>
-       <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="markers30" name="маркер Амур-Нижньодніпровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_30&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='and'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers31" name="маркер Бабушкінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_31&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;2&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='babush'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers32" name="маркер Жовтневий району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_32&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;3&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='zhovt'&quot;}}}"></activiti:formProperty>
@@ -193,7 +193,7 @@
         <activiti:formProperty id="markers59" name="маркер Васильківський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_59&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;30&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='vasil'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers60" name="маркер Верхньодніпровський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_60&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;31&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='verhnednepr'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers61" name="маркер Дніпропетровський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_61&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;32&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='dnipropetrovskij'&quot;}}}"></activiti:formProperty>
-      	<activiti:formProperty id="markers62" name="маркер Криворізький район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_62&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;33&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krivojrog'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers62" name="маркер Криворізький район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_62&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;33&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krivojrog'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers63" name="маркер Криничанський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_63&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;34&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krinich'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers64" name="маркер Магдалинівський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_64&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;35&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='magdalin'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers65" name="маркер Меживський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_65&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;36&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='mezhivskij'&quot;}}}"></activiti:formProperty>
@@ -209,9 +209,9 @@
         <activiti:formProperty id="markers75" name="маркер Софіївський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_75&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;46&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='sofiivskij'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers76" name="маркер Томаківський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_76&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;47&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='tomakivskij'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers77" name="маркер Царичанський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_77&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;48&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='carichanskij'&quot;}}}"></activiti:formProperty>
-     	<activiti:formProperty id="markers78" name="маркер Широківський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_78&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;49&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='shirokivskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers78" name="маркер Широківський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_78&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;49&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='shirokivskij'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers79" name="маркер Юр'ївський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_79&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;50&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='jurivskij'&quot;}}}"></activiti:formProperty>
-     </extensionElements>
+      </extensionElements>
     </startEvent>
     <userTask id="usertask2" name="перевірка документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
       <extensionElements>
@@ -301,7 +301,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="single_person" name="Чи маєте Ви статус одинокої особи?" type="enum" writable="false">
           <activiti:value id="yes_1" name="так"></activiti:value>
-           <activiti:value id="no_1" name="ні"></activiti:value>
+          <activiti:value id="no_1" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="type_parenthood" name="Ви є законним представником дитини-інваліда, оберіть відповідний Вам варіант" type="enum" writable="false">
           <activiti:value id="parents" name="батько (мати)"></activiti:value>
@@ -559,7 +559,7 @@ ${comment_2}&lt;br /&gt;
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_175">
     <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_175" id="BPMNPlane_dnepr_soc_help_175">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="40.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="55.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
         <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="110.0"></omgdc:Bounds>
@@ -631,7 +631,7 @@ ${comment_2}&lt;br /&gt;
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="135.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="135.0" y="72.0"></omgdi:waypoint>
         <omgdi:waypoint x="160.0" y="57.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
