@@ -271,7 +271,13 @@
           <activiti:string><![CDATA[Нове  звернення. Щомісячна компенсаційна виплата непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний колего!&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+У черзі на обробку зареєстровано нове звернення.&lt;br /&gt;
+Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
+Опрацюйте це звернення на &lt;a href="http://region.igov.org.ua"&gt;порталі&lt;/a&gt;&lt;br /&gt;
+[pattern/mail/_common_signature.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -317,7 +323,7 @@
 Ваше звернення щодо компенсаційної виплати непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку направлено на доопрацювання.&lt;br /&gt;
 &lt;br /&gt;
 ${comment_1}&lt;br /&gt;
-Якщо Вам треба додати документи, яких бракує у Вашому першому зверненні - заповніть заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
+Якщо Вам треба додати документи, яких бракує у Вашому першому зверненні - заповніть заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;&lt;br /&gt;
 [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
@@ -343,7 +349,7 @@ ${comment_1}&lt;br /&gt;
 На жаль, Ваше звернення щодо компенсаційної виплати непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
 &lt;br /&gt;
 ${comment_1}&lt;br /&gt;
-Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
+Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;&lt;br /&gt;
 [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
@@ -395,7 +401,8 @@ ${comment_1}&lt;br /&gt;
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-На жаль, Вам відмовлено у призначенні компенсаційної виплати непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку.&lt;br /&gt; ${comment_2}&lt;br /&gt;&lt;br /&gt;
+На жаль, Вам відмовлено у призначенні компенсаційної виплати непрацюючій особі, яка здійснює догляд за інвалідом 1 групи або за особою, яка досягла 80-річного віку.&lt;br /&gt;
+ ${comment_2}&lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
 [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
