@@ -15,7 +15,7 @@ import static org.springframework.util.Assert.notNull;
  * This class allow to store sql/hql queries in external files
  *
  * @author dgroup
- * @since  02.08.15
+ * @since 02.08.15
  */
 @Component
 @Resource.Classpath("db.properties")
@@ -29,8 +29,7 @@ public class QueryLoader {
 
     private String homeDirectory;
 
-
-    public QueryLoader(){
+    public QueryLoader() {
         PropertyLoader.newInstance().populate(this);
         homeDirectory = rootFolder + TypeDB.define(dbProfile).getPath();
     }
@@ -39,41 +38,36 @@ public class QueryLoader {
         this.homeDirectory = directory;
     }
 
-
-
     /**
-     * @param fileWithQuery             file's name which contains sql/hql query.
+     * @param fileWithQuery file's name which contains sql/hql query.
+     * @return sql/hql query from external file.
      * @throws QueryLoadingException    when unable to load the file.
      * @throws MissingResourceException when unable to find the file in classpath.
-     * @return                          sql/hql query from external file.
      */
-    public String get(String fileWithQuery){
+    public String get(String fileWithQuery) {
         notNull(fileWithQuery, "Key can't be a null");
-        try(InputStream in = assertLoading(homeDirectory + fileWithQuery)){
+        try (InputStream in = assertLoading(homeDirectory + fileWithQuery)) {
             return IOUtils.toString(in);
-        } catch (IOException e){
+        } catch (IOException e) {
             throw new QueryLoadingException(fileWithQuery, e);
         }
     }
 
-
-
     private InputStream assertLoading(String file) {
         InputStream in = QueryLoader.class.getResourceAsStream(file);
-        if (in == null){
+        if (in == null) {
             throw new MissingResourceException("File not found " + file);
         }
         return in;
     }
 
-
-    public String getHomeDirectory(){
+    public String getHomeDirectory() {
         return homeDirectory;
     }
 
-
     private enum TypeDB {
-        Postgres("PostgreSQL"), H2("H2");
+        Postgres("PostgreSQL"),
+        H2("H2");
 
         private String profile;
 
@@ -81,16 +75,16 @@ public class QueryLoader {
             this.profile = profile;
         }
 
-        public String getPath() {
-            return profile + '/';
-        }
-
-        public static final TypeDB define(String profile){
+        public static final TypeDB define(String profile) {
             notNull(profile, "Profile can't be empty");
-            for(TypeDB type : values())
+            for (TypeDB type : values())
                 if (type.getPath().startsWith(profile))
                     return type;
             throw new IllegalArgumentException("Database type " + profile + " not found");
+        }
+
+        public String getPath() {
+            return profile + '/';
         }
     }
 }

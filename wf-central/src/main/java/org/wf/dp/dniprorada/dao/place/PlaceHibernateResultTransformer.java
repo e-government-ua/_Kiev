@@ -15,33 +15,10 @@ import static org.apache.commons.lang3.ArrayUtils.indexOf;
 
 /**
  * @author dgroup
- * @since  11.08.2015.
+ * @since 11.08.2015.
  */
 public class PlaceHibernateResultTransformer implements ResultTransformer {
     private static final Logger LOG = LoggerFactory.getLogger(PlaceHibernateResultTransformer.class);
-
-
-    @Override
-    public PlaceHibernateHierarchyRecord transformTuple(Object[] objects, String[] strings) {
-        PlaceHibernateHierarchyRecord phr = new PlaceHibernateHierarchyRecord();
-
-        phr.setPlaceId  ( toLong(objects, strings, "id"));
-        phr.setTypeId   ( toLong(objects, strings, "type_id"));
-        phr.setParentId ( toLong(objects, strings, "parent_id"));
-        phr.setDeep     ( toLong(objects, strings, "level") );
-        phr.setUaID     (    toString(objects, strings, "ua_id"));
-        phr.setName     (    toString(objects, strings, "name"));
-        phr.setOriginalName( toString(objects, strings, "original_name"));
-
-        return phr;
-    }
-
-
-    @Override
-    public List transformList(List list) {
-        return list;
-    }
-
 
     private static String toString(Object[] objects, String[] labels, String column) {
         int index = indexOf(labels, column);
@@ -52,10 +29,9 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         return NumberUtils.toLong(toString(objects, labels, column));
     }
 
-
     /**
      * Transform the list of Hibernate result entities. Each entity from that list should be build via
-     *  {@link org.wf.dp.dniprorada.dao.place.PlaceHibernateResultTransformer#transformTuple}.
+     * {@link org.wf.dp.dniprorada.dao.place.PlaceHibernateResultTransformer#transformTuple}.
      *
      * @return unexpected result for list if it wasn't created via build method above
      **/
@@ -67,13 +43,13 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         PlaceHierarchyTree tree = new PlaceHierarchyTree();
 
         // We want to transform the list of Hibernate entities into hierarchy tree
-        for(int i=0; i<dataRows.size(); i++){
+        for (int i = 0; i < dataRows.size(); i++) {
             PlaceHibernateHierarchyRecord node = dataRows.get(i);
-            if (i==0){
+            if (i == 0) {
                 tree = handleRootElement(node, tempParents);
 
-            } else if ( !node.isAlreadyIncluded() ){
-                handleGenericNode(node, tempParents, dataRows, i+1);
+            } else if (!node.isAlreadyIncluded()) {
+                handleGenericNode(node, tempParents, dataRows, i + 1);
             }
             node.setAlreadyIncluded(true);                                      // Disable node for the next iteration
         }
@@ -82,13 +58,12 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
         return tree;                                                            // the hierarchy was build successfully
     }
 
-
     public static PlaceHierarchy toList(List<PlaceHibernateHierarchyRecord> dataRows) {
         Assert.isTrue(!dataRows.isEmpty(), "Entity not found");
         LOG.debug("Got {}", dataRows);
 
         PlaceHierarchyList phl = new PlaceHierarchyList();
-        for(PlaceHibernateHierarchyRecord phr : dataRows)
+        for (PlaceHibernateHierarchyRecord phr : dataRows)
             if (phr != null)
                 phl.add(phr.toPlace());
 
@@ -102,21 +77,21 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
      * - Included in result tree yet,
      * hence it should be included (with children)
      *
-     * @param node              - it's our general node
-     * @param tempParents       - contains our parents (just for quick access)
-     * @param dataRows          - our node list
-     * @param nextElementIndex  - index of the next element in our list
+     * @param node             - it's our general node
+     * @param tempParents      - contains our parents (just for quick access)
+     * @param dataRows         - our node list
+     * @param nextElementIndex - index of the next element in our list
      **/
     private static void handleGenericNode(PlaceHibernateHierarchyRecord node,
-                                          Map<Long, PlaceHierarchyTree> tempParents,
-                                          List<PlaceHibernateHierarchyRecord> dataRows,
-                                          int nextElementIndex) {
+            Map<Long, PlaceHierarchyTree> tempParents,
+            List<PlaceHibernateHierarchyRecord> dataRows,
+            int nextElementIndex) {
         LOG.debug("Got {}, start from {}", node, nextElementIndex);
-        PlaceHierarchyTree parent  = tempParents.get( node.getParentId() ); // Get the parent node
+        PlaceHierarchyTree parent = tempParents.get(node.getParentId()); // Get the parent node
         PlaceHierarchyTree current = node.toTreeElement();                  // Get the current node
 
         register(current, tempParents);                                     // Register curnt node in temp. storage
-        current.setChildren( getChildren(dataRows, nextElementIndex, current) );
+        current.setChildren(getChildren(dataRows, nextElementIndex, current));
         parent.addChild(current);
     }
 
@@ -125,23 +100,24 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
      * We don't need to handle it in specific way.
      **/
     private static PlaceHierarchyTree handleRootElement(PlaceHibernateHierarchyRecord node,
-                                                        Map<Long, PlaceHierarchyTree> tempParents) {
+            Map<Long, PlaceHierarchyTree> tempParents) {
         LOG.debug("Got {}", node);
-        register(node.toTreeElement(), tempParents );
-        return tempParents.get( node.getPlaceId() );
+        register(node.toTreeElement(), tempParents);
+        return tempParents.get(node.getPlaceId());
     }
 
     /**
      * Allows to find all children for current node.
-     * @param dataRows collection of all nodes
+     *
+     * @param dataRows     collection of all nodes
      * @param startElement its a start position. We need to check only unread nodes.
-     * @param node our current node
+     * @param node         our current node
      **/
-    private static List<PlaceHierarchyTree> getChildren( List<PlaceHibernateHierarchyRecord> dataRows,
-                                                     int startElement,
-                                                     PlaceHierarchyTree node ){
+    private static List<PlaceHierarchyTree> getChildren(List<PlaceHibernateHierarchyRecord> dataRows,
+            int startElement,
+            PlaceHierarchyTree node) {
         List<PlaceHierarchyTree> children = new ArrayList<>();
-        for(int j=startElement; j<dataRows.size(); j++){
+        for (int j = startElement; j < dataRows.size(); j++) {
             PlaceHibernateHierarchyRecord phr = dataRows.get(j);
 
             if (phr.isAlreadyIncluded()) // It's already belongs to our result tree
@@ -150,27 +126,46 @@ public class PlaceHibernateResultTransformer implements ResultTransformer {
             if (node.getPlace().getId().equals(phr.getParentId())) {    // One child was found
                 PlaceHierarchyTree itsMySon = phr.toTreeElement();      // Get child
                 phr.setAlreadyIncluded(true);                           // Disable child for the next iteration
-                children.add( itsMySon );                               // Append child to the children list
+                children.add(itsMySon);                               // Append child to the children list
             }
         }
         return children;
     }
 
-
     /**
      * This method "register" the current node in collection of temporary parents.
      * During tree build process we need to detect known node because parent will be handled before child.
      * The reason why we have such order (parent before child) is very simple:
-     *  this logic implemented in Native SQL query.
-     *
+     * this logic implemented in Native SQL query.
+     * <p/>
      * So, finally, we have a result of sql hierarchy query where parents are on top,
      * and they should be registered somewhere just for quick detection.
      *
-     * @param node which should be registered in temporary storage
+     * @param node               which should be registered in temporary storage
      * @param asTemporaryParents is a temporary storage just for quick detection of known parent node.
-     * */
+     */
     private static void register(PlaceHierarchyTree node, Map<Long, PlaceHierarchyTree> asTemporaryParents) {
         asTemporaryParents.put(node.getPlace().getId(), node);
         LOG.debug("Node {} registered in temp. storage", node);
+    }
+
+    @Override
+    public PlaceHibernateHierarchyRecord transformTuple(Object[] objects, String[] strings) {
+        PlaceHibernateHierarchyRecord phr = new PlaceHibernateHierarchyRecord();
+
+        phr.setPlaceId(toLong(objects, strings, "id"));
+        phr.setTypeId(toLong(objects, strings, "type_id"));
+        phr.setParentId(toLong(objects, strings, "parent_id"));
+        phr.setDeep(toLong(objects, strings, "level"));
+        phr.setUaID(toString(objects, strings, "ua_id"));
+        phr.setName(toString(objects, strings, "name"));
+        phr.setOriginalName(toString(objects, strings, "original_name"));
+
+        return phr;
+    }
+
+    @Override
+    public List transformList(List list) {
+        return list;
     }
 }

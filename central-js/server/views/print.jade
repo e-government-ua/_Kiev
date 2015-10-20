@@ -1,0 +1,39 @@
+- var sFieldLabel = function(sField){
+-   if (sField !== null) {
+-     var a = sField.split(';');
+-     sField = a[0].trim();
+-   }
+-   return sField;
+- }
+- var sEnumValue = function(aItem, sID){
+-   var s = sID;
+-   for (var i in aItem) {
+-     if (aItem[i].id == sID) {
+-     s = aItem[i].name;
+-     break;
+-   }
+-   return s;
+-   }
+- }
+- var sDateShort = function (sDateLong) {
+-   if (sDateLong !== null) {
+-     var o = new Date(sDateLong); //'2015-04-27T13:19:44.098+03:00'
+-     return o.getFullYear() + '-' + ((o.getMonth() + 1)>9?'':'0')+(o.getMonth() + 1) + '-' + (o.getDate()>9?'':'0')+o.getDate() + ' ' + (o.getHours()>9?'':'0')+o.getHours() + ':' + (o.getMinutes()>9?'':'0')+o.getMinutes();
+-   }
+- };
+
+html
+  body
+    #container.col
+      p Звернення: #{processName}
+      p джерело: igov.org.ua
+      p від: #{sDateShort(creationDate)}
+        - formProperties.forEach(function(item) {
+          p
+            if item.type != 'invisible'
+              b #{sFieldLabel(item.name)} :
+            if item.type == 'enum'
+              b #{sEnumValue(item.enumValues, item.value)}
+            if item.type != 'enum' && item.type != 'invisible'
+              b #{item.value}
+        - })

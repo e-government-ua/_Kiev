@@ -12,22 +12,9 @@ import org.wf.dp.dniprorada.util.GeneralConfig;
 @Component
 public class CancelTaskUtil {
 
-    @Autowired
-    private AccessDataDao accessDataDao;
-
-    @Autowired
-    private GeneralConfig generalConfig;
-    
-    @Autowired
-    AccessCover accessCover;
-    
     private static final Logger log = LoggerFactory.getLogger(CancelTaskUtil.class);
-    private static final String sURL_CancelTask =  "/wf/service/rest/tasks/cancelTask";
-
-
-
+    private static final String sURL_CancelTask = "/wf/service/rest/tasks/cancelTask";
     private static final String TAG_action = "[sURL_CancelTask]";
-    private static String TAG_nID_Protected = "[nID_Protected]";
     private static final String cancelButtonHTML = new StringBuilder()
             .append("<form method=\"POST\" action=\"")
             .append(TAG_action)
@@ -35,15 +22,21 @@ public class CancelTaskUtil {
             .append("accept-charset=\"utf-8\">")
             .append("Ви можете скасувати свою заявку, вказавши причину в цьому полі: <br/>\n")
             .append("<input type=\"text\" name=\"sInfo\"/><br/>\n")
-            //.append("<input type=\"hidden\" name=\"nID_Protected\" value=\"")
-            //.append(TAG_nID_Protected + "\"/><br/>\n")
+                    //.append("<input type=\"hidden\" name=\"nID_Protected\" value=\"")
+                    //.append(TAG_nID_Protected + "\"/><br/>\n")
             .append("<input type=\"submit\" name=\"submit\" ")
             .append("value=\"Скасувати заявку!\"/>")
             .append("</form>")
-                .toString();
+            .toString();
+    private static String TAG_nID_Protected = "[nID_Protected]";
+    @Autowired
+    AccessCover accessCover;
+    @Autowired
+    private AccessDataDao accessDataDao;
+    @Autowired
+    private GeneralConfig generalConfig;
 
     public String getCancelFormHTML(Long nID_Protected) throws Exception {
-
 
         String sURL_ForAccessKey = new StringBuilder(sURL_CancelTask)
                 .append("?nID_Protected=").append(nID_Protected)
@@ -52,9 +45,10 @@ public class CancelTaskUtil {
         String sAccessKey = accessCover.getAccessKey(sURL_ForAccessKey);
         String sURL_CancelTaskAction = new StringBuilder(generalConfig.sHost())
                 .append(sURL_ForAccessKey)
-                //.append("&sAccessContract=Request")
-                //.append("&sAccessKey=").append(sAccessKey)
-                .append("&").append(AuthenticationTokenSelector.ACCESS_CONTRACT).append("=").append(AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST)
+                        //.append("&sAccessContract=Request")
+                        //.append("&sAccessKey=").append(sAccessKey)
+                .append("&").append(AuthenticationTokenSelector.ACCESS_CONTRACT).append("=")
+                .append(AuthenticationTokenSelector.ACCESS_CONTRACT_REQUEST)
                 .append("&").append(AuthenticationTokenSelector.ACCESS_KEY).append("=").append(sAccessKey)
                 .toString();
         log.info("total URL for action =" + sURL_CancelTaskAction);

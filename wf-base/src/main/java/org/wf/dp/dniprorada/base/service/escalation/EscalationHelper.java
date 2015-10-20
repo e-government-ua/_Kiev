@@ -6,7 +6,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import org.wf.dp.dniprorada.base.service.escalation.handler.EscalationHandler;
 
@@ -29,30 +28,30 @@ public class EscalationHelper implements ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 
-//    public static void main(String[] args) throws Exception {
-//        Map<String, Object> taskParam = new HashMap<>();
-//        //[Surname],[Name],[Middlename]
-//        taskParam.put("Surname", "Petrenko");
-//        taskParam.put("Name", "Petro");
-//        taskParam.put("Middlename", "Petrovych");
-//        taskParam.put("years", 40L);
-//
-//        String json = "{sUserTask:'1', sDateEdit:'01-01-2015', " +
-//                "nDays:10, asRecipientMail:['olga2012olga@gmail.com', 'olga.prylypko@gmail.com'], " +
-//                "anList2:[10], bBool:true}";
-//        String file = "print/kiev_dms_print1.html";
-//
-//        String sCondition ="nDays == 10";// "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays";
-//
-//        new EscalationUtil().checkTaskOnEscalation
-//                (taskParam, sCondition, json, file, "escalationHandler_SendMailAlert");
-//
-//    }
+    //    public static void main(String[] args) throws Exception {
+    //        Map<String, Object> taskParam = new HashMap<>();
+    //        //[Surname],[Name],[Middlename]
+    //        taskParam.put("Surname", "Petrenko");
+    //        taskParam.put("Name", "Petro");
+    //        taskParam.put("Middlename", "Petrovych");
+    //        taskParam.put("years", 40L);
+    //
+    //        String json = "{sUserTask:'1', sDateEdit:'01-01-2015', " +
+    //                "nDays:10, asRecipientMail:['olga2012olga@gmail.com', 'olga.prylypko@gmail.com'], " +
+    //                "anList2:[10], bBool:true}";
+    //        String file = "print/kiev_dms_print1.html";
+    //
+    //        String sCondition ="nDays == 10";// "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays";
+    //
+    //        new EscalationUtil().checkTaskOnEscalation
+    //                (taskParam, sCondition, json, file, "escalationHandler_SendMailAlert");
+    //
+    //    }
 
     public void checkTaskOnEscalation
             (Map<String, Object> mTaskParam,
-             String sCondition, String soData,
-             String sPatternFile, String sBeanHandler) {
+                    String sCondition, String soData,
+                    String sPatternFile, String sBeanHandler) {
 
         //1 -- result of condition
         Map<String, Object> jsonData = parseJsonData(soData);//from json
@@ -81,9 +80,10 @@ public class EscalationHelper implements ApplicationContextAware {
     }
 
     private EscalationHandler getHandlerClass(String sBeanHandler) {
-    	EscalationHandler res = (EscalationHandler) applicationContext.getBean(sBeanHandler);//"EscalationHandler_SendMailAlert");
-    	log.info("Retrieved EscalationHandler component : " + res);
-    	return res;
+        EscalationHandler res = (EscalationHandler) applicationContext
+                .getBean(sBeanHandler);//"EscalationHandler_SendMailAlert");
+        log.info("Retrieved EscalationHandler component : " + res);
+        return res;
     }
 
     private Map<String, Object> parseJsonData(String soData) {
@@ -93,8 +93,8 @@ public class EscalationHelper implements ApplicationContextAware {
     }
 
     private boolean getResultOfCondition(Map<String, Object> jsonData,
-                                         Map<String, Object> taskData,
-                                         String sCondition)
+            Map<String, Object> taskData,
+            String sCondition)
             throws ClassNotFoundException, ScriptException, NoSuchMethodException {
 
         ScriptEngineManager manager = new ScriptEngineManager();
@@ -123,14 +123,12 @@ public class EscalationHelper implements ApplicationContextAware {
         return result;
     }
 
-
     private String getJavaScriptStr(String sCondition) {
         return "function getResult() { " +
                 "   return "
                 + sCondition //  "   sUserTask=='1' && (new Date()-new Date(sDateEdit))/1000/60/60/24 > nDays"
                 + ";}";
     }
-
 
     private void castValue(Parameter parameter) {
         String fieldName = parameter.name;
@@ -145,39 +143,38 @@ public class EscalationHelper implements ApplicationContextAware {
             }
         }
         switch (mark) {
-            case "n":
-                parameter.className = "Long";
-                parameter.castValue = new Long(parameter.value.toString());
-                break;
-            case "b":
-                parameter.className = "Boolean";
-                parameter.castValue = new Boolean(parameter.value.toString());
-                break;
-            case "as":
-                parameter.className = "String[]";//"[S"
-                String[] strings = new String[((List) parameter.value).size()];
-                int i = 0;
-                for (Object value : ((List) parameter.value)) {
-                    strings[i++] = value.toString();
-                }
-                parameter.castValue = strings;
-                break;
-            case "an":
-                parameter.className = "String[]";//"[L"
-                Long[] longs = new Long[((List) parameter.value).size()];
-                int j = 0;
-                for (Object value : ((List) parameter.value)) {
-                    longs[j++] = new Long(value.toString());
-                }
-                parameter.castValue = longs;
-            case "s":
-            default:
-                parameter.className = "String";//"[S"
-                parameter.castValue = parameter.value.toString();
-                break;
+        case "n":
+            parameter.className = "Long";
+            parameter.castValue = new Long(parameter.value.toString());
+            break;
+        case "b":
+            parameter.className = "Boolean";
+            parameter.castValue = new Boolean(parameter.value.toString());
+            break;
+        case "as":
+            parameter.className = "String[]";//"[S"
+            String[] strings = new String[((List) parameter.value).size()];
+            int i = 0;
+            for (Object value : ((List) parameter.value)) {
+                strings[i++] = value.toString();
+            }
+            parameter.castValue = strings;
+            break;
+        case "an":
+            parameter.className = "String[]";//"[L"
+            Long[] longs = new Long[((List) parameter.value).size()];
+            int j = 0;
+            for (Object value : ((List) parameter.value)) {
+                longs[j++] = new Long(value.toString());
+            }
+            parameter.castValue = longs;
+        case "s":
+        default:
+            parameter.className = "String";//"[S"
+            parameter.castValue = parameter.value.toString();
+            break;
         }
     }
-
 
     class Parameter {
         String name;

@@ -1,6 +1,5 @@
 package org.wf.dp.dniprorada.base.dao;
 
-
 import org.wf.dp.dniprorada.base.model.Entity;
 
 /**

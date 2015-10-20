@@ -1,7 +1,5 @@
 package org.wf.dp.dniprorada.base.viewobject.flow;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,18 +10,20 @@ import java.util.List;
  */
 public class Days {
 
-   private List<Day> aDay = new ArrayList<>();
+    private List<Day> aDay = new ArrayList<>();
 
-   public Days() { }
+    public Days() {
+    }
 
-   public Days(List<Day> aDay) {
-      this.aDay = aDay;
-   }
+    public Days(List<Day> aDay) {
+        this.aDay = aDay;
+    }
 
-   public List<Day> getaDay() {
-      return aDay;
-   }
-   public void setaDay(List<Day> aDay) {
-      this.aDay = aDay;
-   }
+    public List<Day> getaDay() {
+        return aDay;
+    }
+
+    public void setaDay(List<Day> aDay) {
+        this.aDay = aDay;
+    }
 }

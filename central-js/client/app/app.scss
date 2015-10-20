@@ -951,10 +951,52 @@ input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
   }
 }
 
-.kyiv-header {
+.ternopil-header-container .container {
+  height: 175px;
+  position: relative;
+
+  .navbar-ternopil {
+    position: absolute;
+    right: 45px;
+    bottom: 8px;
+    background-color: #FFFFFF;
+
+    .navbar-right
+    {
+      margin-right: 0;
+
+      .menu-item {
+        &:first-child {
+          border-bottom-left-radius: 5px;
+          border-top-left-radius: 5px;
+        }
+
+        &.selected {
+          text-decoration: underline;
+          background-color: transparent;
+        }
+
+
+
+        a {
+          color: #2A4789 !important;
+          margin-top: 0;
+          padding: 3px 10px;
+        }
+
+        h4 {
+          line-height: 1;
+          font-size: 15px;
+          font-weight: bold !important;
+        }
+      }
+    }
+  }
+}
+
+.region-header, .kyiv-header, .ternopil-header{
   vertical-align: middle;
   display: inline-block;
-  background-image: url(/assets/images/baners/igov_kiev.png);
   background-repeat: no-repeat !important;
   background-position: 0px 0px;
   width: 100%;
@@ -964,10 +1006,17 @@ input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
   background-size: cover;
 }
 
-.kyiv-header-title {
+.kyiv-header {
+  background-image: url(/assets/images/baners/igov_kiev.png);
+}
+
+.ternopil-header {
+  background-image: url(/assets/images/baners/igov_ternopil.png);
+}
+
+.region-header-title, .kyiv-header-title, .ternopil-header-title{
   vertical-align: middle;
   display: inline-block;
-  background-image: url(/assets/images/baners/igov_kiev_title.png);
   background-repeat: no-repeat !important;
   background-position: 0px 0px;
   /*width: 100%;
@@ -977,10 +1026,23 @@ input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
   background-size: cover;
 
   position:absolute;
+
+}
+
+.kyiv-header-title {
+  background-image: url(/assets/images/baners/igov_kiev_title.png);
   top:35px;
   left:100px;
   width:428px;
   height:95px;
+}
+
+.ternopil-header-title {
+  background-image: url(/assets/images/baners/igov_ternopil_title.png);
+  width: 436px;
+  height: 105px;
+  top: 32px;
+  left: 268px;
 }
 
 /*<span class="kyiv-header" style="position:absolute;top:35px;left:100px;width:428px;height:95px;"></span>*/
@@ -999,7 +1061,7 @@ input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
   .input-group .btn {
    padding: 6px 12px 7px 12px;
   }
-  
+
   .inline-wrapper {
     display: inline-block;
   }
@@ -1034,12 +1096,12 @@ input.ng-touched.ng-invalid-email, input.ng-touched.ng-invalid-tel  {
 
 /* Service and Operator Name */
 .service-name {
-  margin-top:20px; 
+  margin-top:20px;
   font-size:25px;
 }
 
 .operator-name {
-  margin-bottom:20px; 
+  margin-bottom:20px;
   font-size:18px;color:#cccccc;
 }
 

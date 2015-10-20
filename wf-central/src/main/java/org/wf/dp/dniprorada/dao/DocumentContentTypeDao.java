@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface DocumentContentTypeDao extends EntityDao<DocumentContentType> {
 
-	public DocumentContentType getDocumentContentType(String documentContentTypeName);
-	
-	public Long setDocumentContent(DocumentContentType documentContentType);
+    public DocumentContentType getDocumentContentType(String documentContentTypeName);
+
+    public Long setDocumentContent(DocumentContentType documentContentType);
 
     public List<DocumentContentType> getDocumentContentTypes();
 

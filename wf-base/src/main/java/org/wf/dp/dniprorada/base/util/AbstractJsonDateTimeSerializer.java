@@ -1,11 +1,9 @@
 package org.wf.dp.dniprorada.base.util;
 
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.io.IOException;
@@ -17,15 +15,15 @@ import java.io.IOException;
  */
 public abstract class AbstractJsonDateTimeSerializer extends JsonSerializer<DateTime> {
 
-   private DateTimeFormatter formatter;
+    private DateTimeFormatter formatter;
 
-   protected AbstractJsonDateTimeSerializer(DateTimeFormatter formatter) {
-      this.formatter = formatter;
-   }
+    protected AbstractJsonDateTimeSerializer(DateTimeFormatter formatter) {
+        this.formatter = formatter;
+    }
 
-   @Override
-   public void serialize(DateTime dateTime, JsonGenerator jsonGenerator,
-                         SerializerProvider serializerProvider) throws IOException {
-      jsonGenerator.writeString(formatter.print(dateTime));
-   }
+    @Override
+    public void serialize(DateTime dateTime, JsonGenerator jsonGenerator,
+            SerializerProvider serializerProvider) throws IOException {
+        jsonGenerator.writeString(formatter.print(dateTime));
+    }
 }

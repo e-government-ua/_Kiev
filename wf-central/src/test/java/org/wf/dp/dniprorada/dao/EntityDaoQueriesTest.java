@@ -42,7 +42,7 @@ import static org.junit.Assert.fail;
 public class EntityDaoQueriesTest {
     private static final Log LOG = LogFactory.getLog(EntityDaoQueriesTest.class);
 
-    private static final String[] QUERY_METHOD_PREFIXES = {"get", "search", "find"};
+    private static final String[] QUERY_METHOD_PREFIXES = { "get", "search", "find" };
     private static final String LOG_SEPARATOR_LINE = StringUtils.repeat("=", 100);
     private static final String ALL_METHODS_SYMBOL = "*";
 
@@ -111,7 +111,8 @@ public class EntityDaoQueriesTest {
         }
 
         if (CollectionUtils.isNotEmpty(failedMethods)) {
-            fail(String.format("Test failed (see stacktrace above for details):\n%s", Joiner.on('\n').join(failedMethods)));
+            fail(String.format("Test failed (see stacktrace above for details):\n%s",
+                    Joiner.on('\n').join(failedMethods)));
         } else {
             LOG.info(LOG_SEPARATOR_LINE);
             LOG.info(String.format("Testing of %s DAOs completed successfully", entityDaos.size()));
@@ -187,7 +188,8 @@ public class EntityDaoQueriesTest {
 
     private void handleTestedMethodException(Method testedMethod, Object[] randomParams, HibernateException e) {
         LOG.error("Method invocation failed!", e);
-        failedMethods.add(String.format("Failed method: %s with params: %s", testedMethod, Arrays.toString(randomParams)));
+        failedMethods
+                .add(String.format("Failed method: %s with params: %s", testedMethod, Arrays.toString(randomParams)));
     }
 
     private Object[] getRandomParams(Method testedMethod) {

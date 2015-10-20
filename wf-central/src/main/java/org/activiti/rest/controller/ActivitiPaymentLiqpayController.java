@@ -12,33 +12,35 @@ import org.wf.dp.dniprorada.util.Util;
 @Controller
 public class ActivitiPaymentLiqpayController {
 
-	private final Logger log = LoggerFactory
-			.getLogger(ActivitiPaymentLiqpayController.class);
-	private StringBuffer sb = new StringBuffer();
+    private final Logger log = LoggerFactory
+            .getLogger(ActivitiPaymentLiqpayController.class);
+    private StringBuffer sb = new StringBuffer();
 
-	@RequestMapping(value = "/setPaymentNewStatus_Liqpay", method = RequestMethod.GET, headers = { "Accept=application/json" })
-	public @ResponseBody
-	String setPaymentNewStatus_Liqpay(@RequestParam String sID_Order,
-			@RequestParam String sHost) {
-		sb.append(sHost);
-		String data = "data"; // вместо "data" подставить ответ вызова API
-		String t = ""; 			// liqpay
-		sb.append("sID_Order=" + sID_Order);
-		sb.append("&sData=" + data);
-		sb.append("&sID_PaymentSystem=Liqpay");
-		try {
-			if (sID_Order.startsWith("TaskActiviti_")) {
-				t=setPaymentStatus_TaskActiviti(sHost, sb.toString(), data);
-			}
-		} catch (Exception e) {
-			log.error("HttpAnswer error:", e);
-		}
-		return t+"/";
-	}
+    @RequestMapping(value = "/setPaymentNewStatus_Liqpay", method = RequestMethod.GET, headers = {
+            "Accept=application/json" })
+    public
+    @ResponseBody
+    String setPaymentNewStatus_Liqpay(@RequestParam String sID_Order,
+            @RequestParam String sHost) {
+        sb.append(sHost);
+        String data = "data"; // вместо "data" подставить ответ вызова API
+        String t = "";            // liqpay
+        sb.append("sID_Order=" + sID_Order);
+        sb.append("&sData=" + data);
+        sb.append("&sID_PaymentSystem=Liqpay");
+        try {
+            if (sID_Order.startsWith("TaskActiviti_")) {
+                t = setPaymentStatus_TaskActiviti(sHost, sb.toString(), data);
+            }
+        } catch (Exception e) {
+            log.error("HttpAnswer error:", e);
+        }
+        return t + "/";
+    }
 
-	private String setPaymentStatus_TaskActiviti(String sHost, String url,
-			String sData) throws Exception {
-		String answer = Util.httpAnswer(sb.toString(), sData);
-		return answer;
-	}
+    private String setPaymentStatus_TaskActiviti(String sHost, String url,
+            String sData) throws Exception {
+        String answer = Util.httpAnswer(sb.toString(), sData);
+        return answer;
+    }
 }

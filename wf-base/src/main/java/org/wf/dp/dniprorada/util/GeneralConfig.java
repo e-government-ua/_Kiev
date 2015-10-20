@@ -6,30 +6,23 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- *
  * @author bw
  */
 @Component("generalConfig")
 public class GeneralConfig {
 
     private final static Logger oLog = LoggerFactory.getLogger(GeneralConfig.class);
-
-    
+    public static Boolean bTest = null;
     @Value("${general.sHost}")
-    private String sHost; //general.sHost=https://test.region.igov.org.ua    
-    
+    private String sHost; //general.sHost=https://test.region.igov.org.ua
     @Value("${general.sHostCentral}")
-    private String sHostCentral; //general.sHost=https://test.igov.org.ua    
-    
+    private String sHostCentral; //general.sHost=https://test.igov.org.ua
     @Value("${general.bTest}")
     private String sbTest;
-    public static Boolean bTest=null;
-    
-    
-	@Value("${general.auth.login}")
-	private String generalUsername;
-	@Value("${general.auth.password}")
-	private String generalPassword;
+    @Value("${general.auth.login}")
+    private String generalUsername;
+    @Value("${general.auth.password}")
+    private String generalPassword;
 
     @Value("${general.sURL_DocumentKvitanciiForIgov}")
     private String general_sURL_DocumentKvitanciiForIgov;
@@ -43,60 +36,68 @@ public class GeneralConfig {
     private String SID_login;
     @Value("${general.SID_password}")
     private String SID_password;
-    
-    public String sHost(){
+    @Value("${general.nID_Server}")
+    private String nID_Server;
+
+    public String sHost() {
         //general.sHost=https://test-version.region.igov.org.ua    
-        return sHost!=null?sHost:"https://test.region.igov.org.ua";
+        return sHost != null ? sHost : "https://test.region.igov.org.ua";
     }
-    
-    public String sHostCentral(){
+
+    public String sHostCentral() {
         //general.sHost=https://test-version.region.igov.org.ua    
-        return sHostCentral!=null?sHostCentral:"https://test.igov.org.ua";
+        return sHostCentral != null ? sHostCentral : "https://test.igov.org.ua";
     }
-    
-    public String sAuthLogin(){
+
+    public String sAuthLogin() {
         return generalUsername;
     }
-    public String sAuthPassword(){
+
+    public String sAuthPassword() {
         return generalPassword;
     }
 
-    public String sURL_DocumentKvitanciiForIgov(){
+    public String sURL_DocumentKvitanciiForIgov() {
         return general_sURL_DocumentKvitanciiForIgov;
     }
-    public String sURL_DocumentKvitanciiForAccounts(){
+
+    public String sURL_DocumentKvitanciiForAccounts() {
         return general_sURL_DocumentKvitanciiForAccounts;
     }
-    public String sURL_GenerationSID(){
+
+    public String sURL_GenerationSID() {
         return general_sURL_GenerationSID;
     }
-    public String sURL_DocumentKvitanciiCallback(){
+
+    public String sURL_DocumentKvitanciiCallback() {
         return general_sURL_DocumentKvitanciiCallback;
     }
+
     public String getSID_login() {
         return SID_login;
     }
+
     public String getSID_password() {
         return SID_password;
     }
 
     //static public boolean bTest=false;
-    public boolean bTest(){
+    public boolean bTest() {
         //return true;
         if (bTest != null) {
             return bTest;
         }
         boolean b = true;
         try {
-            
+
             //Properties oProperties = new Properties();
             //oProperties.load(getClass().getClassLoader().getResourceAsStream("AS.properties"));
             //String sbTest = oProperties.getProperty("general.bTest");
-            
+
             //getProfileProperty("")
-            b = (sbTest == null ? b : sbTest.trim().length()>0 ? !"false".equalsIgnoreCase(sbTest.trim()) : true);
+            b = (sbTest == null ? b : sbTest.trim().length() > 0 ? !"false".equalsIgnoreCase(sbTest.trim()) : true);
             oLog.info("[bTest]:sbTest=" + sbTest);
-//            b = true;
+            //            b = true;
             //b = false;
         } catch (Exception oException) {
             oLog.error("[bTest]:sbTest=" + sbTest, oException);
@@ -120,5 +121,12 @@ public class GeneralConfig {
         //}
         return oProperty.getProperty(sName);
     }*/
-    
+
+    public int nID_Server() {
+        try {
+            return Integer.parseInt(nID_Server);
+        } catch (Exception ignored) {
+        }
+        return 0;
+    }
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app').controller('PlaceAbsentController', function($state, $rootScope, $scope, service, MessagesService, AdminService, ValidationService) {
+angular.module('app').controller('PlaceAbsentController', function($state, $rootScope, $scope, service, MessagesService, AdminService, ValidationService, PlacesService, ErrorsFactory) {
 
   $scope.bAdmin = AdminService.isAdmin();
 
@@ -40,6 +40,32 @@ angular.module('app').controller('PlaceAbsentController', function($state, $root
     if (e.keyCode === 13) {
       $scope.sendAbsentMessage(absentMessageForm, absentMessage);
     }
+  };
+
+  $scope.sendAbsentMessage = function(absentMessageForm, absentMessage) {
+
+    // ValidationService.validateByMarkers( absentMessageForm );
+
+    if (false === absentMessageForm.$valid) {
+      $scope.absentMessage.showErrors = true;
+      return false;
+    }
+
+    var placeData = PlacesService.getPlaceData();
+    var selectedRegion = placeData && placeData.region ? placeData.region.sName + ' - ' : '';
+    var selectedCity = placeData && placeData.city ? placeData.city.sName + ' - ' : '';
+
+    var data = {
+      sMail: absentMessage.email,
+      sHead: 'Закликаю владу перевести цю послугу в електронну форму!',
+      sBody: selectedRegion + selectedCity + service.sName
+    };
+
+    var messageText = 'Дякуємо! Ви будете поінформовані, коли ця послуга буде доступна через Інтернет.';
+    
+    MessagesService.setMessage(data, messageText);
+
+    ErrorsFactory.push({type: 'success', text: messageText});
   };
 
 });

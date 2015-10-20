@@ -13,20 +13,19 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class RestConfiguration {
-	private final Logger log = LoggerFactory
-			.getLogger(RestConfiguration.class);
+    private final Logger log = LoggerFactory
+            .getLogger(RestConfiguration.class);
 
-	
-	@Bean()
-	public RestResponseFactory restResponseFactory() {
-		RestResponseFactory restResponseFactory = new RestResponseFactory();
-		log.info("restResponseFactory init");
-		return restResponseFactory;
-	}
+    @Bean()
+    public RestResponseFactory restResponseFactory() {
+        RestResponseFactory restResponseFactory = new RestResponseFactory();
+        log.info("restResponseFactory init");
+        return restResponseFactory;
+    }
 
-	@Bean()
-	public ContentTypeResolver contentTypeResolver() {
-		ContentTypeResolver resolver = new DefaultContentTypeResolver();
-		return resolver;
-	}
+    @Bean()
+    public ContentTypeResolver contentTypeResolver() {
+        ContentTypeResolver resolver = new DefaultContentTypeResolver();
+        return resolver;
+    }
 }

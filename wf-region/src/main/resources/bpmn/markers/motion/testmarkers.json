@@ -1,0 +1,28 @@
+{
+    "motion": {
+        "ShowFieldsOnNotEmpty_1": {
+            "aField_ID": ["email"],
+            "sField_ID_s": "client"
+        },
+        "ShowFieldsOnCondition_1": {
+            "aField_ID": [
+                "info1",
+                "file1"
+            ],
+            "asID_Field": {
+                "sClient": "client"
+            },
+            "sCondition": "[sClient] == 'attr1'"
+        },
+        "ShowFieldsOnCondition_2": {
+            "aField_ID": [
+                "info2",
+                "file2"
+            ],
+            "asID_Field": {
+                "sClient": "client"
+            },
+            "sCondition": "[sClient] == 'attr2'"
+        }
+    }
+}

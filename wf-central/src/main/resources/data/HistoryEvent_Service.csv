@@ -1,3 +1,3 @@
-nID;sID;nID_Task;nID_Subject;sStatus;sID_Status;nID_Service;nID_Region;sID_UA;nRate;soData;sToken;sHead;sBody
-1;1;222;2;new;новая заявка;1;1;"1200000000";0;"[]";;;
-2;2;222;2;processing;заявка в обработке;1;1;"1200000000";0;"[]";;;
+nID;sID;nID_Task;nID_Subject;sStatus;sID_Status;nID_Service;nID_Region;sID_UA;nRate;soData;sToken;sHead;sBody;nTimeHours;sID_Order;nID_Server
+1;1;1;2;new;новая заявка;1;1;"1200000000";0;"[]";;;;0;0-11;0
+2;2;2;2;processing;заявка в обработке;1;1;"1200000000";0;"[]";;;;0;0-22;0

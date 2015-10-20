@@ -20,9 +20,9 @@ module.exports = {
   ACTIVITI_REST: 'wf/service',
   ACTIVITI_USER: 'activiti-master',
   ACTIVITI_PASSWORD: 'UjhtJnEvf!',
-  ACTIVITI_SESSION_IDLE: '3000',
-  ACTIVITI_SESSION_TIMEOUT: '3000',
-  ACTIVITI_SESSION_INTERVAL: '1000',
+  ACTIVITI_SESSION_IDLE: 3000,
+  ACTIVITI_SESSION_TIMEOUT: 3000,
+  ACTIVITI_SESSION_INTERVAL: 1000,
 
   PRIVATE_KEY: 'path to [sslcert/server.key]', //works only with SSL_PORT
   CERTIFICATE: 'path to [sslcert/server.crt]' //works only with SSL_PORT

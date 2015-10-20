@@ -1,6 +1,7 @@
-﻿<div>
+<div>
         <style type="text/css">
-        html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Tahoma';}
+		<meta charset="UTF-8">
+        html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Times New Roman';}
 
 .print_wrap {width: 705px; padding: 35px 25px 85px 35px; min-height: 100%; height: 100%; margin: 0 auto;}
 
@@ -10,14 +11,9 @@
 
 .ti-15 {text-indent: 25px;}
 
-.p-right {float: right;}
-.p-left {float: left;}
-
-.xs-font {font-size: 16px; line-height: 18px;}
-.xs-font p {font-size: 16px;}
-.xs-font span {font-size: 16px;}
-
 .fw {width: 100%;}
+.xs-font {font-size: 14px;}
+.xs-font p {font-size: 14px;}
 
 .w350 {width: 350px;}
 .w225 {width: 225px;}
@@ -27,7 +23,6 @@
 .w130 {width: 130px;}
 .w135 {width: 135px;}
 .w265 {width: 265px;}
-.w365 {width: 365px;}
 .w500 {width: 500px;}
 
 .b-t-0 {border-top: 0 !important;}
@@ -41,9 +36,7 @@
 
 .m-t-15 {margin-top: 15px !important;}
 .m-t-25 {margin-top: 25px !important;}
-.m-t-85 {margin-top: 45px !important;}
-.m-r-12 {margin-right: 12px !important;}
-.m-l-65 {margin-left: 65px !important;}
+.m-l-80 {margin-left: 80px !important;}
 .m-l-120 {margin-left: 120px !important;}
 .m-l-180 {margin-left: 180px !important;}
 .m-l-250 {margin-left: 250px !important;}
@@ -97,18 +90,19 @@ table.zit_v-form2 tr td {border: 1px solid black; padding: 3px 8px;}
 .date_subm .month-fl-sm > span:nth-child(2) {width: 120px;}
 .date_subm .month-fl-sm > span:nth-child(3) {width: 20px;}
 .date_subm .signature {width: 240px; height: 20px; float: right; border-bottom: 1px solid black; position: relative;}
-.date_subm.invert .signature {float: left;}
 .date_subm .signature > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
+.date_subm .inv {width: 240px; height: 20px; float: left; border-bottom: 1px solid black; position: relative;} 
+.date_subm .inv > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
 
 p {font-size: 11px;}
 
 .clear {clear: both;}
 </style>
 <section class="print_wrap">
-    <div class="w365 line_col ta-l p-right xs-font">
+    <div class="w365 line_col ta-r p-right xs-font">
         <p>Міському Голові</p>
 
-        <p>САФРОНОВУ С.О.</p>
+        <p>___________________</p>
 
         <p >[name_company]</p>
 
@@ -122,15 +116,19 @@ p {font-size: 11px;}
         Додатки: схема розміщення ТС (М 1:500)<br />
 		<br/>
 		</div>
-		Заява-згода на використання персональних даних<br />
+		<div class="date_subm m-t-85">
+        <div class="inv">[date_today]<span>(дата)</span></div>
+        <div class="signature">BankID<span>(підпис)</span></div>
+		<div class="clear"></div>
+    </div>
+		<div style="text-align: center;"><b>Заява-згода на використання персональних даних</b></div>
 		<div class="under_field_line wub ta-l">
 		<p>Я, [clFio], відповідно до положень Закону України «Про захист персональних даних» для виконання повноважень щодо надання адміністративних послуг, надаю згоду та дозвіл на зберігання, обробку, використання та поширення відповідно до вимог чинного законодавства моїх персональних даних, в тому числі, але не обмежуючись даних паспорта, дати та місця народження, місця проживання та адреси для листування, даних індивідуального податкового номера, та інших даних, які зазначені в моїх зверненнях (заявах). Передання Зберігачем моїх персональних даних відповідно до вимог чинного законодавства державним органам, органам місцевого самоврядування може бути здійснено без моєї попередньої згоди та повідомлення мене про такі дії.</p>
 		</div>
     <div class="date_subm m-t-85">
-	[date_today]
-        <!--<div class="month-fl-sm"><span></span><span></span>2015 р.</div>-->
-        <div class="signature"><span>(підпис)</span></div>
-        <div class="clear"></div>
+        <div class="inv">[date_today]<span>(дата)</span></div>
+        <div class="signature">BankID<span>(підпис)</span></div>
+		<div class="clear"></div>
     </div>
     <div class="clear"></div>
 </section>

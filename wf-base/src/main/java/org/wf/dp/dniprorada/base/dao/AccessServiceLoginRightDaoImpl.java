@@ -5,7 +5,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.wf.dp.dniprorada.base.model.AccessServiceLoginRight;
-import org.wf.dp.dniprorada.base.model.EscalationRule;
 
 import java.util.List;
 
@@ -18,28 +17,27 @@ import java.util.List;
 public class AccessServiceLoginRightDaoImpl extends GenericEntityDao<AccessServiceLoginRight>
         implements AccessServiceLoginRightDao {
 
+    protected AccessServiceLoginRightDaoImpl() {
+        super(AccessServiceLoginRight.class);
+    }
 
-   protected AccessServiceLoginRightDaoImpl() {
-      super(AccessServiceLoginRight.class);
-   }
+    @Override
+    public AccessServiceLoginRight getAccessServiceLoginRight(String sLogin, String sService) {
+        Criteria criteria = createCriteria();
 
-   @Override
-   public AccessServiceLoginRight getAccessServiceLoginRight(String sLogin, String sService) {
-      Criteria criteria = createCriteria();
+        criteria.add(Restrictions.eq("sLogin", sLogin));
+        criteria.add(Restrictions.eq("sService", sService));
 
-      criteria.add(Restrictions.eq("sLogin", sLogin));
-      criteria.add(Restrictions.eq("sService", sService));
+        return (AccessServiceLoginRight) criteria.uniqueResult();
+    }
 
-      return (AccessServiceLoginRight) criteria.uniqueResult();
-   }
+    @Override
+    public List<String> getAccessibleServices(String sLogin) {
+        Criteria criteria = createCriteria();
 
-   @Override
-   public List<String> getAccessibleServices(String sLogin) {
-      Criteria criteria = createCriteria();
+        criteria.add(Restrictions.eq("sLogin", sLogin));
+        criteria.setProjection(Projections.property("sService"));
 
-      criteria.add(Restrictions.eq("sLogin", sLogin));
-      criteria.setProjection(Projections.property("sService"));
-
-      return criteria.list();
-   }
+        return criteria.list();
+    }
 }

@@ -21,12 +21,12 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Collection;
 
 public final class Util {
 
     public static final String PATTERN_FILE_PATH_BEGIN = "../webapps/wf/WEB-INF/classes/pattern/";
+    public static final String MARKERS_MOTION_FILE_PATH_BEGIN = "../webapps/wf/WEB-INF/classes/bpmn/markers/motion/";
     public static final String PATTERN_DEFAULT_CONTENT_TYPE = "text/plain";
     private final static Logger log = LoggerFactory.getLogger(Util.class);
 
@@ -39,14 +39,14 @@ public final class Util {
      * Resolves file content based on specified smart file path string and base file path.
      * Examples of the smart paths: "[/custom.html]", "[*]"
      *
-     * @param smartPath A possible smart path string starting from [
-     * @param basePath Base path to be prepended
+     * @param smartPath       A possible smart path string starting from [
+     * @param basePath        Base path to be prepended
      * @param defaultFilePath If the string equals to "[*]" than this value will be used
      * @return File content. If a passed string was not a smart file path
      * (e.g. it does not start and end with "[" and "]"), then "null" is returned
      */
     public static String getSmartPathFileContent(String smartPath, String basePath, String defaultFilePath) {
-        if (smartPath == null || smartPath.isEmpty() || !smartPath.startsWith("[") || !smartPath.endsWith("]")){
+        if (smartPath == null || smartPath.isEmpty() || !smartPath.startsWith("[") || !smartPath.endsWith("]")) {
             return null;
         }
 
@@ -75,27 +75,31 @@ public final class Util {
         }
     }
 
-
     public static byte[] getPatternFile(String sPathFile) throws IOException {
+        return getResourcesFile(PATTERN_FILE_PATH_BEGIN, sPathFile);
+    }
+    
+    public static byte[] getMarkersMotionJson(String sPathFile) throws IOException {
+        return getResourcesFile(MARKERS_MOTION_FILE_PATH_BEGIN, sPathFile);
+    }
+    
+    private static byte[] getResourcesFile(String sRootFolder, String sPathFile) throws IOException {
         if (sPathFile.contains("..")) {
             throw new IllegalArgumentException("incorrect sPathFile!");
         }
-        String fullFileName = PATTERN_FILE_PATH_BEGIN + sPathFile;
+        String fullFileName = sRootFolder + sPathFile;
         File file = new File(fullFileName);
+        log.info("Loading pattern file:" + fullFileName);
         return Files.toByteArray(file);
     }
 
     public static String sData(byte[] a) {
-        // Charset.forName(DEFAULT_ENCODING)
-        // byte[] b = {(byte) 99, (byte)97, (byte)116};
         String s = "Not convertable!";
-        //log.info("[sData]:a.length=" + a.length + ",Arrays.toString(a)=" + Arrays.toString(a));
         try {
             s = new String(a, DEFAULT_ENCODING);
         } catch (Exception oException) {
             log.error("[sData]", oException);
         }
-        //log.info("[sData]:s=" + s);
         return s;
     }
 
@@ -181,28 +185,30 @@ public final class Util {
 
                 oLog.info("[replacePatterns]:sFieldID=" + sFieldID);
                 //oLog.info("[replacePatterns]:sExpression=" + sExpression);
-                oLog.info("[replacePatterns]:sExpression.length()=" + (sExpression!=null?sExpression.length()+"":""));
+                oLog.info("[replacePatterns]:sExpression.length()=" + (sExpression != null ?
+                        sExpression.length() + "" :
+                        ""));
 
                 if (sExpression == null || sFieldID == null || !sFieldID.startsWith("sBody")) {
                     continue;
                 }
 
                 for (File oFile : asPatterns) {
-                    String sName = "pattern/print/"+oFile.getName();
+                    String sName = "pattern/print/" + oFile.getName();
                     //oLog.info("[replacePatterns]:sName=" + sName);
 
                     if (sExpression.contains("[" + sName + "]")) {
                         oLog.info("[replacePatterns]:sName=" + sName);
-                        
+
                         String sData = getFromFile(oFile, null);
                         //oLog.info("[replacePatterns]:sData=" + sData);
-                        oLog.info("[replacePatterns]:sData.length()=" + (sData!=null?sData.length()+"":"null"));
+                        oLog.info("[replacePatterns]:sData.length()=" + (sData != null ? sData.length() + "" : "null"));
                         if (sData == null) {
                             continue;
                         }
 
                         sExpression = sExpression.replaceAll("\\Q[" + sName + "]\\E", sData);
-//                        oLog.info("[replacePatterns]:sExpression=" + sExpression);
+                        //                        oLog.info("[replacePatterns]:sExpression=" + sExpression);
 
                         oLog.info("[replacePatterns](sFieldID=" + sFieldID + "):1-Ok!");
                         oRuntimeService.setVariable(task.getProcessInstanceId(), sFieldID, sExpression);
@@ -256,16 +262,16 @@ public final class Util {
     }
 
     public static String setStringFromFieldExpression(Expression expression,
-                                                      DelegateExecution execution, Object value) {
+            DelegateExecution execution, Object value) {
         if (expression != null && value != null) {
             expression.setValue(value, execution);
         }
         return null;
     }
-    
-    public static String deleteContextFromURL(String URL){
-    	String temp = URL.substring(URL.indexOf("//") + 2);
-        return temp.substring(temp.indexOf("/")) ;
+
+    public static String deleteContextFromURL(String URL) {
+        String temp = URL.substring(URL.indexOf("//") + 2);
+        return temp.substring(temp.indexOf("/"));
     }
 
 }

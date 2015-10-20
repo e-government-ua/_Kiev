@@ -18,11 +18,22 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
     var stateToGo = PlacesService.getServiceStateForPlace();
 
     // отримати дані сервісу та його опис
+    var oAvail = PlacesService.serviceAvailableIn();
+    var foundInCountry;
+    var foundInRegion;
+    var foundInCity;
+
     angular.forEach(oService.aServiceData, function(service, key) {
-      $scope.serviceData = service;
-      if (oService.bNoteTrusted === false) {
-        $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
-        oService.sNoteTrusted = true;
+      foundInCountry = oAvail.thisCountry;
+      foundInRegion = oAvail.thisRegion && service.nID_Region && service.nID_Region.nID === $scope.getRegionId();
+      foundInCity = oAvail.thisCity && service.nID_City.nID === $scope.getCityId();
+      // if (service.nID_Region && service.nID_Region.nID === $scope.getRegionId() && service.nID_City && service.nID_City.nID === $scope.getCityId()) {
+      if (foundInCountry || foundInRegion || foundInCity) {
+        $scope.serviceData = service;
+        if (oService.bNoteTrusted === false) {
+          $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
+          oService.sNoteTrusted = true;
+        }
       }
     });
 

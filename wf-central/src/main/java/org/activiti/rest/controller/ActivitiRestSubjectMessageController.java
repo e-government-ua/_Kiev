@@ -60,14 +60,14 @@ public class ActivitiRestSubjectMessageController {
         checkRate(nID_Protected, sID_Rate);
         return JsonRestUtils.toJsonResponse(message);
     }
-    
-    
+
     @RequestMapping(value = "/setMessageFeedback", method = RequestMethod.POST)//Feedback
     public
     @ResponseBody
     String setMessageFeedback(
             @RequestParam(value = "sHead") String sHead,
             @RequestParam(value = "sBody", required = false) String sBody,
+            @RequestParam(value = "warnSignal", required = false) String sWarnSignal,
             @RequestParam(value = "nID_Subject", required = false) Long nID_Subject,
             @RequestParam(value = "sMail", required = false) String sMail,
             @RequestParam(value = "sContacts", required = false) String sContacts,
@@ -77,7 +77,10 @@ public class ActivitiRestSubjectMessageController {
             @RequestParam(value = "sID_Rate", required = false) String sID_Rate) throws ActivitiRestException {
 
         SubjectMessage message =
-                createSubjectMessage(sHead, sBody, nID_Subject, sMail, sContacts, sData, nID_SubjectMessageType);
+                createSubjectMessage(
+                        sHead + (sID_Rate != null ? " (sID_Rate=" + sID_Rate + ")" : "") + ("on".equals(sWarnSignal) ?
+                                " (anonymous)" :
+                                ""), sBody, nID_Subject, sMail, sContacts, sData, nID_SubjectMessageType);
         subjectMessagesDao.setMessage(message);
         message = subjectMessagesDao.getMessage(message.getId());
         checkRate(nID_Protected, sID_Rate);
@@ -85,18 +88,15 @@ public class ActivitiRestSubjectMessageController {
         return "Ok!";
     }
 
-    
     @RequestMapping(value = "/getMessageTest", method = RequestMethod.GET)
     public
     @ResponseBody
     String getMessageTest() {
         return "Test Проверка";
     }
-    
-    
-    
+
     @RequestMapping(value = "/getMessages", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE, headers = {"Accept=application/json"})
+            produces = MediaType.APPLICATION_JSON_VALUE, headers = { "Accept=application/json" })
     public
     @ResponseBody
     ResponseEntity getMessages() {
@@ -106,7 +106,7 @@ public class ActivitiRestSubjectMessageController {
     }
 
     @RequestMapping(value = "/getMessage", method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE, headers = {"Accept=application/json"})
+            produces = MediaType.APPLICATION_JSON_VALUE, headers = { "Accept=application/json" })
     public
     @ResponseBody
     ResponseEntity getMessage(
@@ -117,7 +117,7 @@ public class ActivitiRestSubjectMessageController {
     }
 
     private SubjectMessage createSubjectMessage(String sHead, String sBody, Long nID_subject, String sMail,
-                                                String sContacts, String sData, Long nID_subjectMessageType) {
+            String sContacts, String sData, Long nID_subjectMessageType) {
         SubjectMessage message = new SubjectMessage();
         message.setHead(sHead);
         message.setBody(sBody == null ? "" : sBody);

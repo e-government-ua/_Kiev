@@ -38,7 +38,6 @@ import java.util.Collections;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
-
 /**
  * Created by Dmytro Tsapko on 8/22/2015.
  */
@@ -59,12 +58,10 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
     @Autowired
     private DocumentTypeDao documentTypeDao;
 
-
     @Override
     public DocumentAccess getAccess() {
         return documentAccessDao.getDocumentAccess(accessCode);
     }
-
 
     public Document getDocument() {
         Document doc = new Document();
@@ -78,7 +75,8 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
 
         if (this.documentTypeId == null || !correctDocTypes.contains(this.documentTypeId)) {
             LOG.error("DocumentTypeId = " + this.documentTypeId);
-            throw new DocumentTypeNotSupportedException("Incorrect DocumentTypeId. DocumentTypeId = " + this.documentTypeId);
+            throw new DocumentTypeNotSupportedException(
+                    "Incorrect DocumentTypeId. DocumentTypeId = " + this.documentTypeId);
         } else {
             uriDoc = Long.valueOf(0L).equals(this.documentTypeId) ?
                     generalConfig.sURL_DocumentKvitanciiForIgov() : generalConfig.sURL_DocumentKvitanciiForAccounts();
@@ -87,7 +85,6 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
         }
 
         String finalUri = uriDoc + keyIdParam + keyID + callBackKey + callBackValue;
-
 
         if (generalConfig.bTest()) {
             SSLCertificateValidation.disable();
@@ -128,7 +125,6 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
             doc.setContentKey(null);
             doc.setoSignData(null);
 
-
         } catch (ParseException | ResourceAccessException e) {
             LOG.error("Can't get document: ", e);
             throw new DocumentNotFoundException("Can't get document: ", e);
@@ -143,10 +139,8 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
         String password = generalConfig.getSID_password();
         String uriSid = generalConfig.sURL_GenerationSID() + "?lang=UA";
 
-
         String xml = "<?xml version='1.0' encoding='UTF-8' standalone='yes'?>\n" +
                 "<session><user auth='EXCL' login='" + login + "' password='" + password + "'/></session>";
-
 
         String xmlResponse = new RestRequest().post(uriSid, xml, MediaType.TEXT_XML,
                 StandardCharsets.UTF_8, String.class, null);
@@ -154,7 +148,6 @@ public class DocumentAccessHandler_PB extends AbstractDocumentAccessHandler {
 
         return sessionId;
     }
-
 
     private String getSidFromXml(String xmlDocument) {
         //todo simplify parsing

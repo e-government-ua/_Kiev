@@ -1,53 +1,27 @@
 package org.wf.dp.dniprorada.engine.task;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.util.Iterator;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.Attribute;
-import javax.xml.stream.events.StartElement;
-import javax.xml.stream.events.XMLEvent;
-
-import org.activiti.engine.delegate.BpmnError;
 import org.activiti.engine.delegate.DelegateExecution;
 import org.activiti.engine.delegate.JavaDelegate;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
  * Check client data throw bankID system.</br>
- * 
+ * <p/>
  * Request: https://bankid.privatbank.ua/DataAccessService
  * /checked/fio?access_token=095be9eb
  * -01e7-4045-b60b-9d71581fb4d9&client_id=d9c8b4d6-6a18-4492-a50a-2b3b4ea6285b
- * 
+ * <p/>
  * Response: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><message
  * state="ok"><fio><firstName>имя</firstName><lastName>фамилия</lastName><
  * middleName>отчество</middleName></fio></message>
- * 
- * 
+ *
  * @author Tereshchenko
- * 
  */
 @Component("bankIDChecked")
 public class BankIDChecked implements JavaDelegate {
 
 /*	@Value("${checkBankIDUrl}")
-	private String checkBankIDUrl;
+    private String checkBankIDUrl;
 	@Value("${systemClient}")
 	private String systemClient;
 
@@ -66,8 +40,8 @@ public class BankIDChecked implements JavaDelegate {
 	@Value("${client_idPathParam}")
 	private static final String CLIENT_ID = "client_id";*/
 
-	@Override
-	public void execute(DelegateExecution execution) throws Exception {
+    @Override
+    public void execute(DelegateExecution execution) throws Exception {
 	
 /*		String token = execution.getVariable(ACCESS_TOKEN, String.class);
 
@@ -86,7 +60,7 @@ public class BankIDChecked implements JavaDelegate {
 			throw e;
 		}
 */
-	}
+    }
 
 	/*private static HttpsURLConnection getConnection(String httpsUrl)
 			throws MalformedURLException, IOException,

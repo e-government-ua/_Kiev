@@ -55,13 +55,13 @@
           <activiti:string><![CDATA[Звернення на тему: відстрілювання вогнепальної зброї та огляд її технічного стану]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>[pattern/mail/_common_header.html]
+          <activiti:expression>[pattern/mail/_common_header_with_payment.html]
 &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
 
 Ви подали звернення на відстрілювання вогнепальної зброї та огляд її технічного стану.&lt;br/&gt;
 &lt;p&gt;
 &lt;b&gt;Далі Вам необхідно:&lt;/b&gt;&lt;br /&gt;
-1. Роздрукувати заяву у додатку до листа, поставити на ній свій підпис.&lt;br /&gt;
+1. Завантажити з додатку до листа бланк заяви, роздрукувати та підписати.&lt;br /&gt;
 2. Сплатити вартість послуги будь-яким зручним для Вас способом. Вартість послуги становить  84 грн 42 коп. з ПДВ.  &lt;br /&gt;
 3. Відвідати науково-дослідний експертно-криміналістичний &lt;a href="http://ndekcmvd.dp.ua/" target="_blank"&gt;центр&lt;/a&gt; при ГУМВС України. Окрім підписаної Вами заяви та квитанції про сплату при собі треба мати:&lt;br /&gt;
  - Дозвіл (постійний або тимчасовий) на володіння зброєю.&lt;br /&gt;
@@ -90,7 +90,7 @@
 [pattern/mail/_common_signature_start.html]
  НДЕКЦ при ГУМВС України &lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
-[pattern/mail/_common_footer.html]</activiti:expression>
+[pattern/mail/_common_footer_with_payment.html]</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>${PrintForm_1}</activiti:expression>

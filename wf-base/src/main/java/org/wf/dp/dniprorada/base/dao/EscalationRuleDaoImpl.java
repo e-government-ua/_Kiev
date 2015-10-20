@@ -6,16 +6,15 @@ import org.wf.dp.dniprorada.base.model.EscalationRuleFunction;
 
 @Repository
 public class EscalationRuleDaoImpl extends GenericEntityDao<EscalationRule>
-        implements EscalationRuleDao
-{
+        implements EscalationRuleDao {
     protected EscalationRuleDaoImpl() {
         super(EscalationRule.class);
     }
 
     @Override
     public EscalationRule saveOrUpdate(Long nID, String sID_BP, String sID_userTask,
-                                       String sCondition, String soData,
-                                       String sPatternFile, EscalationRuleFunction ruleFunction) {
+            String sCondition, String soData,
+            String sPatternFile, EscalationRuleFunction ruleFunction) {
 
         EscalationRule rule = nID != null ? findByIdExpected(nID) : new EscalationRule();
         if (nID != null && rule == null) {//??
@@ -34,8 +33,8 @@ public class EscalationRuleDaoImpl extends GenericEntityDao<EscalationRule>
             rule.setsPatternFile(sPatternFile);
         }
         if (ruleFunction != null) {
-//            EscalationRuleFunction ruleFunction = new EscalationRuleFunction();
-//            ruleFunction.setId(nID);
+            //            EscalationRuleFunction ruleFunction = new EscalationRuleFunction();
+            //            ruleFunction.setId(nID);
             rule.setoEscalationRuleFunction(ruleFunction);
         }
         saveOrUpdate(rule);

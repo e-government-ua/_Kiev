@@ -13,17 +13,18 @@ import java.util.List;
  */
 public class ActivitiRestAuthProviderFixtures {
 
-	private ActivitiRestAuthProviderFixtures() {}
+    private ActivitiRestAuthProviderFixtures() {
+    }
 
-	public static Authentication getGeneralAuthInfo() {
-		List<GrantedAuthority> grantedAuths = new ArrayList<>();
-		grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-		return new UsernamePasswordAuthenticationToken("general_username", "general_password", grantedAuths);
-	}
+    public static Authentication getGeneralAuthInfo() {
+        List<GrantedAuthority> grantedAuths = new ArrayList<>();
+        grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return new UsernamePasswordAuthenticationToken("general_username", "general_password", grantedAuths);
+    }
 
-	public static Authentication getActivitiAuthInfo() {
-		List<GrantedAuthority> grantedAuths = new ArrayList<>();
-		grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-		return new UsernamePasswordAuthenticationToken("activiti_username", "activiti_password", grantedAuths);
-	}
+    public static Authentication getActivitiAuthInfo() {
+        List<GrantedAuthority> grantedAuths = new ArrayList<>();
+        grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return new UsernamePasswordAuthenticationToken("activiti_username", "activiti_password", grantedAuths);
+    }
 }

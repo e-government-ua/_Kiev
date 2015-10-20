@@ -4,34 +4,28 @@
  */
 package org.activiti.rest.controller.adapter;
 
-import java.io.IOException;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
- *
  * @author olya
  */
 public class MultiReadServletFilter implements Filter {
 
-
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-    	if (servletRequest instanceof HttpServletRequest) {
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
+            throws IOException, ServletException {
+        if (servletRequest instanceof HttpServletRequest) {
             HttpServletRequest request = (HttpServletRequest) servletRequest;
             HttpServletResponse response = (HttpServletResponse) servletResponse;
             MultiReadHttpServletRequest requestMultiRead = new MultiReadHttpServletRequest(request);
-            MultiReaderHttpServletResponse responseMultiRead = new MultiReaderHttpServletResponse(response, requestMultiRead);
+            MultiReaderHttpServletResponse responseMultiRead = new MultiReaderHttpServletResponse(response,
+                    requestMultiRead);
             requestMultiRead.setAttribute("responseMultiRead", responseMultiRead);
             filterChain.doFilter(requestMultiRead, responseMultiRead);
-            return;  
+            return;
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

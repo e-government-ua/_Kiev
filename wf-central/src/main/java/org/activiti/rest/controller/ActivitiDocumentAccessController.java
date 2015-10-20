@@ -21,9 +21,6 @@ import org.wf.dp.dniprorada.model.DocumentAccess;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,139 +29,141 @@ public class ActivitiDocumentAccessController {
 
     private final Logger log = LoggerFactory.getLogger(ActivitiDocumentAccessController.class);
 
-	@Autowired
-	private DocumentAccessDao documentAccessDao;
+    @Autowired
+    private DocumentAccessDao documentAccessDao;
     @Autowired
     private HistoryEventDao historyEventDao;
     @Autowired
     private DocumentDao documentDao;
 
     //@Deprecated
-    @RequestMapping(value = "/setDocumentLink", method = RequestMethod.GET, headers = {"Accept=application/json"})
+    @RequestMapping(value = "/setDocumentLink", method = RequestMethod.GET, headers = { "Accept=application/json" })
     public
     @ResponseBody
     AccessURL setDocumentAccessLink(
-			@RequestParam(value = "nID_Document") Long nID_Document,
-			@RequestParam(value = "sFIO", required = false) String sFIO,
-			@RequestParam(value = "sTarget", required = false) String sTarget,
-			@RequestParam(value = "sTelephone", required = false) String sTelephone,
-			@RequestParam(value = "nMS") Long nMS,
-			@RequestParam(value = "sMail", required = false) String sMail,
-			HttpServletResponse response) {
-		AccessURL oAccessURL = new AccessURL();
-		try {
-			oAccessURL.setName("sURL");
-                        String sValue = "";
-			//oAccessURL.setValue(documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail));
-                        //String sURL = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
-                        sValue = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
-			//sValue = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
-			//sValue = String.valueOf(documentAccessDao.getIdAccess());
-			oAccessURL.setValue(sValue);
-                        
-                        
+            @RequestParam(value = "nID_Document") Long nID_Document,
+            @RequestParam(value = "sFIO", required = false) String sFIO,
+            @RequestParam(value = "sTarget", required = false) String sTarget,
+            @RequestParam(value = "sTelephone", required = false) String sTelephone,
+            @RequestParam(value = "nMS") Long nMS,
+            @RequestParam(value = "sMail", required = false) String sMail,
+            HttpServletResponse response) {
+        AccessURL oAccessURL = new AccessURL();
+        try {
+            oAccessURL.setName("sURL");
+            String sValue = "";
+            //oAccessURL.setValue(documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail));
+            //String sURL = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
+            sValue = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
+            //sValue = documentAccessDao.setDocumentLink(nID_Document, sFIO, sTarget, sTelephone, nMS, sMail);
+            //sValue = String.valueOf(documentAccessDao.getIdAccess());
+            oAccessURL.setValue(sValue);
+
             createHistoryEvent(HistoryEventType.SET_DOCUMENT_ACCESS_LINK,
                     nID_Document, sFIO, sTelephone, nMS, sMail);
-		} catch (Exception e) {
-			response.setStatus(HttpStatus.BAD_REQUEST.value());
-			response.setHeader("Reason", e.getMessage());
-		}
+        } catch (Exception e) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setHeader("Reason", e.getMessage());
+        }
         return oAccessURL;
     }
 
-   @Deprecated
-	@RequestMapping(value = "/getDocumentLink", method = RequestMethod.GET, headers = { "Accept=application/json" })
-	public @ResponseBody
-	DocumentAccess getDocumentAccessLink(
-			@RequestParam(value = "nID_Access") Long nID_Access,
-			@RequestParam(value = "sSecret") String sSecret,
-			HttpServletResponse response) {
-		DocumentAccess da = null;
-		try {
-			da = documentAccessDao.getDocumentLink(nID_Access, sSecret);
-		} catch (Exception e) {
-			response.setStatus(HttpStatus.FORBIDDEN.value());
-			response.setHeader("Reason", "Access not found\n" + e.getMessage());
-		}
-		if (da == null) {
-			response.setStatus(HttpStatus.FORBIDDEN.value());
-			response.setHeader("Reason", "Access not found");
-		} else {
-			DateTime now = new DateTime();
-         boolean isSuccessAccess = true;
-         DateTime d = da.getDateCreate();
+    @Deprecated
+    @RequestMapping(value = "/getDocumentLink", method = RequestMethod.GET, headers = { "Accept=application/json" })
+    public
+    @ResponseBody
+    DocumentAccess getDocumentAccessLink(
+            @RequestParam(value = "nID_Access") Long nID_Access,
+            @RequestParam(value = "sSecret") String sSecret,
+            HttpServletResponse response) {
+        DocumentAccess da = null;
+        try {
+            da = documentAccessDao.getDocumentLink(nID_Access, sSecret);
+        } catch (Exception e) {
+            response.setStatus(HttpStatus.FORBIDDEN.value());
+            response.setHeader("Reason", "Access not found\n" + e.getMessage());
+        }
+        if (da == null) {
+            response.setStatus(HttpStatus.FORBIDDEN.value());
+            response.setHeader("Reason", "Access not found");
+        } else {
+            DateTime now = new DateTime();
+            boolean isSuccessAccess = true;
+            DateTime d = da.getDateCreate();
 
-			if (d.plusMillis(da.getMS().intValue()).isBefore(now)) {
+            if (d.plusMillis(da.getMS().intValue()).isBefore(now)) {
                 isSuccessAccess = false;
                 response.setStatus(HttpStatus.FORBIDDEN.value());
                 response.setHeader("Reason", "Access expired");
-			}
-			if (!sSecret.equals(da.getSecret())) {
+            }
+            if (!sSecret.equals(da.getSecret())) {
                 isSuccessAccess = false;
                 response.setStatus(HttpStatus.FORBIDDEN.value());
                 response.setHeader("Reason", "Access to another document");
-			}
+            }
             if (isSuccessAccess) {
                 createHistoryEvent(HistoryEventType.SET_DOCUMENT_ACCESS,
                         da.getID_Document(), da.getFIO(), da.getTelephone(), da.getMS(), da.getMail());
             }
         }
 
-		return da;
-	}
+        return da;
+    }
 
-        @Deprecated
-	@RequestMapping(value = "/getDocumentAccess", method = RequestMethod.GET, headers = { "Accept=application/json" })
-	public @ResponseBody
-	AccessURL getDocumentAccess(
-			@RequestParam(value = "nID_Access") Long nID_Access,
-			@RequestParam(value = "sSecret") String sSecret,
-			HttpServletResponse response) {
-		AccessURL oAccessURL = new AccessURL();
-		try {
-			oAccessURL.setName("sURL");
-                        String sValue = "";
-			//sValue = documentAccessDao.getDocumentAccess(nID_Access,sSecret);
-			documentAccessDao.getDocumentAccess(nID_Access,sSecret);
-			sValue = String.valueOf(nID_Access);
-			oAccessURL.setValue(sValue);
-		} catch (Exception e) {
-			response.setStatus(HttpStatus.FORBIDDEN.value());
-			response.setHeader("Reason", "Access not found");
-			oAccessURL.setValue(e.getMessage());
-		}
-		return oAccessURL;
-	}
+    @Deprecated
+    @RequestMapping(value = "/getDocumentAccess", method = RequestMethod.GET, headers = { "Accept=application/json" })
+    public
+    @ResponseBody
+    AccessURL getDocumentAccess(
+            @RequestParam(value = "nID_Access") Long nID_Access,
+            @RequestParam(value = "sSecret") String sSecret,
+            HttpServletResponse response) {
+        AccessURL oAccessURL = new AccessURL();
+        try {
+            oAccessURL.setName("sURL");
+            String sValue = "";
+            //sValue = documentAccessDao.getDocumentAccess(nID_Access,sSecret);
+            documentAccessDao.getDocumentAccess(nID_Access, sSecret);
+            sValue = String.valueOf(nID_Access);
+            oAccessURL.setValue(sValue);
+        } catch (Exception e) {
+            response.setStatus(HttpStatus.FORBIDDEN.value());
+            response.setHeader("Reason", "Access not found");
+            oAccessURL.setValue(e.getMessage());
+        }
+        return oAccessURL;
+    }
 
-        @Deprecated
-	@RequestMapping(value = "/setDocumentAccess", method = RequestMethod.GET, headers = { "Accept=application/json" })
-	public @ResponseBody
-	AccessURL setDocumentAccess(
-			@RequestParam(value = "nID_Access") Long nID_Access,
-			@RequestParam(value = "sSecret") String sSecret,
-			@RequestParam(value = "sAnswer") String sAnswer,
-			HttpServletResponse response) {
-		AccessURL oAccessURL = new AccessURL();
-		try {
-                        String sValue;
-			sValue = documentAccessDao.setDocumentAccess(nID_Access, sSecret, sAnswer);
-                        //sValue = String.valueOf(nID_Access);
-			//oAccessURL.setValue(documentAccessDao.setDocumentAccess(nID_Access, sSecret, sAnswer));
-                        oAccessURL.setValue(sValue);
-			oAccessURL.setName("sURL");
-			if(oAccessURL.getValue().isEmpty() || oAccessURL.getValue() == null){
-				response.setStatus(HttpStatus.FORBIDDEN.value());
-				response.setHeader("Reason", "Access not found");
-			}
-		} catch (Exception e) {
-			response.setStatus(HttpStatus.BAD_REQUEST.value());
-			response.setHeader("Reason", e.getMessage());
-		}
-		return oAccessURL;
-	}
+    @Deprecated
+    @RequestMapping(value = "/setDocumentAccess", method = RequestMethod.GET, headers = { "Accept=application/json" })
+    public
+    @ResponseBody
+    AccessURL setDocumentAccess(
+            @RequestParam(value = "nID_Access") Long nID_Access,
+            @RequestParam(value = "sSecret") String sSecret,
+            @RequestParam(value = "sAnswer") String sAnswer,
+            HttpServletResponse response) {
+        AccessURL oAccessURL = new AccessURL();
+        try {
+            String sValue;
+            sValue = documentAccessDao.setDocumentAccess(nID_Access, sSecret, sAnswer);
+            //sValue = String.valueOf(nID_Access);
+            //oAccessURL.setValue(documentAccessDao.setDocumentAccess(nID_Access, sSecret, sAnswer));
+            oAccessURL.setValue(sValue);
+            oAccessURL.setName("sURL");
+            if (oAccessURL.getValue().isEmpty() || oAccessURL.getValue() == null) {
+                response.setStatus(HttpStatus.FORBIDDEN.value());
+                response.setHeader("Reason", "Access not found");
+            }
+        } catch (Exception e) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            response.setHeader("Reason", e.getMessage());
+        }
+        return oAccessURL;
+    }
 
     private void createHistoryEvent(HistoryEventType eventType, Long nID_Document,
-                                    String sFIO, String sPhone, Long nMs, String sEmail) {
+            String sFIO, String sPhone, Long nMs, String sEmail) {
         Map<String, String> values = new HashMap<>();
         //String error = "";
         Long nID_Subject = nID_Document;//???????
