@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="kiev_soc_help_175" name="Київ - Призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом" isExecutable="true">
+    <documentation>https://github.com/e-government-ua/iBP/issues/175</documentation>
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="long"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="zayavka" name="Ви подаете цю заявку вперше?" type="enum" required="true">
+          <activiti:value id="yes_20" name="так"></activiti:value>
+          <activiti:value id="no_20" name="заявка подається додатково до попередньої"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
+          <activiti:value id="desn" name="Деснянський"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="type_help" name="Оберіть тип допомоги" type="enum" required="true">
+          <activiti:value id="one" name="інвалідам з дитинства I групи"></activiti:value>
+          <activiti:value id="two" name="інвалідам з дитинства II групи"></activiti:value>
+          <activiti:value id="three" name="інвалідам з дитинства III групи"></activiti:value>
+          <activiti:value id="do_18" name="на дітей-інвалідів віком до 18 років"></activiti:value>
+          <activiti:value id="one_a" name="на догляд за інвалідом з дитинства підгрупи А I групи"></activiti:value>
+          <activiti:value id="one_b" name="на догляд за інвалідом з дитинства підгрупи Б I групи"></activiti:value>
+          <activiti:value id="one_two" name="одиноким інвалідам з дитинства II і III груп, які за висновком ЛКК закладу охорони здоров’я потребують постійного стороннього догляду"></activiti:value>
+          <activiti:value id="do_6" name="догляд за дитиною-інвалідом віком до 6 років"></activiti:value>
+          <activiti:value id="vid_6_do_18" name="догляд за дитиною-інвалідом віком від 6 до 18 років"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="together" name="Чи проживаєте Ви разом з дитиною?" type="enum" required="true">
+          <activiti:value id="yes" name="так"></activiti:value>
+          <activiti:value id="no" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="Customer_service" name="Оберіть категорію споживачів послуги" type="enum" required="true">
+          <activiti:value id="invalid_1" name="Інвалід з дитинства І групи"></activiti:value>
+          <activiti:value id="invalid_23" name="Одинокий інвалід з дитинства II і III групи; які потребують постійного стороннього догляду"></activiti:value>
+          <activiti:value id="invalid_child" name="Дитина-інвалід"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="single_person" name="Чи маєте Ви статус одинокої особи?" type="enum" required="true">
+          <activiti:value id="yes_1" name="так"></activiti:value>
+          <activiti:value id="no_1" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="type_parenthood" name="Ким Ви доводитесь дитині?" type="enum" required="true">
+          <activiti:value id="parents" name="батько (мати)"></activiti:value>
+          <activiti:value id="adopter" name="усиновитель"></activiti:value>
+          <activiti:value id="guardians" name="опікун чи піклувальник (прийомні батьки, батьки-вихователі, патронатні вихователі)"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="employment" name="Ви працевлаштовані?" type="enum" required="true">
+          <activiti:value id="no_3" name="не працюю - фактично здійснюю догляд за дитиною-інвалідом"></activiti:value>
+          <activiti:value id="yes_3" name="так - (працюю, навчаюсь, проходжу службу)"></activiti:value>
+          <activiti:value id="fop" name="я фізична особа-підприємець"></activiti:value>
+          <activiti:value id="centre_job" name="перебуваю на обліку у центрі зайнятості як безробітна особа"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="vacation" name="Чи перебуваєте на данний момент у довгостроковій відпустці?" type="enum">
+          <activiti:value id="yes_4" name="так"></activiti:value>
+          <activiti:value id="no_4" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="nationality" name="Чи маєте Ви українське громадянство?" type="enum" required="true">
+          <activiti:value id="ukraine" name="так"></activiti:value>
+          <activiti:value id="not_ukraine" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="attestat" name="Чи отримували Ви ці виплати раніше?" type="enum" required="true">
+          <activiti:value id="yes_5" name="так"></activiti:value>
+          <activiti:value id="no_5" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="education" name="Чи перебуває дитина на повному державному утриманні за місцем навчання?" type="enum" required="true">
+          <activiti:value id="yes_6" name="так"></activiti:value>
+          <activiti:value id="no_6" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="transfer_type" name="Прошу в разі призначення допомоги кошти перераховувати; оберіть зручний для Вас спосіб перерахування коштів" type="enum" required="true">
+          <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
+          <activiti:value id="bank" name="на рахунок у банку"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="bank_name" name="Назва банку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="mfo" name="МФО банку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="edrpou" name="ЄДРПОУ банку" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="bank_account" name="Номер рахунку (р/р)" type="string" default=" "></activiti:formProperty>
+        <activiti:formProperty id="scan_inn" name="довідка про присвоєння ідентифікаційного номера" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="passport_inv" name="сканована копія свідоцтва про народження дитини-інваліда" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="doc_inv_location" name="довідка про місце проживання дитини-інваліда (або копія паспорта)" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="doc_other" name="довідка про те, що другий із законних представників не отримує державну соціальну допомогу на дитину-інваліда за місцем свого проживання" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_together" name="довідка про спільне проживання з дитиною-інвалідом; видана уповноваженим органом за місцем проживання" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_family" name="Довідка про склад сім'ї; із зазначенням прізвищ, (крім сім'ї опікуна, піклувальника) імен та по батькові, родинних зв'язків членів сім'ї;" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_single_person" name="оригінал довідки про перебування (не перебування) на обліку як одинокої особи" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_guardian" name="копія рішення про встановлення опіки чи піклування" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_adopter" name="рішення про усиновлення" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_foreigner" name="копія посвідки на постійне або тимчасове проживання" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_employment_history" name="Копія трудової книжки" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_medical_2" name="довідка лікарсько-консультативної комісії лікувально-профілактичного закладу; в якій зазначено, що дитина-інвалід потребує домашнього догляду." type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_fop" name="довідка органу державної податкової служби про доходи за останній звітний період (рік)" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_centre_job" name="довідка з центру зайнятості про те, що особа не перебуває на обліку як безробітна" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_education" name="довідка з місця навчання; із зазначенням факту перебування на повному  державному утриманні" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_attestat" name="довідка-атестат про припинення виплати раніше призначеної пенсії" type="file"></activiti:formProperty>
+        <activiti:formProperty id="doc_ur" name="довідка державного реєстратора про проведення (відсутність) державної реєстрації особи" type="file"></activiti:formProperty>
+        <activiti:formProperty id="markers910" name="Маркери способу перерахування коштів" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_9&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_10&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers1" name="Якщо  законний  представник  проживає  за  іншою адресою" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;doc_other&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;together&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'no'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers2" name="Якщо одинокий інвалід з дитинства II і III групи" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;doc_family&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;Customer_service&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'invalid_23'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers3" name="Якщо опікун чи піклувальник" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;doc_guardian&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;type_parenthood&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'guardians'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers4" name="Якщо має статус одинокої особи" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;doc_single_person&quot;,&quot;doc_together&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;single_person&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_1'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers5" name="Якщо особа одинока та ще й усиновитель" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;doc_adopter&quot;],&quot;asID_Field&quot;:{&quot;sType&quot;:&quot;type_parenthood&quot;,&quot;sPerson&quot;:&quot;single_person&quot;},&quot;sCondition&quot;:&quot;[sType] == 'adopter' &amp;&amp; [sPerson] == 'yes_1'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers6" name="Якщо особа не працює" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;doc_family&quot;,&quot;doc_fop&quot;,&quot;doc_ur&quot;,&quot;doc_together&quot;,&quot;doc_employment_history&quot;,&quot;doc_centre_job&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;employment&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'no_3'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers7" name="Якщо працевлаштована, але у відпустці" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_7&quot;:{&quot;aField_ID&quot;:[&quot;doc_medical_2&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;vacation&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_4'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers8" name="Якщо не має українського громаданятсва" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_8&quot;:{&quot;aField_ID&quot;:[&quot;doc_foreigner&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;nationality&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'not_ukraine'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers11" name="Якщо особа працює, але у відпустці" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;vacation&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;employment&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_3'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers12" name="Якщо отримували виплати раніше" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;doc_attestat&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;attestat&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_5'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers13" name="Якщо дитина перебуває на повному державному утриманні" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;doc_education&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;education&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_6'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="markers30" name="маркер Деснянський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_30&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='desn'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers22" name="маркер invalid" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_21&quot;:{&quot;aField_ID&quot;:[&quot;section_children&quot;,&quot;section_care&quot;,&quot;section_other&quot;], &quot;asID_Field_sValue&quot;:[&quot;children_empty&quot;,&quot;care_empty&quot;,&quot;other_empty&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sReason]=='invalid'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers23" name="маркер other" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_22&quot;:{&quot;aField_ID&quot;:[&quot;section_children&quot;,&quot;section_care&quot;,&quot;section_invalid&quot;], &quot;asID_Field_sValue&quot;:[&quot;children_empty&quot;,&quot;care_empty&quot;,&quot;invalid_empty&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sReason]=='other'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers24" name="маркер care" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_23&quot;:{&quot;aField_ID&quot;:[&quot;section_children&quot;,&quot;section_invalid&quot;,&quot;section_other&quot;], &quot;asID_Field_sValue&quot;:[&quot;children_empty&quot;,&quot;invalid_empty&quot;,&quot;other_empty&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sReason]=='care'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers25" name="маркер children" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_24&quot;:{&quot;aField_ID&quot;:[&quot;section_other&quot;,&quot;section_care&quot;,&quot;section_invalid&quot;], &quot;asID_Field_sValue&quot;:[&quot;other_empty&quot;,&quot;care_empty&quot;,&quot;invalid_empty&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sReason]=='children'&quot;}}}"></activiti:formProperty>
+      <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="usertask2" name="перевірка документів" activiti:candidateGroups="kiev_upzsn_socialhelp_${area}">
+      <extensionElements>
+        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="zayavka" name="Ви подаете цю заявку вперше?" type="enum" writable="false">
+          <activiti:value id="yes_20" name="так"></activiti:value>
+          <activiti:value id="no_20" name="заявка подається додатково до попередньої"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Адреса проживання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" writable="false">
+          <activiti:value id="desn" name="Деснянський"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="type_help" name="Оберіть тип допомоги" type="enum" writable="false">
+          <activiti:value id="one" name="інвалідам з дитинства I групи"></activiti:value>
+          <activiti:value id="two" name="інвалідам з дитинства II групи"></activiti:value>
+          <activiti:value id="three" name="інвалідам з дитинства III групи"></activiti:value>
+          <activiti:value id="do_18" name="на дітей-інвалідів віком до 18 років"></activiti:value>
+          <activiti:value id="one_a" name="на догляд за інвалідом з дитинства підгрупи А I групи"></activiti:value>
+          <activiti:value id="one_b" name="на догляд за інвалідом з дитинства підгрупи Б I групи"></activiti:value>
+          <activiti:value id="one_two" name="одиноким інвалідам з дитинства II і III груп, які за висновком ЛКК закладу охорони здоров’я потребують постійного стороннього догляду"></activiti:value>
+          <activiti:value id="do_6" name="догляд за дитиною-інвалідом віком до 6 років"></activiti:value>
+          <activiti:value id="vid_6_do_18" name="догляд за дитиною-інвалідом віком від 6 до 18 років"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="together" name="Чи проживаєте Ви разом з дитиною?" type="enum" writable="false">
+          <activiti:value id="yes" name="так"></activiti:value>
+          <activiti:value id="no" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="Customer_service" name="Оберіть категорію споживачів послуги" type="enum" writable="false">
+          <activiti:value id="invalid_1" name="Інвалід з дитинства І групи"></activiti:value>
+          <activiti:value id="invalid_23" name="Одинокий інвалід з дитинства II і III групи; які за висновком лікарсько-консультативної комісії лікувально-профілактичного закладу потребують постійного стороннього догляду"></activiti:value>
+          <activiti:value id="invalid_child" name="Дитина-інвалід"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="single_person" name="Чи маєте Ви статус одинокої особи?" type="enum" writable="false">
+          <activiti:value id="yes_1" name="так"></activiti:value>
+          <activiti:value id="no_1" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="type_parenthood" name="Ви є законним представником дитини-інваліда, оберіть відповідний Вам варіант" type="enum" writable="false">
+          <activiti:value id="parents" name="батько (мати)"></activiti:value>
+          <activiti:value id="adopter" name="усиновитель"></activiti:value>
+          <activiti:value id="guardians" name="опікун чи піклувальник (прийомні батьки, батьки-вихователі, патронатні вихователі)"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="employment" name="Ви працевлаштовані?" type="enum" writable="false">
+          <activiti:value id="no_3" name="не працюю - фактично здійснюю догляд за дитиною-інвалідом"></activiti:value>
+          <activiti:value id="yes_3" name="так - (працюю, навчаюсь, проходжу службу)"></activiti:value>
+          <activiti:value id="fop" name="я фізична особа-підприємець"></activiti:value>
+          <activiti:value id="centre_job" name="перебуваю на обліку у центрі зайнятості як безробітна особа"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="vacation" name="Чи перебуваєте на данний момент у довгостроковій відпустці?" type="enum" writable="false">
+          <activiti:value id="yes_4" name="так"></activiti:value>
+          <activiti:value id="no_4" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="nationality" name="Чи маєте Ви українське громадянство?" type="enum" writable="false">
+          <activiti:value id="ukraine" name="так"></activiti:value>
+          <activiti:value id="not_ukraine" name="ні"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="transfer_type" name="спосіб перерахування коштів" type="enum" writable="false">
+          <activiti:value id="post" name="через національного оператора поштового зв'язку"></activiti:value>
+          <activiti:value id="bank" name="на рахунок у банку"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="post_office" name="№ відділення поштового зв'язку (індекс)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bank_name" name="Назва банку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="mfo" name="МФО банку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="edrpou" name="ЄДРПОУ банку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bank_account" name="Номер рахунку (р/р)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="decision_1" name="Перевірка данних" type="enum" required="true">
+          <activiti:value id="accept" name="Заповнені дані вірні, інформація направлена на розгляд, очікується рішення"></activiti:value>
+          <activiti:value id="accept_but" name="Дані надані не в повному обсязі - направити громаднину повідомлення (обов'язково впишіть коментар нижче)"></activiti:value>
+          <activiti:value id="reject" name="Дані заповнені невірно, відхилити звернення (обов'язково впишіть коментар нижче)"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="comment_1" name="У разі відхилення запиту внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="sBody_2" name="[pattern/print/dnepr_soc_help_150_1_print.html]" type="invisible" default="інвалідам з дитинства I групи" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_3" name="[pattern/print/dnepr_soc_help_150_2_print.html]" type="invisible" default="інвалідам з дитинства II групи" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_4" name="[pattern/print/dnepr_soc_help_150_3_print.html]" type="invisible" default="інвалідам з дитинства III групи" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_5" name="[pattern/print/dnepr_soc_help_150_4_print.html]" type="invisible" default="на дітей-інвалідів віком до 18 років" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_6" name="[pattern/print/dnepr_soc_help_150_5_print.html]" type="invisible" default="на догляд за інвалідом з дитинства підгрупи А I групи" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_7" name="[pattern/print/dnepr_soc_help_150_6_print.html]" type="invisible" default="на догляд за інвалідом з дитинства підгрупи Б I групи" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_8" name="[pattern/print/dnepr_soc_help_150_7_print.html]" type="invisible" default="одиноким інвалідам з дитинства II і III груп" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_150_8_print.html]" type="invisible" default="догляд за дитиною-інвалідом віком до 6 років" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_soc_help_150_9_print.html]" type="invisible" default="догляд за дитиною-інвалідом віком від 6 до 18 років" writable="false"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${bankId_scan_passport}${scan_inn},${passport_inv},${doc_inv_location},${doc_education},${doc_attestat},${doc_other},${doc_foreigner},${doc_guardian},${doc_family},${doc_single_person},${doc_together},${doc_adopter},${doc_centre_job},${doc_employment_history},${doc_fop},${doc_ur},${doc_medical_2}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <userTask id="usertask1" name="прийняте рішення" activiti:candidateGroups="kiev_upzsn_socialhelp_${area}">
+      <extensionElements>
+        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="decision_2" name="повідомлення громадянина про прийняте рішення" type="enum" required="true">
+          <activiti:value id="accept" name="схвалено призначення надбавки"></activiti:value>
+          <activiti:value id="reject" name="відмовлено у призначенні надбавки"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="comment_2" name="У разі відмови внесіть, будь ласка, коментар" type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="rishen" name="Завантажте копію рішення" type="file" required="true"></activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <serviceTask id="servicetask5" name="Повідомлення співробітника соц.захисту" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Нове  звернення. Призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний колего!&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+У черзі на обробку зареєстровано нове звернення.&lt;br /&gt;
+Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
+Опрацюйте це звернення на &lt;a href="http://region.igov.org.ua"&gt;порталі&lt;/a&gt;&lt;br /&gt;
+[pattern/mail/_common_signature.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask6" name="повідомлення громадянина про успішне подання звернення" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: Призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+Ваше звернення щодо призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом передано на розгляд в управління праці та соціального захисту населення і буде опрацьовано протягом 10 робочих днів.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
+Ви отримаєте додаткове повідомлення за результатами розгляду зверення.&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
+[pattern/mail/_common_signature_start.html]
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
+[pattern/mail/_common_signature_end.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow35" sourceRef="servicetask1" targetRef="servicetask5"></sequenceFlow>
+    <serviceTask id="servicetask7" name="повідомлення громадянина про те що треба додати інформацію" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: Призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+Ваше звернення щодо призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом направлено на доопрацювання.&lt;br /&gt;
+Якщо Ви працевлаштоавані, але наразі перебуваеєте у довгостроковій відпустці - Вам впродовж 30 робочіх днів треба надати оригінал довідки лікарсько-консультативної комісії, в якій зазначено, що дитина-інвалід потребує домашнього догляду&lt;br /&gt;
+Оригінал довідки Ви можете надати до Вашого районного управління соціального захисту.&lt;br /&gt;
+Адреса: [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
+${comment_1}&lt;br /&gt;
+Якщо Вам треба додати документи, яких бракує у Вашому першому зверненні - заповніть заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
+[pattern/mail/_common_signature_start.html]
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern/mail/_common_signature_end.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask9" name="повідомлення громадянина про те що звернення відхилено" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: Призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+На жаль, Ваше звернення щодо призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
+${comment_1}&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;&lt;br /&gt;
+Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
+[pattern/mail/_common_signature_start.html]
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
+[pattern/mail/_common_signature_end.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask4" name="повідомлення громадянина про призначення допомоги" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: Призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${rishen}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+Ви отримали схвалення щодо свого звернення - призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом.&lt;br /&gt;
+&lt;br /&gt;
+Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
+[pattern/mail/_common_signature_start.html]
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
+[pattern/mail/_common_signature_end.html]
+[pattern/mail/_common_feedback.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="servicetask8" name="повідомлення громадянина про відмову у  призначенні допомоги" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: Призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+На жаль, Вам відмовлено у призначенні надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом.&lt;br /&gt;
+${comment_2}&lt;br /&gt;&lt;br /&gt;
+Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
+${comment_2}&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
+[pattern/mail/_common_signature_start.html]
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
+[pattern/mail/_common_signature_end.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${rishen}"</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow37" sourceRef="servicetask6" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow38" sourceRef="servicetask8" targetRef="endevent3"></sequenceFlow>
+    <sequenceFlow id="flow39" sourceRef="servicetask5" targetRef="usertask2"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
+    <sequenceFlow id="flow6" name="відмова" sourceRef="exclusivegateway1" targetRef="servicetask8">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='reject'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <sequenceFlow id="flow12" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow18" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <endEvent id="endevent2" name="End"></endEvent>
+    <sequenceFlow id="flow23" sourceRef="boundaryerror1" targetRef="endevent2"></sequenceFlow>
+    <endEvent id="endevent3" name="End"></endEvent>
+    <sequenceFlow id="flow26" sourceRef="servicetask4" targetRef="endevent3"></sequenceFlow>
+    <sequenceFlow id="flow29" name="треба ще документи" sourceRef="exclusivegateway2" targetRef="servicetask7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='accept_but'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow31" name="призначення допомоги" sourceRef="exclusivegateway1" targetRef="servicetask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_2=='accept'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow32" name="документи ок" sourceRef="exclusivegateway2" targetRef="servicetask6">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='accept'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow40" name="відхилення" sourceRef="exclusivegateway2" targetRef="servicetask9">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='reject'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow41" sourceRef="servicetask9" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow42" sourceRef="servicetask7" targetRef="usertask1"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_soc_help_175">
+    <bpmndi:BPMNPlane bpmnElement="kiev_soc_help_175" id="BPMNPlane_kiev_soc_help_175">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
+        <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="189.0" x="362.0" y="310.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
+        <omgdc:Bounds height="55.0" width="189.0" x="361.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
+        <omgdc:Bounds height="55.0" width="188.0" x="363.0" y="240.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask7" id="BPMNShape_servicetask7">
+        <omgdc:Bounds height="62.0" width="174.0" x="577.0" y="169.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask9" id="BPMNShape_servicetask9">
+        <omgdc:Bounds height="55.0" width="174.0" x="156.0" y="172.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
+        <omgdc:Bounds height="71.0" width="191.0" x="361.0" y="441.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask8" id="BPMNShape_servicetask8">
+        <omgdc:Bounds height="75.0" width="168.0" x="159.0" y="363.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
+        <omgdc:Bounds height="40.0" width="40.0" x="438.0" y="380.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="165.0" x="160.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="160.0" y="58.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="436.0" y="179.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
+        <omgdc:Bounds height="35.0" width="35.0" x="157.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="225.0" y="459.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="325.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="361.0" y="57.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="457.0" y="295.0"></omgdi:waypoint>
+        <omgdi:waypoint x="456.0" y="310.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="243.0" y="438.0"></omgdi:waypoint>
+        <omgdi:waypoint x="242.0" y="459.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
+        <omgdi:waypoint x="455.0" y="85.0"></omgdi:waypoint>
+        <omgdi:waypoint x="455.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="456.0" y="365.0"></omgdi:waypoint>
+        <omgdi:waypoint x="458.0" y="380.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow6" id="BPMNEdge_flow6">
+        <omgdi:waypoint x="438.0" y="400.0"></omgdi:waypoint>
+        <omgdi:waypoint x="327.0" y="400.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="42.0" x="337.0" y="380.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="135.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="57.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="455.0" y="165.0"></omgdi:waypoint>
+        <omgdi:waypoint x="456.0" y="179.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
+        <omgdi:waypoint x="175.0" y="88.0"></omgdi:waypoint>
+        <omgdi:waypoint x="174.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="361.0" y="476.0"></omgdi:waypoint>
+        <omgdi:waypoint x="260.0" y="476.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
+        <omgdi:waypoint x="476.0" y="199.0"></omgdi:waypoint>
+        <omgdi:waypoint x="577.0" y="200.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="494.0" y="179.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
+        <omgdi:waypoint x="458.0" y="420.0"></omgdi:waypoint>
+        <omgdi:waypoint x="456.0" y="441.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="42.0" width="100.0" x="479.0" y="399.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
+        <omgdi:waypoint x="456.0" y="219.0"></omgdi:waypoint>
+        <omgdi:waypoint x="457.0" y="240.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="69.0" x="377.0" y="225.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="436.0" y="199.0"></omgdi:waypoint>
+        <omgdi:waypoint x="330.0" y="199.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="57.0" x="337.0" y="179.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow41" id="BPMNEdge_flow41">
+        <omgdi:waypoint x="243.0" y="172.0"></omgdi:waypoint>
+        <omgdi:waypoint x="174.0" y="145.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow42" id="BPMNEdge_flow42">
+        <omgdi:waypoint x="664.0" y="231.0"></omgdi:waypoint>
+        <omgdi:waypoint x="663.0" y="337.0"></omgdi:waypoint>
+        <omgdi:waypoint x="551.0" y="337.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
