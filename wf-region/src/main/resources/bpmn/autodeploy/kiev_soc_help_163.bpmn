@@ -44,6 +44,7 @@
         <activiti:formProperty id="markers45" name="почта или банк" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;post_office&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'post'&quot;},&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;bank_name&quot;,&quot;mfo&quot;,&quot;edrpou&quot;,&quot;bank_account&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;transfer_type&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'bank'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="markers30" name="маркер Деснянський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_30&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='desn'&quot;}}}"></activiti:formProperty>
+      <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask2" name="перевірка документів" activiti:candidateGroups="kiev_upzsn_socialhelp_${area}">
@@ -138,9 +139,10 @@
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-Ваше звернення щодо призначення допомоги при усиновленні дитини передано на розгляд в управління праці та соціального захисту населення і буде опрацьовано протягом 10 робочих днів.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
-Ви отримаєте додаткове повідомлення за результатами розгляду зверення.&lt;br /&gt;
+Ваше звернення щодо призначення допомоги при усиновленні дитини передано на розгляд в управління праці та соціального захисту населення і буде опрацьовано протягом 10 робочих днів.&lt;br /&gt;&lt;br /&gt;
+Ви отримаєте додаткове повідомлення за результатами розгляду зверення.&lt;br /&gt;&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
@@ -164,12 +166,12 @@
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 Ваше звернення щодо призначення допомоги при усиновленні дитини направлено на доопрацювання.&lt;br /&gt;
-&lt;br /&gt;
 ${comment_1}&lt;br /&gt;
-[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;&lt;br /&gt;
 Якщо Вам треба додати документи, яких бракує у Вашому першому зверненні - заповніть заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -190,12 +192,12 @@ ${comment_1}&lt;br /&gt;
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 На жаль, Ваше звернення щодо призначення допомоги при усиновленні дитини відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
-&lt;br /&gt;
 ${comment_1}&lt;br /&gt;
-[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;&lt;br /&gt;
 Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -220,8 +222,9 @@ ${comment_1}&lt;br /&gt;
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 Ви отримали схвалення щодо свого звернення - призначення допомоги при усиновленні дитини.&lt;br /&gt;
 &lt;br /&gt;
-Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
+Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
@@ -244,10 +247,11 @@ ${comment_1}&lt;br /&gt;
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-На жаль, Вам відмовлено у призначенні допомоги при усиновленні дитини.&lt;br /&gt; ${comment_2}&lt;br /&gt;&lt;br /&gt;
-Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
+На жаль, Вам відмовлено у призначенні допомоги при усиновленні дитини.&lt;br /&gt;
 ${comment_2}&lt;br /&gt;
+Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;&lt;br /&gt;
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
