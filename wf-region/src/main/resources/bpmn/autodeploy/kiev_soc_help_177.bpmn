@@ -106,9 +106,9 @@
 enum{[content]} 
 &lt;br /&gt;
 Сканкопія довідки знаходиться у додатку до листа.&lt;br /&gt;
-Ви можете отримати оригінал довідки в [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2] за адресою: &lt;br /&gt;[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
-[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]
-&lt;br /&gt;
+Ви можете отримати оригінал довідки в [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2] за адресою: &lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
 [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
@@ -133,8 +133,7 @@ enum{[content]}
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
-                                    &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
-                                    &lt;p&gt;
+&lt;b&gt;Шановний(-а) колего!&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 У Вас в черзі на обробку зареєстровано нове звернення щодо видачі довідки:&lt;br /&gt;
 enum{[content]} &lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
