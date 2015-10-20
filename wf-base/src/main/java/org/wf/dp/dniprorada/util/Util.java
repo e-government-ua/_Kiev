@@ -26,6 +26,7 @@ import java.util.Collection;
 public final class Util {
 
     public static final String PATTERN_FILE_PATH_BEGIN = "../webapps/wf/WEB-INF/classes/pattern/";
+    public static final String MARKERS_MOTION_FILE_PATH_BEGIN = "../webapps/wf/WEB-INF/classes/bpmn/markers/motion/";
     public static final String PATTERN_DEFAULT_CONTENT_TYPE = "text/plain";
     private final static Logger log = LoggerFactory.getLogger(Util.class);
 
@@ -75,26 +76,30 @@ public final class Util {
     }
 
     public static byte[] getPatternFile(String sPathFile) throws IOException {
+        return getResourcesFile(PATTERN_FILE_PATH_BEGIN, sPathFile);
+    }
+    
+    public static byte[] getMarkersMotionJson(String sPathFile) throws IOException {
+        return getResourcesFile(MARKERS_MOTION_FILE_PATH_BEGIN, sPathFile);
+    }
+    
+    private static byte[] getResourcesFile(String sRootFolder, String sPathFile) throws IOException {
         if (sPathFile.contains("..")) {
             throw new IllegalArgumentException("incorrect sPathFile!");
         }
-        String fullFileName = PATTERN_FILE_PATH_BEGIN + sPathFile;
+        String fullFileName = sRootFolder + sPathFile;
         File file = new File(fullFileName);
         log.info("Loading pattern file:" + fullFileName);
         return Files.toByteArray(file);
     }
 
     public static String sData(byte[] a) {
-        // Charset.forName(DEFAULT_ENCODING)
-        // byte[] b = {(byte) 99, (byte)97, (byte)116};
         String s = "Not convertable!";
-        //log.info("[sData]:a.length=" + a.length + ",Arrays.toString(a)=" + Arrays.toString(a));
         try {
             s = new String(a, DEFAULT_ENCODING);
         } catch (Exception oException) {
             log.error("[sData]", oException);
         }
-        //log.info("[sData]:s=" + s);
         return s;
     }
 

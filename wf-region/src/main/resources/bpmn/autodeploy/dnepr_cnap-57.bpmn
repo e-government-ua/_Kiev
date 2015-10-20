@@ -78,7 +78,7 @@
       </extensionElements>
     </serviceTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="usertask4" name="Перевірка даних службою ФОП" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+    <userTask id="usertask4" name="Перевірка даних службою ФОП" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="Per2" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете сповістити заявника чи зареєстровано його декларацію. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -129,7 +129,7 @@
         <activiti:formProperty id="sBody_1" name="[pattern/print/dnepr_cnap_57f_print.html]" type="invisible" default="Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <userTask id="usertask1" name="Формування опису або відмова при неправильних документах Юр особа" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+    <userTask id="usertask1" name="Формування опису або відмова при неправильних документах Юр особа" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="per1" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете ознайомитись з поданими документами, прийняти попереднє рішення про те, чи достатньо їх для виконання запиту, роздрукувати заяву і всі додатки. Якщо перевірку пройдено, додайте файл з описом прийнятих документів, номером і датою прийняття. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -269,7 +269,7 @@ ${otkaz1} &lt;br&gt;
     </serviceTask>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow31" sourceRef="mailtask5" targetRef="exclusivegateway3"></sequenceFlow>
-    <userTask id="usertask2" name="Формування опису або відмова при неправильних документах ФОП" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+    <userTask id="usertask2" name="Формування опису або відмова при неправильних документах ФОП" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="per1" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете ознайомитись з поданими документами, прийняти попереднє рішення про те, чи достатньо їх для виконання запиту, роздрукувати заяву і всі додатки. Якщо перевірку пройдено, додайте файл з описом прийнятих документів, номером і датою прийняття. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -360,7 +360,7 @@ ${otkaz1} &lt;br&gt;
     <sequenceFlow id="flow35" sourceRef="exclusivegateway1" targetRef="servicetask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${proverka=='yes'&&client=='attr1'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask3" name="Перевірка даних службою юр. особа" activiti:candidateGroups="dnepr_cnap57_${vibor}">
+    <userTask id="usertask3" name="Перевірка даних службою юр. особа" activiti:candidateGroups="dnepr_cnap_${vibor}">
       <extensionElements>
         <activiti:formProperty id="Per2" name="На цьому етапі;натисніть &quot;взяти в роботу&quot;." type="label" default="Ви можете сповістити заявника чи оброблено його заяву. Після цього натисніть &quot;Опрацювати&quot;"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -487,12 +487,6 @@ ${otkaz1} &lt;br&gt;
     <textAnnotation id="textannotation4">
       <text>Гілка ФОП</text>
     </textAnnotation>
-    <textAnnotation id="textannotation5">
-      <text>В юзертасках 1,3,4,5
-поменять в мейнконфиге
-dnepr_cnap57_${vibor}
-на dnepr_cnap_${vibor}</text>
-    </textAnnotation>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap-57">
     <bpmndi:BPMNPlane bpmnElement="dnepr_cnap-57" id="BPMNPlane_dnepr_cnap-57">
@@ -555,9 +549,6 @@ dnepr_cnap57_${vibor}
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation4" id="BPMNShape_textannotation4">
         <omgdc:Bounds height="50.0" width="100.0" x="3.0" y="233.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation5" id="BPMNShape_textannotation5">
-        <omgdc:Bounds height="71.0" width="125.0" x="310.0" y="19.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow21" id="BPMNEdge_flow21">
         <omgdi:waypoint x="248.0" y="164.0"></omgdi:waypoint>
