@@ -28,11 +28,15 @@
         <activiti:formProperty id="vibor" name="Де ви бажаєте отримати оригінал довідки?" type="enum" required="true">
           <activiti:value id="lev" name="ЦНАП &quot;Лівобережний&quot; (м. Дніпропетровськ, пр. ім. газ. &quot;Правда&quot;, 42)"></activiti:value>
           <activiti:value id="prav" name="ЦНАП &quot;Правобережний&quot; (м. Дніпропетровськ, пр. К. Маркса, 75)"></activiti:value>
+          <!--<activiti:value id="vilnogirskT" name="ЦНАП Вільногірської міськради"></activiti:value>
+          <activiti:value id="marganT" name="ЦНАП Нікопольської міськради"></activiti:value>-->
         </activiti:formProperty>
         <activiti:formProperty id="region" name="Регион" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="clerkPost" name="Регион" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="marker23" name="Правобережний ЦНАП" type="markers" default="{&quot;motion&quot;: {&quot;ValuesFieldsOnCondition_23&quot;: {&quot;aField_ID&quot;:[&quot;region&quot;,&quot;clerkPost&quot;],&quot;asID_Field_sValue&quot;:[&quot;23&quot;, &quot;woobraja@mail.ru, 7751138@rambler.ru&quot;], &quot;asID_Field&quot;: {&quot;sReason&quot;:&quot;vibor&quot;}, &quot;sCondition&quot;:&quot;[sReason] == 'prav'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="marker24" name="Лівобережний ЦНАП" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_24&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;,&quot;clerkPost&quot;],&quot;asID_Field_sValue&quot;:[&quot;24&quot;,&quot;Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;vibor&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'lev'&quot;}}}"></activiti:formProperty>
+        <!--<activiti:formProperty id="marker25" name="Вільногірський ЦНАП" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_25&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;,&quot;clerkPost&quot;],&quot;asID_Field_sValue&quot;:[&quot;25&quot;,&quot;Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;vibor&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'vilnogirskT'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="marker30" name="Нікопольський ЦНАП" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_30&quot;:{&quot;aField_ID&quot;:[&quot;region&quot;,&quot;clerkPost&quot;],&quot;asID_Field_sValue&quot;:[&quot;30&quot;,&quot;Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;vibor&quot;},&quot;sCondition&quot;:&quot;[sReason] == 'marganT'&quot;}}}"></activiti:formProperty>-->
         <activiti:formProperty id="Date" name="Оберіть дату подання звернення" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви, відповідно до Закону України «Про захист персональних даних» від «01» червня 2010 року №2297-VI, надєте згоду КП «Ритуальна служба» Дніпропетровської міської ради на збір та використання інформації про Вас з обмеженим доступом з метою оброблення цієї Заяви в межах, необхідних для досягнення вказаної вище мети. Наведена вище інформація також може надаватись третім особам, безпосередньо задіяним в виконанні замовлення та наданні ритуальних послуг, а також в інших випадках, прямо передбачених законодавством. "></activiti:formProperty>
       </extensionElements>
@@ -88,7 +92,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
@@ -197,7 +201,7 @@
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
@@ -271,7 +275,7 @@ ${comPer1} &lt;br&gt;
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Лист-довідка на перевезення (перезахоронення) загиблого в зоні АТО]]></activiti:string>
@@ -359,7 +363,7 @@ ${comment} &lt;br&gt;
         <omgdc:Bounds height="55.0" width="105.0" x="370.0" y="224.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask8" id="BPMNShape_servicetask8">
-        <omgdc:Bounds height="56.0" width="105.0" x="580.0" y="100.0"></omgdc:Bounds>
+        <omgdc:Bounds height="56.0" width="105.0" x="581.0" y="106.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
         <omgdc:Bounds height="55.0" width="105.0" x="110.0" y="158.0"></omgdc:Bounds>
@@ -412,11 +416,11 @@ ${comment} &lt;br&gt;
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow32" id="BPMNEdge_flow32">
         <omgdi:waypoint x="554.0" y="172.0"></omgdi:waypoint>
-        <omgdi:waypoint x="632.0" y="156.0"></omgdi:waypoint>
+        <omgdi:waypoint x="581.0" y="134.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
-        <omgdi:waypoint x="685.0" y="128.0"></omgdi:waypoint>
-        <omgdi:waypoint x="712.0" y="145.0"></omgdi:waypoint>
+        <omgdi:waypoint x="686.0" y="134.0"></omgdi:waypoint>
+        <omgdi:waypoint x="695.0" y="162.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
         <omgdi:waypoint x="77.0" y="185.0"></omgdi:waypoint>

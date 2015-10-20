@@ -22,19 +22,19 @@ angular.module('app')
           var placeData = PlacesService.getPlaceData();
           // console.log('recall place data: ', placeData.region, placeData.city.sName);
 
-          var regions = PlacesService.getRegionsForService(ServiceService.oService);
-          var initialRegion = serviceLocationParser.getSelectedRegion(regions);
+          // відновити дані про вибрану область за URL:
+          var initialRegionFromUrl = serviceLocationParser.getSelectedRegion($scope.regions);
 
           if ($scope.regionList) {
-            $scope.regionList.select(initialRegion || placeData.region);
+            $scope.regionList.select(initialRegionFromUrl || placeData.region);
           }
           if ($scope.localityList) {
             $scope.localityList.select(placeData.city);
           }
-          if (initialRegion) {
+          if (initialRegionFromUrl) {
             // TODO debug it
-            // console.log('initialRegion: ', initialRegion);
-            $scope.onSelectRegionList(initialRegion);
+            console.log('initialRegionFromUrl: ', initialRegionFromUrl);
+            $scope.onSelectRegionList(initialRegionFromUrl);
           }
         };
 
@@ -124,15 +124,13 @@ angular.module('app')
           }
           // сервіс недоступний у вибраних області та місті, але доступний у якомусь місті:
           // Приклад: /service/159/general, Дніпропетровська > Апостолове, має бути "bIsComplete"
-          if (regionIsChosen && cityIsChosen && sa.someCity ) {
-           bIsComplete = true; 
+          if (regionIsChosen && cityIsChosen && sa.someCity) {
+            bIsComplete = true;
           }
 
-          // для тестування:
-          // service/17/general
-          // наявність обласної послуги не має блокувати можливість розміщення там же і міської послуги (issues/443)
-          // Правильно: вибрати "Миколіївську", а потім мати можливість вибрати "Миколаїв"
-
+          // Для тестування: service/17/general
+          // Наявність обласної послуги не має блокувати можливість розміщення там же і міської послуги (issues/443)
+          // Правильно: вибрати "Миколаївську", а потім мати можливість вибрати "Миколаїв"
           // TODO: передбачити можливість вибору тільки міста, якщо його назва є унікальною — тобто воно належить тільки одній області, і її можна взнати автоматично.
 
           return bIsComplete;
@@ -141,11 +139,9 @@ angular.module('app')
         $scope.editPlace = function() {
           $scope.resetPlaceData();
 
-          var regions = PlacesService.getRegionsForService(ServiceService.oService);
-
           $scope.regionList.reset();
           $scope.regionList.select(null);
-          $scope.regionList.initialize(regions);
+          $scope.regionList.initialize($scope.regions);
 
           $scope.localityList.reset();
           $scope.localityList.select(null);
@@ -193,7 +189,6 @@ angular.module('app')
 
         $scope.initPlaceControls = function() {
 
-          var regions = $scope.regions;
           var placeData = PlacesService.getPlaceData();
 
           $scope.stepNumber = 1;
@@ -212,11 +207,11 @@ angular.module('app')
 
           $scope.regionList.initialize($scope.regions);
 
-          var bIsComplete = $scope.placeControlIsComplete();
-
           // console.log('initPlaceControls $scope.regions.length = ', $scope.regions.length, '$scope.region:', $scope.region, '$scope.city:', $scope.city, ' $scope.data:', $scope.data, 'bIsComplete:', bIsComplete);
 
           $scope.recallPlaceData();
+
+          var bIsComplete = $scope.placeControlIsComplete();
 
           // Якщо форма вже заповнена після відновлення даних з localStorage, то перейти до наступного кроку:
           if (bIsComplete) {
@@ -239,9 +234,11 @@ angular.module('app')
           if (serviceType !== 1 && serviceType !== 4) {
             $scope.localityList.load(ServiceService.oService, $item.nID, null).then(function(cities) {
               $scope.localityList.typeahead.defaultList = cities;
-              var initialCity = serviceLocationParser.getSelectedCity(cities);
-              if (initialCity) {
-                $scope.onSelectLocalityList(initialCity);
+              var initialCityFromUrl = serviceLocationParser.getSelectedCity(cities);
+              if (initialCityFromUrl) {
+                console.log('initial city from url: ', initialCityFromUrl);
+                $scope.localityList.select(initialCityFromUrl);
+                $scope.onSelectLocalityList(initialCityFromUrl);
               }
             });
           } else {
