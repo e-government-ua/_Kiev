@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="kiev_soc_help_177" name="Київ - Видача довідкок про отримання/неотримання усіх видів державних соціальних допомог" isExecutable="true">
+    <documentation>https://github.com/e-government-ua/iBP/issues/177</documentation>
+    <startEvent id="startevent1" name="Start">
+      <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="long"></activiti:formProperty>
+        <activiti:formProperty id="bankId_scan_passport" name="Сканований паспорт громадянина; заповнювати не треба - він завантажується автоматично" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" required="true">
+          <activiti:value id="desn" name="Деснянський"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="content" name="Оберіть тип допомоги" type="enum" required="true">
+          <activiti:value id="invalid_child" name="призначення допомоги інвалідам з дитинства та дітям-інвалідам"></activiti:value>
+          <activiti:value id="invalid_not_pension" name="призначення допомоги особам, які не мають права на пенсію, та інвалідам"></activiti:value>
+          <activiti:value id="children_pregnancy" name="призначення допомоги у зв’язку з вагітністю та пологами"></activiti:value>
+          <activiti:value id="children_born" name="призначення допомоги при народженні дитини"></activiti:value>
+          <activiti:value id="children_adoption" name="призначення допомоги при усиновленні дитини"></activiti:value>
+          <activiti:value id="children_single_mother" name="призначення допомоги на дітей одиноким матерям"></activiti:value>
+          <activiti:value id="children_adoption_1" name="призначення допомоги на дітей, які перебувають під опікою чи піклуванням"></activiti:value>
+          <activiti:value id="children_bad_parents" name="призначення тимчасової допомоги дітям, батьки яких ухиляються від сплати аліментів"></activiti:value>
+          <activiti:value id="care_soc" name="призначення компенсації фізичним особам, які надають соціальні послуги"></activiti:value>
+          <activiti:value id="care_invalid" name="призначення надбавки на догляд за інвалідом з дитинства та за дитиною-інвалідом"></activiti:value>
+          <activiti:value id="care_psycho" name="призначення допомоги малозабезпеченій особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу"></activiti:value>
+          <activiti:value id="care_old_human" name="призначення компенсації по догляду за інвалідом I гр., престарілим старше 80 років"></activiti:value>
+          <activiti:value id="children_mother_hero" name="надання допомоги «Матерям-героїням»"></activiti:value>
+          <activiti:value id="other_poor" name="призначення допомоги малозабезпеченим сім'ям"></activiti:value>
+          <activiti:value id="other_funeral" name="призначення допомоги на поховання"></activiti:value>
+          <activiti:value id="children_orphan" name="призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування"></activiti:value>
+          <activiti:value id="energy_3" name="призначення субсидії для відшкодування витрат на оплату житлово-комунальних послуг, придбання скрапленого газу, твердого пічного побутового палива"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="markers30" name="маркер Деснянський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_30&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='desn'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+      </extensionElements>
+    </startEvent>
+    <userTask id="usertask1" name="опрацювання звернення" activiti:candidateGroups="kiev_upzsn_socialhelp_${area}">
+      <extensionElements>
+        <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="ІПН" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress1" name="Адреса реєстрації" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress2" name="Адреса проживання" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="area" name="Оберіть районний орган соціального захисту населення, до якого Ви відноситесь" type="enum" writable="false">
+          <activiti:value id="desn" name="Деснянський"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="content" name="Оберіть тип довідки" type="enum" writable="false">
+          <activiti:value id="invalid_child" name="призначення допомоги інвалідам з дитинства та дітям-інвалідам"></activiti:value>
+          <activiti:value id="invalid_not_pension" name="призначення допомоги особам, які не мають права на пенсію, та інвалідам"></activiti:value>
+          <activiti:value id="children_pregnancy" name="призначення допомоги у зв’язку з вагітністю та пологами"></activiti:value>
+          <activiti:value id="children_born" name="призначення допомоги при народженні дитини"></activiti:value>
+          <activiti:value id="children_adoption" name="призначення допомоги при усиновленні дитини"></activiti:value>
+          <activiti:value id="children_single_mother" name="призначення допомоги на дітей одиноким матерям"></activiti:value>
+          <activiti:value id="children_adoption_1" name="призначення допомоги на дітей, які перебувають під опікою чи піклуванням"></activiti:value>
+          <activiti:value id="children_bad_parents" name="призначення тимчасової допомоги дітям, батьки яких ухиляються від сплати аліментів"></activiti:value>
+          <activiti:value id="care_soc" name="призначення компенсації фізичним особам, які надають соціальні послуги"></activiti:value>
+          <activiti:value id="care_invalid" name="призначення надбавки на догляд за інвалідом з дитинства та за дитиною-інвалідом"></activiti:value>
+          <activiti:value id="care_psycho" name="призначення допомоги малозабезпеченій особі, яка проживає разом з інвалідом I чи II групи внаслідок психічного розладу"></activiti:value>
+          <activiti:value id="care_old_human" name="призначення компенсації по догляду за інвалідом I гр., престарілим старше 80 років"></activiti:value>
+          <activiti:value id="children_mother_hero" name="надання допомоги «Матерям-героїням»"></activiti:value>
+          <activiti:value id="other_poor" name="призначення допомоги малозабезпеченим сім'ям"></activiti:value>
+          <activiti:value id="other_funeral" name="призначення допомоги на поховання"></activiti:value>
+          <activiti:value id="children_orphan" name="призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування"></activiti:value>
+          <activiti:value id="energy_3" name="призначення субсидії для відшкодування витрат на оплату житлово-комунальних послуг, придбання скрапленого газу, твердого пічного побутового палива"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="rishen" name="Завантажте відскановану довідку" type="file" required="true"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${bankId_scan_passport}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
+      </extensionElements>
+    </userTask>
+    <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <sequenceFlow id="flow12" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask1">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <serviceTask id="servicetask4" name="повідомлення громадянина про готовність довідки" activiti:delegateExpression="#{MailTaskWithAttachments}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: Видача довідкок про отримання/неотримання усіх видів державних соціальних допомог]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>"${rishen}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+Ви подавали звернення щодо отримання довідки:&lt;br /&gt;
+enum{[content]} 
+&lt;br /&gt;
+Сканкопія довідки знаходиться у додатку до листа.&lt;br /&gt;
+Ви можете отримати оригінал довідки в [pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2] за адресою: &lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
+[pattern/mail/_common_signature_start.html]
+[pattern_dictonary:kiev_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
+[pattern/mail/_common_signature_end.html]
+[pattern/mail/_common_feedback.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <endEvent id="endevent3" name="End"></endEvent>
+    <sequenceFlow id="flow26" sourceRef="servicetask4" targetRef="endevent3"></sequenceFlow>
+    <sequenceFlow id="flow33" sourceRef="boundaryerror1" targetRef="endevent3"></sequenceFlow>
+    <serviceTask id="servicetask5" name="Повідомлення співробітника соц.захисту" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Нове  звернення. Видача довідкок про отримання/неотримання усіх видів державних соціальних допомог]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний(-а) колего!&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо видачі довідки:&lt;br /&gt;
+enum{[content]} &lt;br /&gt;
+Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
+Опрацюйте це звернення на &lt;a href="https://region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
+[pattern/mail/_common_signature.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow36" sourceRef="servicetask1" targetRef="servicetask5"></sequenceFlow>
+    <sequenceFlow id="flow37" sourceRef="servicetask5" targetRef="usertask1"></sequenceFlow>
+    <sequenceFlow id="flow38" sourceRef="usertask1" targetRef="servicetask4"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_soc_help_177">
+    <bpmndi:BPMNPlane bpmnElement="kiev_soc_help_177" id="BPMNPlane_kiev_soc_help_177">
+      <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="40.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="55.0" width="189.0" x="360.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="55.0" width="165.0" x="160.0" y="30.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="160.0" y="58.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
+        <omgdc:Bounds height="55.0" width="165.0" x="160.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
+        <omgdc:Bounds height="61.0" width="190.0" x="360.0" y="27.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
+        <omgdi:waypoint x="135.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="160.0" y="57.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow26" id="BPMNEdge_flow26">
+        <omgdi:waypoint x="160.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="135.0" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow33" id="BPMNEdge_flow33">
+        <omgdi:waypoint x="175.0" y="88.0"></omgdi:waypoint>
+        <omgdi:waypoint x="117.0" y="100.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow36" id="BPMNEdge_flow36">
+        <omgdi:waypoint x="325.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="57.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="455.0" y="88.0"></omgdi:waypoint>
+        <omgdi:waypoint x="454.0" y="110.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="360.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="325.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
