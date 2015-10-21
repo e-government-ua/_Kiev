@@ -12,8 +12,19 @@ angular.module('order').config(function ($stateProvider, statesRepositoryProvide
         }
       })
       .state('index.order.search', {
-        url: '/search',
+        url: '/search?nID&sToken',
         parent: 'index.order',
+        resolve: {
+          order: function($q, $stateParams, ServiceService) {
+            if($stateParams.nID) {
+              return ServiceService.searchOrder($stateParams.nID);
+            };
+            
+            var deffered = $q.defer();
+            deffered.resolve(null);
+            return deffered.promise;
+          }
+        },
         views: {
           'content': {
             templateUrl: 'app/order/search.html',

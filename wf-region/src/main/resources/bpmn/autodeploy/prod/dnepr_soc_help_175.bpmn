@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_soc_help_175" name="Дніпропетровськ - Призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом" isExecutable="true">
+  <process id="dnepr_soc_help_175" name="Дніпропетровська обл. - Призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом" isExecutable="true">
     <documentation>https://github.com/e-government-ua/iBP/issues/175</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -19,17 +19,59 @@
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
-          <activiti:value id="and" name="Амур-Нижньодніпровський"></activiti:value>
-          <activiti:value id="babush" name="Бабушкінський"></activiti:value>
-          <activiti:value id="zhovt" name="Жовтневий"></activiti:value>
-          <activiti:value id="indust" name="Індустріальний"></activiti:value>
-          <activiti:value id="kirov" name="Кіровський"></activiti:value>
-          <activiti:value id="krasn" name="Красногвардійський"></activiti:value>
-          <activiti:value id="lenin" name="Ленінський"></activiti:value>
-          <activiti:value id="samar" name="Самарський"></activiti:value>
+        <activiti:formProperty id="area" name="Оберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
+          <activiti:value id="and" name="АНД, вул. Радістів, 8"></activiti:value>
+          <activiti:value id="babush" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
+          <activiti:value id="zhovt" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
+          <activiti:value id="indust" name="Індустріальний, вул. Косіора, 55"></activiti:value>
+          <activiti:value id="kirov" name="Кіровський, вул. Свердлова, 30/32"></activiti:value>
+          <activiti:value id="krasn" name="Красногвардійський, вул. Уральська, 5"></activiti:value>
+          <activiti:value id="lenin" name="Ленінський, вул. Трудова, 1а"></activiti:value>
+          <activiti:value id="samar" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
+          <activiti:value id="bagley" name="Баглійський, м.Дніпроджержинськ"></activiti:value>
+          <activiti:value id="dnipro" name="Дніпровський, м.Дніпроджержинськ"></activiti:value>
+          <activiti:value id="zavod" name="Заводський, м.Дніпроджержинськ"></activiti:value>
+          <activiti:value id="dzer" name="Дзержинський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="zhovtkr" name="Жовтневий, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="ingul" name="Інгулецький, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="saksagan" name="Саксаганський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="tern" name="Тернівський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="centralcity" name="Центрально-Міський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="dovgin" name="Довгинцівський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="vilnogirsk" name="м.Вільногірськ"></activiti:value>
+          <activiti:value id="zhovtivodi" name="м.Жовті Води"></activiti:value>
+          <activiti:value id="margan" name="м.Марганець"></activiti:value>
+          <activiti:value id="nikopol" name="м.Нікополь"></activiti:value>
+          <activiti:value id="novik" name="м.Новомосковськ"></activiti:value>
+          <activiti:value id="pavlik" name="м.Павлоград"></activiti:value>
+          <activiti:value id="pershotrav" name="м.Першотравенськ"></activiti:value>
+          <activiti:value id="orzho" name="м.Орджонікідзе"></activiti:value>
+          <activiti:value id="sinel" name="м.Синельникове"></activiti:value>
+          <activiti:value id="ternivka" name="м.Тернівка"></activiti:value>
+          <activiti:value id="apostol" name="Апостолівський район"></activiti:value>
+          <activiti:value id="vasil" name="Васильківський район"></activiti:value>
+          <activiti:value id="verhnednepr" name="Верхньодніпровський район"></activiti:value>
+          <activiti:value id="dnipropetrovskij" name="Дніпропетровський район"></activiti:value>
+          <activiti:value id="krivojrog" name="Криворізький район"></activiti:value>
+          <activiti:value id="krinich" name="Криничанський район"></activiti:value>
+          <activiti:value id="magdalin" name="Магдалинівський район"></activiti:value>
+          <activiti:value id="mezhivskij" name="Меживський район"></activiti:value>
+          <activiti:value id="nikopolskij" name="Нікопольський район"></activiti:value>
+          <activiti:value id="novomoskovskij" name="Новомосковський район"></activiti:value>
+          <activiti:value id="pavlogradskij" name="Павлоградський район"></activiti:value>
+          <activiti:value id="petropavlivskij" name="Петропавлівський район"></activiti:value>
+          <activiti:value id="petrikivskij" name="Петриківський район"></activiti:value>
+          <activiti:value id="pokrovskij" name="Покровський район"></activiti:value>
+          <activiti:value id="5huts" name="П'ятихатський район"></activiti:value>
+          <activiti:value id="sinelnikovskij" name="Синельниковський район"></activiti:value>
+          <activiti:value id="solonyanskij" name="Солонянський район"></activiti:value>
+          <activiti:value id="sofiivskij" name="Софіївський район"></activiti:value>
+          <activiti:value id="tomakivskij" name="Томаківський район"></activiti:value>
+          <activiti:value id="carichanskij" name="Царичанський район"></activiti:value>
+          <activiti:value id="shirokivskij" name="Широківський район"></activiti:value>
+          <activiti:value id="jurivskij" name="Юр'ївський район"></activiti:value>
         </activiti:formProperty>
-         <activiti:formProperty id="type_help" name="Оберіть тип допомоги" type="enum" required="true">
+        <activiti:formProperty id="type_help" name="Оберіть тип допомоги" type="enum" required="true">
           <activiti:value id="one" name="інвалідам з дитинства I групи"></activiti:value>
           <activiti:value id="two" name="інвалідам з дитинства II групи"></activiti:value>
           <activiti:value id="three" name="інвалідам з дитинства III групи"></activiti:value>
@@ -50,7 +92,7 @@
           <activiti:value id="invalid_child" name="Дитина-інвалід"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="single_person" name="Чи маєте Ви статус одинокої особи?" type="enum" required="true">
-         <activiti:value id="yes_1" name="так"></activiti:value>
+          <activiti:value id="yes_1" name="так"></activiti:value>
           <activiti:value id="no_1" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="type_parenthood" name="Ким Ви доводитесь дитині?" type="enum" required="true">
@@ -119,18 +161,56 @@
         <activiti:formProperty id="markers12" name="Якщо отримували виплати раніше" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;doc_attestat&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;attestat&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_5'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers13" name="Якщо дитина перебуває на повному державному утриманні" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;doc_education&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;education&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'yes_6'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
-        <activiti:formProperty id="markers14" name="маркер Амур-Нижньодніпровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_14&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='and'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers15" name="маркер Бабушкінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_15&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;2&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='babush'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers16" name="маркер Жовтневий району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_16&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;3&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='zhovt'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers17" name="маркер Індустріальний району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_17&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;4&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='indust'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers18" name="маркер Кіровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_18&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;5&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='kirov'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers19" name="маркер Красногвардійський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;6&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krasn'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers20" name="маркер Ленінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_19&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;7&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='lenin'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers21" name="маркер Самарський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_20&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;8&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='samar'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers22" name="маркер invalid" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_21&quot;:{&quot;aField_ID&quot;:[&quot;section_children&quot;,&quot;section_care&quot;,&quot;section_other&quot;], &quot;asID_Field_sValue&quot;:[&quot;children_empty&quot;,&quot;care_empty&quot;,&quot;other_empty&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sReason]=='invalid'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers23" name="маркер other" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_22&quot;:{&quot;aField_ID&quot;:[&quot;section_children&quot;,&quot;section_care&quot;,&quot;section_invalid&quot;], &quot;asID_Field_sValue&quot;:[&quot;children_empty&quot;,&quot;care_empty&quot;,&quot;invalid_empty&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sReason]=='other'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers24" name="маркер care" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_23&quot;:{&quot;aField_ID&quot;:[&quot;section_children&quot;,&quot;section_invalid&quot;,&quot;section_other&quot;], &quot;asID_Field_sValue&quot;:[&quot;children_empty&quot;,&quot;invalid_empty&quot;,&quot;other_empty&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sReason]=='care'&quot;}}}"></activiti:formProperty>
-        <activiti:formProperty id="markers25" name="маркер children" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_24&quot;:{&quot;aField_ID&quot;:[&quot;section_other&quot;,&quot;section_care&quot;,&quot;section_invalid&quot;], &quot;asID_Field_sValue&quot;:[&quot;other_empty&quot;,&quot;care_empty&quot;,&quot;invalid_empty&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;content&quot;},&quot;sCondition&quot;:&quot;[sReason]=='children'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers30" name="маркер Амур-Нижньодніпровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_30&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='and'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers31" name="маркер Бабушкінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_31&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;2&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='babush'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers32" name="маркер Жовтневий району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_32&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;3&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='zhovt'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers33" name="маркер Індустріальний району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_33&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;4&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='indust'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers34" name="маркер Кіровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_34&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;5&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='kirov'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers35" name="маркер Красногвардійський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_35&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;6&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krasn'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers36" name="маркер Ленінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_36&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;7&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='lenin'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers37" name="маркер Самарський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_37&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;8&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='samar'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers38" name="маркер Баглійський, м.Дніпроджержинськ" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_38&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;9&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='bagley'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers39" name="маркер Дніпровський, м.Дніпроджержинськ" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_39&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;10&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='dnipro'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers40" name="маркер Заводський, м.Дніпроджержинськ" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_40&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;11&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='zavod'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers41" name="маркер Дзержинський, м.Кривий Ріг" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_41&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;12&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='dzer'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers42" name="маркер Жовтневий, м.Кривий Ріг" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_42&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;13&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='zhovtkr'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers43" name="маркер Інгулецький, м.Кривий Ріг" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_43&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;14&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='ingul'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers44" name="маркер Саксаганський, м.Кривий Ріг" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_44&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;15&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='saksagan'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers455" name="маркер Тернівський, м.Кривий Ріг" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_455&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;16&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='tern'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers46" name="маркер Центрально-Міський, м.Кривий Ріг" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_46&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;17&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='centralcity'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers47" name="маркер Довгинцівський, м.Кривий Ріг" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_47&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;18&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='dovgin'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers48" name="маркер м.Вільногірськ" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_48&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;19&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='vilnogirsk'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers49" name="маркер м.Жовті Води" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_49&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;20&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='zhovtivodi'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers50" name="маркер м.Марганець" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_50&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;21&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='margan'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers51" name="маркер м.Нікополь" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_51&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;22&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='nikopol'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers52" name="маркер м.Новомосковськ" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_52&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;23&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='novik'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers53" name="маркер м.Павлоград" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_53&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;24&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='pavlik'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers54" name="маркер м.Першотравенськ" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_54&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;25&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='pershotrav'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers55" name="маркер м.Орджонікідзе" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_55&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;26&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='orzho'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers56" name="маркер м.Синельникове" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_56&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;27&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='sinel'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers57" name="маркер м.Тернівка" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_57&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;28&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='ternivka'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers58" name="маркер Апостолівський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_58&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;29&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='apostol'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers59" name="маркер Васильківський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_59&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;30&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='vasil'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers60" name="маркер Верхньодніпровський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_60&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;31&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='verhnednepr'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers61" name="маркер Дніпропетровський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_61&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;32&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='dnipropetrovskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers62" name="маркер Криворізький район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_62&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;33&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krivojrog'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers63" name="маркер Криничанський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_63&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;34&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krinich'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers64" name="маркер Магдалинівський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_64&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;35&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='magdalin'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers65" name="маркер Меживський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_65&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;36&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='mezhivskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers66" name="маркер Нікопольський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_66&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;37&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='nikopolskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers67" name="маркер Новомосковський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_67&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;38&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='novomoskovskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers68" name="маркер Павлоградський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_68&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;39&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='pavlogradskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers69" name="маркер Петропавлівський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_69&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;40&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='petropavlivskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers70" name="маркер Петриківський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_70&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;41&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='petrikivskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers71" name="маркер Покровський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_71&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;42&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='pokrovskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers72" name="маркер П'ятихатський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_72&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;43&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='5huts'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers73" name="маркер Синельниковський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_73&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;44&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='sinelnikovskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers74" name="маркер Солонянський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_74&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;45&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='solonyanskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers75" name="маркер Софіївський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_75&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;46&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='sofiivskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers76" name="маркер Томаківський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_76&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;47&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='tomakivskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers77" name="маркер Царичанський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_77&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;48&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='carichanskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers78" name="маркер Широківський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_78&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;49&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='shirokivskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers79" name="маркер Юр'ївський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_79&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;50&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='jurivskij'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask2" name="перевірка документів" activiti:candidateGroups="dnepr_upzsn_socialhelp_${area}">
@@ -147,15 +227,57 @@
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="area" name="Виберіть район, в якому ви обслуговуєтесь" type="enum" writable="false">
-          <activiti:value id="and" name="Амур-Нижньодніпровський"></activiti:value>
-          <activiti:value id="babush" name="Бабушкінський"></activiti:value>
-          <activiti:value id="zhovt" name="Жовтневий"></activiti:value>
-          <activiti:value id="indust" name="Індустріальний"></activiti:value>
-          <activiti:value id="kirov" name="Кіровський"></activiti:value>
-          <activiti:value id="krasn" name="Красногвардійський"></activiti:value>
-          <activiti:value id="lenin" name="Ленінський"></activiti:value>
-          <activiti:value id="samar" name="Самарський"></activiti:value>
+        <activiti:formProperty id="area" name="Районний орган соціального захисту населення" type="enum" writable="false">
+          <activiti:value id="and" name="АНД, вул. Радістів, 8"></activiti:value>
+          <activiti:value id="babush" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
+          <activiti:value id="zhovt" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
+          <activiti:value id="indust" name="Індустріальний, вул. Косіора, 55"></activiti:value>
+          <activiti:value id="kirov" name="Кіровський, вул. Свердлова, 30/32"></activiti:value>
+          <activiti:value id="krasn" name="Красногвардійський, вул. Уральська, 5"></activiti:value>
+          <activiti:value id="lenin" name="Ленінський, вул. Трудова, 1а"></activiti:value>
+          <activiti:value id="samar" name="Самарський, вул. 20-річчя Перемоги, 51"></activiti:value>
+          <activiti:value id="bagley" name="Баглійський, м.Дніпроджержинськ"></activiti:value>
+          <activiti:value id="dnipro" name="Дніпровський, м.Дніпроджержинськ"></activiti:value>
+          <activiti:value id="zavod" name="Заводський, м.Дніпроджержинськ"></activiti:value>
+          <activiti:value id="dzer" name="Дзержинський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="zhovtkr" name="Жовтневий, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="ingul" name="Інгулецький, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="saksagan" name="Саксаганський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="tern" name="Тернівський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="centralcity" name="Центрально-Міський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="dovgin" name="Довгинцівський, м.Кривий Ріг"></activiti:value>
+          <activiti:value id="vilnogirsk" name="м.Вільногірськ"></activiti:value>
+          <activiti:value id="zhovtivodi" name="м.Жовті Води"></activiti:value>
+          <activiti:value id="margan" name="м.Марганець"></activiti:value>
+          <activiti:value id="nikopol" name="м.Нікополь"></activiti:value>
+          <activiti:value id="novik" name="м.Новомосковськ"></activiti:value>
+          <activiti:value id="pavlik" name="м.Павлоград"></activiti:value>
+          <activiti:value id="pershotrav" name="м.Першотравенськ"></activiti:value>
+          <activiti:value id="orzho" name="м.Орджонікідзе"></activiti:value>
+          <activiti:value id="sinel" name="м.Синельникове"></activiti:value>
+          <activiti:value id="ternivka" name="м.Тернівка"></activiti:value>
+          <activiti:value id="apostol" name="Апостолівський район"></activiti:value>
+          <activiti:value id="vasil" name="Васильківський район"></activiti:value>
+          <activiti:value id="verhnednepr" name="Верхньодніпровський район"></activiti:value>
+          <activiti:value id="dnipropetrovskij" name="Дніпропетровський район"></activiti:value>
+          <activiti:value id="krivojrog" name="Криворізький район"></activiti:value>
+          <activiti:value id="krinich" name="Криничанський район"></activiti:value>
+          <activiti:value id="magdalin" name="Магдалинівський район"></activiti:value>
+          <activiti:value id="mezhivskij" name="Меживський район"></activiti:value>
+          <activiti:value id="nikopolskij" name="Нікопольський район"></activiti:value>
+          <activiti:value id="novomoskovskij" name="Новомосковський район"></activiti:value>
+          <activiti:value id="pavlogradskij" name="Павлоградський район"></activiti:value>
+          <activiti:value id="petropavlivskij" name="Петропавлівський район"></activiti:value>
+          <activiti:value id="petrikivskij" name="Петриківський район"></activiti:value>
+          <activiti:value id="pokrovskij" name="Покровський район"></activiti:value>
+          <activiti:value id="5huts" name="П'ятихатський район"></activiti:value>
+          <activiti:value id="sinelnikovskij" name="Синельниковський район"></activiti:value>
+          <activiti:value id="solonyanskij" name="Солонянський район"></activiti:value>
+          <activiti:value id="sofiivskij" name="Софіївський район"></activiti:value>
+          <activiti:value id="tomakivskij" name="Томаківський район"></activiti:value>
+          <activiti:value id="carichanskij" name="Царичанський район"></activiti:value>
+          <activiti:value id="shirokivskij" name="Широківський район"></activiti:value>
+          <activiti:value id="jurivskij" name="Юр'ївський район"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="type_help" name="Оберіть тип допомоги" type="enum" writable="false">
           <activiti:value id="one" name="інвалідам з дитинства I групи"></activiti:value>
@@ -179,7 +301,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="single_person" name="Чи маєте Ви статус одинокої особи?" type="enum" writable="false">
           <activiti:value id="yes_1" name="так"></activiti:value>
-           <activiti:value id="no_1" name="ні"></activiti:value>
+          <activiti:value id="no_1" name="ні"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="type_parenthood" name="Ви є законним представником дитини-інваліда, оберіть відповідний Вам варіант" type="enum" writable="false">
           <activiti:value id="parents" name="батько (мати)"></activiti:value>
@@ -255,7 +377,13 @@
           <activiti:string><![CDATA[Нове  звернення. Призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний колего!&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+У черзі на обробку зареєстровано нове звернення.&lt;br /&gt;
+Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
+Опрацюйте це звернення на &lt;a href="http://region.igov.org.ua"&gt;порталі&lt;/a&gt;&lt;br /&gt;
+[pattern/mail/_common_signature.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -275,8 +403,9 @@
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 Ваше звернення щодо призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом передано на розгляд в управління праці та соціального захисту населення і буде опрацьовано протягом 10 робочих днів.&lt;/h3&gt;&lt;br /&gt;&lt;br /&gt;
 Ви отримаєте додаткове повідомлення за результатами розгляду зверення.&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -298,16 +427,14 @@
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 Ваше звернення щодо призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом направлено на доопрацювання.&lt;br /&gt;
-Якщо Ви працевлаштоавані, але наразі перебуваеєте у довгостроковій відпустці - Вам впродовж 30 робочіх днів треба надати оригінал довідки лікарсько-консультативної комісії, в якій зазначено, що дитина-інвалід потребує домашнього догляду
-&lt;br /&gt;
-Оригінал довідки Ви можете надати до Вашого районного управління соціального захисту.
-&lt;br /&gt;
+Якщо Ви працевлаштоавані, але наразі перебуваеєте у довгостроковій відпустці - Вам впродовж 30 робочіх днів треба надати оригінал довідки лікарсько-консультативної комісії, в якій зазначено, що дитина-інвалід потребує домашнього догляду&lt;br /&gt;
+Оригінал довідки Ви можете надати до Вашого районного управління соціального захисту.&lt;br /&gt;
 Адреса: [pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:3]&lt;br /&gt;
-[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]
 ${comment_1}&lt;br /&gt;
-Якщо Вам треба додати документи, яких бракує у Вашому першому зверненні - заповніть заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
+Якщо Вам треба додати документи, яких бракує у Вашому першому зверненні - заповніть заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -328,11 +455,11 @@ ${comment_1}&lt;br /&gt;
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 На жаль, Ваше звернення щодо призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом відхилено через недостатню або неправильну інформацію.&lt;br /&gt;
-&lt;br /&gt;
 ${comment_1}&lt;br /&gt;
-Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;
+Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov.org.ua&lt;/a&gt;&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -358,8 +485,9 @@ ${comment_1}&lt;br /&gt;
 Ви отримали схвалення щодо свого звернення - призначення надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом.&lt;br /&gt;
 &lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
@@ -380,10 +508,12 @@ ${comment_1}&lt;br /&gt;
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-На жаль, Вам відмовлено у призначенні надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом.&lt;br /&gt; ${comment_2}&lt;br /&gt;&lt;br /&gt;
+На жаль, Вам відмовлено у призначенні надбавки на догляд за інвалідом з дитинства або дитиною-інвалідом.&lt;br /&gt;
+${comment_2}&lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа.&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-Управління соціального захисту у Дніпропетровській області&lt;br /&gt;
+[pattern_dictonary:dnepr_soc_help.csv:value{[rName]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
@@ -429,7 +559,7 @@ ${comment_1}&lt;br /&gt;
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soc_help_175">
     <bpmndi:BPMNPlane bpmnElement="dnepr_soc_help_175" id="BPMNPlane_dnepr_soc_help_175">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="40.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="55.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
         <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="110.0"></omgdc:Bounds>
@@ -501,7 +631,7 @@ ${comment_1}&lt;br /&gt;
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="135.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="135.0" y="72.0"></omgdi:waypoint>
         <omgdi:waypoint x="160.0" y="57.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
