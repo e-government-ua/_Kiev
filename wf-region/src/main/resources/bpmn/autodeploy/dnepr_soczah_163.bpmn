@@ -19,7 +19,7 @@
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-         <activiti:formProperty id="area" name="Оберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
+        <activiti:formProperty id="area" name="Оберіть район, в якому ви обслуговуєтесь" type="enum" required="true">
           <activiti:value id="and" name="АНД, вул. Радістів, 8"></activiti:value>
           <activiti:value id="babush" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
           <activiti:value id="zhovt" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
@@ -124,7 +124,7 @@
         <activiti:formProperty id="markers59" name="маркер Васильківський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_59&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;30&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='vasil'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers60" name="маркер Верхньодніпровський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_60&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;31&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='verhnednepr'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers61" name="маркер Дніпропетровський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_61&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;32&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='dnipropetrovskij'&quot;}}}"></activiti:formProperty>
-      	<activiti:formProperty id="markers62" name="маркер Криворізький район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_62&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;33&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krivojrog'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers62" name="маркер Криворізький район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_62&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;33&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krivojrog'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers63" name="маркер Криничанський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_63&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;34&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krinich'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers64" name="маркер Магдалинівський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_64&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;35&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='magdalin'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers65" name="маркер Меживський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_65&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;36&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='mezhivskij'&quot;}}}"></activiti:formProperty>
@@ -140,7 +140,7 @@
         <activiti:formProperty id="markers75" name="маркер Софіївський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_75&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;46&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='sofiivskij'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers76" name="маркер Томаківський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_76&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;47&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='tomakivskij'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers77" name="маркер Царичанський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_77&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;48&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='carichanskij'&quot;}}}"></activiti:formProperty>
-     	<activiti:formProperty id="markers78" name="маркер Широківський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_78&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;49&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='shirokivskij'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers78" name="маркер Широківський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_78&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;49&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='shirokivskij'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers79" name="маркер Юр'ївський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_79&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;50&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='jurivskij'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -158,7 +158,7 @@
         <activiti:formProperty id="adress2" name="Адреса проживання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
-          <activiti:formProperty id="area" name="Районний орган соціального захисту населення" type="enum" writable="false">
+        <activiti:formProperty id="area" name="Районний орган соціального захисту населення" type="enum" writable="false">
           <activiti:value id="and" name="АНД, вул. Радістів, 8"></activiti:value>
           <activiti:value id="babush" name="Бабушкінський, вул. Героїв Сталінграда, 116а"></activiti:value>
           <activiti:value id="zhovt" name="Жовтневий, вул. Жуковського, 39/41"></activiti:value>
@@ -440,7 +440,7 @@ ${comment_2}&lt;br /&gt;
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_soczah_163">
     <bpmndi:BPMNPlane bpmnElement="dnepr_soczah_163" id="BPMNPlane_dnepr_soczah_163">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="40.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="100.0" y="55.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
         <omgdc:Bounds height="55.0" width="191.0" x="360.0" y="110.0"></omgdc:Bounds>
@@ -512,7 +512,7 @@ ${comment_2}&lt;br /&gt;
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="135.0" y="57.0"></omgdi:waypoint>
+        <omgdi:waypoint x="135.0" y="72.0"></omgdi:waypoint>
         <omgdi:waypoint x="160.0" y="57.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
