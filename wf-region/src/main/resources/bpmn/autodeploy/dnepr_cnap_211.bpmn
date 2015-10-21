@@ -78,7 +78,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow17" sourceRef="servicetask7" targetRef="usertask2"></sequenceFlow>
-    <userTask id="usertask2" name="Перевірка даних" activiti:candidateGroups="dnepr_cnap_${rai}">
+    <userTask id="usertask2" name="Опрацювання звернення" activiti:candidateGroups="dnepr_cnap_${rai}">
       <extensionElements>
         <activiti:formProperty id="clFIO" name="Прізвище, ім`я, по-батькові громадянина" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddressFactual" name="Адреса громадянина" type="string" writable="false"></activiti:formProperty>
@@ -187,7 +187,7 @@
           <activiti:value id="Для оформлення договору оренди" name="Для оформлення договору оренди"></activiti:value>
           <activiti:value id="Для подачі в податкову для нарахування податку на землю" name="Для подачі в податкову для нарахування податку на землю"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="proverkaCNAP" name="Рішення про прийняття або відхилення заяви ЦНАП" type="enum">
+        <activiti:formProperty id="proverkaCNAP" name="Рішення про прийняття або відхилення заяви ЦНАП" type="enum" required="true">
           <activiti:value id="ok" name="Заяву прийнято"></activiti:value>
           <activiti:value id="bad" name="Заяву відхилено"></activiti:value>
         </activiti:formProperty>
