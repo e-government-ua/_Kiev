@@ -12,11 +12,16 @@
           <activiti:value id="fop" name="фізична особа-підприємець"></activiti:value>
           <activiti:value id="ur" name="юридична особа"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="orgAddress" name="Місце реєстрації фізичної особи підприємця або юридичної особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="orgName" name="Назва підприємства" type="string"></activiti:formProperty>
         <activiti:formProperty id="organ" name="Надіслати звернення до" type="enum" required="true">
           <activiti:value id="dept" name="Департаменту економічного розвитку, інвестиційної діяльності та міжнародного співробітництва облдержадміністрації, щодо проблемних питань ведення бізнесу"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="problem" name="Суть звернення" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="resultWay" name="Спосіб отримання відповіді" type="enum" required="true">
+          <activiti:value id="fizic" name="Фізична копія"></activiti:value>
+          <activiti:value id="digit" name="Електронна копія"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="doc" name="Супроводжуючі документи; за наявності" type="file"></activiti:formProperty>
         <activiti:formProperty id="marker1" name="назва підприємства" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;orgName&quot;],&quot;asID_Field&quot;:{&quot;sService&quot;:&quot;whoIs&quot;},&quot;sCondition&quot;:&quot;[sService]=='ur'&quot;}}}"></activiti:formProperty>
       </extensionElements>
@@ -224,11 +229,16 @@
           <activiti:value id="fop" name="фізична особа-підприємець"></activiti:value>
           <activiti:value id="ur" name="юридична особа"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="orgAddress" name="Місце реєстрації фізичної особи підприємця або юридичної особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="orgName" name="Назва підприємства" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="organ" name="Орган, до якого надіслано звернення" type="enum" writable="false">
           <activiti:value id="dept" name="Департаменту економічного розвитку, інвестиційної діяльності та міжнародного співробітництва облдержадміністрації, щодо проблемних питань ведення бізнесу"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="problem" name="Суть звернення" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="resultWay" name="Спосіб отримання відповіді" type="enum" writable="false">
+          <activiti:value id="fizic" name="Фізична копія"></activiti:value>
+          <activiti:value id="digit" name="Електронна копія"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="workerDecision" name="Рішення операціоніста" type="enum" required="true">
           <activiti:value id="accept" name="Прийняти документи для розгляду"></activiti:value>
           <activiti:value id="decline" name="Відмовити у реєстрації звернення"></activiti:value>
@@ -450,11 +460,16 @@
           <activiti:value id="fop" name="фізична особа-підприємець"></activiti:value>
           <activiti:value id="ur" name="юридична особа"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="orgAddress" name="Місце реєстрації фізичної особи підприємця або юридичної особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="orgName" name="Назва підприємства" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="organ" name="Орган, до якого надіслано звернення" type="enum" writable="false">
           <activiti:value id="dept" name="Департаменту економічного розвитку, інвестиційної діяльності та міжнародного співробітництва облдержадміністрації, щодо проблемних питань ведення бізнесу"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="problem" name="Суть звернення" type="textArea" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="resultWay" name="Спосіб отримання відповіді" type="enum" writable="false">
+          <activiti:value id="fizic" name="Фізична копія"></activiti:value>
+          <activiti:value id="digit" name="Електронна копія"></activiti:value>
+        </activiti:formProperty>
         <activiti:formProperty id="docFile" name="Додати скан-копію офіційної відповіді" type="file" required="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
