@@ -9,7 +9,9 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdClaimNumber" name="Номер заявки" type="string"></activiti:formProperty>
+        <activiti:formProperty id="serviceNumber" name="Номер заявки" type="string"></activiti:formProperty>
+        <activiti:formProperty id="claimNumber" name="Номер заявки" type="string"></activiti:formProperty>
+
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="обробка заявки" activiti:candidateGroups="sales">
@@ -21,6 +23,8 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdClaimNumber" name="Номер заявки" type="string"></activiti:formProperty>
+                <activiti:formProperty id="serviceNumber" name="Номер заявки" type="string"></activiti:formProperty>
+        <activiti:formProperty id="claimNumber" name="Номер заявки" type="string"></activiti:formProperty>
         <activiti:formProperty id="result" name="Результат обробки" type="string"></activiti:formProperty>
         
       </extensionElements>
