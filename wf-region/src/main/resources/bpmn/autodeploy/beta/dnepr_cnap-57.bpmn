@@ -224,7 +224,7 @@ ${otkaz1} &lt;br&gt;
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
@@ -317,7 +317,7 @@ ${otkaz1} &lt;br&gt;
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
@@ -404,7 +404,7 @@ ${otkaz1} &lt;br&gt;
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
+          <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Декларація відповідності матеріально-технічної бази роботодавця вимогам законодавства з питань охорони праці та промислової безпеки]]></activiti:string>
@@ -452,12 +452,6 @@ ${otkaz1} &lt;br&gt;
     <sequenceFlow id="flow49" sourceRef="mailtask6" targetRef="exclusivegateway3"></sequenceFlow>
     <sequenceFlow id="flow50" sourceRef="usertask3" targetRef="servicetask7"></sequenceFlow>
     <sequenceFlow id="flow51" sourceRef="usertask4" targetRef="servicetask7"></sequenceFlow>
-    <textAnnotation id="textannotation1">
-      <text>Luda17_@ukr.net, Lyla1710@ukr.net, Hellen5565@mail.ru, lntsu@ukr.net</text>
-    </textAnnotation>
-    <textAnnotation id="textannotation2">
-      <text>woobraja@mail.ru, 7751138@rambler.ru</text>
-    </textAnnotation>
     <textAnnotation id="textannotation3">
       <text>Гілка Юридична особа</text>
     </textAnnotation>
@@ -508,12 +502,6 @@ ${otkaz1} &lt;br&gt;
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
         <omgdc:Bounds height="55.0" width="105.0" x="106.0" y="160.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
-        <omgdc:Bounds height="50.0" width="100.0" x="139.0" y="30.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
-        <omgdc:Bounds height="50.0" width="100.0" x="80.0" y="310.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation3" id="BPMNShape_textannotation3">
         <omgdc:Bounds height="50.0" width="100.0" x="7.0" y="37.0"></omgdc:Bounds>
