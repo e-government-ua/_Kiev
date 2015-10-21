@@ -1,8 +1,10 @@
-angular.module('order').controller('OrderSearchController', function($rootScope, $scope, $state, ServiceService, order) {
+angular.module('order').controller('OrderSearchController', function($rootScope, $scope, $state, $stateParams, ServiceService, order) {
     $scope.sID = '';
     $scope.orders = {};
 
     if(order != null) {
+      $scope.sID = $stateParams.nID;
+    
       $scope.messages = {};
       $scope.orders = {};
       if (!order) {
