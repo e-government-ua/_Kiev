@@ -551,7 +551,8 @@
 Управління соціального захисту у Дніпропетровській області,&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_feedback.html]
-[pattern/mail/_common_footer.html]</activiti:expression>
+[pattern/mail/_common_footer.html]
+[pattern/mail/_common_feedback_new.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
