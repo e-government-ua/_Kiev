@@ -22,6 +22,7 @@
           <activiti:value id="rishenia1" name="розроблених ними установчих документів"></activiti:value>
           <activiti:value id="rishenia2" name="модельного статуту"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="form_signed" name="Форма-6" type="file"></activiti:formProperty>
         <activiti:formProperty id="warningMessage" name="Увага" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
         <activiti:formProperty id="st1" name="діє на підставі установчих документів, затверджених засновниками (учасниками)" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="st2" name="діє на підставі модельного статуту, затвердженого постановою Кабінету Міністрів України" type="invisible"></activiti:formProperty>
@@ -72,6 +73,12 @@
         <activiti:formProperty id="st2" name="діє на підставі модельного статуту, затвердженого постановою Кабінету Міністрів України" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="r1" name="Прийнято рішення засновників (учасників) юридичної особи продовжувати свою діяльність на підставі розроблених ними установчих документів" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="r2" name="Прийнято рішення засновників (учасників) юридичної особи продовжувати свою діяльність на підставі модельного статуту" type="invisible"></activiti:formProperty>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
+        <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
+          <activiti:field name="aFieldInheritedAttachmentID">
+            <activiti:expression>${form_signed}</activiti:expression>
+          </activiti:field>
+        </activiti:taskListener>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow3" sourceRef="servicetask5" targetRef="usertask1"></sequenceFlow>
@@ -294,7 +301,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow34" sourceRef="startevent1" targetRef="servicetask4"></sequenceFlow>
+    <sequenceFlow id="flow34" sourceRef="servicetask9" targetRef="servicetask4"></sequenceFlow>
     <serviceTask id="servicetask5" name="Повідомлення держслужбовця про нове звернення" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
@@ -541,6 +548,13 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
+    <serviceTask id="servicetask9" name="Service Task" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <sequenceFlow id="flow37" sourceRef="startevent1" targetRef="servicetask9"></sequenceFlow>
+    <boundaryEvent id="boundaryerror1" name="Error" attachedToRef="servicetask9">
+      <errorEventDefinition></errorEventDefinition>
+    </boundaryEvent>
+    <endEvent id="endevent7" name="End"></endEvent>
+    <sequenceFlow id="flow38" sourceRef="boundaryerror1" targetRef="endevent7"></sequenceFlow>
     <textAnnotation id="textannotation1">
       <text>Поменять мейлы чиновников для уведомления</text>
     </textAnnotation>
@@ -548,7 +562,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_minust_128">
     <bpmndi:BPMNPlane bpmnElement="dnepr_minust_128" id="BPMNPlane_dnepr_minust_128">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="356.0" y="90.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="224.0" y="90.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="60.0" width="191.0" x="420.0" y="250.0"></omgdc:Bounds>
@@ -576,6 +590,15 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask7" id="BPMNShape_servicetask7">
         <omgdc:Bounds height="55.0" width="105.0" x="463.0" y="410.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask9" id="BPMNShape_servicetask9">
+        <omgdc:Bounds height="55.0" width="105.0" x="280.0" y="80.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
+        <omgdc:Bounds height="30.0" width="30.0" x="280.0" y="107.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent7" id="BPMNShape_endevent7">
+        <omgdc:Bounds height="35.0" width="35.0" x="277.0" y="150.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
         <omgdc:Bounds height="50.0" width="100.0" x="353.0" y="153.0"></omgdc:Bounds>
@@ -619,12 +642,20 @@
         <omgdi:waypoint x="515.0" y="480.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow34" id="BPMNEdge_flow34">
-        <omgdi:waypoint x="391.0" y="107.0"></omgdi:waypoint>
+        <omgdi:waypoint x="385.0" y="107.0"></omgdi:waypoint>
         <omgdi:waypoint x="463.0" y="107.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
         <omgdi:waypoint x="515.0" y="135.0"></omgdi:waypoint>
         <omgdi:waypoint x="515.0" y="150.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="259.0" y="107.0"></omgdi:waypoint>
+        <omgdi:waypoint x="280.0" y="107.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="295.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="294.0" y="150.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
