@@ -31,8 +31,8 @@
         </activiti:formProperty>
         <activiti:formProperty id="visitDay" name="Оберіть день та час, коли Вам буде зручно зайти до відділення ДМС?" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="svid" name="Свідоцтво про народження" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="pasp1" name="Паспорт одного з батьків; скан-копія всіх заповнених сторінок" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="pasp2" name="Паспорт другого з батьків; скан-копія всіх заповнених сторінок" type="file"></activiti:formProperty>
+        <activiti:formProperty id="pasp1" name="Паспорт одного з батьків; скан-копія всіх заповнених сторінок у форматі pdf" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="pasp2" name="Паспорт другого з батьків; скан-копія всіх заповнених сторінок у форматі pdf" type="file"></activiti:formProperty>
         <activiti:formProperty id="warning" name="Зверніть увагу" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
       </extensionElements>
     </startEvent>
