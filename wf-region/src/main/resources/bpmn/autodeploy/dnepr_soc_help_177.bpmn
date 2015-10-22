@@ -280,7 +280,7 @@ enum{[content]}&lt;br /&gt;
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${email}"</activiti:expression>
+          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Нове  звернення. Видача довідкок про отримання/неотримання усіх видів державних соціальних допомог]]></activiti:string>
