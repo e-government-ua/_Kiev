@@ -169,7 +169,7 @@ public class HistoryEvent_ServiceDaoImpl extends GenericEntityDao<HistoryEvent_S
                 currRes.put("sName", (Long) currValue[0]);
                 currRes.put("nCount", (Long) currValue[1]);
                 currRes.put("nRate", rate);
-                currRes.put("nTimeHours", timeHours != null ? timeHours.longValue() : -1L);
+                currRes.put("nTimeHours", timeHours != null ? timeHours.longValue() : 0L);
                 resHistoryEventService.add(currRes);
             }
             log.info("Found " + resHistoryEventService.size() + " records based on nID_Service " + nID_Service);
