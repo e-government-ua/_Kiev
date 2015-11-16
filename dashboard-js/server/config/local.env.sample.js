@@ -15,7 +15,7 @@ module.exports = {
   SERVER_CERT: '/sybase/cert/server.crt',
 
   ACTIVITI_PROT: 'https',
-  ACTIVITI_HOST: 'test.region.igov.org.ua',
+  ACTIVITI_HOST: 'test.admin.es.kievcity.gov.ua',
   ACTIVITI_PORT: 8080,
   ACTIVITI_REST: 'wf/service',
   ACTIVITI_USER: 'activiti-master',
