@@ -30,17 +30,20 @@ public class RedisClient implements RedisOperations {
     
     @Override
     public String putAttachments(byte[] file) throws Exception {
+    	LOG.info("putAttachments ...");
         String key = UUID.randomUUID().toString();
         while (template.hasKey(key)) {
             key = UUID.randomUUID().toString();
         }
     	template.boundValueOps(key).set(file);
     	template.expire(key, Long.valueOf(storageTimeKey), TimeUnit.MINUTES);
+    	LOG.info("putAttachments ok!");
         return key;
     }
 
 	@Override
 	public byte[] getAttachments(String key) throws Exception {
+		LOG.info("getAttachments ...");
 		return template.boundValueOps(key).get();
 	}
 	
