@@ -44,7 +44,7 @@
         <activiti:formProperty id="file3" name="копія сертифікату про походження товару або експертний висновок з визначенням країни походження та коду товару відповідно до УКТ ЗЕД (подаються тільки для одержання ліцензій на експорт товарів). " type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="dateView" name="Бажана дата отримання ліцензії" type="date"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>

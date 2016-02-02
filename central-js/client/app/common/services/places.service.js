@@ -4,9 +4,9 @@
   Метод getPlaceData надає інформацію про вибраний користувачем регіон та / або місто
   Метод setPlaceData дозволяє контроллерам зберігати цю інформацию в сервісі.
   Може зберігати вибране міце у localStorage і читати його звідти ж.
-  Сервіс ініціюється з даних URL, якщо там вказано область / місто (TODO: перевірити це). 
+  Сервіс ініціюється з даних URL, якщо там вказано область / місто (TODO: перевірити це).
   Користувачами сервіса є директиви і контроллери (див. place.js) для вибору місця.
-  
+
   Обговорення: https://github.com/e-government-ua/i/issues/550#issuecomment-128641486
 */
 angular.module('app').service('PlacesService', function($http, $state, ServiceService) {
@@ -18,9 +18,19 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
   // Зберігаємо savedPlaceData у сервісі (і localStorage)
   var savedPlaceData = {};
 
+    // UTF-8 encode / decode by Johan Sundstr?m
+  self.encode_utf8 = function ( s ) {
+      return unescape( encodeURIComponent( s ) );
+    }
+
+  self.decode_utf8 = function ( s ) {
+      return decodeURIComponent( escape( s ) );
+    }
+    
   self.saveLocal = function(oSavedPlaceData) {
     if (self.rememberMyData) {
       localStorage.setItem('igSavedPlaceData', JSON.stringify(oSavedPlaceData));
+      localStorage.setItem('igSavedPlaceData0', self.encode_utf8(JSON.stringify(oSavedPlaceData)));
     }
   };
 
@@ -30,11 +40,27 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
     // console.log('set place data:', JSON.stringify(savedPlaceData));
   };
 
+  self.resetPlaceData = function(oSavedPlaceData) {
+    self.setPlaceData({
+      region: null,
+      city: null
+    });
+  };
+
   /**
    * returns saved place data
    */
+  
   self.getPlaceData = function() {
     var localData = JSON.parse(localStorage.getItem('igSavedPlaceData'));
+    if (self.rememberMyData && localData) {
+      savedPlaceData = localData;
+    }
+    // console.log('get place data:', JSON.stringify(savedPlaceData));
+    return savedPlaceData;
+  };
+  self.getPlaceData0 = function() {
+    var localData = JSON.parse(self.decode_utf8(localStorage.getItem('igSavedPlaceData0')));
     if (self.rememberMyData && localData) {
       savedPlaceData = localData;
     }
@@ -186,31 +212,35 @@ angular.module('app').service('PlacesService', function($http, $state, ServiceSe
 
     angular.forEach(oService.aServiceData, function(srv) {
       // сервіс доступний у країні
-      if (self.findServiceDataByCountry() !== null ) {
+      if (self.findServiceDataByCountry() !== null) {
         result.thisCountry = true;
       }
+
       // сервіс доступний у якомусь із регіонів
       if (srv.hasOwnProperty('nID_Region') && srv.nID_Region.nID !== null) {
         result.someRegion = true;
         // сервіс доступний у вибраному регіоні
         if (oPlace && oPlace.region && oPlace.region.nID === srv.nID_Region.nID) {
           // сервіс доступний у якомусь із міст вибраного регіону
-          if (srv.hasOwnProperty('nID_City') && srv.nID_City.nID !== null && srv.nID_City.nID_Region.nID === srv.nID_Region.nID) {
-            result.someCityInThisRegion = true;
-            // ...і у вибраному місті, що знаходиться у вибраній області
-            if (oPlace && oPlace.city && oPlace.city.nID === srv.nID_City.nID) {
-              result.thisCityInThisRegion = true;
-            }
-          }
           result.thisRegion = true;
         }
       }
+
       // сервіс доступний у якомусь із міст
-      if (srv.hasOwnProperty('nID_City') && srv.nID_City.nID !== null) {
+      if (srv.hasOwnProperty('nID_City') && srv.nID_City.nID !== null){
         result.someCity = true;
         // ...і доступний у вибраному місті
         if (oPlace && oPlace.city && oPlace.city.nID === srv.nID_City.nID) {
           result.thisCity = true;
+        }
+
+        if(oPlace && oPlace.region && oPlace.region.nID === srv.nID_City.nID_Region.nID) {
+          result.someCityInThisRegion = true;
+
+          // ...і у вибраному місті, що знаходиться у вибраній області
+          if (oPlace && oPlace.city && oPlace.city.nID === srv.nID_City.nID) {
+            result.thisCityInThisRegion = true;
+          }
         }
       }
     });

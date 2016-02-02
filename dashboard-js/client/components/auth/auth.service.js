@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('dashboardJsApp')
-  .factory('Auth', function Auth($location, $rootScope, $http, User, Base64, $cookieStore, $q) {
+  .factory('Auth', function Auth($location, $rootScope, $http, Base64, $cookieStore, $q) {
     /**currentUser: Object
-    email: "kermit@activiti.org"
-    firstName: "Kermit"
-    id: "kermit"
-    lastName: "The Frog"
-    pictureUrl: "https://52.17.126.64:8080/wf/service/identity/users/kermit/picture"
-    url: "https://52.17.126.64:8080/wf/service/identity/users/kermit"
-    **/
+     email: "kermit@activiti.org"
+     firstName: "Kermit"
+     id: "kermit"
+     lastName: "The Frog"
+     pictureUrl: "https://52.17.126.64:8080/wf/service/identity/users/kermit/picture"
+     url: "https://52.17.126.64:8080/wf/service/identity/users/kermit"
+     **/
     var currentUser = {};
     var sessionSettings;
 
@@ -29,7 +29,7 @@ angular.module('dashboardJsApp')
        * @param  {Function} callback - optional
        * @return {Promise}
        */
-      login: function(user, callback) {
+      login: function (user, callback) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
 
@@ -43,12 +43,12 @@ angular.module('dashboardJsApp')
         };
 
         $http(req).
-        success(function(data) {
-          currentUser = JSON.parse(data);
+        success(function (data) {
+          currentUser = data;
           deferred.resolve(data);
           return cb();
         }).
-        error(function(err) {
+        error(function (err) {
           this.logout();
           deferred.reject(err);
           return cb(err);
@@ -57,21 +57,21 @@ angular.module('dashboardJsApp')
         return deferred.promise;
       },
 
-      pingSession: function(callback) {
+      pingSession: function (callback) {
         var cb = callback || angular.noop;
         var deferred = $q.defer();
 
         var req = {
           method: 'POST',
-          url: '/auth/activiti/ping',
-        }
+          url: '/auth/activiti/ping'
+        };
 
         $http(req).
-        success(function(data) {
+        success(function (data) {
           deferred.resolve(data);
           return cb();
         }).
-        error(function(err) {
+        error(function (err) {
           this.logout();
           deferred.reject(err);
           return cb(err);
@@ -84,7 +84,7 @@ angular.module('dashboardJsApp')
        *
        * @param  {Function}
        */
-      logout: function(callback) {
+      logout: function (callback) {
         $cookieStore.remove('user');
         $cookieStore.remove('sessionSettings');
         $cookieStore.remove('JSESSIONID');
@@ -96,15 +96,15 @@ angular.module('dashboardJsApp')
 
         var req = {
           method: 'POST',
-          url: '/auth/activiti/logout',
-        }
+          url: '/auth/activiti/logout'
+        };
 
         $http(req).
-        success(function(data) {
+        success(function (data) {
           deferred.resolve(data);
           return cb();
         }).
-        error(function(err) {
+        error(function (err) {
           deferred.reject(err);
           return cb(err);
         }.bind(this));
@@ -117,11 +117,11 @@ angular.module('dashboardJsApp')
        *
        * @return {Object} user
        */
-      getCurrentUser: function() {
+      getCurrentUser: function () {
         return currentUser;
       },
 
-      getSessionSettings: function() {
+      getSessionSettings: function () {
         return sessionSettings;
       },
 
@@ -130,18 +130,18 @@ angular.module('dashboardJsApp')
        *
        * @return {Boolean}
        */
-      isLoggedIn: function() {
+      isLoggedIn: function () {
         return currentUser.hasOwnProperty('id');
       },
 
       /**
        * Waits for currentUser to resolve before checking if user is logged in
        */
-      isLoggedInAsync: function(cb) {
+      isLoggedInAsync: function (cb) {
         if (currentUser.hasOwnProperty('$promise')) {
-          currentUser.$promise.then(function() {
+          currentUser.$promise.then(function () {
             cb(true);
-          }).catch(function() {
+          }).catch(function () {
             cb(false);
           });
         } else if (currentUser.hasOwnProperty('id')) {
@@ -156,8 +156,25 @@ angular.module('dashboardJsApp')
        *
        * @return {Boolean}
        */
-      isAdmin: function() {
-        return currentUser.role === 'admin';
+      isAdmin: function () {
+        return this.hasRole('admin');
+      },
+
+      /**
+       * set of input roles
+       * @returns {boolean} if user has a role from the input set
+       */
+      hasOneOfRoles: function () {
+        var hasRole = false;
+        if (arguments && arguments.length > 0) {
+          for (var i = 0; i < arguments.length; i++) {
+            if (currentUser.roles.indexOf(arguments[i]) !== -1 ) {
+              hasRole = true;
+              break;
+            }
+          }
+        }
+        return hasRole;
       }
     };
   });

@@ -12,6 +12,7 @@
         <activiti:formProperty id="markers2" name="Мареры2" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnNotEmpty_1&quot;:{&quot;aField_ID&quot;:[&quot;email&quot;],&quot;sField_ID_s&quot;:&quot;client&quot;},&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;info1&quot;,&quot;file1&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;client&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'attr1'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;info2&quot;,&quot;file2&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;client&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'attr2'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="скан паспорта" type="file"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_inn" name="тест скан инн" type="file"></activiti:formProperty>
+        <activiti:formProperty id="mail2" name="mail2" type="string"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask0" name="Видалення тікета з черги" activiti:delegateExpression="#{releaseTicketsOfQueue}"></serviceTask>
@@ -32,7 +33,7 @@
           <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${mail}"</activiti:expression>
+          <activiti:expression>${mail},${mail2}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:expression>subject</activiti:expression>
@@ -43,7 +44,7 @@
  
 [pattern/mail/test/_test_body.html]
 [pattern/mail/_common_signature.html]
-[pattern/mail/_common_feedback.html]
+[pattern/mail/_common_feedback_new.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
@@ -61,10 +62,10 @@
           <activiti:string><![CDATA[admin@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
-          <activiti:expression>"${mail}"</activiti:expression>
+          <activiti:expression>${mail},${mail2},kyrbatsky@gmail.com,kurbpa@gmail.com</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:expression>"Нове звернення. ( Заявник: ${bankIdfirstName} ${bankIdmiddleName} ${bankIdlastName} )"</activiti:expression>
+          <activiti:expression>"Mail test ( Заявник: ${bankIdfirstName} ${bankIdmiddleName} ${bankIdlastName} )"</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]

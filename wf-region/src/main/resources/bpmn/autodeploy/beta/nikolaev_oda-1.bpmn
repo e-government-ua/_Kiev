@@ -13,7 +13,7 @@
         <activiti:formProperty id="file1" name="Копія протоколу установчих зборів; файл в форматі PDF повинен мати ЕЦП нотаріуса" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="objFounder" name="Додаткова інформація про засновників; відомості про засновників громадського об'єднання із зазначенням прізвища, ім'я, по батькові (за наявності), дати народження, адреси місця проживання, а в разі якщо засновником є юридична особа приватного права, - її найменування, місцезнаходження, ідентифікаційного коду" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-                <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+                <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Прийняття рішення про реєстрацію" activiti:candidateGroups="myk_mr_0">

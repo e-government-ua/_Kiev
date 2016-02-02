@@ -8,16 +8,24 @@
   <tr>
     <th><!--a ng-click="changeSort()">Ім'я області &nbsp;{{ arrow }}</a--></th>
     <th><center style="font-weight: normal;">Кількість наданих послуг</center></th>
-<th ng-if="nRate>0"><center style="font-weight: normal;">Середня оцінка (%)</center></th>
-    <th><center style="font-weight: normal;">Таймінг (годин)</center></th>
+    <th ng-if="nRate>0"><center style="font-weight: normal;">Середня оцінка
+      <sup>
+        <a href="#" tooltip="За оцінками громадян, які вже скористалися послугою, за 5-бальною шкалою">?</a>
+      </sup>
+    </center></th>
+    <th><center style="font-weight: normal;">Таймінг
+      <sup>
+        <a href="#" tooltip="Середній час між початком та закінченням процесу">?</a>
+      </sup>
+    </center></th>
   </tr>
   </thead>
   <tbody >
     <tr ng-repeat="region in stats | orderBy:'sName':reverse">
       <td>{{region.sName}}</td>
       <td style="text-align: center">{{region.nCount}}</td>
-      <td ng-if="nRate>0" style="text-align: center">{{region.nRate}}</td>
-      <td style="text-align: center">{{region.nTimeHours}}</td>
+      <td ng-if="nRate>0" style="text-align: center">{{region.nRate/20}}</td>
+      <td style="text-align: center">{{region.timing}}</td>
     </tr>
   </tbody>
 </table>

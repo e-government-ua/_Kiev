@@ -1,2 +1,2 @@
 nID;sName;sPath;sBeanName
-1;DefaultFlowSlotScheduler;org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler;defaultFlowSlotScheduler
+1;DefaultFlowSlotScheduler;org.igov.service.business.flow.handler.DefaultFlowSlotScheduler;defaultFlowSlotScheduler

@@ -23,20 +23,17 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import java.util.List;
 
 @Configuration
-@ComponentScan({ "org.activiti.rest.editor", "org.activiti.rest.diagram",
-        "org.activiti.rest.controller", "org.activiti.rest.conf",
-        "org.activiti.rest.service.api", "org.egov.web.controller" })
+@ComponentScan({"org.activiti.rest.editor", "org.activiti.rest.diagram",
+    "org.igov.service.controller", "org.igov.service.conf",
+    "org.activiti.rest.service.api"})
 @EnableAsync
 public class DispatcherServletConfiguration extends WebMvcConfigurationSupport {
 
-    private final Logger log = LoggerFactory
+    private final Logger LOG = LoggerFactory
             .getLogger(DispatcherServletConfiguration.class);
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    @Autowired
-    private Environment environment;
 
     @Bean
     public SessionLocaleResolver localeResolver() {
@@ -45,18 +42,19 @@ public class DispatcherServletConfiguration extends WebMvcConfigurationSupport {
 
     @Bean
     public LocaleChangeInterceptor localeChangeInterceptor() {
-        log.debug("Configuring localeChangeInterceptor");
+        LOG.debug("Configuring localeChangeInterceptor");
         LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
         localeChangeInterceptor.setParamName("language");
         return localeChangeInterceptor;
     }
 
     @Bean
+    @Override
     public RequestMappingHandlerMapping requestMappingHandlerMapping() {
-        log.debug("Creating requestMappingHandlerMapping");
+        LOG.debug("Creating requestMappingHandlerMapping");
         RequestMappingHandlerMapping requestMappingHandlerMapping = new RequestMappingHandlerMapping();
         requestMappingHandlerMapping.setUseSuffixPatternMatch(false);
-        Object[] interceptors = { localeChangeInterceptor() };
+        Object[] interceptors = {localeChangeInterceptor()};
         requestMappingHandlerMapping.setInterceptors(interceptors);
         return requestMappingHandlerMapping;
     }
@@ -84,11 +82,12 @@ public class DispatcherServletConfiguration extends WebMvcConfigurationSupport {
     @Bean
     public InternalResourceViewResolver configureInternalResourceViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-                /*
+        /*
         resolver.setPrefix("/WEB-INF/jsp/");
 		resolver.setSuffix(".jsp");
-                */
-                /*if(resolver.getApplicationContext()!=null){
+         */
+        /*
+        if(resolver.getApplicationContext()!=null){
                     log.info("!!!!!!!!!!!!!!!resolver.getApplicationContext().getApplicationName()="+resolver.getApplicationContext().getApplicationName());
                 }else{
                     log.info("!!!!!!!!!!!!!!!resolver.getApplicationContext()=null");

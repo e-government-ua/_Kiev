@@ -4,7 +4,7 @@ var activiti = require('../../components/activiti');
 
 exports.index = function (req, res) {
   var options = {
-    path: 'rest/file/downloadTasksData',
+    path: 'action/task/downloadTasksData',
     query: req.query,
     //contentType: 'text/csv'
   };
@@ -20,7 +20,7 @@ exports.index = function (req, res) {
 
 exports.statistic = function (req, res) {
   var options = {
-    path: 'rest/file/download_bp_timing',
+    path: 'action/task/download_bp_timing',
     query: {
       'sID_BP_Name': req.query.sID_BP_Name,
       'sDateAt': req.query.sDateAt,
@@ -32,7 +32,7 @@ exports.statistic = function (req, res) {
 
 exports.template = function (req, res) {
   var options = {
-    path: '/rest/getPatternFile',
+    path: 'object/file/getPatternFile',
     query: {
       'sPathFile': req.query.sPathFile
     }

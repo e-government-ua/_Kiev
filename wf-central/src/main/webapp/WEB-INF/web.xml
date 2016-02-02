@@ -31,7 +31,7 @@
     
     <filter>
         <filter-name>multireadFilter</filter-name>
-        <filter-class>org.activiti.rest.controller.adapter.MultiReadServletFilter</filter-class>
+        <filter-class>org.igov.service.controller.interceptor.MultiReadServletFilter</filter-class>
     </filter>
 
     <filter>
@@ -88,6 +88,17 @@
         <url-pattern>/VAADIN/*</url-pattern>
     </servlet-mapping>
 
+	<!-- Springfox -->
+	<servlet>
+		<servlet-name>springfox</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springfox</servlet-name>
+		<url-pattern>/service/api-docs/*</url-pattern>
+	</servlet-mapping>
+	
     <!-- Session timeout on one day -->
     <session-config>
         <session-timeout>480</session-timeout>

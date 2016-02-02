@@ -54,7 +54,7 @@
         <activiti:formProperty id="date_start" name="Період, за який Ви хочете отримати довідку, з; період може складати рік або квартал, не раніше ніж за 2 квартали до  поточного" type="date" default="01/01/2014" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_stop" name="Період, за який Ви хочете отримати довідку, по; період може складати рік або квартал, не раніше ніж за 2 квартали до  поточного" type="date" default="31/12/2014" required="true"></activiti:formProperty>
         <activiti:formProperty id="aim" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, для оформлення субсидій, інше" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Обробка" activiti:candidateGroups="dnepr_nalog">

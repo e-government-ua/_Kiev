@@ -1,7 +1,8 @@
 angular.module('app').factory('FileFactory', function ($q, $rootScope, ActivitiService, uiUploader) {
   var file = function () {
+    this.isUploading = false;
     this.fileName = null;
-    this.value = null;
+    this.value = null;//{fileID: 'file id from redis', oSignData : 'information about eds' }
   };
 
   file.prototype.createFactory = function(){
@@ -44,12 +45,20 @@ angular.module('app').factory('FileFactory', function ($q, $rootScope, ActivitiS
       url: ActivitiService.getUploadFileURL(oServiceData),
       concurrency: 1,
       onProgress: function (file) {
+        self.isUploading = true;
         scope.$apply(function () {
         });
       },
-      onCompleted: function (file, response) {
+      onCompleted: function (file, fileid) {
+        self.value = {id : fileid, signInfo: null, fromDocuments: false};
         scope.$apply(function () {
-          self.value = response;
+          ActivitiService.checkFileSign(oServiceData, fileid).then(function(signInfo){
+            self.value.signInfo = Object.keys(signInfo).length === 0 ? null : signInfo;
+          }).catch(function(error){
+            self.value.signInfo = null;
+          }).finally(function(){
+            self.isUploading = false;
+          });
         });
       },
       onCompletedAll: function () {
@@ -59,6 +68,7 @@ angular.module('app').factory('FileFactory', function ($q, $rootScope, ActivitiS
   };
 
   file.prototype.uploadDocument = function (documentType, documentName, callback) {
+    //TODO maybe we should delete it. Dont' know where it is really used. Only one place in directive fileUploadButton that is not used also
     var self = this;
     var scope = $rootScope.$new(true, $rootScope);
     uiUploader.startUpload({
@@ -71,9 +81,9 @@ angular.module('app').factory('FileFactory', function ($q, $rootScope, ActivitiS
         scope.$apply(function () {
         });
       },
-      onCompleted: function (file, response) {
+      onCompleted: function (file, fileid) {
         scope.$apply(function () {
-          self.value = response;
+          self.value = {id : fileid, signInfo: null, fromDocuments: true};
           callback();
         });
       },
@@ -84,7 +94,7 @@ angular.module('app').factory('FileFactory', function ($q, $rootScope, ActivitiS
   };
 
   file.prototype.get = function () {
-    return this.value;
+    return this.value ? this.value.id : null;
   };
 
   file.prototype.isFit = function(property){

@@ -7,7 +7,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
-        <activiti:formProperty id="have_passport" name="У Вас на даний момент є загранпаспорт?" type="enum" required="true">
+        <activiti:formProperty id="have_passport" name="У Вас на даний момент є закордонний паспорт?" type="enum" required="true">
           <activiti:value id="attr1_yes" name="так, хочу подовжити"></activiti:value>
           <activiti:value id="attr2_no" name="ні, буду отримувати перший раз"></activiti:value>
         </activiti:formProperty>
@@ -31,7 +31,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="have_passport" name="У Вас на даний момент є загранпаспорт?" type="enum" writable="false">
+        <activiti:formProperty id="have_passport" name="У Вас на даний момент є закордонний паспорт?" type="enum" writable="false">
           <activiti:value id="attr1_yes" name="так, хочу подовжити"></activiti:value>
           <activiti:value id="attr2_no" name="ні, буду отримувати перший раз"></activiti:value>
         </activiti:formProperty>
@@ -145,7 +145,7 @@
 
 &lt;p&gt; Звертаємо Вашу увагу, що Вам не потрібно буде реєструватись в електронній черзі на місці. Вашого запису через iGov на конкретний час достатньо.&lt;/p&gt;
 
-&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готвікою.&lt;/p&gt;
+&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готівкою.&lt;/p&gt;
 
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -365,7 +365,7 @@
 
 &lt;p&gt; Звертаємо Вашу увагу, що Вам не потрібно буде реєструватись в електронній черзі на місці. Вашого запису через iGov на конкретний час достатньо.&lt;/p&gt;
 
-&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готвікою.&lt;/p&gt;
+&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готівкою.&lt;/p&gt;
 
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -475,7 +475,7 @@
 
 &lt;p&gt; Звертаємо Вашу увагу, що Вам не потрібно буде реєструватись в електронній черзі на місці. Вашого запису через iGov на конкретний час достатньо.&lt;/p&gt;
 
-&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готвікою.&lt;/p&gt;
+&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готівкою.&lt;/p&gt;
 
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -605,7 +605,7 @@
 
 &lt;p&gt; Звертаємо Вашу увагу, що Вам не потрібно буде реєструватись в електронній черзі на місці. Вашого запису через iGov на конкретний час достатньо.&lt;/p&gt;
 
-&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готвікою.&lt;/p&gt;
+&lt;p&gt;Якщо Ви не маєте можливості сплатити послуги перед відвідуванням міграційної служби, Ви зможете це зробити при візиті. Для цього у Вас має бути достатня сума готівкою.&lt;/p&gt;
 
 
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;

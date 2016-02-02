@@ -21,7 +21,7 @@
         <activiti:formProperty id="file2" name="Копія довідки про місце реєстрації та склад сім’ї (форма 3);громадянам, які проживають у відомчих гуртожитках, приватних будинках, будинках житлово-будівельних кооперативів та ін. необхідно самостійно надати довідку по формі № 3 " type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:formProperty id="status" name="Стан опрацювання" type="label" default="Новий запит" readable="false"></activiti:formProperty>
       </extensionElements>
     </startEvent>

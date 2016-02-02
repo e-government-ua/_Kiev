@@ -1,8 +1,21 @@
 /**
  * Error responses
  */
-
 'use strict';
+
+module.exports.codes = {
+  EXTERNAL_SERVICE_ERROR : 'ESE',
+  INPUT_PARAMETER_ERROR : 'IPE',
+  LOGIC_SERVICE_ERROR : 'LSE'
+};
+
+module.exports.createError = function (code, error_description, error) {
+  return {
+    code: code,
+    message: error_description,
+    nested : error
+  };
+};
 
 module.exports[404] = function pageNotFound(req, res) {
   var viewFilePath = '404';

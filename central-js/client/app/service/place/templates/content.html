@@ -1,11 +1,13 @@
 <div class="list-group">
 
-    <place></place>
-    
-	<service-auth-block 
-            ng-if="authControlIsVisible()"
-            n-step="2" 
-            redirect-uri="{{$state.href('index.service.general.place.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
-    </service-auth-block>
-    
+  <place></place>
+
+  <service-auth-block
+          ng-if="authControlIsVisible()"
+          n-step="2"
+          redirect-uri="{{$state.href('index.service.general.place.built-in.bankid', {'id': service.nID, 'region': getRegionId(), 'city': getCityId() })}}">
+  </service-auth-block>
+
+  <place-edit></place-edit>
+
 </div>

@@ -20,7 +20,7 @@
         <activiti:formProperty id="nameCompany" name="Назва юридичної особи" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="adress" name="Юридична адреса або місце реєстрації фізичної особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="based" name="Документ, що посвідчує перехід права власності;(наприклад: договір № ___ від ДД.ММ.РРРР)" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="square" name="Площа земельної ділянки (га)" type="long" required="true"></activiti:formProperty>
+        <activiti:formProperty id="square" name="Площа земельної ділянки (га)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса земельної ділянки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="newOwner" name="Новий власник нерухомого майна" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="contractNumber" name="Номер договору оренди земельної ділянки" type="string" required="true"></activiti:formProperty>
@@ -123,7 +123,7 @@
         <activiti:formProperty id="nameCompany" name="Назва юридичної особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress" name="Юридична адреса або місце реєстрації фізичної особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="based" name="Документ, що посвідчує перехід права власності" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="square" name="Площа земельної ділянки (га)" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="square" name="Площа земельної ділянки (га)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newOwner" name="Новий власник нерухомого майна" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="contractNumber" name="Номер договору оренди земельної ділянки" type="string" writable="false"></activiti:formProperty>
@@ -235,7 +235,7 @@
         <activiti:formProperty id="nameCompany" name="Назва юридичної особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress" name="Юридична адреса або місце реєстрації фізичної особи" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="based" name="Документ, що посвідчує перехід права власності" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="square" name="Площа земельної ділянки (га)" type="long" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="square" name="Площа земельної ділянки (га)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="newOwner" name="Новий власник нерухомого майна" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="contractNumber" name="Номер договору оренди земельної ділянки" type="string" writable="false"></activiti:formProperty>

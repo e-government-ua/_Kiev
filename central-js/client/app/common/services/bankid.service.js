@@ -4,6 +4,8 @@ angular.module('app').factory('BankIDService', function ($http, $q, AdminService
 
   return {
     isLoggedIn: function () {
+        var oFuncNote = {sHead:"Перевірка авторизованості", sFunc:"isLoggedIn"};
+        ErrorsFactory.init(oFuncNote,{asParam:['bankIDLogin: '+bankIDLogin, 'bankIDAccount: '+bankIDAccount]});
       var deferred = $q.defer();
 
       $http.get('./auth/isAuthenticated').success(function (data, status) {
@@ -12,12 +14,15 @@ angular.module('app').factory('BankIDService', function ($http, $q, AdminService
         bankIDLogin = undefined;
         bankIDAccount = undefined;
         deferred.reject(true);
+        ErrorsFactory.addFail({sBody:'Помилка сервіса!',asParam:['data: '+data,'status: '+status]});
       });
 
       return deferred.promise;
     },
 
     login: function (code, redirect_uri) {
+        var oFuncNote = {sHead:"Завантаження логіна по авторизації", sFunc:"login"};
+        ErrorsFactory.init(oFuncNote,{asParam:['code: '+code, 'redirect_uri: '+redirect_uri, 'bankIDLogin: '+bankIDLogin, 'bankIDAccount: '+bankIDAccount]});
       var data = {
         'code': code,
         'redirect_uri': redirect_uri
@@ -30,8 +35,10 @@ angular.module('app').factory('BankIDService', function ($http, $q, AdminService
         return $http.get('./api/bankid/login', {
           params: data,
           data: data
-        }).then(function (response) {
-          return bankIDLogin = response.data;
+        }).then(function (oResponse) {
+            if(ErrorsFactory.bSuccessResponse(oResponse.data)){
+                return bankIDLogin = oResponse.data;
+            }
         });
       }
     },
@@ -41,35 +48,47 @@ angular.module('app').factory('BankIDService', function ($http, $q, AdminService
     },
 
     fio: function(){
-      return $http.get('./api/bankid/fio').then(function(response){
-        return response.data;
-      }).catch(function (response) {
-        var err = response.data ? response.data.err || {} : {};
+        var oFuncNote = {sHead:"Завантаження ПІБ по авторизації", sFunc:"fio"};
+        ErrorsFactory.init(oFuncNote,{asParam:['bankIDLogin: '+bankIDLogin, 'bankIDAccount: '+bankIDAccount]});
+      return $http.get('./api/user/fio').then(function(oResponse){
+        if(ErrorsFactory.bSuccessResponse(oResponse.data)){
+            return oResponse.data;
+        }
+      }).catch(function (oResponse) {
+        /*
+        var err = oResponse.data ? oResponse.data.err || {} : {};
         ErrorsFactory.push({type: "danger", text: err.error});
-
+        */
         bankIDLogin = undefined;
         bankIDAccount = undefined;
+        ErrorsFactory.addFail({sBody:'Помилка сервіса!',asParam:['soResponse: '+JSON.stringify(oResponse)]});
         return bankIDAccount;
       });
     },
 
     account: function () {
+        var oFuncNote = {sHead:"Завантаження акаунту по авторизації", sFunc:"account"};
+        ErrorsFactory.init(oFuncNote,{asParam:['bankIDLogin: '+bankIDLogin, 'bankIDAccount: '+bankIDAccount]});
       var data = {};
       return $q.when(bankIDAccount ? bankIDAccount :
-        $http.get('./api/bankid/account', {
+        $http.get('./api/user', {
           params: data,
           data: data
-        }).then(function (response) {
-          AdminService.processAccountResponse(response);
-          return bankIDAccount = response.data;
-        }).catch(function (response) {
-          var err = response.data ? response.data.err || {} : {};
-          ErrorsFactory.push({type: "danger", text: err.error});
-
-          bankIDLogin = undefined;
-          bankIDAccount = undefined;
-          return bankIDAccount;
+        }).then(function (oResponse) {
+          AdminService.processAccountResponse(oResponse);
+            if(ErrorsFactory.bSuccessResponse(oResponse.data)){
+                return bankIDAccount = oResponse.data;
+            }
+        }).catch(function (oResponse) {
+            /*
+            var err = oResponse.data ? oResponse.data.err || {} : {};
+            ErrorsFactory.push({type: "danger", text: err.error});
+            */
+            bankIDLogin = undefined;
+            bankIDAccount = undefined;
+            ErrorsFactory.addFail({sBody:'Помилка сервіса!',asParam:['soResponse: '+JSON.stringify(oResponse)]});
+            return bankIDAccount;
         }));
     }
-  }
+  };
 });

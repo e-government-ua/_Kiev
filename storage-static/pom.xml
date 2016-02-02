@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-            <groupId>org.egov-ua</groupId>
-            <artifactId>org.egov-ua</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <!--version>${igov.wf-base.version}</version-->
+        <groupId>org.igov</groupId>
+        <artifactId>root</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <name>iGov-UA Storage Static</name>
-    <groupId>org.egov-ua</groupId>
-    <artifactId>org.egov-ua.storage-static</artifactId>
-    <!--version>1.0-SNAPSHOT</version-->
-    <!--version>1.0.0${parameter.sRevision}-SNAPSHOT</version-->
+    <artifactId>db-kv-statical</artifactId>
     <version>${igov.storage-static.version}</version>
     <packaging>jar</packaging>
 
@@ -22,25 +19,9 @@
         <spring.data.mongodb.version>1.7.0.RELEASE</spring.data.mongodb.version>
     </properties>
 
-
-	<!--modelVersion>4.0.0</modelVersion>
-
-	<name>E-Government-UA Storage module (parent)</name>
-
-	<groupId>org.egov-ua</groupId>
-	<artifactId>org.egov-ua.storage</artifactId>
-	<packaging>pom</packaging>
-	<version>1.0-SNAPSHOT</version-->
-
-	<!--modules>
-		<module>durable</module>
-	</modules-->
-	<!--modules>
-		<module>storage-static</module>
-	</modules-->
-
     <dependencies>
-        <!-- MongoDB dependencies -->    
+        
+        <!-- MongoDB dependencies -->
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongo-java-driver</artifactId>
@@ -59,7 +40,6 @@
         </dependency>
 
         <!-- Spring dependencies -->
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -90,20 +70,33 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- your own standard logging dependencies -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+
     </dependencies>
     
     <build>
         <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven-compiler-plugin.version}</version>
-                    <configuration>
-                        <source>${source.version}</source>
-                        <target>${target.version}</target>
-                        <encoding>${encoding}</encoding>
-                    </configuration>
-                </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${source.version}</source>
+                    <target>${target.version}</target>
+                    <encoding>${encoding}</encoding>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

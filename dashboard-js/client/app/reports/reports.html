@@ -5,8 +5,20 @@
   <div class="panel-body">
     <div class="col-xs-12 col-md-8">
       <div class="col-xs-6 col-sm-1"><label style="padding-top: 8px;">Період:</label></div>
-      <div class="col-xs-6 col-sm-2"><input class="form-control" ng-model="export.from" ng-required="true"></div>
-      <div class="col-xs-6 col-sm-2"><input class="form-control" ng-model="export.to" ng-required="true"></div>
+      <div class="col-xs-6 col-sm-2">
+          <input datetimepicker
+                 class="form-control date-picker" ng-model="export.from"
+                 options="{{date.options}}"
+                 format="YYYY-MM-DD"
+                 ng-change="initExportUrl()" ng-required="true">
+      </div>
+      <div class="col-xs-6 col-sm-2">
+          <input datetimepicker
+                 class="form-control date-picker" ng-model="export.to"
+                 options="{{date.options}}"
+                 format="YYYY-MM-DD"
+                 ng-change="initExportUrl()" ng-required="true">
+      </div>
       <div class="col-xs-6 col-sm-2"><label style="padding-top: 8px;">Оберіть послугу:</label></div>
       <div class="col-xs-6 col-sm-3">
         <select name="bpID"
@@ -19,6 +31,20 @@
           <label ng-hide="processesLoaded() || processesLoadError()" style="padding-top: 8px;">Завантаження послуг...</label>
           <label ng-show="processesLoadError()" style="padding-top: 8px;">Помилка при завантаженні</label>
       </div>
+
+      <div class="tickets-assign">
+          <input type="checkbox"
+                 ng-model="export.bExportAll"
+                 id="bExportAll"
+                 class="ng-pristine ng-valid ng-touched">
+          <label for="bExportAll">Все</label>
+      </div>
+<!--
+                data.bEmployeeUnassigned = $scope.ticketsFilter.bEmployeeUnassigned;
+$scope.export.bExportAll
+                 ng-change="applyTicketsFilter()"
+-->
+
       <div class="col-xs-6 col-sm-2">
                         
          <a ng-href="{{getExportLink()}}" class="btn btn-success" target="_self"
@@ -29,12 +55,24 @@
   </div>
 </div>
 <div class="panel panel-default">
-  <div class="panel-heading">Статистика</div>
+    <div class="panel-heading">Статистика <b>(неактуально!!!)</b></div>
   <div class="panel-body">
     <div class="col-xs-12 col-md-8">
       <div class="col-xs-6 col-sm-1"><label style="padding-top: 8px;">Період:</label></div>
-      <div class="col-xs-6 col-sm-2"><input class="form-control" ng-model="statistic.from" ng-required="true"></div>
-      <div class="col-xs-6 col-sm-2"><input class="form-control" ng-model="statistic.to" ng-required="true"></div>
+      <div class="col-xs-6 col-sm-2">
+          <input datetimepicker
+                 class="form-control date-picker"
+                 options="{{date.options}}"
+                 format="YYYY-MM-DD"
+                 ng-model="statistic.from" ng-change="initStatisticUrl()" ng-required="true">
+      </div>
+      <div class="col-xs-6 col-sm-2">
+          <input datetimepicker
+                  class="form-control date-picker"
+                  options="{{date.options}}"
+                  format="YYYY-MM-DD"
+                  ng-model="statistic.to" ng-change="initStatisticUrl()" ng-required="true">
+      </div>
       <div class="col-xs-6 col-sm-2"><label style="padding-top: 8px;">Оберіть послугу:</label></div>
       <div class="col-xs-6 col-sm-3">
         <select name="bpID"

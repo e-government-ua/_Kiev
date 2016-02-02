@@ -38,3 +38,14 @@ If you need to customize settings in config.js locally, don't change the file lo
         }
     };
 Do not add it to repository though.
+
+##BankID Chipering
+For production:<br>
+You should add these parameters to process.json file:<br>
+<li>"BANKID_ENABLE_CIPHER":"true",
+<li>"BANKID_PRIVATE_KEY":"path to private key that is used to encrypt data from bankid",
+<li>"BANKID_PRIVATE_KEY_PASSPHRASE":"passphrase of private key above"
+
+For test-alpha, test-beta:<br>
+Private key for tests is used, you should add only this parameter:<br>
+<li>"BANKID_ENABLE_CIPHER":"true"

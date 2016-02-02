@@ -44,7 +44,7 @@ then
     echo "already installed, skip"
 else
     TOMCAT_DIST=apache-tomcat-8.0.24.tar.gz
-    wget -nv -P $DOWNLOAD_DIR http://apache.cp.if.ua/tomcat/tomcat-8/v8.0.24/bin/$TOMCAT_DIST
+    wget -nv -P $DOWNLOAD_DIR https://archive.apache.org/dist/tomcat/tomcat-8/v8.0.24/bin/$TOMCAT_DIST
     tar -xvzf $DOWNLOAD_DIR/$TOMCAT_DIST -C $PROGRAMS_HOME
     rm $DOWNLOAD_DIR/$TOMCAT_DIST
     chown -R vagrant $TOMCAT_HOME
@@ -70,7 +70,7 @@ echo "******************************************************************"
 if ! dpkg --list nodejs | egrep -q ^ii; 
 then
     echo "add node js PPA  ..."
-    curl -sL https://deb.nodesource.com/setup | sudo bash -      
+    curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
 fi
 
 apt-get install -y nodejs git g++ screen

@@ -4,75 +4,26 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-
-
-
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
-    <beans>
+    <!--beans-->
         
         <!-- ===========================   TRANSACTIONS   ========================= -->
 
-        <mvc:interceptors>
+        <!--mvc:interceptors>
             <mvc:interceptor>
                 <mvc:mapping path="/**" />
-                    <bean class="org.activiti.rest.interceptor.RequestProcessingInterceptor" />
+                    <bean class="org.igov.service.controller.interceptor.RequestProcessingInterceptor" />
                 </mvc:interceptor>
-        </mvc:interceptors>
+        </mvc:interceptors-->
 
-        <aop:config>
-            <aop:pointcut id="dao" expression="execution(* org.wf.dp.dniprorada.dao.*.*(..))"/>
-            <aop:pointcut id="dao.services" expression="execution(* org.wf.dp.dniprorada.service.*.*(..))"/>
+        <!--aop:config>
+            <aop:pointcut id="model.core" expression="execution(* org.igov.model.core.*.*(..))"/>
 
-            <aop:advisor pointcut-ref="dao" advice-ref="txAdvice"/>
-            <aop:advisor pointcut-ref="dao.services" advice-ref="txAdvice"/>
-        </aop:config>
+            <aop:advisor pointcut-ref="model.core" advice-ref="txAdvice"/>
+        </aop:config-->
 
-
-        <!-- ==============================   DAO   ============================= -->
-
-        <bean id="tableDataService" class="org.wf.dp.dniprorada.service.TableDataService">
-            <property name="dataSource" ref="dataSource"/>
-            <property name="sessionFactory" ref="sessionFactory"/>
-        </bean>
-
-        <bean id="subjectOrganJoinDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
-            <constructor-arg value="#{T(org.wf.dp.dniprorada.model.SubjectOrganJoin)}"/>
-        </bean>
-
-        <bean id="subjectMessageTypeDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
-            <constructor-arg value="#{T(org.wf.dp.dniprorada.model.SubjectMessageType)}"/>
-        </bean>
-
-        <bean id="serviceDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
-            <constructor-arg value="#{T(org.wf.dp.dniprorada.model.Service)}"/>
-        </bean>
-
-        <bean id="serviceDataDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
-            <constructor-arg value="#{T(org.wf.dp.dniprorada.model.ServiceData)}"/>
-        </bean>
-
-        <bean id="categoryDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
-            <constructor-arg value="#{T(org.wf.dp.dniprorada.model.Category)}"/>
-        </bean>
-
-        <bean id="regionDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
-            <constructor-arg value="#{T(org.wf.dp.dniprorada.model.Region)}"/>
-        </bean>
-
-        <bean id="subcategoryDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
-            <constructor-arg value="#{T(org.wf.dp.dniprorada.model.Subcategory)}"/>
-        </bean>
-
-        <bean id="documentOperatorDao" class="org.wf.dp.dniprorada.base.dao.GenericEntityDao">
-            <constructor-arg value="#{T(org.wf.dp.dniprorada.model.DocumentOperator_SubjectOrgan)}"/>
-        </bean>
-
-        <bean id="placeTypeDao" class="org.wf.dp.dniprorada.dao.PlaceTypeDao"/>
-        <bean id="placeDao"     class="org.wf.dp.dniprorada.dao.place.PlaceDaoImpl"/>
-        <bean id="sqlStorage"   class="org.wf.dp.dniprorada.base.util.queryloader.QueryLoader"/>
-
-    </beans>
+    <!--/beans-->
 
 </beans>

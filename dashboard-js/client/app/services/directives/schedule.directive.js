@@ -1,7 +1,7 @@
 angular.module('dashboardJsApp')
   .directive('schedule', function(){
 
-    var controller = function($scope, $modal, bpForSchedule ) {
+    var controller = function($scope, $modal, bpForSchedule) {
 
       var isSlotsPresent = false;
       var inProgress = false;
@@ -33,7 +33,7 @@ angular.module('dashboardJsApp')
       var fillData = function () {
         inProgress = true;
         isSlotsPresent = false;
-        getFunc(bpForSchedule.bp.chosenBp.sID)
+        getFunc(bpForSchedule.bp.chosenBp.sID, bpForSchedule.bp.chosenDepartment.nID)
           .then(function (data) {
             slots = data;
             angular.forEach(slots, setDuration);
@@ -60,7 +60,7 @@ angular.module('dashboardJsApp')
         });
 
         modalInstance.result.then(function (editedSlot) {
-          setFunc(bpForSchedule.bp.chosenBp.sID, editedSlot)
+          setFunc(bpForSchedule.bp.chosenBp.sID, bpForSchedule.bp.chosenDepartment.nID, editedSlot)
             .then(function (createdSlot) {
               setDuration(createdSlot);
 
@@ -107,15 +107,11 @@ angular.module('dashboardJsApp')
       };
 
       $scope.delete = function (slot) {
-        deleteFunc(bpForSchedule.bp.chosenBp.sID, slot.nID)
+        deleteFunc(bpForSchedule.bp.chosenBp.sID, bpForSchedule.bp.chosenDepartment.nID, slot.nID)
           .then(fillData);
       };
 
       // Init:
-
-      if (bpForSchedule.bp.chosenBp){
-        fillData();
-      }
 
       $scope.$on('bpChangedEvent', function () {
         fillData();

@@ -9,7 +9,7 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="Копія громадянського паспорту" type="file"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Індивідуальний податковий номер" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="birthDate" name="Дата народження; у форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdbirthDay" name="Дата народження; у форматі ДД.ММ.РРРР" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження; країна, область/регіон, населений пункт" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="text1" name="Якщо змінювались  прізвище, ім'я та по-батькові, обов'язково вкажіть попередні ПІБ  на обох мовах (укр. та рос.)" type="label" default="-------------------"></activiti:formProperty>
@@ -31,12 +31,11 @@
         </activiti:formProperty>
         <activiti:formProperty id="text3" name="Контактні данні" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон; у форматі 380...." type="long" default="380" required="true"></activiti:formProperty>
-        <activiti:formProperty id="res_type" name="Результат обробки звернення" type="enum" required="true">
+        <activiti:formProperty id="res_type" name="Оберіть бажаний результат обробки звернення" type="enum" required="true">
           <activiti:value id="1" name="Прошу надати довідку в паперовому вигляді"></activiti:value>
-          <activiti:value id="3" name="Прошу надати довідку в паперовому та електронному вигляді (з ЕЦП)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування додаткових документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -55,7 +54,7 @@
         <activiti:formProperty id="fioRU" name="Предыдущее ФИО (рус.)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Індивідуальний податковий номер" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="birthDate" name="Дата народження" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdbirthDay" name="Дата народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="birthLoc" name="Місце народження" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="resident" name="Громадянство" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="enum" writable="false">
@@ -179,7 +178,7 @@
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept' && res_type== '1'}]]></conditionExpression>
     </sequenceFlow>
     <sequenceFlow id="flow14" sourceRef="servicetask4" targetRef="endevent2"></sequenceFlow>
-    <serviceTask id="servicetask5" name="Повідомлення громадянина про обробку звернення" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+    <serviceTask id="servicetask5" name="Повідомлення громадянина про відмову" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -194,7 +193,7 @@
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
 &lt;br /&gt;
-Нажаль, неможливо обробити Ваш запит щодо замовлення довідки про наявність або відсутніть судимості.&lt;br /&gt;
+На жаль, неможливо обробити Ваш запит щодо замовлення довідки про наявність або відсутніть судимості.&lt;br /&gt;
 Підтсава: &lt;br /&gt;
 ${comment}&lt;br /&gt;
 
@@ -229,9 +228,9 @@ ${comment}&lt;br /&gt;
                                     &lt;p&gt;
                                       
                                        
-Дякуємо, що скористалися Інтернет-сервісом замовлення довідки про наявність або відсутніть судимості! Ваш запит успішно зареєстровано.&lt;br /&gt;
+Дякуємо, що скористалися Інтернет-сервісом замовлення довідки про наявність або відсутніть судимості! Ваш запит успішно зареєстровано.&lt;br&gt;
 
-Ви зможете забрати Вашу довідку приблизно за 20 робочих днів за адресою вул.Ворошилова 21. &lt;br /&gt;
+Ви зможете забрати Вашу довідку приблизно за 20 робочих днів за адресою вул.Ворошилова 21. &lt;br&gt;
 
  &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
 &lt;p&gt;
@@ -248,7 +247,53 @@ ${comment}&lt;br /&gt;
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow15" sourceRef="servicetask6" targetRef="usertask1"></sequenceFlow>
-    <sequenceFlow id="flow16" sourceRef="servicetask1" targetRef="servicetask6"></sequenceFlow>
+    <serviceTask id="servicetask7" name="Повідомлення про успішне подання звернення (оригінал та копія)" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: Надання довідки про відсутність або наявніть судимості]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+      &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+                                    &lt;p&gt;
+                                      
+                                       
+Дякуємо, що скористалися Інтернет-сервісом замовлення довідки про наявність або відсутніть судимості! Ваш запит успішно зареєстровано.&lt;br&gt;
+
+Приблизно за 20 робочих днів Ви отримаєте копію довідки на цей ємейл, а також матимете змогу отримати оригінал довідки  за адресою вул.Ворошилова 21. &lt;br&gt;
+
+
+
+
+ &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+&lt;p&gt;
+З повагою,&lt;br /&gt;
+Міністерство Внутрішніх Справ,
+Команда Порталу державних послуг &lt;a href="http://igov.org.ua"&gt;iGov.org.ua&lt;/a&gt;
+                                    &lt;/p&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+ 
+
+[pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
+    <sequenceFlow id="flow17" sourceRef="servicetask1" targetRef="exclusivegateway2"></sequenceFlow>
+    <sequenceFlow id="flow18" name="${res_type=='1'}" sourceRef="exclusivegateway2" targetRef="servicetask6">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${res_type=='1'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow19" name="${res_type=='3'}" sourceRef="exclusivegateway2" targetRef="servicetask7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${res_type=='3'}]]></conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="flow20" sourceRef="servicetask7" targetRef="usertask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_mvd_1">
     <bpmndi:BPMNPlane bpmnElement="dnepr_mvd_1" id="BPMNPlane_dnepr_mvd_1">
@@ -265,7 +310,7 @@ ${comment}&lt;br /&gt;
         <omgdc:Bounds height="35.0" width="35.0" x="269.0" y="13.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="55.0" width="206.0" x="409.0" y="161.0"></omgdc:Bounds>
+        <omgdc:Bounds height="55.0" width="206.0" x="540.0" y="160.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="491.0" y="250.0"></omgdc:Bounds>
@@ -285,6 +330,12 @@ ${comment}&lt;br /&gt;
       <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
         <omgdc:Bounds height="71.0" width="210.0" x="407.0" y="62.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask7" id="BPMNShape_servicetask7">
+        <omgdc:Bounds height="71.0" width="210.0" x="662.0" y="62.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
+        <omgdc:Bounds height="40.0" width="40.0" x="622.0" y="-20.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="145.0" y="97.0"></omgdi:waypoint>
         <omgdi:waypoint x="212.0" y="97.0"></omgdi:waypoint>
@@ -294,7 +345,7 @@ ${comment}&lt;br /&gt;
         <omgdi:waypoint x="286.0" y="48.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
-        <omgdi:waypoint x="512.0" y="216.0"></omgdi:waypoint>
+        <omgdi:waypoint x="643.0" y="215.0"></omgdi:waypoint>
         <omgdi:waypoint x="511.0" y="234.0"></omgdi:waypoint>
         <omgdi:waypoint x="511.0" y="250.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
@@ -337,11 +388,31 @@ ${comment}&lt;br /&gt;
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
         <omgdi:waypoint x="512.0" y="133.0"></omgdi:waypoint>
-        <omgdi:waypoint x="512.0" y="161.0"></omgdi:waypoint>
+        <omgdi:waypoint x="643.0" y="160.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+      <bpmndi:BPMNEdge bpmnElement="flow17" id="BPMNEdge_flow17">
         <omgdi:waypoint x="361.0" y="97.0"></omgdi:waypoint>
-        <omgdi:waypoint x="407.0" y="97.0"></omgdi:waypoint>
+        <omgdi:waypoint x="383.0" y="94.0"></omgdi:waypoint>
+        <omgdi:waypoint x="383.0" y="0.0"></omgdi:waypoint>
+        <omgdi:waypoint x="622.0" y="0.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow18" id="BPMNEdge_flow18">
+        <omgdi:waypoint x="642.0" y="20.0"></omgdi:waypoint>
+        <omgdi:waypoint x="512.0" y="62.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="79.0" x="532.0" y="14.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow19" id="BPMNEdge_flow19">
+        <omgdi:waypoint x="642.0" y="20.0"></omgdi:waypoint>
+        <omgdi:waypoint x="767.0" y="62.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="79.0" x="14.0" y="-8.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow20" id="BPMNEdge_flow20">
+        <omgdi:waypoint x="767.0" y="133.0"></omgdi:waypoint>
+        <omgdi:waypoint x="643.0" y="160.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

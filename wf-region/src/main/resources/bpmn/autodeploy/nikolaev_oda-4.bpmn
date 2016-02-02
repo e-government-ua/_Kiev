@@ -18,7 +18,7 @@
         <activiti:formProperty id="file8" name="Копія технічний висновок по квартирі із ЖЕК" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Яка мета або причина одержання дозволу?" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-                <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Прийняття рішення про надання послуги" activiti:candidateGroups="myk_mr_0">
@@ -38,7 +38,7 @@
     </userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow2" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
-    <userTask id="usertask2" name="Підстави для відмови ">
+    <userTask id="usertask2" name="Підстави для відмови " activiti:candidateGroups="myk_mr_0">
       <extensionElements>
         <activiti:formProperty id="comment" name="Причина відмови " type="string" required="true"></activiti:formProperty>
       </extensionElements>
@@ -46,7 +46,7 @@
     <sequenceFlow id="flow3" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="usertask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask3" name="Підготовка Витягу з рішення виконавчого комітету Миколаївської міської ради про зміну договору найму.">
+    <userTask id="usertask3" name="Підготовка Витягу з рішення виконавчого комітету Миколаївської міської ради про зміну договору найму." activiti:candidateGroups="myk_mr_0">
       <extensionElements>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>

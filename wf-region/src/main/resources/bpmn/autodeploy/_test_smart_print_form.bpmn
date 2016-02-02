@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="_test_smart_print_form" name="_test_smart_print_form" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -131,6 +131,12 @@
           <activiti:value id="true" name="Так"></activiti:value>
           <activiti:value id="false" name="Ні"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="condition" name="скрыть таблицу ?" type="enum" default="2">
+          <activiti:value id="2" name="скрыть"></activiti:value>
+          <activiti:value id="1" name="не скрывать"></activiti:value>
+        </activiti:formProperty>
+        <activiti:formProperty id="print_marker1" name="show/hide name" type="markers" default="{&quot;motion&quot;: {&quot;ShowElementsOnTrue_1&quot;: {&quot;aElement_ID&quot;: [&quot;all_table&quot;],&quot;asID_Field&quot;: {&quot;sCond&quot;: &quot;condition&quot;},&quot;sCondition&quot;: &quot;[sCond]=='1'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="split" name="сплитим" type="markers" default="{&quot;motion&quot;: {&quot;SplitTextHalf_1&quot;: {&quot;sID_Field&quot;: &quot;bankIdPassport&quot;,&quot;sSpliter&quot;: &quot; &quot;,&quot;sID_Element_sValue1&quot;: &quot;div1&quot;,&quot;sID_Element_sValue2&quot;: &quot;div2&quot;}}}"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}"></activiti:taskListener>
       </extensionElements>
@@ -142,7 +148,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram__test_smart_print_form">
     <bpmndi:BPMNPlane bpmnElement="_test_smart_print_form" id="BPMNPlane__test_smart_print_form">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="432.0" y="100.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="350.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="55.0" width="105.0" x="405.0" y="200.0"></omgdc:Bounds>
@@ -151,7 +157,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="443.0" y="310.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
-        <omgdi:waypoint x="449.0" y="135.0"></omgdi:waypoint>
+        <omgdi:waypoint x="367.0" y="115.0"></omgdi:waypoint>
         <omgdi:waypoint x="457.0" y="200.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">

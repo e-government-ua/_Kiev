@@ -15,7 +15,7 @@
           <activiti:value id="На поштову адресу" name="На поштову адресу"></activiti:value>
           <activiti:value id="За телефоном" name="За телефоном"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask3" name="Повідомлення про  подання звернення" activiti:type="mail">

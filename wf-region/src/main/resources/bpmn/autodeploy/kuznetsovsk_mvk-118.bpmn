@@ -234,7 +234,7 @@
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Коментар адміністратора у разі відмови у реєстрації звернення" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="spec" name="електронна адреса спеціаліста" type="string"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/kuznetsovsk_118.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/kuznetsovsk/kuznetsovsk_118.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -557,7 +557,7 @@
         <activiti:formProperty id="decisionComment" name="Якщо ви відмовляєте замовнику у наданні послуги чи поновленні договору, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
         <activiti:formProperty id="decisionComment1" name="Коментар при відмові у наданні послуги чи поновленні договору для адміністратора ЦНАП" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="docToSend" name="Завантажте копію документа для відправлення заявнику" type="file"></activiti:formProperty>
-        <activiti:formProperty id="sBody_1" name="[pattern/print/kuznetsovsk_118.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/kuznetsovsk/kuznetsovsk_118.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">

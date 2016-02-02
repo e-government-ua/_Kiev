@@ -5,18 +5,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>org.egov-ua</artifactId>
-        <groupId>org.egov-ua</groupId>
-	<version>1.0-SNAPSHOT</version>
-	<!--version>${igov.wf-base.version}</version-->
+        <groupId>org.igov</groupId>
+        <artifactId>root</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
     <name>iGov-UA WF-Base</name>
     <artifactId>wf-base</artifactId>
-    <!--version>1.0-SNAPSHOT</version-->
-    <!--version>1.0.0${parameter.sRevision}-SNAPSHOT</version-->
     <version>${igov.wf-base.version}</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
+    <!--packaging>war</packaging-->
+    
+    
 
     <properties>
         <activity.version>5.17.0</activity.version>
@@ -25,10 +25,10 @@
 
     <repositories>
     	
-    <repository>
-         <id>vaadin-addons</id>
-         <url>http://maven.vaadin.com/vaadin-addons</url>
-    </repository>
+        <repository>
+            <id>vaadin-addons</id>
+            <url>http://maven.vaadin.com/vaadin-addons</url>
+        </repository>
         
     	
 
@@ -59,6 +59,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <jarName>${project.artifactId}-${project.version}</jarName>
+                    <!--jarName>${project.artifactId}-1.0.0-RELEASE</jarName-->
                     <classifier>lib</classifier>
                     <!--excludes>
                         <exclude>*.properties</exclude>
@@ -111,21 +112,81 @@
                 </configuration>
             </plugin>
             <plugin>
-        		<groupId>org.apache.maven.plugins</groupId>
-        		<artifactId>maven-jar-plugin</artifactId>
-        		<executions>
-          			<execution>
-            			<goals>
-              				<goal>test-jar</goal>
-            			</goals>
-          			</execution>
-        		</executions>
-      		</plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+        		<version>1.5.2.1</version>
+                <dependencies>
+                    <!-- <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-pdf</artifactId>
+                        <version>1.5.0-alpha.9</version>
+                    </dependency> -->
+                </dependencies>             
+                <executions>
+                    <execution>
+                        <id>output-html</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <sourceHighlighter>coderay</sourceHighlighter>
+                            <backend>html5</backend>
+                            <doctype>book</doctype>
+                            <attributes>
+                                <toc2 />
+                                <linkcss>false</linkcss>
+                                <numbered>true</numbered>
+                                <toclevels>3</toclevels>
+                                <docdatetime>${maven.build.timestamp}</docdatetime>
+                            </attributes>
+                        </configuration>
+                    </execution>
+                    <!-- Работает но довольно долго, если нужен pdf расскоментировать
+                    <execution>
+                        <id>generate-pdf-doc</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                        <configuration>
+                            <backend>pdf</backend>
+                            <sourceHighlighter>rouge</sourceHighlighter>
+                            <attributes>
+                                <icons>font</icons>
+                                <pagenums />
+                                <toc2 />
+                                <idprefix />
+                                <idseparator>-</idseparator>
+                            </attributes>
+                        </configuration>
+                    </execution> -->
+                </executions>
+                <configuration>
+                    <sourceDirectory>src/main/asciidoc</sourceDirectory>
+                    <preserveDirectories>true</preserveDirectories>
+                    <!-- <sourceDocumentName>base-allrest-index.adoc</sourceDocumentName>                   
+                    <sourceDocumentName>base-egovrest-index.adoc</sourceDocumentName> -->
+                    <headerFooter>true</headerFooter>
+                    <imagesDir>../resources/images</imagesDir>
+                </configuration>
+            </plugin>       		
         </plugins>
         <pluginManagement>
             <plugins>
                 <!--This plugin's configuration is used to store Eclipse m2e settings
-                    only. It has no influence on the Maven build itself. -->
+                only. It has no influence on the Maven build itself. -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
@@ -204,7 +265,7 @@
             </exclusions>
         </dependency>
         <!-- <dependency> <groupId>org.vaadin.addons</groupId> <artifactId>dcharts-widget</artifactId>
-            <version>0.10.0</version> </dependency> -->
+        <version>0.10.0</version> </dependency> -->
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-diagram-rest</artifactId>
@@ -235,23 +296,20 @@
             <version>${activity.version}</version>
         </dependency>
 
-        <!-- REDIS -->
+        <!-- DB-NoSQL (KeyValue-Storage) -->
         <dependency>
-            <groupId>org.activiti.redis</groupId>
-            <artifactId>wf-region-redis</artifactId>
-            <!--version>0.0.1-SNAPSHOT</version-->
+            <groupId>org.igov</groupId>
+            <artifactId>db-kv-temp</artifactId>
             <version>${igov.storage-temp.version}</version>
-            
         </dependency>
 
         <dependency>
-            <groupId>org.egov-ua</groupId>
-            <artifactId>org.egov-ua.storage-static</artifactId>
-            <!--version>1.0-SNAPSHOT</version-->
+            <groupId>org.igov</groupId>
+            <artifactId>db-kv-statical</artifactId>
             <version>${igov.storage-static.version}</version>
         </dependency>
 
-        <!-- Database -->
+        <!-- DB-SQL (Relative-Storage) -->
         <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
@@ -320,11 +378,11 @@
             <artifactId>quartz</artifactId>
         </dependency>
 		
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.3.1</version>
-		</dependency>		
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.3.1</version>
+        </dependency>		
 		
         <!-- Running example processes -->
         <dependency>
@@ -407,26 +465,64 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-       <dependency>
+        <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
-		<dependency>
-  			<groupId>org.apache.httpcomponents</groupId>
-  			<artifactId>httpclient</artifactId>
-  			<version>4.5</version>
-		</dependency>
-		<dependency>
-        	<groupId>org.apache.httpcomponents</groupId>
-        	<artifactId>httpmime</artifactId>
-       		<version>4.4.1</version>
-   		</dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpmime</artifactId>
+            <version>4.4.1</version>
+        </dependency>
         <!-- Allows to store external parameters for QueryLoader in *.properties files. -->
         <dependency>
             <groupId>ru.qatools.commons</groupId>
             <artifactId>properties</artifactId>
             <version>2.0.RC3</version>
+        </dependency>
+        
+        <!-- Springfox -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
+
+		<!-- Springfox staticdocs --> 
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-staticdocs</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>el-impl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.asciidoctor</groupId>
+			<artifactId>asciidoctor-maven-plugin</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>db-kv-statical</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>db-kv-temp</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
     <profiles>
@@ -435,7 +531,7 @@
             <build>
                 <plugins>
                     <!-- Compile custom GWT components or widget dependencies with the GWT
-                        compiler -->
+                    compiler -->
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>gwt-maven-plugin</artifactId>

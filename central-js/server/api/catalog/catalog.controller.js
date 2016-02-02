@@ -44,6 +44,8 @@ var pruneCache = function() {
   });
 };
 
+module.exports.pruneCache = pruneCache;
+
 module.exports.getServicesTree = function (req, res) {
   var options = {
     protocol: activiti.protocol,
@@ -75,7 +77,7 @@ module.exports.getServicesTree = function (req, res) {
     res.end();
   };
 
-  var url = buildUrl('/services/getServicesTree');
+  var url = buildUrl('/action/item/getServicesTree');
 
   return request.get({
     'url': url,
@@ -98,7 +100,7 @@ module.exports.setServicesTree = function(req, res) {
     res.end();
   };
 
-  var url = buildUrl('/services/setServicesTree');
+  var url = buildUrl('/action/item/setServicesTree');
 
   request.post({
     'url': url,
@@ -145,19 +147,15 @@ var remove = function(path, req, res){
 };
 
 module.exports.removeCategory = function(req, res) {
-  return remove('/services/removeCategory', req, res);
+  return remove('/action/item/removeCategory', req, res);
 };
 
 module.exports.removeSubcategory = function(req, res) {
-  return remove('/services/removeSubcategory', req, res);
+  return remove('/action/item/removeSubcategory', req, res);
 };
 
 module.exports.removeService = function(req, res) {
-  return remove('/services/removeService', req, res);
-};
-
-module.exports.removeServiceData = function(req, res) {
-  return remove('/services/removeServiceData', req, res);
+  return remove('/action/item/removeService', req, res);
 };
 
 module.exports.removeServicesTree = function(req, res) {
@@ -167,7 +165,7 @@ module.exports.removeServicesTree = function(req, res) {
     res.end();
   };
 
-  var url = buildUrl('/services/removeServicesTree');
+  var url = buildUrl('/action/item/removeServicesTree');
 
   request.del({
     'url': url,

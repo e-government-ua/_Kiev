@@ -4,9 +4,10 @@ var crypto = require('crypto');
 
 var adminKeysCache = new NodeCache();
 var cacheKey = 'admin-keys-map';
-// ИНН админов
+// пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 var aAdminInn = [
 	'3119325858'
+	,'3167410996' //Р—Р°Р±СЂСѓРґСЃРєРёР№
 ];
 
 var getAdminKeys = function () {

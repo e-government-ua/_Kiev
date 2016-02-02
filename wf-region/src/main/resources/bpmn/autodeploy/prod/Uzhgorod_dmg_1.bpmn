@@ -7,6 +7,7 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Укажіть контактний номер телефону" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="files" name="Завантажте, будь ласка, файли" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="application_zayava" name="Копія заяви на дозвіл на проведення земляних робіт" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="scheme" name="Схема виконання робіт - викопіювання з генплану" type="file" required="true"></activiti:formProperty>
@@ -18,6 +19,8 @@
     <userTask id="usertask1" name="прийняття рішення про надання послуги" activiti:candidateGroups="Uzhgorod_dmg_1">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ID_zayava" name="реєстраційний номер заяви" type="string"></activiti:formProperty>
         <activiti:formProperty id="decision_1" name="прийняття рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Документи пройшли перевірку. Послуга може бути надана."></activiti:value>
@@ -36,6 +39,8 @@
     <userTask id="usertask4" name="надання адміністративної послуги" activiti:candidateGroups="Uzhgorod_dmg_1">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ID_zayava" name="реєстраційний номер заяви" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_2" name="прийняття рішення про надання дозволу" type="enum" required="true">
           <activiti:value id="accept" name="надати дозвіл на проведення земляних робіт"></activiti:value>

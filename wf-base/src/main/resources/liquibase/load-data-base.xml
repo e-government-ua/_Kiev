@@ -34,6 +34,13 @@
             <column name="nID_Flow_ServiceData" type="NUMERIC"/>
         </loadUpdateData>
 
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowLink.csv" tableName="FlowLink" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_Flow_ServiceData" type="NUMERIC"/>
+            <column name="nID_Service" type="NUMERIC"/>
+            <column name="nID_SubjectOrganDepartment"  type="NUMERIC"/>
+        </loadUpdateData>
+
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/FlowProperty.csv" tableName="FlowProperty" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="nID_FlowPropertyClass" type="NUMERIC"/>
@@ -91,6 +98,21 @@
             <column name="sLogin" type="STRING"/>
             <column name="sService" type="STRING"/>
             <column name="sHandlerBean" type="STRING"/>
+        </loadUpdateData>
+
+        <loadUpdateData tableName="EscalationStatus" primaryKey="nID" file="data/EscalationStatus.csv" encoding="UTF-8" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sID" type="STRING"/>
+            <column name="sNote" type="STRING"/>
+        </loadUpdateData>
+
+        <loadUpdateData tableName="EscalationHistory" primaryKey="nID" file="data/EscalationHistory.csv" encoding="UTF-8" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sDate" type="DATETIME"/>
+            <column name="nID_Process" type="NUMERIC"/>
+            <column name="nID_Process_Root" type="NUMERIC"/>
+            <column name="nID_UserTask" type="NUMERIC"/>
+            <column name="nID_EscalationStatus" type="NUMERIC"/>
         </loadUpdateData>
 
     </changeSet>    

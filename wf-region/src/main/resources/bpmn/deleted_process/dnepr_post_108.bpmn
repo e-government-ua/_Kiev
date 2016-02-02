@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="dnepr_post_108" name="Дніпропетровськ - УкрПочта - Призначення державної соцальної допомоги у зв'язку з витратами, зумовленими похованням" isExecutable="true">
+  <process id="dnepr_post_108" name="Дніпропетровськ - УкрПочта - Призначення державної соціальної допомоги у зв'язку з витратами, зумовленими похованням" isExecutable="true">
     <documentation>https://github.com/e-government-ua/iBP/issues/108</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
@@ -33,7 +33,7 @@
         <activiti:formProperty id="sID_Merchant" name="ИД-строковой мерчанта (магазина)" type="invisible" default="i75116857714"></activiti:formProperty>
         <activiti:formProperty id="sSum" name="сумма платежа" type="invisible" default="17.15"></activiti:formProperty>
         <activiti:formProperty id="sID_Currency" name="ИД-строковой валюты" type="invisible" default="UAH"></activiti:formProperty>
-        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default="Оплата послуги - призначення державної соцальної допомоги у зв'язку з витратами, зумовленими похованням"></activiti:formProperty>
+        <activiti:formProperty id="sDescription" name="строка-описание платежа" type="invisible" default="Оплата послуги - призначення державної соціальної допомоги у зв'язку з витратами, зумовленими похованням"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask2" name="Повідомлення співробітника Укрпошти" activiti:type="mail">
@@ -45,7 +45,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Нове  звернення. Призначення державної соцальної допомоги у зв'язку з витратами, зумовленими похованням</activiti:string>
+          <activiti:string>Нове  звернення. Призначення державної соціальної допомоги у зв'язку з витратами, зумовленими похованням</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -101,7 +101,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
                                     &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо призначення державної соцальної допомоги у зв'язку з витратами, зумовленими похованням.&lt;br /&gt;
+У Вас в черзі на обробку зареєстровано нове звернення щодо призначення державної соціальної допомоги у зв'язку з витратами, зумовленими похованням.&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 Відпрацюйте це звернення на &lt;a href="https://test.region.igov.org.ua:6948/" target="_blank"&gt;порталі&lt;/a&gt;
                                     &lt;/p&gt;
@@ -235,7 +235,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
 &lt;p&gt;
 &lt;strong&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;/strong&gt;&lt;br /&gt;
-Вам відмовлено у призначенні державної соцальної допомоги у зв'язку з витратами, зумовленими похованням.&lt;br /&gt; &lt;/p&gt;
+Вам відмовлено у призначенні державної соціальної допомоги у зв'язку з витратами, зумовленими похованням.&lt;br /&gt; &lt;/p&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа, а також буде спрямована Вам поштовим відправленням з повідомленням про вручення.&lt;br /&gt;
                                     &lt;/p&gt;
                                     &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
@@ -264,7 +264,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: призначення державної соцальної допомоги у зв'язку з витратами, зумовленими похованням</activiti:string>
+          <activiti:string>Звернення на тему: призначення державної соціальної допомоги у зв'язку з витратами, зумовленими похованням</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -288,7 +288,7 @@
           <activiti:string>noreply@igov.org.ua</activiti:string>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: призначення державної соцальної допомоги у зв'язку з витратами, зумовленими похованням</activiti:string>
+          <activiti:string>Звернення на тему: призначення державної соціальної допомоги у зв'язку з витратами, зумовленими похованням</activiti:string>
         </activiti:field>
         <activiti:field name="charset">
           <activiti:string>UTF-8</activiti:string>
@@ -344,7 +344,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваш запит щодо призначення державної соцальної допомоги у зв'язку з витратами, зумовленими похованням відхилено.&lt;br /&gt;
+Ваш запит щодо призначення державної соціальної допомоги у зв'язку з витратами, зумовленими похованням відхилено.&lt;br /&gt;
 &lt;br /&gt;
 Підстава: ${comment_1}    
     &lt;/pя&gt;
@@ -381,7 +381,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: призначення державної соцальної допомоги у зв'язку з витратами, зумовленими похованням</activiti:string>
+          <activiti:string>Звернення на тему: призначення державної соціальної допомоги у зв'язку з витратами, зумовленими похованням</activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${opis}"</activiti:expression>
@@ -437,7 +437,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Ваше звернення щодо призначення державної соцальної допомоги у зв'язку з витратами, зумовленими похованням передано на розгляд в управління праці та соціального захисту населення.&lt;/h3&gt;&lt;/p&gt;
+Ваше звернення щодо призначення державної соціальної допомоги у зв'язку з витратами, зумовленими похованням передано на розгляд в управління праці та соціального захисту населення.&lt;/h3&gt;&lt;/p&gt;
 &lt;/p&gt;
 Звернення буде опрацьовано протягом десяти робочих днів з дати надходження звернення та документів, що додаються до нього.&lt;/p&gt;
 &lt;br /&gt;
@@ -495,7 +495,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: призначення державної соцальної допомоги у зв'язку з витратами, зумовленими похованням</activiti:string>
+          <activiti:string>Звернення на тему: призначення державної соціальної допомоги у зв'язку з витратами, зумовленими похованням</activiti:string>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${rishen}"</activiti:expression>
@@ -551,7 +551,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     
-Ви отримали схвалення щодо свого звернення - призначення державної соцальної допомоги у зв'язку з витратами, зумовленими похованням.&lt;br /&gt;
+Ви отримали схвалення щодо свого звернення - призначення державної соціальної допомоги у зв'язку з витратами, зумовленими похованням.&lt;br /&gt;
 &lt;br /&gt;
 Відповідь від управління праці та соціального захисту населення знаходиться у додатку до листа, а також буде спрямована Вам поштовим відправленням з повідомленням про вручення.&lt;br /&gt;
 &lt;br /&gt;
@@ -617,7 +617,7 @@
           <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string>Звернення на тему: призначення державної соцальної допомоги у зв'язку з витратами, зумовленими похованням</activiti:string>
+          <activiti:string>Звернення на тему: призначення державної соціальної допомоги у зв'язку з витратами, зумовленими похованням</activiti:string>
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>&lt;!DOCTYPE html&gt;
@@ -670,7 +670,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
            &lt;p&gt;
 Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;&lt;br /&gt;
-Ваше звернення щодо призначення державної соцальної допомоги у зв'язку з витратами, зумовленими похованням буде передано на розгляд в управління праці та соціального захисту населення після сплати послуг УкрПошти з пересилання та вручення документів.&lt;br /&gt;
+Ваше звернення щодо призначення державної соціальної допомоги у зв'язку з витратами, зумовленими похованням буде передано на розгляд в управління праці та соціального захисту населення після сплати послуг УкрПошти з пересилання та вручення документів.&lt;br /&gt;
 Сплату треба здійсити протягом 1 дня з моменту подачі заяви.&lt;br /&gt;&lt;br /&gt;Для сплати натисніть цю кнопку:                                  
                                    &lt;br /&gt;
 								   &lt;br /&gt;

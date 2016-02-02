@@ -11,7 +11,6 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="serviceNumber" name="Номер заявки" type="string"></activiti:formProperty>
         <activiti:formProperty id="claimNumber" name="Номер заявки" type="string"></activiti:formProperty>
-
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="обробка заявки" activiti:candidateGroups="sales">
@@ -23,10 +22,13 @@
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdClaimNumber" name="Номер заявки" type="string"></activiti:formProperty>
-                <activiti:formProperty id="serviceNumber" name="Номер заявки" type="string"></activiti:formProperty>
+        <activiti:formProperty id="serviceNumber" name="Номер заявки" type="string"></activiti:formProperty>
         <activiti:formProperty id="claimNumber" name="Номер заявки" type="string"></activiti:formProperty>
+        <activiti:formProperty id="sID_Return_GRIS" name="sID_Return_GRIS" type="string"></activiti:formProperty>
+        <activiti:formProperty id="sReturnDateCreate_GRIS" name="sReturnDateCreate_GRIS" type="string"></activiti:formProperty>
+        <activiti:formProperty id="sReturnDateChange_GRIS" name="sReturnDateChange_GRIS" type="string"></activiti:formProperty>
+        <activiti:formProperty id="sReturnStatus_GRIS" name="sReturnStatus_GRIS" type="string"></activiti:formProperty>
         <activiti:formProperty id="result" name="Результат обробки" type="string"></activiti:formProperty>
-        
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>

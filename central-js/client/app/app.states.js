@@ -48,7 +48,7 @@ angular.module('app').config(function($stateProvider, statesRepositoryProvider) 
       url: '/instruction',
       views: {
         'content': {
-          templateUrl: 'app/service/instruction.html',
+          templateUrl: 'app/service/instruction/instruction.html',
           controller: 'ServiceInstructionController'
         }
       }

@@ -82,8 +82,6 @@ angular.module('app')
 
     $http(req).then(
       function(response) {
-        //var json = angular.fromJson(data);
-        //deferred.resolve(json);
         deferred.resolve(response.data);
         return cb();
       },
@@ -127,10 +125,6 @@ angular.module('app')
 
   this.removeService = function(nID, bRecursive, callback){
     return del('/api/catalog/service', nID, bRecursive, callback);
-  };
-
-  this.removeServiceData = function(nID, bRecursive, callback){
-    return del('/api/catalog/serviceData', nID, bRecursive, callback);
   };
 
   this.removeServicesTree = function(nID_Subject, callback){

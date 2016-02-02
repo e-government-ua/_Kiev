@@ -5,7 +5,7 @@
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Ваш ІПН" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть відділення фіскальної служби; в якому вам буде зручно отримати довідку" type="enum" required="true">
@@ -45,6 +45,7 @@
           <activiti:value id="solone" name="смт. Солоне (вул. Гагаріна, 12А)|0430"></activiti:value>
           <activiti:value id="sofievka" name="смт. Софіївка (вул. Меліоративна, 3)|0431"></activiti:value>
           <activiti:value id="ternovka" name="Тернівка (вул. Петрова, 9)|0413"></activiti:value>
+          <activiti:value id="tomakovka" name="смт. Томаківка (вул. Леніна, 41)|0432"></activiti:value>
           <activiti:value id="carichanka" name="смт. Царичанка (вул. 14-ї дивізії, 8)|0433"></activiti:value>
           <activiti:value id="shiroke" name="смт. Широке (вул. К.Маркса, 1А)|0434"></activiti:value>
         </activiti:formProperty>
@@ -54,14 +55,14 @@
         <activiti:formProperty id="date_start" name="Період, за який Ви хочете отримати довідку, з; період може складати рік або квартал, не раніше ніж за 2 квартали до  поточного" type="string" default="01/01/2014" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_stop" name="Період, за який Ви хочете отримати довідку, по; період може складати рік або квартал, не раніше ніж за 2 квартали до  поточного" type="string" default="31/12/2014" required="true"></activiti:formProperty>
         <activiti:formProperty id="aim" name="Навіщо Вам потрібна ця довідка?; наприклад: за місцем вимоги, для оформлення субсидій, інше" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу, Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Обробка" activiti:candidateGroups="dnepr_nalog">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Ваш ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть відділення фіскальної служби; в якому вам буде зручно отримати довідку" type="enum" writable="false">
@@ -101,6 +102,7 @@
           <activiti:value id="solone" name="смт. Солоне (вул. Гагаріна, 12А)|0430"></activiti:value>
           <activiti:value id="sofievka" name="смт. Софіївка (вул. Меліоративна, 3)|0431"></activiti:value>
           <activiti:value id="ternovka" name="Тернівка (вул. Петрова, 9)|0413"></activiti:value>
+          <activiti:value id="tomakovka" name="смт. Томаківка (вул. Леніна, 41)|0432"></activiti:value>
           <activiti:value id="carichanka" name="смт. Царичанка (вул. 14-ї дивізії, 8)|0433"></activiti:value>
           <activiti:value id="shiroke" name="смт. Широке (вул. К.Маркса, 1А)|0434"></activiti:value>
         </activiti:formProperty>
@@ -281,7 +283,7 @@ execution.setVariable("date_stop1", execution.getVariable("date_stop").format("d
 &lt;p&gt;Ваша заява на отримання довідки про доходи прийнята в роботу. &lt;/p&gt;
 
 &lt;p&gt; Забрати довідку Ви зможете  через 5 робочих днів в тому відділенні податкової служби, яке Ви вказували при замовленні послуги.&lt;br/&gt;
-Перелік відділень Ви можете переглянути тут &lt;a href="https://docs.google.com/spreadsheets/d/1b4697fd3ESupi6XrO4JqHv2GZ0Va98QXGD6hVvK1q70/edit#gid=2095016794" target="_blank"&gt;тут&lt;/a&gt;
+Перелік відділень Ви можете переглянути &lt;a href="https://docs.google.com/spreadsheets/d/1b4697fd3ESupi6XrO4JqHv2GZ0Va98QXGD6hVvK1q70/edit#gid=2095016794" target="_blank"&gt;тут&lt;/a&gt;
 &lt;/p&gt;
 &lt;p&gt;Ваше відділення enum{[area]}&lt;/p&gt;
 

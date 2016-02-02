@@ -1,14 +1,35 @@
 <div class="row">
-    <div class="col-md-12">
-        <form class="form-signin-bankid_">
-            <h4 class="form-signin-bankid-heading_">Щоб почати користуватись сервісом “Мій журнал”, 
-                <a href="#" ng-click="loginWithBankId()">увійдіть через BankID</a>
-                або через 
-                <a href="#" ng-click="loginWithEds()">електронно-цифровий підпис</a>
-            </h4>
-        </form>
-    </div>
-    <div class="text-center" ng-show="error">
-        <p>{{error}}</p>
-    </div>
+  <div class="col-md-12">
+    <form class="form-signin-bankid_">
+      <h4 class="form-signin-bankid-heading_">Щоб почати користуватись сервісом “Мій журнал”, увійдіть через
+        <button style="display: none;"
+                class="btn btn-info"><i class="icon-door-lock"></i><span class="btn-text">igov.org.ua</span></button>
+        <a class="btn btn-info"
+           href="#"
+           ng-click="loginWithBankId()">
+          <i class="icon-bank-id"></i>
+          <span class="btn-text">BankID</span>
+        </a>
+        <button style="display: none;"
+                class="btn"><i class="icon-mobil-id"></i></button>
+        <button ng-click="loginWithEds()"
+                class="btn btn-success i-btn-badge">
+          <i class="icon-badge"></i>
+          <span class="btn-text"><div>Сертифікат електронно-</div><div>цифрового підпису</div></span>
+        </button>
+        <button ng-click="loginWithEmail()"
+                class="btn btn-info">
+          <span class="btn-info"><div>Email</div></span>
+        </button>
+        <button ng-if="false" ng-click="loginWithSoccard()"
+                class="btn btn-success i-btn-badge">
+          <i class="icon-badge"></i>
+          <span class="btn-text"><div>Карта киянина</div></span>
+        </button>
+      </h4>
+    </form>
+  </div>
+  <div class="text-center" ng-show="error">
+    <p>{{error}}</p>
+  </div>
 </div>

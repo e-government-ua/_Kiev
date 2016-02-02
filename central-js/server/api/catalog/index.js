@@ -8,7 +8,6 @@ router.post('/', auth.isAuthenticated(), controller.setServicesTree);
 router.delete('/category', auth.isAuthenticated(), controller.removeCategory);
 router.delete('/subcategory', auth.isAuthenticated(), controller.removeSubcategory);
 router.delete('/service', auth.isAuthenticated(), controller.removeService);
-router.delete('/serviceData', auth.isAuthenticated(), controller.removeServiceData);
 router.delete('/servicesTree', auth.isAuthenticated(), controller.removeServicesTree);
 
 module.exports = router;

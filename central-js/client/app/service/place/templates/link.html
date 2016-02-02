@@ -1,17 +1,21 @@
 <div class="list-group">
+  <place></place>
 
-    <place></place>
-
-    <div class="list-group-item" ng-if="placeControlIsComplete()">
-
+  <div class="list-group-item">
+    <div class="row" ng-if="placeControlIsComplete()">
+      <div class="col-md-12">
         <span>Крок {{getStepNumber() || 2}}</span>
 
         <div class="service-description">
-            <p class="service-description-text" ng-bind-html="serviceData.sNote" ng-if="serviceData.sNote"></p>
-            <div ng-if="serviceData.sURL!==null && serviceData.sURL.trim() !==''" class="service-button-go">
-                <a ng-href="{{serviceData.sURL}}" class="btn btn-primary" target="_blank">Перейти</a>
-            </div>
-        </div>
 
+          <p class="service-description-text" ng-bind-html="serviceData.sNote" ng-if="serviceData.sNote"></p>
+          <div ng-if="serviceData.sURL!==null && serviceData.sURL.trim() !==''" class="service-button-go">
+            <a ng-href="{{serviceData.sURL}}" class="btn btn-primary" target="_blank">Перейти</a>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <place-edit></place-edit>
 </div>

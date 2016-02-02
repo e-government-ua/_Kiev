@@ -22,8 +22,8 @@
     </boundaryEvent>
     <sequenceFlow id="flow2" sourceRef="boundaryerror1" targetRef="endevent1"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
-    <sequenceFlow id="flow3" sourceRef="servicetask1" targetRef="mailtask4"></sequenceFlow>
-    <serviceTask id="mailtask4" name="Повідомлення про успішне замовлення" activiti:type="mail">
+    <sequenceFlow id="flow3" sourceRef="servicetask1" targetRef="servicetask3"></sequenceFlow>
+    <serviceTask id="servicetask3" name="Повідомлення про успішне замовлення" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -34,87 +34,27 @@
         <activiti:field name="subject">
           <activiti:string><![CDATA[Виготовлення викопіювання в масштабі 1:500, 1:2000]]></activiti:string>
         </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="html">
-          <activiti:expression>&lt;style type="text/css"&gt;
-        body {margin: 0; padding: 0;}
-        #mailer-body {font: 400 18px/20px 'Calibri';}
-        #mailer-body div,
-        #mailer-body p,
-        #mailer-body span,
-        #mailer-body strong,
-        #mailer-body b,
-        #mailer-body em,
-        #mailer-body i,
-        #mailer-body a,
-        #mailer-body li,
-        #mailer-body td {-webkit-text-size-adjust: none;}
-        #mailer-body a {color: #2F70AF; text-decoration: none;}
-        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
-        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
-        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
-        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
-        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
-        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
-        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
-        #mailer-body textarea:focus {outline: 0;}
-        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
                                        Ваше звернення щодо виготовлення викопіювання в масштабі 1:500, 1:2000 успішно зареєстроване.&lt;/p&gt;
 									&lt;p&gt;
 									   Ви отримаєте відповідь протягом 30 календарних днів. 
                                     &lt;/p&gt;
-                            
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        ЦНАП м. Тернопіль,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                           
-                          
-
-                        &lt;/table&gt;
-                     
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;</activiti:expression>
+                            		[pattern/mail/_common_signature_start.html]
+                                    ЦНАП м. Тернопіль,&lt;br /&gt;
+                                    [pattern/mail/_common_signature_end.html]
+									[pattern/mail/_common_footer.html]
+		  </activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow13" sourceRef="mailtask4" targetRef="mailtask5"></sequenceFlow>
-    <serviceTask id="mailtask5" name="Повідомлення про нову заявку" activiti:type="mail">
-    <extensionElements>
+    <sequenceFlow id="flow13" sourceRef="servicetask3" targetRef="servicetask4"></sequenceFlow>
+    <serviceTask id="servicetask4" name="Повідомлення про нову заявку" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
         <activiti:field name="to">
-          <activiti:expression><![CDATA[zhigan.roman@gmail.com]]></activiti:expression>
+          <activiti:expression>zhigan.roman@gmail.com</activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -122,86 +62,13 @@
         <activiti:field name="subject">
           <activiti:string><![CDATA[Нове звернення на тему: Виготовлення викопіювання в масштабі 1:500, 1:2000]]></activiti:string>
         </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="html">
-          <activiti:expression><![CDATA[<!DOCTYPE html>
-<html>
-<head lang="ru">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <style type="text/css">
-        body {margin: 0; padding: 0;}
-        #mailer-body {font: 400 18px/20px 'Calibri';}
-        #mailer-body div,
-        #mailer-body p,
-        #mailer-body span,
-        #mailer-body strong,
-        #mailer-body b,
-        #mailer-body em,
-        #mailer-body i,
-        #mailer-body a,
-        #mailer-body li,
-        #mailer-body td {-webkit-text-size-adjust: none;}
-        #mailer-body a {color: #2F70AF; text-decoration: none;}
-        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
-        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p > label {width: 40px;}
-        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
-        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
-        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
-        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
-        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
-        #mailer-body textarea:focus {outline: 0;}
-        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    </style>
-</head>
-<body>
-<table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body">
-    <tbody>
-    <tr>
-        <td align="center">
-            <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
-                <!--header line statrs-->
-                <tr>
-                    <td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"><b style="font-size: 24px;">iGov.org.ua</b><br />портал державних послуг</td>
-                </tr>
-                <!--header line end-->
-                <!--content statrs-->
-<tr>
-                    <td align="center">
-                        <table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
-                            <tr>
-                                <td style="padding: 35px 120px;">
-										<h3>Шановні колеги!</h3>
-										<p>
-											У Вас в черзі на обробку зареєстровано нове звернення щодо виготовлення викопіювання в масштабі 1:500, 1:2000.<br />
-											Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}<br />
-											Опрацюйте, будь ласка, це звернення на <a href="https://test.region.igov.org.ua" target="_blank">порталі</a>
-										</p>
-										<hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" />
-										<p>
-										З повагою,<br />
-										Команда Порталу державних послуг <a href="#current-page">iGov.org.ua</a>.
-								</td>
-                            </tr>
-                        </table>
-                     
-                    </td>
-                </tr>
-                <!--content end-->
-            </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
-</body>
-</html>]]></activiti:expression>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow14" sourceRef="mailtask5" targetRef="usertask1"></sequenceFlow>
-   <userTask id="usertask1" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="ternopol_arh">
+    <sequenceFlow id="flow14" sourceRef="servicetask4" targetRef="usertask1"></sequenceFlow>
+    <userTask id="usertask1" name="Перевірка даних" activiti:candidateGroups="ternopil_cnap_1">
       <extensionElements>
         <activiti:formProperty id="info" name="На цьому етапі:" type="label" default="Ви перевіряєте дані громадянина і вирішуєте чи всі вони вірні. Якщо все добре, присвоюєте реєстраційний номер зверненню, роздруковуєте прінтформи та відправляєте документи до Управління містобудування, архітектури та кадастру. Якщо ні - відмовляєте у реєстрації звернення з обов'язковим коментарем."></activiti:formProperty>
         <activiti:formProperty id="clFio" name="Автор звернення " type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
@@ -209,11 +76,11 @@
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Для яких потреб необхідне викопіювання" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="decide" name="Рішення" type="enum" required="true">
-          <activiti:value id="accept" name="Прийняти в роботу"></activiti:value>
-          <activiti:value id="reject" name="Відмовити у наданні послуги"></activiti:value>
+        <activiti:formProperty id="decide" name="Рішення адмінстратора" type="enum" required="true">
+          <activiti:value id="accept" name="Передати документи на опрацювання до спеціалістів"></activiti:value>
+          <activiti:value id="reject" name="Відмовити у реєстрації звернення"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="reason" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі." type="textArea"></activiti:formProperty>
+        <activiti:formProperty id="reason" name="Якщо ви відмовляєте замовнику у реєстрації звернення, обов'язково вкажіть підставу у цьому полі" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="DocumentDate" name="Дата оформлення документів у форматі - ДД.ММ.PPPP" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="vnnumb" name="Реєстраційний номер звернення" type="string"></activiti:formProperty>
@@ -229,10 +96,10 @@
     </userTask>
     <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="exclusivegateway1"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow5" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="mailtask1">
+    <sequenceFlow id="flow5" name="${decide == 'reject'}" sourceRef="exclusivegateway1" targetRef="servicetask5">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
+    <serviceTask id="servicetask5" name="Повідомлення про відмову" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -243,82 +110,23 @@
         <activiti:field name="subject">
           <activiti:string><![CDATA[Виготовлення викопіювання в масштабі 1:500, 1:2000]]></activiti:string>
         </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="html">
-          <activiti:expression>&lt;style type="text/css"&gt;
-        body {margin: 0; padding: 0;}
-        #mailer-body {font: 400 18px/20px 'Calibri';}
-        #mailer-body div,
-        #mailer-body p,
-        #mailer-body span,
-        #mailer-body strong,
-        #mailer-body b,
-        #mailer-body em,
-        #mailer-body i,
-        #mailer-body a,
-        #mailer-body li,
-        #mailer-body td {-webkit-text-size-adjust: none;}
-        #mailer-body a {color: #2F70AF; text-decoration: none;}
-        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
-        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
-        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
-        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
-        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
-        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
-        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
-        #mailer-body textarea:focus {outline: 0;}
-        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
                                         На жаль змушені Вам відмовити в наданні послуги.&lt;/p&gt;
 									&lt;p&gt;
 									Причина в наступному:&lt;/p&gt;
 									&lt;p&gt;${reason}&lt;/p&gt;
-                            
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        ЦНАП м. Тернопіль,&lt;br /&gt;
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                           
-                          
-
-                        &lt;/table&gt;
-                     
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;</activiti:expression>
+                            		За необхідності Ви можете подати ще одну заяву на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;igov.org.ua&lt;/a&gt;&lt;/p&gt;
+									[pattern/mail/_common_signature_start.html]
+									ЦНАП м. Тернопіль,&lt;/p&gt;
+									[pattern/mail/_common_footer.html]
+		 </activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow6" sourceRef="mailtask1" targetRef="endevent2"></sequenceFlow>
+    <sequenceFlow id="flow6" sourceRef="servicetask5" targetRef="endevent2"></sequenceFlow>
     <endEvent id="endevent2" name="End"></endEvent>
     <sequenceFlow id="flow7" name="${decide == 'accept'}" sourceRef="exclusivegateway1" targetRef="servicetask2">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
@@ -335,25 +143,54 @@
           <activiti:string><![CDATA[Виготовлення викопіювання в масштабі 1:500, 1:2000]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановні працівники управління містобудування, архітектури та кадастру.
+          <activiti:expression>[pattern/mail/_common_header.html]
+          			&lt;h3&gt;Шановні працівники управління містобудування, архітектури та кадастру.&lt;/h3&gt;
                     &lt;p&gt;
                     Направляємо Вам документи для Виготовлення викопіювання в масштабі 1:500, 1:2000.&lt;/p&gt;
 					&lt;p&gt;				
 					Заявник: ${clFio};&lt;br /&gt;
                     Реєстраційний номер ЦНАП ${vnnumb}.
                     &lt;/p&gt;        		
-                    З повагою,
+                    [pattern/mail/_common_signature_start.html]
                     ЦНАП м. Тернопіль,&lt;br /&gt;
-                    Команда Порталу державних послуг &lt;a href="https://igov.org.ua/"&gt;iGov.org.ua&lt;/a&gt;.
-          </activiti:expression>
+                    [pattern/mail/_common_signature_end.html]
+					[pattern/mail/_common_footer.html]
+		  </activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${vlasn}"</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow15" sourceRef="servicetask2" targetRef="usertask2"></sequenceFlow>
-    <userTask id="usertask2" name="Підготовка відповіді на запит: підготовка витягу" activiti:candidateGroups="ternopol_arh">
+    <sequenceFlow id="flow15" sourceRef="servicetask2" targetRef="servicetask6"></sequenceFlow>
+    <serviceTask id="servicetask6" name="Документи передано в обробку" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>${email}</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Виготовлення викопіювання в масштабі 1:500, 1:2000]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+		    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+			&lt;p&gt;
+				Ваші документи передані на опрацювання відповідальним спеціалістам.&lt;br&gt;
+				Ви отримаєте відповідь у визначений законом термін. 
+			&lt;/p&gt;
+				[pattern/mail/_common_signature_start.html]
+                ЦНАП м. Тернопіль,&lt;br /&gt;
+                [pattern/mail/_common_signature_end.html]
+				[pattern/mail/_common_footer.html]
+		 </activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow16" sourceRef="servicetask6" targetRef="usertask2"></sequenceFlow>  
+    <userTask id="usertask2" name="Підготовка відповіді на запит: підготовка витягу" activiti:candidateGroups="ternopil_cnap_1">
       <extensionElements>
         <activiti:formProperty id="info1" name="На цьому етапі:" type="label" default="Ви отримуєте результат розгляду звернення Управлінням містобудування, архітектури та кадастру і відповідним чином інформуєте громадянина."></activiti:formProperty>
         <activiti:formProperty id="vnnumb" name="Реєстраційний номер звернення" type="string" writable="false"></activiti:formProperty>
@@ -364,7 +201,7 @@
         <activiti:formProperty id="place_of_reg" name="Місце реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="landAddress" name="Місце розташування земельної ділянки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Для яких потреб необхідне викопіювання" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="Result" name="Наявність викопіювання чи відмови у наданні послуги" type="enum" required="true">
+        <activiti:formProperty id="itog" name="Наявність викопіювання чи відмови у наданні послуги" type="enum" required="true">
           <activiti:value id="vikop" name="Викопіювання готове"></activiti:value>
           <activiti:value id="vidm" name="Готова відмова у наданні послуги"></activiti:value>
         </activiti:formProperty>
@@ -372,10 +209,10 @@
     </userTask>
     <sequenceFlow id="flow9" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow10" sourceRef="exclusivegateway2" targetRef="mailtask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${Result == 'vikop'}]]></conditionExpression>
+    <sequenceFlow id="flow10" sourceRef="exclusivegateway2" targetRef="servicetask7">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${itog == 'vikop'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask2" name="Відправка відповіді на запит користувачу: документ готовий" activiti:type="mail">
+    <serviceTask id="servicetask7" name="Викопіювання готове" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -386,94 +223,40 @@
         <activiti:field name="subject">
           <activiti:string><![CDATA[Виготовлення викопіювання в масштабі 1:500, 1:2000]]></activiti:string>
         </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="html">
-          <activiti:expression>&lt;style type="text/css"&gt;
-        body {margin: 0; padding: 0;}
-        #mailer-body {font: 400 18px/20px 'Calibri';}
-        #mailer-body div,
-        #mailer-body p,
-        #mailer-body span,
-        #mailer-body strong,
-        #mailer-body b,
-        #mailer-body em,
-        #mailer-body i,
-        #mailer-body a,
-        #mailer-body li,
-        #mailer-body td {-webkit-text-size-adjust: none;}
-        #mailer-body a {color: #2F70AF; text-decoration: none;}
-        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
-        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
-        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
-        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
-        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
-        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
-        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
-        #mailer-body textarea:focus {outline: 0;}
-        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Ваше звернення оброблено.&lt;/p&gt;
-                                    &lt;p&gt; 
-                                    	Ви можете отримати викопіювання за адресою:&lt;br /&gt;
-                                    	м. Тернопіль, вул. Князя Острозького, 6, 1 поверх, зал №3&lt;/p&gt;
+                                        Замовлене Вами викопіювання в масштабі 1:500, 1:2000 готове.
+                                    	Ви можете завантажити його з додатку до цього листа, та отримати оригінал у ЦНАП за адресою:&lt;br /&gt;
+										м. Тернопіль, вул. Князя Острозького, 6, 1 поверх, зал №3
+									&lt;/p&gt;
                                     &lt;p&gt; 
                                     	Графік прийому суб’єктів звернення:&lt;p&gt;
 										Пн., Ср. – 9.00 – 16.00.&lt;br /&gt;
-										Вт.  Чт  - 11.00 – 16.00.&lt;br /&gt;
+										Вт., Чт  - 11.00 – 16.00.&lt;br /&gt;
 										Пт. – 9.00 – 13.00.&lt;br /&gt;
                                     &lt;p&gt;
-                                    	телефон для довідок: 40-41-93.&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        ЦНАП м. Тернопіль,&lt;br /&gt;
-                                        Команда Порталу державних послуг &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;.
+                                    	телефон для довідок: 40-41-93.
                                     &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                           
-                          
-
-                        &lt;/table&gt;
-                     
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;</activiti:expression>
+                                    [pattern/mail/_common_signature_start.html]
+                					ЦНАП м. Тернопіль,&lt;br /&gt;
+                					[pattern/mail/_common_signature_end.html]
+									[pattern/mail/_common_feedback.html]
+									[pattern/mail/_common_footer.html]
+			</activiti:expression>
+        </activiti:field>
+        <activiti:field name="saAttachmentsForSend">
+          <activiti:expression>${result}</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow8" sourceRef="mailtask2" targetRef="endevent4"></sequenceFlow>
+    <sequenceFlow id="flow8" sourceRef="servicetask7" targetRef="endevent4"></sequenceFlow>
     <endEvent id="endevent4" name="End"></endEvent>
-    <sequenceFlow id="flow11" sourceRef="exclusivegateway2" targetRef="mailtask3">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${Result == 'vidm'}]]></conditionExpression>
+    <sequenceFlow id="flow11" sourceRef="exclusivegateway2" targetRef="servicetask8">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${itog == 'vidm'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask3" name="Відправка відповіді на запит користувачу: відмова у наданні послуги" activiti:type="mail">
+    <serviceTask id="servicetask8" name="Відмова у наданні послуги" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
@@ -484,57 +267,14 @@
         <activiti:field name="subject">
           <activiti:string><![CDATA[Виготовлення викопіювання в масштабі 1:500, 1:2000]]></activiti:string>
         </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="html">
-          <activiti:expression>&lt;style type="text/css"&gt;
-        body {margin: 0; padding: 0;}
-        #mailer-body {font: 400 18px/20px 'Calibri';}
-        #mailer-body div,
-        #mailer-body p,
-        #mailer-body span,
-        #mailer-body strong,
-        #mailer-body b,
-        #mailer-body em,
-        #mailer-body i,
-        #mailer-body a,
-        #mailer-body li,
-        #mailer-body td {-webkit-text-size-adjust: none;}
-        #mailer-body a {color: #2F70AF; text-decoration: none;}
-        #mailer-body a:hover {color: #2e5e9c; text-decoration: underline;}
-        #mailer-body label {height: 20px; line-height: 20px; position: relative; cursor: pointer; display: inline-block;}
-        #mailer-body p &gt; label {width: 40px;}
-        #mailer-body label input[type='radio'] {width: 16px; height: 16px; top: -1px; float: left; position: relative; opacity: 0;}
-        #mailer-body label input[type='radio'] + span {position: absolute; margin: 0 15px 0 0; font-weight: 700; font-size: 16px;}
-        #mailer-body label input[type='radio'] + span:before {content: " "; width: 22px; height: 20px; background: url(http://shots.jotform.com/elton/radio_flat.png) left -1px no-repeat; left: -25px; display: block; position: absolute;}
-        #mailer-body label input[type='radio']:checked + span:before {background: url(http://shots.jotform.com/elton/radio_flat.png) left -22px no-repeat;}
-        #mailer-body textarea {width: 548px; padding: 5px; min-height: 65px; height: 65px; max-height: 100px; margin: 10px 0 0 0; border-radius: 3px; border: 1px solid #dddddd; resize: vertical;}
-        #mailer-body textarea:focus {outline: 0;}
-        #mailer-body button {height: 30px; padding: 0 25px; border: 0; border-radius: 3px; line-height: 30px; font-size: 14px; font-weight: 600; background: #2F70AF; cursor: pointer; color: white; display: inline-block;}
-    &lt;/style&gt;
-&lt;table width="100%" cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;" id="mailer-body"&gt;
-    &lt;tbody&gt;
-    &lt;tr&gt;
-        &lt;td align="center"&gt;
-            &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                &lt;!--header line statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td bgcolor="#5CA3CB" style="padding: 35px 120px; color: white;"&gt;&lt;b style="font-size: 24px;"&gt;iGov.&lt;span&gt;org.&lt;span&gt;ua&lt;/span&gt;&lt;/span&gt;&lt;/b&gt;&lt;br /&gt;портал державних послуг&lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--header line end--&gt;
-                &lt;!--content statrs--&gt;
-                &lt;tr&gt;
-                    &lt;td align="center"&gt;
-                        &lt;table width="800" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;"&gt;
-                            &lt;tr&gt;
-                                &lt;td style="padding: 35px 120px;"&gt;
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
                                     &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
-                                    &lt;p&gt;
-                                        Ваше звернення оброблено.&lt;/p&gt;
-                                    &lt;p&gt; 
-                                    	Ви можете отримати відмову у наданні послуги, а також вхідний пакет документів за адресою:&lt;br /&gt;
-                                    	м. Тернопіль, вул. Князя Острозького, 6, 1 поверх, зал №3.&lt;/p&gt;
+                                     &lt;p&gt;
+                                        На жаль Вам відмовлено у наданні викопіювання в масштабі 1:500, 1:2000.
+                                    	Ви можете завантажити відмову з додатку до цього листа, та отримати оригінал у ЦНАП за адресою:&lt;br /&gt;
+										м. Тернопіль, вул. Князя Острозького, 6, 1 поверх, зал №3
+									&lt;/p&gt;
                                     &lt;p&gt; 
 	                                    Графік прийому суб’єктів звернення:&lt;p&gt;
 										Пн., Ср. – 9.00 – 16.00.&lt;br /&gt;
@@ -542,30 +282,15 @@
 										Пт. – 9.00 – 13.00.&lt;br /&gt;
                                     &lt;p&gt;
                                     	телефон для довідок: 40-41-93.&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                        З повагою,&lt;br /&gt;
-                                        ЦНАП м. Тернопіль,&lt;br /&gt;
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                           
-                          
-
-                        &lt;/table&gt;
-                     
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;</activiti:expression>
+                                   За необхідності Ви можете подати ще одну заяву на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;igov.org.ua&lt;/a&gt;&lt;/p&gt;
+									[pattern/mail/_common_signature_start.html]
+									ЦНАП м. Тернопіль,&lt;/p&gt;
+									[pattern/mail/_common_footer.html]
+		  </activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow12" sourceRef="mailtask3" targetRef="endevent4"></sequenceFlow>  
+    <sequenceFlow id="flow12" sourceRef="servicetask8" targetRef="endevent4"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_ternopol_cnap_vikop">
     <bpmndi:BPMNPlane bpmnElement="ternopol_cnap_vikop" id="BPMNPlane_ternopol_cnap_vikop">
@@ -576,13 +301,16 @@
         <omgdc:Bounds height="77.0" width="105.0" x="96.0" y="85.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
-        <omgdc:Bounds height="30.0" width="30.0" x="150.0" y="90.0"></omgdc:Bounds>
+        <omgdc:Bounds height="30.0" width="30.0" x="171.0" y="80.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent1" id="BPMNShape_endevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="110.0" y="22.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask4" id="BPMNShape_mailtask4">
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
         <omgdc:Bounds height="62.0" width="121.0" x="222.0" y="92.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
+        <omgdc:Bounds height="61.0" width="105.0" x="300.0" y="180.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="63.0" width="116.0" x="362.0" y="92.0"></omgdc:Bounds>
@@ -590,39 +318,39 @@
       <bpmndi:BPMNShape bpmnElement="exclusivegateway1" id="BPMNShape_exclusivegateway1">
         <omgdc:Bounds height="40.0" width="40.0" x="505.0" y="103.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
+      <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
         <omgdc:Bounds height="67.0" width="105.0" x="473.0" y="-10.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
         <omgdc:Bounds height="35.0" width="35.0" x="370.0" y="6.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="61.0" width="105.0" x="590.0" y="93.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask2" id="BPMNShape_usertask2">
-        <omgdc:Bounds height="61.0" width="151.0" x="772.0" y="92.0"></omgdc:Bounds>
+        <omgdc:Bounds height="61.0" width="151.0" x="828.0" y="95.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway2" id="BPMNShape_exclusivegateway2">
-        <omgdc:Bounds height="40.0" width="40.0" x="827.0" y="176.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="883.0" y="178.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="71.0" width="175.0" x="841.0" y="220.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="servicetask7" id="BPMNShape_servicetask7">
+        <omgdc:Bounds height="71.0" width="175.0" x="897.0" y="222.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
-        <omgdc:Bounds height="35.0" width="35.0" x="830.0" y="370.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="886.0" y="372.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="70.0" width="175.0" x="660.0" y="221.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="servicetask8" id="BPMNShape_servicetask8">
+        <omgdc:Bounds height="70.0" width="175.0" x="716.0" y="223.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
-        <omgdc:Bounds height="61.0" width="105.0" x="300.0" y="180.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
-        <omgdc:Bounds height="61.0" width="105.0" x="610.0" y="92.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
+        <omgdc:Bounds height="62.0" width="105.0" x="705.0" y="92.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
         <omgdi:waypoint x="57.0" y="123.0"></omgdi:waypoint>
         <omgdi:waypoint x="96.0" y="123.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
-        <omgdi:waypoint x="165.0" y="90.0"></omgdi:waypoint>
+        <omgdi:waypoint x="186.0" y="80.0"></omgdi:waypoint>
         <omgdi:waypoint x="127.0" y="57.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
@@ -633,6 +361,11 @@
         <omgdi:waypoint x="282.0" y="154.0"></omgdi:waypoint>
         <omgdi:waypoint x="282.0" y="213.0"></omgdi:waypoint>
         <omgdi:waypoint x="300.0" y="210.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
+        <omgdi:waypoint x="405.0" y="210.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="209.0"></omgdi:waypoint>
+        <omgdi:waypoint x="420.0" y="155.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
         <omgdi:waypoint x="478.0" y="123.0"></omgdi:waypoint>
@@ -651,43 +384,42 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="545.0" y="123.0"></omgdi:waypoint>
-        <omgdi:waypoint x="610.0" y="122.0"></omgdi:waypoint>
+        <omgdi:waypoint x="590.0" y="123.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42.0" width="87.0" x="529.0" y="130.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
+        <omgdi:waypoint x="695.0" y="123.0"></omgdi:waypoint>
+        <omgdi:waypoint x="705.0" y="123.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow9" id="BPMNEdge_flow9">
-        <omgdi:waypoint x="847.0" y="153.0"></omgdi:waypoint>
-        <omgdi:waypoint x="847.0" y="176.0"></omgdi:waypoint>
+        <omgdi:waypoint x="903.0" y="156.0"></omgdi:waypoint>
+        <omgdi:waypoint x="903.0" y="178.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow10" id="BPMNEdge_flow10">
-        <omgdi:waypoint x="867.0" y="196.0"></omgdi:waypoint>
-        <omgdi:waypoint x="928.0" y="196.0"></omgdi:waypoint>
-        <omgdi:waypoint x="928.0" y="220.0"></omgdi:waypoint>
+        <omgdi:waypoint x="923.0" y="198.0"></omgdi:waypoint>
+        <omgdi:waypoint x="984.0" y="198.0"></omgdi:waypoint>
+        <omgdi:waypoint x="984.0" y="222.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
-        <omgdi:waypoint x="928.0" y="291.0"></omgdi:waypoint>
-        <omgdi:waypoint x="928.0" y="387.0"></omgdi:waypoint>
-        <omgdi:waypoint x="865.0" y="387.0"></omgdi:waypoint>
+        <omgdi:waypoint x="984.0" y="293.0"></omgdi:waypoint>
+        <omgdi:waypoint x="984.0" y="389.0"></omgdi:waypoint>
+        <omgdi:waypoint x="921.0" y="389.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow11" id="BPMNEdge_flow11">
-        <omgdi:waypoint x="827.0" y="196.0"></omgdi:waypoint>
-        <omgdi:waypoint x="747.0" y="196.0"></omgdi:waypoint>
-        <omgdi:waypoint x="747.0" y="221.0"></omgdi:waypoint>
+        <omgdi:waypoint x="883.0" y="198.0"></omgdi:waypoint>
+        <omgdi:waypoint x="803.0" y="198.0"></omgdi:waypoint>
+        <omgdi:waypoint x="803.0" y="223.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow12" id="BPMNEdge_flow12">
-        <omgdi:waypoint x="747.0" y="291.0"></omgdi:waypoint>
-        <omgdi:waypoint x="747.0" y="387.0"></omgdi:waypoint>
-        <omgdi:waypoint x="830.0" y="387.0"></omgdi:waypoint>
+        <omgdi:waypoint x="803.0" y="293.0"></omgdi:waypoint>
+        <omgdi:waypoint x="803.0" y="389.0"></omgdi:waypoint>
+        <omgdi:waypoint x="886.0" y="389.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow14" id="BPMNEdge_flow14">
-        <omgdi:waypoint x="405.0" y="210.0"></omgdi:waypoint>
-        <omgdi:waypoint x="420.0" y="209.0"></omgdi:waypoint>
-        <omgdi:waypoint x="420.0" y="155.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow15" id="BPMNEdge_flow15">
-        <omgdi:waypoint x="715.0" y="122.0"></omgdi:waypoint>
-        <omgdi:waypoint x="772.0" y="122.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow16" id="BPMNEdge_flow16">
+        <omgdi:waypoint x="810.0" y="123.0"></omgdi:waypoint>
+        <omgdi:waypoint x="828.0" y="125.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

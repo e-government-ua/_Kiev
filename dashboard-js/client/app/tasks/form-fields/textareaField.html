@@ -1,8 +1,8 @@
-<p ng-if="item.type == 'textArea'">
+<div ng-if="item.type == 'textArea'">
     <label>{{sFieldLabel(item.name)}} {{isRequired(item) ? "*" : ""}}</label>
-    <textarea class="form-control" ng-disabled="isFormPropertyDisabled(item)" 
+    <textarea class="form-control" ng-disabled="isFormPropertyDisabled(item)"
                                    ng-required="isRequired(item)"
                                    ng-model="item.value"
                                    ng-class="{submitted:isTaskSubmitted()}">
     </textarea>
-</p>
+</div>

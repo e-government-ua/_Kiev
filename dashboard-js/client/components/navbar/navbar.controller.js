@@ -1,13 +1,25 @@
 'use strict';
-angular.module('dashboardJsApp').controller('NavbarCtrl', function($scope, $location, Auth) {
+angular.module('dashboardJsApp').controller('NavbarCtrl', function($scope, $location, Auth, iGovNavbarHelper) {
   $scope.menu = [{
     'title': 'Задачі',
     'link': '/tasks'
   }];
 
-  $scope.isCollapsed = true;
   $scope.isLoggedIn = Auth.isLoggedIn;
   $scope.isAdmin = Auth.isAdmin;
+  $scope.areInstrumentsVisible = false;
+  $scope.iGovNavbarHelper = iGovNavbarHelper;
+
+  $scope.isVisible = function(menuType){
+    //$scope.menus = [{
+    if(menuType === 'all'){
+      return  Auth.isLoggedIn() && Auth.hasOneOfRoles('manager', 'admin', 'kermit');
+    }
+    if(menuType === 'finished'){
+      return  Auth.isLoggedIn() && Auth.hasOneOfRoles('manager', 'admin', 'kermit', 'supervisor');
+    }
+    return Auth.isLoggedIn();
+  };
 
   $scope.getCurrentUserName = function() {
     var user = Auth.getCurrentUser();
@@ -25,10 +37,10 @@ angular.module('dashboardJsApp').controller('NavbarCtrl', function($scope, $loca
   $scope.goToEscalations = function() {
     $location.path('/escalations');
   };
-  
+
   $scope.goToReports = function () {
     $location.path('/reports');
-  }
+  };
 
   $scope.logout = function() {
     Auth.logout();

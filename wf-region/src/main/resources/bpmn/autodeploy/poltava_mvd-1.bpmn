@@ -18,7 +18,7 @@
           <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки (піклування), створення прийомної сім'ї або дитячого будинку cімейного типу"></activiti:value>
           <activiti:value id="attr2" name="Оформлення документів в органи соціального забезпечення."></activiti:value>
           <activiti:value id="attr3" name="Оформлення візи для виїзду за кордон."></activiti:value>
-          <activiti:value id="attr4" name="ОНадання в установи іноземних держав, працевлаштування за кордоном."></activiti:value>
+          <activiti:value id="attr4" name="Надання в установи іноземних держав, працевлаштування за кордоном."></activiti:value>
           <activiti:value id="attr5" name="Оформлення на роботу."></activiti:value>
           <activiti:value id="attr6" name="Оформлення дозволу на зброю, оформлення ліцензії на роботу з вибуховими речовинами."></activiti:value>
           <activiti:value id="attr7" name="Оформлення ліцензії на роботу з наркотичними засобами, психотропними речовинами та прекурсорами."></activiti:value>
@@ -30,8 +30,8 @@
         <activiti:formProperty id="text3" name="Контактні данні" type="label" default="-------------------"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон; у форматі 380...." type="long" default="380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-         <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-         
+         <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+
      </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування додаткових документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -86,7 +86,7 @@
           <activiti:value id="attr1" name="Здійснення усиновлення, встановлення опіки (піклування), створення прийомної сім'ї або дитячого будинку cімейного типу"></activiti:value>
           <activiti:value id="attr2" name="Оформлення документів в органи соціального забезпечення."></activiti:value>
           <activiti:value id="attr3" name="Оформлення візи для виїзду за кордон."></activiti:value>
-          <activiti:value id="attr4" name="ОНадання в установи іноземних держав, працевлаштування за кордоном."></activiti:value>
+          <activiti:value id="attr4" name="Надання в установи іноземних держав, працевлаштування за кордоном."></activiti:value>
           <activiti:value id="attr5" name="Оформлення на роботу."></activiti:value>
           <activiti:value id="attr6" name="Оформлення дозволу на зброю, оформлення ліцензії на роботу з вибуховими речовинами."></activiti:value>
           <activiti:value id="attr7" name="Оформлення ліцензії на роботу з наркотичними засобами, психотропними речовинами та прекурсорами."></activiti:value>
@@ -129,7 +129,7 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-Нажаль, неможливо обробити Ваш запит щодо замовлення довідки про наявність або відсутніть судимості.
+На жаль, неможливо обробити Ваш запит щодо замовлення довідки про наявність або відсутніть судимості.
 
 Підстава: ${comment}
 

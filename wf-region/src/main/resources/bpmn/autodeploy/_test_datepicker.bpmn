@@ -3,22 +3,30 @@
   <process id="_test_datepicker" name="_test_datepicker" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
-        <activiti:formProperty id="mail" name="mail" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="email" name="mail" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспорт" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="check_1" name="Проверочное поле 1" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="check_2" name="Проверочное поле 2" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="check_3" name="Проверочное поле 3" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="date" name="дата" type="date"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow0" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
-    <userTask id="usertask1" name="рассмотрение и загрузка" activiti:candidateGroups="sales">
+    <userTask id="usertask1" name="рассмотрение и загрузка" activiti:candidateGroups="health_dnepr">
       <extensionElements>
-        <activiti:formProperty id="mail" name="mail" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="email" name="mail" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdlastName" name="банк ИД тру-фелс;Прізвище;writable=true" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="банк ИД фелс-фелс;Ім'я;writable=false" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="банк ИД тру-тру;По-Батькові;writable=true" type="string" writable="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="банк ИД фелс-тру;Паспорт;writable=false" type="string" writable="true"></activiti:formProperty>
+        <activiti:formProperty id="check_1" name="тут ставлю внутри врайтбл тру;Проверочное поле 1;writable=true" type="string" writable="true"></activiti:formProperty>
+        <activiti:formProperty id="check_2" name="тут ставлю внутри врайтбл фолс;Проверочное поле 2;writable=false" type="string" writable="true"></activiti:formProperty>
+        <activiti:formProperty id="check_3" name="внутри никакой врайтбл не ставлю, зато через запятую ставлю дескрипшн;проверочное поле 3" type="string" writable="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="file" type="file"></activiti:formProperty>
-        <activiti:formProperty id="date" name="дата" type="date"></activiti:formProperty>
+        <activiti:formProperty id="date" name="дата;1;writable=false" type="date" writable="true"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow4" sourceRef="usertask1" targetRef="endevent1"></sequenceFlow>
@@ -27,7 +35,7 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram__test_datepicker">
     <bpmndi:BPMNPlane bpmnElement="_test_datepicker" id="BPMNPlane__test_datepicker">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="200.0" y="170.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="260.0" y="170.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="55.0" width="105.0" x="350.0" y="160.0"></omgdc:Bounds>
@@ -36,7 +44,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="590.0" y="170.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow0" id="BPMNEdge_flow0">
-        <omgdi:waypoint x="235.0" y="187.0"></omgdi:waypoint>
+        <omgdi:waypoint x="295.0" y="187.0"></omgdi:waypoint>
         <omgdi:waypoint x="350.0" y="187.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">

@@ -1,3 +1,11 @@
 nID;sName;sDescription
 0;ServiceNeed;Просьба добавить услугу
-1;ServiceFeedback;Отзыв о услуге
+1;ServiceRate;Оценка услуги
+2;ServiceFeedback;Отзыв о услуге
+3;ServiceEscalationFeedback;Отзыв о эскалации по услуге
+4;ServiceCommentClient;Клиентский уточнение-комментарий по услуге
+5;ServiceCommentEmployee;Работника замечание-комментарий по услуге
+6;ServiceRate_Indirectly;Уточняющая оценка услуги
+7;ServiceFeedback_Indirectly;Уточняющий отзыв об услуге
+8;ServiceCommentClientQuestion;Клиентский вопрос/комментарий по услуге
+9;ServiceCommentEmployeeAnswer;Работника ответ/комментарий по услуге

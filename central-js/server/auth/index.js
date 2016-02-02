@@ -1,29 +1,24 @@
-'use strict';
-
 var express = require('express');
 var passport = require('passport');
 var request = require('request');
-var url = require('url');
 var config = require('../config/environment');
-var accountService = require('../api/bankid/account.service.js');
-var auth = require('./auth.service');
-
-// Passport Configuration
-require('./bankid/passport').setup(config, url, accountService);
-
+var accountService = require('./bankid/bankid.service.js');
+var authService = require('./auth.service');
+var authController = require('./auth.controller');
 var router = express.Router();
 
+// Registering oauth2 strategies
+require('./bankid/bankid.passport').setup(config, accountService);
 router.use('/bankID', require('./bankid'));
 router.use('/eds', require('./eds'));
-router.get('/isAuthenticated', auth.isAuthenticated(), function(req,res){
-    res.status(200);
-    res.end();
-});
+router.use('/email', require('./email'));
 
-router.post('/logout', auth.isAuthenticated(), function(req,res){
-  req.session = null;
-  res.session = null;
-  res.status(200);
-  res.end();
-});
+if(config.hasSoccardAuth()){
+  require('./soccard/soccard.passport').setup(config, accountService);
+  router.use('/soccard', require('./soccard'));
+}
+
+router.get('/isAuthenticated', authService.isAuthenticated(), authController.isAuthenticated);
+router.post('/logout', authService.isAuthenticated(), authController.logout);
+
 module.exports = router;

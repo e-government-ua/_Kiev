@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="_test_fields_bankid" name="тестирование новых полей bankId" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
+       <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" ></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" ></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" ></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" ></activiti:formProperty>
         <activiti:formProperty id="bankIdsID_Country" name="громадянство" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdemail" name="e-mail" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdphone" name="телефон" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddressFactual" name="адреса прописки" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_passport" name="скан паспорта" type="file"></activiti:formProperty>
         <activiti:formProperty id="bankId_scan_inn" name="тест скан инн" type="file"></activiti:formProperty>
+        <activiti:formProperty id="bankIdinn" name="тест инн" type="string"></activiti:formProperty>
+        <activiti:formProperty id="tooltiptext" name="какой текст показать в дашборде после нажатия на кнопку обработки?" type="string"></activiti:formProperty>
+        
+        <activiti:formProperty id="email" name="Актуальний email" type="string" required="true"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="обробка заявки" activiti:candidateGroups="sales">
       <extensionElements>
+        <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" ></activiti:formProperty>
+        <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" ></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" ></activiti:formProperty>
+        <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" ></activiti:formProperty>
         <activiti:formProperty id="bankIdsID_Country" name="громадянство" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdemail" name="e-mail" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdphone" name="телефон" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdAddressFactual" name="адреса прописки" type="string"></activiti:formProperty>
-      </extensionElements>
+        <activiti:formProperty id="sNotifyEvent_AfterSubmit" name="сопроводительный текст" type="string" default="${tooltiptext}"></activiti:formProperty>
+        <activiti:formProperty id="email" name="Актуальний email" type="string" ></activiti:formProperty>
+       </extensionElements>
     </userTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>

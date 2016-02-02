@@ -14,8 +14,9 @@
         <activiti:formProperty id="info2" name="Дані, що заповнюються тільки представником отримувача" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="file1" name=" Файл, що додається тільки отримувачем" type="file"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Файл, що додається тільки представником отримувача" type="file"></activiti:formProperty>
+        <activiti:formProperty id="link" name="Посилання" type="label" default=" "></activiti:formProperty>
         <activiti:formProperty id="email" name="email" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="markers2" name="Маркеры2" type="markers" value="[/bpmn/markers/motion/testmarkers.json]"></activiti:formProperty>
+        <activiti:formProperty id="markers2" name="extended_marker" type="markers" default="${markerService.loadFromFile('test_folder/testmarkers.json')}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="подтягивание документов" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>

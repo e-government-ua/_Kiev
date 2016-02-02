@@ -8,208 +8,217 @@
         <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Ваш контактний  телефон" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="goal" name="Мета отримання довідки" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail; На цей e-mail  Ви отримаєте результат обробки Вашого звернення" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="place_of_liv" name="Ваша адреса реєстрації" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="goal" name="Мета отримання довідки" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">
+    <sequenceFlow id="flow50" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
+    <serviceTask id="servicetask1" name="Повідомлення ЦНАП нове звернення" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>zhigan.roman@gmail.com</activiti:expression>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Нове звернення на тему: Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow52" sourceRef="servicetask1" targetRef="servicetask2"></sequenceFlow>
+    <serviceTask id="servicetask2" name="Повідомленняпро успішну реєстрацію звернення" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:expression>Звернення на тему: Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.
-
-На жаль змушені Вам відмовити в наданні послуги.
-Причина для відмови: ${comment}
-
-З повагою,
-Міська державна адміністрація м.Житомир,</activiti:expression>
+          <activiti:expression>[pattern/mail/_common_header.html]
+		    					&lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+								&lt;p&gt;
+            						Ваше звернення щодо надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ успішно зареєстроване.&lt;br&gt;
+									Спеціалісти ЦНАП повинні дати відповідь найближчим часом.
+                                &lt;/p&gt;
+                                [pattern/mail/_common_signature_start.html]
+								Житомирська міська рада,&lt;br&gt;
+								[pattern/mail/_common_signature_end.html]
+								[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask4" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="zhitomir_mvk_1">
+    <sequenceFlow id="flow51" sourceRef="servicetask2" targetRef="usertask1"></sequenceFlow>
+    <userTask id="usertask1" name="Прийняття рішення: доцільність запиту" activiti:candidateGroups="zhitomir_mvk_1">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="clPassport" name="Паспортні дані" type="string" default="${bankIdPassport}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="place_of_liv" name="Ваша адреса реєстрації" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="контактний  телефон" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="goal" name="Мета отримання довідки" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decide" name="Рішення про надання послуги" type="enum" required="true">
           <activiti:value id="accept" name="Повідимити громадянина, що довідка підготовлена до отримання"></activiti:value>
           <activiti:value id="reject" name="Повідомити громадянина про відмову в наданні послуги"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="comment" name="Якщо громадянину відмовлено, вкажіть причину у цьому полі" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="sBody_1" name="[pattern/print/zhitomir/zhitomir_1.html]" type="invisible" default="Заява громадянина" writable="false"></activiti:formProperty>
       </extensionElements>
     </userTask>
-    <endEvent id="endevent5" name="End"></endEvent>
-    <sequenceFlow id="flow35" sourceRef="mailtask1" targetRef="endevent5"></sequenceFlow>
+    <sequenceFlow id="flow38" sourceRef="usertask1" targetRef="exclusivegateway3"></sequenceFlow>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
-    <sequenceFlow id="flow38" sourceRef="usertask4" targetRef="exclusivegateway3"></sequenceFlow>
-    <sequenceFlow id="flow40" name="decide == 'accept'" sourceRef="exclusivegateway3" targetRef="mailtask2">
-      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
-    </sequenceFlow>
-    <endEvent id="endevent6" name="End"></endEvent>
-    <sequenceFlow id="flow44" sourceRef="mailtask2" targetRef="endevent6"></sequenceFlow>
-    <sequenceFlow id="flow49" name="${decide == 'reject'}" sourceRef="exclusivegateway3" targetRef="mailtask1">
+    <sequenceFlow id="flow49" name="${decide == 'reject'}" sourceRef="exclusivegateway3" targetRef="servicetask3">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'reject'}]]></conditionExpression>
     </sequenceFlow>
-    <serviceTask id="mailtask2" name="Відправка відповіді на запит користувачу" activiti:type="mail">
+    <serviceTask id="servicetask3" name="Повідомлення про відмову" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
-        <activiti:field name="to">
-          <activiti:expression>${email}</activiti:expression>
-        </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="subject">
-          <activiti:string><![CDATA[Звернення на тему: Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
-        </activiti:field>
-        <activiti:field name="text">
-          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-
-Ваша довідка підготовлена до отримання.
-Ви зможете отримати довідку за адресою м.Житомир _______________________
-
-Графік  роботи:
-_____
-
-З повагою,
-Міська державна адміністрація м.Житомир,
-Команда Порталу державних послу iGov.org.ua</activiti:expression>
-        </activiti:field>
-      </extensionElements>
-    </serviceTask>
-    <serviceTask id="mailtask3" name="Повідомлення громадянина про успішну реєстрацію звернення" activiti:type="mail">
-      <extensionElements>
-        <activiti:field name="text">
-          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-
-Дякуємо, що скористалися Інтернет-сервісом замовлення довідки про про відсутність земельних ділянок для ведення ОСГ!
-Ваш запит успішно зареєстровано.
-
-Ви зможете забрати Вашу довідку приблизно за 2 робочих дня за адресою _________
-
-Графік  роботи:
-________
-
-Підкреслюємо, що поки що забрати довідку Ви можете лише в паперовому вигляді.
-
-З повагою,
-Міська державна адміністрація М.Житомир,
-Команда Порталу державних послу iGov.org.ua</activiti:expression>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>${email}</activiti:expression>
         </activiti:field>
+        <activiti:field name="subject">
+          <activiti:string><![CDATA[Звернення на тему: Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+		    &lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+			&lt;p&gt;
+				На жаль, ми змушені відмовити Вам у наданні послуги.
+			&lt;/p&gt;
+			&lt;p&gt;
+			Коментар державного службовця:&lt;br&gt;
+			${comment}
+			&lt;/p&gt;
+			За необхідності Ви можете подати ще одну заяву на порталі &lt;a href="https://igov.org.ua/" target="_blank"&gt;igov.org.ua&lt;/a&gt;&lt;/p&gt;
+			[pattern/mail/_common_signature_start.html]
+			Житомирська міська рада.&lt;/p&gt;
+			[pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow35" sourceRef="servicetask3" targetRef="endevent5"></sequenceFlow>
+    <endEvent id="endevent5" name="End"></endEvent>
+    <sequenceFlow id="flow40" name="decide == 'accept'" sourceRef="exclusivegateway3" targetRef="servicetask4">
+      <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decide == 'accept'}]]></conditionExpression>
+    </sequenceFlow>
+    <serviceTask id="servicetask4" name="Відправка відповіді на запит користувачу" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="to">
+          <activiti:expression>"${email}"</activiti:expression>
         </activiti:field>
         <activiti:field name="subject">
           <activiti:string><![CDATA[Звернення на тему: Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ]]></activiti:string>
         </activiti:field>
-        <activiti:field name="charset">
-          <activiti:string><![CDATA[UTF-8]]></activiti:string>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_header.html]
+			&lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+			&lt;p&gt;Замовлена Вами довідка незайнятому населенню про відсутність земельних ділянок для ведення ОСГ готова.&lt;br /&gt;
+			Ви можете отримати її у ЦНАП за адресою:&lt;br /&gt;
+			м. Житомир, вул. Михайлівська, 4
+			&lt;/p&gt; 
+			&lt;p&gt;Режим роботи центру:&lt;br&gt;
+			понеділок, середа, п'ятниця: з 8.00 до 18.00&lt;br&gt;
+			вівторок, четвер: з 9.00 до 20.00&lt;br&gt;
+			субота: з 8.00 до 15.00&lt;br&gt;
+			неділя: вихідний
+			&lt;/p&gt;  
+			&lt;p&gt;
+			телефони для довідок: 47-06-15; 47-46-69; 47-46-68
+			&lt;/p&gt;
+			&lt;p&gt;
+			Будь ласка, оцініть якість надання послуги за допомогою форми нижче.
+            &lt;/p&gt;
+            [pattern/mail/_common_signature_start.html]
+			Житомирська міська рада,&lt;br /&gt;
+			[pattern/mail/_common_signature_end.html]
+			[pattern/mail/_common_feedback.html]
+			[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow50" sourceRef="startevent1" targetRef="mailtask3"></sequenceFlow>
-    <sequenceFlow id="flow51" sourceRef="mailtask3" targetRef="usertask4"></sequenceFlow>
-    <textAnnotation id="textannotation1">
-      <text>Надання довідок незайнятому населенню про відсутність земельних ділянок для ведення ОСГ для пред’явлення в Кузнецовський міський центр зайнятості</text>
-    </textAnnotation>
-    <textAnnotation id="textannotation2">
-      <text>Принимается решение обоснован ли запрос на предоставление информации</text>
-    </textAnnotation>
-    <association id="association2" sourceRef="usertask4" targetRef="textannotation2"></association>
-    <association id="association3" sourceRef="startevent1" targetRef="textannotation1"></association>
+    <sequenceFlow id="flow44" sourceRef="servicetask4" targetRef="endevent6"></sequenceFlow>
+    <endEvent id="endevent6" name="End"></endEvent>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_zhitomir_mvk_2">
     <bpmndi:BPMNPlane bpmnElement="zhitomir_mvk_2" id="BPMNPlane_zhitomir_mvk_2">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="415.0" y="180.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="140.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
-        <omgdc:Bounds height="55.0" width="161.0" x="700.0" y="330.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="71.0" width="105.0" x="200.0" y="122.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="usertask4" id="BPMNShape_usertask4">
-        <omgdc:Bounds height="71.0" width="111.0" x="377.0" y="430.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="endevent5" id="BPMNShape_endevent5">
-        <omgdc:Bounds height="35.0" width="35.0" x="763.0" y="180.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
+        <omgdc:Bounds height="71.0" width="111.0" x="330.0" y="122.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
-        <omgdc:Bounds height="40.0" width="40.0" x="536.0" y="446.0"></omgdc:Bounds>
+        <omgdc:Bounds height="40.0" width="40.0" x="470.0" y="137.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask3" id="BPMNShape_servicetask3">
+        <omgdc:Bounds height="71.0" width="111.0" x="590.0" y="122.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent5" id="BPMNShape_endevent5">
+        <omgdc:Bounds height="35.0" width="35.0" x="740.0" y="140.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask4" id="BPMNShape_servicetask4">
+        <omgdc:Bounds height="75.0" width="111.0" x="590.0" y="210.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent6" id="BPMNShape_endevent6">
-        <omgdc:Bounds height="35.0" width="35.0" x="950.0" y="448.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="740.0" y="230.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask2" id="BPMNShape_mailtask2">
-        <omgdc:Bounds height="55.0" width="149.0" x="706.0" y="439.0"></omgdc:Bounds>
+      <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
+        <omgdc:Bounds height="71.0" width="105.0" x="70.0" y="122.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="mailtask3" id="BPMNShape_mailtask3">
-        <omgdc:Bounds height="55.0" width="105.0" x="380.0" y="330.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation1" id="BPMNShape_textannotation1">
-        <omgdc:Bounds height="50.0" width="299.0" x="-40.0" y="90.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="textannotation2" id="BPMNShape_textannotation2">
-        <omgdc:Bounds height="50.0" width="341.0" x="70.0" y="510.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
-        <omgdi:waypoint x="780.0" y="330.0"></omgdi:waypoint>
-        <omgdi:waypoint x="780.0" y="215.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
+        <omgdi:waypoint x="45.0" y="157.0"></omgdi:waypoint>
+        <omgdi:waypoint x="70.0" y="157.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow51" id="BPMNEdge_flow51">
+        <omgdi:waypoint x="305.0" y="157.0"></omgdi:waypoint>
+        <omgdi:waypoint x="330.0" y="157.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
-        <omgdi:waypoint x="488.0" y="465.0"></omgdi:waypoint>
-        <omgdi:waypoint x="536.0" y="466.0"></omgdi:waypoint>
+        <omgdi:waypoint x="441.0" y="157.0"></omgdi:waypoint>
+        <omgdi:waypoint x="470.0" y="157.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
+        <omgdi:waypoint x="510.0" y="157.0"></omgdi:waypoint>
+        <omgdi:waypoint x="590.0" y="157.0"></omgdi:waypoint>
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds height="14.0" width="95.0" x="495.0" y="122.0"></omgdc:Bounds>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow35" id="BPMNEdge_flow35">
+        <omgdi:waypoint x="701.0" y="157.0"></omgdi:waypoint>
+        <omgdi:waypoint x="740.0" y="157.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
-        <omgdi:waypoint x="576.0" y="466.0"></omgdi:waypoint>
-        <omgdi:waypoint x="656.0" y="466.0"></omgdi:waypoint>
-        <omgdi:waypoint x="706.0" y="466.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="177.0"></omgdi:waypoint>
+        <omgdi:waypoint x="490.0" y="247.0"></omgdi:waypoint>
+        <omgdi:waypoint x="590.0" y="247.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="87.0" x="518.0" y="473.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="87.0" x="496.0" y="219.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow44" id="BPMNEdge_flow44">
-        <omgdi:waypoint x="855.0" y="466.0"></omgdi:waypoint>
-        <omgdi:waypoint x="950.0" y="465.0"></omgdi:waypoint>
+        <omgdi:waypoint x="701.0" y="247.0"></omgdi:waypoint>
+        <omgdi:waypoint x="740.0" y="247.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow49" id="BPMNEdge_flow49">
-        <omgdi:waypoint x="556.0" y="446.0"></omgdi:waypoint>
-        <omgdi:waypoint x="555.0" y="357.0"></omgdi:waypoint>
-        <omgdi:waypoint x="700.0" y="357.0"></omgdi:waypoint>
-        <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="95.0" x="566.0" y="446.0"></omgdc:Bounds>
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow50" id="BPMNEdge_flow50">
-        <omgdi:waypoint x="432.0" y="215.0"></omgdi:waypoint>
-        <omgdi:waypoint x="432.0" y="330.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow51" id="BPMNEdge_flow51">
-        <omgdi:waypoint x="432.0" y="385.0"></omgdi:waypoint>
-        <omgdi:waypoint x="432.0" y="430.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association2" id="BPMNEdge_association2">
-        <omgdi:waypoint x="377.0" y="465.0"></omgdi:waypoint>
-        <omgdi:waypoint x="240.0" y="510.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="association3" id="BPMNEdge_association3">
-        <omgdi:waypoint x="432.0" y="180.0"></omgdi:waypoint>
-        <omgdi:waypoint x="109.0" y="140.0"></omgdi:waypoint>
+      <bpmndi:BPMNEdge bpmnElement="flow52" id="BPMNEdge_flow52">
+        <omgdi:waypoint x="175.0" y="157.0"></omgdi:waypoint>
+        <omgdi:waypoint x="200.0" y="157.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

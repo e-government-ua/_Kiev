@@ -16,11 +16,11 @@
             <property name="cacheName" value="org.sample.cache.METHOD_CACHE"/>
         </bean>
 
-        <bean id="methodCacheInterceptor" class="org.wf.dp.dniprorada.base.util.caching.MethodCacheInterceptor">
+        <bean id="methodCacheInterceptor" class="org.igov.util.cache.MethodCacheInterceptor">
             <property name="cache" ref="methodCache"/>
         </bean>
 
-        <bean id="methodCacheAdvisor" class="org.wf.dp.dniprorada.base.util.caching.MethodCacheAdvisor">
+        <bean id="methodCacheAdvisor" class="org.igov.util.cache.MethodCacheAdvisor">
             <property name="interceptor" ref="methodCacheInterceptor"/>
         </bean>
 
@@ -28,7 +28,7 @@
 
     <beans>
 
-        <bean id="cachedInvocationBean" class="org.wf.dp.dniprorada.base.util.caching.CachedInvocationBean"/>
+        <bean id="cachedInvocationBean" class="org.igov.util.cache.CachedInvocationBean"/>
 
     </beans>
 

@@ -1,80 +1,237 @@
-<div class="row">
-    <div class="col-md-12">
-        <h1 style="margin-left: 0px;">Заявки</h1>
-        <p>На цій сторінці Ви можете переглянути статус по своїй заявці за її номером.</p>
-    </div>
+﻿<div class="row">
+  <div class="col-md-12">
+    <h1 style="margin-left: 0px;">Заявки</h1>
+    <p>На цій сторінці Ви можете переглянути статус по своїй заявці за її номером.</p>
+  </div>
 </div>
 <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-10">
-        <div style="width: 600px;border: 0px; /*border-color: white;*/ /*#ddd;*/" class="panel panel-default">
-            <div class="row">
-                <div class="col-md-12">
-                        <div class="row">
-                            <form name="searchForm"
-                                  role="form"
-                                  ng-submit="searchForm.$valid && searchOrder(sID)"
-                                  style="text-align:left;"
-                                    >
-                                <div class="form-group">
-                                    <div style="top: 6px;" class="col-md-3">
-                                        <label for="code">Номер заявки</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                    <input type="text"
-                                           required
-                                           ng-model="sID"
-                                           class="form-control"
-                                           id="code"/>
-                                        </div>
-
-                                    <div style="top: 6px;" class="col-md-3">
-                                        <a ng-disabled="searchForm.$invalid"
-                                           ng-click="searchForm.$valid && searchOrder(sID)">Переглянути</a>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    <br>
-
-                    <div ng-repeat="message in messages">
-                        <div class="alert alert-info" role="alert">
-                            {{message}}
-                        </div>
-                    </div>
-
-                    <div ng-show="orders.length > 0">
-                        <div>
-                            Тип заявки: Послуга
-                        </div>
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th class="col-md-6">
-                                    <p class="text-muted">Час</p>
-                                </th>
-                                <th class="col-md-6">
-                                    <p class="text-muted">Статус</p>
-                                </th>
-                            </tr>
-                            </thead>
-
-                            <tbody ng-repeat="or in orders">
-
-                            <tr id="document">
-                                <td>
-                                    <!--{{ or.sDateEdit | date: 'dd MMMM yyyy HH:mm'}}-->
-                                    {{ or.sDate | date: 'dd MMMM yyyy HH:mm'}}
-                                </td>
-                                <td>
-                                    {{or.sID_Status}}
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+  <div class="col-md-2"></div>
+  <div class="col-md-20">
+    <div style="/*width: 600px;*/ border: 0px; /*border-color: white;*/ /*#ddd;*/" class="panel panel-default">
+      <div class="row">
+        <div class="col-md-10">
+          <div class="row">
+            <form name="oFormSearch"
+                  role="form"
+                  ng-submit="oFormSearch.$valid && searchOrder(sID_Order,sToken)"
+                  style="text-align:left;"
+                >
+              <div class="form-group">
+                <div style="top: 2px;" class="col-md-1">
+                  <label for="code">Номер:</label>
                 </div>
+                <div class="col-md-6">
+                  <input type="text"
+                         required
+                         ng-model="sID_Order"
+                         class="form-control"
+                         id="code"/>
+                </div>
+
+                <div style="top: 6px;" class="col-md-3">
+                  <a ng-disabled="oFormSearch.$invalid"
+                     ng-click="oFormSearch.$valid && searchOrder(sID_Order,sToken)">Переглянути</a>
+                </div>
+              </div>
+            </form>
+          </div>
+          <br>
+
+          <!--div ng-repeat="sServerReturnOnRequest in asServerReturnOnRequest">
+            <div class="alert alert-info" role="alert">
+              {{sServerReturnOnRequest}}
             </div>
+          </div-->
+
+          <div ng-show="bOrder">
+            <div>
+              Назва: {{oOrder.sHead}}
+            </div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th class="col-md-6">
+                    <p class="text-muted">Час</p>
+                  </th>
+                  <th class="col-md-8">
+                    <p class="text-muted">Статус</p>
+                  </th>
+                </tr>
+              </thead>
+              <tbody> <!-- ng-repeat="oOrder in aOrder" -->
+                <tr id="document">
+                  <td>
+                    {{ oOrder.sDate | date: 'dd MMMM yyyy HH:mm'}}
+                  </td>
+                  <td>
+                    {{oOrder.nID_StatusType == 13 ? '' : oOrder.sName_UA_StatusType}} - {{oOrder.sUserTaskName}}
+                  </td>
+                </tr>
+                <tr ng-show="bOrderQuestion">
+                  <td colspan="2"> <!-- novalidate -->
+                    <div name="oQuestion" ng-show="!sServerReturnOnAnswer">
+                        
+                      <h2 ng-bind="oOrder.sBody" ng-show="oOrder.sBody"></h2>
+
+                      <div class="row" ng-repeat="oField in aField track by oField.sID"
+                           ng-switch on="oField.sType">
+                            <div class="col-md-3" ng-bind="oField.sName"></div>
+                            <div class="col-md-9">
+                                <!--label>{{oField.sName}}: </label-->
+                                <input ng-switch-when="string"
+                                     type="text"
+                                     name="{{oField.sID}}"
+                                     ng-hide="oField.sID==='resident' || oField.sID === 'sCountry'"
+                                     ng-model="oField.sValueNew"
+                                     ng-required="true"
+                                     class="form-control">
+                                
+                                <!--input ng-switch-when="date"
+                                     type="text"
+                                     name="{{oField.sID}}"
+                                     ng-model="oField.sValueNew"
+                                     ng-required="true"
+                                     class="form-control"-->
+                                
+                                
+                                <p ng-switch-when="date" class="input-group ng-scope" style="width:150px;">
+                                    <input
+                                           type="text"
+                                           name="{{oField.sID}}"
+                                           datepicker-popup="{{oField.oFactory.format}}"
+                                           is-open="oField.oFactory.opened"
+                                           datepicker-options="oField.oFactory.options"
+                                           ng-model="oField.oFactory.value"
+                                           ng-required="true"
+                                           close-text="Close"
+                                           ng-readonly="true"
+                                           class="form-control"
+                                           value="oField.oFactory.value">
+                                           <!--
+                                           dd/MM/yyyy
+                                           ng-readonly="true"
+                                           DD/MM/YYYY
+                                           
+                                           ng-if="oField.sType==='date'"
+                                           -->
+                                    <span class="input-group-btn">
+                                      <button type="button"
+                                              class="btn btn-default"
+                                              ng-click="oField.oFactory.open($event)">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                      </button>
+                                    </span>
+                                </p> 
+                                
+                                <textarea ng-switch-when="textArea"
+                                      name="{{oField.sID}}"
+                                      ng-hide="oField.sID==='resident' || oField.sID === 'sCountry'"
+                                      ng-model="oField.sValueNew"
+                                      ng-required="true"
+                                      class="form-control">
+                                </textarea>
+                                      
+                                <label style="color: red;">{{oField.sNotify}}</label>
+                            </div>
+                      </div>
+
+                      <div>
+                        <div><b>Залиште свій коментар до відповіді:</b></div>
+                        <textarea ng-model="sOrderAnswerCommentNew" class="form-control"></textarea>
+                        <button class="btn btn-primary" ng-click="sendAnswer()">Зберегти</button>
+                      </div>
+
+                    </div>
+
+                    <div ng-if="sServerReturnOnAnswer">
+                      <h2 ng-bind="sServerReturnOnAnswer"></h2>
+                    </div>
+                      
+                  </td>
+                </tr>
+                
+                <!--tr ng-if="bOrderQuestion">
+                  <td colspan="2">
+                    <h2 ng-bind="oOrder.sBody" ng-if="oOrder.sBody"></h2>
+                  </td>
+                </tr-->
+                
+              </tbody>
+            </table>
+          </div>
+          
         </div>
+      </div>
     </div>
+      
+    <div ng-show="bOrderOwner">
+        
+        <div class="col-md-10" ng-show="!bOrderQuestion">
+          <div class="row">
+            <textarea style="width: 100%" rows="4" ng-model="sOrderCommentNew"></textarea>
+          </div>
+          <div class="row">
+            <div class="btn btn-primary" ng-click="postComment()" >Залишити коментар</div>
+          </div>
+        </div>
+        
+      <div class="col-md-10 table-bordered" style="height: 400px; overflow-y: auto; margin-bottom: 10px;">
+        <div ng-repeat="oOrderMessage in aOrderMessage">
+          <div class="row">
+              <span><b>&nbsp;<label style="color: red;">{{oOrderMessage.nID_Subject!==oOrder.nID_Subject_Auth?'>':''}}</label>{{oOrderMessage.sDate}}</b>&nbsp;{{oOrderMessage.sHead}}</span>
+          </div>
+          <div class="row" ng-bind-html="oOrderMessage.sBody">
+              <!--
+                ng-bind-html="htmldecode(data.formData.params[property.id].value)"
+                $scope.getHtml = function(html) {
+                <span>{{oOrderMessage.sBody}}</span>
+              -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+      
+      
+      
+    <div ng-hide="bAuth">
+      <div class="row">
+        <div class="list-group-item col-md-10"
+             ng-hide="authProcess">
+          <span>Увійти через: </span>
+          <button style="display: none;"
+                  class="btn btn-info"><i class="icon-door-lock"></i><span class="btn-text">igov.org.ua</span></button>
+          <a class="btn btn-info"
+             href="#"
+             ng-click="loginWithBankId()">
+            <i class="icon-bank-id"></i>
+            <span class="btn-text">BankID</span>
+          </a>
+          <button style="display: none;"
+                  class="btn"><i class="icon-mobil-id"></i></button>
+          <button ng-click="loginWithEds()"
+                  class="btn btn-success i-btn-badge">
+            <i class="icon-badge"></i>
+            <span class="btn-text"><div>Сертифікат електронно-</div><div>цифрового підпису</div></span>
+          </button>
+          <button ng-click="loginWithEmail()"
+                  class="btn btn-info">
+            <span class="btn-info"><div>Email</div></span>
+          </button>
+          <button ng-if="false" ng-click="loginWithSoccard()"
+                  class="btn btn-success i-btn-badge">
+            <i class="icon-badge"></i>
+            <span class="btn-text"><div>Карта киянина</div></span>
+          </button>
+        </div>
+        <div class="text-center"
+             ng-show="authProcess">
+          <img class="text-center section-preloader"
+               src="assets/images/loading.gif"
+               alt="Loading"/>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

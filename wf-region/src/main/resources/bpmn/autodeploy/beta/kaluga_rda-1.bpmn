@@ -23,7 +23,7 @@
         <activiti:formProperty id="file4" name="Запит нотаріуса або адвоката; потрібно лише в разі оформлення спадщини" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="file5" name="Копія свідоцтва про смерть попереднього власника; потрібно лише в разі оформлення спадщини" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail" type="string" required="true"></activiti:formProperty>
-                <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+                <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">

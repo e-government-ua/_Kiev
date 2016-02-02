@@ -48,17 +48,17 @@
 
 
 .bg_yellow{
-     background-color:#ffffcc;
- }
- .bg_green{
-     background-color:#cceecc;
- }
- .bg_red{
-     background-color:#eecccc;
- }
- .bg_first{
-     background-color:#eeffcc;
- }
+    background-color:#ffffcc;
+}
+.bg_green{
+    background-color:#cceecc;
+}
+.bg_red{
+    background-color:#eecccc;
+}
+.bg_first{
+    background-color:#eeffcc;
+}
 
 /**
 * Vertical spacers from bootstrap 4 https://github.com/twbs/bootstrap/issues/4286
@@ -76,3 +76,17 @@
 .spacer75 { height: 75px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
 .spacer100 { height: 100px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
 .spacer200 { height: 200px; width: 100%; font-size: 0; margin: 0; padding: 0; border: 0; display: block; }
+
+table.QuestionFields td {
+    border-style: solid;
+}
+
+.no-horizontal-margin {
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+}
+
+html, body {
+  margin: 0px !important;
+  padding: 0px !important;
+}

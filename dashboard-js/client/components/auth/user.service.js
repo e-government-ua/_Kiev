@@ -1,10 +1,9 @@
 'use strict';
 
-angular.module('dashboardJsApp')
-  .factory('User', function($resource) {
-    var data = $resource('/service/identity/users/:user', {
-      user: "@user",
-      size: 100
+angular.module('dashboardJsApp').service('identityUser', function ($q, $http) {
+  this.getUserInfo = function (userID) {
+    return $http.get('./api/user/' + userID).then(function (response) {
+      return response.data;
     });
-    return data;
-  });
+  };
+});

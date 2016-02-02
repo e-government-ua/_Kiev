@@ -19,6 +19,18 @@ angular.module('documents').controller('DocumentsBankIdController', function ($s
     $window.location.href = './auth/eds?link=' + redirectURI;
   };
 
+  $scope.loginWithEmail = function () {
+    $state.go('index.auth.email.verify');
+  };
+
+  $scope.loginWithSoccard = function () {
+    var stateForRedirect = $state.href('index.documents.user', {error: ''});
+    var redirectURI = $location.protocol() +
+      '://' + $location.host() + ':'
+      + $location.port()
+      + stateForRedirect;
+    $window.location.href = './auth/soccard?link=' + redirectURI;
+  };
 
   if ($state.is('index.documents.bankid')) {
     if (!$state.params.error) {
@@ -30,14 +42,6 @@ angular.module('documents').controller('DocumentsBankIdController', function ($s
           $scope.authProcess = false;
         });
       });
-    } else {
-      var errorText;
-      try {
-        errorText = JSON.parse($state.params.error).error;
-      } catch (error) {
-        errorText = $state.params.error;
-      }
-      throw new Error(errorText);
     }
   }
 });

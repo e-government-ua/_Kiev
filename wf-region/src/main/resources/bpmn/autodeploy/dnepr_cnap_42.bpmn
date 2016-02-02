@@ -11,7 +11,7 @@
         <activiti:formProperty id="adress" name="Ваша адреса: область, місто, вулиця, дім, квартира" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Вкажіть сьогодняшню дату" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Вкажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса стоянки великотоннажного та іншого технологічного транспортного засобу" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="content" name="Просимо (викладається суть справи)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="data_about" name="Дані про великотоннажний та інший технологічний транспортний засіб:" type="label" default=" "></activiti:formProperty>

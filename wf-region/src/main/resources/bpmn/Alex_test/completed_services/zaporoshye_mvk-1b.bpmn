@@ -24,7 +24,7 @@
         <activiti:formProperty id="advertLicense" name="Копія виписки з Єдиного державного реєстру юридичних осіб та фізичних осіб" type="file"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування додаткових документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
@@ -473,7 +473,7 @@
 										&lt;p&gt;&lt;/p&gt;
 										&lt;!-- Скан-копію рішення Ви можете знайти у прикріплених файлах цього письма. &lt;br /&gt;
  --&gt;
-										Якщо Ви хочете отримати фізичну копію документа - зверніться будь-ласка до МВК міста Запоріжжя. &lt;br /&gt;
+										Якщо Ви хочете отримати фізичну копію документа - зверніться, будь ласка, до МВК міста Запоріжжя. &lt;br /&gt;
 										&lt;p&gt;&lt;/p&gt;
 										З собою треба мати будь-яке посвідчення особистості&lt;br /&gt;
 									&lt;p&gt;&lt;/p&gt;

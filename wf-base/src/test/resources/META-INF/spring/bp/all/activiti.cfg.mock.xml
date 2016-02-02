@@ -14,7 +14,7 @@
 		annotation-config="true" />
 	<bean class="org.activiti.test.MockUtil"
 		factory-method="createMock" primary="true">
-		<constructor-arg value="org.activiti.redis.service.RedisService" />
+		<constructor-arg value="org.igov.io.db.kv.temp.impl.BytesDataInmemoryStorage" />
 	</bean>
 	
 

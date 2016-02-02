@@ -9,7 +9,13 @@
        http://www.springframework.org/schema/util/spring-util.xsd
        http://www.springframework.org/schema/context 
        http://www.springframework.org/schema/context/spring-context.xsd">
-	<context:component-scan base-package="org.wf.dp"
+	<!--context:component-scan base-package="org.igov"
+		annotation-config="true" /-->
+	<!--context:component-scan base-package="org.wf.dp"
+		annotation-config="true" /-->
+	<context:component-scan base-package="org.igov.util"
+		annotation-config="true" />
+	<context:component-scan base-package="org.igov.io"
 		annotation-config="true" />
 		
 </beans>

@@ -31,6 +31,12 @@ angular.module('app').controller('PlaceAbsentController', function($state, $root
     showErrors: false
   };
 
+  $scope.placeData = PlacesService.getPlaceData0();
+  // FIXME Hardcode
+  $scope.selectedCountry = 'Україна';
+  $scope.selectedRegion = $scope.placeData && $scope.placeData.region ? ', ' + $scope.placeData.region.sName + ' область' : '';
+  $scope.selectedCity = $scope.placeData && $scope.placeData.city ? ', ' + $scope.placeData.city.sName : '';
+
   // mock markers
   $scope.markers = ValidationService.getValidationMarkers($scope);
 
@@ -42,30 +48,128 @@ angular.module('app').controller('PlaceAbsentController', function($state, $root
     }
   };
 
+//utf8 to 1251 converter (1 byte format, RU/EN support only + any other symbols) by drgluck
+function utf8_decode (aa) {
+    var bb = '', c = 0;
+    for (var i = 0; i < aa.length; i++) {
+        c = aa.charCodeAt(i);
+        if (c > 127) {
+            if (c > 1024) {
+                if (c === 1025) {
+                    c = 1016;
+                } else if (c === 1105) {
+                    c = 1032;
+                }
+                bb += String.fromCharCode(c - 848);
+            }
+        } else {
+            bb += aa.charAt(i);
+        }
+    }
+    return bb;
+}
+
+var Utf8 = {
+
+        // public method for url encoding
+        encode : function (string) {
+            string = string.replace(/rn/g,"n");
+            var utftext = "";
+
+
+            for (var n = 0; n < string.length; n++) {
+
+
+                var c = string.charCodeAt(n);
+
+
+                if (c < 128) {
+                    utftext += String.fromCharCode(c);
+                }
+                else if((c > 127) && (c < 2048)) {
+                    utftext += String.fromCharCode((c >> 6) | 192);
+                    utftext += String.fromCharCode((c & 63) | 128);
+                }
+                else {
+                    utftext += String.fromCharCode((c >> 12) | 224);
+                    utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                    utftext += String.fromCharCode((c & 63) | 128);
+                }
+
+
+            }
+
+
+            return utftext;
+        },
+
+
+        // public method for url decoding
+        decode : function (utftext) {
+            var string = "";
+            var i = 0;
+            var c = c1 = c2 = 0;
+
+
+            while ( i < utftext.length ) {
+
+
+                c = utftext.charCodeAt(i);
+
+
+                if (c < 128) {
+                    string += String.fromCharCode(c);
+                    i++;
+                }
+                else if((c > 191) && (c < 224)) {
+                    c2 = utftext.charCodeAt(i+1);
+                    string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                    i += 2;
+                }
+                else {
+                    c2 = utftext.charCodeAt(i+1);
+                    c3 = utftext.charCodeAt(i+2);
+                    string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                    i += 3;
+                }
+
+
+            }
+
+
+            return string;
+        }
+
+
+    }
+
   $scope.sendAbsentMessage = function(absentMessageForm, absentMessage) {
+    var oFuncNote = {sHead:"Відсилка запиту на додання нової послуги", sFunc:"sendAbsentMessage"};
+    ErrorsFactory.init(oFuncNote);
 
     // ValidationService.validateByMarkers( absentMessageForm );
-
     if (false === absentMessageForm.$valid) {
       $scope.absentMessage.showErrors = true;
       return false;
     }
 
-    var placeData = PlacesService.getPlaceData();
-    var selectedRegion = placeData && placeData.region ? placeData.region.sName + ' - ' : '';
-    var selectedCity = placeData && placeData.city ? placeData.city.sName + ' - ' : '';
-
-    var data = {
+    var sService = $scope.selectedCountry + $scope.selectedRegion + $scope.selectedCity + ' — ' + service.sName;
+    var sData = {
       sMail: absentMessage.email,
       sHead: 'Закликаю владу перевести цю послугу в електронну форму!',
-      sBody: selectedRegion + selectedCity + service.sName
+      sBody: sService
     };
 
-    var messageText = 'Дякуємо! Ви будете поінформовані, коли ця послуга буде доступна через Інтернет.';
-    
-    MessagesService.setMessage(data, messageText);
+    var sMessageText = 'Дякуємо! Ви будете проінформовані, коли ця послуга буде доступна через Інтернет.';
+    MessagesService.setMessage(sData, sMessageText);
 
-    ErrorsFactory.push({type: 'success', text: messageText});
+    //ErrorsFactory.logInfoSend({sType:"success", sBody:sMessageText, asParam: ['sMail: '+absentMessage.email, 'sService: '+Utf8.encode(sService)]})//utf8_decode
+    ErrorsFactory.logInfoSend({sType:"success", sBody:sMessageText, asParam: ['sMail: '+absentMessage.email, 'sService: '+sService]})//utf8_decode
+    /*ErrorsFactory.push({
+      //type: 'success',
+      type: 'info',
+      text: sMessageText,
+      bSend: true
+    });*/
   };
-
 });

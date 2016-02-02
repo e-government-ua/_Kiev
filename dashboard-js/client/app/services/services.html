@@ -1,59 +1,72 @@
 <div ng-include="'components/navbar/navbar.html'"
      class="navbar-static-top"></div>
 
-<div class="container">
+  <div class="container">
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Оберіть Бізнес-процес</div>
-    <div class="panel-body">
-      <div class="form-horizontal">
-        <div class="form-group">
-          <label for="bpID" class="col-sm-1 control-label">БП:</label>
-          <div class="col-sm-11">
-            <select id="bpID"
-                    class="form-control"
-                    name="bpID"
-                    ng-model="bp.chosenBp"
-                    ng-options="processDefinition as processDefinition.sName for processDefinition in bp.processesList"
-                    ng-required="true"
-                    ng-change="bp.onChangeCallback()">
-            </select>
+    <div class="panel panel-default">
+      <div class="panel-heading">Оберіть Бізнес-процес</div>
+      <div class="panel-body">
+        <div class="form">
+          <div class="form-group">
+            <label for="bpID" class="col-sm-2 control-label">БП:</label>
+            <div class="col-sm-10">
+              <select id="bpID"
+                      class="form-control"
+                      name="bpID"
+                      ng-model="bp.chosenBp"
+                      ng-options="processDefinition as processDefinition.sName for processDefinition in bp.processesList"
+                      ng-required="true">
+              </select>
+            </div>
+          <div class="form-group" ng-show="bp.chosenBp">
+            <label for="departmentID" class="col-sm-2 control-label">Департамент:</label>
+            <div class="col-sm-10">
+              <select id="departmentID"
+                      class="form-control"
+                      name="departmentID"
+                      ng-model="bp.chosenDepartment"
+                      ng-options="department as department.sName for department in departments"
+                      ng-required="true"
+                      ng-change="bp.onDepartmentChangeCallback()">
+              </select>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading">Розклад</div>
-    <div class="panel-body">
+    <div class="panel panel-default" ng-show="bp.chosenDepartment">
+      <div class="panel-heading">Розклад</div>
+      <div class="panel-body">
 
-      <tabset>
-        <tab>
-          <tab-heading class="cursor-pointer">
-            <i class="fa fa-university"></i>&nbsp;Робочий час тижня
-          </tab-heading>
-          <div class="spacer15"></div>
-          <schedule funcs="workHours"></schedule>
-        </tab>
+        <tabset>
+          <tab>
+            <tab-heading class="cursor-pointer">
+              <i class="fa fa-university"></i>&nbsp;Робочий час тижня
+            </tab-heading>
+            <div class="spacer15"></div>
+            <schedule funcs="workHours"></schedule>
+          </tab>
 
-        <tab>
-          <tab-heading class="cursor-pointer">
-            <i class="fa fa-home"></i>&nbsp;Винятки робочого часу
-          </tab-heading>
-          <div class="spacer15"></div>
-          <schedule funcs="exemptions"></schedule>
-        </tab>
+          <tab>
+            <tab-heading class="cursor-pointer">
+              <i class="fa fa-home"></i>&nbsp;Винятки робочого часу
+            </tab-heading>
+            <div class="spacer15"></div>
+            <schedule funcs="exemptions"></schedule>
+          </tab>
 
-        <tab>
-          <tab-heading class="cursor-pointer">
-            <i class="fa fa-calendar-check-o"></i>&nbsp;Генерація та перегляд графіку
-          </tab-heading>
-          <div class="spacer15"></div>
-          <div ng-include src="'app/services/generation/index.html'"></div>
-        </tab>
-      </tabset>
+          <tab>
+            <tab-heading class="cursor-pointer">
+              <i class="fa fa-calendar-check-o"></i>&nbsp;Генерація та перегляд графіку
+            </tab-heading>
+            <div class="spacer15"></div>
+            <div ng-include src="'app/services/generation/index.html'"></div>
+          </tab>
+        </tabset>
+      </div>
     </div>
+
   </div>
 
 </div>

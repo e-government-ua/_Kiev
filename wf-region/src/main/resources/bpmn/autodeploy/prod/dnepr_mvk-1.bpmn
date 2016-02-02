@@ -152,13 +152,16 @@
           <activiti:expression>Звернення на тему: ${docType}</activiti:expression>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}!
-Щодо Вашого запиту на отримання ${docType} №${docNumber} від  ${docDate}
-Документ знаходиться у додатку до цього листа.
-
-З повагою,
-Міська рада міста Дніпропетровськ,
-Команда Порталу державних послу iGov.org.ua</activiti:expression>
+          <activiti:expression>[pattern/mail/_common_header.html]
+			&lt;h3&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
+			&lt;p&gt;Щодо Вашого запиту на отримання ${docType} №${docNumber} від  ${docDate}&lt;br/&gt;
+Документ знаходиться у додатку до цього листа.&lt;br /&gt;
+			
+			[pattern/mail/_common_signature_start.html]
+			Міська рада міста Дніпропетровськ,&lt;br /&gt;
+			[pattern/mail/_common_signature_end.html]
+			[pattern/mail/_common_feedback.html]
+			[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
           <activiti:expression>"${docToSend}"</activiti:expression>

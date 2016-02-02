@@ -16,9 +16,9 @@
             <property name="identityService" ref="identityService"/>
         </bean>
 
-        <bean id="activitiRestAuthProvider" class="org.activity.rest.security.ActivitiRestAuthProvider"/>
-        <bean id="accessKeyAuthProvider" class="org.activity.rest.security.AccessKeyAuthProvider"/>
-        <bean id="accessKeyAuthFilter" class="org.activity.rest.security.AccessKeyAuthFilter"/>
+        <bean id="activitiRestAuthProvider" class="org.igov.service.controller.security.ActivitiRestAuthProvider"/>
+        <bean id="accessKeyAuthProvider" class="org.igov.service.controller.security.AccessKeyAuthProvider"/>
+        <bean id="accessKeyAuthFilter" class="org.igov.service.controller.security.AccessKeyAuthFilter"/>
 
         <security:http create-session="stateless" realm="Activiti REST API">
             <security:intercept-url pattern="/service/**" access="ROLE_USER"/>
@@ -43,9 +43,9 @@
             <property name="identityService" ref="identityService"/>
         </bean>
 
-        <bean id="activitiRestAuthProvider" class="org.activity.rest.security.ActivitiRestAuthProvider"/>
-        <bean id="accessKeyAuthFilter" class="org.activity.rest.security.AccessKeyAuthFilter"/>
-        <bean id="accessKeyAuthProvider" class="org.activity.rest.security.AccessKeyAuthProvider"/>
+        <bean id="activitiRestAuthProvider" class="org.igov.service.controller.security.ActivitiRestAuthProvider"/>
+        <bean id="accessKeyAuthFilter" class="org.igov.service.controller.security.AccessKeyAuthFilter"/>
+        <bean id="accessKeyAuthProvider" class="org.igov.service.controller.security.AccessKeyAuthProvider"/>
 
         <security:http create-session="stateless" realm="Activiti REST API">
             <security:intercept-url pattern="/service/**" access="ROLE_USER"/>
@@ -70,9 +70,9 @@
             <property name="identityService" ref="identityService"/>
         </bean>
 
-        <bean id="activitiRestAuthProvider" class="org.activity.rest.security.ActivitiRestAuthProvider"/>
-        <bean id="accessKeyAuthFilter" class="org.activity.rest.security.AccessKeyAuthFilter"/>
-        <bean id="accessKeyAuthProvider" class="org.activity.rest.security.AccessKeyAuthProvider"/>
+        <bean id="activitiRestAuthProvider" class="org.igov.service.controller.security.ActivitiRestAuthProvider"/>
+        <bean id="accessKeyAuthFilter" class="org.igov.service.controller.security.AccessKeyAuthFilter"/>
+        <bean id="accessKeyAuthProvider" class="org.igov.service.controller.security.AccessKeyAuthProvider"/>
 
         <security:http create-session="stateless" realm="Activiti REST API">
             <security:intercept-url pattern="/service/**" access="ROLE_USER"/>

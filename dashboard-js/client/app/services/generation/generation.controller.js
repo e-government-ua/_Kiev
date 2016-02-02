@@ -116,7 +116,7 @@ angular.module('dashboardJsApp')
       var get = function(){
         data.inProgress = true;
         var date = moment(request.sDateStart);
-        schedule.getFlowSlots(bpForSchedule.bp.chosenBp.sID, request.bAll, request.nDays, date.format('YYYY-MM-DD'))
+        schedule.getFlowSlots(bpForSchedule.bp.chosenBp.sID, bpForSchedule.bp.chosenDepartment.nID, request.bAll, request.nDays, date.format('YYYY-MM-DD'))
           .then(function(obj){
             var days = obj.aDay;
             formatDays(days);

@@ -10,21 +10,17 @@
         <activiti:formProperty id="bankIdinn" name="ІПН" type="long"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Ваш e-mail для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Вкажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Вкажіть  сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="name" name="У родовому відмінку повне найменування об'єкта торгівлі, ресторанного господарства або сфери послуг" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Місцезнаходження об'єкта торгівлі, ресторанного господарства або сфери послуг" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="trusted_person" name="Ім'я, по батькові та прізвище фізичної особи – підприємця або юридичної особи" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця;(якщо Ви оберете надіслати поштою - лист прийде на цю адресу)" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="time_full" name="Початок та закінчення роботи (з .. до ..)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="time_break" name="Перерва (з .. до ..)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="weekend" name="Вихідні дні" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="special" name="Особливі умови роботи" type="string"></activiti:formProperty>
         <activiti:formProperty id="file1" name="Копія документа про державну реєстрацію суб’єкта господарювання" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file2" name="Копія документа, що засвідчує право власності на приміщення, де буде здійснюватись торгівля (надання послуг) або договору оренди приміщення (у разі оренди)" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" required="true">
-          <activiti:value id="attr1_self" name="Отримаю власноруч"></activiti:value>
-          <activiti:value id="attr2_post" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
@@ -40,15 +36,11 @@
         <activiti:formProperty id="name" name="У родовому відмінку повне найменування об'єкта торгівлі, ресторанного господарства або сфери послуг" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Місцезнаходження об'єкта торгівлі, ресторанного господарства або сфери послуг" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="trusted_person" name="Ім'я, по батькові та прізвище фізичної особи – підприємця або юридичної особи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця;(якщо Ви оберете надіслати поштою - лист прийде на цю адресу)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="time_full" name="Початок та закінчення роботи (з .. до ..)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="time_break" name="Перерва (з .. до ..)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="weekend" name="Вихідні дні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="special" name="Особливі умови роботи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" writable="false">
-          <activiti:value id="attr1_self" name="Отримаю власноруч"></activiti:value>
-          <activiti:value id="attr2_post" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="extension_number" name="Реєстраційний номер ЦНАП" type="string"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string"></activiti:formProperty>
         <activiti:formProperty id="date_registrastion" name="Вкажіть дату реєстрації (у форматі ДД/ММ/РРРР)" type="string"></activiti:formProperty>
@@ -94,27 +86,23 @@
         <activiti:formProperty id="name" name="У родовому відмінку повне найменування об'єкта торгівлі, ресторанного господарства або сфери послуг" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Місцезнаходження об'єкта торгівлі, ресторанного господарства або сфери послуг" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="trusted_person" name="Ім'я, по батькові та прізвище фізичної особи – підприємця або юридичної особи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця;(якщо Ви оберете надіслати поштою - лист прийде на цю адресу)" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="time_full" name="Початок та закінчення роботи (з .. до ..)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="time_break" name="Перерва (з .. до ..)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="weekend" name="Вихідні дні" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="special" name="Особливі умови роботи" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" writable="false">
-          <activiti:value id="attr1_self" name="Отримаю власноруч"></activiti:value>
-          <activiti:value id="attr2_post" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
-        </activiti:formProperty>
         <activiti:formProperty id="extension_number" name="Реєстраційний номер ЦНАП" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="adminFio" name="П.І.Б. адміністратора ЦНАП, який прийняв заяву" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="date_registrastion" name="Вкажіть дату реєстрації (у форматі ДД/ММ/РРРР)" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="status2" name="Обробка довідки" type="enum" required="true">
           <activiti:value id="attr5_finish" name="Результат послуги отримано, очікуємо суб`єкта звернення"></activiti:value>
-          <activiti:value id="attr6_finish" name="Результат послуги отримано, відповідь відправлено поштою"></activiti:value>
+          <activiti:value id="attr6_finish" name="Результат послуги - відмовлено Управлінням надання муніципальних послуг та розвитку підприємництва"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="reference" name="Сканкопія довідки" type="file"></activiti:formProperty>
+        <activiti:formProperty id="reference" name="Сканкопія довідки або відмови" type="file"></activiti:formProperty>
       </extensionElements>
     </userTask>
     <sequenceFlow id="flow9" sourceRef="servicetask7" targetRef="usertask2"></sequenceFlow>
-    <serviceTask id="servicetask2" name="Відпрвка e-mail &quot;надіслано поштою&quot;" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask2" name="Відпрвка e-mail з відмовою" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -128,25 +116,13 @@
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
-&lt;p&gt;
-Ваше звернення щодо видача довідки про встановлення режиму роботи об’єкта - опрацьовано.&lt;br /&gt;
-Ви отримаєте друковану копію в листі за адресою: &lt;br /&gt;
-&lt;i&gt;${adress} &lt;/i&gt; &lt;br /&gt;
+На жаль, Ваше звернення про надання інформації щодо видачи довідки про встановлення режиму роботи об’єкта - відхилине Управлінням надання муніципальних послуг та розвитку підприємництва.&lt;/p&gt;
+&lt;p&gt;Відповідь від Управління надання муніципальних послуг та розвитку підприємництва в додатку до листа&lt;/p&gt;
 &lt;br /&gt;
-Адреса: &lt;br /&gt;
-м. Дніпродзержинськ, пр. Комсомольський 10/12 &lt;br /&gt;
-&lt;/p&gt;
-&lt;br /&gt;
-Графік роботи ЦНАП-у:&lt;br /&gt;
-Понеділок, середа, п'ятниця з 8.00 до 17.00&lt;br /&gt;
-Вівторок, четвер з 8.00 до 20.00&lt;br /&gt;
-Субота з 9.00 до 16.00&lt;br /&gt;
-Телефон: (05692) 2-61-50 &lt;br /&gt;  
-&lt;br /&gt;
+Телефон для довідок: (05692) 2-61-50 &lt;br /&gt; 
 [pattern/mail/_common_signature_start.html]
-ЦНАП м.Дніпродзержинськ&lt;br /&gt;
+Центр надання адміністративних послуг м.Дніпродзержинська&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
-[pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
         <activiti:field name="saAttachmentsForSend">
@@ -156,7 +132,7 @@
     </serviceTask>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow10" sourceRef="usertask2" targetRef="exclusivegateway2"></sequenceFlow>
-    <serviceTask id="servicetask3" name="Відправка e-mail &quot;забери сам&quot;" activiti:delegateExpression="#{MailTaskWithAttachments}">
+    <serviceTask id="servicetask3" name="Відправка e-mail з позитивним рішенням" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -218,32 +194,12 @@
         </activiti:field>
         <activiti:field name="text">
           <activiti:expression>[pattern/mail/_common_header.html]
-                                    &lt;h3&gt;Шановний(-а) колего!&lt;/h3&gt;
-                                    &lt;p&gt;
-У Вас в черзі на обробку зареєстровано нове звернення щодо видачи довідки про встановлення режиму роботи об’єкта..&lt;br /&gt;
-&lt;br /&gt;
+&lt;strong&gt;Шановний(-а) колего!&lt;/strong&gt;&lt;br /&gt;&lt;br /&gt;
+У Вас в черзі на обробку нове звернення щодо видачі довідки про встановлення режиму роботи об’єкта.&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
-Опрацюйте це звернення на &lt;a href="https://region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
-                                    &lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
-                                    &lt;p&gt;
-                                    З повагою,&lt;br /&gt;
-					  				Команда Порталу державних послуг &lt;a href="https://igov.org.ua/" target="_blank"&gt;iGov&lt;/a&gt;
-                                        &lt;/p&gt;
-                                    &lt;/p&gt;
-                                &lt;/td&gt;
-                            &lt;/tr&gt;
-                        &lt;/table&gt;
-                    &lt;/td&gt;
-                &lt;/tr&gt;
-                &lt;!--content end--&gt;
-            &lt;/table&gt;
-        &lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/body&gt;
-&lt;/html&gt;</activiti:expression>
+Відпрацюйте це звернення на &lt;a href="https://region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
+[pattern/mail/_common_signature.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -287,8 +243,7 @@
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 На жаль, Ваше звернення про надання інформації щодо видачи довідки про встановлення режиму роботи об’єкта - відхилине.&lt;/p&gt;
-&lt;p&gt;Причина в наступному: 
-                                    &lt;/p&gt;
+&lt;p&gt;Причина в наступному:&lt;/p&gt;
 &lt;p&gt;${decisionComment}&lt;/p&gt;
 &lt;p&gt;Звертаємо увагу, Ви можете заповнити заявку повторно на порталі &lt;a href="#current-page"&gt;iGov.org.ua&lt;/a&gt;&lt;/p&gt;
 &lt;br /&gt;
@@ -316,7 +271,7 @@
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 &lt;p&gt;Ваше звернення про надання інформації щодо видачи довідки про встановлення режиму роботи об’єкта - відправлене в управління містобудування, архітектури міської ради.&lt;br /&gt;
 Спеціалісти з органу місцевого самоврядування повинні дати відповідь протягом десяти робочих днів з дня реєстрації заяви.&lt;br /&gt; 
-&lt;p&gt;Номер Вашого замовлення: ${extension_number}&lt;/p&gt; .
+&lt;p&gt;Номер Вашого замовлення: ${extension_number}&lt;/p&gt;.
 Телефон для довідок: (05692) 2-61-50 &lt;br /&gt;  
 &lt;/p&gt;
 &lt;br /&gt;

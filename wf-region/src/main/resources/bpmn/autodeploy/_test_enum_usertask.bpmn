@@ -105,7 +105,7 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="_test_enum_usertask">
+    <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="sales">
       <extensionElements>
         <activiti:formProperty id="fio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>

@@ -45,9 +45,10 @@ function FieldMotionService(MarkersFactory) {
   };
 
   this.isFieldRequired = function(fieldId, formData) {
-    return grepByPrefix('RequiredFieldsOnCondition_').some(function(entry) {
+    var b = grepByPrefix('RequiredFieldsOnCondition_').some(function(entry) {
       return evalCondition(entry, fieldId, formData);
-    })
+    });
+    return b;
   };
   var fieldId_entryTriggered = {};
   this.calcFieldValue = function(fieldId, formData) {
@@ -79,7 +80,8 @@ function FieldMotionService(MarkersFactory) {
       return result;
     });
     try {
-      return eval(toEval);
+      var bResult = eval(toEval);
+      return bResult;
     } catch (e) {
       console.log('OnCondition expression error\n' + e.name + '\n' + e.message
         + '\nexpression:' + entry.sCondition

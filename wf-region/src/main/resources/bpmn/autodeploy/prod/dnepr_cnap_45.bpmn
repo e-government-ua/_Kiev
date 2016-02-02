@@ -185,6 +185,8 @@
     <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="dnepr_cnap_${cnap}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний номер телефону" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="pib_admin" name="Прізвище та ініціали адміністратора" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="decision_2" name="Прийняття рішення про переоформлення, видачу копії або дубліката ліцензії на надання освітніх послуг" type="enum" required="true">
@@ -305,7 +307,7 @@
     <serviceTask id="servicetask2" name="Повідомлення громадянина про успішне подання зверенння" activiti:delegateExpression="#{MailTaskWithAttachments}">
       <extensionElements>
         <activiti:field name="from">
-          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+          <activiti:string><![CDATA[test_noreply@igov.org.ua]]></activiti:string>
         </activiti:field>
         <activiti:field name="to">
           <activiti:expression>"${email}"</activiti:expression>
@@ -464,8 +466,7 @@
 										Дніпропетровської міської ради,&lt;br/&gt;
 									[pattern/mail/_common_signature_end.html]   
 									[pattern/mail/_common_feedback.html]
-									[pattern/mail/_common_footer.html]
-		  </activiti:expression>
+									[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -514,8 +515,7 @@
 										Дніпропетровської міської ради,&lt;br/&gt;
 										[pattern/mail/_common_signature_end.html]   
 										[pattern/mail/_common_feedback.html]
-										[pattern/mail/_common_footer.html]
-		  </activiti:expression>
+										[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -561,8 +561,7 @@
 										Центр надання адміністративних послуг&lt;br/&gt; 
 										Дніпропетровської міської ради,&lt;br/&gt;
 									[pattern/mail/_common_signature_end.html]   
-									[pattern/mail/_common_footer.html]
-		 </activiti:expression>
+									[pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>
       </extensionElements>
     </serviceTask>
@@ -610,9 +609,8 @@
 										Центр надання адміністративних послуг&lt;br/&gt; 
 										Дніпропетровської міської ради,&lt;br/&gt;
 									[pattern/mail/_common_signature_end.html]   
-									[pattern/mail/_common_footer.html]
-		 </activiti:expression>
-        </activiti:field> 
+									[pattern/mail/_common_footer.html]</activiti:expression>
+        </activiti:field>
       </extensionElements>
     </serviceTask>
     <serviceTask id="mailtask7" name="Повідомлення співробітника ЦНАП Л" activiti:type="mail">
@@ -734,6 +732,8 @@
     <endEvent id="endevent4" name="End"></endEvent>
     <sequenceFlow id="flow38" sourceRef="servicetask4" targetRef="endevent4"></sequenceFlow>
     <sequenceFlow id="flow39" sourceRef="servicetask5" targetRef="endevent4"></sequenceFlow>
+    <endEvent id="endevent5" name="End"></endEvent>
+    <sequenceFlow id="flow40" sourceRef="mailtask6" targetRef="endevent5"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_dnepr_cnap_45">
     <bpmndi:BPMNPlane bpmnElement="dnepr_cnap_45" id="BPMNPlane_dnepr_cnap_45">
@@ -779,20 +779,23 @@
       <bpmndi:BPMNShape bpmnElement="servicetask5" id="BPMNShape_servicetask5">
         <omgdc:Bounds height="55.0" width="186.0" x="111.0" y="673.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
+        <omgdc:Bounds height="55.0" width="191.0" x="600.0" y="673.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask7" id="BPMNShape_mailtask7">
         <omgdc:Bounds height="55.0" width="189.0" x="122.0" y="128.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway3" id="BPMNShape_exclusivegateway3">
         <omgdc:Bounds height="40.0" width="40.0" x="435.0" y="135.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape bpmnElement="servicetask6" id="BPMNShape_servicetask6">
-        <omgdc:Bounds height="55.0" width="191.0" x="600.0" y="673.0"></omgdc:Bounds>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
         <omgdc:Bounds height="35.0" width="35.0" x="678.0" y="600.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent4" id="BPMNShape_endevent4">
         <omgdc:Bounds height="35.0" width="35.0" x="186.0" y="600.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent5" id="BPMNShape_endevent5">
+        <omgdc:Bounds height="35.0" width="35.0" x="199.0" y="371.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
         <omgdi:waypoint x="455.0" y="500.0"></omgdi:waypoint>
@@ -836,7 +839,7 @@
         <omgdi:waypoint x="435.0" y="315.0"></omgdi:waypoint>
         <omgdi:waypoint x="311.0" y="315.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="42.0" width="100.0" x="321.0" y="295.0"></omgdc:Bounds>
+          <omgdc:Bounds height="42.0" width="100.0" x="346.0" y="320.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
@@ -893,6 +896,10 @@
       <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
         <omgdi:waypoint x="204.0" y="673.0"></omgdi:waypoint>
         <omgdi:waypoint x="203.0" y="635.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="216.0" y="343.0"></omgdi:waypoint>
+        <omgdi:waypoint x="216.0" y="371.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

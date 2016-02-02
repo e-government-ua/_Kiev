@@ -1,92 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<name>iGov-UA</name>
-	<groupId>org.egov-ua</groupId>
-	<artifactId>org.egov-ua</artifactId>
-	<packaging>pom</packaging>
-	<version>1.0-SNAPSHOT</version>
-	<!--version>${igov.wf-base.version}</version-->
+    <name>iGov-UA</name>
+    <groupId>org.igov</groupId>
+    <artifactId>root</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
 
-	<properties>
-		<!--compiler properties -->
-		<source.version>1.7</source.version>
-		<target.version>1.7</target.version>
-		<encoding>UTF-8</encoding>
-		<project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
-		<!--compiler properties -->
+    <properties>
+        <!--compiler properties -->
+        <source.version>1.7</source.version>
+        <target.version>1.7</target.version>
+        <encoding>UTF-8</encoding>
+        <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+        <!--compiler properties -->
 
-		<liquibase.data.path>data</liquibase.data.path>
-		<activiti.data.path>bpmn/autodeploy</activiti.data.path>
+        <liquibase.data.path>data</liquibase.data.path>
+        <activiti.data.path>bpmn/autodeploy</activiti.data.path>
 
-		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
-		<maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
-		<maven-compiler-plugin.version>3.0</maven-compiler-plugin.version>
-		<maven-war-plugin.version>2.1.1</maven-war-plugin.version>
-		<maven-jar-plugin.version>2.3.2</maven-jar-plugin.version>
-		<maven-release-plugin.version>2.5.1</maven-release-plugin.version>
-		<junit.version>4.11</junit.version>
-		<logback-core.version>1.0.9</logback-core.version>
-		<logback-classic.version>1.0.9</logback-classic.version>
-		<mockito.version>1.9.0</mockito.version>
-		<apache-commons-collections.version>3.2.1</apache-commons-collections.version>
-		<apache-commons-collections4.version>4.0</apache-commons-collections4.version>
-		<apache-commons-io.version>1.3.2</apache-commons-io.version>
-		<apache-commons-compress.version>1.4.1</apache-commons-compress.version>
-		<jmock.version>2.5.1</jmock.version>
-		<jmock-unit.version>2.5.1</jmock-unit.version>
-		<janino.version>2.5.10</janino.version>
-		<jetty-servlet.version>8.0.0.M2</jetty-servlet.version>
-		<jaxb2-maven-plugin.version>1.5</jaxb2-maven-plugin.version>
-		<redis.version>2.4.0</redis.version>
-		<tomcat-jdbc.version>7.0.39</tomcat-jdbc.version>
-		<h2.database.version>1.3.176</h2.database.version>
-		<postgresql.version>9.4-1201-jdbc41</postgresql.version>
-		<springframework.version>4.0.6.RELEASE</springframework.version>
-		<cglib.version>2.2.2</cglib.version>
-		<commons.codec.version>1.8</commons.codec.version>
-		<hamcrest.version>1.1</hamcrest.version>
-		<jsonassert.version>1.2.3</jsonassert.version>
-		<guava.version>18.0</guava.version>
-		<easymock.version>3.0</easymock.version>
-		<hibernate.version>4.3.10.Final-fixed</hibernate.version>
-		<usertype.core.version>3.2.0.GA</usertype.core.version>
-		<log4j.version>1.2.17</log4j.version>
-		<liquibase.version>3.3.3</liquibase.version>
-		<java.object.merger.version.version>0.8.5.1</java.object.merger.version.version>
-		<jboss.serialization.version>4.2.2.GA</jboss.serialization.version>
-		<trove.version>1.0.2</trove.version>
-		<quartz.version>1.6.1</quartz.version>
-		<ehcache.version>2.10.0</ehcache.version>
-		<spring-test-dbunit.version>1.2.0</spring-test-dbunit.version>
-		<dbunit.version>2.5.1</dbunit.version>
-	</properties>
-                <!--igov.storage-static.version>1.0.0${parameter.sRevision}-SNAPSHOT</igov.storage-static.version>
-                <igov.storage-temp.version>1.0.0${parameter.sRevision}-SNAPSHOT</igov.storage-temp.version>
-                <igov.wf-base.version>1.0.0${parameter.sRevision}-SNAPSHOT</igov.wf-base.version>
-                <igov.wf-central.version>1.0.0${parameter.sRevision}-SNAPSHOT</igov.wf-central.version>
-                <igov.wf-region.version>1.0.0${parameter.sRevision}-SNAPSHOT</igov.wf-region.version-->
-                <!--igov.storage-static.version>1.0.0-SNAPSHOT</igov.storage-static.version>
-                <igov.storage-temp.version>1.0.0-SNAPSHOT</igov.storage-temp.version>
-                <igov.wf-base.version>1.0.0-SNAPSHOT</igov.wf-base.version>
-                <igov.wf-central.version>1.0.0-SNAPSHOT</igov.wf-central.version>
-                <igov.wf-region.version>1.0.0-SNAPSHOT</igov.wf-region.version-->
+        <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
+        <maven-surefire-plugin.version>2.12.4</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>3.0</maven-compiler-plugin.version>
+        <maven-war-plugin.version>2.1.1</maven-war-plugin.version>
+        <maven-jar-plugin.version>2.3.2</maven-jar-plugin.version>
+        <maven-release-plugin.version>2.5.1</maven-release-plugin.version>
+        <maven-javadoc-plugin.version>2.8</maven-javadoc-plugin.version>
+        <maven-site-plugin.version>3.3</maven-site-plugin.version>
+        <maven-pmd-plugin.version>3.4</maven-pmd-plugin.version>
+        <maven-pmd-plugin.jdk.version>1.7</maven-pmd-plugin.jdk.version>
+        <junit.version>4.11</junit.version>
+        <logback-core.version>1.0.9</logback-core.version>
+        <logback-classic.version>1.0.9</logback-classic.version>
+        <mockito.version>1.9.0</mockito.version>
+        <apache-commons-collections.version>3.2.1</apache-commons-collections.version>
+        <apache-commons-collections4.version>4.0</apache-commons-collections4.version>
+        <apache-commons-io.version>1.3.2</apache-commons-io.version>
+        <apache-commons-compress.version>1.4.1</apache-commons-compress.version>
+        <jmock.version>2.5.1</jmock.version>
+        <jmock-unit.version>2.5.1</jmock-unit.version>
+        <janino.version>2.5.10</janino.version>
+        <jetty-servlet.version>8.0.0.M2</jetty-servlet.version>
+        <jaxb2-maven-plugin.version>1.5</jaxb2-maven-plugin.version>
+        <redis.version>2.4.0</redis.version>
+        <tomcat-jdbc.version>7.0.39</tomcat-jdbc.version>
+        <h2.database.version>1.3.176</h2.database.version>
+        <postgresql.version>9.4-1201-jdbc41</postgresql.version>
+        <springframework.version>4.0.6.RELEASE</springframework.version>
+        <cglib.version>2.2.2</cglib.version>
+        <commons.codec.version>1.8</commons.codec.version>
+        <hamcrest.version>1.1</hamcrest.version>
+        <jsonassert.version>1.2.3</jsonassert.version>
+        <guava.version>18.0</guava.version>
+        <easymock.version>3.0</easymock.version>
+        <hibernate.version>4.3.10.Final-fixed</hibernate.version>
+        <usertype.core.version>3.2.0.GA</usertype.core.version>
+        <log4j.version>1.2.17</log4j.version>
+        <liquibase.version>3.3.3</liquibase.version>
+        <java.object.merger.version.version>0.8.5.1</java.object.merger.version.version>
+        <jboss.serialization.version>4.2.2.GA</jboss.serialization.version>
+        <trove.version>1.0.2</trove.version>
+        <quartz.version>1.6.1</quartz.version>
+        <ehcache.version>2.10.0</ehcache.version>
+        <spring-test-dbunit.version>1.2.0</spring-test-dbunit.version>
+        <dbunit.version>2.5.1</dbunit.version>
+        <maven.build.timestamp.format>yyMMdd_HHmm</maven.build.timestamp.format>
+        <buildNumber>${maven.build.timestamp}</buildNumber>
+    </properties>
 
-	<distributionManagement>
-	    <!-- XXX Replace localNexus to iGov_Nexus or something like that. And reconfigure Jenkins -->
-		<repository>
-			<id>eGovUa_Nexus</id>
-			<name>Internal Releases</name>
-			<url>https://nexus.igov.org.ua/nexus/content/repositories/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>eGovUa_Nexus</id>
-			<name>Internal Snapshots</name>
-			<url>https://nexus.igov.org.ua/nexus/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
+    <distributionManagement>
+        <!-- XXX Replace localNexus to iGov_Nexus or something like that. And reconfigure Jenkins -->
+        <repository>
+            <id>eGovUa_Nexus</id>
+            <name>Internal Releases</name>
+            <url>https://nexus.igov.org.ua/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>eGovUa_Nexus</id>
+            <name>Internal Snapshots</name>
+            <url>https://nexus.igov.org.ua/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <repositories>
         <repository>
@@ -113,514 +110,591 @@
             <id>Activiti third party</id>
             <url>http://maven.alfresco.com/nexus/content/repositories/activiti-thirdparty/</url>
         </repository>
+        <repository>
+            <id>jcenter-snapshots</id>
+            <name>jcenter</name>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>        
     </repositories>
 
-	<profiles>
-            
-                <profile>
-                    <id>alpha</id>
-                    <activation>
-                        <activeByDefault>true</activeByDefault>
-                    </activation>
-                    <modules>
-                            <module>auth-custom</module>
-                            <module>storage-static</module>
-                            <module>storage-temp</module>
-                            <module>wf-base</module>
-                            <module>wf-region</module>
-                            <module>wf-central</module>
-                    </modules>
-                    <properties>
-                        <sRevision>a</sRevision>
-                        <igov.storage-static.version>1.0.0a-SNAPSHOT</igov.storage-static.version>
-                        <igov.storage-temp.version>1.0.0a-SNAPSHOT</igov.storage-temp.version>
-                        <igov.wf-base.version>1.0.0a-SNAPSHOT</igov.wf-base.version>
-                        <igov.wf-central.version>1.0.0a-SNAPSHOT</igov.wf-central.version>
-                        <igov.wf-region.version>1.0.0a-SNAPSHOT</igov.wf-region.version>
-						<liquibase.custom.data.path>${liquibase.data.path}</liquibase.custom.data.path>
-						<activiti.custom.data.path>${activiti.data.path}</activiti.custom.data.path>
-                    </properties>
-                </profile>
-                <profile>
-                    <id>beta</id>
-                    <activation>
-                      <property>
-                        <name>parameter.sVer</name>
-                        <value>b</value>
-                      </property>
-                    </activation>            
-                    <modules>
-                            <module>auth-custom</module>
-                            <module>storage-static</module>
-                            <module>storage-temp</module>
-                            <module>wf-base</module>
-                            <module>wf-region</module>
-                            <module>wf-central</module>
-                    </modules>
-                    <properties>
-                        <sRevision>b</sRevision>
-                        <igov.storage-static.version>1.0.0b-SNAPSHOT</igov.storage-static.version>
-                        <igov.storage-temp.version>1.0.0b-SNAPSHOT</igov.storage-temp.version>
-                        <igov.wf-base.version>1.0.0b-SNAPSHOT</igov.wf-base.version>
-                        <igov.wf-central.version>1.0.0b-SNAPSHOT</igov.wf-central.version>
-                        <igov.wf-region.version>1.0.0b-SNAPSHOT</igov.wf-region.version>
-						<liquibase.custom.data.path>${liquibase.data.path}/beta</liquibase.custom.data.path>
-						<activiti.custom.data.path>${activiti.data.path}/beta</activiti.custom.data.path>
-                    </properties>
-                </profile>
-                <profile>
-                    <id>release</id>
-                    <activation>
-                      <property>
-                        <name>parameter.sVer</name>
-                        <value>release</value>
-                      </property>
-                    </activation>            
-                    <modules>
-                            <module>auth-custom</module>
-                            <module>storage-static</module>
-                            <module>storage-temp</module>
-                            <module>wf-base</module>
-                            <module>wf-region</module>
-                            <module>wf-central</module>
-                    </modules>
-                    <properties>
-                        <sRevision></sRevision>
-                        <igov.storage-static.version>1.0.0-RELEASE</igov.storage-static.version>
-                        <igov.storage-temp.version>1.0.0-RELEASE</igov.storage-temp.version>
-                        <igov.wf-base.version>1.0.0-RELEASE</igov.wf-base.version>
-                        <igov.wf-central.version>1.0.0-RELEASE</igov.wf-central.version>
-                        <igov.wf-region.version>1.0.0-RELEASE</igov.wf-region.version>
-						<liquibase.custom.data.path>${liquibase.data.path}/prod</liquibase.custom.data.path>
-						<activiti.custom.data.path>${activiti.data.path}/prod</activiti.custom.data.path>
-                    </properties>
-                </profile> 
-	</profiles>
+    <modules>
+        <module>auth-custom</module>
+        <module>storage-static</module>
+        <module>storage-temp</module>
+        <module>wf-base</module>
+        <module>wf-region</module>
+        <module>wf-central</module>
+    </modules>
 
-	<dependencyManagement>
-		<dependencies>
+    <profiles>
 
+        <profile>
+            <id>alpha</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sRevision>a</sRevision>
+                <igov.storage-static.version>1.0.0a-SNAPSHOT</igov.storage-static.version>
+                <igov.storage-temp.version>1.0.0a-SNAPSHOT</igov.storage-temp.version>
+                <igov.wf-base.version>1.0.0a-SNAPSHOT</igov.wf-base.version>
+                <igov.wf-central.version>1.0.0a-SNAPSHOT</igov.wf-central.version>
+                <igov.wf-region.version>1.0.0a-SNAPSHOT</igov.wf-region.version>
+                <liquibase.custom.data.path>${liquibase.data.path}</liquibase.custom.data.path>
+                <activiti.custom.data.path>${activiti.data.path}</activiti.custom.data.path>
+            </properties>
+        </profile>
+        <profile>
+            <id>beta</id>
+            <!--activation>
+                <property>
+                    <name>parameter.sVer</name>
+                    <value>b</value>
+                </property>
+            </activation-->
+            <properties>
+                <sRevision>b</sRevision>
+                <igov.storage-static.version>1.0.0b-SNAPSHOT</igov.storage-static.version>
+                <igov.storage-temp.version>1.0.0b-SNAPSHOT</igov.storage-temp.version>
+                <igov.wf-base.version>1.0.0b-SNAPSHOT</igov.wf-base.version>
+                <igov.wf-central.version>1.0.0b-SNAPSHOT</igov.wf-central.version>
+                <igov.wf-region.version>1.0.0b-SNAPSHOT</igov.wf-region.version>
+                <liquibase.custom.data.path>${liquibase.data.path}/beta</liquibase.custom.data.path>
+                <activiti.custom.data.path>${activiti.data.path}/beta</activiti.custom.data.path>
+            </properties>
+        </profile>
+        <profile>
+            <id>release</id>
+            <properties>
+                <sRevision></sRevision>
+                <igov.storage-static.version>1.0.0-RELEASE</igov.storage-static.version>
+                <igov.storage-temp.version>1.0.0-RELEASE</igov.storage-temp.version>
+                <igov.wf-base.version>1.0.0-RELEASE</igov.wf-base.version>
+                <igov.wf-central.version>1.0.0-RELEASE</igov.wf-central.version>
+                <igov.wf-region.version>1.0.0-RELEASE</igov.wf-region.version>
+                <liquibase.custom.data.path>${liquibase.data.path}/prod</liquibase.custom.data.path>
+                <activiti.custom.data.path>${activiti.data.path}/prod</activiti.custom.data.path>
+            </properties>
+        </profile>
+    </profiles>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback-core.version}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback-classic.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>${apache-commons-collections.version}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${apache-commons-io.version}</version>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>${apache-commons-compress.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>${redis.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.database.version}</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons.codec.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.opensymphony.quartz</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.version}</version>
+            </dependency>
+
+            <!-- required for @Configuration annotation -->
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>${cglib.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <!-- Spring dependencies -->
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${springframework.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${springframework.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${springframework.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aspects</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${springframework.version}</version>
+            </dependency>
+
+            <!-- Database -->
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-core</artifactId>
+                <version>${hibernate.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jadira.usertype</groupId>
+                <artifactId>usertype.core</artifactId>
+                <version>${usertype.core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>${ehcache.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jboss-serialization</artifactId>
+                <version>${jboss.serialization.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>trove</groupId>
+                <artifactId>trove</artifactId>
+                <version>${trove.version}</version>
+            </dependency>
+
+            <!-- WARNING! Last version of log4j is needed for hibernate!-->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>${liquibase.version}</version>
+            </dependency>
+
+            <!-- your own standard logging dependencies -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.7.5</version>
+            </dependency>
+
+            <!-- special dependency to fix liquibase's logging fetish -->
+            <dependency>
+                <groupId>com.mattbertolini</groupId>
+                <artifactId>liquibase-slf4j</artifactId>
+                <version>1.2.1</version>
+            </dependency>
+
+            <!-- Other -->
+
+            <dependency>
+                <groupId>net.sf.brunneng.jom</groupId>
+                <artifactId>java-object-merger</artifactId>
+                <version>${java.object.merger.version.version}</version>
+            </dependency>
+
+            <!-- Dependencies for tests -->
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${springframework.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.dbunit</groupId>
+                <artifactId>dbunit</artifactId>
+                <version>${dbunit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.springtestdbunit</groupId>
+                <artifactId>spring-test-dbunit</artifactId>
+                <version>${spring-test-dbunit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>2.1.0</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>1.3</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jmock</groupId>
+                <artifactId>jmock-junit4</artifactId>
+                <version>${jmock-unit.version}</version>
+                <scope>test</scope>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.jmock</groupId>
+                <artifactId>jmock</artifactId>
+                <version>${jmock.version}</version>
+                <scope>test</scope>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-jdbc</artifactId>
+                <version>${tomcat-jdbc.version}</version>
+                <scope>test</scope>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>com.plexiti.activiti</groupId>
+                <artifactId>activiti-fluent-tests</artifactId>
+                <version>0.3</version>
+                <scope>test</scope>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>${easymock.version}</version>
+                <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>cglib-nodep</artifactId>
+                        <groupId>cglib</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- Springfox -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>2.3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>2.3.0</version>
+            </dependency>
+
+			<!-- Springfox staticdocs -->
 			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-core</artifactId>
-				<version>${logback-core.version}</version>
-				<type>jar</type>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-staticdocs</artifactId>
+				<version>2.3.0</version>
+				<scope>test</scope>
 			</dependency>
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>${logback-classic.version}</version>
-				<type>jar</type>
-			</dependency>
-
-			<dependency>
-				<groupId>commons-collections</groupId>
-				<artifactId>commons-collections</artifactId>
-				<version>${apache-commons-collections.version}</version>
-				<type>jar</type>
-			</dependency>
-			<dependency>
-				<groupId>commons-io</groupId>
-				<artifactId>commons-io</artifactId>
-				<version>${apache-commons-io.version}</version>
-				<type>jar</type>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-compress</artifactId>
-				<version>${apache-commons-compress.version}</version>
-				<type>jar</type>
-			</dependency>
-
-			<dependency>
-				<groupId>redis.clients</groupId>
-				<artifactId>jedis</artifactId>
-				<version>${redis.version}</version>
-				<type>jar</type>
-			</dependency>
-
-			<dependency>
-				<groupId>com.h2database</groupId>
-				<artifactId>h2</artifactId>
-				<version>${h2.database.version}</version>
-				<type>jar</type>
-			</dependency>
-
-			<dependency>
-				<groupId>org.postgresql</groupId>
-				<artifactId>postgresql</artifactId>
-				<version>${postgresql.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>commons-codec</groupId>
-				<artifactId>commons-codec</artifactId>
-				<version>${commons.codec.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.opensymphony.quartz</groupId>
-				<artifactId>quartz</artifactId>
-				<version>${quartz.version}</version>
-			</dependency>
-
-			<!-- required for @Configuration annotation -->
-			<dependency>
-				<groupId>cglib</groupId>
-				<artifactId>cglib</artifactId>
-				<version>${cglib.version}</version>
-			</dependency>
-
-
-			<dependency>
-				<groupId>com.google.guava</groupId>
-				<artifactId>guava</artifactId>
-				<version>${guava.version}</version>
-			</dependency>
-
-			<!-- Spring dependencies -->
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-core</artifactId>
-				<version>${springframework.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-web</artifactId>
-				<version>${springframework.version}</version>
-				<scope>compile</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-context</artifactId>
-				<version>${springframework.version}</version>
-				<scope>compile</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-aop</artifactId>
-				<version>${springframework.version}</version>
-				<scope>compile</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-aspects</artifactId>
-				<version>${springframework.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-orm</artifactId>
-				<version>${springframework.version}</version>
-			</dependency>
-
-			<!-- Database -->
-
 			<dependency>
 				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-core</artifactId>
-				<version>${hibernate.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.jadira.usertype</groupId>
-				<artifactId>usertype.core</artifactId>
-				<version>${usertype.core.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>net.sf.ehcache</groupId>
-				<artifactId>ehcache</artifactId>
-				<version>${ehcache.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>jboss</groupId>
-				<artifactId>jboss-serialization</artifactId>
-				<version>${jboss.serialization.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>trove</groupId>
-				<artifactId>trove</artifactId>
-				<version>${trove.version}</version>
-			</dependency>
-
-			<!-- WARNING! Last version of log4j is needed for hibernate!-->
-			<dependency>
-				<groupId>log4j</groupId>
-				<artifactId>log4j</artifactId>
-				<version>${log4j.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.liquibase</groupId>
-				<artifactId>liquibase-core</artifactId>
-				<version>${liquibase.version}</version>
-			</dependency>
-
-                        <!-- your own standard logging dependencies -->  
-                        <dependency>  
-                            <groupId>org.slf4j</groupId>  
-                            <artifactId>slf4j-api</artifactId>  
-                            <version>1.7.5</version>  
-                        </dependency>  
-                        <dependency>  
-                            <groupId>org.slf4j</groupId>  
-                            <artifactId>slf4j-log4j12</artifactId>  
-                            <version>1.7.5</version>  
-                        </dependency>
-                        
-                        <!-- special dependency to fix liquibase's logging fetish -->  
-                        <dependency>  
-                            <groupId>com.mattbertolini</groupId>  
-                            <artifactId>liquibase-slf4j</artifactId>  
-                            <version>1.2.1</version>  
-                        </dependency>  
-
-			<!-- Other -->
-
-			<dependency>
-				<groupId>net.sf.brunneng.jom</groupId>
-				<artifactId>java-object-merger</artifactId>
-				<version>${java.object.merger.version.version}</version>
-			</dependency>
-
-			<!-- Dependencies for tests -->
-
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-test</artifactId>
-				<version>${springframework.version}</version>
+				<artifactId>hibernate-validator</artifactId>
+				<version>5.2.2.Final</version>
 				<scope>test</scope>
 			</dependency>
-
 			<dependency>
-				<groupId>org.dbunit</groupId>
-				<artifactId>dbunit</artifactId>
-				<version>${dbunit.version}</version>
+				<groupId>org.glassfish.web</groupId>
+				<artifactId>el-impl</artifactId>
+				<version>2.2</version>
 				<scope>test</scope>
 			</dependency>
-
 			<dependency>
-				<groupId>com.github.springtestdbunit</groupId>
-				<artifactId>spring-test-dbunit</artifactId>
-				<version>${spring-test-dbunit.version}</version>
+				<groupId>org.asciidoctor</groupId>
+				<artifactId>asciidoctor-maven-plugin</artifactId>
+				<version>1.5.2.1</version>
 				<scope>test</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-				<scope>test</scope>
-				<type>jar</type>
-			</dependency>
-
-			<dependency>
-				<groupId>org.assertj</groupId>
-				<artifactId>assertj-core</artifactId>
-				<version>2.1.0</version>
-				<scope>test</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-all</artifactId>
-				<version>${mockito.version}</version>
-				<scope>test</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.hamcrest</groupId>
-				<artifactId>hamcrest-all</artifactId>
-				<version>1.3</version>
-				<scope>test</scope>
-			</dependency>
-
-			<dependency>
-				<groupId>org.jmock</groupId>
-				<artifactId>jmock-junit4</artifactId>
-				<version>${jmock-unit.version}</version>
-				<scope>test</scope>
-				<type>jar</type>
-			</dependency>
-
-			<dependency>
-				<groupId>org.jmock</groupId>
-				<artifactId>jmock</artifactId>
-				<version>${jmock.version}</version>
-				<scope>test</scope>
-				<type>jar</type>
-			</dependency>
-
-			<dependency>
-				<groupId>org.apache.tomcat</groupId>
-				<artifactId>tomcat-jdbc</artifactId>
-				<version>${tomcat-jdbc.version}</version>
-				<scope>test</scope>
-				<type>jar</type>
-			</dependency>
-
-			<dependency>
-				<groupId>com.plexiti.activiti</groupId>
-				<artifactId>activiti-fluent-tests</artifactId>
-				<version>0.3</version>
-				<scope>test</scope>
-				<type>jar</type>
-			</dependency>
-
-			<dependency>
-				<groupId>org.easymock</groupId>
-				<artifactId>easymock</artifactId>
-				<version>${easymock.version}</version>
-				<scope>test</scope>
-				<exclusions>
-					<exclusion>
-						<artifactId>cglib-nodep</artifactId>
-						<groupId>cglib</groupId>
-					</exclusion>
-				</exclusions>
-			</dependency>
-
+			</dependency> 
 		</dependencies>
 	</dependencyManagement>
 
-	<build>
+    <build>
 
-		<resources>
-			<resource> <!-- declared first because override is not working when copy resources -->
-				<directory>src/main/resources/${liquibase.custom.data.path}</directory>
-				<targetPath>${liquibase.data.path}</targetPath>
-			</resource>
-			<resource> <!-- declared first because override is not working when copy resources -->
-				<directory>src/main/resources/${activiti.custom.data.path}</directory>
-				<targetPath>${activiti.data.path}</targetPath>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>false</filtering>
-			</resource>
-		</resources>
+        <resources>
+            <resource> <!-- declared first because override is not working when copy resources -->
+                <directory>src/main/resources/${liquibase.custom.data.path}</directory>
+                <targetPath>${liquibase.data.path}</targetPath>
+            </resource>
+            <resource> <!-- declared first because override is not working when copy resources -->
+                <directory>src/main/resources/${activiti.custom.data.path}</directory>
+                <targetPath>${activiti.data.path}</targetPath>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
 
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>${maven-resources-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>filter</id>
-							<phase>generate-resources</phase>
-							<goals>
-								<goal>resources</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-assembly-plugin</artifactId>
-					<configuration>
-						<archive>
-							<manifestEntries>
-								<PluginVersion>${project.version}</PluginVersion>
-							</manifestEntries>
-						</archive>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${maven-compiler-plugin.version}</version>
-					<configuration>
-						<source>${source.version}</source>
-						<target>${target.version}</target>
-						<encoding>${encoding}</encoding>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>${maven-javadoc-plugin.version}</version>
-				</plugin>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>filter</id>
+                            <phase>generate-resources</phase>
+                            <goals>
+                                <goal>resources</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <PluginVersion>${project.version}</PluginVersion>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>${source.version}</source>
+                        <target>${target.version}</target>
+                        <encoding>${encoding}</encoding>
+                    </configuration>
+                </plugin>
 
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-release-plugin</artifactId>
-					<version>${maven-release-plugin.version}</version>
-				</plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven-release-plugin.version}</version>
+                </plugin>
 
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-war-plugin</artifactId>
-					<version>${maven-war-plugin.version}</version>
-					<configuration>
-						<archive>
-							<manifestEntries>
-								<PluginVersion>${project.version}</PluginVersion>
-							</manifestEntries>
-						</archive>
-					</configuration>
-				</plugin>
-				
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>${maven-surefire-plugin.version}</version>
-					<configuration>
-						<includes>
-							<include>**/*Test.java</include>
-							<include>**/*Scenario.java</include>
-						</includes>
-					</configuration>
-				</plugin>
-				
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>${maven-jar-plugin.version}</version>
-					<configuration>
-						<archive>
-							<manifestEntries>
-								<PluginVersion>${project.version}</PluginVersion>
-							</manifestEntries>
-						</archive>
-					</configuration>
-					<executions>
-						<execution>
-							<id>package-jar</id>
-							<phase>package</phase>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${maven-war-plugin.version}</version>
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <PluginVersion>${project.version}</PluginVersion>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
 
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-pmd-plugin</artifactId>
-					<version>3.4</version>
-					<configuration>
-						<rulesets>
-							<ruleset>${project.parent.basedir}/code-rules.xml</ruleset>
-						</rulesets>
-						<targetJdk>1.7</targetJdk>
-						<includeTests>true</includeTests>
-						<outputEncoding>UTF-8</outputEncoding>
-					</configuration>
-				</plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*Test.java</include>
+                            <include>**/*Scenario.java</include>
+                        </includes>
+                    </configuration>
+                </plugin>
 
-			</plugins>
-		</pluginManagement>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin.version}</version>
+                    <configuration>
+                        <archive>
+                            <manifestEntries>
+                                <PluginVersion>${project.version}</PluginVersion>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>package-jar</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
 
-	</build>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>${maven-pmd-plugin.version}</version>
+                    <configuration>
+                        <rulesets>
+                            <ruleset>${project.parent.basedir}/code-rules.xml</ruleset>
+                        </rulesets>
+                        <targetJdk>${maven-pmd-plugin.jdk.version}</targetJdk>
+                        <includeTests>true</includeTests>
+                        <outputEncoding>UTF-8</outputEncoding>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>rest-doc</id>
+                            <goals>
+                                <goal>javadoc</goal>
+                            </goals>
+                            <phase>generate-resources</phase>
+                            <configuration>
+                                <doclet>org.calrissian.restdoclet.RestDoclet</doclet>
+                                <docletArtifact>
+                                    <groupId>org.calrissian.restdoclet</groupId>
+                                    <artifactId>rest-doclet</artifactId>
+                                    <version>1.0.2-igov</version>
+                                </docletArtifact>
+                                <useStandardDocletOptions>false</useStandardDocletOptions>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+
+    </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <id>restdoc</id>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                        <configuration>
+                            <doclet>org.calrissian.restdoclet.RestDoclet</doclet>
+                            <docletArtifact>
+                                <groupId>org.calrissian.restdoclet</groupId>
+                                <artifactId>rest-doclet</artifactId>
+                                <version>1.0.2-igov</version>
+                            </docletArtifact>
+                            <useStandardDocletOptions>false</useStandardDocletOptions>
+                            <additionalparam>-o legacy -t "REST API ${project.version}"</additionalparam>
+                        </configuration>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${maven-pmd-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </reporting>
 
 </project>

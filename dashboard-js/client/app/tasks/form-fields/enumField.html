@@ -1,4 +1,4 @@
-            <p ng-if="item.type == 'enum'">
+            <div ng-if="item.type == 'enum'">
               <field-title></field-title>
               <select class="form-control"
                       ng-disabled="isFormPropertyDisabled(item)"
@@ -6,4 +6,4 @@
                       ng-required="item.required"
                       ng-model="item.value"
                       ng-class="{submitted:isTaskSubmitted()}"></select>
-            </p>
+            </div>

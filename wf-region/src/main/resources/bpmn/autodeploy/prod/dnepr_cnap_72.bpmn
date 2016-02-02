@@ -10,7 +10,7 @@
         <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи - підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="date_today" name="Вкажіть сьогодняшню дату" type="date" required="true"></activiti:formProperty>
+        <activiti:formProperty id="date_today" name="Вкажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="name_object" name="Об'єкт, на який видається документ" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="adress2" name="Адреса об'єкта, на який видається документ" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменовання юридичної особи/П.І.Б. фізичної особи - підприємця" type="string" required="true"></activiti:formProperty>
@@ -21,7 +21,7 @@
         <activiti:formProperty id="file2" name="Погодження на розміщення зовнішньої реклами з Мінкультури або місцевим органом виконавчої влади у сфері охорони культурної спадщини - у разі розміщення зовнішньої реклами на пам'ятках історії та архітектури і в межах зон охорони пам'яток національного або місцевого значення" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="file3" name="Погодження на розміщення зовнішньої реклами з власником місця розташування рекламного засобу або уповноваженим ним органом (особою)" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="file4" name="Копія договору, завірена власником місця розташування рекламного засобу або уповноваженим ним органом чи особою (крім заявника, що є власником такого місця) або завірена копія документа, що підтверджує право власності на місце розташування рекламного засобу (у разі якщо заявник є власником місця розташування рекламного засобу)" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="cnapСhoice" name="Оберіть ЦНАП, в якому Вам буде зручно отримати дозвіл" type="enum" required="true">
+        <activiti:formProperty id="cnapChoice" name="Оберіть ЦНАП, в якому Вам буде зручно отримати дозвіл" type="enum" required="true">
           <activiti:value id="prav" name="ЦНАП „Правобережний”, просп. Карла Маркса, 75"></activiti:value>
           <activiti:value id="lev" name="ЦНАП „Лівобережний”, просп. Газети „Правда”, 42"></activiti:value>
         </activiti:formProperty>
@@ -328,7 +328,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow3" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
-    <userTask id="usertask1" name="Обробка ЦНАП Дніпропетровськ" activiti:candidateGroups="dnepr_cnap_${cnapСhoice}">
+    <userTask id="usertask1" name="Обробка ЦНАП Дніпропетровськ" activiti:candidateGroups="dnepr_cnap_${cnapChoice}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Суб’єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Телефон" type="string" writable="false"></activiti:formProperty>
@@ -561,7 +561,7 @@
       </extensionElements>
     </serviceTask>
     <sequenceFlow id="flow17" sourceRef="servicetask2" targetRef="usertask2"></sequenceFlow>    
-    <userTask id="usertask2" name="Підготовка відповіді після рішення Управління інфраструктури" activiti:candidateGroups="dnepr_cnap_${cnapСhoice}">
+    <userTask id="usertask2" name="Підготовка відповіді після рішення Управління інфраструктури" activiti:candidateGroups="dnepr_cnap_${cnapChoice}">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Суб’єкт звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Телефон" type="long" writable="false"></activiti:formProperty>

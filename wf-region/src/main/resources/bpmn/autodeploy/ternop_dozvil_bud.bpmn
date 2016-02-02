@@ -20,7 +20,7 @@
         <activiti:formProperty id="7" name="Черговий кадастровий план (витяг із земельного кадастру – за умови відсутності містобудівного кадастру)" type="file"></activiti:formProperty>
         <activiti:formProperty id="8" name="Фотофіксація земельної ділянки (з оточенням)" type="file"></activiti:formProperty>
         <activiti:formProperty id="9" name="O-Містобудівний розрахунок з техніко – економічними показниками запланованого об’єкта будівництва" type="file"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask2" name="Перевірка документів" activiti:candidateGroups="ternop_dozvil_bud_dep1">

@@ -576,4 +576,428 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="889-addNotNullConstraint" author="LamronNu">
+        <addNotNullConstraint columnDataType="int"
+                              columnName="nID_Server"
+                              defaultNullValue="0"
+                              tableName="HistoryEvent_Service"/>
+    </changeSet>
+
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-923_Server-entity" author="bw">
+        <addColumn tableName="ServiceData">
+            <column name="nID_Server" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="issue-923-fixData" author="brunneng" dbms="postgresql">
+        <sql>
+            UPDATE "ServiceData" SET "nID_Server"=0 WHERE "nID_Server"=2;
+        </sql>
+    </changeSet>
+
+    <changeSet id="issue-923-create-Server" runOnChange="true" failOnError="false" author="brunneng">
+        <createTable tableName="Server">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="sID" type="varchar(20)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sType" type="varchar(20)">
+            </column>
+            <column name="sURL_Alpha" type="varchar(300)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sURL_Beta" type="varchar(300)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sURL_Omega" type="varchar(300)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="sURL" type="varchar(300)">
+                <constraints nullable="true"/>
+            </column>
+
+        </createTable>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Server.csv" tableName="Server" separator=";">
+            <column name="nID"          type="NUMERIC"/>
+            <column name="sID"          type="STRING"/>
+            <column name="sType"        type="STRING"/>
+            <column name="sURL_Alpha"   type="STRING"/>
+            <column name="sURL_Beta"    type="STRING"/>
+            <column name="sURL_Omega"   type="STRING"/>
+            <column name="sURL"         type="STRING"/>
+        </loadUpdateData>
+
+
+        <addForeignKeyConstraint constraintName="fk_ServiceData_Server"
+                                 baseTableName="ServiceData" baseColumnNames="nID_Server"
+                                 referencedTableName="Server" referencedColumnNames="nID"
+                                 onDelete="CASCADE"/>
+
+
+    </changeSet>
+
+    <changeSet id="issue-923-autoIncrement" author="brunneng" dbms="h2">
+        <addAutoIncrement tableName="Server" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
+
+    <changeSet id="issue-962-fix" author="LamronNu">
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="nID_Proccess_Feedback" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="nID_Proccess_Escalation" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="issue-961" author="askosyr">
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="sID_Rate_Indirectly" type="varchar">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="SubjectMessage">
+            <column name="sBody_Indirectly" type="varchar">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="issue-966" author="grigoriy-romanenko" failOnError="false" runOnChange="true">
+        <createTable tableName="Currency">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="sID_UA" type="varchar(10)">
+                <constraints unique="true"/>
+            </column>
+            <column name="sName_UA" type="varchar(200)">
+                <constraints unique="true"/>
+            </column>
+            <column name="sName_EN" type="varchar(200)">
+                <constraints unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="issue-966-autoIncrement" author="grigoriy-romanenko" dbms="h2">
+        <addAutoIncrement tableName="Currency" columnName="nID" startWith="100" columnDataType="bigint"/>
+    </changeSet>
+
+
+    <!-- ####################################################################################################### -->
+    <changeSet id="issue-967-create_table" author="nickveremeichyk">
+        <!--create table-->
+        <createTable tableName="TaxOrgan">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="sID_UA" type="varchar(30)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sName_UA" type="varchar(100)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="issue-967-drop_table" author="nickveremeichyk">
+        <dropTable tableName="TaxOrgan"/>
+    </changeSet>
+
+    <changeSet id="issue-967-create_another_table" author="nickveremeichyk">
+        <!--create table-->
+        <createTable tableName="SubjectOrganJoinTax">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="sID_UA" type="varchar(30)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sName_UA" type="varchar(220)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="issue-967_sName_UA-size" author="nickveremeichyk">
+        <modifyDataType tableName="SubjectOrganJoinTax" columnName="sName_UA" newDataType="varchar(190)" />
+    </changeSet>
+
+    <changeSet id="issue-967-drop_subjectOrganJoinTax" author="nickveremeichyk">
+        <dropTable tableName="SubjectOrganJoinTax"/>
+    </changeSet>
+
+    <changeSet id="issue-967-create_subjectOrganJoinTax_table" author="nickveremeichyk">
+        <!--create table-->
+        <createTable tableName="SubjectOrganJoinTax">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="nID_SubjectOrganJoin" type="int">
+                <constraints nullable="false" unique="false" />
+            </column>
+            <column name="sID_UA" type="varchar(30)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sName_UA" type="varchar(200)">
+                <constraints nullable="false" unique="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="issue-967-add_primary_key" author="nickveremeichyk">
+        <addForeignKeyConstraint constraintName="FK_SubjectOrganJoin"
+                                 baseTableName="SubjectOrganJoinTax"
+                                 baseColumnNames="nID_SubjectOrganJoin"
+                                 referencedTableName="SubjectOrganJoin"
+                                 referencedColumnNames="nID"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="issue-985" author="grigoriy-romanenko" failOnError="false" runOnChange="true">
+        <createTable tableName="ObjectEarthTarget">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="sID_UA" type="varchar(10)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="sName_UA" type="varchar(500)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="issue-985-autoIncrement" author="grigoriy-romanenko" dbms="h2">
+        <addAutoIncrement tableName="ObjectEarthTarget"
+                          columnName="nID"
+                          startWith="1000"
+                          columnDataType="bigint"/>
+    </changeSet>
+    
+     <changeSet id="issue-968" author="lesha1980">
+        <createTable tableName = "ObjectCustoms">
+            <column name="nID" type="bigint" >
+                <constraints  primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="sID_UA" type="varchar(30)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="sName_UA" type="varchar(2000)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="sMeasure_UA" type="varchar(20)">
+              
+            </column>
+        </createTable>
+        <addAutoIncrement tableName="ObjectCustoms" columnName="nID" columnDataType="bigint"/>
+    </changeSet>
+
+    <changeSet id="issue-1012" author="askosyr">
+        <addColumn tableName="SubjectMessage">
+            <column name="nID_HistoryEvent_Service" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="issue-982-create_table" author="D-Zhuravlyov" failOnError="false" runOnChange="true">
+        <createTable tableName="SubjectOrganJoinAttribute">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="nID_SubjectOrganJoin" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sName" type="varchar(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sValue" type="varchar(150)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addUniqueConstraint columnNames="nID_SubjectOrganJoin, sName"
+                             constraintName="nID_SubjectOrganJoin_sName"
+                             tableName="SubjectOrganJoinAttribute"/>
+    </changeSet>
+
+    <changeSet id="issue-982-increase-sValue" author="brunneng">
+        <modifyDataType columnName="sValue" newDataType="varchar(500)" tableName="SubjectOrganJoinAttribute"/>
+    </changeSet>
+
+   <changeSet id="issue-968_size_sName_UA" author="lesha1980">
+        <modifyDataType columnName="sName_UA" newDataType="varchar(5000)" tableName="ObjectCustoms"/>
+   </changeSet>
+
+    <changeSet id="issue-1005-4" author="chik">
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="nTimeMinutes" type="int">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="issue-1005-5" author="chik" dbms="postgresql">
+        <sql>
+            update "HistoryEvent_Service" set "nTimeMinutes" = "nTimeHours" * 60 where "nTimeHours" is not null
+        </sql>
+    </changeSet>
+
+    <changeSet id="issue-1032" author="brunneng">
+        <createTable tableName="SubjectContactType">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="sName_EN" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sName_UA" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sName_RU" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="SubjectContact">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false" unique="true"/>
+            </column>
+            <column name="nID_Subject" type="bigint">
+                <constraints nullable="false"
+                             referencedTableName="Subject" referencedColumnNames="nID"
+                             foreignKeyName="FK_SubjectContact_Subject"/>
+            </column>
+            <column name="nID_SubjectContactType" type="bigint">
+                <constraints nullable="false"
+                             referencedTableName="SubjectContactType" referencedColumnNames="nID"
+                             foreignKeyName="FK_SubjectContact_SubjectContactType"/>
+            </column>
+            <column name="sValue" type="varchar(140)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addColumn tableName="SubjectHuman">
+            <column name="nID_SubjectHumanIdType" type="bigint" defaultValue="0">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_SubjectContact_DefaultEmail" type="bigint">
+                <constraints nullable="true" referencedTableName="SubjectContact" referencedColumnNames="nID"
+                             foreignKeyName="FK_SubjectContact_SubjectContact_Email"/>
+            </column>
+            <column name="nID_SubjectContact_DefaultPhone" type="bigint">
+                <constraints nullable="true" referencedTableName="SubjectContact" referencedColumnNames="nID"
+                             foreignKeyName="FK_SubjectContact_SubjectContact_Phone"/>
+            </column>
+        </addColumn>
+
+    </changeSet>
+
+    <changeSet id="issue-1032-autoIncrement" author="brunneng" dbms="h2">
+        <addAutoIncrement tableName="SubjectContact" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
+    <changeSet id="issue-1046_addField" author="bw">
+        <addColumn tableName="Service">
+            <column name="nOpenedLimit" type="int">
+                <constraints nullable="true" unique="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="issue-982-increase-sName" author="bw">
+        <modifyDataType columnName="sName" newDataType="varchar(40)" tableName="SubjectOrganJoinAttribute"/>
+    </changeSet>
+    
+     <changeSet id="issue-1053-add-column-sDate" author="lesha1980">
+        <addColumn tableName="SubjectContact">
+            <column name="sDate" type="timestamp">
+                <constraints nullable="true" /> 
+            </column>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="issue-1053-add-column-nID_SubjectContact_Mail" author="lesha1980">
+        <addColumn tableName="SubjectMessage">
+            <column name="nID_SubjectContact_Mail" type="bigint">
+                <constraints nullable="true" referencedTableName="SubjectContact" referencedColumnNames="nID"
+                            foreignKeyName="FK_SubjectContact_Mail_SubjectContact_nID" />
+            </column>
+        </addColumn>
+    </changeSet>
+    
+    <changeSet id="issue-1053-remove-sMail-from-SubjectMessage" author="lesha1980" runOnChange="true" dbms="postgresql" failOnError="false">
+       <preConditions onFail="MARK_RAN">
+           <columnExists tableName="SubjectMessage" columnName="sMail"/>
+           <sqlCheck expectedResult="0">select count("sMail") from "SubjectMessage"
+                  </sqlCheck>
+       </preConditions>
+       <comment>remove column 'sMail' from table 'SubjectMessage'</comment>
+       <dropColumn tableName="SubjectMessage" columnName="sMail"/>
+    </changeSet>
+ 
+    <!--changeSet id="issue-1050-2.1" author="grigoriy-romanenko-and-bw"-->
+    <changeSet id="issue-1050-all" author="grigoriy-romanenko" failOnError="false">
+        <addColumn tableName="HistoryEvent_Service">
+            <column name="nID_StatusType" type="bigint" defaultValue="13" value="13">
+                <constraints nullable="true" />
+            </column>
+        </addColumn>
+         <renameColumn newColumnName="sUserTaskName"
+                      oldColumnName="sStatus"
+                      tableName="HistoryEvent_Service"/>
+         <sqlFile path="classpath:liquibase/changes/sql/2015/#1050.sql"/>
+         <dropColumn tableName="HistoryEvent_Service" columnName="sID_Status"/>
+    </changeSet>
+
+    <!--changeSet id="issue-1050-2.2" author="grigoriy-romanenko">
+        <renameColumn newColumnName="sUserTaskName"
+                      oldColumnName="sStatus"
+                      tableName="HistoryEvent_Service"/>
+    </changeSet-->
+
+    <!--changeSet id="issue-1050-5" author="grigoriy-romanenko">
+        <sqlFile path="classpath:liquibase/changes/sql/2015/#1050.sql"/>
+    </changeSet-->
+
+    <!--changeSet id="issue-1050-5.4" author="grigoriy-romanenko">
+        <dropColumn tableName="HistoryEvent_Service" columnName="sID_Status"/>
+    </changeSet-->
+
+    <changeSet id="issue-982-increase-sValue" author="bw">
+        <modifyDataType columnName="sValue" newDataType="varchar(2500)" tableName="SubjectOrganJoinAttribute"/>
+    </changeSet>
+
+    <changeSet id="issue-1079" author="sergeiShemshur">
+        <addColumn tableName="Currency">
+            <column name="sID_Currency" type="varchar(10)">
+                <constraints unique="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="issue-1079-add-field-toMerchant" author="sergeiShemshur">
+        <addColumn tableName="Merchant">
+            <column name="sID_Currency" type="varchar(10)">
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="increase-sEventName-Custom" author="bw">
+        <modifyDataType columnName="sEventName_Custom" newDataType="varchar(1500)" tableName="HistoryEvent"/>
+    </changeSet>
+                                                                
 </databaseChangeLog>

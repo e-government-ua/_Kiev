@@ -29,7 +29,7 @@
         <activiti:formProperty id="objEmployees" name="проектна кількість працюючих, робочих місць" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="objArea" name="загальна площа об`єкта, у т.ч. торговельна, виробнича (кв.м)" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="objSpecConditions" name="особливі умови здійснення діяльності" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Повідомлення про відмову" activiti:type="mail">

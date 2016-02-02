@@ -23,7 +23,8 @@ angular.module('dashboardJsApp')
         selfAssigned: 'selfAssigned',
         unassigned: 'unassigned',
         finished: 'finished',
-        tickets: 'tickets'
+        tickets: 'tickets',
+        all: 'all'
       },
       /**
        * Get list of tasks
@@ -99,6 +100,14 @@ angular.module('dashboardJsApp')
         return simpleHttpPromise({
           method: 'GET',
           url: '/api/tasks/' + taskId + '/document'
+        }, callback);
+      },
+
+
+      getOrderMessages: function(processId, callback) {
+        return simpleHttpPromise({
+          method: 'GET',
+          url: '/api/tasks/' + processId + '/getOrderMessages'
         }, callback);
       },
 
@@ -248,6 +257,7 @@ angular.module('dashboardJsApp')
             var scope = $rootScope.$new();
             scope.selectedTask = task;
             scope.taskForm = formProperties;
+            //scope.getPrintTemplate = function(){return PrintTemplateProcessor.getPrintTemplate(task, formProperties, templateResult.template, scope.lunaService);},
             scope.getPrintTemplate = function(){return PrintTemplateProcessor.getPrintTemplate(task, formProperties, templateResult.template);},
             scope.containsPrintTemplate = function(){return templateResult.template!='';}
             scope.getProcessName = processes.getProcessName;
@@ -316,10 +326,10 @@ angular.module('dashboardJsApp')
 
         return deferred.promise;
       },
-      getTasksByOrder: function(nID_Protected) {
+      getTasksByOrder: function(nID_Order) {
         return simpleHttpPromise({
             method: 'GET',
-            url: '/api/tasks/search/byOrder/' + nID_Protected
+            url: '/api/tasks/search/byOrder/' + nID_Order
           }
         );
       },
@@ -334,6 +344,28 @@ angular.module('dashboardJsApp')
         return simpleHttpPromise({
             method: 'GET',
             url: '/api/tasks/getPatternFile?sPathFile=' + sPathFile
+          }
+        );
+      },
+      setTaskQuestions: function(params) {
+        return simpleHttpPromise({
+            method: 'POST',
+            url: '/api/tasks/setTaskQuestions',
+            data: params
+          }
+        );
+      },
+      checkAttachmentSign: function(nID_Task, nID_Attach){
+        return simpleHttpPromise({
+            method: 'GET',
+            url: '/api/tasks/'+ nID_Task + '/attachments/' + nID_Attach + '/checkAttachmentSign'
+          }
+        );
+      },
+      unassign: function (nID_Task) {
+        return simpleHttpPromise({
+            method: 'PUT',
+            url: '/api/tasks/' + nID_Task + '/unassign'
           }
         );
       }

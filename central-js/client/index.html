@@ -17,11 +17,28 @@
           content="">
     <meta name="viewport"
           content="width=device-width">
+
+    <!-- Facebook Graph Properties -->
+    <!-- <meta property="og:url" content="http://igov.org.ua" /> -->
+    <meta property="og:site_name" content="igov.org.ua — Портал державних послуг"/>
+    <meta property="og:image" content="https://igov.org.ua/assets/images/1b3b16cb.icon-476x476.png" />
+    <meta property="og:description" content="На порталі зібрано послуги державних органів України для громадян та бізнесу. Робота проводиться волонтерською командою iGov в рамках боротьби з корупцією в Україні та вдосконалення бізнес-процесів в державних органах. " />
+    <!-- End Of Facebook Graph Properties -->
+
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/images/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="assets/images/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="assets/images/apple-touch-icon-152x152.png">
+    <!-- End of Apple Touch Icons -->
+
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css" />
     <link rel="stylesheet" href="bower_components/angular-dialog-service/dist/dialogs.min.css" />
+    <link rel="stylesheet" href="bower_components/jsoneditor/dist/jsoneditor.min.css" />
+    <link rel="stylesheet" href="bower_components/intl-tel-input/build/css/intlTelInput.css" />
+    <link rel="stylesheet" href="bower_components/textAngular/dist/textAngular.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -35,7 +52,7 @@
 
 </head>
 
-<body ng-app="app">
+<body ng-app="app" errors-container>
 
 <!-- Google Tag Manager -->
 <noscript>
@@ -74,7 +91,6 @@
     <div ui-view="header"></div>
 
     <div class="main full-height">
-        <errors-container></errors-container>
         <div class="view"
              ui-view="main">
          </div>
@@ -93,27 +109,40 @@
 <!-- bower:js -->
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/angular/angular.js"></script>
-<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.js"></script>
 <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="bower_components/lodash/dist/lodash.compat.js"></script>
-<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-translate/angular-translate.js"></script>
+<script src="bower_components/angular-dialog-service/dist/dialogs.min.js"></script>
+<script src="bower_components/angular-dialog-service/dist/dialogs.js"></script>
+<script src="bower_components/angular-dialog-service/dist/dialogs-default-translations.min.js"></script>
+<script src="bower_components/angular-dialog-service/dist/dialogs-default-translations.js"></script>
+<script src="bower_components/jsoneditor/dist/jsoneditor.min.js"></script>
+<script src="bower_components/angular-jsoneditor/angular-jsoneditor.js"></script>
 <script src="bower_components/angular-messages/angular-messages.js"></script>
-<script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
-<script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
-<script src="bower_components/ng-clip/src/ngClip.js"></script>
-<script src="bower_components/intl-tel-input/build/js/intlTelInput.min.js"></script>
-<script src="bower_components/intl-tel-input/lib/libphonenumber/build/utils.js"></script>
 <script src="bower_components/moment/moment.js"></script>
 <script src="bower_components/moment/locale/uk.js"></script>
 <script src="bower_components/moment/locale/ru.js"></script>
 <script src="bower_components/angular-moment/angular-moment.js"></script>
-<script src="bower_components/angular-ui-uploader/dist/uploader.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/angular-ui-event/dist/event.js"></script>
-<script src="bower_components/angular-translate/angular-translate.js"></script>
-<script src="bower_components/angular-dialog-service/dist/dialogs.min.js"></script>
-<script src="bower_components/angular-dialog-service/dist/dialogs-default-translations.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-ui-uploader/dist/uploader.js"></script>
+<script src="bower_components/intl-tel-input/build/js/intlTelInput.min.js"></script>
+<script src="bower_components/intl-tel-input/lib/libphonenumber/build/utils.js"></script>
+<script src="bower_components/jquery.cookie/jquery.cookie.js"></script>
+<script src="bower_components/lodash/dist/lodash.compat.js"></script>
+<script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
+<script src="bower_components/ng-clip/src/ngClip.js"></script>
+<script src="bower_components/rangy/rangy-core.js"></script>
+<script src="bower_components/rangy/rangy-classapplier.js"></script>
+<script src="bower_components/rangy/rangy-highlighter.js"></script>
+<script src="bower_components/rangy/rangy-selectionsaverestore.js"></script>
+<script src="bower_components/rangy/rangy-serializer.js"></script>
+<script src="bower_components/rangy/rangy-textrange.js"></script>
+<script src="bower_components/textAngular/dist/textAngular.js"></script>
+<script src="bower_components/textAngular/dist/textAngular-sanitize.js"></script>
+<script src="bower_components/textAngular/dist/textAngularSetup.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -124,18 +153,28 @@
 <script src="app/about/about.js"></script>
 <script src="app/about/test.js"></script>
 <script src="app/app.states.js"></script>
+<script src="app/auth/auth.js"></script>
+<script src="app/auth/controllers/authbyemail.controller.js"></script>
+<script src="app/common/components/deletionModal/deletionModal.controller.js"></script>
 <script src="app/common/components/dropdown/factories/dropdown.js"></script>
-<script src="app/common/components/errors/directives/mod.js"></script>
+<script src="app/common/components/errors/directives/errorsContainer.js"></script>
 <script src="app/common/components/errors/errors.controller.js"></script>
 <script src="app/common/components/errors/factories/errors.factory.js"></script>
+<script src="app/common/components/errors/factories/errorsSimple.factory.js"></script>
+<script src="app/common/components/errors/modal/errorsModal.controller.js"></script>
+<script src="app/common/components/form/directives/dropdownAutocomplete/dropdownAutocomplete.js"></script>
+<script src="app/common/components/form/directives/dropdownAutocomplete/dropdownAutocompleteList.factory.js"></script>
 <script src="app/common/components/form/directives/dropdownCountry/dropdownCountry.js"></script>
 <script src="app/common/components/form/directives/dropdownOrgan/dropdownOrgan.js"></script>
 <script src="app/common/components/form/directives/file.js"></script>
 <script src="app/common/components/form/directives/file2.js"></script>
 <script src="app/common/components/form/directives/igovSearch/igovSearch.js"></script>
-<script src="app/common/components/form/directives/place/place.js"></script>
+<script src="app/common/components/form/directives/place/place.directive.js"></script>
+<script src="app/common/components/form/directives/place/placeEdit.directive.js"></script>
+<script src="app/common/components/form/directives/place/placeEditor.controller.js"></script>
 <script src="app/common/components/form/directives/slotPicker.js"></script>
 <script src="app/common/components/form/directives/tel.js"></script>
+<script src="app/common/components/form/factories/autocompletesDataFactory.js"></script>
 <script src="app/common/components/form/factories/datepicker.js"></script>
 <script src="app/common/components/form/factories/file.js"></script>
 <script src="app/common/components/form/factories/formData.js"></script>
@@ -144,13 +183,12 @@
 <script src="app/common/components/form/factories/signFactory.js"></script>
 <script src="app/common/components/form/factories/userInputSave.service.js"></script>
 <script src="app/common/components/select/directives/optionsClass.js"></script>
+<script src="app/common/components/service/editServiceTree.factory.js"></script>
+<script src="app/common/components/service/editorModal.controller.js"></script>
 <script src="app/common/components/typeahead/directives/typeaheadEmpty.js"></script>
 <script src="app/common/components/typeahead/factories/typeahead.js"></script>
 <script src="app/common/errors/exceptionOverride.js"></script>
 <script src="app/common/factories/countrylist.factory.js"></script>
-<script src="app/common/factories/editor/deletionModal.controller.js"></script>
-<script src="app/common/factories/editor/editServiceTree.factory.js"></script>
-<script src="app/common/factories/editor/editorModal.controller.js"></script>
 <script src="app/common/factories/localitylist.factory.js"></script>
 <script src="app/common/factories/markers.factory.js"></script>
 <script src="app/common/factories/organlist.factory.js"></script>
@@ -160,6 +198,7 @@
 <script src="app/common/services/bankid.service.js"></script>
 <script src="app/common/services/catalog.service.js"></script>
 <script src="app/common/services/country.service.js"></script>
+<script src="app/common/services/feedback.service.js"></script>
 <script src="app/common/services/field.attributes.service.js"></script>
 <script src="app/common/services/field.motion.service.js"></script>
 <script src="app/common/services/messageBus.service.js"></script>
@@ -181,6 +220,8 @@
 <script src="app/documents/factories/bankidaddressesfactual.factory.js"></script>
 <script src="app/documents/factories/bankiddocuments.factory.js"></script>
 <script src="app/documents/factories/bankiddocumentspassport.factory.js"></script>
+<script src="app/feedback/controllers/feedback.controller.js"></script>
+<script src="app/feedback/feedback.js"></script>
 <script src="app/journal/controllers/journal.controller.js"></script>
 <script src="app/journal/controllers/journalbankid.controller.js"></script>
 <script src="app/journal/controllers/journalcontent.controller.js"></script>
@@ -192,6 +233,7 @@
 <script src="app/service/controllers/states.js"></script>
 <script src="app/service/index/index.controller.js"></script>
 <script src="app/service/index/service.controller.js"></script>
+<script src="app/service/instruction/instruction.controller.js"></script>
 <script src="app/service/place/controllers/place.absent.controller.js"></script>
 <script src="app/service/place/controllers/place.controller.js"></script>
 <script src="app/service/place/states.js"></script>

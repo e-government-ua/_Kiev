@@ -5,7 +5,7 @@
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-Батькові" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="Sex" name="Ваша стать" type="enum" required="true">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
@@ -17,7 +17,7 @@
         <activiti:formProperty id="Nationality" name="Громадянство" type="string" default="Україна" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="RegistrationAddress" name="Звідки Ви прибули; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
+        <activiti:formProperty id="RegistrationAddress" name="Попереднє місце реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
         <activiti:formProperty id="WhenCome" name="Коли прибули; Формат - ДД.ММ.PPPP" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="district" name="Район м. Києва, в якому ви плануєте зареєструватися" type="enum" required="true">
           <activiti:value id="desn" name="Деснянський"></activiti:value>
@@ -25,7 +25,6 @@
           <activiti:value id="shev" name="Шевченківський"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="newAddress" name="Нова адреса реєстрації; Населений пункт, Вулиця, Будинок, Корпус, Квартира" type="textArea" required="true"></activiti:formProperty>
-
         <activiti:formProperty id="Registrationservice" name="Орган, що оформлює реєстрацію" type="enum">
           <activiti:value id="Деснянський РВ ДМС" name="Деснянський РВГУ ДМС України в м.Києві"></activiti:value>
           <activiti:value id="Солом’янський РВ ДМС" name="Солом’янський РВГУ ДМС України в м.Києві"></activiti:value>
@@ -53,7 +52,7 @@
           <activiti:value id="yes4" name="Так (зареєструвати чотирьох дітей)"></activiti:value>
           <activiti:value id="no" name="Ні"></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я, по-батькові дитини 1" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="ChildName1" name="Прізвище, ім'я, По Батькові дитини 1" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="ChildSex1" name="Стать дитини" type="enum" default="no">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -63,7 +62,7 @@
         <activiti:formProperty id="kidsPOB" name="Місце народження дитини; Країна, область, район і населений пункт" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="ChildName2" name="Прізвище, ім'я, по-батькові дитини 2" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="ChildName2" name="Прізвище, ім'я, По Батькові дитини 2" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="ChildSex2" name="Стать дитини" type="enum" default="no">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -73,7 +72,7 @@
         <activiti:formProperty id="kidsPOB2" name="Місце народження дитини; Країна, область, район і населений пункт" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsDoc2" name="Свідоцтво про народження дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship2" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="ChildName3" name="Прізвище, ім'я, по-батькові дитини 3" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="ChildName3" name="Прізвище, ім'я, По Батькові дитини 3" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="ChildSex3" name="Стать дитини" type="enum" default="no">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -83,7 +82,7 @@
         <activiti:formProperty id="kidsPOB3" name="Місце народження дитини; Країна, область, район і населений пункт" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsDoc3" name="Свідоцтво про народження дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship3" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
-        <activiti:formProperty id="ChildName4" name="Прізвище, ім'я, по-батькові дитини 4" type="textArea" default=" "></activiti:formProperty>
+        <activiti:formProperty id="ChildName4" name="Прізвище, ім'я, По Батькові дитини 4" type="textArea" default=" "></activiti:formProperty>
         <activiti:formProperty id="ChildSex4" name="Стать дитини" type="enum" default="no">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -94,8 +93,9 @@
         <activiti:formProperty id="kidsDoc4" name="Свідоцтво про народження дитини; Серія та номер документу, дата і орган, що його видав" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship4" name="Громадянство дитини" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="warning" name="Зверніть увагу" type="label" default="Подаючи звернення, Ви підтверджуєте достовірність усіх зазначених у зверненні даних і надаєте свою згоду на обробку Ваших персональних даних"></activiti:formProperty>
-
         <activiti:formProperty id="marker1" name="маркер динамічної форми" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;bringDocOther&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;RegistrationDocument&quot;},&quot;sCondition&quot;:&quot;[sReason]=='other'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;milName&quot;,&quot;milRank&quot;,&quot;milSpec&quot;],&quot;asID_Field&quot;:{&quot;sReason2&quot;: &quot;milit_status&quot;},&quot;sCondition&quot;:&quot;[sReason2]=='true'&quot;},&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;ChildName1&quot;,&quot;ChildSex1&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;: &quot;kids&quot;},&quot;sCondition&quot;: &quot;[sReason3]=='yes1'&quot;},&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;:[&quot;ChildName1&quot;,&quot;ChildSex1&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;,&quot;ChildName2&quot;,&quot;ChildSex2&quot;,&quot;kidsBirth2&quot;,&quot;kidsPOB2&quot;,&quot;kidsDoc2&quot;,&quot;kidsCitizenship2&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;: &quot;kids&quot;},&quot;sCondition&quot;: &quot;[sReason3]=='yes2'&quot;},&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;:[&quot;ChildName1&quot;,&quot;ChildSex1&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;,&quot;ChildName2&quot;,&quot;ChildSex2&quot;,&quot;kidsBirth2&quot;,&quot;kidsPOB2&quot;,&quot;kidsDoc2&quot;,&quot;kidsCitizenship2&quot;,&quot;ChildName3&quot;,&quot;ChildSex3&quot;,&quot;kidsBirth3&quot;,&quot;kidsPOB3&quot;,&quot;kidsDoc3&quot;,&quot;kidsCitizenship3&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;: &quot;kids&quot;},&quot;sCondition&quot;: &quot;[sReason3]=='yes3'&quot;},&quot;ShowFieldsOnCondition_6&quot;:{&quot;aField_ID&quot;:[&quot;ChildName1&quot;,&quot;ChildSex1&quot;,&quot;kidsBirth&quot;,&quot;kidsPOB&quot;,&quot;kidsDoc&quot;,&quot;kidsCitizenship&quot;,&quot;ChildName2&quot;,&quot;ChildSex2&quot;,&quot;kidsBirth2&quot;,&quot;kidsPOB2&quot;,&quot;kidsDoc2&quot;,&quot;kidsCitizenship2&quot;,&quot;ChildName3&quot;,&quot;ChildSex3&quot;,&quot;kidsBirth3&quot;,&quot;kidsPOB3&quot;,&quot;kidsDoc3&quot;,&quot;kidsCitizenship3&quot;,&quot;ChildName4&quot;,&quot;ChildSex4&quot;,&quot;kidsBirth4&quot;,&quot;kidsPOB4&quot;,&quot;kidsDoc4&quot;,&quot;kidsCitizenship4&quot;],&quot;asID_Field&quot;:{&quot;sReason3&quot;: &quot;kids&quot;},&quot;sCondition&quot;: &quot;[sReason3]=='yes4'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="mail_employee" name="Відповідальна особа" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="marker3" name="Назначение емейлов" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_11&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;],&quot;asID_Field_sValue&quot;:[&quot;i.vinagina@solor.gov.ua&quot;],&quot;asID_Field&quot;:{&quot;sdistrict&quot;:&quot;district&quot;},&quot;sCondition&quot;:&quot;[sdistrict] == 'solom'&quot;},&quot;ValuesFieldsOnCondition_12&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;],&quot;asID_Field_sValue&quot;:[&quot;BaroninaGO@ukr.net&quot;],&quot;asID_Field&quot;:{&quot;sdistrict&quot;:&quot;district&quot;},&quot;sCondition&quot;:&quot;[sdistrict] == 'desn'&quot;},&quot;ValuesFieldsOnCondition_13&quot;:{&quot;aField_ID&quot;:[&quot;mail_employee&quot;],&quot;asID_Field_sValue&quot;:[&quot;cnap@shev.gov.ua&quot;],&quot;asID_Field&quot;:{&quot;sdistrict&quot;:&quot;district&quot;},&quot;sCondition&quot;:&quot;[sdistrict] == 'shev'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <sequenceFlow id="flow2" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
@@ -178,18 +178,29 @@
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 									&lt;p&gt;	
 										Для того, щоб закінчити процедуру подачі документів в Державну міграційну службу необхідно:&lt;br /&gt;
-										·  Сплатити Державне мито у розмірі 0.85 грн і отримати талон про сплату.&lt;br /&gt;
-										·  Прийти до Центру надання адміністративних послуг Деснянського району, що знаходиться за адресою:&lt;br /&gt; 
-											м. Київ, пр. Маяковського, буд. 29, I поверх , з необхідними документами (є можливість попереднього запису на прийом)&lt;/p&gt;
+										&lt;li&gt;Сплатити Державне мито у розмірі 0.85 грн і отримати квитанцію про сплату.&lt;/li&gt;
+										&lt;li&gt;Завітати до Центру надання адміністративних послуг Деснянського району, що знаходиться за адресою:&lt;br /&gt; 
+											      м. Київ, пр. Маяковського, буд. 29, I поверх , з необхідними документами (є можливість попереднього запису на прийом)&lt;/li&gt;
+									&lt;/p&gt;
  									&lt;p&gt;
 										Документи, які необхідно принести до Центру надання адміністративних послуг:&lt;br /&gt;
-										·         посвідчення особи (Паспорт)&lt;br /&gt; 
-										·         свідоцтво про народження дитини&lt;br /&gt; 
-										·         талон про сплату Державного мита&lt;br /&gt; 
-										·         документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації;&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+										&lt;li&gt;паспортний документ;&lt;/li&gt; 
+										&lt;li&gt;талон зняття з реєстрації (не подається в разі одночасного зняття з реєстрації місця проживання);&lt;/li&gt; 
+										&lt;li&gt;свідоцтво про народження дитини (оригінал та копія);&lt;/li&gt; 
+										&lt;li&gt;квитанція про сплату Державного мита;&lt;/li&gt; 
+										&lt;li&gt;документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації (оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку, оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;при проживанні батьків за різними адресами для реєстрації місця проживання дитини, яка не досягла 14 років, разом з одним з батьків надається письмова згода (у присутності адміністратора Центру) другого з батьків та довідка територіального підрозділу або адресно-довідкового підрозділу територіального органу ДМС України за місцем його проживання про те, що дитина не зареєстрована разом з ним,&lt;br /&gt;
+												  другий із батьків пред’являє адміністратору паспортний документ та подає його копію.&lt;/li&gt;
+									&lt;/p&gt;
+									&lt;p&gt;	
+										У разі подання заяви законним представником особи додатково подаються:&lt;br /&gt;
+										&lt;li&gt;документ, що посвідчує особу законного представника (оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;документ, що підтверджує повноваження особи як законного представника, крім випадків, коли законними представниками є батьки (усиновлювачі) (оригінал та копія).&lt;/li&gt;
+									&lt;/p&gt;
+									&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                    	Графік роботи:&lt;br /&gt; 
+                                    	Графік роботи ЦНАП Деснянського району:&lt;br /&gt; 
                                     	понеділок, середа - 09.00-18.00;&lt;br /&gt; 
                                     	вівторок, четвер - з 09.00-20.00;&lt;br /&gt; 
                                     	п’ятниця - 09.00-16.45;&lt;br /&gt; 
@@ -217,7 +228,6 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow4" sourceRef="mailtask1" targetRef="usertask1"></sequenceFlow>
     <sequenceFlow id="flow29" sourceRef="exclusivegateway6" targetRef="mailtask5">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${district=='solom'}]]></conditionExpression>
     </sequenceFlow>
@@ -289,18 +299,29 @@
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 									&lt;p&gt;	
 										Для того, щоб закінчити процедуру подачі документів в Державну міграційну службу необхідно:&lt;br /&gt;
-										·  Сплатити Державне мито у розмірі 0.85 грн і отримати талон про сплату.&lt;br /&gt;
-										·  Прийти до Центру надання адміністративних послуг Солом'янського району, що знаходиться за адресою:&lt;br /&gt; 
-											м. Київ, просп. Повітрофлотський, 41, з необхідними документами (є можливість попереднього запису на прийом)&lt;/p&gt;
+										&lt;li&gt;Сплатити Державне мито у розмірі 0.85 грн і отримати квитанцію про сплату.&lt;/li&gt; 
+										&lt;li&gt;Прийти до Центру надання адміністративних послуг Солом'янського району, що знаходиться за адресою:&lt;br /&gt; 
+											м. Київ, просп. Повітрофлотський, 41, з необхідними документами (є можливість попереднього запису на прийом)&lt;/li&gt;
+									&lt;/p&gt;
  									&lt;p&gt;
 										Документи, які необхідно принести до Центру надання адміністративних послуг:&lt;br /&gt;
-										·         посвідчення особи (Паспорт)&lt;br /&gt; 
-										·         свідоцтво про народження дитини&lt;br /&gt; 
-										·         талон про сплату Державного мита&lt;br /&gt; 
-										·         документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації;&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+										&lt;li&gt;паспортний документ;&lt;/li&gt; 
+										&lt;li&gt;талон зняття з реєстрації (не подається в разі одночасного зняття з реєстрації місця проживання);&lt;/li&gt; 
+										&lt;li&gt;свідоцтво про народження дитини (оригінал та копія);&lt;/li&gt; 
+										&lt;li&gt;квитанція про сплату Державного мита;&lt;/li&gt; 
+										&lt;li&gt;документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації (оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку, оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;при проживанні батьків за різними адресами для реєстрації місця проживання дитини, яка не досягла 14 років, разом з одним з батьків надається письмова згода (у присутності адміністратора Центру) другого з батьків та довідка територіального підрозділу або адресно-довідкового підрозділу територіального органу ДМС України за місцем його проживання про те, що дитина не зареєстрована разом з ним,&lt;br /&gt;
+												  другий із батьків пред’являє адміністратору паспортний документ та подає його копію.&lt;/li&gt;
+									&lt;/p&gt;
+									&lt;p&gt;	
+										У разі подання заяви законним представником особи додатково подаються:&lt;br /&gt;
+										&lt;li&gt;документ, що посвідчує особу законного представника (оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;документ, що підтверджує повноваження особи як законного представника, крім випадків, коли законними представниками є батьки (усиновлювачі) (оригінал та копія).&lt;/li&gt;
+									&lt;/p&gt;
+									&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                    	Графік роботи:&lt;br /&gt; 
+                                    	Графік роботи ЦНАП Солом'янського району:&lt;br /&gt; 
                                     	понеділок, середа - 09.00-17.00;&lt;br /&gt; 
                                     	вівторок, четвер - з 10.00-20.00;&lt;br /&gt; 
                                     	п’ятниця - 09.00-16.30;&lt;br /&gt; 
@@ -328,7 +349,6 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow30" sourceRef="mailtask5" targetRef="usertask1"></sequenceFlow>
     <sequenceFlow id="flow28" sourceRef="exclusivegateway6" targetRef="mailtask6">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${district=='shev'}]]></conditionExpression>
     </sequenceFlow>
@@ -400,18 +420,29 @@
 										Ваш запит був успішно зареєстрований у нашій системі.&lt;br /&gt; 
 									&lt;p&gt;	
 										Для того, щоб закінчити процедуру подачі документів в Державну міграційну службу необхідно:&lt;br /&gt;
-										·  Сплатити Державне мито у розмірі 0.85 грн і отримати талон про сплату.&lt;br /&gt;
-										·  Прийти до Центру надання адміністративних послуг Шевченківського району, що знаходиться за адресою:&lt;br /&gt; 
-											м. Київ, бульв. Т.Шевченка, 26/4, з необхідними документами (є можливість попереднього запису на прийом)&lt;/p&gt;
+										&lt;li&gt;Сплатити Державне мито у розмірі 0.85 грн і отримати квитанцію про сплату.&lt;/li&gt;
+										&lt;li&gt;Прийти до Центру надання адміністративних послуг Шевченківського району, що знаходиться за адресою:&lt;br /&gt; 
+											м. Київ, бульв. Т.Шевченка, 26/4, з необхідними документами (є можливість попереднього запису на прийом)&lt;/li&gt;
+									&lt;/p&gt;
  									&lt;p&gt;
 										Документи, які необхідно принести до Центру надання адміністративних послуг:&lt;br /&gt;
-										·         посвідчення особи (Паспорт)&lt;br /&gt; 
-										·         свідоцтво про народження дитини&lt;br /&gt; 
-										·         талон про сплату Державного мита&lt;br /&gt; 
-										·         документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації;&lt;/p&gt;
-                                    &lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
+										&lt;li&gt;паспортний документ;&lt;/li&gt; 
+										&lt;li&gt;талон зняття з реєстрації (не подається в разі одночасного зняття з реєстрації місця проживання);&lt;/li&gt; 
+										&lt;li&gt;свідоцтво про народження дитини (оригінал та копія);&lt;/li&gt; 
+										&lt;li&gt;квитанція про сплату Державного мита;&lt;/li&gt; 
+										&lt;li&gt;документи, що підтверджують право на проживання в житлі, перебування або взяття на облік у спеціалізованій соціальній установі, закладі соціального обслуговування та соціального захисту, проходження служби у військовій частині, адреса яких зазначається під час реєстрації (оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;військовий квиток або посвідчення про приписку (для громадян, які підлягають взяттю на військовий облік або перебувають на військовому обліку, оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;при проживанні батьків за різними адресами для реєстрації місця проживання дитини, яка не досягла 14 років, разом з одним з батьків надається письмова згода (у присутності адміністратора Центру) другого з батьків та довідка територіального підрозділу або адресно-довідкового підрозділу територіального органу ДМС України за місцем його проживання про те, що дитина не зареєстрована разом з ним,&lt;br /&gt;
+												  другий із батьків пред’являє адміністратору паспортний документ та подає його копію.&lt;/li&gt;
+									&lt;/p&gt;
+									&lt;p&gt;	
+										У разі подання заяви законним представником особи додатково подаються:&lt;br /&gt;
+										&lt;li&gt;документ, що посвідчує особу законного представника (оригінал та копія);&lt;/li&gt;
+										&lt;li&gt;документ, що підтверджує повноваження особи як законного представника, крім випадків, коли законними представниками є батьки (усиновлювачі) (оригінал та копія).&lt;/li&gt;
+									&lt;/p&gt;
+									&lt;hr style="width: 100%; height: 0; margin: 30px 0 15px 0; background: #dddddd; border: 0; border-bottom: 1px solid #dddddd;" /&gt;
                                     &lt;p&gt;
-                                    	Графік роботи:&lt;br /&gt; 
+                                    	Графік роботи ЦНАП Шевченківського району:&lt;br /&gt; 
                                     	понеділок, середа - 09.00-18.00;&lt;br /&gt; 
                                     	вівторок, четвер - з 09.00-20.00;&lt;br /&gt; 
                                     	п’ятниця - 09.00-16.45;&lt;br /&gt; 
@@ -439,13 +470,12 @@
         </activiti:field>
       </extensionElements>
     </serviceTask>
-    <sequenceFlow id="flow31" sourceRef="mailtask6" targetRef="usertask1"></sequenceFlow>
     <userTask id="usertask1" name="Формування пакету документів для ДМС" activiti:candidateGroups="kiev_dms_40_${district}">
       <extensionElements>
         <activiti:formProperty id="NumSp" name="Номер справи" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
         <activiti:formProperty id="Sex" name="Стать" type="enum">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
@@ -498,8 +528,7 @@
         <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини" type="string"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string"></activiti:formProperty>
-        
-                <activiti:formProperty id="ChildName2" name="Прізвище, ім'я і по батькові дитини 2" type="string"></activiti:formProperty>
+        <activiti:formProperty id="ChildName2" name="Прізвище, ім'я і по батькові дитини 2" type="string"></activiti:formProperty>
         <activiti:formProperty id="ChildSex2" name="Стать дитини" type="enum">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -509,7 +538,6 @@
         <activiti:formProperty id="kidsPOB2" name="Місце народження дитини" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc2" name="Свідоцтво про народження дитини" type="string"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship2" name="Громадянство дитини" type="string"></activiti:formProperty>
-        
         <activiti:formProperty id="ChildName3" name="Прізвище, ім'я і по батькові дитини 3" type="string"></activiti:formProperty>
         <activiti:formProperty id="ChildSex3" name="Стать дитини" type="enum">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
@@ -520,8 +548,7 @@
         <activiti:formProperty id="kidsPOB3" name="Місце народження дитини" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc3" name="Свідоцтво про народження дитини" type="string"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship3" name="Громадянство дитини" type="string"></activiti:formProperty>
-        
-                <activiti:formProperty id="ChildName4" name="Прізвище, ім'я і по батькові дитини 4" type="string"></activiti:formProperty>
+        <activiti:formProperty id="ChildName4" name="Прізвище, ім'я і по батькові дитини 4" type="string"></activiti:formProperty>
         <activiti:formProperty id="ChildSex4" name="Стать дитини" type="enum">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -531,10 +558,6 @@
         <activiti:formProperty id="kidsPOB4" name="Місце народження дитини" type="textArea"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc4" name="Свідоцтво про народження дитини" type="string"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship4" name="Громадянство дитини" type="string"></activiti:formProperty>
-        
-      
-
-        
         <activiti:formProperty id="stan" name="Стан заяви" type="string" default="На опрацюванні в ЦНАП" writable="false"></activiti:formProperty>
         <activiti:formProperty id="DocumentDate" name="Дата оформлення документів у форматі - ДД.ММ.PPPP" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" required="true"></activiti:formProperty>
@@ -663,10 +686,10 @@
     </sequenceFlow>
     <userTask id="usertask4_yellow" name="Підтвердження отримання ЦНАПом документів від ДМС" activiti:candidateGroups="kiev_dms_40_${district}">
       <extensionElements>
-        <activiti:formProperty id="NumSp" name="Номер справи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="NumSp" name="Номер справи" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Sex" name="Стать" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
@@ -719,8 +742,7 @@
         <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
-        
-                <activiti:formProperty id="ChildName2" name="Прізвище, ім'я і по батькові дитини 2" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ChildName2" name="Прізвище, ім'я і по батькові дитини 2" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ChildSex2" name="Стать дитини" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -730,7 +752,6 @@
         <activiti:formProperty id="kidsPOB2" name="Місце народження дитини" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc2" name="Свідоцтво про народження дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship2" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
-        
         <activiti:formProperty id="ChildName3" name="Прізвище, ім'я і по батькові дитини 3" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ChildSex3" name="Стать дитини" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
@@ -741,8 +762,7 @@
         <activiti:formProperty id="kidsPOB3" name="Місце народження дитини" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc3" name="Свідоцтво про народження дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship3" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
-        
-                <activiti:formProperty id="ChildName4" name="Прізвище, ім'я і по батькові дитини 4" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ChildName4" name="Прізвище, ім'я і по батькові дитини 4" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ChildSex4" name="Стать дитини" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -752,7 +772,6 @@
         <activiti:formProperty id="kidsPOB4" name="Місце народження дитини" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc4" name="Свідоцтво про народження дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship4" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
-        
         <activiti:formProperty id="stan" name="Стан заяви" type="string" default="На опрацюванні в ЦНАП" writable="false"></activiti:formProperty>
         <activiti:formProperty id="DocumentDate" name="Дата оформлення документів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" writable="false"></activiti:formProperty>
@@ -1080,10 +1099,10 @@
     <sequenceFlow id="flow35" sourceRef="mailtask8" targetRef="usertask5_green"></sequenceFlow>
     <userTask id="usertask5_green" name="Підтвердження видачі документів ЦНАПом заявнику" activiti:candidateGroups="kiev_dms_40_${district}">
       <extensionElements>
-        <activiti:formProperty id="NumSp" name="Номер справи" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="NumSp" name="Номер справи" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="bankIdmiddleName" name="По Батькові" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="Sex" name="Стать" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
@@ -1119,8 +1138,7 @@
         <activiti:formProperty id="milName" name="Найменування військомату, в якому громадянин перебував на військовому обліку" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="milRank" name="Військове звання" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="milSpec" name="Військово-облікова спеціальність" type="string" writable="false"></activiti:formProperty>
-       
- <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зареєструвати" type="enum" writable="false">
+        <activiti:formProperty id="kids" name="Чи є дитина (молодша 14 років) яку треба зареєструвати" type="enum" writable="false">
           <activiti:value id="yes1" name="Так (зареєструвати одну дитину)"></activiti:value>
           <activiti:value id="yes2" name="Так (зареєструвати двох дітей)"></activiti:value>
           <activiti:value id="yes3" name="Так (зареєструвати трьох дітей)"></activiti:value>
@@ -1137,8 +1155,7 @@
         <activiti:formProperty id="kidsPOB" name="Місце народження дитини" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc" name="Свідоцтво про народження дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
-        
-                <activiti:formProperty id="ChildName2" name="Прізвище, ім'я і по батькові дитини 2" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ChildName2" name="Прізвище, ім'я і по батькові дитини 2" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ChildSex2" name="Стать дитини" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -1148,7 +1165,6 @@
         <activiti:formProperty id="kidsPOB2" name="Місце народження дитини" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc2" name="Свідоцтво про народження дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship2" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
-        
         <activiti:formProperty id="ChildName3" name="Прізвище, ім'я і по батькові дитини 3" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ChildSex3" name="Стать дитини" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
@@ -1159,8 +1175,7 @@
         <activiti:formProperty id="kidsPOB3" name="Місце народження дитини" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc3" name="Свідоцтво про народження дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship3" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
-        
-                <activiti:formProperty id="ChildName4" name="Прізвище, ім'я і по батькові дитини 4" type="string" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="ChildName4" name="Прізвище, ім'я і по батькові дитини 4" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="ChildSex4" name="Стать дитини" type="enum" writable="false">
           <activiti:value id="man" name="Чоловіча"></activiti:value>
           <activiti:value id="woman" name="Жіноча"></activiti:value>
@@ -1170,7 +1185,6 @@
         <activiti:formProperty id="kidsPOB4" name="Місце народження дитини" type="textArea" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsDoc4" name="Свідоцтво про народження дитини" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="kidsCitizenship4" name="Громадянство дитини" type="string" writable="false"></activiti:formProperty>
-
         <activiti:formProperty id="stan" name="Стан заяви" type="string" default="На опрацюванні в ЦНАП" writable="false"></activiti:formProperty>
         <activiti:formProperty id="DocumentDate" name="Дата оформлення документів" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="CNAPName" name="ПІБ посадової особи" type="string" writable="false"></activiti:formProperty>
@@ -1188,11 +1202,31 @@
     <sequenceFlow id="flow26" name="${workerDecision=='decline'}" sourceRef="exclusivegateway5" targetRef="usertask5_green">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${workerDecision=='decline'}]]></conditionExpression>
     </sequenceFlow>
+    <serviceTask id="servicetask2" name="Повідомлення співробітника держоргану" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
+      <extensionElements>
+        <activiti:field name="to">
+          <activiti:expression>"${mail_employee}"</activiti:expression>
+        </activiti:field>
+        <activiti:field name="from">
+          <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
+        </activiti:field>
+        <activiti:field name="subject">
+          <activiti:expression>Нове звернення. (Заявник:  ${bankIdfirstName} ${bankIdmiddleName} ${bankIdlastName})</activiti:expression>
+        </activiti:field>
+        <activiti:field name="text">
+          <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
+        </activiti:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="flow37" sourceRef="mailtask6" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow38" sourceRef="mailtask1" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow39" sourceRef="mailtask5" targetRef="servicetask2"></sequenceFlow>
+    <sequenceFlow id="flow40" sourceRef="servicetask2" targetRef="usertask1"></sequenceFlow>
   </process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_kiev_dms_40">
     <bpmndi:BPMNPlane bpmnElement="kiev_dms_40" id="BPMNPlane_kiev_dms_40">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
-        <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="130.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="10.0" y="157.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="servicetask1" id="BPMNShape_servicetask1">
         <omgdc:Bounds height="81.0" width="171.0" x="56.0" y="107.0"></omgdc:Bounds>
@@ -1207,16 +1241,16 @@
         <omgdc:Bounds height="40.0" width="40.0" x="239.0" y="127.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask1" id="BPMNShape_mailtask1">
-        <omgdc:Bounds height="81.0" width="161.0" x="321.0" y="107.0"></omgdc:Bounds>
+        <omgdc:Bounds height="81.0" width="161.0" x="291.0" y="107.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask5" id="BPMNShape_mailtask5">
-        <omgdc:Bounds height="75.0" width="161.0" x="321.0" y="209.0"></omgdc:Bounds>
+        <omgdc:Bounds height="75.0" width="161.0" x="291.0" y="209.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="mailtask6" id="BPMNShape_mailtask6">
-        <omgdc:Bounds height="75.0" width="163.0" x="330.0" y="10.0"></omgdc:Bounds>
+        <omgdc:Bounds height="75.0" width="163.0" x="290.0" y="10.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
-        <omgdc:Bounds height="81.0" width="177.0" x="500.0" y="107.0"></omgdc:Bounds>
+        <omgdc:Bounds height="81.0" width="177.0" x="653.0" y="7.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="exclusivegateway4" id="BPMNShape_exclusivegateway4">
         <omgdc:Bounds height="40.0" width="40.0" x="721.0" y="127.0"></omgdc:Bounds>
@@ -1248,8 +1282,11 @@
       <bpmndi:BPMNShape bpmnElement="exclusivegateway5" id="BPMNShape_exclusivegateway5">
         <omgdc:Bounds height="40.0" width="40.0" x="928.0" y="520.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="servicetask2" id="BPMNShape_servicetask2">
+        <omgdc:Bounds height="75.0" width="163.0" x="480.0" y="104.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
-        <omgdi:waypoint x="45.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="45.0" y="174.0"></omgdi:waypoint>
         <omgdi:waypoint x="56.0" y="147.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
@@ -1262,35 +1299,21 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
         <omgdi:waypoint x="279.0" y="147.0"></omgdi:waypoint>
-        <omgdi:waypoint x="321.0" y="147.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
-        <omgdi:waypoint x="482.0" y="147.0"></omgdi:waypoint>
-        <omgdi:waypoint x="500.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="291.0" y="147.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow29" id="BPMNEdge_flow29">
         <omgdi:waypoint x="259.0" y="167.0"></omgdi:waypoint>
         <omgdi:waypoint x="258.0" y="246.0"></omgdi:waypoint>
-        <omgdi:waypoint x="321.0" y="246.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow30" id="BPMNEdge_flow30">
-        <omgdi:waypoint x="482.0" y="246.0"></omgdi:waypoint>
-        <omgdi:waypoint x="590.0" y="246.0"></omgdi:waypoint>
-        <omgdi:waypoint x="588.0" y="188.0"></omgdi:waypoint>
+        <omgdi:waypoint x="291.0" y="246.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow28" id="BPMNEdge_flow28">
         <omgdi:waypoint x="259.0" y="127.0"></omgdi:waypoint>
         <omgdi:waypoint x="258.0" y="47.0"></omgdi:waypoint>
-        <omgdi:waypoint x="330.0" y="47.0"></omgdi:waypoint>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge bpmnElement="flow31" id="BPMNEdge_flow31">
-        <omgdi:waypoint x="493.0" y="47.0"></omgdi:waypoint>
-        <omgdi:waypoint x="588.0" y="47.0"></omgdi:waypoint>
-        <omgdi:waypoint x="588.0" y="107.0"></omgdi:waypoint>
+        <omgdi:waypoint x="290.0" y="47.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow24" id="BPMNEdge_flow24">
-        <omgdi:waypoint x="677.0" y="147.0"></omgdi:waypoint>
-        <omgdi:waypoint x="721.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="741.0" y="88.0"></omgdi:waypoint>
+        <omgdi:waypoint x="741.0" y="127.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow23" id="BPMNEdge_flow23">
         <omgdi:waypoint x="761.0" y="147.0"></omgdi:waypoint>
@@ -1376,6 +1399,25 @@
         <bpmndi:BPMNLabel>
           <omgdc:Bounds height="42.0" width="100.0" x="842.0" y="549.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow37" id="BPMNEdge_flow37">
+        <omgdi:waypoint x="453.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="565.0" y="47.0"></omgdi:waypoint>
+        <omgdi:waypoint x="561.0" y="104.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow38" id="BPMNEdge_flow38">
+        <omgdi:waypoint x="452.0" y="147.0"></omgdi:waypoint>
+        <omgdi:waypoint x="480.0" y="141.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow39" id="BPMNEdge_flow39">
+        <omgdi:waypoint x="452.0" y="246.0"></omgdi:waypoint>
+        <omgdi:waypoint x="562.0" y="246.0"></omgdi:waypoint>
+        <omgdi:waypoint x="561.0" y="179.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow40" id="BPMNEdge_flow40">
+        <omgdi:waypoint x="643.0" y="141.0"></omgdi:waypoint>
+        <omgdi:waypoint x="705.0" y="141.0"></omgdi:waypoint>
+        <omgdi:waypoint x="741.0" y="88.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

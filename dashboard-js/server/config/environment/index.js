@@ -3,13 +3,6 @@
 var path = require('path');
 var _ = require('lodash');
 
-function requiredProcessEnv(name) {
-  if (!process.env[name]) {
-    throw new Error('You must set the ' + name + ' environment variable');
-  }
-  return process.env[name];
-}
-
 // All configurations will extend these options
 // ============================================
 var all = {
@@ -21,19 +14,16 @@ var all = {
   // Server port
   port: process.env.PORT || 9000,
 
-  // Should we populate the DB with sample data?
-  seedDB: false,
-
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
     session: process.env.SESSION_SECRET
   },
 
   activiti: {
-    prot: process.env.ACTIVITI_PROT || 'http',
-    host: process.env.ACTIVITI_HOST || 'localhost',
-    port: process.env.ACTIVITI_PORT || 8080,
-    rest: process.env.ACTIVITI_REST || 'activiti-rest/service',
+    prot: process.env.ACTIVITI_PROT,
+    host: process.env.ACTIVITI_HOST,
+    port: process.env.ACTIVITI_PORT,
+    rest: process.env.ACTIVITI_REST,
     username: process.env.ACTIVITI_USER,
     password: process.env.ACTIVITI_PASSWORD,
     session: {
@@ -52,23 +42,15 @@ var all = {
   // List of user roles
   userRoles: ['guest', 'user', 'admin'],
 
-  // MongoDB connection options
-  mongo: {
-    options: {
-      db: {
-        safe: true
-      }
-    }
-  },
-
   request: {
-    debug: process.env.DEBUG  || false
+    debug: process.env.DEBUG
   }
 
 };
 
 // Export the config object based on the NODE_ENV
 // ==============================================
-module.exports = _.merge(
-  all,
-  require('./' + process.env.NODE_ENV + '.js') || {});
+var result = _.merge(
+  require('./' + process.env.NODE_ENV + '.js') || {},
+  all);
+module.exports = result;

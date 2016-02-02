@@ -26,6 +26,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.junit.Ignore;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles("default")
@@ -89,6 +90,7 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
         return procVars;
     }
 
+    @Ignore
     @Test
     @Deployment(resources = { PROCESS_RESOURCE })
     public void startProcessInstance() throws InterruptedException {
@@ -108,6 +110,7 @@ public class Mvk_1_Test extends PluggableActivitiTestCase {
 
     }
 
+    @Ignore
     @Test
     @Deployment(resources = { PROCESS_RESOURCE })
     public void processRejected() throws InterruptedException {

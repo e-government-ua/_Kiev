@@ -7,7 +7,8 @@ var activiti = require('../../components/activiti');
 exports.index = function (req, res) {
 
   var query = {};
-  query.size = 750;
+  //query.size = 750;
+  query.size = 1500;
   query.latest = true;
 
   var options = {
@@ -34,7 +35,7 @@ exports.getLoginBPs = function (req, res) {
     'sLogin' : user.id
   };
   var options = {
-    path: 'rest/getLoginBPs',
+    path: 'action/task/getLoginBPs',
     query: query
   };
   activiti.get(options, function (error, statusCode, result) {

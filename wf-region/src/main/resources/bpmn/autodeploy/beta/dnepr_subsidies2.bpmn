@@ -18,7 +18,7 @@
         <activiti:formProperty id="zayava_finish" name="Ваша заява" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="declaration_finish" name="Ваша декларація" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-mail" type="string" required="true"></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="обробка звернення" activiti:candidateGroups="dnepr_upzsn">

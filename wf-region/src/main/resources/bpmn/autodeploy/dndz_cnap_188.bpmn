@@ -35,14 +35,14 @@
         <activiti:formProperty id="advertFile" name="Ескіз рекламного засобу з конструктивним рішенням" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="advertLicense" name="Копія виписки з єдиного державного реєстру юридичних осіб та фізичних осіб" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="original" name="Оригінал попереднього дозволу" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         <activiti:formProperty id="markers1" name="Якщо  юридична особа" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;adres_1&quot;,&quot;edrpo&quot;,&quot;imya_ur&quot;,&quot;&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;subekt&quot;},&quot;sCondition&quot;:&quot;[sClient] == 'ur'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers2" name="Якщо дозвіл повторний, анулювання, подовження" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;:[&quot;number_previous&quot;,&quot;original&quot;],&quot;asID_Field&quot;:{&quot;sPerson&quot;:&quot;purpose&quot;},&quot;sCondition&quot;:&quot;[sPerson] == 'second_permission' || [sPerson] == 'revoke'|| [sPerson] == 'continuation'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="markers3" name="Якщо анулювання, то непотрібні аттачменти" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;:[&quot;placePhoto&quot;,&quot;advertFile&quot;,&quot;advertLicenseFile&quot;],&quot;asID_Field&quot;:{&quot;sPerson&quot;:&quot;purpose&quot;},&quot;sCondition&quot;:&quot;[sPerson] == 'second_permission' || [sPerson] == 'first_permission'|| [sPerson] == 'continuation'|| [sPerson] == 'restructuring'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <serviceTask id="servicetask1" name="Підтягування додаткових документів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
-    <userTask id="usertask1" name="прийняття рішення про надання послуги" activiti:candidateGroups="zaporoshye_mvk_1">
+    <userTask id="usertask1" name="прийняття рішення про надання послуги" activiti:candidateGroups="cnap_dndzT">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name="Ідентифікаційний номер фізичної особи" type="string" writable="false"></activiti:formProperty>
@@ -95,7 +95,7 @@
     <sequenceFlow id="flow6" name="відхилення звернення" sourceRef="exclusivegateway1" targetRef="servicetask6">
       <conditionExpression xsi:type="tFormalExpression"><![CDATA[${decision_1=='reject'}]]></conditionExpression>
     </sequenceFlow>
-    <userTask id="usertask2" name="повідомлення громадянина про прийняте рішення" activiti:candidateGroups="zaporoshye_mvk_1">
+    <userTask id="usertask2" name="повідомлення громадянина про прийняте рішення" activiti:candidateGroups="cnap_dndzT">
       <extensionElements>
         <activiti:formProperty id="clFio" name="Автор звернення" type="string" default="${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}" writable="false"></activiti:formProperty>
         <activiti:formProperty id="reestr_numb" name="Реєстраційний номер" type="string" writable="false"></activiti:formProperty>
@@ -689,8 +689,8 @@ style="border-collapse: collapse;"&gt;
     </serviceTask>
     <sequenceFlow id="flow29" sourceRef="servicetask6" targetRef="endevent2"></sequenceFlow>
   </process>
-  <bpmndi:BPMNDiagram id="BPMNDiagram_zaporoshye_mvk_1a">
-    <bpmndi:BPMNPlane bpmnElement="zaporoshye_mvk_1a" id="BPMNPlane_zaporoshye_mvk_1a">
+  <bpmndi:BPMNDiagram id="BPMNDiagram_dndz_cnap_188">
+    <bpmndi:BPMNPlane bpmnElement="dndz_cnap_188" id="BPMNPlane_dndz_cnap_188">
       <bpmndi:BPMNShape bpmnElement="startevent1" id="BPMNShape_startevent1">
         <omgdc:Bounds height="35.0" width="35.0" x="188.0" y="40.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>

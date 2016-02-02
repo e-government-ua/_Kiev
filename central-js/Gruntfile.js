@@ -359,7 +359,10 @@ module.exports = function (grunt) {
           src: [
             'package.json',
             'process.json',
-            'server/**/*'
+            'server/**/*',
+            '!server/**/*.spec.js',
+            '!server/**/*.test.js',
+            '!server/**/*.mock.js'
           ]
         }]
       },
@@ -425,10 +428,21 @@ module.exports = function (grunt) {
     },
 
     mochaTest: {
-      options: {
-        reporter: 'spec'
+      mochaUnitTest: {
+        options: {
+          reporter: 'spec',
+          ui: 'tdd',
+        },
+        src: ['server/**/*.test.js']
       },
-      src: ['server/**/*.spec.js']
+
+      mochaTest : {
+        options: {
+          reporter: 'spec',
+          ui: 'bdd',
+        },
+        src: ['server/**/*.spec.js']
+      }
     },
 
     protractor: {
@@ -463,6 +477,7 @@ module.exports = function (grunt) {
             '<%= yeoman.client %>/app',
             '<%= yeoman.client %>/html'
           ],
+          precision: 10,
           compass: false
         },
         files: {
@@ -613,17 +628,20 @@ module.exports = function (grunt) {
 
   grunt.registerTask('karma-only', function (target) {
     grunt.task.run([
-        'karma',
+        'karma'
       ]);
   });
 
   grunt.registerTask('test', function (target) {
     if (target === 'server') {
       return grunt.task.run([
-        // 'env:all',
-        // 'env:test',
-        'karma'
-        // 'mochaTest'
+        'mochaTest'
+      ]);
+    }
+
+    else if (target === 'unit') {
+      return grunt.task.run([
+        'mochaUnitTest'
       ]);
     }
 

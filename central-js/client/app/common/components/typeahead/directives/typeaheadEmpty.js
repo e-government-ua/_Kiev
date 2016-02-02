@@ -1,35 +1,30 @@
-angular.module('app').directive('typeaheadEmpty', function($timeout) {
+angular.module('app').directive('typeaheadEmpty', function ($timeout) {
   return {
     require: 'ngModel',
-    link: function(scope, element, attrs, modelCtrl) {
-      var secretEmptyKey = '[$empty$]';
-      var isEmpty = function(val) {
-        return val === '' || val === null;
-      };
-      element.on('focus', function(e) {
-        $timeout(function() {
-          if (isEmpty(modelCtrl.$viewValue)) {
-            modelCtrl.$setViewValue(secretEmptyKey);
-            modelCtrl.$$parseAndValidate();
-          }
+    link: function (scope, element, attrs, modelCtrl) {
+      var secretEmptyKey = '[$empty$]',
+        isEmpty = function (val) {
+          return val === '' || val === null || val === undefined;
+        };
+
+      element.on('click', function (e) {
+        $timeout(function () {
+          modelCtrl.$setViewValue(modelCtrl.viewValue);
+          $(e.target).trigger('change');
         });
       });
-      element.on('input', function(e) {
-        $timeout(function() {
-          if (isEmpty(modelCtrl.$viewValue)) {
-            modelCtrl.$setViewValue(secretEmptyKey);
-            modelCtrl.$$parseAndValidate();
-          }
-        });
-      });
+
       // this parser run before typeahead's parser
-      modelCtrl.$parsers.unshift(function(inputValue) {
-        var value = (!isEmpty(inputValue) ? inputValue : secretEmptyKey); // replace empty string with secretEmptyKey to bypass typeahead-min-length check
+      modelCtrl.$parsers.unshift(function (inputValue) {
+        // replace empty string with secretEmptyKey to bypass typeahead-min-length check
+        var value = (!isEmpty(inputValue) ? inputValue : secretEmptyKey);
+        modelCtrl.$setViewValue(value); // this $viewValue must match the inputValue pass to typehead directive
         return value;
       });
+
       // this parser run after typeahead's parser
-      modelCtrl.$parsers.push(function(inputValue) {
-        return inputValue === secretEmptyKey ? '' : inputValue; // set the secretEmptyKey back to empty string
+      modelCtrl.$parsers.push(function (inputValue) {
+        return inputValue === secretEmptyKey ? '' : inputValue;
       });
     }
   };

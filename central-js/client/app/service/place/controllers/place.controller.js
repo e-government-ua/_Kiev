@@ -1,8 +1,23 @@
-angular.module('app').controller('PlaceController', function($state, AdminService, $rootScope, $scope, $location, $sce, RegionListFactory, LocalityListFactory, PlacesService, ServiceService, BankIDService, regions, service) {
+angular.module('app').controller('PlaceController',
+  function($state,
+           AdminService,
+           $rootScope,
+           $scope,
+           $location,
+           $sce,
+           $modal,
+           RegionListFactory,
+           LocalityListFactory,
+           PlacesService,
+           ServiceService,
+           BankIDService,
+           regions,
+           service) {
 
   var self = this;
   var oService = ServiceService.oService;
 
+  //$scope.oService = oService;
   $scope.service = service;
   $scope.regions = regions;
   $scope.$state = $state;
@@ -23,13 +38,14 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
     var foundInRegion;
     var foundInCity;
 
-    angular.forEach(oService.aServiceData, function(service, key) {
+    angular.forEach(oService.aServiceData, function(oServiceData, key) {
       foundInCountry = oAvail.thisCountry;
-      foundInRegion = oAvail.thisRegion && service.nID_Region && service.nID_Region.nID === $scope.getRegionId();
-      foundInCity = oAvail.thisCity && service.nID_City && service.nID_City.nID === $scope.getCityId();
+      foundInRegion = oAvail.thisRegion && oServiceData.nID_Region && oServiceData.nID_Region.nID === $scope.getRegionId();
+      foundInCity = oAvail.thisCity && oServiceData.nID_City && oServiceData.nID_City.nID === $scope.getCityId();
       // if (service.nID_Region && service.nID_Region.nID === $scope.getRegionId() && service.nID_City && service.nID_City.nID === $scope.getCityId()) {
+      $scope.oService = oService;
       if (foundInCountry || foundInRegion || foundInCity) {
-        $scope.serviceData = service;
+        $scope.serviceData = oServiceData;
         if (oService.bNoteTrusted === false) {
           $scope.serviceData.sNote = $sce.trustAsHtml($scope.serviceData.sNote);
           oService.sNoteTrusted = true;
@@ -40,7 +56,10 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
     // console.info('PROCESS Place сhange, $state:', $state.current.name, ', to go:', stateToGo);
 
     // не переходити до іншого стану, якщо даний стан є кінцевим
-    if (!stateToGo || ($state.current.name === stateToGo) || $state.current.name === 'index.service.general.place.built-in.bankid' || $state.current.name === 'index.service.general.place.built-in.bankid.submitted') {
+    if (!stateToGo
+      || ($state.current.name === stateToGo)
+      || $state.current.name === 'index.service.general.place.built-in.bankid'
+      || $state.current.name === 'index.service.general.place.built-in.bankid.submitted') {
       return;
     }
 
@@ -79,4 +98,5 @@ angular.module('app').controller('PlaceController', function($state, AdminServic
     var city = place ? place.city || null : null;
     return city ? city.nID : 0;
   };
+
 });

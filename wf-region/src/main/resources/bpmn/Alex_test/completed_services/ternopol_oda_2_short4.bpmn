@@ -372,7 +372,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
                                     &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
                                     &lt;p&gt;
-                                        Нажаль Вам було відмовлено в наданні цієї послуги
+                                        На жаль Вам було відмовлено в наданні цієї послуги
 										
 										Причина такого рішення - ${decisionComment}
                                     &lt;/p&gt;

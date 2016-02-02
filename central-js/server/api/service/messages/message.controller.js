@@ -10,9 +10,9 @@ module.exports.setMessage = function (req, res, callback) {
         'sData': req.query.sData
     };
     console.log('object request: ' + req);
-    console.log('url: ' + getUrl(req, '/messages/setMessage') + ' auth: ' + getAuth(req) + ' qs: ' + params);
+    console.log('url: ' + getUrl(req, '/subject/message/setMessage') + ' auth: ' + getAuth(req) + ' qs: ' + params);
     return request.post({
-        'url': getUrl(req, '/messages/setMessage'),
+        'url': getUrl(req, '/subject/message/setMessage'),
         'auth': getAuth(req),
         'qs': params
     }, callback);
@@ -22,14 +22,14 @@ module.exports.getMessageById = function (req, callback) {
     var params = {
         'nID': req.params.nID
     };
-    return buildGetRequest(req, '/messages/getMessage', params, callback);
+    return buildGetRequest(req, '/subject/message/getMessage', params, callback);
 };
 
 module.exports.getMessages = function (req, callback) {
     var params = {
         'nID': req.params.nID
     };
-    return buildGetRequest(req, '/messages/getMessages', params, callback);
+    return buildGetRequest(req, '/subject/message/getMessages', params, callback);
 };
 
 function buildGetRequest(req, apiURL, params, callback) {

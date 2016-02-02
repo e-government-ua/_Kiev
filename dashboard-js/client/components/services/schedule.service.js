@@ -48,7 +48,7 @@ angular.module('dashboardJsApp')
       return days.join();
     };
 
-    var getSlot = function(url, sID_BP, callback){
+    var getSlot = function(url, sID_BP, nID_Department, callback){
       var cb = callback || angular.noop;
       var deferred = $q.defer();
 
@@ -57,7 +57,8 @@ angular.module('dashboardJsApp')
         url: url,
         data: {},
         params: {
-          sID_BP : sID_BP
+          sID_BP : sID_BP,
+          nID_Department : nID_Department
         }
       };
 
@@ -76,7 +77,7 @@ angular.module('dashboardJsApp')
       return deferred.promise;
     };
 
-    var setSlot = function(url, sID_BP, slot, callback){
+    var setSlot = function(url, sID_BP, nID_Department, slot, callback){
       var cb = callback || angular.noop;
       var deferred = $q.defer();
 
@@ -87,6 +88,7 @@ angular.module('dashboardJsApp')
         url: url,
         params: {
           sID_BP: sID_BP,
+          nID_Department : nID_Department,
           nID: slot.nID,
           sName: slot.sName,
           sRegionTime: slot.sRegionTime,
@@ -142,23 +144,23 @@ angular.module('dashboardJsApp')
     };
 
     return {
-      getSchedule: function(sID_BP, callback) {
-        return getSlot('/api/schedule/schedule', sID_BP, callback);
+      getSchedule: function(sID_BP, nID_Department, callback) {
+        return getSlot('/api/schedule/schedule', sID_BP, nID_Department, callback);
       },
-      setSchedule: function(sID_BP, slot, callback) {
-        return setSlot('/api/schedule/schedule', sID_BP, slot, callback);
+      setSchedule: function(sID_BP, nID_Department, slot, callback) {
+        return setSlot('/api/schedule/schedule', sID_BP, nID_Department, slot, callback);
       },
-      deleteSchedule: function(sID_BP, slotId, callback) {
-        return deleteSlot('/api/schedule/schedule', sID_BP, slotId, callback);
+      deleteSchedule: function(sID_BP, nID_Department, slotId, callback) {
+        return deleteSlot('/api/schedule/schedule', sID_BP, nID_Department, slotId, callback);
       },
-      getExemptions: function(sID_BP, callback) {
-        return getSlot('/api/schedule/exemption', sID_BP, callback);
+      getExemptions: function(sID_BP, nID_Department, callback) {
+        return getSlot('/api/schedule/exemption', sID_BP, nID_Department, callback);
       },
-      setExemption: function(sID_BP, slot, callback) {
-        return setSlot('/api/schedule/exemption', sID_BP, slot, callback);
+      setExemption: function(sID_BP, nID_Department, slot, callback) {
+        return setSlot('/api/schedule/exemption', sID_BP, nID_Department, slot, callback);
       },
-      deleteExemption: function(sID_BP, slotId, callback) {
-        return deleteSlot('/api/schedule/exemption', sID_BP, slotId, callback);
+      deleteExemption: function(sID_BP, nID_Department, slotId, callback) {
+        return deleteSlot('/api/schedule/exemption', sID_BP, nID_Department, slotId, callback);
       },
       /**
        * Get service slots grouped by days
@@ -166,7 +168,7 @@ angular.module('dashboardJsApp')
        * @param  {Function} callback - optional
        * @return {Promise}
        */
-      getFlowSlots: function(sID_BP, bAll, nDays, sDateStart, callback){
+      getFlowSlots: function(sID_BP, nID_Department, bAll, nDays, sDateStart, callback){
         var cb = callback || angular.noop;
         var deferred = $q.defer();
 
@@ -175,6 +177,7 @@ angular.module('dashboardJsApp')
           url: '/api/schedule/flowSlots',
           params: {
             sID_BP: sID_BP,
+            nID_Department: nID_Department,
             bAll: bAll,
             nDays: nDays,
             sDateStart: sDateStart
@@ -195,7 +198,7 @@ angular.module('dashboardJsApp')
         return deferred.promise;
       },
 
-      buildFlowSlots: function(sID_BP, sDateStart, sDateStop, callback){
+      buildFlowSlots: function(sID_BP, nID_Department, sDateStart, sDateStop, callback){
         var cb = callback || angular.noop;
         var deferred = $q.defer();
 
@@ -205,6 +208,7 @@ angular.module('dashboardJsApp')
           data: {},
           params: {
             sID_BP: sID_BP,
+            nID_Department: nID_Department,
             sDateStart: sDateStart,
             sDateStop: sDateStop
           }
@@ -224,7 +228,7 @@ angular.module('dashboardJsApp')
         return deferred.promise;
       },
 
-      deleteFlowSlots: function(sID_BP, sDateStart, sDateStop, bWithTickets, callback){
+      deleteFlowSlots: function(sID_BP, nID_Department, sDateStart, sDateStop, bWithTickets, callback){
         var cb = callback || angular.noop;
         var deferred = $q.defer();
 
@@ -233,6 +237,7 @@ angular.module('dashboardJsApp')
           url: '/api/schedule/flowSlots',
           params: {
             sID_BP: sID_BP,
+            nID_Department: nID_Department,
             sDateStart: sDateStart,
             sDateStop: sDateStop,
             bWithTickets: bWithTickets
@@ -262,6 +267,29 @@ angular.module('dashboardJsApp')
           params: {
             bEmployeeUnassigned: bEmployeeUnassigned,
             sDate: sDate,
+          }
+        };
+
+        $http(request).
+          success(function(data) {
+            var json = angular.fromJson(data);
+            deferred.resolve(json);
+          }).
+          error(function(err) {
+            deferred.reject(err);
+          });
+
+        return deferred.promise;
+      },
+
+      getFlowSlotDepartments: function(sID_BP) {
+        var deferred = $q.defer();
+
+        var request = {
+          method: 'GET',
+          url: '/api/schedule/getFlowSlotDepartments',
+          params: {
+            sID_BP: sID_BP
           }
         };
 

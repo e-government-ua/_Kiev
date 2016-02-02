@@ -22,6 +22,27 @@ router.use(function(req, res, next) {
 	controller.getPlaces(options, next);
 })
 
+/*router.get('/server', function(req, res, next, nID_Server) {
+	var config = require('../../config/environment');
+	var activiti = config.activiti;
+
+	var options = {
+		protocol: activiti.protocol,
+		hostname: activiti.hostname,
+		port: activiti.port,
+		path: activiti.path,
+		username: activiti.username,
+		password: activiti.password
+	};
+
+	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+	var oPlacesController = require('./index.controller');
+	var oServer = oPlacesController.getServer(options, next, nID_Server);//req.query.nID_Server || null
+	res.send(oServer);
+	res.end();
+});*/
+
 // api/places/regions - return list of regions (w/o cities)
 router.get('/regions', function(req, res, next) {
 	var places = require('./index.controller');

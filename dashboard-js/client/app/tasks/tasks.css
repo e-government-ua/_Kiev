@@ -6,21 +6,33 @@
     left: 0;
     z-index: 1000;
     display: block;
-    padding: 20px 20px 20px 60px;
+    padding: 20px 20px 20px 20px;
     overflow-x: hidden;
     overflow-y: auto;
     background-color: #f5f5f5;
-    border-right: 1px solid #eee; }
+    border-right: 1px solid #eee;
+  }
 
   .main {
     padding-top: 20px;
-    top: 51px; } }
+    top: 51px;
+  }
+}
+
 .tasks-form-view {
   overflow-y: auto; }
 
 .tasks-form-buttons {
-  height: 40px;
-  padding-top: 6px; }
+  padding-top:10px;
+}
+
+.tasks-form-buttons-clarify {
+  padding-top:25px;
+}
+
+.tasks-form-history {
+  padding-top:15px;
+}
 
 .task-form-property {
   padding-top: 6px;
@@ -45,7 +57,8 @@
 
 .task-list-header {
   display: table;
-  width: 100%; }
+  width: 100%;
+  margin-bottom: 10px; }
 
 .task-list-header-row {
   display: table-row;
@@ -62,7 +75,10 @@
   font-style: italic; }
 
 /*# sourceMappingURL=tasks.css.map */
-.submitted.ng-invalid
-{
+.submitted.ng-invalid {
   border:1px solid #f00;
+}
+
+.sort-select {
+  padding-bottom: 20px;
 }

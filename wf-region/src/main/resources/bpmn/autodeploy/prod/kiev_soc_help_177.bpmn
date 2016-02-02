@@ -4,6 +4,7 @@
     <documentation>https://github.com/e-government-ua/iBP/issues/177</documentation>
     <startEvent id="startevent1" name="Start">
       <extensionElements>
+        <activiti:formProperty id="info" name=" " type="label" default="&lt;font color='#ff0000'&gt;&lt;b&gt;Увага!&lt;/b&gt;&lt;/font&gt; Результатом цієї послуги є &lt;b&gt;надання довідки&lt;/b&gt;, а не отримання допомоги"></activiti:formProperty>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
@@ -34,8 +35,7 @@
           <activiti:value id="other_poor" name="призначення допомоги малозабезпеченим сім'ям"></activiti:value>
           <activiti:value id="other_funeral" name="призначення допомоги на поховання"></activiti:value>
           <activiti:value id="children_orphan" name="призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування"></activiti:value>
-          <activiti:value id="energy_3" name="призначення субсидії для відшкодування витрат на оплату житлово-комунальних послуг, придбання скрапленого газу, твердого пічного побутового палива"></activiti:value>
-        </activiti:formProperty>
+          </activiti:formProperty>
         <activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="markers30" name="маркер Деснянський район" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_30&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='desn'&quot;}}}"></activiti:formProperty>
         <activiti:formProperty id="notice" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
@@ -70,9 +70,8 @@
           <activiti:value id="other_poor" name="призначення допомоги малозабезпеченим сім'ям"></activiti:value>
           <activiti:value id="other_funeral" name="призначення допомоги на поховання"></activiti:value>
           <activiti:value id="children_orphan" name="призначення допомоги на дітей-сиріт та дітей, позбавлених батьківського піклування"></activiti:value>
-          <activiti:value id="energy_3" name="призначення субсидії для відшкодування витрат на оплату житлово-комунальних послуг, придбання скрапленого газу, твердого пічного побутового палива"></activiti:value>
-        </activiti:formProperty>
-        <activiti:formProperty id="rishen" name="Завантажте відскановану довідку" type="file" required="true"></activiti:formProperty>
+          </activiti:formProperty>
+        <activiti:formProperty id="rishen" name="Завантажте відскановану довідку" type="file"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
@@ -137,6 +136,7 @@ enum{[content]}
 &lt;b&gt;Шановний(-а) колего!&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 У Вас в черзі на обробку зареєстровано нове звернення щодо видачі довідки:&lt;br /&gt;
 enum{[content]} &lt;br /&gt;
+Район: enum{[area]}&lt;br /&gt;
 Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
 Опрацюйте це звернення на &lt;a href="https://region.igov.org.ua" target="_blank"&gt;порталі&lt;/a&gt;
 [pattern/mail/_common_signature.html]

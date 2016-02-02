@@ -109,7 +109,7 @@ angular.module('dashboardJsApp')
                 type: $scope.constants.durationTypes.endless,
                 range: {
                   startDate: null,
-                  endDate: null
+                  endDate: null //new Date()
                 }
               },
               weekDays: {

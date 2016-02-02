@@ -1,6 +1,32 @@
 'use strict';
 
-angular.module('dashboardJsApp').factory('PrintTemplateProcessor', ['$sce', 'Auth', '$filter', function ($sce, Auth, $filter) {
+//angular.module('dashboardJsApp').factory('PrintTemplateProcessor', ['$sce', 'Auth', '$filter', 'FieldMotionService', '$lunaService', function ($sce, Auth, $filter, FieldMotionService, lunaService) {
+angular.module('dashboardJsApp').factory('PrintTemplateProcessor', ['$sce', 'Auth', '$filter', 'FieldMotionService', function ($sce, Auth, $filter, FieldMotionService) {
+  function processMotion(printTemplate, form, fieldGetter) {
+    var formData = form.reduce(function(prev, curr) {
+      prev[curr.id] = curr;
+      return prev;
+    }, {});
+    var template = $('<div/>').append(printTemplate);
+    FieldMotionService.getElementIds().forEach(function(id) {
+      var el = template.find('#' + id);
+      if (el.length > 0 && !FieldMotionService.isElementVisible(id, formData))
+        el.remove();
+    });
+    var splittingRules = FieldMotionService.getSplittingRules();
+    form.forEach(function(e) {
+      var val = fieldGetter(e);
+      if (val && _.has(splittingRules, e.id)) {
+        var rule = splittingRules[e.id];
+        var a = val.split(rule.splitter);
+        template.find('#' + rule.el_id1).html(a[0]);
+        a.shift();
+        template.find('#' + rule.el_id2).html(a.join(rule.splitter));
+      }
+    });
+    return template.html();
+  }
+
   return {
     processPrintTemplate: function (task, form, printTemplate, reg, fieldGetter) {
       var _printTemplate = printTemplate;
@@ -48,14 +74,47 @@ angular.module('dashboardJsApp').factory('PrintTemplateProcessor', ['$sce', 'Aut
           var enumItem = item.enumValues.filter(function (enumObj) {
             return enumObj.id === enumID;
           })[0];
-          if (enumItem) {
-            return enumItem.name;
+          if (enumItem && enumItem.name) {
+            var enumItemName = enumItem.name;
+            var enumItemNameArray = enumItemName.split('|');
+            if (!_.isEmpty(enumItemNameArray[1])) {
+              return enumItemNameArray[1];
+            }
+            else {
+              return enumItemNameArray[0];
+            }
           }
         }
         else {
           return item.value;
         }
       }
+      
+      
+        function getLunaValue(id) {
+
+          // Number 2187501 must give CRC=3
+          // Check: http://planetcalc.ru/2464/
+          if(id===null || id === 0){
+            return null;
+          }
+          var n = parseInt(id);
+          var nFactor = 1;
+          var nCRC = 0;
+          var nAddend;
+
+          while (n !== 0) {
+            nAddend = Math.round(nFactor * (n % 10));
+            nFactor = (nFactor === 2) ? 1 : 2;
+            nAddend = nAddend > 9 ? nAddend - 9 : nAddend;
+            nCRC += nAddend;
+            n = parseInt(n / 10);
+          }
+
+          nCRC = nCRC % 10;
+          return nCRC;
+        }      
+      
       var printTemplate = this.processPrintTemplate(task, form, originalPrintTemplate, /(\[(\w+)])/g, fieldGetter);
       // What is this for? // Sergey P
       printTemplate = this.processPrintTemplate(task, form, printTemplate, /(\[label=(\w+)])/g, function (item) {
@@ -66,7 +125,13 @@ angular.module('dashboardJsApp').factory('PrintTemplateProcessor', ['$sce', 'Aut
         return user.lastName + ' ' + user.firstName ;
       });
       printTemplate = this.populateSystemTag(printTemplate, "[sDateCreate]", $filter('date')(task.createTime, 'yyyy-MM-dd HH:mm'));
-      return $sce.trustAsHtml(printTemplate);
+      
+      //№{{task.processInstanceId}}{{lunaService.getLunaValue(task.processInstanceId)}}
+      //$scope.lunaService = lunaService;
+      //lunaService.getLunaValue(
+      printTemplate = this.populateSystemTag(printTemplate, "[sID_Order]", task.processInstanceId+getLunaValue(task.processInstanceId)+"");
+      
+      return $sce.trustAsHtml(processMotion(printTemplate, form, fieldGetter));
     }
   }
 }]);

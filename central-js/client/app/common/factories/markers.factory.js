@@ -1,4 +1,4 @@
-angular.module('app').factory('MarkersFactory', function() {
+angular.module('app').factory('MarkersFactory', function($http) {
   var markers =
   {
     validate: {
@@ -75,13 +75,22 @@ angular.module('app').factory('MarkersFactory', function() {
         sMessage: 'Перевірте правильність заповнення поля - площа приміщення може складатися максимум з 8 цифр'
       }
       ,Numbers_Accounts: { //разрешены цифры и дефисы, буквы любые запрещены
-        aField_ID: ['house_number', 'gas_number', 'coolwater_number', 'hotwater_number', 'waterback_number', 'warming_number', 'electricity_number', 'garbage_number'],
+        aField_ID: ['!'],
+        //aField_ID: ['house_number', 'gas_number', 'coolwater_number', 'hotwater_number', 'waterback_number', 'warming_number', 'electricity_number', 'garbage_number'],
         sMessage: 'Перевірте правильність уведеного номеру (літери не дозволені до заповнення)'
+      }
+      //,CustomFormat_NumberKadastr: { //унифицированный валидатор проверки кодов/номеров(с кастомным сообщением), с заданным количеством и последовательностью знаков
+      ,CustomFormat_1: { //унифицированный валидатор проверки кодов/номеров(с кастомным сообщением), с заданным количеством и последовательностью знаков
+        aField_ID: ['landNumb'],
+        sFormat: 'хххххххххх:хх:ххх:хххх',
+        sMessage: 'Невірний кадастровий номер, введіть кадастровий номер у форматі хххххххххх:хх:ххх:хххх'
+      }
+      ,FileSign : {
+        aField_ID: ['bankId_scan_inn1','bankId_scan_passport1']
       }
     },
     attributes: {
       Editable_1: {aField_ID:['sPhone_User1', 'sMail_User1', 'bankIdlastName1'], bValue: true},
-      Editable_2: {aField_ID:[], bValue: false}
     },
     motion: {
 
@@ -91,6 +100,16 @@ angular.module('app').factory('MarkersFactory', function() {
   return {
     getMarkers: function () {
       return markers;
+    },
+    validateMarkers: function() {
+      $http.post('/api/markers/validate', markers)
+        .then(function(response) {
+          var data = response.data;
+          if (!data.valid)
+            console.error('markers validation failed', data.errors);
+          else
+            console.log('markers are valid');
+        });
     },
     grepByPrefix: function (section, prefix) {
       return _.transform(_.pairs(markers[section]), function (result, value) {

@@ -6,7 +6,7 @@
 <style>
 html, body {margin: 0; padding: 0; height: 100%; font: 400 12px/14px 'Tahoma';}
 
-.print_wrap {width: 705px; padding: 35px 25px 85px 35px; min-height: 100%; height: 100%; margin: 0 auto;}
+.print_wrap {width: 705px; padding: 35px 35px 85px 35px; min-height: 100%; height: 100%; margin: 0 auto;}
 
 .ta-r {text-align: right !important;}
 .ta-l {text-align: left !important;}
@@ -54,9 +54,9 @@ html, body {margin: 0; padding: 0; height: 100%; font: 400 12px/14px 'Tahoma';}
 }
 
 .line_col {}
-.under_field {height: 20px; margin: 0 0 20px 0; border-bottom: 1px solid black; position: relative; display: inline-block; clear: both;}
+.under_field {height: 15px; margin: 0 0 25px 0; border-bottom: 1px solid black; position: relative; display: inline-block; clear: both;}
 .under_field > i {font-style: normal;}
-.under_field > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -20px; font-size: 12px;}
+.under_field > span {position: absolute; left: 0; right: 0; text-align: center; color: #606060; bottom: -15px; font-size: 12px;}
 
 .under_field_line {height: 20px; margin: 0 0 15px 0; padding: 0 0 0 0; border-bottom: 1px solid black; position: relative; display: block;}
 .under_field_line.right_side {float: right;}
@@ -104,37 +104,41 @@ p {font-size: 11px;}
 </head>
 <body>
 <section class="print_wrap">
-    <div class="line_col ta-r">
+    <div class="line_col ta-r" id='shapka'>
         <div class="under_field w350 ta-l"><i>Начальнику управління охорони</i><span></span></div><br />
 		<div class="under_field w350 ta-l"><i>використання і відтворення водних</i><span></span></div><br />
 		<div class="under_field w350 ta-l"><i>біоресурсів та регулювання рибальства</i><span></span></div><br />
-		<div class="under_field w350 ta-l"><i>В Дніпропетровській області</i><span></span></div><br />
-    </div>
+		</div>
     <div class="line_col ta-c m-t-25">
         <b>ЗАЯВА<br /></b><br />
-        <div class="ta-l"> <b>Відповідно до статті 7 Закону України «Про дозвільну систему у сфері господарської діяльності» прошу надати дозвіл на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах (їх частинах)<span></span></div><br /></b>
-		<div class="ta-l"> [obect]<span></span></div><br />
-		<div class="under_field_line ta-l"><span>(об’єкт, на який видається документ)</span></div>
-        <div class="under_field_line ta-l">[adres_2]<span>(місцезнаходження (адреса) об’єкта, на який видається документ)</span></div>
-		<div class="under_field_line ta-l">[imya_ur]<span>(у давальному відмінку повне найменування юридичної особи / П.І.Б. фізичної особи  – підприємця)</span></div>
-		<div class="under_field_line ta-l">[kved]<span>(вид діяльності згідно з КВЕД)</span></div>
-		<div class="under_field_line ta-l">[edrpo_inn]<span>(ідентифікаційний код згідно з ЄДРПОУ або ідентифікаційний номер фізичної особи–підприємця)</span></div>
-		<div class="under_field_line ta-l">[pib]<span>(П.І.Б. керівника юридичної особи / фізичної особи  – підприємця / уповноваженої особи)</span></div>
-		<div class="under_field_line ta-l">[adres_1]<span>(місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця)</span></div>
+        <div class="ta-l" id='zagolovok'> <b>Відповідно до статті 7 Закону України «Про дозвільну систему у сфері господарської діяльності» прошу надати дозвіл на спеціальне використання водних біоресурсів у рибогосподарських водних об’єктах (їх частинах)<span></span></div><br /></b>
+		<div class="ta-l" id='obect_pf'> [obect]<span></span></div><br />
+		<div class="under_field_line ta-l" id='obect_2_pf'><span>(об’єкт, на який видається документ)</span></div>
+        <div class="under_field_line ta-l" id='adres_2_pf'>[adres_2]<span>(місцезнаходження (адреса) об’єкта, на який видається документ)</span></div>
+		<div class="under_field_line ta-l" id='imya_ur_pf'>[imya_ur]<span>(у давальному відмінку повне найменування юридичної особи)</span></div>
+		<div class="under_field_line ta-l" id='pib_fiz_pf'>[pib_fiz]<span>(П.І.Б. фізичної особи–підприємця)</span></div>
+		<div class="under_field_line ta-l" id='kved_pf'>[kved]<span>(вид діяльності згідно з КВЕД)</span></div>
+		<div class="under_field_line ta-l" id='edrpo_pf'>[edrpo]<span>(ідентифікаційний код згідно з ЄДРПОУ)</span></div>
+		<div class="under_field_line ta-l" id='bankIdinn_pf'>[bankIdinn]<span>(ідентифікаційний номер фізичної особи–підприємця)</span></div>
+		<div class="under_field_line ta-l" id='pib_ur_pf'>[pib_ur]<span>(П.І.Б. керівника юридичної особи/уповноваженої особи)</span></div>
+		<div class="under_field_line ta-l" id='adres_1_pf'>[adres_1]<span>(місцезнаходження юридичної особи)</span></div>
+		<div class="under_field_line ta-l" id='adres_0_pf'>[adres_0]<span>(місце проживання фізичної особи–підприємця)</span></div>
 		<br />
-		<div class="ta-l">телефон/факс: <span>[phone]</span></div>
-		<div class="ta-l">Спосіб одержання: <span>особисто</span></div>
+		<div class="ta-l" id='tel_pf'>телефон/факс: <span>[telef]</span></div>
+		<div class="ta-l" id='phone_pf'>телефон/факс: <span>[phone]</span></div>
+		<div class="ta-l" id='person_pf'>Спосіб одержання: <span>особисто</span></div><br />
 		    </div>
+			<div id='end_pf'>
 <div class="date_subm m-t-85">
         <div class="inv">[date_today]<span>(дата подання звернення)</span></div>
-        <div class="signature"><span>(підпис керівника юридичної особи)</span></div>
+        <div class="signature"><span>(підпис керівника)</span></div>
 		<div class="clear"></div>
     </div>
 	<br />
-	<div class="ta-l">Документи, що додаються до заяви:<span></span></div>
+	
+	<div class="ta-l">Документи, що додаються до заяви:<span></span></div><br />
 	<div class="ta-l">1. Довідка про наявність рибальских суден, дозволених знарядь лову та рибоприймальних пунктів на визначеному рибогосподарському водному об'єкті.<span></span></div>
 	<div class="ta-l">2. Програма виконання робіт, в якій визначені методи, мета та завдання робіт, типи і кількість рибальских суден, назва  і кількість необхідних знарядь лову.<span></span></div><br />
-	
 	
 	<b><div class="ta-l">Заповнюється адміністратором:<span></span></div><br /></b>
 <div class="date_subm m-t-85">
@@ -153,7 +157,7 @@ p {font-size: 11px;}
 <div class="date_subm m-t-85">
         <div class="signature"><span>(підпис заявника)</span></div>
 		<div class="clear"></div>
-    </div>			
+    </div>			   </div>
 		</section>
 </body>
 </html>

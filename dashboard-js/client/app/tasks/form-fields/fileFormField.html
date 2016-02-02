@@ -1,4 +1,4 @@
-<p ng-if="item.type == 'file' && !isFormPropertyDisabled(item)">
+<p ng-if="item.type == 'file' && !isFormPropertyDisabled(item) && item.id.indexOf('PrintForm') === -1">
               <field-title></field-title>
               <file-field name="{{item.id}}"
                           ng-disabled="isFormPropertyDisabled(item)"

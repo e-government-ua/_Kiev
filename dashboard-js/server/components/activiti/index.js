@@ -38,7 +38,7 @@ var getRequestURL = function(options) {
 	return url.format({
 		protocol: config.activiti.prot,
 		hostname: config.activiti.host,
-		port: config.activiti.port,
+    port: config.activiti.port,
 		pathname: '/' + (options.root || config.activiti.rest) + '/' + options.path,
 		query: options.query
 	});
@@ -50,9 +50,11 @@ var getRequestOptions = function(options) {
 	if (config.activiti.password) {
 		headers = _.merge(options.headers, default_headers) || default_headers;
 	}
+
 	return {
 		url: getRequestURL(options),
-		headers: headers
+		headers: headers,
+    json : options.json ? options.json : false
 	};
 };
 

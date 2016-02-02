@@ -19,7 +19,7 @@
           <activiti:value id="digital" name="Тільки Електронна версія"></activiti:value>
           <activiti:value id="physical" name="Фізична+Електронна копія  "></activiti:value>
         </activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="Заява поступає в роботу спеціалісту" activiti:candidateGroups="kuznets_mvk_3">
@@ -345,7 +345,7 @@
                                 &lt;td style="padding: 35px 120px;"&gt;
 &lt;h3&gt;Шановний(-а), ${bankIdfirstName} ${bankIdmiddleName}.&lt;/h3&gt;
 &lt;p&gt;&lt;/p&gt;
-Нажаль, державний орган не може надати вам цю послугу в даний момент. 
+На жаль, державний орган не може надати вам цю послугу в даний момент.
 &lt;p&gt;&lt;/p&gt;
 Вірогідні причини:  &lt;br /&gt;
 &lt;ol&gt;

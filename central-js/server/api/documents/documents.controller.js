@@ -1,5 +1,5 @@
 var request = require('request');
-var accountService = require('../bankid/account.service.js');
+var accountService = require('../../auth/bankid/bankid.service.js');
 var proxy = require('../../components/proxy');
 var _ = require('lodash');
 var FormData = require('form-data');
@@ -16,11 +16,11 @@ module.exports.shareDocument = function (req, res) {
     'nMS': req.query.nMS,
     'sMail': req.query.sMail
   };
-  return sendGetRequest(req, res, '/setDocumentLink', params);
+  return sendGetRequest(req, res, '/document/access/setDocumentLink', params);
 };
 
 module.exports.getDocumentFile = function (req, res) {
-  var r = request(buildGetRequest(req, '/services/getDocumentFile', {
+  var r = request(buildGetRequest(req, '/document/getDocumentFile', {
     'nID': req.params.nID,
     'sCode_DocumentAccess': req.params.sCode_DocumentAccess,
     'nID_DocumentOperator_SubjectOrgan': req.params.nID_DocumentOperator_SubjectOrgan,
@@ -34,7 +34,7 @@ module.exports.getDocumentFile = function (req, res) {
 };
 
 module.exports.getDocumentAbstract = function (req, res) {
-  var r = request(buildGetRequest(req, '/services/getDocumentAbstract', {
+  var r = request(buildGetRequest(req, '/document/getDocumentAbstract', {
     'sID': req.params.sCode_DocumentAccess,
     //'sID': req.params.nID,
     //'sCode_DocumentAccess': req.params.sCode_DocumentAccess,
@@ -50,11 +50,11 @@ module.exports.getDocumentAbstract = function (req, res) {
 
 
 module.exports.getDocumentTypes = function (req, res) {
-  return sendGetRequest(req, res, '/services/getDocumentTypes', {});
+  return sendGetRequest(req, res, '/document/getDocumentTypes', {});
 };
 
 module.exports.getDocumentOperators = function (req, res) {
-  return sendGetRequest(req, res, '/services/getDocumentOperators', {});
+  return sendGetRequest(req, res, '/document/getDocumentOperators', {});
 };
 
 module.exports.searchDocument = function (req, res) {
@@ -64,28 +64,28 @@ module.exports.searchDocument = function (req, res) {
     'nID_DocumentType': req.body.params.nID_DocumentType,
     'sPass': req.body.params.sPass
   };
-  return sendGetRequest(req, res, '/services/getDocumentAccessByHandler', params);
+  return sendGetRequest(req, res, '/document/access/getDocumentAccessByHandler', params);
 };
 
 module.exports.getDocument = function (req, res) {
   var params = {
     'nID': req.params.nID
   };
-  return sendGetRequest(req, res, '/services/getDocument', params);
+  return sendGetRequest(req, res, '/document/getDocument', params);
 };
 
 module.exports.getDocumentInternal = function (req, res, callback) {
   var params = {
     'nID': req.params.nID
   };
-  sendGetRequest(req, res, '/services/getDocument', params, callback);
+  sendGetRequest(req, res, '/document/getDocument', params, callback);
 };
 
 module.exports.index = function (req, res) {
   var params = {
     'nID_Subject': req.session.subject.nID
   };
-  return sendGetRequest(req, res, '/services/getDocuments', params);
+  return sendGetRequest(req, res, '/document/getDocuments', params);
 };
 
 module.exports.upload = function (req, res) {
@@ -115,7 +115,7 @@ module.exports.upload = function (req, res) {
     return;
   }
 
-  proxy.upload(req, res, getUrlWithParameters('/services/setDocumentFile', qs));
+  proxy.upload(req, res, getUrlWithParameters('/document/setDocumentFile', qs));
 };
 
 /*
@@ -166,12 +166,12 @@ module.exports.initialUpload = function (req, res) {
 
   var optionsForUploadContentList = typesToUpload.map(function (docType) {
     var o = {
-      'url': getUrl('/services/setDocumentFile'),
+      'url': getUrl('/document/setDocumentFile'),
       'auth': getAuth(),
       'qs': {
         'nID_Subject': nID_Subject,
         'sID_Subject_Upload': sID_Subject,
-        'sSubjectName_Upload': 'Приватбанк',
+        'sSubjectName_Upload': 'ПриватБанк',
         'sName': docType.sName,
         'nID_DocumentType': docType.nID
       }
@@ -187,9 +187,7 @@ module.exports.initialUpload = function (req, res) {
 
   var uploadScan = function (documentScan, optionsForUploadContent, callback) {
     var scanContentRequest = accountService.prepareScanContentRequest(
-      _.merge(options, {
-        url: documentScan.link
-      })
+      documentScan.link, accessToken
     );
 
     var form = new FormData();
@@ -255,7 +253,7 @@ module.exports.initialUpload = function (req, res) {
     }
   };
 
-  accountService.scansRequest(optionsForScans, scansCallback);
+  accountService.scansRequest(accessToken, scansCallback);
 };
 
 function buildGetRequest(req, apiURL, params) {

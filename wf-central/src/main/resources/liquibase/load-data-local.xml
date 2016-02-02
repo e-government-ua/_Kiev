@@ -27,9 +27,24 @@
             <column name="sLabelShort" type="STRING"/>
         </loadUpdateData>
 
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/SubjectContactType.csv" tableName="SubjectContactType" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sName_EN" type="STRING"/>
+            <column name="sName_RU" type="STRING"/>
+            <column name="sName_UA" type="STRING"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/SubjectContact.csv" tableName="SubjectContact" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_Subject" type="NUMERIC"/>
+            <column name="nID_SubjectContactType" type="NUMERIC"/>
+            <column name="sValue" type="STRING"/>
+        </loadUpdateData>
+
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/SubjectHuman.csv" tableName="SubjectHuman" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="nID_Subject" type="NUMERIC"/>
+            <column name="nID_SubjectHumanIdType" type="NUMERIC"/>
             <column name="sSB" type="STRING"/>
             <column name="sINN" type="STRING"/>
             <column name="sPassportSeria" type="STRING"/>
@@ -37,6 +52,8 @@
             <column name="sFamily" type="STRING"/>
             <column name="sName" type="STRING"/>
             <column name="sSurname" type="STRING"/>
+            <column name="nID_SubjectContact_DefaultEmail" type="NUMERIC"/>
+            <column name="nID_SubjectContact_DefaultPhone" type="NUMERIC"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/SubjectOrgan.csv" tableName="SubjectOrgan" separator=";">
@@ -99,6 +116,7 @@
             <column name="sInfo" type="STRING"/>
             <column name="sFAQ" type="STRING"/>
             <column name="sLaw" type="STRING"/>
+            <column name="nOpenedLimit" type="NUMERIC"/>
             <column name="sSubjectOperatorName" type="STRING"/>
         </loadUpdateData>
 
@@ -138,6 +156,16 @@
             <column name="nID_Place_Parent" type="NUMERIC"/>
         </loadUpdateData>
 
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Server.csv" tableName="Server" separator=";">
+            <column name="nID"          type="NUMERIC"/>
+            <column name="sID"          type="STRING"/>
+            <column name="sType"        type="STRING"/>
+            <column name="sURL_Alpha"   type="STRING"/>
+            <column name="sURL_Beta"    type="STRING"/>
+            <column name="sURL_Omega"   type="STRING"/>
+            <column name="sURL"         type="STRING"/>
+        </loadUpdateData>
+
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/ServiceData.csv" tableName="ServiceData" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="nID_Service" type="NUMERIC"/>
@@ -152,6 +180,7 @@
             <column name="bTest" type="BOOLEAN"/>
             <column name="sNote" type="STRING"/>
             <column name="asAuth" type="STRING"/>
+            <column name="nID_Server" type="NUMERIC"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/DocumentContentType.csv" tableName="DocumentContentType" separator=";">
@@ -218,13 +247,13 @@
             <column name="sID_UA"           type="STRING"/>
         </loadUpdateData>
 
-        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/HistoryEvent_Service.csv" tableName="HistoryEvent_Service" separator=";">
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/HistoryEvent_Service.csv"
+                        tableName="HistoryEvent_Service" separator=";">
             <column name="nID" type="NUMERIC"/>
             <column name="sID" type="STRING"/>
             <column name="nID_Task" type="NUMERIC"/>
             <column name="nID_Subject" type="NUMERIC"/>
-            <column name="sStatus" type="STRING"/>
-            <column name="sID_Status" type="STRING"/>
+            <column name="sUserTaskName" type="STRING"/>
             <column name="nID_Service" type="NUMERIC"/>
             <column name="nID_Region" type="NUMERIC"/>
             <column name="sID_UA" type="STRING"/>
@@ -232,9 +261,11 @@
             <column name="sToken" type="STRING"/>
             <column name="sHead" type="STRING"/>
             <column name="sBody" type="STRING"/>
-            <column name="nTimeHours" type="NUMERIC"/>
+            <column name="nTimeMinutes" type="NUMERIC"/>
             <column name="sID_Order" type="STRING"/>
             <column name="nID_Server" type="NUMERIC"/>
+            <column name="nID_Proccess_Feedback" type="NUMERIC"/>
+            <column name="nID_Proccess_Escalation" type="NUMERIC"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/SubjectMessageType.csv" tableName="SubjectMessageType" separator=";">
@@ -251,6 +282,7 @@
             <column name="sURL_CallbackStatusNew" type="STRING"/>
             <column name="sURL_CallbackPaySuccess" type="STRING"/>
             <column name="nID_SubjectOrgan" type="NUMERIC"/>
+            <column name="sID_Currency" type="STRING"/>
         </loadUpdateData>
 
         <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Country.csv" tableName="Country" separator=";">
@@ -263,7 +295,57 @@
             <column name="sReference_LocalISO" type="STRING"/>
         </loadUpdateData>
 
+        <loadUpdateData tableName="SubjectOrganJoinTax" primaryKey="nID" file="data/SubjectOrganJoinTax.csv"  encoding="UTF-8" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_SubjectOrganJoin" type="NUMERIC"/>
+            <column name="sID_UA" type="STRING"/>
+            <column name="sName_UA" type="STRING"/>
+        </loadUpdateData>
+        
+         <loadUpdateData tableName="ObjectCustoms" primaryKey="nID" encoding="UTF-8" file="data/ObjectCustoms.csv" separator=";" >
+            <column name="nID" type = "NUMERIC" />
+            <column name="sID_UA" type = "STRING" />
+            <column name="sName_UA" type = "STRING" />
+            <column name="sMeasure_UA" type = "STRING" />
+        </loadUpdateData>
+
+        <loadUpdateData tableName="SubjectMessage" primaryKey="nID" encoding="UTF-8" file="data/SubjectMessage.csv" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="sHead" type="STRING"/>
+            <column name="sBody" type="STRING"/>
+            <column name="sDate" type="STRING"/>
+            <column name="nID_Subject" type="STRING"/>
+            <column name="sMail" type="STRING"/>
+            <column name="sContacts" type="STRING"/>
+            <column name="sData" type="STRING"/>
+            <column name="nID_SubjectMessageType" type="STRING"/>
+            <column name="sBody_Indirectly" type="STRING"/>
+            <column name="nID_HistoryEvent_Service" type="NUMERIC"/>
+        </loadUpdateData>
+
+        <loadUpdateData tableName="SubjectOrganJoinAttribute" primaryKey="nID" file="data/SubjectOrganJoinAttribute.csv"  encoding="UTF-8" separator=";">
+            <column name="nID" type="NUMERIC"/>
+            <column name="nID_SubjectOrganJoin" type="NUMERIC"/>
+            <column name="sName" type="STRING"/>
+            <column name="sValue" type="STRING"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/Currency.csv" tableName="Currency" separator=";">
+            <column name="nID"          type="NUMERIC"/>
+            <column name="sID_UA"       type="STRING"/>
+            <column name="sName_UA"     type="STRING"/>
+            <column name="sName_EN"     type="STRING"/>
+            <column name="sID_Currency" type="STRING"/>
+        </loadUpdateData>
+
+        <loadUpdateData primaryKey="nID" encoding="UTF-8" file="data/ObjectEarthTarget.csv" tableName="ObjectEarthTarget" separator=";">
+            <column name="nID"        type="NUMERIC"/>
+            <column name="sID_UA"     type="STRING"/>
+            <column name="sName_UA"   type="STRING"/>
+        </loadUpdateData>
+
     </changeSet>
+  
 
 
 </databaseChangeLog>

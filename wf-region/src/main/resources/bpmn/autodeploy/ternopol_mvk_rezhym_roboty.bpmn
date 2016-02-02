@@ -7,9 +7,9 @@
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
-        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця;(якщо Ви оберете надіслати поштою - лист прийде на цю адресу)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="email" name="Електронна пошта" type="string" required="true"></activiti:formProperty>
+        <activiti:formProperty id="adress" name="Місцезнаходження юридичної особи / місце проживання фізичної особи – підприємця;(якщо Ви оберете надіслати поштою - лист прийде на цю адресу)" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="date_today" name="Вкажіть сьогоднішню дату" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="name_company" name="У давальному відмінку повне найменування юридичної особи /ім’я, по-батькові та прізвище фізичної особи-підприємця" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="code_inn" name="Ідентифікаційний код згідно з ЄДРПОУ/РНОКПП" type="string" required="true"></activiti:formProperty>
@@ -25,36 +25,158 @@
         <activiti:formProperty id="seats" name="Кількість посадкових місць (для закладів ресторанного господарства)" type="string" default=" "></activiti:formProperty>
         <activiti:formProperty id="trusted_person" name="Ім’я, по-батькові та прізвище керівника юридичної особи / фізичної особи – підприємця / уповноваженої особи" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="notice1" name="Зверніть увагу" type="label" default="&lt;strong&gt;Для успішного розгляду заяви потрібно додати усі документи, які відповідають даному типу заявника&lt;/strong&gt;"></activiti:formProperty>
-        <activiti:formProperty id="object_trade" name="Оберить об'єкт торгівлі" type="enum" required="true">
-          <activiti:value id="attr1" name="Сфера послуг та закладів ресторанного господарства в стаціонарних спорудах, павільйонах"></activiti:value>
+        <activiti:formProperty id="object_trade" name="Оберіть об'єкт торгівлі" type="enum" required="true">
+          <activiti:value id="attr1" name="Об’єкти торгівлі, сфера послуг та заклади ресторанного господарства в стаціонарних спорудах, павільйонах"></activiti:value>
           <activiti:value id="attr2" name="Торгові кіоски, тимчасови споруди, автопричепи, лотки"></activiti:value>
           <activiti:value id="attr3" name="Засоби пересувної мережі (автокав’ярні, велокав’ярні, автомобілі з реалізації питної води), торгові розноски"></activiti:value>
           <activiti:value id="attr4" name="Кіоски, лотки в стаціонарних спорудах"></activiti:value>
           <activiti:value id="attr5" name="Ринки"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="file1" name="Копія витягу з Єдиного державного реєстру юридичних осіб та фізичних осіб-підприємців" type="file" required="true"></activiti:formProperty>
-        <activiti:formProperty id="file2" name="Копія документа, що засвідчує право власності або право користування приміщенням (договір оренди (суборенди), свідоцтво про право на власність)" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file3" name="Копія висновку державної санітарно-епідеміологічної експертизи, виданого уповноваженим підрозділом Держсанепідслужби України" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file2" name="Копія документа, що засвідчує право власності на приміщення;(свідоцтво про право на власність)" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file2_1" name="Копія документа, що засвідчує право користування приміщенням;(договір оренди (суборенди))" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file3" name="Копія висновку державної санітарно-епідеміологічної експертизи, виданого уповноваженим підрозділом Держсанепідслужби України;(для об’єктів сфери послуг – заклади догляду за тілом)" type="file" default=" "></activiti:formProperty>
         <activiti:formProperty id="file4" name="Копія асортиментного переліку продукції, що реалізується (для продовольчої групи товарів), погодженого уповноваженим підрозділом Держсанепідслужби України" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file5" name="Копія документа, що засвідчує право власності або право користування земельною ділянкою" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file6" name="Копія угоди із спеціалізованим підприємством на вивезення твердих побутових відходів" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file7" name="Копія угоди на прибирання прилеглої та закріпленої території, укладеної із спеціалізованим підприємством, або зобов’язання про самостійне прибирання" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file8" name="Копія документа про готовність об’єкта до експлуатації" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file9" name="Довідка з Тернопільської ОДПІ про відсутність заборгованості по платежах до місцевого бюджету" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file10" name="Копія паспорта прив’язки тимчасової споруди, погодженого з управлінням містобудування, архітектури та кадастру Тернопільської міської ради" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file5" name="Копія документа, що засвідчує право власності на земельну ділянку" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file5_1" name="Копія документа, що засвідчує право користування земельною ділянкою" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file6" name="Копія угоди із спеціалізованим підприємством на вивезення твердих побутових відходів" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file7" name="Копія угоди на прибирання прилеглої та закріпленої території, укладеної із спеціалізованим підприємством" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file7_1" name="Зобов’язання про самостійне прибирання" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file8" name="Копія документа про готовність об’єкта до експлуатації" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file9" name="Довідка з Тернопільської ОДПІ про відсутність заборгованості по платежах до місцевого бюджету" type="file" required="true"></activiti:formProperty>
+        <activiti:formProperty id="file10" name="Копія паспорта прив’язки тимчасової споруди, погодженого з управлінням містобудування, архітектури та кадастру Тернопільської міської ради" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="file11" name="Копія погодження із відділення ДАІ м. Тернополя УМВС України в Тернопільській області місць розташування об’єктів торгівлі" type="file" default=" "></activiti:formProperty>
-        <activiti:formProperty id="file12" name="Копія рішення органу місцевого самоврядування про надання земельної ділянки для організації ринкової торгівлі" type="file" default=" "></activiti:formProperty>
+        <activiti:formProperty id="file12" name="Копія рішення органу місцевого самоврядування про надання земельної ділянки для організації ринкової торгівлі" type="file" required="true"></activiti:formProperty>
         <activiti:formProperty id="select" name="Яким чином Вам надати рішення" type="enum" required="true">
           <activiti:value id="attr1_yes" name="Отримаю власноруч"></activiti:value>
           <activiti:value id="attr2_no" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
         </activiti:formProperty>
+        <activiti:formProperty id="doclist" name="Список документів" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="markers1" name="hide fields" type="markers" default="${markerService.loadFromFile('ternopil/rezhRob.json')}"></activiti:formProperty>
         <activiti:formProperty id="notice2" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
-        <activiti:formProperty id="markers1" name="Маркер1" type="markers" default="{&quot;motion&quot;:{&quot;ShowFieldsOnNotEmpty_1&quot;:{&quot;aField_ID&quot;: [&quot;email&quot;],&quot;sField_ID_s&quot;: &quot;object_trade&quot;},&quot;ShowFieldsOnCondition_1&quot;:{&quot;aField_ID&quot;:[&quot;file2&quot;,&quot;file8&quot;,&quot;file5&quot;,&quot;file3&quot;,&quot;file4&quot;,&quot;file9&quot;,&quot;file6&quot;,&quot;file7&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;:&quot;object_trade&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr1'&quot;},&quot;ShowFieldsOnCondition_2&quot;:{&quot;aField_ID&quot;: [&quot;file10&quot;,&quot;file5&quot;,&quot;file3&quot;,&quot;file4&quot;,&quot;file9&quot;,&quot;file6&quot;,&quot;file7&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;object_trade&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr2'&quot;},&quot;ShowFieldsOnCondition_3&quot;:{&quot;aField_ID&quot;: [&quot;file3&quot;,&quot;file4&quot;,&quot;file9&quot;,&quot;file11&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;object_trade&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr3'&quot;},&quot;ShowFieldsOnCondition_4&quot;:{&quot;aField_ID&quot;: [&quot;file2&quot;,&quot;file3&quot;,&quot;file4&quot;,&quot;file9&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;object_trade&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr4'&quot;},&quot;ShowFieldsOnCondition_5&quot;:{&quot;aField_ID&quot;: [&quot;file2&quot;,&quot;file12&quot;,&quot;file8&quot;,&quot;file6&quot;],&quot;asID_Field&quot;:{&quot;sClient&quot;: &quot;object_trade&quot;},&quot;sCondition&quot;: &quot;[sClient] == 'attr5'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
-    <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
-    <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="servicetask4"></sequenceFlow>
+    <serviceTask id="servicetask1" name="Завантаження файлів" activiti:delegateExpression="#{fileTaskUpload}"></serviceTask>
+    <sequenceFlow id="flow2" sourceRef="servicetask1" targetRef="scripttask1"></sequenceFlow>
+    <scriptTask id="scripttask1" name="Передача значений" scriptFormat="javascript" activiti:autoStoreVariables="false">
+      <script>
+var per1 = ' '
+var per2 = ' '
+var per3 = ' '
+var per4 = ' '
+var per5 = ' '
+var per6 = ' '
+var per7 = ' '
+var per8 = ' '
+var per9 = ' '
+var per10 = ' '
+var per11 = ' '
+var per12 = ' '
+var res = 'res'
+if (execution.getVariable('object_trade') == 'attr1') {
+per1 = 'Копія витягу з Єдиного державного реєстру юридичних осіб та фізичних осіб-підприємців. '
+per2 = 'Копія документа про готовність об’єкта до експлуатації (для стаціонарних споруд). '
+per3 = 'Довідка з Тернопільської ОДПІ про відсутність заборгованості по платежах до місцевого бюджету. '
+per4 = 'Копія угоди із спеціалізованим підприємством на вивезення твердих побутових відходів. '
+if(execution.getVariable('file2') != null){
+per5 = 'Копія документа, що засвідчує право власності на приміщення. '
+}
+if(execution.getVariable('file2_1') != null){
+per6 = 'Копія документа, що засвідчує право користування приміщенням. '
+}
+if(execution.getVariable('file5') != null){
+per7 = 'Копія документа, що засвідчує право власності на земельну ділянку. '
+}
+if(execution.getVariable('file5_1') != null){
+per8 = 'Копія документа, що засвідчує право користування земельною ділянкою. '
+}
+if(execution.getVariable('file3') != null){
+per9 = 'Копія висновку державної санітарно-епідеміологічної експертизи, виданого уповноваженим підрозділом Держсанепідслужби України. '
+}
+if(execution.getVariable('file4') != null){
+per10 = 'Копія асортиментного переліку продукції, що реалізується, погодженого уповноваженим підрозділом Держсанепідслужби України. '
+}
+if(execution.getVariable('file7') != null){
+per11 = 'Копія угоди на прибирання прилеглої та закріпленої території, укладеної із спеціалізованим підприємством. '
+}
+if(execution.getVariable('file7_1') != null){
+per12 = 'Зобов’язання про самостійне прибирання. '
+}
+res = per1+per2+per3+per4+per5+per6+per7+per8+per9+per10+per11+per12
+}
+if (execution.getVariable('object_trade') == 'attr2') {
+per1 = 'Копія витягу з Єдиного державного реєстру юридичних осіб та фізичних осіб-підприємців. '
+per2 = 'Копія паспорта прив’язки тимчасової споруди, погодженого з управлінням містобудування, архітектури та кадастру Тернопільської міської ради. '
+per3 = 'Довідка з Тернопільської ОДПІ про відсутність заборгованості по платежах до місцевого бюджету. '
+per4 = 'Копія угоди із спеціалізованим підприємством на вивезення твердих побутових відходів. '
+if(execution.getVariable('file5') != null){
+per5 = 'Копія документа, що засвідчує право власності на земельну ділянку. '
+}
+if(execution.getVariable('file5_1') != null){
+per6 = 'Копія документа, що засвідчує право користування земельною ділянкою. '
+}
+if(execution.getVariable('file3') != null){
+per7 = 'Копія висновку державної санітарно-епідеміологічної експертизи, виданого уповноваженим підрозділом Держсанепідслужби України. '
+}
+if(execution.getVariable('file4') != null){
+per8 = 'Копія асортиментного переліку продукції, що реалізується, погодженого уповноваженим підрозділом Держсанепідслужби України. '
+}
+res = per1+per2+per3+per4+per5+per6+per7+per8
+}
+if (execution.getVariable('object_trade') == 'attr3') {
+per1 = 'Копія витягу з Єдиного державного реєстру юридичних осіб та фізичних осіб-підприємців. '
+per2 = 'Довідка з Тернопільської ОДПІ про відсутність заборгованості по платежах до місцевого бюджету. '
+if(execution.getVariable('file3') != null){
+per3 = 'Копія висновку державної санітарно-епідеміологічної експертизи, виданого уповноваженим підрозділом Держсанепідслужби України. '
+}
+if(execution.getVariable('file4') != null){
+per4 = 'Копія асортиментного переліку продукції, що реалізується, погодженого уповноваженим підрозділом Держсанепідслужби України. '
+}
+if(execution.getVariable('file11') != null){
+per5 = 'Копія погодження із відділення ДАІ м. Тернополя УМВС України в Тернопільській області місць розташування об’єктів торгівлі. '
+}
+res = per1+per2+per3+per4+per5
+}
+if (execution.getVariable('object_trade') == 'attr4') {
+per1 = 'Копія витягу з Єдиного державного реєстру юридичних осіб та фізичних осіб-підприємців. '
+per2 = 'Довідка з Тернопільської ОДПІ про відсутність заборгованості по платежах до місцевого бюджету. '
+if(execution.getVariable('file2') != null){
+per3 = 'Копія документа, що засвідчує право власності на приміщення. '
+}
+if(execution.getVariable('file2_1') != null){
+per4 = 'Копія документа, що засвідчує право користування приміщенням. '
+}
+if(execution.getVariable('file3') != null){
+per5 = 'Копія висновку державної санітарно-епідеміологічної експертизи, виданого уповноваженим підрозділом Держсанепідслужби України. '
+}
+if(execution.getVariable('file4') != null){
+per6 = 'Копія асортиментного переліку продукції, що реалізується, погодженого уповноваженим підрозділом Держсанепідслужби України. '
+}
+res = per1+per2+per3+per4+per5+per6
+}
+if (execution.getVariable('object_trade') == 'attr5') {
+per1 = 'Копія витягу з Єдиного державного реєстру юридичних осіб та фізичних осіб-підприємців. '
+per2 = 'Копія рішення органу місцевого самоврядування про надання земельної ділянки для організації ринкової торгівлі. '
+per3 = 'Копії угод із спеціалізованими підприємствами на вивезення твердих побутових відходів та прибирання прилеглої та закріпленої території. '
+per4 = 'Копія документа про готовність об’єкта до експлуатації (для стаціонарних споруд). '
+if(execution.getVariable('file2') != null){
+per5 = 'Копія документа, що засвідчує право власності на приміщення. '
+}
+if(execution.getVariable('file2_1') != null){
+per6 = 'Копія документа, що засвідчує право користування приміщенням. '
+}
+if(execution.getVariable('file5') != null){
+per7 = 'Копія документа, що засвідчує право власності на земельну ділянку. '
+}
+if(execution.getVariable('file5_1') != null){
+per8 = 'Копія документа, що засвідчує право користування земельною ділянкою. '
+}
+res = per1+per2+per3+per4+per5+per6+per7+per8
+}
+execution.setVariable('doclist', res)</script>
+    </scriptTask>
+    <sequenceFlow id="flow22" sourceRef="scripttask1" targetRef="servicetask4"></sequenceFlow>
     <userTask id="usertask1" name="Обробка ЦНАП м.Тернопіль" activiti:candidateGroups="ternop_mvk_rezhym_roboty">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string" writable="false"></activiti:formProperty>
@@ -83,7 +205,7 @@
           <activiti:value id="attr2_no" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="object_trade" name="Обраний об'єкт торгівлі" type="enum" writable="false">
-          <activiti:value id="attr1" name="Сфера послуг та закладів ресторанного господарства в стаціонарних спорудах, павільйонах"></activiti:value>
+          <activiti:value id="attr1" name="Об’єкти торгівлі, сфера послуг та заклади ресторанного господарства в стаціонарних спорудах, павільйонах"></activiti:value>
           <activiti:value id="attr2" name="Торгові кіоски, тимчасови споруди, автопричепи, лотки"></activiti:value>
           <activiti:value id="attr3" name="Засоби пересувної мережі (автокав’ярні, велокав’ярні, автомобілі з реалізації питної води), торгові розноски"></activiti:value>
           <activiti:value id="attr4" name="Кіоски, лотки в стаціонарних спорудах"></activiti:value>
@@ -97,12 +219,13 @@
           <activiti:value id="attr2_bad" name="Відмовити у розгляді без реєстрації у звязку з відсутністю необхідних документів (п.4.3. Регламенту роботи ЦНАП)"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="decisionComment" name="Якщо ви відмовляєте замовнику у наданні послуги, обов'язково вкажіть підставу у цьому полі" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="list_documents" name="Вкажіть перелік документів, які надіслав громадянин" type="textArea"></activiti:formProperty>
-        <activiti:formProperty id="sBody" name="[pattern/print/ternopol_rezhym_print.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="doclist" name="Список документів" type="invisible"></activiti:formProperty>
+        <activiti:formProperty id="sBody" name="[pattern/print/ternopil/ternopol_rezhym_print11.html]" type="invisible" default="Форма заяви гомадянина" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="markers12" name="принтформа ліст документів" type="markers" default="{&quot;motion&quot;:{&quot;ShowElementsOnTrue_1&quot;:{&quot;aElement_ID&quot;:[&quot;doc_list_1&quot;],&quot;asID_Field&quot;:{&quot;sCond&quot;:&quot;object_trade&quot;},&quot;sCondition&quot;:&quot;[sCond]=='attr1'&quot;},&quot;ShowElementsOnTrue_2&quot;:{&quot;aElement_ID&quot;:[&quot;doc_list_2&quot;],&quot;asID_Field&quot;:{&quot;sCond&quot;:&quot;object_trade&quot;},&quot;sCondition&quot;:&quot;[sCond]=='attr2'&quot;},&quot;ShowElementsOnTrue_3&quot;:{&quot;aElement_ID&quot;:[&quot;doc_list_3&quot;],&quot;asID_Field&quot;:{&quot;sCond&quot;:&quot;object_trade&quot;},&quot;sCondition&quot;:&quot;[sCond]=='attr3'&quot;},&quot;ShowElementsOnTrue_4&quot;:{&quot;aElement_ID&quot;:[&quot;doc_list_4&quot;],&quot;asID_Field&quot;:{&quot;sCond&quot;:&quot;object_trade&quot;},&quot;sCondition&quot;:&quot;[sCond]=='attr4'&quot;},&quot;ShowElementsOnTrue_5&quot;:{&quot;aElement_ID&quot;:[&quot;doc_list_5&quot;],&quot;asID_Field&quot;:{&quot;sCond&quot;:&quot;object_trade&quot;},&quot;sCondition&quot;:&quot;[sCond]=='attr5'&quot;}}}"></activiti:formProperty>
         <activiti:taskListener event="create" delegateExpression="${fileTaskUploadListener}"></activiti:taskListener>
         <activiti:taskListener event="create" delegateExpression="${fileTaskInheritance}">
           <activiti:field name="aFieldInheritedAttachmentID">
-            <activiti:expression>${file1}, ${file2}, ${file3}, ${file4}, ${file5}, ${file6}, ${file7}, ${file8}, ${file9}, ${file10}, ${file11}, ${file12},</activiti:expression>
+            <activiti:expression>${file1},${file2},${file2_1},${file3},${file4},${file5},${file5_1},${file6},${file7},${file7_1},${file8},${file9},${file10},${file11},${file12},</activiti:expression>
           </activiti:field>
         </activiti:taskListener>
       </extensionElements>
@@ -224,7 +347,7 @@
           <activiti:value id="attr2_no" name="Надішліть поштою на адресу, зазначену вище"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="object_trade" name="Обраний об'єкт торгівлі" type="enum" writable="false">
-          <activiti:value id="attr1" name="Сфера послуг та закладів ресторанного господарства в стаціонарних спорудах, павільйонах"></activiti:value>
+          <activiti:value id="attr1" name="Об’єкти торгівлі, сфера послуг та заклади ресторанного господарства в стаціонарних спорудах, павільйонах"></activiti:value>
           <activiti:value id="attr2" name="Торгові кіоски, тимчасови споруди, автопричепи, лотки"></activiti:value>
           <activiti:value id="attr3" name="Засоби пересувної мережі (автокав’ярні, велокав’ярні, автомобілі з реалізації питної води), торгові розноски"></activiti:value>
           <activiti:value id="attr4" name="Кіоски, лотки в стаціонарних спорудах"></activiti:value>
@@ -416,6 +539,9 @@
       <bpmndi:BPMNShape bpmnElement="boundaryerror1" id="BPMNShape_boundaryerror1">
         <omgdc:Bounds height="30.0" width="30.0" x="210.0" y="151.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="scripttask1" id="BPMNShape_scripttask1">
+        <omgdc:Bounds height="55.0" width="105.0" x="210.0" y="31.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="usertask1" id="BPMNShape_usertask1">
         <omgdc:Bounds height="73.0" width="105.0" x="562.0" y="107.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
@@ -432,7 +558,7 @@
         <omgdc:Bounds height="35.0" width="35.0" x="385.0" y="404.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent2" id="BPMNShape_endevent2">
-        <omgdc:Bounds height="35.0" width="35.0" x="972.0" y="404.0"></omgdc:Bounds>
+        <omgdc:Bounds height="35.0" width="35.0" x="974.0" y="402.0"></omgdc:Bounds>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape bpmnElement="endevent3" id="BPMNShape_endevent3">
         <omgdc:Bounds height="35.0" width="35.0" x="940.0" y="126.0"></omgdc:Bounds>
@@ -463,8 +589,14 @@
         <omgdi:waypoint x="140.0" y="144.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
-        <omgdi:waypoint x="245.0" y="144.0"></omgdi:waypoint>
-        <omgdi:waypoint x="281.0" y="143.0"></omgdi:waypoint>
+        <omgdi:waypoint x="192.0" y="107.0"></omgdi:waypoint>
+        <omgdi:waypoint x="192.0" y="58.0"></omgdi:waypoint>
+        <omgdi:waypoint x="210.0" y="58.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow22" id="BPMNEdge_flow22">
+        <omgdi:waypoint x="315.0" y="58.0"></omgdi:waypoint>
+        <omgdi:waypoint x="337.0" y="58.0"></omgdi:waypoint>
+        <omgdi:waypoint x="333.0" y="108.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow5" id="BPMNEdge_flow5">
         <omgdi:waypoint x="732.0" y="419.0"></omgdi:waypoint>
@@ -482,7 +614,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="927.0" y="419.0"></omgdi:waypoint>
-        <omgdi:waypoint x="972.0" y="421.0"></omgdi:waypoint>
+        <omgdi:waypoint x="974.0" y="419.0"></omgdi:waypoint>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">
         <omgdi:waypoint x="458.0" y="421.0"></omgdi:waypoint>

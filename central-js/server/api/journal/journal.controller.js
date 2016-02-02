@@ -21,7 +21,7 @@ module.exports.getHistoryEvents = function(req, res) {
         + '://'
         + options.hostname
         + options.path
-        + '/services/getHistoryEvents';
+        + '/action/event/getHistoryEvents';
 
     var callback = function(error, response, body) {
         res.send(body);
@@ -47,7 +47,7 @@ module.exports.setHistoryEvent = function(req, res) {
         + '://'
         + options.hostname
         + options.path
-        + '/services/setHistoryEvent';
+        + '/action/event/setHistoryEvent';
 
     var callback = function(error, response, body) {
         console.log(body);

@@ -47,9 +47,9 @@ angular.module('dashboardJsApp')
           }
         }, 'modal-success');
         warningModal.result.then(function (selectedItem) {
-          dismissCallback();          
+          dismissCallback();
         }, function () {
-          dismissCallback();           
+          dismissCallback();
         });
 
       },
@@ -77,7 +77,9 @@ angular.module('dashboardJsApp')
             }, 'modal-info');
 
             warningModal.result.then(function(event) {
-              callBack.apply(event, args);
+              if(callBack){
+                callBack.apply(event, args);
+              }
             });
           };
         },
@@ -108,8 +110,8 @@ angular.module('dashboardJsApp')
             }, function () {
               callBack.apply(event, args);
             });
-            
-            
+
+
           };
         },
 
@@ -164,7 +166,9 @@ angular.module('dashboardJsApp')
             }, 'modal-warning');
 
             warningModal.result.then(function(event) {
-              callBack.apply(event, args);
+              if(callBack){
+                callBack.apply(event, args);
+              }
             });
           };
         }

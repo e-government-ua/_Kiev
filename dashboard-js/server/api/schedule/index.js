@@ -18,4 +18,6 @@ router.post('/buildFlowSlots', controller.buildFlowSlots);
 router.delete('/flowSlots', controller.deleteFlowSlots);
 router.get('/getFlowSlotTickets', controller.getFlowSlotTickets);
 
+router.get('/getFlowSlotDepartments', controller.getFlowSlotDepartments);
+
 module.exports = router;

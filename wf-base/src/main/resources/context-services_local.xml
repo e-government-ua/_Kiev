@@ -3,20 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-
-
-
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
-	<beans>
-
-        <mvc:interceptors>
-            <mvc:interceptor>
-                <mvc:mapping path="/**" />
-                    <bean class="org.activiti.rest.interceptor.RequestProcessingInterceptor" />
-                </mvc:interceptor>
-        </mvc:interceptors>
-
-    </beans>
+    <!-- =========================== !!! ATTENTION !!! DONT REMOVE AND DOND MODYDY THIS FILE !!! ATTENTION !!! ======================= -->
+    <!-- ======================= !!! ATTENTION !!! ITS ONLY FOR REPLACEMENT BY INHERITE PROJECT !!! ATTENTION !!! ==================== -->
     
 </beans>

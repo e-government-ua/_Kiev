@@ -1,166 +1,235 @@
 ﻿<div ng-include="'components/navbar/navbar.html'" class="navbar-fixed-top"></div>
 
-<div class="container" ng-style="printModalState.show && {'overflow-y':'hidden'}" ng-init="init()">
-
-  <div class="container__in">
-    <div class="row">
-      <div class="col-xs-5 sidebar">
-        <div class="tasks">
-          <div ng-if="sSelectedTask=='tickets'" class="tasks-tickets-list-header">
-            <div class="tickets-assign">
-              <input type="checkbox" ng-model="ticketsFilter.bEmployeeUnassigned" id="ticketsFilter_bEmployeeUnassigned" ng-change="applyTicketsFilter()"
-              />
-              <label for="ticketsFilter_bEmployeeUnassigned">Тільки не взяті в обробку</label>
-            </div>
-            <div class="tickets-date">
-              <a href ng-repeat="mode in ticketsFilter.dateModeList" ng-click="setTicketsDateMode(mode.key)" ng-class="{'selected':ticketsFilter.dateMode==mode.key}"
-              class="tickets-date-mode">{{mode.title}}</a>
-              <input type="date" class="form-control" ng-model="ticketsFilter.sDate" ng-change="applyTicketsFilter()" ng-if="ticketsFilter.dateMode=='date'"
-              />
-            </div>
-            <div class="clearfix"></div>
-          </div>
-
-          <div class="sort-select" ng-if="sSelectedTask!='tickets' && sSelectedTask!='tickets'">
-            <div class="task-list-header">
-              <div class="task-list-header-row">
-                <div class="task-list-header-cell">
-                  <input ng-model="searchTask.orderId" class="task-list-header-search"
-                         placeholder="Введіть № звернення для пошуку"
-                         size="35" ng-keyup="($event.keyCode === 13)?searchTaskByOrder():0"/>
-                </div>
-                <div class="task-list-header-cell">
-                  <input ng-model="searchTask.text" class="task-list-header-search"
-                         placeholder="Введіть текст для пошуку"
-                         size="35" ng-keyup="($event.keyCode === 13)?searchTaskByText():0"/>
-                </div>
-                <div class="right-aligned task-list-header-cell">
-                  Сортувати: 
-                  <select ng-options="option.value as option.text for option in sortOrderOptions"
-                          ng-model="selectedSortOrder.selected"
-                          ng-change="selectedSortOrderChanged()">
-                  </select>
-                  <!--<select>
-                    <option onselect="sortorder('createTime',true)">Від найдавніших</option>
-                    <option onselect="order('createTime',false)">Від найновіших</option>
-                  </select>-->
-                </div>
-              </div>
-              <div ng-show="$storage.menuType == 'selfAssigned' || $storage.menuType == 'unassigned'">Фільтр за статусом
-                <select ng-options="option.name for option in taskDefinitions track by option.id" ng-model="model.taskDefinition" ng-change="taskDefinitionsFilterChange(option)">
-                </select><small ng-hide="!tasks">{{ filteredTasks.length }} з {{ tasks.length }}</small>
-              </div>
-            </div>
-          </div>
-          <div class="list-group">
-            <div ng-if="filteredTasks===null">
-              <h3>Завантаження списку...</h3>
-            </div>
-
-            <div ng-if="filteredTasks!==null && filteredTasks.length==0">
-              <h3>Задач не знайдено</h3>
-            </div>
-
-            <div ng-if="filteredTasks!==null  && filteredTasks.length>0">
-
-              <div ng-if="sSelectedTask=='tickets'">
-                <a class="list-group-item task {{sSelectedTask}}_{{task.id}}" href="" tooltip="Слот №{{task.nID_FlowSlot}} (Задача №{{task.nID_Task_Activiti}}, Процесс №{{task.nID_Instance}})"
-                ng-repeat="task in tasks" ng-click="selectTask(task)" ng-class="{'active': isTaskSelected(task)}">
-                  <span class="ticket-date-time">{{task.sDateStart|date:'yyyy-MM-dd HH:mm'}}</span>, №{{task.nID_Instance}}{{lunaService.getLunaValue(task.nID_Instance)}},
-                  (Тікет №{{task.nID}})
-                  <br/> {{task.sNameBP}}. {{task.sUserTaskName}}.
-                </a>
-              </div>
-
-              <div ng-if="sSelectedTask!='tickets'">
-                <a class="list-group-item task {{sSelectedTask}}_{{task.processInstanceId}} {{ sTaskClass(task.taskDefinitionKey) }}" href=""
-                    ng-repeat="task in filteredTasks | orderBy:predicate:reverse"
-                    tooltip="{{task.description}} (Задача №{{task.id}}, Процесс №{{task.processDefinitionId}})"
-                    ng-click="selectTask(task)"
-                    ng-class="{'active': isTaskSelected(task)}">
-                  <span class="ticket-date-time">{{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}</span>
-                  №{{task.processInstanceId}}{{lunaService.getLunaValue(task.processInstanceId)}} {{ getProcessName(task.processDefinitionId)
-                  }} | {{ task.name }}
-
-                </a>
-              </div>
-
-            </div>
-
-          </div>
+<div class="row no-horizontal-margin" ng-style="printModalState.show && {'overflow-y':'hidden'}" ng-init="init()">
+  <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 sidebar">
+    <div class="tasks">
+      <div ng-if="sSelectedTask=='tickets'" class="tasks-tickets-list-header">
+        <div class="tickets-assign">
+          <input type="checkbox" ng-model="ticketsFilter.bEmployeeUnassigned" id="ticketsFilter_bEmployeeUnassigned" ng-change="applyTicketsFilter()"
+          />
+          <label for="ticketsFilter_bEmployeeUnassigned">Тільки не взяті в обробку</label>
         </div>
+        <div class="tickets-date">
+          <a href ng-repeat="mode in ticketsFilter.dateModeList" ng-click="setTicketsDateMode(mode.key)" ng-class="{'selected':ticketsFilter.dateMode==mode.key}"
+          class="tickets-date-mode">{{mode.title}}</a>
+
+          <input datetimepicker
+                 class="form-control date-picker"
+                 type="text"
+                 ng-change="applyTicketsFilter()"
+                 options="{{ticketsFilter.options}}"
+                 format="YYYY-MM-DD"
+                 ng-if="ticketsFilter.dateMode=='date'"
+                 ng-model="ticketsFilter.sDate" />
+        </div>
+        <div class="clearfix"></div>
       </div>
-      <div class="col-xs-7 col-xs-offset-5 main tasks-form">
-        <div class="tasks-form-view">
-          <h3 ng-show="selectedTask && taskForm == null && !error">Завантаження ...</h3>
 
-          <show-error data="error" ng-show="error"></show-error>
-
-          <div ng-repeat="item in taskForm" class="task-form-property" ng-show="selectedTask">
-
-            <div ng-if="['string', 'long', 'date'].indexOf(item.type) > -1">
-              <field-title></field-title>
-              <simple-field></simple-field>
+      <div class="sort-select" ng-if="sSelectedTask!='tickets' && sSelectedTask!='tickets'">
+        <div class="task-list-header">
+          <div class="task-list-header-row">
+            <div class="task-list-header-cell">
+              <input ng-model="searchTask.orderId" class="task-list-header-search"
+                     placeholder="Введіть № звернення для пошуку"
+                     size="35" ng-keyup="($event.keyCode === 13)?searchTaskByOrder():0"/>
             </div>
-
-            <textarea-field></textarea-field>
-
-            <user-field></user-field>
-
-            <enum-field></enum-field>
-
-            <file-formfield></file-formfield>
-
-            <p style="display: none;" ng-if="['invisible'].indexOf(item.type) > -1">
-              <field-title></field-title>
-            </p>
-
-            <p ng-if="['label'].indexOf(item.type) > -1">
-              <field-title></field-title>
-              <label>{{item.value}}</label>
-            </p>
-
-            <p ng-if="['queueData'].indexOf(item.type) > -1">
-              <field-title></field-title>
-              <label title="{{nID_FlowSlotTicket_FieldQueueData(item.value)}}">{{sDate_FieldQueueData(item.value)}}</label>
-            </p>
-
-
-          </div>
-
-          <div ng-show="attachments">
-            <p ng-repeat="item in attachments" ng-show="taskFormLoaded">
-              Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content/{{($index+1)}}" target="_blank"><b>{{item.name}}</b></a>              {{item.description}}
-            </p>
+            <div class="task-list-header-cell">
+              <input ng-model="searchTask.text" class="task-list-header-search"
+                     placeholder="Введіть текст для пошуку"
+                     size="35" ng-keyup="($event.keyCode === 13)?searchTaskByText():0"/>
+            </div>
+            <div class="right-aligned task-list-header-cell">
+              Сортувати:
+              <select ng-options="option.value as option.text for option in sortOrderOptions"
+                      ng-model="selectedSortOrder.selected"
+                      ng-change="selectedSortOrderChanged()">
+              </select>
+              <!--<select>
+                <option onselect="sortorder('createTime',true)">Від найдавніших</option>
+                <option onselect="order('createTime',false)">Від найновіших</option>
+              </select>-->
+            </div>
           </div>
         </div>
-        <div class="tasks-form-buttons">
-          <p ng-if="selectedTask">
-            <div ng-hide="selectedTask.assignee != null">
-              <puttowork-button></puttowork-button>
+          <div ng-show="$storage.menuType == 'selfAssigned' || $storage.menuType == 'unassigned'">
+            <form class="form-horizontal">
+
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Фільтр за групою статусів</label>
+              <div class="col-sm-8">
+              <select class="form-control input-sm" ng-options="option.name for option in taskDefinitions track by option.id" ng-model="model.taskDefinition" ng-change="taskDefinitionsFilterChange(option)">
+              </select>
+              </div>
             </div>
-            <div ng-hide="selectedTask.assignee == null">
-              <submittask-button></submittask-button>
-              <br/>
-              <br/>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Фільтр БП</label>
+              <div class="col-sm-8">
+                <span ng-hide="userProcessesLoaded">Завантаження списку...</span>
+                <select class="form-control input-sm" ng-hide="!userProcessesLoaded" ng-options="option.sName for option in userProcesses track by option.sID" ng-model="model.userProcess" ng-change="userProcessFilterChange()"></select>
+              </div>
             </div>
-            <!--div ng-hide="selectedTask.assignee == null || sSelectedTask == 'finished'">
-              <button ng-hide="!taskFormLoaded || sSelectedTask == 'finished'" ng-click="print()" class="btn btn-success">Роздрукувати
-              </button>
-            </div-->
-          
-            <div ng-hide="selectedTask.assignee === null || sSelectedTask == 'finished'">
-              <button ng-hide="!taskFormLoaded || !selectedTask" ng-click="print()" class="btn btn-success">Роздрукувати
-              </button>
+
+            <div class="form-group" ng-hide="!strictTaskDefinitions.length || model.userProcess.sID == 'all'">
+              <label class="col-sm-4 control-label">Фільтр за статусом</label>
+              <div class="col-sm-8">
+                <select class="form-control input-sm" ng-options="option.name for option in strictTaskDefinitions track by option.id" ng-model="model.strictTaskDefinition" ng-change="strictTaskDefinitionFilterChange(option)"></select>
+              </div>
             </div>
-            <select class="aPatternPrint form-control" ng-options="option.displayTemplate for option in printTemplateList track by option.id" ng-required ng-model="model.printTemplate" ng-hide="printTemplateList.length == 0 || selectedTask.assignee === null || sSelectedTask === 'finished'" >
-            </select>
-          </p>
+            <button class="btn btn-default btn-xs pull-right" ng-click="resetTaskFilters()">Скинути фільтри</button>
+            <small ng-hide="!tasks || !filteredTasks">{{ filteredTasks.length }} з {{ tasks.length }} задач.</small>
+
+            </form>
+          </div>
+      </div>
+      <div class="list-group">
+        <div ng-if="filteredTasks===null">
+          <h3>Завантаження списку...</h3>
         </div>
+
+        <div ng-if="filteredTasks!==null && filteredTasks.length==0">
+          <h3>Задач не знайдено</h3>
+        </div>
+
+        <div ng-if="filteredTasks!==null  && filteredTasks.length>0">
+
+          <div ng-if="sSelectedTask=='tickets'">
+            <a class="list-group-item task {{sSelectedTask}}_{{task.id}}" href="" title="Слот №{{task.nID_FlowSlot}} (Задача №{{task.nID_Task_Activiti}}, Процесс №{{task.nID_Instance}})"
+            ng-repeat="task in tasks" ng-click="selectTask(task)" ng-class="{'active': isTaskSelected(task)}">
+              <span class="ticket-date-time">{{task.sDateStart|date:'yyyy-MM-dd HH:mm'}}</span>, №{{task.nID_Instance}}{{lunaService.getLunaValue(task.nID_Instance)}},
+              (Тікет №{{task.nID}})
+              <br/> {{task.sNameBP}}. {{task.sUserTaskName}}.
+            </a>
+          </div>
+
+          <div ng-if="sSelectedTask!='tickets'">
+            <a class="list-group-item task {{sSelectedTask}}_{{task.processInstanceId}} {{ sTaskClass(task.taskDefinitionKey) }}" href=""
+                ng-repeat="task in filteredTasks | orderBy:predicate:reverse"
+                title="{{task.description}} (Задача №{{task.id}}, Процесс №{{task.processDefinitionId}})"
+                ng-click="selectTask(task)"
+                ng-class="{'active': isTaskSelected(task)}">
+              <span class="ticket-date-time">{{ task.createTime ? sDateShort(task.createTime) : sDateShort(task.startTime) }}{{ task.endTime ? ' - ' + sDateShort(task.endTime) : '' }}</span>
+              №{{task.processInstanceId}}{{lunaService.getLunaValue(task.processInstanceId)}} {{ getProcessName(task.processDefinitionId)
+              }} | {{ task.name }}
+
+            </a>
+          </div>
+
+        </div>
+
       </div>
     </div>
+  </div>
+  <div class="col-lg-7 col-lg-offset-5 col-md-7 col-md-offset-5 col-sm-7 col-sm-offset-5 col-xs-7 col-xs-offset-5 main tasks-form">
+    <div class="tasks-form-view">
+      <h3 ng-show="selectedTask && taskForm == null && !error">Завантаження ...</h3>
+
+      <show-error data="error" ng-show="error"></show-error>
+
+      <div>
+        <h4 ng-show="selectedTask && taskForm != null && $storage.menuType == 'all' && selectedTask.assignee">Призначено на : {{selectedTask.assignee}}</h4>
+        <h4 ng-show="selectedTask && taskForm != null && $storage.menuType == 'all' && selectedTask.assignee == null">Вільний тікет</h4>
+        <button ng-show="selectedTask && taskForm != null && $storage.menuType == 'all' && selectedTask.assignee" ng-click="unassign()" class="btn btn-success">Відкріпити
+        </button>
+      </div>
+
+      <div ng-repeat="item in taskForm" class="task-form-property" ng-show="selectedTask">
+
+        <span ng-if="['string', 'long'].indexOf(item.type) > -1">
+          <field-title></field-title>
+          <simple-field></simple-field>
+        </span>
+        <span ng-if="['date'].indexOf(item.type) > -1">
+          <field-title></field-title>
+          <date-field></date-field>
+        </span>
+
+        <textarea-field></textarea-field>
+
+        <user-field></user-field>
+
+        <enum-field></enum-field>
+
+        <file-formfield></file-formfield>
+
+        <span style="display: none;" ng-if="['invisible'].indexOf(item.type) > -1">
+          <field-title></field-title>
+        </span>
+
+        <span ng-if="['label'].indexOf(item.type) > -1">
+          <field-title></field-title>
+          <label>{{item.value}}</label>
+        </span>
+
+        <span ng-if="['queueData'].indexOf(item.type) > -1">
+          <field-title></field-title>
+          <label title="{{nID_FlowSlotTicket_FieldQueueData(item.value)}}">{{sDate_FieldQueueData(item.value)}}</label>
+        </span>
+
+        <div ng-if="clarify && item.writable && (item.type==='string' || item.type==='textArea' || item.type==='date')"> <!--item.writable-->
+          <input type="checkbox" ng-model="clarifyFields[item.id].clarify" id="{{item.id}}_clarify"/>
+          <label for="{{item.id}}_clarify">Уточнити</label>
+
+          <div ng-if="clarifyFields[item.id].clarify">
+            <textarea ng-model="clarifyFields[item.id].text" class="form-control"
+              placeholder="Уточнення для {{sFieldLabel(item.name)}}"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div ng-show="attachments">
+        <p ng-repeat="item in attachments" ng-show="taskFormLoaded">
+          Файл: <a href="/api/tasks/{{taskId}}/attachments/{{item.id}}/content/{{($index+1)}}"
+                   target="_blank"><b>{{item.description}}</b> ({{item.name}})</a>
+          <button type="button" class="btn btn-success"
+                  ng-disabled="checkSignState.inProcess"
+                  ng-show="taskFormLoaded"
+                  ng-click="checkAttachmentSign(taskId, item.id, item.description)"
+                  ng-if="sSelectedTask=='selfAssigned'">Перевірити підпис</button>
+        </p>
+      </div>
+
+    </div>
+
+    <hr>
+
+    <div class="tasks-form-buttons" ng-if="selectedTask">
+
+        <div ng-hide="selectedTask.assignee === null || sSelectedTask === 'finished' || sSelectedTask === 'all'" style="padding-top:5px;">
+            <button ng-hide="!taskFormLoaded || !selectedTask" ng-click="print()" class="btn btn-success">Роздрукувати</button>
+            <select class="aPatternPrint form-control" ng-options="option.displayTemplate for option in printTemplateList track by option.id" ng-required ng-model="model.printTemplate" ng-hide="printTemplateList.length == 0 || selectedTask.assignee === null || sSelectedTask === 'finished'" >
+            </select>
+        </div>
+
+        <div ng-if="!clarify" style="padding-top:5px;">
+          <puttowork-button ng-hide="selectedTask.assignee != null || $storage.menuType == 'all'"></puttowork-button>
+          <submittask-button ng-hide="selectedTask.assignee == null || $storage.menuType == 'all'"></submittask-button>
+        </div>
+
+        <div class="tasks-form-buttons-clarify" ng-if="sSelectedTask=='selfAssigned'" style="/*padding-top:25px;*/">
+          <button ng-if="!clarify" type="button" class="btn btn-success" ng-click="clarifyToggle()">Внести зауваження</button>
+          <div ng-if="clarify" style="padding-top:5px;">
+            <textarea class="form-control" placeholder="Коментар до зауваження" ng-model="clarifyModel.sBody"></textarea>
+            <button type="button" class="btn btn-success" ng-click="clarifySend()">Відправити зауваження</button>
+            <button type="button" class="btn btn-default" ng-click="clarifyToggle()">Відміна</button>
+          </div>
+        </div>
+
+    </div>
+
+    <div class="tasks-form-history" ng-show="aOrderMessage && aOrderMessage!==null && aOrderMessage.length>0" style="/*padding-top:15px;*/">
+        <h4>Історія диалогу:</h4>
+        <br>
+        <div ng-repeat="oMessage in aOrderMessage" ng-show="taskFormLoaded">
+          <div class="row">
+              <span><b>{{oMessage.sDate}}</b>&nbsp;{{oMessage.sHead}}</span>
+          </div>
+          <div class="row" ng-bind-html="oMessage.sBody">
+          </div>
+        </div>
+    </div>
+
   </div>
 </div>
 
 <print-dialog></print-dialog>
-
+<sign-info-content-dialog></sign-info-content-dialog>

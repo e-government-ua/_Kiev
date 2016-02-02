@@ -1,4 +1,6 @@
-﻿<div>
+<!DOCTYPE html>
+<html>
+        <meta charset="utf-8">
         <style type="text/css">
         html, body {margin: 0; padding: 0; height: 100%; font: 400 14px/16px 'Tahoma';}
 
@@ -73,7 +75,7 @@
 
 .month-fl {width: 225px; float: right; height: 21px; padding: 0 5px 0 10px; background: white; text-align: right;}
 .month-fl.left {float: left; padding: 0 5px 0 0;}
-.month-fl > span {height: 20px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
+.month-fl > span {height: 40px; margin: 0 5px 0 0; border-bottom: 1px solid black; display: inline-block;}
 .month-fl > span:nth-child(1) {width: 35px;}
 .month-fl > span:nth-child(2) {width: 120px;}
 .month-fl > span:nth-child(3) {width: 40px;}
@@ -121,10 +123,11 @@ p {font-size: 11px;}
         <div class="under_field_line wub ta-l">Прошу Вас дати дозвіл на розробку проекту землеустрою щодо відведення земельної ділянки для [destination] загальною площею [total_area] га, яка розташована по вул. [adress2], з подальшою передачею у власність/в оренду.</div>
     </div>
     <div class="date_subm m-t-85">
-        <div class="month-fl-sm"><span></span><span></span>2015 р.</div>
+        [sDateCreate]
+        <!--<div class="month-fl-sm"><span></span></div>-->
         <div class="signature"><span>(підпис)</span></div>
         <div class="clear"></div>
     </div>
     <div class="clear"></div>
 </section>
-</div>
+</html>

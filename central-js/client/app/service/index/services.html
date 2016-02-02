@@ -115,7 +115,7 @@
         <i class="glyphicon glyphicon-plus"></i>&nbsp;Додати послугу
       </a>
       <ul class="list-unstyled">
-        <li ng-repeat="service in subcategory.aService | orderBy: ['-nStatus', 'sName'] | limitTo: limit as services">
+        <li ng-repeat="service in subcategory.aService | orderBy: ['-nStatus', 'nOrder', 'sName'] | limitTo: limit as services">
           <div class="spacer10"></div>
           <p>
             <a ui-sref="index.service.general({'id': service.nID })"

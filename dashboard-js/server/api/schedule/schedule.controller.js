@@ -6,7 +6,8 @@ exports.getSchedule = function(req, res) {
   var options = {
     path: 'flow/getSheduleFlowIncludes',
     query: {
-      sID_BP: req.query.sID_BP
+      sID_BP: req.query.sID_BP,
+      nID_Department: req.query.nID_Department,
     }
   };
 
@@ -24,6 +25,7 @@ exports.setSchedule = function(req, res) {
     path: 'flow/setSheduleFlowInclude',
     query: {
       sID_BP: req.query.sID_BP,
+      nID_Department: req.query.nID_Department,
       nID: req.query.nID,
       sName: req.query.sName,
       sRegionTime: req.query.sRegionTime,
@@ -50,6 +52,7 @@ exports.deleteSchedule = function(req, res) {
     path: 'flow/removeSheduleFlowInclude',
     query: {
       sID_BP: req.query.sID_BP,
+      nID_Department: req.query.nID_Department,
       nID: req.query.nID
     }
   };
@@ -67,7 +70,8 @@ exports.getExemptions = function(req, res) {
   var options = {
     path: 'flow/getSheduleFlowExcludes',
     query: {
-      sID_BP: req.query.sID_BP
+      sID_BP: req.query.sID_BP,
+      nID_Department: req.query.nID_Department,
     }
   };
 
@@ -85,6 +89,7 @@ exports.setExemption = function(req, res) {
     path: 'flow/setSheduleFlowExclude',
     query: {
       sID_BP: req.query.sID_BP,
+      nID_Department: req.query.nID_Department,
       nID: req.query.nID,
       sName: req.query.sName,
       sRegionTime: req.query.sRegionTime,
@@ -108,6 +113,7 @@ exports.deleteExemption = function(req, res) {
     path: 'flow/removeSheduleFlowExclude',
     query: {
       sID_BP: req.query.sID_BP,
+      nID_Department: req.query.nID_Department,
       nID: req.query.nID
     }
   };
@@ -126,6 +132,7 @@ exports.getFlowSlots = function(req, res) {
     path: 'flow/getFlowSlots_ServiceData',
     query: {
       sID_BP: req.query.sID_BP,
+      nID_Department: req.query.nID_Department,
       bAll: req.query.bAll,
       nDays: req.query.nDays,
       sDateStart: req.query.sDateStart
@@ -146,6 +153,7 @@ exports.buildFlowSlots = function(req, res) {
     path: 'flow/buildFlowSlots',
     query: {
       sID_BP: req.query.sID_BP,
+      nID_Department: req.query.nID_Department,
       sDateStart: req.query.sDateStart,
       sDateStop: req.query.sDateStop
     }
@@ -162,6 +170,7 @@ exports.deleteFlowSlots = function(req, res) {
     path: 'flow/clearFlowSlots',
     query: {
       sID_BP: req.query.sID_BP,
+      nID_Department: req.query.nID_Department,
       sDateStart: req.query.sDateStart,
       sDateStop: req.query.sDateStop,
       bWithTickets: req.query.bWithTickets
@@ -198,4 +207,21 @@ exports.getFlowSlotTickets = function(req, res) {
       res.status(statusCode).json(result);
     }
   });
+};
+
+exports.getFlowSlotDepartments = function(req, res) {
+  var options = {
+    path: 'flow/getFlowSlots_Department',
+    query: {
+      sID_BP: req.query.sID_BP
+    }
+  };
+
+  activiti.get(options, function(error, statusCode, result) {
+    if (error) {
+      res.send(error);
+    } else {
+      res.status(statusCode).json(result);
+    }
+  })
 };

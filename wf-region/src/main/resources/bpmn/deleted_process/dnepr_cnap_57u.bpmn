@@ -21,7 +21,7 @@
         <activiti:formProperty id="Date" name="Дата подання декларації" type="date" required="true"></activiti:formProperty>
         <activiti:formProperty id="dovir" name="Завантажте скан-копію довіреності;якщо документи подає довірена особа" type="file"></activiti:formProperty>
         <activiti:formProperty id="sBody_1" name="sBody" type="invisible" default=" "></activiti:formProperty>
-        <activiti:formProperty id="text" name="Зверніть увагу:" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
+        <activiti:formProperty id="text" name="Зверніть увагу" type="label" default="Замовляючи послугу Ви надаєте згоду на обробку Ваших персональних даних та підтверджуєте їх актуальність."></activiti:formProperty>
         </extensionElements>
     </startEvent>
     <serviceTask id="mailtask1" name="Лист про отримання заявки" activiti:type="mail">

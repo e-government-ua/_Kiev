@@ -18,16 +18,18 @@
     "array-query": "^0.1.1",
     "form-data": "0.2.0",
     "async": "1.2.0",
-    "node-uuid": "^1.0.0",
+    "node-uuid": "1.4.3",
     "method-override": "~1.0.0",
     "serve-favicon": "~2.0.1",
     "cookie-parser": "~1.0.1",
     "cookie-session": "1.1.0",
     "passport": "~0.2.0",
     "passport-oauth2": "1.1.2",
+    "oauth" : "0.9.14",
     "errorhandler": "~1.0.0",
     "compression": "~1.0.1",
-    "jade": "1.10.0"
+    "jade": "1.10.0",
+    "ajv":"2.5.0"
   },
   "devDependencies": {
     "grunt": "~0.4.4",
@@ -39,7 +41,8 @@
     "grunt-contrib-copy": "~0.5.0",
     "grunt-contrib-cssmin": "~0.9.0",
     "grunt-contrib-htmlmin": "~0.2.0",
-    "grunt-contrib-imagemin": "~0.7.1",
+    "grunt-contrib-imagemin": "0.9.0",
+    "vinyl-fs": "2.2.1",
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-contrib-uglify": "0.9.1",
     "grunt-contrib-watch": "~0.6.1",
@@ -80,7 +83,9 @@
     "karma-phantomjs-launcher": "~0.1.4",
     "karma": "~0.12.9",
     "karma-ng-html2js-preprocessor": "~0.1.0",
-    "supertest": "~0.11.0",
+    "supertest": "1.1.0",
+    "supertest-as-promised": "2.0.2",
+    "supertest-session": "1.2.0",
     "should": "~3.3.1",
     "js-yaml": "~3.3.1",
     "whet.extend": "~0.9.9",
@@ -96,7 +101,11 @@
     "isarray":"0.0.1",
     "string_decoder":"0.10.31",
     "chalk":"1.1.0",
-    "chai":"3.3.0"
+    "chai":"3.3.0",
+    "nock":"3.1.1",
+    "urlencode":"1.1.0",
+    "esprima": "~2.2.0",
+    "keypair":"1.0.0"
   },
   "engines": {
     "node": ">=0.10.25"

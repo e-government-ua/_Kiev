@@ -25,7 +25,7 @@
         <i class="glyphicon glyphicon-plus"></i>&nbsp;Додати послугу
       </a>
     </div>
-    <div ng-repeat="service in subcategory.aService | orderBy: ['-nSub', 'sName'] ">
+    <div ng-repeat="service in subcategory.aService | orderBy: ['-nStatus', 'nOrder', 'sName'] ">
       <ul class="list-unstyled">
         <li>
           <a ui-sref="index.service.general({'id': service.nID })"

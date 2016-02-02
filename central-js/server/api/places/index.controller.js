@@ -3,6 +3,23 @@ var NodeCache = require("node-cache" );
 var arrayQuery = require('array-query');
 
 var placesCache = new NodeCache();
+//var aServerCache = new NodeCache();
+
+
+/*function findServer(nID_Server) {
+	var sURL_Key = 'api/places/server?nID=' + nID_Server;
+	var sURL_Value = aServerCache.get(sURL_Key);
+
+	if(sURL_Value) {
+		return sURL_Value;
+	}
+        return null;
+};*/
+
+/*function getStructureServer(nID_Server) {
+	var structureKey = 'api/places/server?nID='+nID_Server;
+	return aServerCache.get(structureKey) || null;
+};*/
 
 function getStructure() {
 	var structureKey = 'api/places';
@@ -91,6 +108,57 @@ function findCities(region, search) {
 };
 
 module.exports = {
+	/*getServer: function(options, next, nID_Server) {
+            
+                if(options && options!==null){
+                    console.log("options=none");
+                }else{
+                    console.log("options="+options);
+                    var config = require('../../config/environment');
+                    var activiti = config.activiti;
+
+                    var options = {
+                            protocol: activiti.protocol,
+                            hostname: activiti.hostname,
+                            port: activiti.port,
+                            path: activiti.path,
+                            username: activiti.username,
+                            password: activiti.password
+                    };
+
+                }
+                process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+            
+		var structureValue = getStructureServer(nID_Server);
+
+		if(structureValue) {
+                    console.log("structureValue="+structureValue);
+                        if(next && next!==null){
+                    console.log("next()");
+                            next();
+                        }
+			return structureValue;
+		}
+
+		var sURL = options.protocol+'://'+options.hostname+options.path+'/subject/getServer?nID='+nID_Server;
+                    console.log("sURL="+sURL);
+		return request.get({
+			'url': sURL,
+			'auth': {
+				'username': options.username,
+				'password': options.password
+			}
+		}, function(error, response, body) {
+                    console.log("body="+body);
+			aServerCache.set('api/places/server?nID='+nID_Server, JSON.parse(body), 86400);
+                        if(next && next!==null){
+                    console.log("next()");
+                            next();
+                        }
+                    console.log("body="+body);
+			return JSON.parse(body);
+		});
+	},*/
 	getPlaces: function(options, next) {
 		var structureValue = getStructure();
 
@@ -99,7 +167,7 @@ module.exports = {
 			return;
 		}
 
-		var url = options.protocol+'://'+options.hostname+options.path+'/services/getPlaces';
+		var url = options.protocol+'://'+options.hostname+options.path+'/object/place/getPlaces';
 		return request.get({
 			'url': url,
 			'auth': {
@@ -112,6 +180,7 @@ module.exports = {
 			return;
 		});
 	},
+	//getServer: findServer,
 	getRegions: findRegions,
 	getRegion: findRegion,
 	getCities: findCities,

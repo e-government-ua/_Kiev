@@ -16,7 +16,7 @@
 
     <!-- ==============================   LOG   ============================= -->
 
-    <bean id="logExceptionResolver" class="org.wf.dp.dniprorada.logging.LogExceptionsResolver">
+    <bean id="logExceptionResolver" class="org.igov.service.exception.LogExceptionsResolver">
         <property name="order" value="-1000"/>
     </bean>
 

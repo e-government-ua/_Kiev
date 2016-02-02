@@ -1,36 +1,40 @@
-<div class="navbar navbar-default navbar-static-top" ng-controller="NavbarCtrl">
-  <div class="container">
-    <div class="navbar-header">
-      <button class="navbar-toggle" type="button" ng-click="isCollapsed = !isCollapsed">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a href="https://igov.org.ua" class="navbar-brand">igov.org.ua</a>
-    </div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="navbar navbar-default navbar-static-top i-gov-navbar" ng-controller="NavbarCtrl">
+      <div class="navbar-header i-gov-navbar-instruments-container" ng-show="isLoggedIn()">
+        <a href="#" class="i-gov-navbar-instruments" ng-click="iGovNavbarHelper.areInstrumentsVisible = !iGovNavbarHelper.areInstrumentsVisible">
+          <img ng-show="!iGovNavbarHelper.areInstrumentsVisible" src="assets/images/u93.png">
+          <img ng-show="iGovNavbarHelper.areInstrumentsVisible" src="assets/images/u95.png">
+        </a>
+      </div>
 
-    <div collapse="isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+      <div collapse="iGovNavbarHelper.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
 
-      <ul class="nav navbar-nav">
-        <li ng-repeat="menu in menus"
-            ng-show="isLoggedIn()"
-            ng-class="{active: isTaskFilterActive(menu.type)}">
-            <a ng-attr-id="{{menu.type}}" ng-click="applyTaskFilter(menu.type)">{{menu.title}}
-            <!--<a ng-if="menu.type!=='finished'" ng-attr-id="{{menu.type}}" ng-click="applyTaskFilter(menu.type)">{{menu.title}}-->
-            <span class="label label-info">{{menu.count}}</span>
-          </a>
-        </li>
-      </ul>
+        <ul class="nav navbar-nav" ng-show="!iGovNavbarHelper.areInstrumentsVisible">
+          <li ng-repeat="menu in menus"
+              ng-show="isVisible(menu.type)"
+              ng-class="{active: isTaskFilterActive(menu.type)}">
+              <a ng-attr-id="{{menu.type}}" ng-click="!!tasksLoading || applyTaskFilter(menu.type)">{{menu.title}}
+              <span class="label label-info">{{menu.count}}</span>
+            </a>
+          </li>
+        </ul>
 
-      <ul ng-show="isLoggedIn()" class="nav navbar-nav navbar-right">
-        <li><a href="" ng-click="goToServices()">Сервіс</a></li>
-        <li><a ng-attr-id="{{menu.type}}" ng-click="goToReports()">Звіти</a></li>
-        <li><a href="" ng-click="goToTasks()">Задачі</a></li>
-        <li><a href="" ng-click="goToEscalations()">Ескалації</a></li>
-        <li><a href="" ng-click="goToTasks()">{{ getCurrentUserName()}}</a></li>
-        <li ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Вийти</a></li>
-      </ul>
+        <ul class="nav navbar-nav" ng-show="isLoggedIn() && iGovNavbarHelper.areInstrumentsVisible">
+          <li ng-show="iGovNavbarHelper.isTest"><a href="" ng-click="goToUsers()">Користувачі</a></li>
+          <li ng-show="iGovNavbarHelper.isTest"><a href="" ng-click="goToGroups()">Групи</a></li>
+          <li ng-show="iGovNavbarHelper.isTest"><a href="" ng-click="goToEscalations()">Ескалації</a></li>
+          <li><a ng-attr-id="{{menu.type}}" ng-click="goToReports()">Звіт</a></li>
+          <li ng-show="iGovNavbarHelper.isTest"><a href="" ng-click="goToServices()">Розклад</a></li>
+          <li ng-show="!iGovNavbarHelper.isTest"><a href="" ng-click="goToTasks()">Задачі</a></li>
+          <li ng-show="iGovNavbarHelper.isTest"><a href="" ng-click="">Розгортання</a></li>
+        </ul>
+
+        <ul ng-show="isLoggedIn()" class="nav navbar-nav navbar-right">
+          <li><a href="" ng-click="goToTasks()">{{ getCurrentUserName()}}</a></li>
+          <li ng-class="{active: isActive('/logout')}"><a href="" ng-click="logout()">Вийти</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

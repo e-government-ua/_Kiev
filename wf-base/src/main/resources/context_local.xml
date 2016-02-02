@@ -13,9 +13,7 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
+    <!-- =========================== !!! ATTENTION !!! DONT REMOVE AND DOND MODYDY THIS FILE !!! ATTENTION !!! ======================= -->
+    <!-- ======================= !!! ATTENTION !!! ITS ONLY FOR REPLACEMENT BY INHERITE PROJECT !!! ATTENTION !!! ==================== -->
     
-    <beans>
-
-    </beans>
-
 </beans>

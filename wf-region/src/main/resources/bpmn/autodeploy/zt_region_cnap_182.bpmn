@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
-  <process id="zt_region_cnap_182" name="ЦНАП - Житомірська обл. Надання рішення міської ради про надання дозволів на розробку проектів землеустрою щодо відведення земельних ділянок" isExecutable="true">
+  <process id="zt_region_cnap_182" name="ЦНАП - Житомирська обл. Надання рішення міської ради про надання дозволів на розробку проектів землеустрою щодо відведення земельних ділянок" isExecutable="true">
     <startEvent id="startevent1" name="Start">
       <extensionElements>
         <activiti:formProperty id="bankIdlastName" name="Прізвище" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdfirstName" name="Ім'я" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdmiddleName" name="По-батькові" type="string"></activiti:formProperty>
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string"></activiti:formProperty>
-        <activiti:formProperty id="region" name="Регіон" type="string"></activiti:formProperty>
+        <activiti:formProperty id="region" name="Регіон" type="invisible"></activiti:formProperty>
         <activiti:formProperty id="area" name="Оберить ЦНАП району до якого ви відноситесь" type="enum" required="true">
           <activiti:value id="andrush" name="ЦНАП Андрушівської РДА"></activiti:value>
           <activiti:value id="baran" name="ЦНАП Баранівської РДА"></activiti:value>

@@ -1,3 +1,6 @@
-nID;nID_Subject;sSB;sINN;sPassportSeria;sPassportNumber;sFamily;sName;sSurname
-1;2;314542353425125;2872618515;AN;11223344;Белявцев;Владимир;Владимирович
-2;3;314542353425126;34567;AN;22334455;Кузьминова;Ольга;Владимировна
+nID;nID_Subject;nID_SubjectHumanIdType;sSB;sINN;sPassportSeria;sPassportNumber;sFamily;sName;sSurname;nID_SubjectContact_DefaultEmail;nID_SubjectContact_DefaultPhone
+1;2;0;314542353425125;2872618515;AN;11223344;Белявцев;Владимир;Владимирович;NULL;NULL
+2;3;0;314542353425126;34567;AN;22334455;Кузьминова;Ольга;Владимировна;NULL;NULL
+3;23;2;0;345670;AN;1234567;Тестовый;Тест;Тестович;1;NULL
+4;24;2;0;345671;AN;1234560;Тестовый1;Тест1;Тестович1;1;NULL
+5;25;0;0;345672;AN;1234561;Тестовый2;Тест2;Тестович2;NULL;NULL

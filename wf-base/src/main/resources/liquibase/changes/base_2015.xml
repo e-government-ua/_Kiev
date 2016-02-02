@@ -38,7 +38,7 @@
                              columnNames="sID_BP, nID_SubjectOrganDepartment"/>
     </changeSet>
 
-    <changeSet id="issue-791-dropConstraint-postgresql" author="brunneng" dbms="postgresql">
+    <changeSet id="issue-791-dropConstraint-postgresql" author="brunneng" dbms="postgresql" failOnError="false">
         <dropUniqueConstraint constraintName="Flow_ServiceData_nID_ServiceData_key" tableName="Flow_ServiceData"
                               uniqueColumns="nID_ServiceData"/>
     </changeSet>
@@ -78,5 +78,77 @@
     </changeSet>
 
     <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-908-create-table" author="bl">
+        <createTable tableName="FlowLink">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nID_Flow_ServiceData" type="bigint">
+                <constraints nullable="false"
+                             foreignKeyName="FK_FlowLink_Flow_ServiceData"
+                             referencedTableName="Flow_ServiceData" referencedColumnNames="nID" deleteCascade="true"/>
+            </column>
+            <column name="nID_Service" type="bigint">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="issue-908-auto-increment-h2" author="bl" dbms="h2">
+        <addAutoIncrement tableName="FlowLink" columnName="nID" startWith="1000" columnDataType="bigint"/>
+    </changeSet>
+
+    <!-- ####################################################################################################### -->
+
+    <!--changeSet id="issue-973-addColumn_BW_drop" author="bw" failOnError="false">
+        <dropColumn columnName="nID_SubjectOrganDepartment" tableName="FlowLink"/>
+    </changeSet-->
+
+    <changeSet id="issue-973-addColumn_BW_add" author="redfox" failOnError="false">
+        <addColumn tableName="FlowLink">
+            <column name="nID_SubjectOrganDepartment" type="bigint">              
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <!-- ####################################################################################################### -->
+
+    <changeSet id="issue-984-addTableEscalationStatus" author="nickveremeichyk">
+        <createTable tableName="EscalationStatus">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sID" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sNote" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="issue-984-addTableEscalationHistory" author="nickveremeichyk">
+        <createTable tableName="EscalationHistory">
+            <column name="nID" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="sDate" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_Process" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_Process_Root" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_UserTask" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nID_EscalationStatus" type="NUMERIC">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 
 </databaseChangeLog>

@@ -11,13 +11,45 @@
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" required="true"></activiti:formProperty>
         <activiti:formProperty id="phone" name="Контактний телефон" type="string" default="+380" required="true"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть відділення фіскальної служби; в якому вам буде зручно отримати довідку" type="enum" required="true">
-          <activiti:value id="dnepr_and" name="Дніпропетровськ - АНД (пров. Універсальний, 12)|0461"></activiti:value>
+         <activiti:value id="dnepr_and" name="Дніпропетровськ - АНД (пров. Універсальний, 12)|0461"></activiti:value>
           <activiti:value id="dnepr_babush" name="Дніпропетровськ - Бабушкінський (вул. Героїв Сталінграду, 25)|0462"></activiti:value>
           <activiti:value id="dnepr_october" name="Дніпропетровськ - Жовтневий (вул. Високовольтна, 24)|0463"></activiti:value>
           <activiti:value id="dnepr_left" name="Дніпропетровськ - Лівобережний (пр-т Газети Правда, 95-А)|0464"></activiti:value>
           <activiti:value id="dnepr_kirov" name="Дніпропетровськ - Кіровський (вул. Горького, 22)|0465"></activiti:value>
           <activiti:value id="dnepr_red_guard" name="Дніпропетровськ - Красногвардійський (вул. Театральна, 1-А)|0466"></activiti:value>
           <activiti:value id="dnepr_lenin" name="Дніпропетровськ - Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
+          <activiti:value id="uvileine" name="смт Ювілейне (вул. Теплична, 13)|0417"></activiti:value>
+          <activiti:value id="apostol" name="Апостолове  (вул. Леніна, 63)|0414"></activiti:value>
+          <activiti:value id="varvarivka" name="с.Варварівка (вул. Пристанційна, 1)|0435"></activiti:value>
+          <activiti:value id="vasilkovka" name="смт.Васильківка (вул. Партизанська, 150)|0415"></activiti:value>
+          <activiti:value id="volnogorsk" name="Вільногірськ (б-р Миру, 15)|0401"></activiti:value>
+          <activiti:value id="verhnedneprovsk" name="Верхньодніпровськ (пл. Щербицького, 2)|0416"></activiti:value>
+          <activiti:value id="dniprodzerzhinsk" name="Дніпродзержинськ (вул. Медична, 9)|0403"></activiti:value>
+          <activiti:value id="zhovtivodi" name="Жовті Води (вул. Першотравнева, 24А)|0404"></activiti:value>
+          <activiti:value id="krrog1" name="Кривий Ріг (вул. Кобилянського, 148 а)|0418"></activiti:value>
+          <activiti:value id="krrog2" name="Кривий Ріг (пр-т. Джержинського, 42)|0481"></activiti:value>
+          <activiti:value id="krrog3" name="Кривий Ріг (пр-т. Металургів, 16)|0482"></activiti:value>
+          <activiti:value id="krrog4" name="Кривий Ріг (вул. Кремлівська, 4)|0483"></activiti:value>
+          <activiti:value id="krinichki" name="смт. Кринички (вул. Нагірна, 2)|0419"></activiti:value>
+          <activiti:value id="magdalinovka" name="смт. Магдалинівка (вул. Радянська, 44)|0420"></activiti:value>
+          <activiti:value id="marganec" name="Марганець (вул. П.Тичини, 11)|0406"></activiti:value>
+          <activiti:value id="tomakovka" name="смт. Томаківка (вул. Леніна, 41)|0432"></activiti:value>
+          <activiti:value id="mezhova" name="смт. Межова (вул. Фрунзе, 1)|0421"></activiti:value>
+          <activiti:value id="nikopol" name="Нікополь (пр-т. Трубників, 27)|0407"></activiti:value>
+          <activiti:value id="novomoskovsk" name="Новомосковськ (вул. М.Головко, 30)|0408"></activiti:value>
+          <activiti:value id="ordgo" name="Орджонікідзе (вул. Горького, 7)|0409"></activiti:value>
+          <activiti:value id="pavlograd" name="Павлоград (вул. Верстатобудівельників, 14-А)|0410"></activiti:value>
+          <activiti:value id="pershotravensk" name="Першотравенськ (вул. Шкільна, 35)|0411"></activiti:value>
+          <activiti:value id="petrikivka" name="смт. Петриківка (вул. Леніна, 38)|0426"></activiti:value>
+          <activiti:value id="petropavlivka" name="смт. Петропавлівка (вул. Радянська, 62)|0425"></activiti:value>
+          <activiti:value id="pokrovske" name="смт. Покровське (вул. 40 років жовтня, 13)|0427"></activiti:value>
+          <activiti:value id="5xatki" name="П'ятихатки (вул. Шевченка, 116)|0428"></activiti:value>
+          <activiti:value id="sinelnikove" name="Синельниково (вул. Воїнів-інтернаціоналістів, 2)|0412"></activiti:value>
+          <activiti:value id="solone" name="смт. Солоне (вул. Гагаріна, 12А)|0430"></activiti:value>
+          <activiti:value id="sofievka" name="смт. Софіївка (вул. Меліоративна, 3)|0431"></activiti:value>
+          <activiti:value id="ternovka" name="Тернівка (вул. Петрова, 9)|0413"></activiti:value>
+          <activiti:value id="carichanka" name="смт. Царичанка (вул. 14-ї дивізії, 8)|0433"></activiti:value>
+          <activiti:value id="shiroke" name="смт. Широке (вул. К.Маркса, 1А)|0434"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="subekt" name="Ви хочете замовити витяг по собі або по іншому підприємству?" type="enum" default="fiz">
           <activiti:value id="fiz" name="по собі"></activiti:value>
@@ -30,6 +62,44 @@
         <activiti:formProperty id="info_1" type="label" default="&lt;a href=&quot;https://docs.google.com/document/d/17kd6pC_2PwfDgk1zJpZ6D1BkTRMJqDQLIAYq_9Pvri0/edit&quot; target=&quot;_blank&quot;&gt;примітка&lt;/a&gt;"></activiti:formProperty>
         <activiti:formProperty id="info_2" name="Заповніть бланк" type="label" default="Завантажте &lt;a href=&quot;https://docs.google.com/document/d/1op393ACpXsaPwewbuvn4yir-8oskEXy83RcSXOuUnco/edit&quot; target=&quot;_blank&quot;&gt;бланк&lt;/a&gt;, заповніть, накладіть на нього електронно-цифровий підпис та додайте у наступному полі."></activiti:formProperty>
         <activiti:formProperty id="zapit" name="Заповнений бланк" type="file" required="true"></activiti:formProperty>
+     	<activiti:formProperty id="rName" name="номер району" type="invisible"></activiti:formProperty>
+     	<activiti:formProperty id="markers30" name="маркер Амур-Нижньодніпровський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_30&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;29&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='and'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers31" name="маркер Бабушкінський району" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_31&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;30&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='babush'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers32" name="маркер Дніпропетровськ - Жовтневий" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_32&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;31&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='dnepr_october'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers33" name="маркер Дніпропетровськ - Лівобережний" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_33&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;32&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='dnepr_left'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers34" name="маркер Дніпропетровськ - Кіровський" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_34&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;33&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='dnepr_kirov'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers35" name="маркер Дніпропетровськ - Красногвардійський" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_35&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;34&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='dnepr_red_guard'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers36" name="маркер Дніпропетровськ - Ленінський" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_36&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;35&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='dnepr_lenin'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers37" name="маркер с.Варварівка" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_37&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;28&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='varvarivka'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers38" name="маркер смт.Васильківка" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_38&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;13&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='vasilkovka'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers39" name="маркер Вільногірськ" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_39&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;1&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='volnogorsk'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers40" name="маркер Верхньодніпровськ" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_40&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;14&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='verhnedneprovsk'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers41" name="маркер Жовті Води" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_41&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;3&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='zhovtivodi'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers42" name="маркер Кривий Ріг" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_42&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;16&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krrog1'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers43" name="маркер центр Кривий Ріг" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_43&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;36&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krrog2'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers44" name="маркер південний Кривий Ріг" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_44&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;37&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krrog3'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers45" name="маркер півничний Кривий Ріг" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_45&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;38&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krrog4'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers46" name="маркер смт. Кринички" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_46&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;17&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='krinichki'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers47" name="маркер смт. Магдалинівка" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_47&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;18&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='magdalinovka'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers48" name="маркер смт Ювілейне" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_48&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;15&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='uvileine'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers49" name="маркер Марганець" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_49&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;4&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='marganec'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers50" name="маркер смт. Межова" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_50&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;19&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='mezhova'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers51" name="маркер м.Нікополь" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_51&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;5&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='nikopol'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers52" name="маркер м.Новомосковськ" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_52&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;6&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='novomoskovsk'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers53" name="маркер м.Павлоград" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_53&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;8&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='pavlograd'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers54" name="маркер м.Першотравенськ" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_54&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;9&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='pershotravensk'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers55" name="маркер м.Орджонікідзе" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_55&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;7&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='ordgo'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers56" name="маркер смт. Петриківка" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_56&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;21&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='petrikivka'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers57" name="маркер смт. Петропавлівка" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_57&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;20&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='petropavlivka'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers58" name="маркер смт. Покровське" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_58&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;22&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='pokrovske'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers59" name="маркер П'ятихатки" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_59&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;23&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='5xatki'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers60" name="маркер Синельниково" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_60&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;10&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='sinelnikove'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers61" name="маркер смт. Солоне" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_61&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;24&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='solone'&quot;}}}"></activiti:formProperty>
+ 		<activiti:formProperty id="markers62" name="маркер смт. Софіївка" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_62&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;33&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='sofievka'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers63" name="маркер Тернівка" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_63&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;34&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='ternovka'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers64" name="маркер смт. Царичанка" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_64&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;35&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='carichanka'&quot;}}}"></activiti:formProperty>
+		<activiti:formProperty id="markers65" name="маркер смт. Широке" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_65&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;36&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='shiroke'&quot;}}}"></activiti:formProperty>
+        <activiti:formProperty id="markers66" name="маркер смт. Томаківка" type="markers" default="{&quot;motion&quot;:{&quot;ValuesFieldsOnCondition_66&quot;:{&quot;aField_ID&quot;:[&quot;rName&quot;], &quot;asID_Field_sValue&quot;:[&quot;39&quot;],&quot;asID_Field&quot;:{&quot;sReason&quot;:&quot;area&quot;},&quot;sCondition&quot;:&quot;[sReason]=='tomakovka'&quot;}}}"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <userTask id="usertask1" name="надання адміністративної послуги" activiti:candidateGroups="dfs_dnepr_vutyag_nalog_${area}_${subekt}">
@@ -38,7 +108,7 @@
         <activiti:formProperty id="bankIdPassport" name="Паспортні дані" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="bankIdinn" name=" ІПН" type="string" writable="false"></activiti:formProperty>
         <activiti:formProperty id="email" name="E-Mail адреса для зворотнього зв'язку" type="string" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="phone" name="Контактний телефон" type="long" default="38" writable="false"></activiti:formProperty>
+        <activiti:formProperty id="phone" name="Контактний телефон" type="long" writable="false"></activiti:formProperty>
         <activiti:formProperty id="area" name="Виберіть відділення фіскальної служби; в якому вам буде зручно отримати довідку" type="enum" writable="false">
           <activiti:value id="dnepr_and" name="Дніпропетровськ - АНД (пров. Універсальний, 12)|0461"></activiti:value>
           <activiti:value id="dnepr_babush" name="Дніпропетровськ - Бабушкінський (вул. Героїв Сталінграду, 25)|0462"></activiti:value>
@@ -47,6 +117,38 @@
           <activiti:value id="dnepr_kirov" name="Дніпропетровськ - Кіровський (вул. Горького, 22)|0465"></activiti:value>
           <activiti:value id="dnepr_red_guard" name="Дніпропетровськ - Красногвардійський (вул. Театральна, 1-А)|0466"></activiti:value>
           <activiti:value id="dnepr_lenin" name="Дніпропетровськ - Ленінський (вул. Шаумяна, 5)|0467"></activiti:value>
+          <activiti:value id="uvileine" name="смт Ювілейне (вул. Теплична, 13)|0417"></activiti:value>
+          <activiti:value id="apostol" name="Апостолове  (вул. Леніна, 63)|0414"></activiti:value>
+          <activiti:value id="varvarivka" name="с.Варварівка (вул. Пристанційна, 1)|0435"></activiti:value>
+          <activiti:value id="vasilkovka" name="смт.Васильківка (вул. Партизанська, 150)|0415"></activiti:value>
+          <activiti:value id="volnogorsk" name="Вільногірськ (б-р Миру, 15)|0401"></activiti:value>
+          <activiti:value id="verhnedneprovsk" name="Верхньодніпровськ (пл. Щербицького, 2)|0416"></activiti:value>
+          <activiti:value id="dniprodzerzhinsk" name="Дніпродзержинськ (вул. Медична, 9)|0403"></activiti:value>
+          <activiti:value id="zhovtivodi" name="Жовті Води (вул. Першотравнева, 24А)|0404"></activiti:value>
+          <activiti:value id="krrog1" name="Кривий Ріг (вул. Кобилянського, 148 а)|0418"></activiti:value>
+          <activiti:value id="krrog2" name="Кривий Ріг (пр-т. Джержинського, 42)|0481"></activiti:value>
+          <activiti:value id="krrog3" name="Кривий Ріг (пр-т. Металургів, 16)|0482"></activiti:value>
+          <activiti:value id="krrog4" name="Кривий Ріг (вул. Кремлівська, 4)|0483"></activiti:value>
+          <activiti:value id="krinichki" name="смт. Кринички (вул. Нагірна, 2)|0419"></activiti:value>
+          <activiti:value id="magdalinovka" name="смт. Магдалинівка (вул. Радянська, 44)|0420"></activiti:value>
+          <activiti:value id="marganec" name="Марганець (вул. П.Тичини, 11)|0406"></activiti:value>
+          <activiti:value id="tomakovka" name="смт. Томаківка (вул. Леніна, 41)|0432"></activiti:value>
+          <activiti:value id="mezhova" name="смт. Межова (вул. Фрунзе, 1)|0421"></activiti:value>
+          <activiti:value id="nikopol" name="Нікополь (пр-т. Трубників, 27)|0407"></activiti:value>
+          <activiti:value id="novomoskovsk" name="Новомосковськ (вул. М.Головко, 30)|0408"></activiti:value>
+          <activiti:value id="ordgo" name="Орджонікідзе (вул. Горького, 7)|0409"></activiti:value>
+          <activiti:value id="pavlograd" name="Павлоград (вул. Верстатобудівельників, 14-А)|0410"></activiti:value>
+          <activiti:value id="pershotravensk" name="Першотравенськ (вул. Шкільна, 35)|0411"></activiti:value>
+          <activiti:value id="petrikivka" name="смт. Петриківка (вул. Леніна, 38)|0426"></activiti:value>
+          <activiti:value id="petropavlivka" name="смт. Петропавлівка (вул. Радянська, 62)|0425"></activiti:value>
+          <activiti:value id="pokrovske" name="смт. Покровське (вул. 40 років жовтня, 13)|0427"></activiti:value>
+          <activiti:value id="5xatki" name="П'ятихатки (вул. Шевченка, 116)|0428"></activiti:value>
+          <activiti:value id="sinelnikove" name="Синельниково (вул. Воїнів-інтернаціоналістів, 2)|0412"></activiti:value>
+          <activiti:value id="solone" name="смт. Солоне (вул. Гагаріна, 12А)|0430"></activiti:value>
+          <activiti:value id="sofievka" name="смт. Софіївка (вул. Меліоративна, 3)|0431"></activiti:value>
+          <activiti:value id="ternovka" name="Тернівка (вул. Петрова, 9)|0413"></activiti:value>
+          <activiti:value id="carichanka" name="смт. Царичанка (вул. 14-ї дивізії, 8)|0433"></activiti:value>
+          <activiti:value id="shiroke" name="смт. Широке (вул. К.Маркса, 1А)|0434"></activiti:value>
         </activiti:formProperty>
         <activiti:formProperty id="subekt" name="Тип суб'єкта правових відносин" type="enum" writable="false">
           <activiti:value id="fiz" name="Фізична особа"></activiti:value>
@@ -78,7 +180,7 @@
     <serviceTask id="servicetask4" name="Повідомлення співробітника держоргану" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[yfnf_rexth@ukr.net]]></activiti:string>
+          <activiti:string><![CDATA[darja.grek@gmail.com]]></activiti:string>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[noreply@igov.org.ua]]></activiti:string>
@@ -87,8 +189,15 @@
           <activiti:string><![CDATA[Запит про отримання витягу з реєстру платників єдиного податку]]></activiti:string>
         </activiti:field>
         <activiti:field name="text">
-          <activiti:expression>[pattern/mail/_common_employee_notify.html]</activiti:expression>
-        </activiti:field>
+          <activiti:expression>[pattern/mail/_common_header.html]
+&lt;b&gt;Шановний колего!&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
+У черзі на обробку зареєстровано нове звернення.&lt;br /&gt;
+Заявник: ${bankIdlastName} ${bankIdfirstName} ${bankIdmiddleName}&lt;br /&gt;
+Район: enum{[area]}&lt;br /&gt;
+Опрацюйте це звернення на &lt;a href="http://region.igov.org.ua"&gt;порталі&lt;/a&gt;&lt;br /&gt;
+[pattern/mail/_common_signature.html]
+[pattern/mail/_common_footer.html]</activiti:expression>
+         </activiti:field>
       </extensionElements>
     </serviceTask>
     <serviceTask id="servicetask2" name="повідомлення громадянина про отримання витягу" activiti:delegateExpression="#{MailTaskWithoutAttachment}">
@@ -106,14 +215,14 @@
           <activiti:expression>[pattern/mail/_common_header.html]
 &lt;b&gt;Шановний(-а) ${bankIdfirstName} ${bankIdmiddleName}.&lt;/b&gt;&lt;br /&gt;&lt;br /&gt;
 Ваша заява на отримання витягу з реєстру платників єдиного податку опрацьована. &lt;br /&gt;&lt;br /&gt;
-Забрати витяг Ви зможете  в тому відділенні податкової служби, яке Ви вказували при замовленні послуги.&lt;br/&gt;
-Перелік відділень Ви можете переглянути &lt;a href="https://docs.google.com/spreadsheets/d/1b4697fd3ESupi6XrO4JqHv2GZ0Va98QXGD6hVvK1q70/edit#gid=2095016794" target="_blank"&gt;тут&lt;/a&gt;
-&lt;br /&gt;
+Забрати витяг Ви зможете за адересою:&lt;br /&gt;
+[pattern_dictonary:dnepr_dfs.csv:value{[rName]}:3]&lt;br /&gt;
 Для отримання витягу при при візиті до відділення фіскальної служби Вам необхідно мати наступні документи:&lt;br&gt;
 1. № запиту (Ви його отримали листом після подачі заяви)&lt;br&gt;
 2. Оригінал паспорта громадянина України&lt;br /&gt;&lt;br /&gt;
+[pattern_dictonary:dnepr_dfs.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-Державна фіскальна служба,&lt;br /&gt;
+[pattern_dictonary:dnepr_dfs.csv:value{[rName]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_feedback.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
@@ -137,8 +246,9 @@
 На жаль, Вам відмовлено у наданні витягу з реєстру платників єдиного податку.&lt;br/&gt;
 Підстава: enum{[decision_reject]}&lt;br/&gt;
 ${comment_1}&lt;br/&gt;
+[pattern_dictonary:dnepr_dfs.csv:value{[rName]}:5]&lt;br /&gt;
 [pattern/mail/_common_signature_start.html]
-Державна фіскальна служба,&lt;br /&gt;
+[pattern_dictonary:dnepr_dfs.csv:value{[rName]}:2]&lt;br /&gt;
 [pattern/mail/_common_signature_end.html]
 [pattern/mail/_common_footer.html]</activiti:expression>
         </activiti:field>

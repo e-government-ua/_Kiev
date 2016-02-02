@@ -1,40 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
-       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+    <context:component-scan base-package="org.igov.service"/>
+    <context:component-scan base-package="org.igov.io" /> <!-- TODO: move to separate context? -->
 
 
     <!-- ==============================   SERVICES    ============================= -->
 
+    <bean id="escalationService" class="org.igov.service.business.escalation.EscalationService"/>
+    <bean id="httpRequester" class="org.igov.io.web.HttpRequester"/>
+    <bean id="httpEntityInsedeCover" class="org.igov.io.web.HttpEntityInsedeCover"/>
+    <bean id="notificationService" class="org.igov.io.mail.NotificationPatterns"/>
+    <bean id="escalationHistoryService" class="org.igov.service.business.escalation.EscalationHistoryService"/>
+    <bean id="bpService" class="org.igov.service.business.action.task.bp.BpServiceImpl"/>
 
-    <bean id="escalationService" class="org.wf.dp.dniprorada.base.service.escalation.EscalationService"/>
+    <!-- ==============================   SERVICE - HANDLERS   ============================= -->
 
-    <bean id="httpRequester" class="org.wf.dp.dniprorada.rest.HttpRequester"/>
-    <bean id="notificationService" class="org.wf.dp.dniprorada.base.service.notification.NotificationService"/>
-
-    <!-- ==============================   HANDLER   ============================= -->
-
-    <bean id="defaultFlowSlotScheduler" class="org.wf.dp.dniprorada.base.service.flow.propertyHandler.DefaultFlowSlotScheduler" scope="prototype">
+    <bean id="defaultFlowSlotScheduler" class="org.igov.service.business.flow.handler.DefaultFlowSlotScheduler" scope="prototype">
         <property name="defaultIntervalDaysLength" value="60"/>
         <property name="maxGeneratedSlotsCount" value="3333"/>
         <property name="defaultFlowSlotName" value="Рабочее время"/>
     </bean>
+    <bean id="bpHandler" class="org.igov.service.business.action.task.bp.handler.BpServiceHandler"/>
 
-
-<!--<bean id="oMail" class="org.wf.dp.dniprorada.util.Mail"/>-->
-
-    <!-- ===========================   SERVICE TRANSACTIONS   ======================= -->
+    <!-- ===========================   SERVICE - TRANSACTIONS   ======================= -->
 
     <aop:config>
-        <aop:pointcut id="base.service.flow" expression="execution(* org.wf.dp.dniprorada.base.service.flow.*.*(..))"/>
-        <aop:advisor pointcut-ref="base.service.flow" advice-ref="txAdvice"/>
+        <aop:pointcut id="service.business" expression="execution(* org.igov.service.business.*.*.*(..))"/>
+        <aop:advisor pointcut-ref="service.business" advice-ref="txAdvice"/>
     </aop:config>
-    
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+                <bean class="org.igov.service.controller.interceptor.RequestProcessingInterceptor" />
+            </mvc:interceptor>
+    </mvc:interceptors>
+
     <import resource="classpath:context-services_local.xml"/>
         
 </beans>

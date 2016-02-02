@@ -7,7 +7,7 @@
     <beans profile="test,prod,with-scheduler">
 
         <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"/>
-        <bean id="jobsInitializer" class="org.wf.dp.dniprorada.scheduler.JobsInitializer">
+        <bean id="jobsInitializer" class="org.igov.run.schedule.JobsInitializer">
             <property name="scheduler" ref="schedulerFactoryBean"/>
         </bean>
 

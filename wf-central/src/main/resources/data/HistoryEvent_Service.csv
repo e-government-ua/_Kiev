@@ -1,3 +1,5 @@
-nID;sID;nID_Task;nID_Subject;sStatus;sID_Status;nID_Service;nID_Region;sID_UA;nRate;soData;sToken;sHead;sBody;nTimeHours;sID_Order;nID_Server
-1;1;1;2;new;новая заявка;1;1;"1200000000";0;"[]";;;;0;0-11;0
-2;2;2;2;processing;заявка в обработке;1;1;"1200000000";0;"[]";;;;0;0-22;0
+nID;sID;nID_Task;nID_Subject;sUserTaskName;nID_Service;nID_Region;sID_UA;nRate;soData;sToken;sHead;sBody;nTimeMinutes;sID_Order;nID_Server;nID_Proccess_Feedback;nID_Proccess_Escalation;sID_Rate_Indirectly
+1;1;1;2;new;1;1;"1200000000";0;"[]";;;;600;0-11;0;0;0;
+2;2;2;2;processing;1;1;"1200000000";0;"[]";TokenValue;;;567;0-22;0;0;0;
+3;1;444;2;new;1;1;"1200000000";0;"[]";TokenValue;;;320;0-4446;0;0;0;
+4;1;555;2;new;1;1;"1200000000";0;"[]";TokenValue2;;;320;0-5551;0;0;0;
